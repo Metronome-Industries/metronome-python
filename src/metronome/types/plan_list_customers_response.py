@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
 from .customer_detail import CustomerDetail
 
-__all__ = ["PlanListCustomersResponse", "Data", "DataPlanDetails"]
+__all__ = ["PlanListCustomersResponse", "PlanDetails"]
 
 
-class DataPlanDetails(BaseModel):
+class PlanDetails(BaseModel):
     id: str
 
     custom_fields: Dict[str, str]
@@ -25,13 +25,7 @@ class DataPlanDetails(BaseModel):
     """The end date of the plan"""
 
 
-class Data(BaseModel):
+class PlanListCustomersResponse(BaseModel):
     customer_details: CustomerDetail
 
-    plan_details: DataPlanDetails
-
-
-class PlanListCustomersResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None
+    plan_details: PlanDetails

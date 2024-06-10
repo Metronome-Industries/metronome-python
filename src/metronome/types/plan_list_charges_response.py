@@ -6,10 +6,10 @@ from typing_extensions import Literal
 from .._models import BaseModel
 from .shared.credit_type import CreditType
 
-__all__ = ["PlanListChargesResponse", "Data", "DataPrice", "DataUnitConversion"]
+__all__ = ["PlanListChargesResponse", "Price", "UnitConversion"]
 
 
-class DataPrice(BaseModel):
+class Price(BaseModel):
     tier: float
     """Used in pricing tiers. Indicates at what metric value the price applies."""
 
@@ -22,7 +22,7 @@ class DataPrice(BaseModel):
     quantity: Optional[float] = None
 
 
-class DataUnitConversion(BaseModel):
+class UnitConversion(BaseModel):
     division_factor: float
     """The conversion factor"""
 
@@ -33,7 +33,7 @@ class DataUnitConversion(BaseModel):
     """
 
 
-class Data(BaseModel):
+class PlanListChargesResponse(BaseModel):
     id: str
 
     charge_type: Literal["usage", "fixed", "composite", "minimum", "seat"]
@@ -44,7 +44,7 @@ class Data(BaseModel):
 
     name: str
 
-    prices: List[DataPrice]
+    prices: List[Price]
 
     product_id: str
 
@@ -58,11 +58,5 @@ class Data(BaseModel):
     Indicates how many billing periods pass before the charge applies.
     """
 
-    unit_conversion: Optional[DataUnitConversion] = None
+    unit_conversion: Optional[UnitConversion] = None
     """Specifies how quantities for usage based charges will be converted."""
-
-
-class PlanListChargesResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

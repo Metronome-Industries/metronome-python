@@ -20,7 +20,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ...types.customers import plan_add_params, plan_end_params, plan_list_params, plan_list_price_adjustments_params
@@ -53,7 +55,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanListResponse:
+    ) -> SyncCursorPage[PlanListResponse]:
         """
         List the given customer's plans in reverse-chronological order.
 
@@ -72,8 +74,9 @@ class PlansResource(SyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/plans",
+            page=SyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -87,7 +90,7 @@ class PlansResource(SyncAPIResource):
                     plan_list_params.PlanListParams,
                 ),
             ),
-            cast_to=PlanListResponse,
+            model=PlanListResponse,
         )
 
     def add(
@@ -236,7 +239,7 @@ class PlansResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanListPriceAdjustmentsResponse:
+    ) -> SyncCursorPage[PlanListPriceAdjustmentsResponse]:
         """Lists a customer plans adjustments.
 
         See the
@@ -260,8 +263,9 @@ class PlansResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
+            page=SyncCursorPage[PlanListPriceAdjustmentsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -275,7 +279,7 @@ class PlansResource(SyncAPIResource):
                     plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams,
                 ),
             ),
-            cast_to=PlanListPriceAdjustmentsResponse,
+            model=PlanListPriceAdjustmentsResponse,
         )
 
 
@@ -288,7 +292,7 @@ class AsyncPlansResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncPlansResourceWithStreamingResponse:
         return AsyncPlansResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         customer_id: str,
         *,
@@ -300,7 +304,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanListResponse:
+    ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
         List the given customer's plans in reverse-chronological order.
 
@@ -319,14 +323,15 @@ class AsyncPlansResource(AsyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/plans",
+            page=AsyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -334,7 +339,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     plan_list_params.PlanListParams,
                 ),
             ),
-            cast_to=PlanListResponse,
+            model=PlanListResponse,
         )
 
     async def add(
@@ -470,7 +475,7 @@ class AsyncPlansResource(AsyncAPIResource):
             cast_to=PlanEndResponse,
         )
 
-    async def list_price_adjustments(
+    def list_price_adjustments(
         self,
         customer_plan_id: str,
         *,
@@ -483,7 +488,7 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PlanListPriceAdjustmentsResponse:
+    ) -> AsyncPaginator[PlanListPriceAdjustmentsResponse, AsyncCursorPage[PlanListPriceAdjustmentsResponse]]:
         """Lists a customer plans adjustments.
 
         See the
@@ -507,14 +512,15 @@ class AsyncPlansResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
+            page=AsyncCursorPage[PlanListPriceAdjustmentsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -522,7 +528,7 @@ class AsyncPlansResource(AsyncAPIResource):
                     plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams,
                 ),
             ),
-            cast_to=PlanListPriceAdjustmentsResponse,
+            model=PlanListPriceAdjustmentsResponse,
         )
 
 

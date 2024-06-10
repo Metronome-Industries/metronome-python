@@ -1,13 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 from .._models import BaseModel
 
-__all__ = ["PlanListResponse", "Data"]
+__all__ = ["PlanListResponse"]
 
 
-class Data(BaseModel):
+class PlanListResponse(BaseModel):
     id: str
 
     description: str
@@ -15,9 +15,3 @@ class Data(BaseModel):
     name: str
 
     custom_fields: Optional[Dict[str, str]] = None
-
-
-class PlanListResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

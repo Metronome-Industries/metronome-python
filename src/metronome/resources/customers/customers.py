@@ -54,7 +54,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from .billing_config import (
@@ -65,7 +67,7 @@ from .billing_config import (
     BillingConfigResourceWithStreamingResponse,
     AsyncBillingConfigResourceWithStreamingResponse,
 )
-from ...types.customer_list_response import CustomerListResponse
+from ...types.customer_detail import CustomerDetail
 from ...types.customer_create_response import CustomerCreateResponse
 from ...types.customer_archive_response import CustomerArchiveResponse
 from ...types.customer_retrieve_response import CustomerRetrieveResponse
@@ -199,7 +201,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListResponse:
+    ) -> SyncCursorPage[CustomerDetail]:
         """
         List all customers.
 
@@ -225,8 +227,9 @@ class CustomersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/customers",
+            page=SyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -244,7 +247,7 @@ class CustomersResource(SyncAPIResource):
                     customer_list_params.CustomerListParams,
                 ),
             ),
-            cast_to=CustomerListResponse,
+            model=CustomerDetail,
         )
 
     def archive(
@@ -292,7 +295,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListBillableMetricsResponse:
+    ) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
         """
         List all billable metrics.
 
@@ -314,8 +317,9 @@ class CustomersResource(SyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
+            page=SyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -330,7 +334,7 @@ class CustomersResource(SyncAPIResource):
                     customer_list_billable_metrics_params.CustomerListBillableMetricsParams,
                 ),
             ),
-            cast_to=CustomerListBillableMetricsResponse,
+            model=CustomerListBillableMetricsResponse,
         )
 
     def list_costs(
@@ -347,7 +351,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListCostsResponse:
+    ) -> SyncCursorPage[CustomerListCostsResponse]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
@@ -372,8 +376,9 @@ class CustomersResource(SyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/costs",
+            page=SyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -389,7 +394,7 @@ class CustomersResource(SyncAPIResource):
                     customer_list_costs_params.CustomerListCostsParams,
                 ),
             ),
-            cast_to=CustomerListCostsResponse,
+            model=CustomerListCostsResponse,
         )
 
     def set_ingest_aliases(
@@ -627,7 +632,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             cast_to=CustomerRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_ids: List[str] | NotGiven = NOT_GIVEN,
@@ -642,7 +647,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListResponse:
+    ) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
         """
         List all customers.
 
@@ -668,14 +673,15 @@ class AsyncCustomersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/customers",
+            page=AsyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "customer_ids": customer_ids,
                         "ingest_alias": ingest_alias,
@@ -687,7 +693,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     customer_list_params.CustomerListParams,
                 ),
             ),
-            cast_to=CustomerListResponse,
+            model=CustomerDetail,
         )
 
     async def archive(
@@ -722,7 +728,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             cast_to=CustomerArchiveResponse,
         )
 
-    async def list_billable_metrics(
+    def list_billable_metrics(
         self,
         customer_id: str,
         *,
@@ -735,7 +741,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListBillableMetricsResponse:
+    ) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
         """
         List all billable metrics.
 
@@ -757,14 +763,15 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
+            page=AsyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -773,10 +780,10 @@ class AsyncCustomersResource(AsyncAPIResource):
                     customer_list_billable_metrics_params.CustomerListBillableMetricsParams,
                 ),
             ),
-            cast_to=CustomerListBillableMetricsResponse,
+            model=CustomerListBillableMetricsResponse,
         )
 
-    async def list_costs(
+    def list_costs(
         self,
         customer_id: str,
         *,
@@ -790,7 +797,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerListCostsResponse:
+    ) -> AsyncPaginator[CustomerListCostsResponse, AsyncCursorPage[CustomerListCostsResponse]]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
@@ -815,14 +822,15 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/costs",
+            page=AsyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "ending_before": ending_before,
                         "starting_on": starting_on,
@@ -832,7 +840,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     customer_list_costs_params.CustomerListCostsParams,
                 ),
             ),
-            cast_to=CustomerListCostsResponse,
+            model=CustomerListCostsResponse,
         )
 
     async def set_ingest_aliases(
