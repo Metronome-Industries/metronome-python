@@ -25,7 +25,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ..types.billable_metric_list_response import BillableMetricListResponse
@@ -175,7 +177,7 @@ class BillableMetricsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BillableMetricListResponse:
+    ) -> SyncCursorPage[BillableMetricListResponse]:
         """
         List all billable metrics.
 
@@ -197,8 +199,9 @@ class BillableMetricsResource(SyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
+            page=SyncCursorPage[BillableMetricListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -213,7 +216,7 @@ class BillableMetricsResource(SyncAPIResource):
                     billable_metric_list_params.BillableMetricListParams,
                 ),
             ),
-            cast_to=BillableMetricListResponse,
+            model=BillableMetricListResponse,
         )
 
     def archive(
@@ -375,7 +378,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
             cast_to=BillableMetricRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         customer_id: str,
         *,
@@ -388,7 +391,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> BillableMetricListResponse:
+    ) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
         """
         List all billable metrics.
 
@@ -410,14 +413,15 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
+            page=AsyncCursorPage[BillableMetricListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -426,7 +430,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
                     billable_metric_list_params.BillableMetricListParams,
                 ),
             ),
-            cast_to=BillableMetricListResponse,
+            model=BillableMetricListResponse,
         )
 
     async def archive(

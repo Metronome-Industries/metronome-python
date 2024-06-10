@@ -7,10 +7,10 @@ from .._models import BaseModel
 from .shared.credit_type import CreditType
 from .credit_ledger_entry import CreditLedgerEntry
 
-__all__ = ["CreditGrantListResponse", "Data", "DataBalance", "DataGrantAmount", "DataPaidAmount", "DataProduct"]
+__all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
 
 
-class DataBalance(BaseModel):
+class Balance(BaseModel):
     effective_at: datetime
     """The end_date of the customer's current billing period."""
 
@@ -28,31 +28,31 @@ class DataBalance(BaseModel):
     """
 
 
-class DataGrantAmount(BaseModel):
+class GrantAmount(BaseModel):
     amount: float
 
     credit_type: CreditType
     """the credit type for the amount granted"""
 
 
-class DataPaidAmount(BaseModel):
+class PaidAmount(BaseModel):
     amount: float
 
     credit_type: CreditType
     """the credit type for the amount paid"""
 
 
-class DataProduct(BaseModel):
+class Product(BaseModel):
     id: str
 
     name: str
 
 
-class Data(BaseModel):
+class CreditGrantListResponse(BaseModel):
     id: str
     """the Metronome ID of the credit grant"""
 
-    balance: DataBalance
+    balance: Balance
     """
     The effective balance of the grant as of the end of the customer's current
     billing period. Expiration deductions will be included only if the grant expires
@@ -70,12 +70,12 @@ class Data(BaseModel):
 
     expires_at: datetime
 
-    grant_amount: DataGrantAmount
+    grant_amount: GrantAmount
     """the amount of credits initially granted"""
 
     name: str
 
-    paid_amount: DataPaidAmount
+    paid_amount: PaidAmount
     """the amount paid for this credit grant"""
 
     pending_deductions: List[CreditLedgerEntry]
@@ -90,7 +90,7 @@ class Data(BaseModel):
     if applicable
     """
 
-    products: Optional[List[DataProduct]] = None
+    products: Optional[List[Product]] = None
     """The products which these credits will be applied to.
 
     (If unspecified, the credits will be applied to charges for all products.)
@@ -104,9 +104,3 @@ class Data(BaseModel):
     If a request to create a record is made with a previously used uniqueness key, a
     new record will not be created and the request will fail with a 409 error.
     """
-
-
-class CreditGrantListResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

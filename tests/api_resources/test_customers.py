@@ -10,7 +10,7 @@ import pytest
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome.types import (
-    CustomerListResponse,
+    CustomerDetail,
     CustomerCreateResponse,
     CustomerArchiveResponse,
     CustomerSetNameResponse,
@@ -19,6 +19,7 @@ from metronome.types import (
     CustomerListBillableMetricsResponse,
 )
 from metronome._utils import parse_datetime
+from metronome.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -115,7 +116,7 @@ class TestCustomers:
     @parametrize
     def test_method_list(self, client: Metronome) -> None:
         customer = client.customers.list()
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -127,7 +128,7 @@ class TestCustomers:
             only_archived=True,
             salesforce_account_ids=["string", "string", "string"],
         )
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -136,7 +137,7 @@ class TestCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -145,7 +146,7 @@ class TestCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert_matches_type(CustomerListResponse, customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -185,7 +186,7 @@ class TestCustomers:
         customer = client.customers.list_billable_metrics(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     def test_method_list_billable_metrics_with_all_params(self, client: Metronome) -> None:
@@ -195,7 +196,7 @@ class TestCustomers:
             next_page="string",
             on_current_plan=True,
         )
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     def test_raw_response_list_billable_metrics(self, client: Metronome) -> None:
@@ -206,7 +207,7 @@ class TestCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     def test_streaming_response_list_billable_metrics(self, client: Metronome) -> None:
@@ -217,7 +218,7 @@ class TestCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -235,7 +236,7 @@ class TestCustomers:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     def test_method_list_costs_with_all_params(self, client: Metronome) -> None:
@@ -246,7 +247,7 @@ class TestCustomers:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     def test_raw_response_list_costs(self, client: Metronome) -> None:
@@ -259,7 +260,7 @@ class TestCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     def test_streaming_response_list_costs(self, client: Metronome) -> None:
@@ -272,7 +273,7 @@ class TestCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -509,7 +510,7 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_list(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.list()
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -521,7 +522,7 @@ class TestAsyncCustomers:
             only_archived=True,
             salesforce_account_ids=["string", "string", "string"],
         )
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -530,7 +531,7 @@ class TestAsyncCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert_matches_type(CustomerListResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -539,7 +540,7 @@ class TestAsyncCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert_matches_type(CustomerListResponse, customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -579,7 +580,7 @@ class TestAsyncCustomers:
         customer = await async_client.customers.list_billable_metrics(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     async def test_method_list_billable_metrics_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -589,7 +590,7 @@ class TestAsyncCustomers:
             next_page="string",
             on_current_plan=True,
         )
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     async def test_raw_response_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
@@ -600,7 +601,7 @@ class TestAsyncCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
@@ -611,7 +612,7 @@ class TestAsyncCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert_matches_type(CustomerListBillableMetricsResponse, customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -629,7 +630,7 @@ class TestAsyncCustomers:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     async def test_method_list_costs_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -640,7 +641,7 @@ class TestAsyncCustomers:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     async def test_raw_response_list_costs(self, async_client: AsyncMetronome) -> None:
@@ -653,7 +654,7 @@ class TestAsyncCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_costs(self, async_client: AsyncMetronome) -> None:
@@ -666,7 +667,7 @@ class TestAsyncCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert_matches_type(CustomerListCostsResponse, customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

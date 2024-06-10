@@ -28,7 +28,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ..types.credit_grant_edit_response import CreditGrantEditResponse
@@ -160,7 +162,7 @@ class CreditGrantsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListResponse:
+    ) -> SyncCursorPage[CreditGrantListResponse]:
         """List credit grants.
 
         This list does not included voided grants.
@@ -191,8 +193,9 @@ class CreditGrantsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/credits/listGrants",
+            page=SyncCursorPage[CreditGrantListResponse],
             body=maybe_transform(
                 {
                     "credit_grant_ids": credit_grant_ids,
@@ -216,7 +219,8 @@ class CreditGrantsResource(SyncAPIResource):
                     credit_grant_list_params.CreditGrantListParams,
                 ),
             ),
-            cast_to=CreditGrantListResponse,
+            model=CreditGrantListResponse,
+            method="post",
         )
 
     def edit(
@@ -277,7 +281,7 @@ class CreditGrantsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListCreditTypesResponse:
+    ) -> SyncCursorPage[CreditGrantListCreditTypesResponse]:
         """
         List all pricing units (known in the API by the legacy term "credit types").
 
@@ -294,8 +298,9 @@ class CreditGrantsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/credit-types/list",
+            page=SyncCursorPage[CreditGrantListCreditTypesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -309,7 +314,7 @@ class CreditGrantsResource(SyncAPIResource):
                     credit_grant_list_credit_types_params.CreditGrantListCreditTypesParams,
                 ),
             ),
-            cast_to=CreditGrantListCreditTypesResponse,
+            model=CreditGrantListCreditTypesResponse,
         )
 
     def list_entries(
@@ -526,7 +531,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             cast_to=CreditGrantCreateResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         limit: int | NotGiven = NOT_GIVEN,
@@ -542,7 +547,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListResponse:
+    ) -> AsyncPaginator[CreditGrantListResponse, AsyncCursorPage[CreditGrantListResponse]]:
         """List credit grants.
 
         This list does not included voided grants.
@@ -573,9 +578,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/credits/listGrants",
-            body=await async_maybe_transform(
+            page=AsyncCursorPage[CreditGrantListResponse],
+            body=maybe_transform(
                 {
                     "credit_grant_ids": credit_grant_ids,
                     "credit_type_ids": credit_type_ids,
@@ -590,7 +596,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -598,7 +604,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                     credit_grant_list_params.CreditGrantListParams,
                 ),
             ),
-            cast_to=CreditGrantListResponse,
+            model=CreditGrantListResponse,
+            method="post",
         )
 
     async def edit(
@@ -648,7 +655,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             cast_to=CreditGrantEditResponse,
         )
 
-    async def list_credit_types(
+    def list_credit_types(
         self,
         *,
         limit: int | NotGiven = NOT_GIVEN,
@@ -659,7 +666,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListCreditTypesResponse:
+    ) -> AsyncPaginator[CreditGrantListCreditTypesResponse, AsyncCursorPage[CreditGrantListCreditTypesResponse]]:
         """
         List all pricing units (known in the API by the legacy term "credit types").
 
@@ -676,14 +683,15 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/credit-types/list",
+            page=AsyncCursorPage[CreditGrantListCreditTypesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -691,7 +699,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                     credit_grant_list_credit_types_params.CreditGrantListCreditTypesParams,
                 ),
             ),
-            cast_to=CreditGrantListCreditTypesResponse,
+            model=CreditGrantListCreditTypesResponse,
         )
 
     async def list_entries(
