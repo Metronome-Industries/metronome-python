@@ -4,18 +4,12 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["BillableMetricListResponse", "Data"]
+__all__ = ["BillableMetricListResponse"]
 
 
-class Data(BaseModel):
+class BillableMetricListResponse(BaseModel):
     id: str
 
     name: str
 
     group_by: Optional[List[str]] = None
-
-
-class BillableMetricListResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

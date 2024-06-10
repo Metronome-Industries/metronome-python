@@ -1,14 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["UsageListWithGroupsResponse", "Data"]
+__all__ = ["UsageListWithGroupsResponse"]
 
 
-class Data(BaseModel):
+class UsageListWithGroupsResponse(BaseModel):
     ending_before: datetime
 
     group_key: Optional[str] = None
@@ -18,9 +18,3 @@ class Data(BaseModel):
     starting_on: datetime
 
     value: Optional[float] = None
-
-
-class UsageListWithGroupsResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

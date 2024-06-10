@@ -5,10 +5,10 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["CustomerListCostsResponse", "Data", "DataCreditTypes", "DataCreditTypesLineItemBreakdown"]
+__all__ = ["CustomerListCostsResponse", "CreditTypes", "CreditTypesLineItemBreakdown"]
 
 
-class DataCreditTypesLineItemBreakdown(BaseModel):
+class CreditTypesLineItemBreakdown(BaseModel):
     cost: float
 
     name: str
@@ -18,23 +18,17 @@ class DataCreditTypesLineItemBreakdown(BaseModel):
     group_value: Optional[str] = None
 
 
-class DataCreditTypes(BaseModel):
+class CreditTypes(BaseModel):
     cost: Optional[float] = None
 
-    line_item_breakdown: Optional[List[DataCreditTypesLineItemBreakdown]] = None
+    line_item_breakdown: Optional[List[CreditTypesLineItemBreakdown]] = None
 
     name: Optional[str] = None
 
 
-class Data(BaseModel):
-    credit_types: Dict[str, DataCreditTypes]
+class CustomerListCostsResponse(BaseModel):
+    credit_types: Dict[str, CreditTypes]
 
     end_timestamp: datetime
 
     start_timestamp: datetime
-
-
-class CustomerListCostsResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

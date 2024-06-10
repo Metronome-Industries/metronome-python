@@ -1,21 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["CreditGrantListCreditTypesResponse", "Data"]
+__all__ = ["CreditGrantListCreditTypesResponse"]
 
 
-class Data(BaseModel):
+class CreditGrantListCreditTypesResponse(BaseModel):
     id: Optional[str] = None
 
     is_currency: Optional[bool] = None
 
     name: Optional[str] = None
-
-
-class CreditGrantListCreditTypesResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None

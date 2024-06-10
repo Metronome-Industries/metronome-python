@@ -6,10 +6,10 @@ from datetime import datetime
 from ..._models import BaseModel
 from ..shared.credit_type import CreditType
 
-__all__ = ["PlanListResponse", "Data", "DataTrialInfo", "DataTrialInfoSpendingCap"]
+__all__ = ["PlanListResponse", "TrialInfo", "TrialInfoSpendingCap"]
 
 
-class DataTrialInfoSpendingCap(BaseModel):
+class TrialInfoSpendingCap(BaseModel):
     amount: float
 
     amount_remaining: float
@@ -17,13 +17,13 @@ class DataTrialInfoSpendingCap(BaseModel):
     credit_type: CreditType
 
 
-class DataTrialInfo(BaseModel):
+class TrialInfo(BaseModel):
     ending_before: datetime
 
-    spending_caps: List[DataTrialInfoSpendingCap]
+    spending_caps: List[TrialInfoSpendingCap]
 
 
-class Data(BaseModel):
+class PlanListResponse(BaseModel):
     id: str
     """the ID of the customer plan"""
 
@@ -42,10 +42,4 @@ class Data(BaseModel):
 
     net_payment_terms_days: Optional[float] = None
 
-    trial_info: Optional[DataTrialInfo] = None
-
-
-class PlanListResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None
+    trial_info: Optional[TrialInfo] = None

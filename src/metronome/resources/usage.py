@@ -22,7 +22,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ..types.usage_list_response import UsageListResponse
@@ -159,7 +161,7 @@ class UsageResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UsageListWithGroupsResponse:
+    ) -> SyncCursorPage[UsageListWithGroupsResponse]:
         """
         Fetch aggregated usage data for the specified customer, billable-metric, and
         optional group, broken into intervals of the specified length.
@@ -185,8 +187,9 @@ class UsageResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/usage/groups",
+            page=SyncCursorPage[UsageListWithGroupsResponse],
             body=maybe_transform(
                 {
                     "billable_metric_id": billable_metric_id,
@@ -212,7 +215,8 @@ class UsageResource(SyncAPIResource):
                     usage_list_with_groups_params.UsageListWithGroupsParams,
                 ),
             ),
-            cast_to=UsageListWithGroupsResponse,
+            model=UsageListWithGroupsResponse,
+            method="post",
         )
 
 
@@ -326,7 +330,7 @@ class AsyncUsageResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def list_with_groups(
+    def list_with_groups(
         self,
         *,
         billable_metric_id: str,
@@ -344,7 +348,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UsageListWithGroupsResponse:
+    ) -> AsyncPaginator[UsageListWithGroupsResponse, AsyncCursorPage[UsageListWithGroupsResponse]]:
         """
         Fetch aggregated usage data for the specified customer, billable-metric, and
         optional group, broken into intervals of the specified length.
@@ -370,9 +374,10 @@ class AsyncUsageResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/usage/groups",
-            body=await async_maybe_transform(
+            page=AsyncCursorPage[UsageListWithGroupsResponse],
+            body=maybe_transform(
                 {
                     "billable_metric_id": billable_metric_id,
                     "customer_id": customer_id,
@@ -389,7 +394,7 @@ class AsyncUsageResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "limit": limit,
                         "next_page": next_page,
@@ -397,7 +402,8 @@ class AsyncUsageResource(AsyncAPIResource):
                     usage_list_with_groups_params.UsageListWithGroupsParams,
                 ),
             ),
-            cast_to=UsageListWithGroupsResponse,
+            model=UsageListWithGroupsResponse,
+            method="post",
         )
 
 
