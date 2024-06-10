@@ -10,6 +10,7 @@ import pytest
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
+from metronome.pagination import SyncCursorPage, AsyncCursorPage
 from metronome.types.customers import (
     PlanAddResponse,
     PlanEndResponse,
@@ -28,7 +29,7 @@ class TestPlans:
         plan = client.customers.plans.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -37,7 +38,7 @@ class TestPlans:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -48,7 +49,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -59,7 +60,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(PlanListResponse, plan, path=["response"])
+            assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -242,7 +243,7 @@ class TestPlans:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     def test_method_list_price_adjustments_with_all_params(self, client: Metronome) -> None:
@@ -252,7 +253,7 @@ class TestPlans:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     def test_raw_response_list_price_adjustments(self, client: Metronome) -> None:
@@ -264,7 +265,7 @@ class TestPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = response.parse()
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(SyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     def test_streaming_response_list_price_adjustments(self, client: Metronome) -> None:
@@ -276,7 +277,7 @@ class TestPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = response.parse()
-            assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+            assert_matches_type(SyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -303,7 +304,7 @@ class TestAsyncPlans:
         plan = await async_client.customers.plans.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -312,7 +313,7 @@ class TestAsyncPlans:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -323,7 +324,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(PlanListResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -334,7 +335,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(PlanListResponse, plan, path=["response"])
+            assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -517,7 +518,7 @@ class TestAsyncPlans:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     async def test_method_list_price_adjustments_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -527,7 +528,7 @@ class TestAsyncPlans:
             limit=1,
             next_page="string",
         )
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     async def test_raw_response_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
@@ -539,7 +540,7 @@ class TestAsyncPlans:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         plan = await response.parse()
-        assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+        assert_matches_type(AsyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
@@ -551,7 +552,7 @@ class TestAsyncPlans:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             plan = await response.parse()
-            assert_matches_type(PlanListPriceAdjustmentsResponse, plan, path=["response"])
+            assert_matches_type(AsyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

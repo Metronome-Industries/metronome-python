@@ -30,7 +30,6 @@ from .audit_log_list_params import AuditLogListParams as AuditLogListParams
 from .service_list_response import ServiceListResponse as ServiceListResponse
 from .alert_archive_response import AlertArchiveResponse as AlertArchiveResponse
 from .customer_create_params import CustomerCreateParams as CustomerCreateParams
-from .customer_list_response import CustomerListResponse as CustomerListResponse
 from .audit_log_list_response import AuditLogListResponse as AuditLogListResponse
 from .customer_archive_params import CustomerArchiveParams as CustomerArchiveParams
 from .credit_grant_edit_params import CreditGrantEditParams as CreditGrantEditParams

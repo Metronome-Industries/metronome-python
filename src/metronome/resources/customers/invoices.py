@@ -21,11 +21,13 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ...types.customers import invoice_list_params, invoice_retrieve_params, invoice_add_charge_params
-from ...types.customers.invoice_list_response import InvoiceListResponse
+from ...types.customers.invoice import Invoice
 from ...types.customers.invoice_retrieve_response import InvoiceRetrieveResponse
 from ...types.customers.invoice_add_charge_response import InvoiceAddChargeResponse
 
@@ -105,7 +107,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InvoiceListResponse:
+    ) -> SyncCursorPage[Invoice]:
         """
         List all invoices for a given customer, optionally filtered by status, date
         range, and/or credit type.
@@ -140,8 +142,9 @@ class InvoicesResource(SyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/invoices",
+            page=SyncCursorPage[Invoice],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -161,7 +164,7 @@ class InvoicesResource(SyncAPIResource):
                     invoice_list_params.InvoiceListParams,
                 ),
             ),
-            cast_to=InvoiceListResponse,
+            model=Invoice,
         )
 
     def add_charge(
@@ -281,7 +284,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         customer_id: str,
         *,
@@ -299,7 +302,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InvoiceListResponse:
+    ) -> AsyncPaginator[Invoice, AsyncCursorPage[Invoice]]:
         """
         List all invoices for a given customer, optionally filtered by status, date
         range, and/or credit type.
@@ -334,14 +337,15 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/customers/{customer_id}/invoices",
+            page=AsyncCursorPage[Invoice],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "credit_type_id": credit_type_id,
                         "ending_before": ending_before,
@@ -355,7 +359,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                     invoice_list_params.InvoiceListParams,
                 ),
             ),
-            cast_to=InvoiceListResponse,
+            model=Invoice,
         )
 
     async def add_charge(

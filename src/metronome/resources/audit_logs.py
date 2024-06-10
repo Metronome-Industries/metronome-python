@@ -10,10 +10,7 @@ import httpx
 
 from ..types import audit_log_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -22,7 +19,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 from ..types.audit_log_list_response import AuditLogListResponse
@@ -55,7 +54,7 @@ class AuditLogsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AuditLogListResponse:
+    ) -> SyncCursorPage[AuditLogListResponse]:
         """Retrieves a range of audit logs.
 
         If no further audit logs are currently
@@ -89,8 +88,9 @@ class AuditLogsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/auditLogs",
+            page=SyncCursorPage[AuditLogListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -109,7 +109,7 @@ class AuditLogsResource(SyncAPIResource):
                     audit_log_list_params.AuditLogListParams,
                 ),
             ),
-            cast_to=AuditLogListResponse,
+            model=AuditLogListResponse,
         )
 
 
@@ -122,7 +122,7 @@ class AsyncAuditLogsResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncAuditLogsResourceWithStreamingResponse:
         return AsyncAuditLogsResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         *,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -138,7 +138,7 @@ class AsyncAuditLogsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AuditLogListResponse:
+    ) -> AsyncPaginator[AuditLogListResponse, AsyncCursorPage[AuditLogListResponse]]:
         """Retrieves a range of audit logs.
 
         If no further audit logs are currently
@@ -172,14 +172,15 @@ class AsyncAuditLogsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/auditLogs",
+            page=AsyncCursorPage[AuditLogListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "ending_before": ending_before,
                         "limit": limit,
@@ -192,7 +193,7 @@ class AsyncAuditLogsResource(AsyncAPIResource):
                     audit_log_list_params.AuditLogListParams,
                 ),
             ),
-            cast_to=AuditLogListResponse,
+            model=AuditLogListResponse,
         )
 
 

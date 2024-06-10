@@ -15,6 +15,7 @@ from metronome.types import (
     BillableMetricArchiveResponse,
     BillableMetricRetrieveResponse,
 )
+from metronome.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -134,7 +135,7 @@ class TestBillableMetrics:
         billable_metric = client.billable_metrics.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(SyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -144,7 +145,7 @@ class TestBillableMetrics:
             next_page="string",
             on_current_plan=True,
         )
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(SyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -155,7 +156,7 @@ class TestBillableMetrics:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         billable_metric = response.parse()
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(SyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -166,7 +167,7 @@ class TestBillableMetrics:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             billable_metric = response.parse()
-            assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+            assert_matches_type(SyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -324,7 +325,7 @@ class TestAsyncBillableMetrics:
         billable_metric = await async_client.billable_metrics.list(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(AsyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -334,7 +335,7 @@ class TestAsyncBillableMetrics:
             next_page="string",
             on_current_plan=True,
         )
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(AsyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -345,7 +346,7 @@ class TestAsyncBillableMetrics:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         billable_metric = await response.parse()
-        assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+        assert_matches_type(AsyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -356,7 +357,7 @@ class TestAsyncBillableMetrics:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             billable_metric = await response.parse()
-            assert_matches_type(BillableMetricListResponse, billable_metric, path=["response"])
+            assert_matches_type(AsyncCursorPage[BillableMetricListResponse], billable_metric, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
