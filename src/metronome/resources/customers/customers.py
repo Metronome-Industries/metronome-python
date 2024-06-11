@@ -297,7 +297,7 @@ class CustomersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
         """
-        List all billable metrics.
+        Get all billable metrics for a given customer.
 
         Args:
           limit: Max number of results that should be returned
@@ -743,7 +743,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
         """
-        List all billable metrics.
+        Get all billable metrics for a given customer.
 
         Args:
           limit: Max number of results that should be returned
