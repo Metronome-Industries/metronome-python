@@ -143,7 +143,7 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricRetrieveResponse:
         """
-        Get a billable metric
+        Get a billable metric.
 
         Args:
           extra_headers: Send extra headers
@@ -179,7 +179,7 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[BillableMetricListResponse]:
         """
-        List all billable metrics.
+        Get all billable metrics for a given customer.
 
         Args:
           limit: Max number of results that should be returned
@@ -231,7 +231,7 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricArchiveResponse:
         """
-        Archive an existing billable metric
+        Archive an existing billable metric.
 
         Args:
           extra_headers: Send extra headers
@@ -357,7 +357,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricRetrieveResponse:
         """
-        Get a billable metric
+        Get a billable metric.
 
         Args:
           extra_headers: Send extra headers
@@ -393,7 +393,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
         """
-        List all billable metrics.
+        Get all billable metrics for a given customer.
 
         Args:
           limit: Max number of results that should be returned
@@ -445,7 +445,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricArchiveResponse:
         """
-        Archive an existing billable metric
+        Archive an existing billable metric.
 
         Args:
           extra_headers: Send extra headers
