@@ -51,11 +51,17 @@ class LineItemSubLineItem(BaseModel):
 
     credit_grant_id: Optional[str] = None
 
+    end_date: Optional[datetime] = None
+    """The end date for the charge (for seats charges only)."""
+
     price: Optional[float] = None
     """
     the unit price for this charge, present only if the charge is not tiered and the
     quantity is nonzero
     """
+
+    start_date: Optional[datetime] = None
+    """The start date for the charge (for seats charges only)."""
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
 
