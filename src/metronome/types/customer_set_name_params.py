@@ -9,4 +9,7 @@ __all__ = ["CustomerSetNameParams"]
 
 class CustomerSetNameParams(TypedDict, total=False):
     name: Required[str]
-    """The new name for the customer"""
+    """The new name for the customer.
+
+    This will be truncated to 160 characters if the provided name is longer.
+    """

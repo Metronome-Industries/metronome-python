@@ -57,6 +57,13 @@ class Alert(BaseModel):
     updated_at: datetime
     """Timestamp for when the alert was last updated"""
 
+    credit_grant_type_filters: Optional[List[str]] = None
+    """
+    An array of strings, representing a way to filter the credit grant this alert
+    applies to, by looking at the credit_grant_type field on the credit grant. This
+    field is only defined for CreditPercentage and CreditBalance alerts
+    """
+
     credit_type: Optional[CreditType] = None
 
     custom_field_filters: Optional[List[AlertCustomFieldFilter]] = None

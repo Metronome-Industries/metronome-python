@@ -58,5 +58,12 @@ class PlanListChargesResponse(BaseModel):
     Indicates how many billing periods pass before the charge applies.
     """
 
+    tier_reset_frequency: Optional[float] = None
+    """Used in pricing tiers.
+
+    Indicates how often the tier resets. Default is 1 - the tier count resets every
+    billing period.
+    """
+
     unit_conversion: Optional[UnitConversion] = None
     """Specifies how quantities for usage based charges will be converted."""

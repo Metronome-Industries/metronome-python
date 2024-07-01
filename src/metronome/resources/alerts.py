@@ -60,6 +60,7 @@ class AlertsResource(SyncAPIResource):
         name: str,
         threshold: float,
         billable_metric_id: str | NotGiven = NOT_GIVEN,
+        credit_grant_type_filters: List[str] | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
@@ -87,6 +88,10 @@ class AlertsResource(SyncAPIResource):
 
           billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
               track the usage for.
+
+          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this alert
+              applies to, by looking at the credit_grant_type field on the credit grant. This
+              field is only defined for CreditPercentage and CreditBalance alerts
 
           custom_field_filters: Only present for beta contract invoices. This field's availability is dependent
               on your client's configuration. A list of custom field filters for alert types
@@ -128,6 +133,7 @@ class AlertsResource(SyncAPIResource):
                     "name": name,
                     "threshold": threshold,
                     "billable_metric_id": billable_metric_id,
+                    "credit_grant_type_filters": credit_grant_type_filters,
                     "credit_type_id": credit_type_id,
                     "custom_field_filters": custom_field_filters,
                     "customer_id": customer_id,
@@ -208,6 +214,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         name: str,
         threshold: float,
         billable_metric_id: str | NotGiven = NOT_GIVEN,
+        credit_grant_type_filters: List[str] | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
@@ -235,6 +242,10 @@ class AsyncAlertsResource(AsyncAPIResource):
 
           billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
               track the usage for.
+
+          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this alert
+              applies to, by looking at the credit_grant_type field on the credit grant. This
+              field is only defined for CreditPercentage and CreditBalance alerts
 
           custom_field_filters: Only present for beta contract invoices. This field's availability is dependent
               on your client's configuration. A list of custom field filters for alert types
@@ -276,6 +287,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "name": name,
                     "threshold": threshold,
                     "billable_metric_id": billable_metric_id,
+                    "credit_grant_type_filters": credit_grant_type_filters,
                     "credit_type_id": credit_type_id,
                     "custom_field_filters": custom_field_filters,
                     "customer_id": customer_id,
