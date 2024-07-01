@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2024-07-01)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#13](https://github.com/Metronome-Industries/metronome-python/issues/13)) ([c85f8b8](https://github.com/Metronome-Industries/metronome-python/commit/c85f8b80868980ac3491764132aa22806b222499))
+* **api:** OpenAPI spec update via Stainless API ([#15](https://github.com/Metronome-Industries/metronome-python/issues/15)) ([53fd756](https://github.com/Metronome-Industries/metronome-python/commit/53fd7561c04f29c34585c5aec62d91e4fe07e67f))
+* **api:** OpenAPI spec update via Stainless API ([#16](https://github.com/Metronome-Industries/metronome-python/issues/16)) ([4dbb5d4](https://github.com/Metronome-Industries/metronome-python/commit/4dbb5d4de891dc5340ab1772bafc295648a72785))
+
 ## 0.1.0-alpha.3 (2024-06-14)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
