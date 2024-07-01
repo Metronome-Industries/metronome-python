@@ -40,6 +40,13 @@ class AlertCreateParams(TypedDict, total=False):
     track the usage for.
     """
 
+    credit_grant_type_filters: List[str]
+    """
+    An array of strings, representing a way to filter the credit grant this alert
+    applies to, by looking at the credit_grant_type field on the credit grant. This
+    field is only defined for CreditPercentage and CreditBalance alerts
+    """
+
     credit_type_id: str
 
     custom_field_filters: Iterable[CustomFieldFilter]
