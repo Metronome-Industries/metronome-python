@@ -4,6 +4,7 @@ from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .credit_type import CreditType
 
 __all__ = ["Rate", "Tier"]
 
@@ -27,6 +28,8 @@ class Rate(BaseModel):
         "TIERED",
         "tiered",
     ]
+
+    credit_type: Optional[CreditType] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
