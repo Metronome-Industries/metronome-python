@@ -12,6 +12,7 @@ __all__ = [
     "LineItem",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
+    "LineItemSubLineItemTierPeriod",
     "LineItemSubLineItemTier",
     "CorrectionRecord",
     "CorrectionRecordCorrectedExternalInvoice",
@@ -25,6 +26,12 @@ __all__ = [
 
 class LineItemPostpaidCommit(BaseModel):
     id: str
+
+
+class LineItemSubLineItemTierPeriod(BaseModel):
+    starting_at: datetime
+
+    ending_before: Optional[datetime] = None
 
 
 class LineItemSubLineItemTier(BaseModel):
@@ -62,6 +69,9 @@ class LineItemSubLineItem(BaseModel):
 
     start_date: Optional[datetime] = None
     """The start date for the charge (for seats charges only)."""
+
+    tier_period: Optional[LineItemSubLineItemTierPeriod] = None
+    """when the current tier started and ends (for tiered charges only)"""
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
 
