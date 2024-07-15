@@ -29,10 +29,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.credit_grant_edit_response import CreditGrantEditResponse
 from ..types.credit_grant_list_response import CreditGrantListResponse
 from ..types.credit_grant_void_response import CreditGrantVoidResponse

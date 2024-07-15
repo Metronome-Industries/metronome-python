@@ -26,10 +26,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.billable_metric_list_response import BillableMetricListResponse
 from ..types.billable_metric_create_response import BillableMetricCreateResponse
 from ..types.billable_metric_archive_response import BillableMetricArchiveResponse

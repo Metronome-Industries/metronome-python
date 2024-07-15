@@ -65,7 +65,7 @@ class TestAlerts:
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         alert = client.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
-            next_page="string",
+            next_page="next_page",
             alert_statuses=["enabled"],
         )
         assert_matches_type(AlertListResponse, alert, path=["response"])
@@ -177,7 +177,7 @@ class TestAsyncAlerts:
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         alert = await async_client.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
-            next_page="string",
+            next_page="next_page",
             alert_statuses=["enabled"],
         )
         assert_matches_type(AlertListResponse, alert, path=["response"])

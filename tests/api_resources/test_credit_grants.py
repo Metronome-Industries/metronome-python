@@ -136,7 +136,7 @@ class TestCreditGrants:
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.list(
             limit=1,
-            next_page="string",
+            next_page="next_page",
             credit_grant_ids=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -218,7 +218,7 @@ class TestCreditGrants:
     def test_method_list_credit_types_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.list_credit_types(
             limit=1,
-            next_page="string",
+            next_page="next_page",
         )
         assert_matches_type(SyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
 
@@ -250,7 +250,7 @@ class TestCreditGrants:
     @parametrize
     def test_method_list_entries_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.list_entries(
-            next_page="string",
+            next_page="next_page",
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["6a37bb88-8538-48c5-b37b-a41c836328bd"],
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
@@ -431,7 +431,7 @@ class TestAsyncCreditGrants:
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.list(
             limit=1,
-            next_page="string",
+            next_page="next_page",
             credit_grant_ids=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -513,7 +513,7 @@ class TestAsyncCreditGrants:
     async def test_method_list_credit_types_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.list_credit_types(
             limit=1,
-            next_page="string",
+            next_page="next_page",
         )
         assert_matches_type(AsyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
 
@@ -545,7 +545,7 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_method_list_entries_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.list_entries(
-            next_page="string",
+            next_page="next_page",
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["6a37bb88-8538-48c5-b37b-a41c836328bd"],
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
