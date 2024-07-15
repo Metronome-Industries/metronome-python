@@ -22,10 +22,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.customers import invoice_list_params, invoice_retrieve_params, invoice_add_charge_params
 from ...types.customers.invoice import Invoice
 from ...types.customers.invoice_retrieve_response import InvoiceRetrieveResponse
