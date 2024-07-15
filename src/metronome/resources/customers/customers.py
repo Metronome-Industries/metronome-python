@@ -55,10 +55,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ..._base_client import AsyncPaginator, make_request_options
 from .billing_config import (
     BillingConfigResource,
     AsyncBillingConfigResource,

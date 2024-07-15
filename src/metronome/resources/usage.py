@@ -23,10 +23,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.usage_list_response import UsageListResponse
 from ..types.usage_list_with_groups_response import UsageListWithGroupsResponse
 

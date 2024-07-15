@@ -101,7 +101,7 @@ class TestCustomFields:
     @parametrize
     def test_method_list_keys_with_all_params(self, client: Metronome) -> None:
         custom_field = client.custom_fields.list_keys(
-            next_page="string",
+            next_page="next_page",
             entities=["customer", "credit_grant"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
@@ -283,7 +283,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_method_list_keys_with_all_params(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.custom_fields.list_keys(
-            next_page="string",
+            next_page="next_page",
             entities=["customer", "credit_grant"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])

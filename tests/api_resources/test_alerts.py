@@ -38,25 +38,25 @@ class TestAlerts:
             custom_field_filters=[
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
             group_key_filter={
-                "key": "string",
-                "value": "string",
+                "key": "key",
+                "value": "value",
             },
             invoice_types_filter=[
                 "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
@@ -152,25 +152,25 @@ class TestAsyncAlerts:
             custom_field_filters=[
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
                     "entity": "Contract",
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
             group_key_filter={
-                "key": "string",
-                "value": "string",
+                "key": "key",
+                "value": "value",
             },
             invoice_types_filter=[
                 "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",

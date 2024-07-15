@@ -21,10 +21,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.customers import plan_add_params, plan_end_params, plan_list_params, plan_list_price_adjustments_params
 from ...types.customers.plan_add_response import PlanAddResponse
 from ...types.customers.plan_end_response import PlanEndResponse

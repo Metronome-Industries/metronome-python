@@ -29,9 +29,9 @@ class TestAuditLogs:
         audit_log = client.audit_logs.list(
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
-            next_page="string",
-            resource_id="string",
-            resource_type="string",
+            next_page="next_page",
+            resource_id="resource_id",
+            resource_type="resource_type",
             sort="date_asc",
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -71,9 +71,9 @@ class TestAsyncAuditLogs:
         audit_log = await async_client.audit_logs.list(
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
-            next_page="string",
-            resource_id="string",
-            resource_type="string",
+            next_page="next_page",
+            resource_id="resource_id",
+            resource_type="resource_type",
             sort="date_asc",
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
