@@ -289,6 +289,7 @@ class TestCreditGrants:
     def test_method_void_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.void(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
@@ -584,6 +585,7 @@ class TestAsyncCreditGrants:
     async def test_method_void_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.void(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
