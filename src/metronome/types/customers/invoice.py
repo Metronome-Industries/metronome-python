@@ -259,6 +259,8 @@ class InvoiceAdjustment(BaseModel):
 
     total: float
 
+    credit_grant_custom_fields: Optional[Dict[str, str]] = None
+
     credit_grant_id: Optional[str] = None
 
 
