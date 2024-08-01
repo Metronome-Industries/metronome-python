@@ -293,8 +293,6 @@ class ResellerRoyalty(BaseModel):
 class Invoice(BaseModel):
     id: str
 
-    billable_status: Literal["billable", "unbillable"]
-
     credit_type: CreditType
 
     customer_id: str
@@ -308,6 +306,9 @@ class Invoice(BaseModel):
     type: str
 
     amendment_id: Optional[str] = None
+
+    billable_status: Optional[Literal["billable", "unbillable"]] = None
+    """This field's availability is dependent on your client's configuration."""
 
     contract_custom_fields: Optional[Dict[str, str]] = None
 

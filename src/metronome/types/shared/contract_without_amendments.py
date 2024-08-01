@@ -324,5 +324,6 @@ class ContractWithoutAmendments(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     total_contract_value: Optional[float] = None
+    """This field's availability is dependent on your client's configuration."""
 
     usage_filter: Optional[UsageFilter] = None
