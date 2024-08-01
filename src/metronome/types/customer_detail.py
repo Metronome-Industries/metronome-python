@@ -6,7 +6,12 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["CustomerDetail", "CurrentBillableStatus", "CustomerConfig"]
+__all__ = ["CustomerDetail", "CustomerConfig", "CurrentBillableStatus"]
+
+
+class CustomerConfig(BaseModel):
+    salesforce_account_id: Optional[str] = None
+    """The Salesforce account ID for the customer"""
 
 
 class CurrentBillableStatus(BaseModel):
@@ -15,16 +20,9 @@ class CurrentBillableStatus(BaseModel):
     effective_at: Optional[datetime] = None
 
 
-class CustomerConfig(BaseModel):
-    salesforce_account_id: Optional[str] = None
-    """The Salesforce account ID for the customer"""
-
-
 class CustomerDetail(BaseModel):
     id: str
     """the Metronome ID of the customer"""
-
-    current_billable_status: CurrentBillableStatus
 
     custom_fields: Dict[str, str]
 
@@ -43,3 +41,6 @@ class CustomerDetail(BaseModel):
     """
 
     name: str
+
+    current_billable_status: Optional[CurrentBillableStatus] = None
+    """This field's availability is dependent on your client's configuration."""
