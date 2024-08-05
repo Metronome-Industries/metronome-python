@@ -17,6 +17,7 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from metronome import Metronome, AsyncMetronome, APIResponseValidationError
+from metronome._types import Omit
 from metronome._models import BaseModel, FinalRequestOptions
 from metronome._constants import RAW_RESPONSE_HEADER
 from metronome._exceptions import APIStatusError, MetronomeError, APITimeoutError, APIResponseValidationError
@@ -340,7 +341,8 @@ class TestMetronome:
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(MetronomeError):
-            client2 = Metronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            with update_env(**{"METRONOME_BEARER_TOKEN": Omit()}):
+                client2 = Metronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -1080,7 +1082,8 @@ class TestAsyncMetronome:
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(MetronomeError):
-            client2 = AsyncMetronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            with update_env(**{"METRONOME_BEARER_TOKEN": Omit()}):
+                client2 = AsyncMetronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
