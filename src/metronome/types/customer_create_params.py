@@ -10,6 +10,7 @@ __all__ = ["CustomerCreateParams", "BillingConfig"]
 
 class CustomerCreateParams(TypedDict, total=False):
     name: Required[str]
+    """This will be truncated to 160 characters if the provided name is longer."""
 
     billing_config: BillingConfig
 

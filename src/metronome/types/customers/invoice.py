@@ -12,6 +12,7 @@ __all__ = [
     "LineItem",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
+    "LineItemSubLineItemTierPeriod",
     "LineItemSubLineItemTier",
     "CorrectionRecord",
     "CorrectionRecordCorrectedExternalInvoice",
@@ -25,6 +26,12 @@ __all__ = [
 
 class LineItemPostpaidCommit(BaseModel):
     id: str
+
+
+class LineItemSubLineItemTierPeriod(BaseModel):
+    starting_at: datetime
+
+    ending_before: Optional[datetime] = None
 
 
 class LineItemSubLineItemTier(BaseModel):
@@ -51,11 +58,20 @@ class LineItemSubLineItem(BaseModel):
 
     credit_grant_id: Optional[str] = None
 
+    end_date: Optional[datetime] = None
+    """The end date for the charge (for seats charges only)."""
+
     price: Optional[float] = None
     """
     the unit price for this charge, present only if the charge is not tiered and the
     quantity is nonzero
     """
+
+    start_date: Optional[datetime] = None
+    """The start date for the charge (for seats charges only)."""
+
+    tier_period: Optional[LineItemSubLineItemTierPeriod] = None
+    """when the current tier started and ends (for tiered charges only)"""
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
 
@@ -243,6 +259,8 @@ class InvoiceAdjustment(BaseModel):
 
     total: float
 
+    credit_grant_custom_fields: Optional[Dict[str, str]] = None
+
     credit_grant_id: Optional[str] = None
 
 
@@ -275,8 +293,6 @@ class ResellerRoyalty(BaseModel):
 class Invoice(BaseModel):
     id: str
 
-    billable_status: Literal["billable", "unbillable"]
-
     credit_type: CreditType
 
     customer_id: str
@@ -290,6 +306,9 @@ class Invoice(BaseModel):
     type: str
 
     amendment_id: Optional[str] = None
+
+    billable_status: Optional[Literal["billable", "unbillable"]] = None
+    """This field's availability is dependent on your client's configuration."""
 
     contract_custom_fields: Optional[Dict[str, str]] = None
 

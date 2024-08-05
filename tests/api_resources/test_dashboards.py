@@ -38,16 +38,16 @@ class TestDashboards:
             ],
             dashboard_options=[
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
             ],
         )
@@ -104,16 +104,16 @@ class TestAsyncDashboards:
             ],
             dashboard_options=[
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
                 {
-                    "key": "string",
-                    "value": "string",
+                    "key": "key",
+                    "value": "value",
                 },
             ],
         )

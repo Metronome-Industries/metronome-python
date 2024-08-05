@@ -23,6 +23,7 @@ class AlertCreateParams(TypedDict, total=False):
             "low_remaining_days_for_contract_credit_segment_reached",
             "low_remaining_contract_credit_balance_reached",
             "low_remaining_contract_credit_percentage_reached",
+            "low_remaining_contract_credit_and_commit_balance_reached",
             "invoice_total_reached",
         ]
     ]
@@ -38,6 +39,13 @@ class AlertCreateParams(TypedDict, total=False):
     """
     For alerts of type `usage_threshold_reached`, specifies which billable metric to
     track the usage for.
+    """
+
+    credit_grant_type_filters: List[str]
+    """
+    An array of strings, representing a way to filter the credit grant this alert
+    applies to, by looking at the credit_grant_type field on the credit grant. This
+    field is only defined for CreditPercentage and CreditBalance alerts
     """
 
     credit_type_id: str

@@ -29,10 +29,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.credit_grant_edit_response import CreditGrantEditResponse
 from ..types.credit_grant_list_response import CreditGrantListResponse
 from ..types.credit_grant_void_response import CreditGrantVoidResponse
@@ -390,6 +387,7 @@ class CreditGrantsResource(SyncAPIResource):
         self,
         *,
         id: str,
+        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
         void_credit_purchase_invoice: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -402,6 +400,8 @@ class CreditGrantsResource(SyncAPIResource):
         Void a credit grant
 
         Args:
+          release_uniqueness_key: If true, resets the uniqueness key on this grant so it can be re-used
+
           void_credit_purchase_invoice: If true, void the purchase invoice associated with the grant
 
           extra_headers: Send extra headers
@@ -417,6 +417,7 @@ class CreditGrantsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
+                    "release_uniqueness_key": release_uniqueness_key,
                     "void_credit_purchase_invoice": void_credit_purchase_invoice,
                 },
                 credit_grant_void_params.CreditGrantVoidParams,
@@ -775,6 +776,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
         void_credit_purchase_invoice: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -787,6 +789,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         Void a credit grant
 
         Args:
+          release_uniqueness_key: If true, resets the uniqueness key on this grant so it can be re-used
+
           void_credit_purchase_invoice: If true, void the purchase invoice associated with the grant
 
           extra_headers: Send extra headers
@@ -802,6 +806,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
+                    "release_uniqueness_key": release_uniqueness_key,
                     "void_credit_purchase_invoice": void_credit_purchase_invoice,
                 },
                 credit_grant_void_params.CreditGrantVoidParams,

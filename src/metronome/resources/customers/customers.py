@@ -55,10 +55,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from ..._base_client import AsyncPaginator, make_request_options
 from .billing_config import (
     BillingConfigResource,
     AsyncBillingConfigResource,
@@ -122,6 +119,8 @@ class CustomersResource(SyncAPIResource):
         Create a new customer
 
         Args:
+          name: This will be truncated to 160 characters if the provided name is longer.
+
           external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
               alias) that can be used in usage events
 
@@ -454,7 +453,8 @@ class CustomersResource(SyncAPIResource):
         Updates the specified customer's name.
 
         Args:
-          name: The new name for the customer
+          name: The new name for the customer. This will be truncated to 160 characters if the
+              provided name is longer.
 
           extra_headers: Send extra headers
 
@@ -568,6 +568,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Create a new customer
 
         Args:
+          name: This will be truncated to 160 characters if the provided name is longer.
+
           external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
               alias) that can be used in usage events
 
@@ -900,7 +902,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Updates the specified customer's name.
 
         Args:
-          name: The new name for the customer
+          name: The new name for the customer. This will be truncated to 160 characters if the
+              provided name is longer.
 
           extra_headers: Send extra headers
 

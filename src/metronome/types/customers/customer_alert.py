@@ -50,12 +50,20 @@ class Alert(BaseModel):
         "low_remaining_days_for_contract_credit_segment_reached",
         "low_remaining_contract_credit_balance_reached",
         "low_remaining_contract_credit_percentage_reached",
+        "low_remaining_contract_credit_and_commit_balance_reached",
         "invoice_total_reached",
     ]
     """Type of the alert"""
 
     updated_at: datetime
     """Timestamp for when the alert was last updated"""
+
+    credit_grant_type_filters: Optional[List[str]] = None
+    """
+    An array of strings, representing a way to filter the credit grant this alert
+    applies to, by looking at the credit_grant_type field on the credit grant. This
+    field is only defined for CreditPercentage and CreditBalance alerts
+    """
 
     credit_type: Optional[CreditType] = None
 

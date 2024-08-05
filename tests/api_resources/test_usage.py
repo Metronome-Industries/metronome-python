@@ -37,26 +37,26 @@ class TestUsage:
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
             window_size="day",
-            next_page="string",
+            next_page="next_page",
             billable_metrics=[
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
@@ -165,7 +165,7 @@ class TestUsage:
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
             window_size="day",
             limit=1,
-            next_page="string",
+            next_page="next_page",
             current_period=True,
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             group_by={
@@ -223,26 +223,26 @@ class TestAsyncUsage:
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
             window_size="day",
-            next_page="string",
+            next_page="next_page",
             billable_metrics=[
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
                 {
                     "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "group_by": {
-                        "key": "string",
+                        "key": "key",
                         "values": ["x"],
                     },
                 },
@@ -351,7 +351,7 @@ class TestAsyncUsage:
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
             window_size="day",
             limit=1,
-            next_page="string",
+            next_page="next_page",
             current_period=True,
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             group_by={
