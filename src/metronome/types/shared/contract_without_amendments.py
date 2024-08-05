@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from .commit import Commit
 from .discount import Discount
@@ -140,7 +140,7 @@ class CreditLedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
-CreditLedger = Union[
+CreditLedger: TypeAlias = Union[
     CreditLedgerCreditSegmentStartLedgerEntry,
     CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
     CreditLedgerCreditExpirationLedgerEntry,
