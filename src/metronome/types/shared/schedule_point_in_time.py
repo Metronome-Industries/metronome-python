@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
+from .credit_type import CreditType
 
 __all__ = ["SchedulePointInTime", "ScheduleItem"]
 
@@ -23,4 +24,6 @@ class ScheduleItem(BaseModel):
 
 
 class SchedulePointInTime(BaseModel):
+    credit_type: Optional[CreditType] = None
+
     schedule_items: Optional[List[ScheduleItem]] = None
