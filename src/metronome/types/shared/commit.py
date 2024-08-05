@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 from .credit_type import CreditType
@@ -227,7 +227,7 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
 
-Ledger = Union[
+Ledger: TypeAlias = Union[
     LedgerPrepaidCommitSegmentStartLedgerEntry,
     LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPrepaidCommitRolloverLedgerEntry,
