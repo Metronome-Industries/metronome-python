@@ -25,8 +25,6 @@ __all__ = [
     "LedgerPostpaidCommitInitialBalanceLedgerEntry",
     "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "LedgerPostpaidCommitRolloverLedgerEntry",
-    "LedgerPostpaidCommitCanceledLedgerEntry",
-    "LedgerPostpaidCommitCreditedLedgerEntry",
     "LedgerPostpaidCommitTrueupLedgerEntry",
     "LedgerPrepaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitManualLedgerEntry",
@@ -165,30 +163,6 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
 
-class LedgerPostpaidCommitCanceledLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CANCELED"]
-
-
-class LedgerPostpaidCommitCreditedLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CREDITED"]
-
-
 class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
 
@@ -237,8 +211,6 @@ Ledger: TypeAlias = Union[
     LedgerPostpaidCommitInitialBalanceLedgerEntry,
     LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPostpaidCommitRolloverLedgerEntry,
-    LedgerPostpaidCommitCanceledLedgerEntry,
-    LedgerPostpaidCommitCreditedLedgerEntry,
     LedgerPostpaidCommitTrueupLedgerEntry,
     LedgerPrepaidCommitManualLedgerEntry,
     LedgerPostpaidCommitManualLedgerEntry,
