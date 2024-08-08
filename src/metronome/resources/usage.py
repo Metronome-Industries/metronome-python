@@ -133,7 +133,7 @@ class UsageResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/ingest",
-            body=maybe_transform(usage, usage_ingest_params.UsageIngestParams),
+            body=maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -320,7 +320,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/ingest",
-            body=await async_maybe_transform(usage, usage_ingest_params.UsageIngestParams),
+            body=await async_maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

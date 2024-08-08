@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 from .rollover_amount_max_amount_param import RolloverAmountMaxAmountParam
@@ -85,7 +85,7 @@ class PaidAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
 
-RolloverSettingsRolloverAmount = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]
+RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]
 
 
 class RolloverSettings(TypedDict, total=False):

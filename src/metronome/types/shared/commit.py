@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 from .credit_type import CreditType
@@ -25,8 +25,6 @@ __all__ = [
     "LedgerPostpaidCommitInitialBalanceLedgerEntry",
     "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "LedgerPostpaidCommitRolloverLedgerEntry",
-    "LedgerPostpaidCommitCanceledLedgerEntry",
-    "LedgerPostpaidCommitCreditedLedgerEntry",
     "LedgerPostpaidCommitTrueupLedgerEntry",
     "LedgerPrepaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitManualLedgerEntry",
@@ -165,30 +163,6 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
 
-class LedgerPostpaidCommitCanceledLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CANCELED"]
-
-
-class LedgerPostpaidCommitCreditedLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CREDITED"]
-
-
 class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
 
@@ -227,7 +201,7 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
 
-Ledger = Union[
+Ledger: TypeAlias = Union[
     LedgerPrepaidCommitSegmentStartLedgerEntry,
     LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPrepaidCommitRolloverLedgerEntry,
@@ -237,8 +211,6 @@ Ledger = Union[
     LedgerPostpaidCommitInitialBalanceLedgerEntry,
     LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPostpaidCommitRolloverLedgerEntry,
-    LedgerPostpaidCommitCanceledLedgerEntry,
-    LedgerPostpaidCommitCreditedLedgerEntry,
     LedgerPostpaidCommitTrueupLedgerEntry,
     LedgerPrepaidCommitManualLedgerEntry,
     LedgerPostpaidCommitManualLedgerEntry,

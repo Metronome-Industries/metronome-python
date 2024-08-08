@@ -17,6 +17,7 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from metronome import Metronome, AsyncMetronome, APIResponseValidationError
+from metronome._types import Omit
 from metronome._models import BaseModel, FinalRequestOptions
 from metronome._constants import RAW_RESPONSE_HEADER
 from metronome._exceptions import APIStatusError, MetronomeError, APITimeoutError, APIResponseValidationError
@@ -340,7 +341,8 @@ class TestMetronome:
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(MetronomeError):
-            client2 = Metronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            with update_env(**{"METRONOME_BEARER_TOKEN": Omit()}):
+                client2 = Metronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -765,6 +767,29 @@ class TestMetronome:
 
         assert _get_open_connections(self.client) == 0
 
+    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
+    @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_retries_taken(self, client: Metronome, failures_before_success: int, respx_mock: MockRouter) -> None:
+        client = client.with_options(max_retries=4)
+
+        nb_retries = 0
+
+        def retry_handler(_request: httpx.Request) -> httpx.Response:
+            nonlocal nb_retries
+            if nb_retries < failures_before_success:
+                nb_retries += 1
+                return httpx.Response(500)
+            return httpx.Response(200)
+
+        respx_mock.post("/alerts/create").mock(side_effect=retry_handler)
+
+        response = client.alerts.with_raw_response.create(
+            alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000
+        )
+
+        assert response.retries_taken == failures_before_success
+
 
 class TestAsyncMetronome:
     client = AsyncMetronome(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
@@ -1057,7 +1082,8 @@ class TestAsyncMetronome:
         assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
 
         with pytest.raises(MetronomeError):
-            client2 = AsyncMetronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
+            with update_env(**{"METRONOME_BEARER_TOKEN": Omit()}):
+                client2 = AsyncMetronome(base_url=base_url, bearer_token=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -1485,3 +1511,29 @@ class TestAsyncMetronome:
             )
 
         assert _get_open_connections(self.client) == 0
+
+    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
+    @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.asyncio
+    async def test_retries_taken(
+        self, async_client: AsyncMetronome, failures_before_success: int, respx_mock: MockRouter
+    ) -> None:
+        client = async_client.with_options(max_retries=4)
+
+        nb_retries = 0
+
+        def retry_handler(_request: httpx.Request) -> httpx.Response:
+            nonlocal nb_retries
+            if nb_retries < failures_before_success:
+                nb_retries += 1
+                return httpx.Response(500)
+            return httpx.Response(200)
+
+        respx_mock.post("/alerts/create").mock(side_effect=retry_handler)
+
+        response = await client.alerts.with_raw_response.create(
+            alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000
+        )
+
+        assert response.retries_taken == failures_before_success
