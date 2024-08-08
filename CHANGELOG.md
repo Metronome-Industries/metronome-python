@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2024-08-08)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#46](https://github.com/Metronome-Industries/metronome-python/issues/46)) ([fc7b155](https://github.com/Metronome-Industries/metronome-python/commit/fc7b1552892bfdd87c8d8e632cd6e78279493a7c))
+* **api:** OpenAPI spec update via Stainless API ([#47](https://github.com/Metronome-Industries/metronome-python/issues/47)) ([e715281](https://github.com/Metronome-Industries/metronome-python/commit/e715281eb12ca02630516b845ffdea5a7878bb6b))
+* **api:** OpenAPI spec update via Stainless API ([#51](https://github.com/Metronome-Industries/metronome-python/issues/51)) ([b0a32b5](https://github.com/Metronome-Industries/metronome-python/commit/b0a32b5d6695e80b53df1c3692134bff79852d10))
+* **api:** OpenAPI spec update via Stainless API ([#52](https://github.com/Metronome-Industries/metronome-python/issues/52)) ([343c1cc](https://github.com/Metronome-Industries/metronome-python/commit/343c1cc2d7e7a5b7a4196d16666f22cf073b755b))
+* **client:** add `retry_count` to raw response class ([#44](https://github.com/Metronome-Industries/metronome-python/issues/44)) ([e84603e](https://github.com/Metronome-Industries/metronome-python/commit/e84603e560b164509b4dff21ff240fb584f00cc4))
+
+
+### Bug Fixes
+
+* **client:** correctly serialise array body params ([#50](https://github.com/Metronome-Industries/metronome-python/issues/50)) ([d8683ea](https://github.com/Metronome-Industries/metronome-python/commit/d8683eaa1c654bc66e63afd7da5b10dbe734494a))
+
+
+### Chores
+
+* **internal:** bump pyright ([#43](https://github.com/Metronome-Industries/metronome-python/issues/43)) ([0d16638](https://github.com/Metronome-Industries/metronome-python/commit/0d166384ecacc4cd65fe5bf1df7a659a88ae445d))
+* **internal:** bump ruff version ([#48](https://github.com/Metronome-Industries/metronome-python/issues/48)) ([03e3012](https://github.com/Metronome-Industries/metronome-python/commit/03e301200a5a1b4e88ff8792916aa285f3bfa3d4))
+* **internal:** remove deprecated ruff config ([#53](https://github.com/Metronome-Industries/metronome-python/issues/53)) ([0968ca7](https://github.com/Metronome-Industries/metronome-python/commit/0968ca744d6ca97b4c2767ae2310dd3d095fde95))
+* **internal:** test updates ([#45](https://github.com/Metronome-Industries/metronome-python/issues/45)) ([5736a06](https://github.com/Metronome-Industries/metronome-python/commit/5736a06e6d38908f21a1991dd981a8a54f028e3f))
+* **internal:** update pydantic compat helper function ([#49](https://github.com/Metronome-Industries/metronome-python/issues/49)) ([da91857](https://github.com/Metronome-Industries/metronome-python/commit/da91857318be01b73963006df669a9355e8371b6))
+* **internal:** use `TypeAlias` marker for type assignments ([#41](https://github.com/Metronome-Industries/metronome-python/issues/41)) ([823bc3d](https://github.com/Metronome-Industries/metronome-python/commit/823bc3d040b5dccb931a447c835936caf866ac52))
+
 ## 0.1.0-alpha.4 (2024-08-01)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
