@@ -18,6 +18,7 @@ from pydantic import ValidationError
 
 from metronome import Metronome, AsyncMetronome, APIResponseValidationError
 from metronome._types import Omit
+from metronome._utils import parse_datetime
 from metronome._models import BaseModel, FinalRequestOptions
 from metronome._constants import RAW_RESPONSE_HEADER
 from metronome._exceptions import APIStatusError, MetronomeError, APITimeoutError, APIResponseValidationError
@@ -734,14 +735,17 @@ class TestMetronome:
     @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/alerts/create").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/contracts/create").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/alerts/create",
+                "/contracts/create",
                 body=cast(
                     object,
-                    dict(alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000),
+                    dict(
+                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -752,14 +756,17 @@ class TestMetronome:
     @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/alerts/create").mock(return_value=httpx.Response(500))
+        respx_mock.post("/contracts/create").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/alerts/create",
+                "/contracts/create",
                 body=cast(
                     object,
-                    dict(alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000),
+                    dict(
+                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -782,10 +789,10 @@ class TestMetronome:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/alerts/create").mock(side_effect=retry_handler)
+        respx_mock.post("/contracts/create").mock(side_effect=retry_handler)
 
-        response = client.alerts.with_raw_response.create(
-            alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000
+        response = client.contracts.with_raw_response.create(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
         )
 
         assert response.retries_taken == failures_before_success
@@ -1479,14 +1486,17 @@ class TestAsyncMetronome:
     @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/alerts/create").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/contracts/create").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/alerts/create",
+                "/contracts/create",
                 body=cast(
                     object,
-                    dict(alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000),
+                    dict(
+                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1497,14 +1507,17 @@ class TestAsyncMetronome:
     @mock.patch("metronome._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/alerts/create").mock(return_value=httpx.Response(500))
+        respx_mock.post("/contracts/create").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/alerts/create",
+                "/contracts/create",
                 body=cast(
                     object,
-                    dict(alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000),
+                    dict(
+                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                    ),
                 ),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
@@ -1530,10 +1543,10 @@ class TestAsyncMetronome:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/alerts/create").mock(side_effect=retry_handler)
+        respx_mock.post("/contracts/create").mock(side_effect=retry_handler)
 
-        response = await client.alerts.with_raw_response.create(
-            alert_type="spend_threshold_reached", name="$100 spend threshold reached", threshold=10000
+        response = await client.contracts.with_raw_response.create(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
         )
 
         assert response.retries_taken == failures_before_success
