@@ -116,3 +116,6 @@ class CustomerListBillableMetricsResponse(BaseModel):
     Each filter defines a rule on an event property. All rules must pass for the
     event to match the billable metric.
     """
+
+    sql: Optional[str] = None
+    """The SQL query associated with the billable metric"""

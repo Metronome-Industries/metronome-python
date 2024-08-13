@@ -57,25 +57,6 @@ class Data(BaseModel):
     id: str
     """ID of the billable metric"""
 
-    aggregation_type: Literal[
-        "count",
-        "Count",
-        "COUNT",
-        "latest",
-        "Latest",
-        "LATEST",
-        "max",
-        "Max",
-        "MAX",
-        "sum",
-        "Sum",
-        "SUM",
-        "unique",
-        "Unique",
-        "UNIQUE",
-    ]
-    """Specifies the type of aggregation performed on matching events."""
-
     name: str
     """The display name of the billable metric."""
 
@@ -85,6 +66,27 @@ class Data(BaseModel):
     This key must be one of the property filter names and is not applicable when the
     aggregation type is 'count'.
     """
+
+    aggregation_type: Optional[
+        Literal[
+            "count",
+            "Count",
+            "COUNT",
+            "latest",
+            "Latest",
+            "LATEST",
+            "max",
+            "Max",
+            "MAX",
+            "sum",
+            "Sum",
+            "SUM",
+            "unique",
+            "Unique",
+            "UNIQUE",
+        ]
+    ] = None
+    """Specifies the type of aggregation performed on matching events."""
 
     custom_fields: Optional[Dict[str, str]] = None
 
@@ -104,6 +106,9 @@ class Data(BaseModel):
     Each filter defines a rule on an event property. All rules must pass for the
     event to match the billable metric.
     """
+
+    sql: Optional[str] = None
+    """The SQL query associated with the billable metric"""
 
 
 class BillableMetricRetrieveResponse(BaseModel):
