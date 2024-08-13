@@ -15,6 +15,9 @@ class CreditGrantEditParams(TypedDict, total=False):
     id: Required[str]
     """the ID of the credit grant"""
 
+    credit_grant_type: str
+    """the updated credit grant type"""
+
     expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """the updated expiration date for the credit grant"""
 
