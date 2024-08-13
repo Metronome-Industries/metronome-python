@@ -29,8 +29,8 @@ class TestCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
@@ -44,14 +44,14 @@ class TestCredits:
     def test_method_create_with_all_params(self, client: Metronome) -> None:
         credit = client.customers.credits.create(
             access_schedule={
-                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
@@ -78,8 +78,8 @@ class TestCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
@@ -100,8 +100,8 @@ class TestCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
@@ -211,8 +211,8 @@ class TestAsyncCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
@@ -226,14 +226,14 @@ class TestAsyncCredits:
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit = await async_client.customers.credits.create(
             access_schedule={
-                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
@@ -260,8 +260,8 @@ class TestAsyncCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
@@ -282,8 +282,8 @@ class TestAsyncCredits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },

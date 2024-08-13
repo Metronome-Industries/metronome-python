@@ -25,12 +25,12 @@ class TestProductOrders:
         product_order = client.contracts.rate_cards.product_orders.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -42,12 +42,12 @@ class TestProductOrders:
         response = client.contracts.rate_cards.product_orders.with_raw_response.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -63,12 +63,12 @@ class TestProductOrders:
         with client.contracts.rate_cards.product_orders.with_streaming_response.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -124,12 +124,12 @@ class TestAsyncProductOrders:
         product_order = await async_client.contracts.rate_cards.product_orders.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -141,12 +141,12 @@ class TestAsyncProductOrders:
         response = await async_client.contracts.rate_cards.product_orders.with_raw_response.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -162,12 +162,12 @@ class TestAsyncProductOrders:
         async with async_client.contracts.rate_cards.product_orders.with_streaming_response.update(
             product_moves=[
                 {
-                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "position": 0,
+                    "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                 },
                 {
-                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                     "position": 1,
+                    "product_id": "b086f2f4-9851-4466-9ca0-30d53e6a42ac",
                 },
             ],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
