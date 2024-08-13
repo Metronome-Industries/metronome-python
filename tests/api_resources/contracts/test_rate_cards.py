@@ -39,8 +39,8 @@ class TestRateCards:
             aliases=[
                 {
                     "name": "my-rate-card",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             credit_type_conversions=[
@@ -124,18 +124,18 @@ class TestRateCards:
             aliases=[
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
             ],
             custom_fields={"foo": "string"},
@@ -226,12 +226,12 @@ class TestRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "pricing_group_values": {"foo": "string"},
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
                 }
             ],
         )
@@ -281,8 +281,8 @@ class TestAsyncRateCards:
             aliases=[
                 {
                     "name": "my-rate-card",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             credit_type_conversions=[
@@ -366,18 +366,18 @@ class TestAsyncRateCards:
             aliases=[
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
                 {
                     "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 },
             ],
             custom_fields={"foo": "string"},
@@ -468,12 +468,12 @@ class TestAsyncRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "pricing_group_values": {"foo": "string"},
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
                 }
             ],
         )

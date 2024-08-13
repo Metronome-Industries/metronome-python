@@ -26,7 +26,7 @@ class TestBillableMetrics:
     @parametrize
     def test_method_create(self, client: Metronome) -> None:
         billable_metric = client.billable_metrics.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         )
         assert_matches_type(BillableMetricCreateResponse, billable_metric, path=["response"])
@@ -34,7 +34,7 @@ class TestBillableMetrics:
     @parametrize
     def test_method_create_with_all_params(self, client: Metronome) -> None:
         billable_metric = client.billable_metrics.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
             aggregation_key="cpu_hours",
             custom_fields={"foo": "string"},
@@ -69,7 +69,7 @@ class TestBillableMetrics:
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
         response = client.billable_metrics.with_raw_response.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         )
 
@@ -81,7 +81,7 @@ class TestBillableMetrics:
     @parametrize
     def test_streaming_response_create(self, client: Metronome) -> None:
         with client.billable_metrics.with_streaming_response.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         ) as response:
             assert not response.is_closed
@@ -216,7 +216,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_method_create(self, async_client: AsyncMetronome) -> None:
         billable_metric = await async_client.billable_metrics.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         )
         assert_matches_type(BillableMetricCreateResponse, billable_metric, path=["response"])
@@ -224,7 +224,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
         billable_metric = await async_client.billable_metrics.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
             aggregation_key="cpu_hours",
             custom_fields={"foo": "string"},
@@ -259,7 +259,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
         response = await async_client.billable_metrics.with_raw_response.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         )
 
@@ -271,7 +271,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMetronome) -> None:
         async with async_client.billable_metrics.with_streaming_response.create(
-            aggregation_type="sum",
+            aggregation_type="count",
             name="CPU Hours",
         ) as response:
             assert not response.is_closed

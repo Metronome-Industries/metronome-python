@@ -29,15 +29,15 @@ class TestCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 
@@ -45,19 +45,19 @@ class TestCommits:
     def test_method_create_with_all_params(self, client: Metronome) -> None:
         commit = client.customers.commits.create(
             access_schedule={
-                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
             applicable_contract_ids=["string", "string", "string"],
             applicable_product_ids=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -70,23 +70,23 @@ class TestCommits:
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
                 "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
-                "schedule_items": [
-                    {
-                        "unit_price": 10000000,
-                        "quantity": 1,
-                        "amount": 10000000,
-                        "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                    }
-                ],
                 "recurring_schedule": {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "amount_distribution": "DIVIDED",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "frequency": "MONTHLY",
-                    "unit_price": 0,
-                    "quantity": 0,
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "amount": 0,
-                    "amount_distribution": "DIVIDED",
+                    "quantity": 0,
+                    "unit_price": 0,
                 },
+                "schedule_items": [
+                    {
+                        "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
+                        "amount": 10000000,
+                        "quantity": 1,
+                        "unit_price": 10000000,
+                    }
+                ],
             },
             name="My Commit",
             netsuite_sales_order_id="netsuite_sales_order_id",
@@ -101,15 +101,15 @@ class TestCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         )
 
         assert response.is_closed is True
@@ -124,15 +124,15 @@ class TestCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -243,15 +243,15 @@ class TestAsyncCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 
@@ -259,19 +259,19 @@ class TestAsyncCommits:
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
         commit = await async_client.customers.commits.create(
             access_schedule={
-                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
             applicable_contract_ids=["string", "string", "string"],
             applicable_product_ids=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -284,23 +284,23 @@ class TestAsyncCommits:
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
                 "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
-                "schedule_items": [
-                    {
-                        "unit_price": 10000000,
-                        "quantity": 1,
-                        "amount": 10000000,
-                        "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                    }
-                ],
                 "recurring_schedule": {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "amount_distribution": "DIVIDED",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "frequency": "MONTHLY",
-                    "unit_price": 0,
-                    "quantity": 0,
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "amount": 0,
-                    "amount_distribution": "DIVIDED",
+                    "quantity": 0,
+                    "unit_price": 0,
                 },
+                "schedule_items": [
+                    {
+                        "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
+                        "amount": 10000000,
+                        "quantity": 1,
+                        "unit_price": 10000000,
+                    }
+                ],
             },
             name="My Commit",
             netsuite_sales_order_id="netsuite_sales_order_id",
@@ -315,15 +315,15 @@ class TestAsyncCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         )
 
         assert response.is_closed is True
@@ -338,15 +338,15 @@ class TestAsyncCommits:
                 "schedule_items": [
                     {
                         "amount": 1000,
-                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                         "ending_before": parse_datetime("2020-02-01T00:00:00.000Z"),
+                        "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ]
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            type="prepaid",
+            type="PREPAID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
