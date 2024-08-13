@@ -224,6 +224,7 @@ class CreditGrantsResource(SyncAPIResource):
         self,
         *,
         id: str,
+        credit_grant_type: str | NotGiven = NOT_GIVEN,
         expires_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -238,6 +239,8 @@ class CreditGrantsResource(SyncAPIResource):
 
         Args:
           id: the ID of the credit grant
+
+          credit_grant_type: the updated credit grant type
 
           expires_at: the updated expiration date for the credit grant
 
@@ -256,6 +259,7 @@ class CreditGrantsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "id": id,
+                    "credit_grant_type": credit_grant_type,
                     "expires_at": expires_at,
                     "name": name,
                 },
@@ -613,6 +617,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        credit_grant_type: str | NotGiven = NOT_GIVEN,
         expires_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -627,6 +632,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
         Args:
           id: the ID of the credit grant
+
+          credit_grant_type: the updated credit grant type
 
           expires_at: the updated expiration date for the credit grant
 
@@ -645,6 +652,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "id": id,
+                    "credit_grant_type": credit_grant_type,
                     "expires_at": expires_at,
                     "name": name,
                 },
