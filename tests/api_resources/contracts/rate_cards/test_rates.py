@@ -40,13 +40,13 @@ class TestRates:
             next_page="next_page",
             selectors=[
                 {
-                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
-                    "pricing_group_values": {"foo": "string"},
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
+                    "product_tags": ["string", "string", "string"],
                 }
             ],
         )
@@ -106,16 +106,16 @@ class TestRates:
             quantity=0,
             tiers=[
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
             ],
             use_list_prices=True,
@@ -165,66 +165,66 @@ class TestRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rates=[
                 {
+                    "entitled": True,
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "rate_type": "FLAT",
+                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "custom_rate": {"foo": "bar"},
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "is_prorated": True,
+                    "price": 100,
                     "pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
-                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "rate_type": "FLAT",
-                    "price": 100,
-                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "quantity": 0,
-                    "is_prorated": True,
-                    "use_list_prices": True,
                     "tiers": [
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                     ],
-                    "custom_rate": {"foo": "bar"},
+                    "use_list_prices": True,
                 },
                 {
+                    "entitled": True,
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "rate_type": "FLAT",
+                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "custom_rate": {"foo": "bar"},
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "is_prorated": True,
+                    "price": 120,
                     "pricing_group_values": {
                         "region": "us-east-2",
                         "cloud": "aws",
                     },
-                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "rate_type": "FLAT",
-                    "price": 120,
-                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "quantity": 0,
-                    "is_prorated": True,
-                    "use_list_prices": True,
                     "tiers": [
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                     ],
-                    "custom_rate": {"foo": "bar"},
+                    "use_list_prices": True,
                 },
             ],
         )
@@ -271,13 +271,13 @@ class TestAsyncRates:
             next_page="next_page",
             selectors=[
                 {
-                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
-                    "pricing_group_values": {"foo": "string"},
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
+                    "product_tags": ["string", "string", "string"],
                 }
             ],
         )
@@ -337,16 +337,16 @@ class TestAsyncRates:
             quantity=0,
             tiers=[
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
                 {
-                    "size": 0,
                     "price": 0,
+                    "size": 0,
                 },
             ],
             use_list_prices=True,
@@ -396,66 +396,66 @@ class TestAsyncRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rates=[
                 {
+                    "entitled": True,
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "rate_type": "FLAT",
+                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "custom_rate": {"foo": "bar"},
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "is_prorated": True,
+                    "price": 100,
                     "pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
                     },
-                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "rate_type": "FLAT",
-                    "price": 100,
-                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "quantity": 0,
-                    "is_prorated": True,
-                    "use_list_prices": True,
                     "tiers": [
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                     ],
-                    "custom_rate": {"foo": "bar"},
+                    "use_list_prices": True,
                 },
                 {
+                    "entitled": True,
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "rate_type": "FLAT",
+                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "custom_rate": {"foo": "bar"},
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "is_prorated": True,
+                    "price": 120,
                     "pricing_group_values": {
                         "region": "us-east-2",
                         "cloud": "aws",
                     },
-                    "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "rate_type": "FLAT",
-                    "price": 120,
-                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "quantity": 0,
-                    "is_prorated": True,
-                    "use_list_prices": True,
                     "tiers": [
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                         {
-                            "size": 0,
                             "price": 0,
+                            "size": 0,
                         },
                     ],
-                    "custom_rate": {"foo": "bar"},
+                    "use_list_prices": True,
                 },
             ],
         )

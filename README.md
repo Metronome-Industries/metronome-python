@@ -37,10 +37,10 @@ client = Metronome(
 response = client.usage.ingest(
     usage=[
         {
-            "transaction_id": "2021-01-01T00:00:00Z_cluster42",
             "customer_id": "team@example.com",
             "event_type": "heartbeat",
             "timestamp": "2021-01-01T00:00:00Z",
+            "transaction_id": "2021-01-01T00:00:00Z_cluster42",
         }
     ],
 )
@@ -70,10 +70,10 @@ async def main() -> None:
     response = await client.usage.ingest(
         usage=[
             {
-                "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 "customer_id": "team@example.com",
                 "event_type": "heartbeat",
                 "timestamp": "2021-01-01T00:00:00Z",
+                "transaction_id": "2021-01-01T00:00:00Z_cluster42",
             }
         ],
     )
