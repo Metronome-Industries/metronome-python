@@ -43,6 +43,7 @@ class TestContracts:
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billing_provider_configuration={
                 "billing_provider": "aws_marketplace",
+                "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "delivery_method": "direct_to_billing_provider",
             },
             commits=[
@@ -2308,6 +2309,7 @@ class TestAsyncContracts:
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billing_provider_configuration={
                 "billing_provider": "aws_marketplace",
+                "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "delivery_method": "direct_to_billing_provider",
             },
             commits=[
