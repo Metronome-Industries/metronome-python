@@ -5,8 +5,9 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .credit_type import CreditType
 
-__all__ = ["Override", "OverrideSpecifier", "OverwriteRate", "OverwriteRateTier", "Product"]
+__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "OverwriteRateTier", "Product", "Tier"]
 
 
 class OverrideSpecifier(BaseModel):
@@ -17,6 +18,12 @@ class OverrideSpecifier(BaseModel):
     product_id: Optional[str] = None
 
     product_tags: Optional[List[str]] = None
+
+
+class OverrideTier(BaseModel):
+    multiplier: float
+
+    size: Optional[float] = None
 
 
 class OverwriteRateTier(BaseModel):
@@ -38,6 +45,8 @@ class OverwriteRate(BaseModel):
         "CUSTOM",
         "custom",
     ]
+
+    credit_type: Optional[CreditType] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -68,6 +77,12 @@ class Product(BaseModel):
     name: str
 
 
+class Tier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
+
+
 class Override(BaseModel):
     id: str
 
@@ -75,16 +90,59 @@ class Override(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
+    credit_type: Optional[CreditType] = None
+
     ending_before: Optional[datetime] = None
 
     entitled: Optional[bool] = None
+
+    is_prorated: Optional[bool] = None
+    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
 
     multiplier: Optional[float] = None
 
     override_specifiers: Optional[List[OverrideSpecifier]] = None
 
+    override_tiers: Optional[List[OverrideTier]] = None
+
     overwrite_rate: Optional[OverwriteRate] = None
+
+    price: Optional[float] = None
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    priority: Optional[float] = None
 
     product: Optional[Product] = None
 
-    type: Optional[Literal["OVERWRITE", "MULTIPLIER"]] = None
+    quantity: Optional[float] = None
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    rate_type: Optional[
+        Literal[
+            "FLAT",
+            "flat",
+            "PERCENTAGE",
+            "percentage",
+            "SUBSCRIPTION",
+            "subscription",
+            "TIERED",
+            "tiered",
+            "CUSTOM",
+            "custom",
+        ]
+    ] = None
+
+    tiers: Optional[List[Tier]] = None
+    """Only set for TIERED rate_type."""
+
+    type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
+
+    value: Optional[Dict[str, object]] = None
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """

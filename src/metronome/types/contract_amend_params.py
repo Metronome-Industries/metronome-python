@@ -27,6 +27,7 @@ __all__ = [
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
     "OverrideOverwriteRateTier",
+    "OverrideTier",
     "ProfessionalService",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
@@ -444,6 +445,12 @@ class OverrideOverwriteRate(TypedDict, total=False):
     """Only set for TIERED rate_type."""
 
 
+class OverrideTier(TypedDict, total=False):
+    multiplier: Required[float]
+
+    size: float
+
+
 class Override(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
@@ -470,17 +477,21 @@ class Override(TypedDict, total=False):
     """Required for OVERWRITE type."""
 
     priority: float
-    """Required for EXPLICIT multiplier prioritization scheme.
+    """Required for EXPLICIT multiplier prioritization scheme and all TIERED overrides.
 
-    If multiple multipliers are applicable, the one with the lower priority value
-    will apply first. Must be >0.
+    Under EXPLICIT prioritization, overwrites are prioritized first, and then tiered
+    and multiplier overrides are prioritized by their priority value (lowest first).
+    Must be > 0.
     """
 
     product_id: str
     """ID of the product whose rate is being overridden"""
 
-    type: Literal["OVERWRITE", "overwrite", "MULTIPLIER", "multiplier"]
-    """Overwrites are prioritized over multipliers."""
+    tiers: Iterable[OverrideTier]
+    """Required for TIERED type. Must have at least one tier."""
+
+    type: Literal["OVERWRITE", "overwrite", "MULTIPLIER", "multiplier", "TIERED", "tiered"]
+    """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
 class ProfessionalService(TypedDict, total=False):
