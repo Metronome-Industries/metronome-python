@@ -144,7 +144,7 @@ class ContractsResource(SyncAPIResource):
           multiplier_override_prioritization: Defaults to LOWEST_MULTIPLIER, which applies the greatest discount to list
               prices automatically. EXPLICIT prioritization requires specifying priorities for
               each multiplier; the one with the lowest priority value will be prioritized
-              first.
+              first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
 
@@ -863,7 +863,7 @@ class AsyncContractsResource(AsyncAPIResource):
           multiplier_override_prioritization: Defaults to LOWEST_MULTIPLIER, which applies the greatest discount to list
               prices automatically. EXPLICIT prioritization requires specifying priorities for
               each multiplier; the one with the lowest priority value will be prioritized
-              first.
+              first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
 

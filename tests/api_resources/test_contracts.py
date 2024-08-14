@@ -528,6 +528,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -580,6 +594,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -632,6 +660,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
             ],
@@ -1532,6 +1574,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -1584,6 +1640,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -1636,6 +1706,20 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
             ],
@@ -2709,6 +2793,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -2761,6 +2859,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -2813,6 +2925,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
             ],
@@ -3713,6 +3839,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -3765,6 +3905,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
                 {
@@ -3817,6 +3971,20 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tiers": [
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                        {
+                            "multiplier": 0,
+                            "size": 0,
+                        },
+                    ],
                     "type": "OVERWRITE",
                 },
             ],
