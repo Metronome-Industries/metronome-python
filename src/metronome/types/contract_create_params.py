@@ -119,9 +119,12 @@ class ContractCreateParams(TypedDict, total=False):
 
 
 class BillingProviderConfiguration(TypedDict, total=False):
-    billing_provider: Required[Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]]
+    billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
 
-    delivery_method: Required[Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]]
+    billing_provider_configuration_id: str
+    """The Metronome ID of the billing provider configuration"""
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
 
 class CommitAccessScheduleScheduleItem(TypedDict, total=False):
