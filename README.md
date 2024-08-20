@@ -1,7 +1,7 @@
 # Metronome Python API library
 
 > [!WARNING]
-> This is prerelease alpha software that is not ready for production use. There may be bugs and
+> This is prerelease software that is not ready for production use. There may be bugs and
 > there will be breaking changes version to version. Use at your own risk.
 
 [![PyPI version](https://img.shields.io/pypi/v/metronome-sdk.svg)](https://pypi.org/project/metronome-sdk/)
