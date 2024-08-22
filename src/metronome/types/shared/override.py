@@ -4,10 +4,11 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
+from .tier import Tier
 from ..._models import BaseModel
 from .credit_type import CreditType
 
-__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "OverwriteRateTier", "Product", "Tier"]
+__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
 
 
 class OverrideSpecifier(BaseModel):
@@ -22,12 +23,6 @@ class OverrideSpecifier(BaseModel):
 
 class OverrideTier(BaseModel):
     multiplier: float
-
-    size: Optional[float] = None
-
-
-class OverwriteRateTier(BaseModel):
-    price: float
 
     size: Optional[float] = None
 
@@ -56,7 +51,7 @@ class OverwriteRate(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Optional[List[OverwriteRateTier]] = None
+    tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
 
 
@@ -64,12 +59,6 @@ class Product(BaseModel):
     id: str
 
     name: str
-
-
-class Tier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
 
 
 class Override(BaseModel):

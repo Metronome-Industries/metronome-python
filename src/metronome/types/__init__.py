@@ -5,11 +5,18 @@ from __future__ import annotations
 from .shared import (
     ID as ID,
     Rate as Rate,
+    Tier as Tier,
     Commit as Commit,
+    Credit as Credit,
     Discount as Discount,
     Override as Override,
     CreditType as CreditType,
+    ProService as ProService,
+    PropertyFilter as PropertyFilter,
+    BaseUsageFilter as BaseUsageFilter,
+    EventTypeFilter as EventTypeFilter,
     ScheduledCharge as ScheduledCharge,
+    ScheduleDuration as ScheduleDuration,
     SchedulePointInTime as SchedulePointInTime,
     ContractWithoutAmendments as ContractWithoutAmendments,
 )

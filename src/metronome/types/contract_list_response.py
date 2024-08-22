@@ -1,14 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.commit import Commit
+from .shared.credit import Credit
 from .shared.discount import Discount
 from .shared.override import Override
-from .shared.credit_type import CreditType
+from .shared.pro_service import ProService
 from .shared.scheduled_charge import ScheduledCharge
 from .shared.contract_without_amendments import ContractWithoutAmendments
 
@@ -16,195 +17,9 @@ __all__ = [
     "ContractListResponse",
     "Data",
     "DataAmendment",
-    "DataAmendmentCredit",
-    "DataAmendmentCreditProduct",
-    "DataAmendmentCreditAccessSchedule",
-    "DataAmendmentCreditAccessScheduleScheduleItem",
-    "DataAmendmentCreditContract",
-    "DataAmendmentCreditLedger",
-    "DataAmendmentCreditLedgerCreditSegmentStartLedgerEntry",
-    "DataAmendmentCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
-    "DataAmendmentCreditLedgerCreditExpirationLedgerEntry",
-    "DataAmendmentCreditLedgerCreditCanceledLedgerEntry",
-    "DataAmendmentCreditLedgerCreditCreditedLedgerEntry",
-    "DataAmendmentCreditLedgerCreditManualLedgerEntry",
-    "DataAmendmentProfessionalService",
     "DataAmendmentResellerRoyalty",
     "DataCustomerBillingProviderConfiguration",
 ]
-
-
-class DataAmendmentCreditProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class DataAmendmentCreditAccessScheduleScheduleItem(BaseModel):
-    id: str
-
-    amount: float
-
-    ending_before: datetime
-
-    starting_at: datetime
-
-
-class DataAmendmentCreditAccessSchedule(BaseModel):
-    schedule_items: List[DataAmendmentCreditAccessScheduleScheduleItem]
-
-    credit_type: Optional[CreditType] = None
-
-
-class DataAmendmentCreditContract(BaseModel):
-    id: str
-
-
-class DataAmendmentCreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
-    amount: float
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_SEGMENT_START"]
-
-
-class DataAmendmentCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
-
-
-class DataAmendmentCreditLedgerCreditExpirationLedgerEntry(BaseModel):
-    amount: float
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_EXPIRATION"]
-
-
-class DataAmendmentCreditLedgerCreditCanceledLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_CANCELED"]
-
-
-class DataAmendmentCreditLedgerCreditCreditedLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_CREDITED"]
-
-
-class DataAmendmentCreditLedgerCreditManualLedgerEntry(BaseModel):
-    amount: float
-
-    reason: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_MANUAL"]
-
-
-DataAmendmentCreditLedger: TypeAlias = Union[
-    DataAmendmentCreditLedgerCreditSegmentStartLedgerEntry,
-    DataAmendmentCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
-    DataAmendmentCreditLedgerCreditExpirationLedgerEntry,
-    DataAmendmentCreditLedgerCreditCanceledLedgerEntry,
-    DataAmendmentCreditLedgerCreditCreditedLedgerEntry,
-    DataAmendmentCreditLedgerCreditManualLedgerEntry,
-]
-
-
-class DataAmendmentCredit(BaseModel):
-    id: str
-
-    product: DataAmendmentCreditProduct
-
-    type: Literal["CREDIT"]
-
-    access_schedule: Optional[DataAmendmentCreditAccessSchedule] = None
-    """The schedule that the customer will gain access to the credits."""
-
-    applicable_contract_ids: Optional[List[str]] = None
-
-    applicable_product_ids: Optional[List[str]] = None
-
-    applicable_product_tags: Optional[List[str]] = None
-
-    contract: Optional[DataAmendmentCreditContract] = None
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    ledger: Optional[List[DataAmendmentCreditLedger]] = None
-    """A list of ordered events that impact the balance of a credit.
-
-    For example, an invoice deduction or an expiration.
-    """
-
-    name: Optional[str] = None
-
-    netsuite_sales_order_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
-
-    priority: Optional[float] = None
-    """
-    If multiple credits or commits are applicable, the one with the lower priority
-    will apply first.
-    """
-
-    salesforce_opportunity_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
-
-
-class DataAmendmentProfessionalService(BaseModel):
-    id: str
-
-    max_amount: float
-    """Maximum amount for the term."""
-
-    product_id: str
-
-    quantity: float
-    """Quantity for the charge.
-
-    Will be multiplied by unit_price to determine the amount.
-    """
-
-    unit_price: float
-    """Unit price for the charge.
-
-    Will be multiplied by quantity to determine the amount and must be specified.
-    """
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    netsuite_sales_order_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
 
 
 class DataAmendmentResellerRoyalty(BaseModel):
@@ -246,7 +61,7 @@ class DataAmendment(BaseModel):
 
     starting_at: datetime
 
-    credits: Optional[List[DataAmendmentCredit]] = None
+    credits: Optional[List[Credit]] = None
 
     discounts: Optional[List[Discount]] = None
     """This field's availability is dependent on your client's configuration."""
@@ -254,7 +69,7 @@ class DataAmendment(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    professional_services: Optional[List[DataAmendmentProfessionalService]] = None
+    professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
 
     reseller_royalties: Optional[List[DataAmendmentResellerRoyalty]] = None

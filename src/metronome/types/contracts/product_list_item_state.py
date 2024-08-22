@@ -1,21 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .quantity_rounding import QuantityRounding
 from .quantity_conversion import QuantityConversion
-from .product_list_item_state import ProductListItemState
 
-__all__ = ["ProductRetrieveResponse", "Data", "DataUpdate"]
+__all__ = ["ProductListItemState"]
 
 
-class DataUpdate(BaseModel):
+class ProductListItemState(BaseModel):
     created_at: datetime
 
     created_by: str
+
+    name: str
 
     billable_metric_id: Optional[str] = None
 
@@ -26,8 +26,7 @@ class DataUpdate(BaseModel):
     exclude_free_usage: Optional[bool] = None
 
     is_refundable: Optional[bool] = None
-
-    name: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
 
     netsuite_internal_item_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
@@ -69,23 +68,3 @@ class DataUpdate(BaseModel):
     starting_at: Optional[datetime] = None
 
     tags: Optional[List[str]] = None
-
-
-class Data(BaseModel):
-    id: str
-
-    current: ProductListItemState
-
-    initial: ProductListItemState
-
-    type: Literal["USAGE", "SUBSCRIPTION", "COMPOSITE", "FIXED", "PRO_SERVICE"]
-
-    updates: List[DataUpdate]
-
-    archived_at: Optional[datetime] = None
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-
-class ProductRetrieveResponse(BaseModel):
-    data: Data

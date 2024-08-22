@@ -5,24 +5,17 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..shared.tier import Tier
 from ..shared.credit_type import CreditType
 
 __all__ = [
     "RateCardListResponse",
     "RateCardEntries",
     "RateCardEntriesCurrent",
-    "RateCardEntriesCurrentTier",
     "RateCardEntriesUpdate",
-    "RateCardEntriesUpdateTier",
     "Alias",
     "CreditTypeConversion",
 ]
-
-
-class RateCardEntriesCurrentTier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
 
 
 class RateCardEntriesCurrent(BaseModel):
@@ -48,13 +41,7 @@ class RateCardEntriesCurrent(BaseModel):
 
     starting_at: Optional[datetime] = None
 
-    tiers: Optional[List[RateCardEntriesCurrentTier]] = None
-
-
-class RateCardEntriesUpdateTier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
+    tiers: Optional[List[Tier]] = None
 
 
 class RateCardEntriesUpdate(BaseModel):
@@ -84,7 +71,7 @@ class RateCardEntriesUpdate(BaseModel):
 
     quantity: Optional[float] = None
 
-    tiers: Optional[List[RateCardEntriesUpdateTier]] = None
+    tiers: Optional[List[Tier]] = None
 
 
 class RateCardEntries(BaseModel):
