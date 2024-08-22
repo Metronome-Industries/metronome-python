@@ -25,7 +25,7 @@ class DataCurrentQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -35,7 +35,7 @@ class DataCurrentQuantityConversion(BaseModel):
 class DataCurrentQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class DataCurrent(BaseModel):
@@ -102,7 +102,7 @@ class DataInitialQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -112,7 +112,7 @@ class DataInitialQuantityConversion(BaseModel):
 class DataInitialQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class DataInitial(BaseModel):
@@ -179,7 +179,7 @@ class DataUpdateQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -189,7 +189,7 @@ class DataUpdateQuantityConversion(BaseModel):
 class DataUpdateQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class DataUpdate(BaseModel):

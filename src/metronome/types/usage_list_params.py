@@ -16,7 +16,7 @@ class UsageListParams(TypedDict, total=False):
 
     starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    window_size: Required[Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"]]
+    window_size: Required[Literal["HOUR", "DAY", "NONE"]]
     """
     A window_size of "day" or "hour" will return the usage for the specified period
     segmented into daily or hourly aggregates. A window_size of "none" will return a

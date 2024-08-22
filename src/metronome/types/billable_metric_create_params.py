@@ -9,25 +9,7 @@ __all__ = ["BillableMetricCreateParams", "EventTypeFilter", "PropertyFilter"]
 
 
 class BillableMetricCreateParams(TypedDict, total=False):
-    aggregation_type: Required[
-        Literal[
-            "count",
-            "Count",
-            "COUNT",
-            "latest",
-            "Latest",
-            "LATEST",
-            "max",
-            "Max",
-            "MAX",
-            "sum",
-            "Sum",
-            "SUM",
-            "unique",
-            "Unique",
-            "UNIQUE",
-        ]
-    ]
+    aggregation_type: Required[Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"]]
     """Specifies the type of aggregation performed on matching events."""
 
     name: Required[str]

@@ -86,12 +86,7 @@ class AlertsResource(SyncAPIResource):
         *,
         customer_id: str,
         next_page: str | NotGiven = NOT_GIVEN,
-        alert_statuses: List[
-            Literal[
-                "enabled", "disabled", "archived", "ENABLED", "DISABLED", "ARCHIVED", "Enabled", "Disabled", "Archived"
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -240,12 +235,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         *,
         customer_id: str,
         next_page: str | NotGiven = NOT_GIVEN,
-        alert_statuses: List[
-            Literal[
-                "enabled", "disabled", "archived", "ENABLED", "DISABLED", "ARCHIVED", "Enabled", "Disabled", "Archived"
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
