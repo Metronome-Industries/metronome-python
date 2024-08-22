@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..shared.tier import Tier
 from ..shared.credit_type import CreditType
 
 __all__ = [
@@ -12,18 +13,10 @@ __all__ = [
     "Data",
     "DataRateCardEntries",
     "DataRateCardEntriesCurrent",
-    "DataRateCardEntriesCurrentTier",
     "DataRateCardEntriesUpdate",
-    "DataRateCardEntriesUpdateTier",
     "DataAlias",
     "DataCreditTypeConversion",
 ]
-
-
-class DataRateCardEntriesCurrentTier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
 
 
 class DataRateCardEntriesCurrent(BaseModel):
@@ -49,13 +42,7 @@ class DataRateCardEntriesCurrent(BaseModel):
 
     starting_at: Optional[datetime] = None
 
-    tiers: Optional[List[DataRateCardEntriesCurrentTier]] = None
-
-
-class DataRateCardEntriesUpdateTier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
+    tiers: Optional[List[Tier]] = None
 
 
 class DataRateCardEntriesUpdate(BaseModel):
@@ -85,7 +72,7 @@ class DataRateCardEntriesUpdate(BaseModel):
 
     quantity: Optional[float] = None
 
-    tiers: Optional[List[DataRateCardEntriesUpdateTier]] = None
+    tiers: Optional[List[Tier]] = None
 
 
 class DataRateCardEntries(BaseModel):

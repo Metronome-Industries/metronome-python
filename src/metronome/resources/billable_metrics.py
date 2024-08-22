@@ -28,7 +28,9 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.billable_metric_list_response import BillableMetricListResponse
+from ..types.shared_params.property_filter import PropertyFilter
 from ..types.billable_metric_create_response import BillableMetricCreateResponse
+from ..types.shared_params.event_type_filter import EventTypeFilter
 from ..types.billable_metric_archive_response import BillableMetricArchiveResponse
 from ..types.billable_metric_retrieve_response import BillableMetricRetrieveResponse
 
@@ -51,9 +53,9 @@ class BillableMetricsResource(SyncAPIResource):
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        event_type_filter: billable_metric_create_params.EventTypeFilter | NotGiven = NOT_GIVEN,
+        event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
-        property_filters: Iterable[billable_metric_create_params.PropertyFilter] | NotGiven = NOT_GIVEN,
+        property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,9 +251,9 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        event_type_filter: billable_metric_create_params.EventTypeFilter | NotGiven = NOT_GIVEN,
+        event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
-        property_filters: Iterable[billable_metric_create_params.PropertyFilter] | NotGiven = NOT_GIVEN,
+        property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
