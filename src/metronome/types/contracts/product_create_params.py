@@ -12,22 +12,7 @@ class ProductCreateParams(TypedDict, total=False):
     name: Required[str]
     """displayed on invoices"""
 
-    type: Required[
-        Literal[
-            "FIXED",
-            "fixed",
-            "USAGE",
-            "usage",
-            "COMPOSITE",
-            "composite",
-            "SUBSCRIPTION",
-            "subscription",
-            "PROFESSIONAL_SERVICE",
-            "professional_service",
-            "PRO_SERVICE",
-            "pro_service",
-        ]
-    ]
+    type: Required[Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"]]
 
     billable_metric_id: str
     """Required for USAGE products"""
@@ -95,7 +80,7 @@ class QuantityConversion(TypedDict, total=False):
     conversion_factor: Required[float]
     """The factor to multiply or divide the quantity by."""
 
-    operation: Required[Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]]
+    operation: Required[Literal["MULTIPLY", "DIVIDE"]]
     """The operation to perform on the quantity"""
 
     name: str
@@ -105,6 +90,4 @@ class QuantityConversion(TypedDict, total=False):
 class QuantityRounding(TypedDict, total=False):
     decimal_places: Required[float]
 
-    rounding_method: Required[
-        Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
-    ]
+    rounding_method: Required[Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]]

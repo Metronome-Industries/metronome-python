@@ -107,7 +107,7 @@ class QuantityConversion(TypedDict, total=False):
     conversion_factor: Required[float]
     """The factor to multiply or divide the quantity by."""
 
-    operation: Required[Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]]
+    operation: Required[Literal["MULTIPLY", "DIVIDE"]]
     """The operation to perform on the quantity"""
 
     name: str
@@ -117,6 +117,4 @@ class QuantityConversion(TypedDict, total=False):
 class QuantityRounding(TypedDict, total=False):
     decimal_places: Required[float]
 
-    rounding_method: Required[
-        Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
-    ]
+    rounding_method: Required[Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]]

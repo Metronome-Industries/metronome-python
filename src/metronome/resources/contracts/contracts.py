@@ -105,8 +105,7 @@ class ContractsResource(SyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "lowest_multiplier", "EXPLICIT", "explicit"]
-        | NotGiven = NOT_GIVEN,
+        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
@@ -824,8 +823,7 @@ class AsyncContractsResource(AsyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "lowest_multiplier", "EXPLICIT", "explicit"]
-        | NotGiven = NOT_GIVEN,
+        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,

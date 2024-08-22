@@ -16,18 +16,7 @@ class Tier(BaseModel):
 
 
 class Rate(BaseModel):
-    rate_type: Literal[
-        "FLAT",
-        "flat",
-        "PERCENTAGE",
-        "percentage",
-        "SUBSCRIPTION",
-        "subscription",
-        "CUSTOM",
-        "custom",
-        "TIERED",
-        "tiered",
-    ]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
     credit_type: Optional[CreditType] = None
 

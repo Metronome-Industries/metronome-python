@@ -24,7 +24,7 @@ class CurrentQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -34,7 +34,7 @@ class CurrentQuantityConversion(BaseModel):
 class CurrentQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class Current(BaseModel):
@@ -101,7 +101,7 @@ class InitialQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -111,7 +111,7 @@ class InitialQuantityConversion(BaseModel):
 class InitialQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class Initial(BaseModel):
@@ -178,7 +178,7 @@ class UpdateQuantityConversion(BaseModel):
     conversion_factor: float
     """The factor to multiply or divide the quantity by."""
 
-    operation: Literal["multiply", "divide", "MULTIPLY", "DIVIDE"]
+    operation: Literal["MULTIPLY", "DIVIDE"]
     """The operation to perform on the quantity"""
 
     name: Optional[str] = None
@@ -188,7 +188,7 @@ class UpdateQuantityConversion(BaseModel):
 class UpdateQuantityRounding(BaseModel):
     decimal_places: float
 
-    rounding_method: Literal["round_up", "round_down", "round_half_up", "ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
+    rounding_method: Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]
 
 
 class Update(BaseModel):

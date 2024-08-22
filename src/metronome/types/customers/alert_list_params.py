@@ -15,9 +15,7 @@ class AlertListParams(TypedDict, total=False):
     next_page: str
     """Cursor that indicates where the next page of results should start."""
 
-    alert_statuses: List[
-        Literal["enabled", "disabled", "archived", "ENABLED", "DISABLED", "ARCHIVED", "Enabled", "Disabled", "Archived"]
-    ]
+    alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]]
     """Optionally filter by alert status.
 
     If absent, only enabled alerts will be returned.

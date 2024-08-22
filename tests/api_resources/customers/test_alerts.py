@@ -66,7 +66,7 @@ class TestAlerts:
         alert = client.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             next_page="next_page",
-            alert_statuses=["enabled"],
+            alert_statuses=["ENABLED"],
         )
         assert_matches_type(AlertListResponse, alert, path=["response"])
 
@@ -178,7 +178,7 @@ class TestAsyncAlerts:
         alert = await async_client.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             next_page="next_page",
-            alert_statuses=["enabled"],
+            alert_statuses=["ENABLED"],
         )
         assert_matches_type(AlertListResponse, alert, path=["response"])
 
