@@ -898,7 +898,7 @@ class TestContracts:
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "type": "SUPERSEDE",
-                "future_invoice_behavior": {"trueup": "remove"},
+                "future_invoice_behavior": {"trueup": "REMOVE"},
             },
             uniqueness_key="x",
             usage_filter={
@@ -3164,7 +3164,7 @@ class TestAsyncContracts:
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "type": "SUPERSEDE",
-                "future_invoice_behavior": {"trueup": "remove"},
+                "future_invoice_behavior": {"trueup": "REMOVE"},
             },
             uniqueness_key="x",
             usage_filter={

@@ -67,25 +67,7 @@ class Data(BaseModel):
     aggregation type is 'count'.
     """
 
-    aggregation_type: Optional[
-        Literal[
-            "count",
-            "Count",
-            "COUNT",
-            "latest",
-            "Latest",
-            "LATEST",
-            "max",
-            "Max",
-            "MAX",
-            "sum",
-            "Sum",
-            "SUM",
-            "unique",
-            "Unique",
-            "UNIQUE",
-        ]
-    ] = None
+    aggregation_type: Optional[Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"]] = None
     """Specifies the type of aggregation performed on matching events."""
 
     custom_fields: Optional[Dict[str, str]] = None

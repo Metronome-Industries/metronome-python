@@ -16,7 +16,7 @@ class UsageListWithGroupsParams(TypedDict, total=False):
 
     customer_id: Required[str]
 
-    window_size: Required[Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"]]
+    window_size: Required[Literal["HOUR", "DAY", "NONE"]]
     """
     A window_size of "day" or "hour" will return the usage for the specified period
     segmented into daily or hourly aggregates. A window_size of "none" will return a

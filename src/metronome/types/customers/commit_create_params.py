@@ -36,7 +36,7 @@ class CommitCreateParams(TypedDict, total=False):
 
     product_id: Required[str]
 
-    type: Required[Literal["PREPAID", "prepaid", "POSTPAID", "postpaid"]]
+    type: Required[Literal["PREPAID", "POSTPAID"]]
 
     applicable_contract_ids: List[str]
     """Which contract the commit applies to.
@@ -105,14 +105,12 @@ class AccessSchedule(TypedDict, total=False):
 
 
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
-    amount_distribution: Required[Literal["DIVIDED", "divided", "DIVIDED_ROUNDED", "divided_rounded", "EACH", "each"]]
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
-    frequency: Required[
-        Literal["MONTHLY", "monthly", "QUARTERLY", "quarterly", "SEMI_ANNUAL", "semi_annual", "ANNUAL", "annual"]
-    ]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""

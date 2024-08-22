@@ -45,7 +45,7 @@ class Transition(BaseModel):
 
 
 class UsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "monthly", "QUARTERLY", "quarterly"]
+    frequency: Literal["MONTHLY", "QUARTERLY"]
 
 
 class CreditProduct(BaseModel):

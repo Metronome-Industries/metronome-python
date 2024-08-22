@@ -20,20 +20,7 @@ class RateAddParams(TypedDict, total=False):
     rate_card_id: Required[str]
     """ID of the rate card to update"""
 
-    rate_type: Required[
-        Literal[
-            "FLAT",
-            "flat",
-            "PERCENTAGE",
-            "percentage",
-            "SUBSCRIPTION",
-            "subscription",
-            "TIERED",
-            "tiered",
-            "CUSTOM",
-            "custom",
-        ]
-    ]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""

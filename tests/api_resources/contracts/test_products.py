@@ -53,12 +53,12 @@ class TestProducts:
             pricing_group_key=["string", "string", "string"],
             quantity_conversion={
                 "conversion_factor": 0,
-                "operation": "multiply",
+                "operation": "MULTIPLY",
                 "name": "name",
             },
             quantity_rounding={
                 "decimal_places": 0,
-                "rounding_method": "round_up",
+                "rounding_method": "ROUND_UP",
             },
             tags=["string", "string", "string"],
         )
@@ -150,12 +150,12 @@ class TestProducts:
             pricing_group_key=["string", "string", "string"],
             quantity_conversion={
                 "conversion_factor": 0,
-                "operation": "multiply",
+                "operation": "MULTIPLY",
                 "name": "name",
             },
             quantity_rounding={
                 "decimal_places": 0,
-                "rounding_method": "round_up",
+                "rounding_method": "ROUND_UP",
             },
             tags=["string", "string", "string"],
         )
@@ -284,12 +284,12 @@ class TestAsyncProducts:
             pricing_group_key=["string", "string", "string"],
             quantity_conversion={
                 "conversion_factor": 0,
-                "operation": "multiply",
+                "operation": "MULTIPLY",
                 "name": "name",
             },
             quantity_rounding={
                 "decimal_places": 0,
-                "rounding_method": "round_up",
+                "rounding_method": "ROUND_UP",
             },
             tags=["string", "string", "string"],
         )
@@ -381,12 +381,12 @@ class TestAsyncProducts:
             pricing_group_key=["string", "string", "string"],
             quantity_conversion={
                 "conversion_factor": 0,
-                "operation": "multiply",
+                "operation": "MULTIPLY",
                 "name": "name",
             },
             quantity_rounding={
                 "decimal_places": 0,
-                "rounding_method": "round_up",
+                "rounding_method": "ROUND_UP",
             },
             tags=["string", "string", "string"],
         )

@@ -95,14 +95,12 @@ class CommitAccessSchedule(TypedDict, total=False):
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
-    amount_distribution: Required[Literal["DIVIDED", "divided", "DIVIDED_ROUNDED", "divided_rounded", "EACH", "each"]]
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
-    frequency: Required[
-        Literal["MONTHLY", "monthly", "QUARTERLY", "quarterly", "SEMI_ANNUAL", "semi_annual", "ANNUAL", "annual"]
-    ]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
@@ -174,7 +172,7 @@ class CommitInvoiceSchedule(TypedDict, total=False):
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
-    type: Required[Literal["PREPAID", "prepaid", "POSTPAID", "postpaid"]]
+    type: Required[Literal["PREPAID", "POSTPAID"]]
 
     access_schedule: CommitAccessSchedule
     """Required: Schedule for distributing the commit to the customer.
@@ -284,14 +282,12 @@ class Credit(TypedDict, total=False):
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
-    amount_distribution: Required[Literal["DIVIDED", "divided", "DIVIDED_ROUNDED", "divided_rounded", "EACH", "each"]]
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
-    frequency: Required[
-        Literal["MONTHLY", "monthly", "QUARTERLY", "quarterly", "SEMI_ANNUAL", "semi_annual", "ANNUAL", "annual"]
-    ]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
@@ -405,20 +401,7 @@ class OverrideOverwriteRateTier(TypedDict, total=False):
 
 
 class OverrideOverwriteRate(TypedDict, total=False):
-    rate_type: Required[
-        Literal[
-            "FLAT",
-            "flat",
-            "PERCENTAGE",
-            "percentage",
-            "SUBSCRIPTION",
-            "subscription",
-            "TIERED",
-            "tiered",
-            "CUSTOM",
-            "custom",
-        ]
-    ]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     credit_type_id: str
 
@@ -490,7 +473,7 @@ class Override(TypedDict, total=False):
     tiers: Iterable[OverrideTier]
     """Required for TIERED type. Must have at least one tier."""
 
-    type: Literal["OVERWRITE", "overwrite", "MULTIPLIER", "multiplier", "TIERED", "tiered"]
+    type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
@@ -560,14 +543,12 @@ class ResellerRoyalty(TypedDict, total=False):
 
 
 class ScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
-    amount_distribution: Required[Literal["DIVIDED", "divided", "DIVIDED_ROUNDED", "divided_rounded", "EACH", "each"]]
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
-    frequency: Required[
-        Literal["MONTHLY", "monthly", "QUARTERLY", "quarterly", "SEMI_ANNUAL", "semi_annual", "ANNUAL", "annual"]
-    ]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""

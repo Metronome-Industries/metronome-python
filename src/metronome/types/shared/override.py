@@ -33,18 +33,7 @@ class OverwriteRateTier(BaseModel):
 
 
 class OverwriteRate(BaseModel):
-    rate_type: Literal[
-        "FLAT",
-        "flat",
-        "PERCENTAGE",
-        "percentage",
-        "SUBSCRIPTION",
-        "subscription",
-        "TIERED",
-        "tiered",
-        "CUSTOM",
-        "custom",
-    ]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
     credit_type: Optional[CreditType] = None
 
@@ -121,20 +110,7 @@ class Override(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    rate_type: Optional[
-        Literal[
-            "FLAT",
-            "flat",
-            "PERCENTAGE",
-            "percentage",
-            "SUBSCRIPTION",
-            "subscription",
-            "TIERED",
-            "tiered",
-            "CUSTOM",
-            "custom",
-        ]
-    ] = None
+    rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]] = None
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
