@@ -7,20 +7,15 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
+from ...shared_params.tier import Tier
 
-__all__ = ["RateAddManyParams", "Rate", "RateTier"]
+__all__ = ["RateAddManyParams", "Rate"]
 
 
 class RateAddManyParams(TypedDict, total=False):
     rate_card_id: str
 
     rates: Iterable[Rate]
-
-
-class RateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
 
 
 class Rate(TypedDict, total=False):
@@ -69,7 +64,7 @@ class Rate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[RateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
     use_list_prices: bool

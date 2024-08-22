@@ -1,37 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .commit import Commit
+from .credit import Credit
 from .discount import Discount
 from .override import Override
 from ..._models import BaseModel
-from .credit_type import CreditType
+from .pro_service import ProService
 from .scheduled_charge import ScheduledCharge
+from .base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractWithoutAmendments",
     "Transition",
     "UsageStatementSchedule",
-    "Credit",
-    "CreditProduct",
-    "CreditAccessSchedule",
-    "CreditAccessScheduleScheduleItem",
-    "CreditContract",
-    "CreditLedger",
-    "CreditLedgerCreditSegmentStartLedgerEntry",
-    "CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
-    "CreditLedgerCreditExpirationLedgerEntry",
-    "CreditLedgerCreditCanceledLedgerEntry",
-    "CreditLedgerCreditCreditedLedgerEntry",
-    "CreditLedgerCreditManualLedgerEntry",
-    "ProfessionalService",
     "ResellerRoyalty",
     "UsageFilter",
-    "UsageFilterCurrent",
-    "UsageFilterInitial",
     "UsageFilterUpdate",
 ]
 
@@ -46,179 +33,6 @@ class Transition(BaseModel):
 
 class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY"]
-
-
-class CreditProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class CreditAccessScheduleScheduleItem(BaseModel):
-    id: str
-
-    amount: float
-
-    ending_before: datetime
-
-    starting_at: datetime
-
-
-class CreditAccessSchedule(BaseModel):
-    schedule_items: List[CreditAccessScheduleScheduleItem]
-
-    credit_type: Optional[CreditType] = None
-
-
-class CreditContract(BaseModel):
-    id: str
-
-
-class CreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
-    amount: float
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_SEGMENT_START"]
-
-
-class CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
-
-
-class CreditLedgerCreditExpirationLedgerEntry(BaseModel):
-    amount: float
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_EXPIRATION"]
-
-
-class CreditLedgerCreditCanceledLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_CANCELED"]
-
-
-class CreditLedgerCreditCreditedLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_CREDITED"]
-
-
-class CreditLedgerCreditManualLedgerEntry(BaseModel):
-    amount: float
-
-    reason: str
-
-    timestamp: datetime
-
-    type: Literal["CREDIT_MANUAL"]
-
-
-CreditLedger: TypeAlias = Union[
-    CreditLedgerCreditSegmentStartLedgerEntry,
-    CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
-    CreditLedgerCreditExpirationLedgerEntry,
-    CreditLedgerCreditCanceledLedgerEntry,
-    CreditLedgerCreditCreditedLedgerEntry,
-    CreditLedgerCreditManualLedgerEntry,
-]
-
-
-class Credit(BaseModel):
-    id: str
-
-    product: CreditProduct
-
-    type: Literal["CREDIT"]
-
-    access_schedule: Optional[CreditAccessSchedule] = None
-    """The schedule that the customer will gain access to the credits."""
-
-    applicable_contract_ids: Optional[List[str]] = None
-
-    applicable_product_ids: Optional[List[str]] = None
-
-    applicable_product_tags: Optional[List[str]] = None
-
-    contract: Optional[CreditContract] = None
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    ledger: Optional[List[CreditLedger]] = None
-    """A list of ordered events that impact the balance of a credit.
-
-    For example, an invoice deduction or an expiration.
-    """
-
-    name: Optional[str] = None
-
-    netsuite_sales_order_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
-
-    priority: Optional[float] = None
-    """
-    If multiple credits or commits are applicable, the one with the lower priority
-    will apply first.
-    """
-
-    salesforce_opportunity_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
-
-
-class ProfessionalService(BaseModel):
-    id: str
-
-    max_amount: float
-    """Maximum amount for the term."""
-
-    product_id: str
-
-    quantity: float
-    """Quantity for the charge.
-
-    Will be multiplied by unit_price to determine the amount.
-    """
-
-    unit_price: float
-    """Unit price for the charge.
-
-    Will be multiplied by quantity to determine the amount and must be specified.
-    """
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    netsuite_sales_order_id: Optional[str] = None
-    """This field's availability is dependent on your client's configuration."""
 
 
 class ResellerRoyalty(BaseModel):
@@ -249,22 +63,6 @@ class ResellerRoyalty(BaseModel):
     reseller_contract_value: Optional[float] = None
 
 
-class UsageFilterCurrent(BaseModel):
-    group_key: str
-
-    group_values: List[str]
-
-    starting_at: Optional[datetime] = None
-
-
-class UsageFilterInitial(BaseModel):
-    group_key: str
-
-    group_values: List[str]
-
-    starting_at: Optional[datetime] = None
-
-
 class UsageFilterUpdate(BaseModel):
     group_key: str
 
@@ -274,9 +72,9 @@ class UsageFilterUpdate(BaseModel):
 
 
 class UsageFilter(BaseModel):
-    current: Optional[UsageFilterCurrent] = None
+    current: Optional[BaseUsageFilter] = None
 
-    initial: UsageFilterInitial
+    initial: BaseUsageFilter
 
     updates: List[UsageFilterUpdate]
 
@@ -312,7 +110,7 @@ class ContractWithoutAmendments(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    professional_services: Optional[List[ProfessionalService]] = None
+    professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
 
     rate_card_id: Optional[str] = None

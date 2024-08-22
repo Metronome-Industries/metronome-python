@@ -23,6 +23,7 @@ from ...._response import (
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
+from ....types.shared_params.tier import Tier
 from ....types.contracts.rate_cards import rate_add_params, rate_list_params, rate_add_many_params
 from ....types.contracts.rate_cards.rate_add_response import RateAddResponse
 from ....types.contracts.rate_cards.rate_list_response import RateListResponse
@@ -121,7 +122,7 @@ class RatesResource(SyncAPIResource):
         price: float | NotGiven = NOT_GIVEN,
         pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
         quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[rate_add_params.Tier] | NotGiven = NOT_GIVEN,
+        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
         use_list_prices: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -331,7 +332,7 @@ class AsyncRatesResource(AsyncAPIResource):
         price: float | NotGiven = NOT_GIVEN,
         pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
         quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[rate_add_params.Tier] | NotGiven = NOT_GIVEN,
+        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
         use_list_prices: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

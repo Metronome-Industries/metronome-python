@@ -7,8 +7,9 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
+from ...shared_params.tier import Tier
 
-__all__ = ["RateAddParams", "Tier"]
+__all__ = ["RateAddParams"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -69,9 +70,3 @@ class RateAddParams(TypedDict, total=False):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
-
-
-class Tier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
