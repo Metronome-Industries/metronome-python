@@ -9,7 +9,10 @@ import pytest
 
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
-from metronome.types import InvoiceRegenerateResponse
+from metronome.types import (
+    InvoiceVoidResponse,
+    InvoiceRegenerateResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -48,6 +51,37 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_void(self, client: Metronome) -> None:
+        invoice = client.invoices.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
+
+    @parametrize
+    def test_raw_response_void(self, client: Metronome) -> None:
+        response = client.invoices.with_raw_response.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
+
+    @parametrize
+    def test_streaming_response_void(self, client: Metronome) -> None:
+        with client.invoices.with_streaming_response.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncInvoices:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -80,5 +114,36 @@ class TestAsyncInvoices:
 
             invoice = await response.parse()
             assert_matches_type(InvoiceRegenerateResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_void(self, async_client: AsyncMetronome) -> None:
+        invoice = await async_client.invoices.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
+
+    @parametrize
+    async def test_raw_response_void(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.invoices.with_raw_response.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_void(self, async_client: AsyncMetronome) -> None:
+        async with async_client.invoices.with_streaming_response.void(
+            id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceVoidResponse, invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True

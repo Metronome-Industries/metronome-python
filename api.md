@@ -313,12 +313,13 @@ Methods:
 Types:
 
 ```python
-from metronome.types import InvoiceRegenerateResponse
+from metronome.types import InvoiceRegenerateResponse, InvoiceVoidResponse
 ```
 
 Methods:
 
 - <code title="post /invoices/regenerate">client.invoices.<a href="./src/metronome/resources/invoices.py">regenerate</a>(\*\*<a href="src/metronome/types/invoice_regenerate_params.py">params</a>) -> <a href="./src/metronome/types/invoice_regenerate_response.py">InvoiceRegenerateResponse</a></code>
+- <code title="post /invoices/void">client.invoices.<a href="./src/metronome/resources/invoices.py">void</a>(\*\*<a href="src/metronome/types/invoice_void_params.py">params</a>) -> <a href="./src/metronome/types/invoice_void_response.py">InvoiceVoidResponse</a></code>
 
 # Contracts
 
