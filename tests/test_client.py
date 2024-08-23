@@ -18,7 +18,6 @@ from pydantic import ValidationError
 
 from metronome import Metronome, AsyncMetronome, APIResponseValidationError
 from metronome._types import Omit
-from metronome._utils import parse_datetime
 from metronome._models import BaseModel, FinalRequestOptions
 from metronome._constants import RAW_RESPONSE_HEADER
 from metronome._exceptions import APIStatusError, MetronomeError, APITimeoutError, APIResponseValidationError
@@ -744,7 +743,7 @@ class TestMetronome:
                     object,
                     dict(
                         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        starting_at="2020-01-01T00:00:00.000Z",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -765,7 +764,7 @@ class TestMetronome:
                     object,
                     dict(
                         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        starting_at="2020-01-01T00:00:00.000Z",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -792,7 +791,7 @@ class TestMetronome:
         respx_mock.post("/contracts/create").mock(side_effect=retry_handler)
 
         response = client.contracts.with_raw_response.create(
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at="2020-01-01T00:00:00.000Z"
         )
 
         assert response.retries_taken == failures_before_success
@@ -1495,7 +1494,7 @@ class TestAsyncMetronome:
                     object,
                     dict(
                         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        starting_at="2020-01-01T00:00:00.000Z",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1516,7 +1515,7 @@ class TestAsyncMetronome:
                     object,
                     dict(
                         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        starting_at="2020-01-01T00:00:00.000Z",
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1546,7 +1545,7 @@ class TestAsyncMetronome:
         respx_mock.post("/contracts/create").mock(side_effect=retry_handler)
 
         response = await client.contracts.with_raw_response.create(
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at="2020-01-01T00:00:00.000Z"
         )
 
         assert response.retries_taken == failures_before_success
