@@ -180,6 +180,7 @@ class TestCreditGrants:
     def test_method_edit_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.edit(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            credit_grant_type="credit_grant_type",
             expires_at=parse_datetime("2022-04-01T00:00:00Z"),
             name="Acme Corp Promotional Credit Grant",
         )
@@ -476,6 +477,7 @@ class TestAsyncCreditGrants:
     async def test_method_edit_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.edit(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            credit_grant_type="credit_grant_type",
             expires_at=parse_datetime("2022-04-01T00:00:00Z"),
             name="Acme Corp Promotional Credit Grant",
         )

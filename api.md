@@ -2,15 +2,22 @@
 
 ```python
 from metronome.types import (
+    BaseUsageFilter,
     Commit,
     ContractWithoutAmendments,
+    Credit,
     CreditType,
     Discount,
+    EventTypeFilter,
     ID,
     Override,
+    PropertyFilter,
+    ProService,
     Rate,
-    SchedulePointInTime,
     ScheduledCharge,
+    ScheduleDuration,
+    SchedulePointInTime,
+    Tier,
 )
 ```
 
@@ -166,6 +173,55 @@ Methods:
 - <code title="get /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">retrieve</a>(billing_provider_type, \*, customer_id) -> <a href="./src/metronome/types/customers/billing_config_retrieve_response.py">BillingConfigRetrieveResponse</a></code>
 - <code title="delete /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">delete</a>(billing_provider_type, \*, customer_id) -> None</code>
 
+## Commits
+
+Types:
+
+```python
+from metronome.types.customers import (
+    CommitCreateResponse,
+    CommitListResponse,
+    CommitUpdateEndDateResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contracts/customerCommits/create">client.customers.commits.<a href="./src/metronome/resources/customers/commits.py">create</a>(\*\*<a href="src/metronome/types/customers/commit_create_params.py">params</a>) -> <a href="./src/metronome/types/customers/commit_create_response.py">CommitCreateResponse</a></code>
+- <code title="post /contracts/customerCommits/list">client.customers.commits.<a href="./src/metronome/resources/customers/commits.py">list</a>(\*\*<a href="src/metronome/types/customers/commit_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/commit_list_response.py">CommitListResponse</a></code>
+- <code title="post /contracts/customerCommits/updateEndDate">client.customers.commits.<a href="./src/metronome/resources/customers/commits.py">update_end_date</a>(\*\*<a href="src/metronome/types/customers/commit_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/customers/commit_update_end_date_response.py">CommitUpdateEndDateResponse</a></code>
+
+## Credits
+
+Types:
+
+```python
+from metronome.types.customers import (
+    CreditCreateResponse,
+    CreditListResponse,
+    CreditUpdateEndDateResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contracts/customerCredits/create">client.customers.credits.<a href="./src/metronome/resources/customers/credits.py">create</a>(\*\*<a href="src/metronome/types/customers/credit_create_params.py">params</a>) -> <a href="./src/metronome/types/customers/credit_create_response.py">CreditCreateResponse</a></code>
+- <code title="post /contracts/customerCredits/list">client.customers.credits.<a href="./src/metronome/resources/customers/credits.py">list</a>(\*\*<a href="src/metronome/types/customers/credit_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/credit_list_response.py">CreditListResponse</a></code>
+- <code title="post /contracts/customerCredits/updateEndDate">client.customers.credits.<a href="./src/metronome/resources/customers/credits.py">update_end_date</a>(\*\*<a href="src/metronome/types/customers/credit_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/customers/credit_update_end_date_response.py">CreditUpdateEndDateResponse</a></code>
+
+## NamedSchedules
+
+Types:
+
+```python
+from metronome.types.customers import NamedScheduleRetrieveResponse
+```
+
+Methods:
+
+- <code title="post /customers/getNamedSchedule">client.customers.named_schedules.<a href="./src/metronome/resources/customers/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/customers/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/customers/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
+- <code title="post /customers/updateNamedSchedule">client.customers.named_schedules.<a href="./src/metronome/resources/customers/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/customers/named_schedule_update_params.py">params</a>) -> None</code>
+
 # Dashboards
 
 Types:
@@ -251,3 +307,151 @@ from metronome.types import ServiceListResponse
 Methods:
 
 - <code title="get /services">client.services.<a href="./src/metronome/resources/services.py">list</a>() -> <a href="./src/metronome/types/service_list_response.py">ServiceListResponse</a></code>
+
+# Invoices
+
+Types:
+
+```python
+from metronome.types import InvoiceRegenerateResponse
+```
+
+Methods:
+
+- <code title="post /invoices/regenerate">client.invoices.<a href="./src/metronome/resources/invoices.py">regenerate</a>(\*\*<a href="src/metronome/types/invoice_regenerate_params.py">params</a>) -> <a href="./src/metronome/types/invoice_regenerate_response.py">InvoiceRegenerateResponse</a></code>
+
+# Contracts
+
+Types:
+
+```python
+from metronome.types import (
+    ContractCreateResponse,
+    ContractRetrieveResponse,
+    ContractListResponse,
+    ContractAmendResponse,
+    ContractArchiveResponse,
+    ContractListBalancesResponse,
+    ContractRetrieveRateScheduleResponse,
+    ContractScheduleProServicesInvoiceResponse,
+    ContractUpdateEndDateResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contracts/create">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">create</a>(\*\*<a href="src/metronome/types/contract_create_params.py">params</a>) -> <a href="./src/metronome/types/contract_create_response.py">ContractCreateResponse</a></code>
+- <code title="post /contracts/get">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">retrieve</a>(\*\*<a href="src/metronome/types/contract_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/contract_retrieve_response.py">ContractRetrieveResponse</a></code>
+- <code title="post /contracts/list">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">list</a>(\*\*<a href="src/metronome/types/contract_list_params.py">params</a>) -> <a href="./src/metronome/types/contract_list_response.py">ContractListResponse</a></code>
+- <code title="post /contracts/addManualBalanceLedgerEntry">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">add_manual_balance_entry</a>(\*\*<a href="src/metronome/types/contract_add_manual_balance_entry_params.py">params</a>) -> None</code>
+- <code title="post /contracts/amend">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/contract_amend_response.py">ContractAmendResponse</a></code>
+- <code title="post /contracts/archive">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/contract_archive_response.py">ContractArchiveResponse</a></code>
+- <code title="post /contracts/customerBalances/list">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/contract_list_balances_response.py">ContractListBalancesResponse</a></code>
+- <code title="post /contracts/getContractRateSchedule">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
+- <code title="post /contracts/scheduleProServicesInvoice">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">schedule_pro_services_invoice</a>(\*\*<a href="src/metronome/types/contract_schedule_pro_services_invoice_params.py">params</a>) -> <a href="./src/metronome/types/contract_schedule_pro_services_invoice_response.py">ContractScheduleProServicesInvoiceResponse</a></code>
+- <code title="post /contracts/setUsageFilter">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">set_usage_filter</a>(\*\*<a href="src/metronome/types/contract_set_usage_filter_params.py">params</a>) -> None</code>
+- <code title="post /contracts/updateEndDate">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">update_end_date</a>(\*\*<a href="src/metronome/types/contract_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/contract_update_end_date_response.py">ContractUpdateEndDateResponse</a></code>
+
+## Products
+
+Types:
+
+```python
+from metronome.types.contracts import (
+    ProductListItemState,
+    QuantityConversion,
+    QuantityRounding,
+    ProductCreateResponse,
+    ProductRetrieveResponse,
+    ProductUpdateResponse,
+    ProductListResponse,
+    ProductArchiveResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contract-pricing/products/create">client.contracts.products.<a href="./src/metronome/resources/contracts/products.py">create</a>(\*\*<a href="src/metronome/types/contracts/product_create_params.py">params</a>) -> <a href="./src/metronome/types/contracts/product_create_response.py">ProductCreateResponse</a></code>
+- <code title="post /contract-pricing/products/get">client.contracts.products.<a href="./src/metronome/resources/contracts/products.py">retrieve</a>(\*\*<a href="src/metronome/types/contracts/product_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/contracts/product_retrieve_response.py">ProductRetrieveResponse</a></code>
+- <code title="post /contract-pricing/products/update">client.contracts.products.<a href="./src/metronome/resources/contracts/products.py">update</a>(\*\*<a href="src/metronome/types/contracts/product_update_params.py">params</a>) -> <a href="./src/metronome/types/contracts/product_update_response.py">ProductUpdateResponse</a></code>
+- <code title="post /contract-pricing/products/list">client.contracts.products.<a href="./src/metronome/resources/contracts/products.py">list</a>(\*\*<a href="src/metronome/types/contracts/product_list_params.py">params</a>) -> <a href="./src/metronome/types/contracts/product_list_response.py">SyncCursorPage[ProductListResponse]</a></code>
+- <code title="post /contract-pricing/products/archive">client.contracts.products.<a href="./src/metronome/resources/contracts/products.py">archive</a>(\*\*<a href="src/metronome/types/contracts/product_archive_params.py">params</a>) -> <a href="./src/metronome/types/contracts/product_archive_response.py">ProductArchiveResponse</a></code>
+
+## RateCards
+
+Types:
+
+```python
+from metronome.types.contracts import (
+    RateCardCreateResponse,
+    RateCardRetrieveResponse,
+    RateCardUpdateResponse,
+    RateCardListResponse,
+    RateCardRetrieveRateScheduleResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contract-pricing/rate-cards/create">client.contracts.rate_cards.<a href="./src/metronome/resources/contracts/rate_cards/rate_cards.py">create</a>(\*\*<a href="src/metronome/types/contracts/rate_card_create_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_card_create_response.py">RateCardCreateResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/get">client.contracts.rate_cards.<a href="./src/metronome/resources/contracts/rate_cards/rate_cards.py">retrieve</a>(\*\*<a href="src/metronome/types/contracts/rate_card_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_card_retrieve_response.py">RateCardRetrieveResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/update">client.contracts.rate_cards.<a href="./src/metronome/resources/contracts/rate_cards/rate_cards.py">update</a>(\*\*<a href="src/metronome/types/contracts/rate_card_update_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_card_update_response.py">RateCardUpdateResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/list">client.contracts.rate_cards.<a href="./src/metronome/resources/contracts/rate_cards/rate_cards.py">list</a>(\*\*<a href="src/metronome/types/contracts/rate_card_list_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_card_list_response.py">SyncCursorPage[RateCardListResponse]</a></code>
+- <code title="post /contract-pricing/rate-cards/getRateSchedule">client.contracts.rate_cards.<a href="./src/metronome/resources/contracts/rate_cards/rate_cards.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/contracts/rate_card_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_card_retrieve_rate_schedule_response.py">RateCardRetrieveRateScheduleResponse</a></code>
+
+### ProductOrders
+
+Types:
+
+```python
+from metronome.types.contracts.rate_cards import ProductOrderUpdateResponse, ProductOrderSetResponse
+```
+
+Methods:
+
+- <code title="post /contract-pricing/rate-cards/moveRateCardProducts">client.contracts.rate_cards.product_orders.<a href="./src/metronome/resources/contracts/rate_cards/product_orders.py">update</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/product_order_update_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/product_order_update_response.py">ProductOrderUpdateResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/setRateCardProductsOrder">client.contracts.rate_cards.product_orders.<a href="./src/metronome/resources/contracts/rate_cards/product_orders.py">set</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/product_order_set_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/product_order_set_response.py">ProductOrderSetResponse</a></code>
+
+### Rates
+
+Types:
+
+```python
+from metronome.types.contracts.rate_cards import (
+    RateListResponse,
+    RateAddResponse,
+    RateAddManyResponse,
+)
+```
+
+Methods:
+
+- <code title="post /contract-pricing/rate-cards/getRates">client.contracts.rate_cards.rates.<a href="./src/metronome/resources/contracts/rate_cards/rates.py">list</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/rate_list_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/rate_list_response.py">SyncCursorPage[RateListResponse]</a></code>
+- <code title="post /contract-pricing/rate-cards/addRate">client.contracts.rate_cards.rates.<a href="./src/metronome/resources/contracts/rate_cards/rates.py">add</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/rate_add_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/rate_add_response.py">RateAddResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/addRates">client.contracts.rate_cards.rates.<a href="./src/metronome/resources/contracts/rate_cards/rates.py">add_many</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/rate_add_many_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/rate_add_many_response.py">RateAddManyResponse</a></code>
+
+### NamedSchedules
+
+Types:
+
+```python
+from metronome.types.contracts.rate_cards import NamedScheduleRetrieveResponse
+```
+
+Methods:
+
+- <code title="post /contracts/getNamedSchedule">client.contracts.rate_cards.named_schedules.<a href="./src/metronome/resources/contracts/rate_cards/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/contracts/rate_cards/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
+- <code title="post /contracts/updateNamedSchedule">client.contracts.rate_cards.named_schedules.<a href="./src/metronome/resources/contracts/rate_cards/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/contracts/rate_cards/named_schedule_update_params.py">params</a>) -> None</code>
+
+## NamedSchedules
+
+Types:
+
+```python
+from metronome.types.contracts import NamedScheduleRetrieveResponse
+```
+
+Methods:
+
+- <code title="post /contract-pricing/rate-cards/getNamedSchedule">client.contracts.named_schedules.<a href="./src/metronome/resources/contracts/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/contracts/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/contracts/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
+- <code title="post /contract-pricing/rate-cards/updateNamedSchedule">client.contracts.named_schedules.<a href="./src/metronome/resources/contracts/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/contracts/named_schedule_update_params.py">params</a>) -> None</code>

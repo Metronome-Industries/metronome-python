@@ -37,10 +37,10 @@ client = Metronome(
 response = client.usage.ingest(
     usage=[
         {
-            "transaction_id": "2021-01-01T00:00:00Z_cluster42",
             "customer_id": "team@example.com",
             "event_type": "heartbeat",
             "timestamp": "2021-01-01T00:00:00Z",
+            "transaction_id": "2021-01-01T00:00:00Z_cluster42",
         }
     ],
 )
@@ -70,10 +70,10 @@ async def main() -> None:
     response = await client.usage.ingest(
         usage=[
             {
-                "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 "customer_id": "team@example.com",
                 "event_type": "heartbeat",
                 "timestamp": "2021-01-01T00:00:00Z",
+                "transaction_id": "2021-01-01T00:00:00Z_cluster42",
             }
         ],
     )
@@ -93,6 +93,69 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Metronome API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from metronome import Metronome
+
+client = Metronome()
+
+all_products = []
+# Automatically fetches more pages as needed.
+for product in client.contracts.products.list():
+    # Do something with product here
+    all_products.append(product)
+print(all_products)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from metronome import AsyncMetronome
+
+client = AsyncMetronome()
+
+
+async def main() -> None:
+    all_products = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for product in client.contracts.products.list():
+        all_products.append(product)
+    print(all_products)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.contracts.products.list()
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.data)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.contracts.products.list()
+
+print(f"next page cursor: {first_page.next_page}")  # => "next page cursor: ..."
+for product in first_page.data:
+    print(product.id)
+
+# Remove `await` for non-async usage.
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `metronome.APIConnectionError` is raised.
@@ -103,16 +166,17 @@ response), a subclass of `metronome.APIStatusError` is raised, containing `statu
 All errors inherit from `metronome.APIError`.
 
 ```python
+from metronome._utils import parse_datetime
+
 import metronome
 from metronome import Metronome
 
 client = Metronome()
 
 try:
-    client.alerts.create(
-        alert_type="spend_threshold_reached",
-        name="$100 spend threshold reached",
-        threshold=10000,
+    client.contracts.create(
+        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
     )
 except metronome.APIConnectionError as e:
     print("The server could not be reached")
@@ -147,6 +211,8 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
+from metronome._utils import parse_datetime
+
 from metronome import Metronome
 
 # Configure the default for all requests:
@@ -156,10 +222,9 @@ client = Metronome(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).alerts.create(
-    alert_type="spend_threshold_reached",
-    name="$100 spend threshold reached",
-    threshold=10000,
+client.with_options(max_retries=5).contracts.create(
+    customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
 ```
 
@@ -169,6 +234,8 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
+from metronome._utils import parse_datetime
+
 from metronome import Metronome
 
 # Configure the default for all requests:
@@ -183,10 +250,9 @@ client = Metronome(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).alerts.create(
-    alert_type="spend_threshold_reached",
-    name="$100 spend threshold reached",
-    threshold=10000,
+client.with_options(timeout=5.0).contracts.create(
+    customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
 ```
 
@@ -226,15 +292,14 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from metronome import Metronome
 
 client = Metronome()
-response = client.alerts.with_raw_response.create(
-    alert_type="spend_threshold_reached",
-    name="$100 spend threshold reached",
-    threshold=10000,
+response = client.contracts.with_raw_response.create(
+    customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
 print(response.headers.get('X-My-Header'))
 
-alert = response.parse()  # get the object that `alerts.create()` would have returned
-print(alert.data)
+contract = response.parse()  # get the object that `contracts.create()` would have returned
+print(contract.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/Metronome-Industries/metronome-python/tree/main/src/metronome/_response.py) object.
@@ -248,10 +313,9 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.alerts.with_streaming_response.create(
-    alert_type="spend_threshold_reached",
-    name="$100 spend threshold reached",
-    threshold=10000,
+with client.contracts.with_streaming_response.create(
+    customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 ) as response:
     print(response.headers.get("X-My-Header"))
 

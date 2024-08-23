@@ -33,6 +33,22 @@ from ...types import (
     customer_set_ingest_aliases_params,
     customer_list_billable_metrics_params,
 )
+from .commits import (
+    CommitsResource,
+    AsyncCommitsResource,
+    CommitsResourceWithRawResponse,
+    AsyncCommitsResourceWithRawResponse,
+    CommitsResourceWithStreamingResponse,
+    AsyncCommitsResourceWithStreamingResponse,
+)
+from .credits import (
+    CreditsResource,
+    AsyncCreditsResource,
+    CreditsResourceWithRawResponse,
+    AsyncCreditsResourceWithRawResponse,
+    CreditsResourceWithStreamingResponse,
+    AsyncCreditsResourceWithStreamingResponse,
+)
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ..._utils import (
     maybe_transform,
@@ -64,6 +80,14 @@ from .billing_config import (
     BillingConfigResourceWithStreamingResponse,
     AsyncBillingConfigResourceWithStreamingResponse,
 )
+from .named_schedules import (
+    NamedSchedulesResource,
+    AsyncNamedSchedulesResource,
+    NamedSchedulesResourceWithRawResponse,
+    AsyncNamedSchedulesResourceWithRawResponse,
+    NamedSchedulesResourceWithStreamingResponse,
+    AsyncNamedSchedulesResourceWithStreamingResponse,
+)
 from ...types.customer_detail import CustomerDetail
 from ...types.customer_create_response import CustomerCreateResponse
 from ...types.customer_archive_response import CustomerArchiveResponse
@@ -91,6 +115,18 @@ class CustomersResource(SyncAPIResource):
     @cached_property
     def billing_config(self) -> BillingConfigResource:
         return BillingConfigResource(self._client)
+
+    @cached_property
+    def commits(self) -> CommitsResource:
+        return CommitsResource(self._client)
+
+    @cached_property
+    def credits(self) -> CreditsResource:
+        return CreditsResource(self._client)
+
+    @cached_property
+    def named_schedules(self) -> NamedSchedulesResource:
+        return NamedSchedulesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> CustomersResourceWithRawResponse:
@@ -540,6 +576,18 @@ class AsyncCustomersResource(AsyncAPIResource):
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResource:
         return AsyncBillingConfigResource(self._client)
+
+    @cached_property
+    def commits(self) -> AsyncCommitsResource:
+        return AsyncCommitsResource(self._client)
+
+    @cached_property
+    def credits(self) -> AsyncCreditsResource:
+        return AsyncCreditsResource(self._client)
+
+    @cached_property
+    def named_schedules(self) -> AsyncNamedSchedulesResource:
+        return AsyncNamedSchedulesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncCustomersResourceWithRawResponse:
@@ -1021,6 +1069,18 @@ class CustomersResourceWithRawResponse:
     def billing_config(self) -> BillingConfigResourceWithRawResponse:
         return BillingConfigResourceWithRawResponse(self._customers.billing_config)
 
+    @cached_property
+    def commits(self) -> CommitsResourceWithRawResponse:
+        return CommitsResourceWithRawResponse(self._customers.commits)
+
+    @cached_property
+    def credits(self) -> CreditsResourceWithRawResponse:
+        return CreditsResourceWithRawResponse(self._customers.credits)
+
+    @cached_property
+    def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
+        return NamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
+
 
 class AsyncCustomersResourceWithRawResponse:
     def __init__(self, customers: AsyncCustomersResource) -> None:
@@ -1069,6 +1129,18 @@ class AsyncCustomersResourceWithRawResponse:
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResourceWithRawResponse:
         return AsyncBillingConfigResourceWithRawResponse(self._customers.billing_config)
+
+    @cached_property
+    def commits(self) -> AsyncCommitsResourceWithRawResponse:
+        return AsyncCommitsResourceWithRawResponse(self._customers.commits)
+
+    @cached_property
+    def credits(self) -> AsyncCreditsResourceWithRawResponse:
+        return AsyncCreditsResourceWithRawResponse(self._customers.credits)
+
+    @cached_property
+    def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
+        return AsyncNamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
 
 
 class CustomersResourceWithStreamingResponse:
@@ -1119,6 +1191,18 @@ class CustomersResourceWithStreamingResponse:
     def billing_config(self) -> BillingConfigResourceWithStreamingResponse:
         return BillingConfigResourceWithStreamingResponse(self._customers.billing_config)
 
+    @cached_property
+    def commits(self) -> CommitsResourceWithStreamingResponse:
+        return CommitsResourceWithStreamingResponse(self._customers.commits)
+
+    @cached_property
+    def credits(self) -> CreditsResourceWithStreamingResponse:
+        return CreditsResourceWithStreamingResponse(self._customers.credits)
+
+    @cached_property
+    def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
+        return NamedSchedulesResourceWithStreamingResponse(self._customers.named_schedules)
+
 
 class AsyncCustomersResourceWithStreamingResponse:
     def __init__(self, customers: AsyncCustomersResource) -> None:
@@ -1167,3 +1251,15 @@ class AsyncCustomersResourceWithStreamingResponse:
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResourceWithStreamingResponse:
         return AsyncBillingConfigResourceWithStreamingResponse(self._customers.billing_config)
+
+    @cached_property
+    def commits(self) -> AsyncCommitsResourceWithStreamingResponse:
+        return AsyncCommitsResourceWithStreamingResponse(self._customers.commits)
+
+    @cached_property
+    def credits(self) -> AsyncCreditsResourceWithStreamingResponse:
+        return AsyncCreditsResourceWithStreamingResponse(self._customers.credits)
+
+    @cached_property
+    def named_schedules(self) -> AsyncNamedSchedulesResourceWithStreamingResponse:
+        return AsyncNamedSchedulesResourceWithStreamingResponse(self._customers.named_schedules)

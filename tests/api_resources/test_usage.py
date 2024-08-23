@@ -27,7 +27,7 @@ class TestUsage:
         usage = client.usage.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         )
         assert_matches_type(UsageListResponse, usage, path=["response"])
 
@@ -36,7 +36,7 @@ class TestUsage:
         usage = client.usage.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
             next_page="next_page",
             billable_metrics=[
                 {
@@ -74,7 +74,7 @@ class TestUsage:
         response = client.usage.with_raw_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         )
 
         assert response.is_closed is True
@@ -87,7 +87,7 @@ class TestUsage:
         with client.usage.with_streaming_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -102,10 +102,10 @@ class TestUsage:
         usage = client.usage.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         )
@@ -116,10 +116,10 @@ class TestUsage:
         response = client.usage.with_raw_response.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         )
@@ -134,10 +134,10 @@ class TestUsage:
         with client.usage.with_streaming_response.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         ) as response:
@@ -154,7 +154,7 @@ class TestUsage:
         usage = client.usage.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         )
         assert_matches_type(SyncCursorPage[UsageListWithGroupsResponse], usage, path=["response"])
 
@@ -163,7 +163,7 @@ class TestUsage:
         usage = client.usage.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
             limit=1,
             next_page="next_page",
             current_period=True,
@@ -181,7 +181,7 @@ class TestUsage:
         response = client.usage.with_raw_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         )
 
         assert response.is_closed is True
@@ -194,7 +194,7 @@ class TestUsage:
         with client.usage.with_streaming_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -213,7 +213,7 @@ class TestAsyncUsage:
         usage = await async_client.usage.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         )
         assert_matches_type(UsageListResponse, usage, path=["response"])
 
@@ -222,7 +222,7 @@ class TestAsyncUsage:
         usage = await async_client.usage.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
             next_page="next_page",
             billable_metrics=[
                 {
@@ -260,7 +260,7 @@ class TestAsyncUsage:
         response = await async_client.usage.with_raw_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         )
 
         assert response.is_closed is True
@@ -273,7 +273,7 @@ class TestAsyncUsage:
         async with async_client.usage.with_streaming_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
-            window_size="day",
+            window_size="HOUR",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -288,10 +288,10 @@ class TestAsyncUsage:
         usage = await async_client.usage.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         )
@@ -302,10 +302,10 @@ class TestAsyncUsage:
         response = await async_client.usage.with_raw_response.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         )
@@ -320,10 +320,10 @@ class TestAsyncUsage:
         async with async_client.usage.with_streaming_response.ingest(
             usage=[
                 {
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                     "customer_id": "team@example.com",
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
+                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
                 }
             ],
         ) as response:
@@ -340,7 +340,7 @@ class TestAsyncUsage:
         usage = await async_client.usage.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         )
         assert_matches_type(AsyncCursorPage[UsageListWithGroupsResponse], usage, path=["response"])
 
@@ -349,7 +349,7 @@ class TestAsyncUsage:
         usage = await async_client.usage.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
             limit=1,
             next_page="next_page",
             current_period=True,
@@ -367,7 +367,7 @@ class TestAsyncUsage:
         response = await async_client.usage.with_raw_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         )
 
         assert response.is_closed is True
@@ -380,7 +380,7 @@ class TestAsyncUsage:
         async with async_client.usage.with_streaming_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
-            window_size="day",
+            window_size="HOUR",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

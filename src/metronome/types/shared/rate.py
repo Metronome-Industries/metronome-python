@@ -3,31 +3,15 @@
 from typing import Dict, List, Optional
 from typing_extensions import Literal
 
+from .tier import Tier
 from ..._models import BaseModel
 from .credit_type import CreditType
 
-__all__ = ["Rate", "Tier"]
-
-
-class Tier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
+__all__ = ["Rate"]
 
 
 class Rate(BaseModel):
-    rate_type: Literal[
-        "FLAT",
-        "flat",
-        "PERCENTAGE",
-        "percentage",
-        "SUBSCRIPTION",
-        "subscription",
-        "CUSTOM",
-        "custom",
-        "TIERED",
-        "tiered",
-    ]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
     credit_type: Optional[CreditType] = None
 

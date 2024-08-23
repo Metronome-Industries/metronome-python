@@ -39,11 +39,11 @@ class TestCustomers:
         customer = client.customers.create(
             name="Example, Inc.",
             billing_config={
-                "billing_provider_type": "aws_marketplace",
                 "billing_provider_customer_id": "billing_provider_customer_id",
-                "stripe_collection_method": "charge_automatically",
+                "billing_provider_type": "aws_marketplace",
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",
+                "stripe_collection_method": "charge_automatically",
             },
             custom_fields={"foo": "string"},
             external_id="x",
@@ -433,11 +433,11 @@ class TestAsyncCustomers:
         customer = await async_client.customers.create(
             name="Example, Inc.",
             billing_config={
-                "billing_provider_type": "aws_marketplace",
                 "billing_provider_customer_id": "billing_provider_customer_id",
-                "stripe_collection_method": "charge_automatically",
+                "billing_provider_type": "aws_marketplace",
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",
+                "stripe_collection_method": "charge_automatically",
             },
             custom_fields={"foo": "string"},
             external_id="x",

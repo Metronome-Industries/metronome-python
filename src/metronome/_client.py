@@ -56,6 +56,8 @@ class Metronome(SyncAPIClient):
     custom_fields: resources.CustomFieldsResource
     billable_metrics: resources.BillableMetricsResource
     services: resources.ServicesResource
+    invoices: resources.InvoicesResource
+    contracts: resources.ContractsResource
     with_raw_response: MetronomeWithRawResponse
     with_streaming_response: MetronomeWithStreamedResponse
 
@@ -131,6 +133,8 @@ class Metronome(SyncAPIClient):
         self.custom_fields = resources.CustomFieldsResource(self)
         self.billable_metrics = resources.BillableMetricsResource(self)
         self.services = resources.ServicesResource(self)
+        self.invoices = resources.InvoicesResource(self)
+        self.contracts = resources.ContractsResource(self)
         self.with_raw_response = MetronomeWithRawResponse(self)
         self.with_streaming_response = MetronomeWithStreamedResponse(self)
 
@@ -252,6 +256,8 @@ class AsyncMetronome(AsyncAPIClient):
     custom_fields: resources.AsyncCustomFieldsResource
     billable_metrics: resources.AsyncBillableMetricsResource
     services: resources.AsyncServicesResource
+    invoices: resources.AsyncInvoicesResource
+    contracts: resources.AsyncContractsResource
     with_raw_response: AsyncMetronomeWithRawResponse
     with_streaming_response: AsyncMetronomeWithStreamedResponse
 
@@ -327,6 +333,8 @@ class AsyncMetronome(AsyncAPIClient):
         self.custom_fields = resources.AsyncCustomFieldsResource(self)
         self.billable_metrics = resources.AsyncBillableMetricsResource(self)
         self.services = resources.AsyncServicesResource(self)
+        self.invoices = resources.AsyncInvoicesResource(self)
+        self.contracts = resources.AsyncContractsResource(self)
         self.with_raw_response = AsyncMetronomeWithRawResponse(self)
         self.with_streaming_response = AsyncMetronomeWithStreamedResponse(self)
 
@@ -449,6 +457,8 @@ class MetronomeWithRawResponse:
         self.custom_fields = resources.CustomFieldsResourceWithRawResponse(client.custom_fields)
         self.billable_metrics = resources.BillableMetricsResourceWithRawResponse(client.billable_metrics)
         self.services = resources.ServicesResourceWithRawResponse(client.services)
+        self.invoices = resources.InvoicesResourceWithRawResponse(client.invoices)
+        self.contracts = resources.ContractsResourceWithRawResponse(client.contracts)
 
 
 class AsyncMetronomeWithRawResponse:
@@ -463,6 +473,8 @@ class AsyncMetronomeWithRawResponse:
         self.custom_fields = resources.AsyncCustomFieldsResourceWithRawResponse(client.custom_fields)
         self.billable_metrics = resources.AsyncBillableMetricsResourceWithRawResponse(client.billable_metrics)
         self.services = resources.AsyncServicesResourceWithRawResponse(client.services)
+        self.invoices = resources.AsyncInvoicesResourceWithRawResponse(client.invoices)
+        self.contracts = resources.AsyncContractsResourceWithRawResponse(client.contracts)
 
 
 class MetronomeWithStreamedResponse:
@@ -477,6 +489,8 @@ class MetronomeWithStreamedResponse:
         self.custom_fields = resources.CustomFieldsResourceWithStreamingResponse(client.custom_fields)
         self.billable_metrics = resources.BillableMetricsResourceWithStreamingResponse(client.billable_metrics)
         self.services = resources.ServicesResourceWithStreamingResponse(client.services)
+        self.invoices = resources.InvoicesResourceWithStreamingResponse(client.invoices)
+        self.contracts = resources.ContractsResourceWithStreamingResponse(client.contracts)
 
 
 class AsyncMetronomeWithStreamedResponse:
@@ -491,6 +505,8 @@ class AsyncMetronomeWithStreamedResponse:
         self.custom_fields = resources.AsyncCustomFieldsResourceWithStreamingResponse(client.custom_fields)
         self.billable_metrics = resources.AsyncBillableMetricsResourceWithStreamingResponse(client.billable_metrics)
         self.services = resources.AsyncServicesResourceWithStreamingResponse(client.services)
+        self.invoices = resources.AsyncInvoicesResourceWithStreamingResponse(client.invoices)
+        self.contracts = resources.AsyncContractsResourceWithStreamingResponse(client.contracts)
 
 
 Client = Metronome

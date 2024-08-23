@@ -44,7 +44,7 @@ class UsageResource(SyncAPIResource):
         *,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        window_size: Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"],
+        window_size: Literal["HOUR", "DAY", "NONE"],
         next_page: str | NotGiven = NOT_GIVEN,
         billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
         customer_ids: List[str] | NotGiven = NOT_GIVEN,
@@ -133,7 +133,7 @@ class UsageResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/ingest",
-            body=maybe_transform(usage, usage_ingest_params.UsageIngestParams),
+            body=maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -145,7 +145,7 @@ class UsageResource(SyncAPIResource):
         *,
         billable_metric_id: str,
         customer_id: str,
-        window_size: Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"],
+        window_size: Literal["HOUR", "DAY", "NONE"],
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         current_period: bool | NotGiven = NOT_GIVEN,
@@ -231,7 +231,7 @@ class AsyncUsageResource(AsyncAPIResource):
         *,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        window_size: Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"],
+        window_size: Literal["HOUR", "DAY", "NONE"],
         next_page: str | NotGiven = NOT_GIVEN,
         billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
         customer_ids: List[str] | NotGiven = NOT_GIVEN,
@@ -320,7 +320,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/ingest",
-            body=await async_maybe_transform(usage, usage_ingest_params.UsageIngestParams),
+            body=await async_maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -332,7 +332,7 @@ class AsyncUsageResource(AsyncAPIResource):
         *,
         billable_metric_id: str,
         customer_id: str,
-        window_size: Literal["hour", "day", "none", "HOUR", "DAY", "NONE", "Hour", "Day", "None"],
+        window_size: Literal["HOUR", "DAY", "NONE"],
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         current_period: bool | NotGiven = NOT_GIVEN,

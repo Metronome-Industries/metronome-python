@@ -2,17 +2,15 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from .credit_type import CreditType
+from .schedule_duration import ScheduleDuration
 from .schedule_point_in_time import SchedulePointInTime
 
 __all__ = [
     "Commit",
     "Product",
-    "AccessSchedule",
-    "AccessScheduleScheduleItem",
     "Contract",
     "InvoiceContract",
     "Ledger",
@@ -25,8 +23,6 @@ __all__ = [
     "LedgerPostpaidCommitInitialBalanceLedgerEntry",
     "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "LedgerPostpaidCommitRolloverLedgerEntry",
-    "LedgerPostpaidCommitCanceledLedgerEntry",
-    "LedgerPostpaidCommitCreditedLedgerEntry",
     "LedgerPostpaidCommitTrueupLedgerEntry",
     "LedgerPrepaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitManualLedgerEntry",
@@ -39,22 +35,6 @@ class Product(BaseModel):
     id: str
 
     name: str
-
-
-class AccessScheduleScheduleItem(BaseModel):
-    id: str
-
-    amount: float
-
-    ending_before: datetime
-
-    starting_at: datetime
-
-
-class AccessSchedule(BaseModel):
-    schedule_items: List[AccessScheduleScheduleItem]
-
-    credit_type: Optional[CreditType] = None
 
 
 class Contract(BaseModel):
@@ -165,30 +145,6 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
 
-class LedgerPostpaidCommitCanceledLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CANCELED"]
-
-
-class LedgerPostpaidCommitCreditedLedgerEntry(BaseModel):
-    amount: float
-
-    invoice_id: str
-
-    segment_id: str
-
-    timestamp: datetime
-
-    type: Literal["POSTPAID_COMMIT_CREDITED"]
-
-
 class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
 
@@ -227,7 +183,7 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
 
-Ledger = Union[
+Ledger: TypeAlias = Union[
     LedgerPrepaidCommitSegmentStartLedgerEntry,
     LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPrepaidCommitRolloverLedgerEntry,
@@ -237,8 +193,6 @@ Ledger = Union[
     LedgerPostpaidCommitInitialBalanceLedgerEntry,
     LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPostpaidCommitRolloverLedgerEntry,
-    LedgerPostpaidCommitCanceledLedgerEntry,
-    LedgerPostpaidCommitCreditedLedgerEntry,
     LedgerPostpaidCommitTrueupLedgerEntry,
     LedgerPrepaidCommitManualLedgerEntry,
     LedgerPostpaidCommitManualLedgerEntry,
@@ -259,7 +213,7 @@ class Commit(BaseModel):
 
     type: Literal["PREPAID", "POSTPAID"]
 
-    access_schedule: Optional[AccessSchedule] = None
+    access_schedule: Optional[ScheduleDuration] = None
     """
     The schedule that the customer will gain access to the credits purposed with
     this commit.
