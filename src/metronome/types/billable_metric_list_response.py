@@ -12,14 +12,10 @@ __all__ = ["BillableMetricListResponse"]
 
 class BillableMetricListResponse(BaseModel):
     id: str
+    """ID of the billable metric"""
 
     name: str
-
-    aggregate: Optional[str] = None
-    """(DEPRECATED) use aggregation_type instead"""
-
-    aggregate_keys: Optional[List[str]] = None
-    """(DEPRECATED) use aggregation_key instead"""
+    """The display name of the billable metric."""
 
     aggregation_key: Optional[str] = None
     """A key that specifies which property of the event is used to aggregate data.
@@ -35,12 +31,6 @@ class BillableMetricListResponse(BaseModel):
 
     event_type_filter: Optional[EventTypeFilter] = None
     """An optional filtering rule to match the 'event_type' property of an event."""
-
-    filter: Optional[Dict[str, object]] = None
-    """(DEPRECATED) use property_filters & event_type_filter instead"""
-
-    group_by: Optional[List[str]] = None
-    """(DEPRECATED) use group_keys instead"""
 
     group_keys: Optional[List[List[str]]] = None
     """Property names that are used to group usage costs on an invoice.

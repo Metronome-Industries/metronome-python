@@ -122,6 +122,12 @@ from .contract_add_manual_balance_entry_params import (
 from .contract_retrieve_rate_schedule_response import (
     ContractRetrieveRateScheduleResponse as ContractRetrieveRateScheduleResponse,
 )
+from .contract_create_historical_invoices_params import (
+    ContractCreateHistoricalInvoicesParams as ContractCreateHistoricalInvoicesParams,
+)
+from .contract_create_historical_invoices_response import (
+    ContractCreateHistoricalInvoicesResponse as ContractCreateHistoricalInvoicesResponse,
+)
 from .contract_schedule_pro_services_invoice_params import (
     ContractScheduleProServicesInvoiceParams as ContractScheduleProServicesInvoiceParams,
 )

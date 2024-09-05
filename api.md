@@ -293,7 +293,7 @@ Methods:
 
 - <code title="post /billable-metrics/create">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">create</a>(\*\*<a href="src/metronome/types/billable_metric_create_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_create_response.py">BillableMetricCreateResponse</a></code>
 - <code title="get /billable-metrics/{billable_metric_id}">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">retrieve</a>(billable_metric_id) -> <a href="./src/metronome/types/billable_metric_retrieve_response.py">BillableMetricRetrieveResponse</a></code>
-- <code title="get /customers/{customer_id}/billable-metrics">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">list</a>(customer_id, \*\*<a href="src/metronome/types/billable_metric_list_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_list_response.py">SyncCursorPage[BillableMetricListResponse]</a></code>
+- <code title="get /billable-metrics">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">list</a>(\*\*<a href="src/metronome/types/billable_metric_list_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_list_response.py">SyncCursorPage[BillableMetricListResponse]</a></code>
 - <code title="post /billable-metrics/archive">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">archive</a>(\*\*<a href="src/metronome/types/billable_metric_archive_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_archive_response.py">BillableMetricArchiveResponse</a></code>
 
 # Services
@@ -332,6 +332,7 @@ from metronome.types import (
     ContractListResponse,
     ContractAmendResponse,
     ContractArchiveResponse,
+    ContractCreateHistoricalInvoicesResponse,
     ContractListBalancesResponse,
     ContractRetrieveRateScheduleResponse,
     ContractScheduleProServicesInvoiceResponse,
@@ -347,6 +348,7 @@ Methods:
 - <code title="post /contracts/addManualBalanceLedgerEntry">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">add_manual_balance_entry</a>(\*\*<a href="src/metronome/types/contract_add_manual_balance_entry_params.py">params</a>) -> None</code>
 - <code title="post /contracts/amend">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/contract_amend_response.py">ContractAmendResponse</a></code>
 - <code title="post /contracts/archive">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/contract_archive_response.py">ContractArchiveResponse</a></code>
+- <code title="post /contracts/createHistoricalInvoices">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">create_historical_invoices</a>(\*\*<a href="src/metronome/types/contract_create_historical_invoices_params.py">params</a>) -> <a href="./src/metronome/types/contract_create_historical_invoices_response.py">ContractCreateHistoricalInvoicesResponse</a></code>
 - <code title="post /contracts/customerBalances/list">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/contract_list_balances_response.py">ContractListBalancesResponse</a></code>
 - <code title="post /contracts/getContractRateSchedule">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
 - <code title="post /contracts/scheduleProServicesInvoice">client.contracts.<a href="./src/metronome/resources/contracts/contracts.py">schedule_pro_services_invoice</a>(\*\*<a href="src/metronome/types/contract_schedule_pro_services_invoice_params.py">params</a>) -> <a href="./src/metronome/types/contract_schedule_pro_services_invoice_response.py">ContractScheduleProServicesInvoiceResponse</a></code>

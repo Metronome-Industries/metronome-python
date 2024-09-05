@@ -41,6 +41,10 @@ class DashboardsResource(SyncAPIResource):
         *,
         customer_id: str,
         dashboard: Literal["invoices", "usage", "credits"],
+        bm_group_key_display_name_overrides: dashboard_get_embeddable_url_params.BmGroupKeyDisplayNameOverrides
+        | NotGiven = NOT_GIVEN,
+        bm_group_key_values_display_name_overrides: dashboard_get_embeddable_url_params.BmGroupKeyValuesDisplayNameOverrides
+        | NotGiven = NOT_GIVEN,
         color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | NotGiven = NOT_GIVEN,
         dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -77,6 +81,8 @@ class DashboardsResource(SyncAPIResource):
                 {
                     "customer_id": customer_id,
                     "dashboard": dashboard,
+                    "bm_group_key_display_name_overrides": bm_group_key_display_name_overrides,
+                    "bm_group_key_values_display_name_overrides": bm_group_key_values_display_name_overrides,
                     "color_overrides": color_overrides,
                     "dashboard_options": dashboard_options,
                 },
@@ -103,6 +109,10 @@ class AsyncDashboardsResource(AsyncAPIResource):
         *,
         customer_id: str,
         dashboard: Literal["invoices", "usage", "credits"],
+        bm_group_key_display_name_overrides: dashboard_get_embeddable_url_params.BmGroupKeyDisplayNameOverrides
+        | NotGiven = NOT_GIVEN,
+        bm_group_key_values_display_name_overrides: dashboard_get_embeddable_url_params.BmGroupKeyValuesDisplayNameOverrides
+        | NotGiven = NOT_GIVEN,
         color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | NotGiven = NOT_GIVEN,
         dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -139,6 +149,8 @@ class AsyncDashboardsResource(AsyncAPIResource):
                 {
                     "customer_id": customer_id,
                     "dashboard": dashboard,
+                    "bm_group_key_display_name_overrides": bm_group_key_display_name_overrides,
+                    "bm_group_key_values_display_name_overrides": bm_group_key_values_display_name_overrides,
                     "color_overrides": color_overrides,
                     "dashboard_options": dashboard_options,
                 },
