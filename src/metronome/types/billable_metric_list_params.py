@@ -13,9 +13,3 @@ class BillableMetricListParams(TypedDict, total=False):
 
     next_page: str
     """Cursor that indicates where the next page of results should start."""
-
-    on_current_plan: bool
-    """
-    If true, the list of metrics will be filtered to just ones that are on the
-    customer's current plan
-    """

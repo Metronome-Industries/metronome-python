@@ -5,6 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..shared.rate import Rate
 from ..shared.credit_type import CreditType
 
 __all__ = [
@@ -117,6 +118,13 @@ class LineItem(BaseModel):
 
     is_prorated: Optional[bool] = None
     """only present for beta contract invoices"""
+
+    list_price: Optional[Rate] = None
+    """
+    only present for contract invoices and when the include_list_prices query
+    parameter is set to true. This will include the list rate for the charge if
+    applicable. Only present for usage and subscription line items.
+    """
 
     metadata: Optional[str] = None
 
