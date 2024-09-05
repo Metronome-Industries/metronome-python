@@ -19,6 +19,7 @@ from ...types import (
     contract_set_usage_filter_params,
     contract_retrieve_rate_schedule_params,
     contract_add_manual_balance_entry_params,
+    contract_create_historical_invoices_params,
     contract_schedule_pro_services_invoice_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -69,6 +70,7 @@ from ...types.contract_list_balances_response import ContractListBalancesRespons
 from ...types.shared_params.base_usage_filter import BaseUsageFilter
 from ...types.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ...types.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
+from ...types.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ...types.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
 
 __all__ = ["ContractsResource", "AsyncContractsResource"]
@@ -502,6 +504,45 @@ class ContractsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ContractArchiveResponse,
+        )
+
+    def create_historical_invoices(
+        self,
+        *,
+        invoices: Iterable[contract_create_historical_invoices_params.Invoice],
+        preview: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateHistoricalInvoicesResponse:
+        """
+        Creates historical usage invoices for a contract
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/contracts/createHistoricalInvoices",
+            body=maybe_transform(
+                {
+                    "invoices": invoices,
+                    "preview": preview,
+                },
+                contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
     def list_balances(
@@ -1222,6 +1263,45 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractArchiveResponse,
         )
 
+    async def create_historical_invoices(
+        self,
+        *,
+        invoices: Iterable[contract_create_historical_invoices_params.Invoice],
+        preview: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateHistoricalInvoicesResponse:
+        """
+        Creates historical usage invoices for a contract
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/contracts/createHistoricalInvoices",
+            body=await async_maybe_transform(
+                {
+                    "invoices": invoices,
+                    "preview": preview,
+                },
+                contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractCreateHistoricalInvoicesResponse,
+        )
+
     async def list_balances(
         self,
         *,
@@ -1532,6 +1612,9 @@ class ContractsResourceWithRawResponse:
         self.archive = to_raw_response_wrapper(
             contracts.archive,
         )
+        self.create_historical_invoices = to_raw_response_wrapper(
+            contracts.create_historical_invoices,
+        )
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
         )
@@ -1582,6 +1665,9 @@ class AsyncContractsResourceWithRawResponse:
         )
         self.archive = async_to_raw_response_wrapper(
             contracts.archive,
+        )
+        self.create_historical_invoices = async_to_raw_response_wrapper(
+            contracts.create_historical_invoices,
         )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
@@ -1634,6 +1720,9 @@ class ContractsResourceWithStreamingResponse:
         self.archive = to_streamed_response_wrapper(
             contracts.archive,
         )
+        self.create_historical_invoices = to_streamed_response_wrapper(
+            contracts.create_historical_invoices,
+        )
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
         )
@@ -1684,6 +1773,9 @@ class AsyncContractsResourceWithStreamingResponse:
         )
         self.archive = async_to_streamed_response_wrapper(
             contracts.archive,
+        )
+        self.create_historical_invoices = async_to_streamed_response_wrapper(
+            contracts.create_historical_invoices,
         )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,

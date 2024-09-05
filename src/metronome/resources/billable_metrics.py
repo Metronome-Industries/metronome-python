@@ -149,11 +149,9 @@ class BillableMetricsResource(SyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -162,15 +160,12 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[BillableMetricListResponse]:
         """
-        Get all billable metrics for a given customer.
+        List all billable metrics.
 
         Args:
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
-
-          on_current_plan: If true, the list of metrics will be filtered to just ones that are on the
-              customer's current plan
 
           extra_headers: Send extra headers
 
@@ -180,10 +175,8 @@ class BillableMetricsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/billable-metrics",
+            "/billable-metrics",
             page=SyncCursorPage[BillableMetricListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -194,7 +187,6 @@ class BillableMetricsResource(SyncAPIResource):
                     {
                         "limit": limit,
                         "next_page": next_page,
-                        "on_current_plan": on_current_plan,
                     },
                     billable_metric_list_params.BillableMetricListParams,
                 ),
@@ -347,11 +339,9 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -360,15 +350,12 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
         """
-        Get all billable metrics for a given customer.
+        List all billable metrics.
 
         Args:
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
-
-          on_current_plan: If true, the list of metrics will be filtered to just ones that are on the
-              customer's current plan
 
           extra_headers: Send extra headers
 
@@ -378,10 +365,8 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/billable-metrics",
+            "/billable-metrics",
             page=AsyncCursorPage[BillableMetricListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -392,7 +377,6 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
                     {
                         "limit": limit,
                         "next_page": next_page,
-                        "on_current_plan": on_current_plan,
                     },
                     billable_metric_list_params.BillableMetricListParams,
                 ),

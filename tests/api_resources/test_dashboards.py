@@ -30,6 +30,17 @@ class TestDashboards:
         dashboard = client.dashboards.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",
+            bm_group_key_display_name_overrides={
+                "display_name": "display_name",
+                "group_key_name": "group_key_name",
+            },
+            bm_group_key_values_display_name_overrides={
+                "group_key_name": "group_key_name",
+                "value_display_name": {
+                    "display_name": "display_name",
+                    "group_key_value": "group_key_value",
+                },
+            },
             color_overrides=[
                 {
                     "name": "Gray_dark",
@@ -96,6 +107,17 @@ class TestAsyncDashboards:
         dashboard = await async_client.dashboards.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",
+            bm_group_key_display_name_overrides={
+                "display_name": "display_name",
+                "group_key_name": "group_key_name",
+            },
+            bm_group_key_values_display_name_overrides={
+                "group_key_name": "group_key_name",
+                "value_display_name": {
+                    "display_name": "display_name",
+                    "group_key_value": "group_key_value",
+                },
+            },
             color_overrides=[
                 {
                     "name": "Gray_dark",
