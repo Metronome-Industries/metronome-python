@@ -64,6 +64,6 @@ class Invoice(TypedDict, total=False):
     billable_status: Literal["billable", "unbillable"]
     """This field's availability is dependent on your client's configuration."""
 
-    breakdown_granularity: Literal["hour", "day", "HOUR", "DAY", "Hour", "Day"]
+    breakdown_granularity: Literal["HOUR", "DAY"]
 
     custom_fields: Dict[str, str]
