@@ -40,10 +40,21 @@ __all__ = ["BillableMetricsResource", "AsyncBillableMetricsResource"]
 class BillableMetricsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> BillableMetricsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return BillableMetricsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> BillableMetricsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return BillableMetricsResourceWithStreamingResponse(self)
 
     def create(
@@ -230,10 +241,21 @@ class BillableMetricsResource(SyncAPIResource):
 class AsyncBillableMetricsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncBillableMetricsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncBillableMetricsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncBillableMetricsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncBillableMetricsResourceWithStreamingResponse(self)
 
     async def create(
