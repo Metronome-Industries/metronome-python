@@ -29,10 +29,21 @@ __all__ = ["BillingConfigResource", "AsyncBillingConfigResource"]
 class BillingConfigResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> BillingConfigResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return BillingConfigResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> BillingConfigResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return BillingConfigResourceWithStreamingResponse(self)
 
     def create(
@@ -227,10 +238,21 @@ class BillingConfigResource(SyncAPIResource):
 class AsyncBillingConfigResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncBillingConfigResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncBillingConfigResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncBillingConfigResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncBillingConfigResourceWithStreamingResponse(self)
 
     async def create(

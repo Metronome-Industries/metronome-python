@@ -36,10 +36,21 @@ __all__ = ["CustomFieldsResource", "AsyncCustomFieldsResource"]
 class CustomFieldsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CustomFieldsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return CustomFieldsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> CustomFieldsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return CustomFieldsResourceWithStreamingResponse(self)
 
     def add_key(
@@ -352,10 +363,21 @@ class CustomFieldsResource(SyncAPIResource):
 class AsyncCustomFieldsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCustomFieldsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncCustomFieldsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncCustomFieldsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncCustomFieldsResourceWithStreamingResponse(self)
 
     async def add_key(
