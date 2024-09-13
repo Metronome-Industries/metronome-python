@@ -34,7 +34,7 @@ client = Metronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),
 )
 
-response = client.usage.ingest(
+client.usage.ingest(
     usage=[
         {
             "customer_id": "team@example.com",
@@ -67,7 +67,7 @@ client = AsyncMetronome(
 
 
 async def main() -> None:
-    response = await client.usage.ingest(
+    await client.usage.ingest(
         usage=[
             {
                 "customer_id": "team@example.com",
