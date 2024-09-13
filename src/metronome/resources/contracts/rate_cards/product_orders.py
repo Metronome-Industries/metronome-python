@@ -30,10 +30,21 @@ __all__ = ["ProductOrdersResource", "AsyncProductOrdersResource"]
 class ProductOrdersResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ProductOrdersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return ProductOrdersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> ProductOrdersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return ProductOrdersResourceWithStreamingResponse(self)
 
     def update(
@@ -122,10 +133,21 @@ class ProductOrdersResource(SyncAPIResource):
 class AsyncProductOrdersResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncProductOrdersResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncProductOrdersResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncProductOrdersResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncProductOrdersResourceWithStreamingResponse(self)
 
     async def update(

@@ -77,10 +77,21 @@ class RateCardsResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> RateCardsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return RateCardsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> RateCardsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return RateCardsResourceWithStreamingResponse(self)
 
     def create(
@@ -362,10 +373,21 @@ class AsyncRateCardsResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncRateCardsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncRateCardsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncRateCardsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncRateCardsResourceWithStreamingResponse(self)
 
     async def create(
