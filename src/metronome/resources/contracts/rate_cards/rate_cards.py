@@ -165,7 +165,8 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveResponse:
         """
-        Get a specific rate card
+        Get a specific rate card NOTE: Use `/contract-pricing/rate-cards/getRates` to
+        retrieve rate card rates.
 
         Args:
           extra_headers: Send extra headers
@@ -252,7 +253,8 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[RateCardListResponse]:
         """
-        List rate cards
+        List rate cards NOTE: Use `/contract-pricing/rate-cards/getRates` to retrieve
+        rate card rates.
 
         Args:
           limit: Max number of results that should be returned
@@ -461,7 +463,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveResponse:
         """
-        Get a specific rate card
+        Get a specific rate card NOTE: Use `/contract-pricing/rate-cards/getRates` to
+        retrieve rate card rates.
 
         Args:
           extra_headers: Send extra headers
@@ -548,7 +551,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[RateCardListResponse, AsyncCursorPage[RateCardListResponse]]:
         """
-        List rate cards
+        List rate cards NOTE: Use `/contract-pricing/rate-cards/getRates` to retrieve
+        rate card rates.
 
         Args:
           limit: Max number of results that should be returned
