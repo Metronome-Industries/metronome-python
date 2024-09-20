@@ -23,10 +23,16 @@ from ..._response import (
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.customers import invoice_list_params, invoice_retrieve_params, invoice_add_charge_params
+from ...types.customers import (
+    invoice_list_params,
+    invoice_retrieve_params,
+    invoice_add_charge_params,
+    invoice_list_breakdowns_params,
+)
 from ...types.customers.invoice import Invoice
 from ...types.customers.invoice_retrieve_response import InvoiceRetrieveResponse
 from ...types.customers.invoice_add_charge_response import InvoiceAddChargeResponse
+from ...types.customers.invoice_list_breakdowns_response import InvoiceListBreakdownsResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -236,6 +242,91 @@ class InvoicesResource(SyncAPIResource):
             cast_to=InvoiceAddChargeResponse,
         )
 
+    def list_breakdowns(
+        self,
+        customer_id: str,
+        *,
+        ending_before: Union[str, datetime],
+        starting_on: Union[str, datetime],
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[InvoiceListBreakdownsResponse]:
+        """
+        List daily or hourly breakdown invoices for a given customer, optionally
+        filtered by status, date range, and/or credit type.
+
+        Args:
+          ending_before: RFC 3339 timestamp. Breakdowns will only be returned for time windows that end
+              on or before this time.
+
+          starting_on: RFC 3339 timestamp. Breakdowns will only be returned for time windows that start
+              on or after this time.
+
+          credit_type_id: Only return invoices for the specified credit type
+
+          limit: Max number of results that should be returned. For daily breakdowns, the
+              response can return up to 35 days worth of breakdowns. For hourly breakdowns,
+              the response can return up to 24 hours. If there are more results, a cursor to
+              the next page is returned.
+
+          next_page: Cursor that indicates where the next page of results should start.
+
+          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response
+
+          sort: Invoice sort order by issued_at, e.g. date_asc or date_desc. Defaults to
+              date_asc.
+
+          status: Invoice status, e.g. DRAFT or FINALIZED
+
+          window_size: The granularity of the breakdowns to return. Defaults to day.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not customer_id:
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+        return self._get_api_list(
+            f"/customers/{customer_id}/invoices/breakdowns",
+            page=SyncCursorPage[InvoiceListBreakdownsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "starting_on": starting_on,
+                        "credit_type_id": credit_type_id,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "status": status,
+                        "window_size": window_size,
+                    },
+                    invoice_list_breakdowns_params.InvoiceListBreakdownsParams,
+                ),
+            ),
+            model=InvoiceListBreakdownsResponse,
+        )
+
 
 class AsyncInvoicesResource(AsyncAPIResource):
     @cached_property
@@ -442,6 +533,91 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceAddChargeResponse,
         )
 
+    def list_breakdowns(
+        self,
+        customer_id: str,
+        *,
+        ending_before: Union[str, datetime],
+        starting_on: Union[str, datetime],
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[InvoiceListBreakdownsResponse, AsyncCursorPage[InvoiceListBreakdownsResponse]]:
+        """
+        List daily or hourly breakdown invoices for a given customer, optionally
+        filtered by status, date range, and/or credit type.
+
+        Args:
+          ending_before: RFC 3339 timestamp. Breakdowns will only be returned for time windows that end
+              on or before this time.
+
+          starting_on: RFC 3339 timestamp. Breakdowns will only be returned for time windows that start
+              on or after this time.
+
+          credit_type_id: Only return invoices for the specified credit type
+
+          limit: Max number of results that should be returned. For daily breakdowns, the
+              response can return up to 35 days worth of breakdowns. For hourly breakdowns,
+              the response can return up to 24 hours. If there are more results, a cursor to
+              the next page is returned.
+
+          next_page: Cursor that indicates where the next page of results should start.
+
+          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response
+
+          sort: Invoice sort order by issued_at, e.g. date_asc or date_desc. Defaults to
+              date_asc.
+
+          status: Invoice status, e.g. DRAFT or FINALIZED
+
+          window_size: The granularity of the breakdowns to return. Defaults to day.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not customer_id:
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+        return self._get_api_list(
+            f"/customers/{customer_id}/invoices/breakdowns",
+            page=AsyncCursorPage[InvoiceListBreakdownsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "starting_on": starting_on,
+                        "credit_type_id": credit_type_id,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "status": status,
+                        "window_size": window_size,
+                    },
+                    invoice_list_breakdowns_params.InvoiceListBreakdownsParams,
+                ),
+            ),
+            model=InvoiceListBreakdownsResponse,
+        )
+
 
 class InvoicesResourceWithRawResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
@@ -455,6 +631,9 @@ class InvoicesResourceWithRawResponse:
         )
         self.add_charge = to_raw_response_wrapper(
             invoices.add_charge,
+        )
+        self.list_breakdowns = to_raw_response_wrapper(
+            invoices.list_breakdowns,
         )
 
 
@@ -471,6 +650,9 @@ class AsyncInvoicesResourceWithRawResponse:
         self.add_charge = async_to_raw_response_wrapper(
             invoices.add_charge,
         )
+        self.list_breakdowns = async_to_raw_response_wrapper(
+            invoices.list_breakdowns,
+        )
 
 
 class InvoicesResourceWithStreamingResponse:
@@ -486,6 +668,9 @@ class InvoicesResourceWithStreamingResponse:
         self.add_charge = to_streamed_response_wrapper(
             invoices.add_charge,
         )
+        self.list_breakdowns = to_streamed_response_wrapper(
+            invoices.list_breakdowns,
+        )
 
 
 class AsyncInvoicesResourceWithStreamingResponse:
@@ -500,4 +685,7 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.add_charge = async_to_streamed_response_wrapper(
             invoices.add_charge,
+        )
+        self.list_breakdowns = async_to_streamed_response_wrapper(
+            invoices.list_breakdowns,
         )
