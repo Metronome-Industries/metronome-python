@@ -795,6 +795,7 @@ class TestMetronome:
         )
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
 
 class TestAsyncMetronome:
@@ -1549,3 +1550,4 @@ class TestAsyncMetronome:
         )
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
