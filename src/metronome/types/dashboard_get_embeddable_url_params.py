@@ -2,17 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = [
-    "DashboardGetEmbeddableURLParams",
-    "BmGroupKeyDisplayNameOverrides",
-    "BmGroupKeyValuesDisplayNameOverrides",
-    "BmGroupKeyValuesDisplayNameOverridesValueDisplayName",
-    "ColorOverride",
-    "DashboardOption",
-]
+__all__ = ["DashboardGetEmbeddableURLParams", "BmGroupKeyOverride", "ColorOverride", "DashboardOption"]
 
 
 class DashboardGetEmbeddableURLParams(TypedDict, total=False):
@@ -21,9 +14,8 @@ class DashboardGetEmbeddableURLParams(TypedDict, total=False):
     dashboard: Required[Literal["invoices", "usage", "credits"]]
     """The type of dashboard to retrieve."""
 
-    bm_group_key_display_name_overrides: BmGroupKeyDisplayNameOverrides
-
-    bm_group_key_values_display_name_overrides: BmGroupKeyValuesDisplayNameOverrides
+    bm_group_key_overrides: Iterable[BmGroupKeyOverride]
+    """Optional list of billable metric group key overrides"""
 
     color_overrides: Iterable[ColorOverride]
     """Optional list of colors to override"""
@@ -32,33 +24,17 @@ class DashboardGetEmbeddableURLParams(TypedDict, total=False):
     """Optional dashboard specific options"""
 
 
-class BmGroupKeyDisplayNameOverrides(TypedDict, total=False):
+class BmGroupKeyOverride(TypedDict, total=False):
+    group_key_name: Required[str]
+    """The name of the billable metric group key."""
+
     display_name: str
-    """The new display name for the group key. e.g. "Tenant ID" """
+    """The display name for the billable metric group key"""
 
-    group_key_name: str
-    """The current name of the group key. e.g. "tenant_id" """
-
-
-class BmGroupKeyValuesDisplayNameOverridesValueDisplayName(TypedDict, total=False):
-    display_name: str
-    """The new display name for the group key value. e.g. "EU-Cluster-A" """
-
-    group_key_value: str
-    """The actual value of the group key. e.g. "123-xyz-abc" """
-
-
-class BmGroupKeyValuesDisplayNameOverrides(TypedDict, total=False):
-    group_key_name: str
-    """The actual value of the group key.
-
-    e.g. "123-xyz-abc". If group key is not used, it is the BM's name.
+    value_display_names: Dict[str, object]
     """
-
-    value_display_name: BmGroupKeyValuesDisplayNameOverridesValueDisplayName
-    """
-    An object containing the group key value and the new display name for the group
-    key value.
+    <key, value> pairs of the billable metric group key values and their display
+    names. e.g. {"a": "Asia", "b": "Euro"}
     """
 
 

@@ -31,10 +31,21 @@ __all__ = ["AlertsResource", "AsyncAlertsResource"]
 class AlertsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AlertsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AlertsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AlertsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AlertsResourceWithStreamingResponse(self)
 
     def retrieve(
@@ -180,10 +191,21 @@ class AlertsResource(SyncAPIResource):
 class AsyncAlertsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncAlertsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncAlertsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncAlertsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncAlertsResourceWithStreamingResponse(self)
 
     async def retrieve(

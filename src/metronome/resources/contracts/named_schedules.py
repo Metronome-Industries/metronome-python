@@ -30,10 +30,21 @@ __all__ = ["NamedSchedulesResource", "AsyncNamedSchedulesResource"]
 class NamedSchedulesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> NamedSchedulesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return NamedSchedulesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> NamedSchedulesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return NamedSchedulesResourceWithStreamingResponse(self)
 
     def retrieve(
@@ -145,10 +156,21 @@ class NamedSchedulesResource(SyncAPIResource):
 class AsyncNamedSchedulesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncNamedSchedulesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
+        """
         return AsyncNamedSchedulesResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncNamedSchedulesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/Metronome-Industries/metronome-python#with_streaming_response
+        """
         return AsyncNamedSchedulesResourceWithStreamingResponse(self)
 
     async def retrieve(

@@ -150,7 +150,12 @@ Methods:
 Types:
 
 ```python
-from metronome.types.customers import Invoice, InvoiceRetrieveResponse, InvoiceAddChargeResponse
+from metronome.types.customers import (
+    Invoice,
+    InvoiceRetrieveResponse,
+    InvoiceAddChargeResponse,
+    InvoiceListBreakdownsResponse,
+)
 ```
 
 Methods:
@@ -158,6 +163,7 @@ Methods:
 - <code title="get /customers/{customer_id}/invoices/{invoice_id}">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">retrieve</a>(invoice_id, \*, customer_id, \*\*<a href="src/metronome/types/customers/invoice_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_retrieve_response.py">InvoiceRetrieveResponse</a></code>
 - <code title="get /customers/{customer_id}/invoices">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice.py">SyncCursorPage[Invoice]</a></code>
 - <code title="post /customers/{customer_id}/addCharge">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">add_charge</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_add_charge_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_add_charge_response.py">InvoiceAddChargeResponse</a></code>
+- <code title="get /customers/{customer_id}/invoices/breakdowns">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list_breakdowns</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_breakdowns_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_list_breakdowns_response.py">SyncCursorPage[InvoiceListBreakdownsResponse]</a></code>
 
 ## BillingConfig
 

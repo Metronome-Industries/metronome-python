@@ -34,7 +34,7 @@ client = Metronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),
 )
 
-response = client.usage.ingest(
+client.usage.ingest(
     usage=[
         {
             "customer_id": "team@example.com",
@@ -67,7 +67,7 @@ client = AsyncMetronome(
 
 
 async def main() -> None:
-    response = await client.usage.ingest(
+    await client.usage.ingest(
         usage=[
             {
                 "customer_id": "team@example.com",
@@ -402,6 +402,17 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
 We are keen for your feedback; please open an [issue](https://www.github.com/Metronome-Industries/metronome-python/issues) with questions, bugs, or suggestions.
+
+### Determining the installed version
+
+If you've upgraded to the latest version but aren't seeing any new features you were expecting then your python environment is likely still using an older version.
+
+You can determine the version that is being used at runtime with:
+
+```py
+import metronome
+print(metronome.__version__)
+```
 
 ## Requirements
 
