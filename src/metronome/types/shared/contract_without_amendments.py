@@ -32,7 +32,7 @@ class Transition(BaseModel):
 
 
 class UsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "QUARTERLY"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
 
 
 class ResellerRoyalty(BaseModel):

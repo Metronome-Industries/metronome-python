@@ -690,7 +690,7 @@ class Transition(TypedDict, total=False):
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
 
     day: Literal["FIRST_OF_MONTH", "CONTRACT_START"]
     """If not provided, defaults to the first day of the month."""
