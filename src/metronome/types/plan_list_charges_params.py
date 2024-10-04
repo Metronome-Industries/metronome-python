@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["PlanListChargesParams"]
 
 
 class PlanListChargesParams(TypedDict, total=False):
+    plan_id: Required[str]
+
     limit: int
     """Max number of results that should be returned"""
 

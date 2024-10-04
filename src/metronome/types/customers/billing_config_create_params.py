@@ -10,6 +10,19 @@ __all__ = ["BillingConfigCreateParams"]
 class BillingConfigCreateParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    billing_provider_type: Required[
+        Literal[
+            "aws_marketplace",
+            "stripe",
+            "netsuite",
+            "custom",
+            "azure_marketplace",
+            "quickbooks_online",
+            "workday",
+            "gcp_marketplace",
+        ]
+    ]
+
     billing_provider_customer_id: Required[str]
     """The customer ID in the billing provider's system.
 

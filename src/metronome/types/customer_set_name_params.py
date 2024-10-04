@@ -8,6 +8,8 @@ __all__ = ["CustomerSetNameParams"]
 
 
 class CustomerSetNameParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     name: Required[str]
     """The new name for the customer.
 
