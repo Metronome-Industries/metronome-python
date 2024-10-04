@@ -14,6 +14,8 @@ __all__ = ["PlanEndParams"]
 class PlanEndParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    customer_plan_id: Required[str]
+
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp for when the plan ends (exclusive) for this customer.
 

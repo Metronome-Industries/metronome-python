@@ -10,6 +10,8 @@ __all__ = ["PlanListPriceAdjustmentsParams"]
 class PlanListPriceAdjustmentsParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    customer_plan_id: Required[str]
+
     limit: int
     """Max number of results that should be returned"""
 

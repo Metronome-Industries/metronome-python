@@ -95,14 +95,14 @@ class TestBillableMetrics:
     @parametrize
     def test_method_retrieve(self, client: Metronome) -> None:
         billable_metric = client.billable_metrics.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
         assert_matches_type(BillableMetricRetrieveResponse, billable_metric, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
         response = client.billable_metrics.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
 
         assert response.is_closed is True
@@ -113,7 +113,7 @@ class TestBillableMetrics:
     @parametrize
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.billable_metrics.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -127,7 +127,7 @@ class TestBillableMetrics:
     def test_path_params_retrieve(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
             client.billable_metrics.with_raw_response.retrieve(
-                "",
+                billable_metric_id="",
             )
 
     @parametrize
@@ -270,14 +270,14 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
         billable_metric = await async_client.billable_metrics.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
         assert_matches_type(BillableMetricRetrieveResponse, billable_metric, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
         response = await async_client.billable_metrics.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
 
         assert response.is_closed is True
@@ -288,7 +288,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.billable_metrics.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -302,7 +302,7 @@ class TestAsyncBillableMetrics:
     async def test_path_params_retrieve(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
             await async_client.billable_metrics.with_raw_response.retrieve(
-                "",
+                billable_metric_id="",
             )
 
     @parametrize
