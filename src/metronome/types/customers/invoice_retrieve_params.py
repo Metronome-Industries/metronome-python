@@ -10,5 +10,7 @@ __all__ = ["InvoiceRetrieveParams"]
 class InvoiceRetrieveParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    invoice_id: Required[str]
+
     skip_zero_qty_line_items: bool
     """If set, all zero quantity line items will be filtered out of the response"""

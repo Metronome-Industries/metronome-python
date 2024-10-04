@@ -78,14 +78,14 @@ class TestCustomers:
     @parametrize
     def test_method_retrieve(self, client: Metronome) -> None:
         customer = client.customers.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
         response = client.customers.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -96,7 +96,7 @@ class TestCustomers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -110,7 +110,7 @@ class TestCustomers:
     def test_path_params_retrieve(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.customers.with_raw_response.retrieve(
-                "",
+                customer_id="",
             )
 
     @parametrize
@@ -472,14 +472,14 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
         response = await async_client.customers.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -490,7 +490,7 @@ class TestAsyncCustomers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -504,7 +504,7 @@ class TestAsyncCustomers:
     async def test_path_params_retrieve(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.customers.with_raw_response.retrieve(
-                "",
+                customer_id="",
             )
 
     @parametrize

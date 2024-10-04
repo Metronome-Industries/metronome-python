@@ -59,9 +59,9 @@ class InvoicesResource(SyncAPIResource):
 
     def retrieve(
         self,
-        invoice_id: str,
         *,
         customer_id: str,
+        invoice_id: str,
         skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -105,8 +105,8 @@ class InvoicesResource(SyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
@@ -183,8 +183,8 @@ class InvoicesResource(SyncAPIResource):
 
     def add_charge(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         charge_id: str,
         customer_plan_id: str,
         description: str,
@@ -244,8 +244,8 @@ class InvoicesResource(SyncAPIResource):
 
     def list_breakdowns(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         credit_type_id: str | NotGiven = NOT_GIVEN,
@@ -350,9 +350,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        invoice_id: str,
         *,
         customer_id: str,
+        invoice_id: str,
         skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -396,8 +396,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
@@ -474,8 +474,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     async def add_charge(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         charge_id: str,
         customer_plan_id: str,
         description: str,
@@ -535,8 +535,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
     def list_breakdowns(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         credit_type_id: str | NotGiven = NOT_GIVEN,

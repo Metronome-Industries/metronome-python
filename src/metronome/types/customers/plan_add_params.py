@@ -12,6 +12,8 @@ __all__ = ["PlanAddParams", "OverageRateAdjustment", "PriceAdjustment", "TrialSp
 
 
 class PlanAddParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     plan_id: Required[str]
 
     starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]

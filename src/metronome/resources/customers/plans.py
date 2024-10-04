@@ -53,8 +53,8 @@ class PlansResource(SyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -103,8 +103,8 @@ class PlansResource(SyncAPIResource):
 
     def add(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -179,9 +179,9 @@ class PlansResource(SyncAPIResource):
 
     def end(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         void_invoices: bool | NotGiven = NOT_GIVEN,
         void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
@@ -236,9 +236,9 @@ class PlansResource(SyncAPIResource):
 
     def list_price_adjustments(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -313,8 +313,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -363,8 +363,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     async def add(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -439,9 +439,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
     async def end(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         void_invoices: bool | NotGiven = NOT_GIVEN,
         void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
@@ -496,9 +496,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list_price_adjustments(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

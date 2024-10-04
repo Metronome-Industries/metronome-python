@@ -201,8 +201,8 @@ class CustomersResource(SyncAPIResource):
 
     def retrieve(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -330,8 +330,8 @@ class CustomersResource(SyncAPIResource):
 
     def list_billable_metrics(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -385,8 +385,8 @@ class CustomersResource(SyncAPIResource):
 
     def list_costs(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         limit: int | NotGiven = NOT_GIVEN,
@@ -445,8 +445,8 @@ class CustomersResource(SyncAPIResource):
 
     def set_ingest_aliases(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ingest_aliases: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -486,8 +486,8 @@ class CustomersResource(SyncAPIResource):
 
     def set_name(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -524,8 +524,8 @@ class CustomersResource(SyncAPIResource):
 
     def update_config(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
         salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -673,8 +673,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -802,8 +802,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     def list_billable_metrics(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -857,8 +857,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     def list_costs(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         limit: int | NotGiven = NOT_GIVEN,
@@ -917,8 +917,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def set_ingest_aliases(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ingest_aliases: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -958,8 +958,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def set_name(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -996,8 +996,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def update_config(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
         salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
