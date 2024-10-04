@@ -33,7 +33,11 @@ class AlertCreateParams(TypedDict, total=False):
     """Name of the alert"""
 
     threshold: Required[float]
-    """Threshold value of the alert policy"""
+    """Threshold value of the alert policy.
+
+    Depending upon the alert type, this number may represent a financial amount, the
+    days remaining, or a percentage reached.
+    """
 
     billable_metric_id: str
     """
