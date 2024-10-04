@@ -692,7 +692,17 @@ class Transition(TypedDict, total=False):
 class UsageStatementSchedule(TypedDict, total=False):
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
 
-    day: Literal["FIRST_OF_MONTH", "CONTRACT_START"]
+    billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Required when using CUSTOM_DATE.
+
+    This option lets you set a historical billing anchor date, aligning future
+    billing cycles with a chosen cadence. For example, if a contract starts on
+    2024-09-15 and you set the anchor date to 2024-09-10 with a MONTHLY frequency,
+    the first usage statement will cover 09-15 to 10-10. Subsequent statements will
+    follow the 10th of each month.
+    """
+
+    day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE", "custom_date"]
     """If not provided, defaults to the first day of the month."""
 
     invoice_generation_starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
