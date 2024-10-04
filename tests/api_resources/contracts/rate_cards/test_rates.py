@@ -97,6 +97,31 @@ class TestRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rate_type="FLAT",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            commit_rate={
+                "rate_type": "FLAT",
+                "credit_type": {
+                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "name": "name",
+                },
+                "is_prorated": True,
+                "price": 0,
+                "quantity": 0,
+                "tiers": [
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                ],
+                "use_list_prices": True,
+            },
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             custom_rate={"foo": "bar"},
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -169,6 +194,31 @@ class TestRates:
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "rate_type": "FLAT",
                     "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "commit_rate": {
+                        "rate_type": "FLAT",
+                        "credit_type": {
+                            "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "name": "name",
+                        },
+                        "is_prorated": True,
+                        "price": 0,
+                        "quantity": 0,
+                        "tiers": [
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                        ],
+                        "use_list_prices": True,
+                    },
                     "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "custom_rate": {"foo": "bar"},
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -200,6 +250,31 @@ class TestRates:
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "rate_type": "FLAT",
                     "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "commit_rate": {
+                        "rate_type": "FLAT",
+                        "credit_type": {
+                            "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "name": "name",
+                        },
+                        "is_prorated": True,
+                        "price": 0,
+                        "quantity": 0,
+                        "tiers": [
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                        ],
+                        "use_list_prices": True,
+                    },
                     "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "custom_rate": {"foo": "bar"},
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -328,6 +403,31 @@ class TestAsyncRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rate_type="FLAT",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            commit_rate={
+                "rate_type": "FLAT",
+                "credit_type": {
+                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "name": "name",
+                },
+                "is_prorated": True,
+                "price": 0,
+                "quantity": 0,
+                "tiers": [
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                    {
+                        "price": 0,
+                        "size": 0,
+                    },
+                ],
+                "use_list_prices": True,
+            },
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             custom_rate={"foo": "bar"},
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -400,6 +500,31 @@ class TestAsyncRates:
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "rate_type": "FLAT",
                     "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "commit_rate": {
+                        "rate_type": "FLAT",
+                        "credit_type": {
+                            "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "name": "name",
+                        },
+                        "is_prorated": True,
+                        "price": 0,
+                        "quantity": 0,
+                        "tiers": [
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                        ],
+                        "use_list_prices": True,
+                    },
                     "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "custom_rate": {"foo": "bar"},
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -431,6 +556,31 @@ class TestAsyncRates:
                     "product_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
                     "rate_type": "FLAT",
                     "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "commit_rate": {
+                        "rate_type": "FLAT",
+                        "credit_type": {
+                            "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "name": "name",
+                        },
+                        "is_prorated": True,
+                        "price": 0,
+                        "quantity": 0,
+                        "tiers": [
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                            {
+                                "price": 0,
+                                "size": 0,
+                            },
+                        ],
+                        "use_list_prices": True,
+                    },
                     "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
                     "custom_rate": {"foo": "bar"},
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),

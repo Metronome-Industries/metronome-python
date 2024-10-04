@@ -19,8 +19,7 @@ class CreditGrantCreateParams(TypedDict, total=False):
 
     expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """
-    The credit grant will only apply to billing periods that end before this
-    timestamp.
+    The credit grant will only apply to usage or charges dated before this timestamp
     """
 
     grant_amount: Required[GrantAmount]
@@ -41,8 +40,8 @@ class CreditGrantCreateParams(TypedDict, total=False):
 
     effective_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """
-    The credit grant will only apply to billing periods that end at or after this
-    timestamp.
+    The credit grant will only apply to usage or charges dated on or after this
+    timestamp
     """
 
     invoice_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
@@ -77,12 +76,14 @@ class GrantAmount(TypedDict, total=False):
     amount: Required[float]
 
     credit_type_id: Required[str]
+    """the ID of the pricing unit to be used"""
 
 
 class PaidAmount(TypedDict, total=False):
     amount: Required[float]
 
     credit_type_id: Required[str]
+    """the ID of the pricing unit to be used"""
 
 
 RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]

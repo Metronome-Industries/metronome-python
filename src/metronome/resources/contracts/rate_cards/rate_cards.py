@@ -307,7 +307,8 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for
@@ -605,7 +606,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for

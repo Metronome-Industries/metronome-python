@@ -94,7 +94,8 @@ class AlertsResource(SyncAPIResource):
 
           name: Name of the alert
 
-          threshold: Threshold value of the alert policy
+          threshold: Threshold value of the alert policy. Depending upon the alert type, this number
+              may represent a financial amount, the days remaining, or a percentage reached.
 
           billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
               track the usage for.
@@ -260,7 +261,8 @@ class AsyncAlertsResource(AsyncAPIResource):
 
           name: Name of the alert
 
-          threshold: Threshold value of the alert policy
+          threshold: Threshold value of the alert policy. Depending upon the alert type, this number
+              may represent a financial amount, the days remaining, or a percentage reached.
 
           billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
               track the usage for.

@@ -68,7 +68,7 @@ class RatesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[RateListResponse]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -126,6 +126,7 @@ class RatesResource(SyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -151,6 +152,10 @@ class RatesResource(SyncAPIResource):
           rate_card_id: ID of the rate card to update
 
           starting_at: inclusive effective date
+
+          commit_rate: The rate that will be used to rate a product when it is paid for by a commit.
+              This feature requires opt-in before it can be used. Please contact Metronome
+              support to enable this feature.
 
           credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
@@ -195,6 +200,7 @@ class RatesResource(SyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
@@ -289,7 +295,7 @@ class AsyncRatesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -347,6 +353,7 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -372,6 +379,10 @@ class AsyncRatesResource(AsyncAPIResource):
           rate_card_id: ID of the rate card to update
 
           starting_at: inclusive effective date
+
+          commit_rate: The rate that will be used to rate a product when it is paid for by a commit.
+              This feature requires opt-in before it can be used. Please contact Metronome
+              support to enable this feature.
 
           credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
@@ -416,6 +427,7 @@ class AsyncRatesResource(AsyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
