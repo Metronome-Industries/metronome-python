@@ -4,8 +4,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .shared.credit_type import CreditType
 from .credit_ledger_entry import CreditLedgerEntry
+from .shared.credit_type_data import CreditTypeData
 
 __all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
 
@@ -31,14 +31,14 @@ class Balance(BaseModel):
 class GrantAmount(BaseModel):
     amount: float
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
     """the credit type for the amount granted"""
 
 
 class PaidAmount(BaseModel):
     amount: float
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
     """the credit type for the amount paid"""
 
 

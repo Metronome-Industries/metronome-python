@@ -5,7 +5,7 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
 __all__ = ["CustomerAlert", "Alert", "AlertCustomFieldFilter", "AlertGroupKeyFilter"]
 
@@ -65,7 +65,7 @@ class Alert(BaseModel):
     field is only defined for CreditPercentage and CreditBalance alerts
     """
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_field_filters: Optional[List[AlertCustomFieldFilter]] = None
     """A list of custom field filters for alert types that support advanced filtering"""

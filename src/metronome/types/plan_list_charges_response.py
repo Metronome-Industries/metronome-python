@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.credit_type import CreditType
+from .shared.credit_type_data import CreditTypeData
 
 __all__ = ["PlanListChargesResponse", "Price", "UnitConversion"]
 
@@ -38,7 +38,7 @@ class PlanListChargesResponse(BaseModel):
 
     charge_type: Literal["usage", "fixed", "composite", "minimum", "seat"]
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     custom_fields: Dict[str, str]
 

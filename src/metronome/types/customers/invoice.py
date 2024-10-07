@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..shared.rate import Rate
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
 __all__ = [
     "Invoice",
@@ -78,7 +78,7 @@ class LineItemSubLineItem(BaseModel):
 
 
 class LineItem(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -261,7 +261,7 @@ class ExternalInvoice(BaseModel):
 
 
 class InvoiceAdjustment(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -301,7 +301,7 @@ class ResellerRoyalty(BaseModel):
 class Invoice(BaseModel):
     id: str
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     customer_id: str
 
