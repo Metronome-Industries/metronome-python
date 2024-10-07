@@ -166,6 +166,7 @@ class AlertsResource(SyncAPIResource):
         self,
         *,
         id: str,
+        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,6 +178,10 @@ class AlertsResource(SyncAPIResource):
         Archive an existing alert
 
         Args:
+          id: The Metronome ID of the alert
+
+          release_uniqueness_key: If true, resets the uniqueness key on this alert so it can be re-used
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -187,7 +192,13 @@ class AlertsResource(SyncAPIResource):
         """
         return self._post(
             "/alerts/archive",
-            body=maybe_transform({"id": id}, alert_archive_params.AlertArchiveParams),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "release_uniqueness_key": release_uniqueness_key,
+                },
+                alert_archive_params.AlertArchiveParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -333,6 +344,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         self,
         *,
         id: str,
+        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -344,6 +356,10 @@ class AsyncAlertsResource(AsyncAPIResource):
         Archive an existing alert
 
         Args:
+          id: The Metronome ID of the alert
+
+          release_uniqueness_key: If true, resets the uniqueness key on this alert so it can be re-used
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -354,7 +370,13 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return await self._post(
             "/alerts/archive",
-            body=await async_maybe_transform({"id": id}, alert_archive_params.AlertArchiveParams),
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "release_uniqueness_key": release_uniqueness_key,
+                },
+                alert_archive_params.AlertArchiveParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

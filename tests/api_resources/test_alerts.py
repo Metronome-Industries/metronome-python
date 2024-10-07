@@ -104,6 +104,14 @@ class TestAlerts:
         assert_matches_type(AlertArchiveResponse, alert, path=["response"])
 
     @parametrize
+    def test_method_archive_with_all_params(self, client: Metronome) -> None:
+        alert = client.alerts.archive(
+            id="8deed800-1b7a-495d-a207-6c52bac54dc9",
+            release_uniqueness_key=True,
+        )
+        assert_matches_type(AlertArchiveResponse, alert, path=["response"])
+
+    @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
         response = client.alerts.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
@@ -214,6 +222,14 @@ class TestAsyncAlerts:
     async def test_method_archive(self, async_client: AsyncMetronome) -> None:
         alert = await async_client.alerts.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
+        )
+        assert_matches_type(AlertArchiveResponse, alert, path=["response"])
+
+    @parametrize
+    async def test_method_archive_with_all_params(self, async_client: AsyncMetronome) -> None:
+        alert = await async_client.alerts.archive(
+            id="8deed800-1b7a-495d-a207-6c52bac54dc9",
+            release_uniqueness_key=True,
         )
         assert_matches_type(AlertArchiveResponse, alert, path=["response"])
 

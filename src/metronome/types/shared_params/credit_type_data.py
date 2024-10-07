@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["CreditType"]
+__all__ = ["CreditTypeData"]
 
 
-class CreditType(TypedDict, total=False):
+class CreditTypeData(TypedDict, total=False):
     id: Required[str]
 
     name: Required[str]

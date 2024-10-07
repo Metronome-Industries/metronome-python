@@ -6,7 +6,7 @@ from metronome.types import (
     Commit,
     ContractWithoutAmendments,
     Credit,
-    CreditType,
+    CreditTypeData,
     Discount,
     EventTypeFilter,
     ID,

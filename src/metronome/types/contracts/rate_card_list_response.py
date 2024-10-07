@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..shared.tier import Tier
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
 __all__ = [
     "RateCardListResponse",
@@ -26,7 +26,7 @@ class RateCardEntriesCurrent(BaseModel):
 
     created_by: Optional[str] = None
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
 
@@ -59,7 +59,7 @@ class RateCardEntriesUpdateCommitRate(BaseModel):
         "custom",
     ]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     is_prorated: Optional[bool] = None
     """Commit rate proration configuration. Only valid for SUBSCRIPTION rate_type."""
@@ -107,7 +107,7 @@ class RateCardEntriesUpdate(BaseModel):
     support to enable this feature.
     """
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
 
@@ -137,7 +137,7 @@ class Alias(BaseModel):
 
 
 class CreditTypeConversion(BaseModel):
-    custom_credit_type: CreditType
+    custom_credit_type: CreditTypeData
 
     fiat_per_custom_credit: str
 
@@ -161,4 +161,4 @@ class RateCardListResponse(BaseModel):
 
     description: Optional[str] = None
 
-    fiat_credit_type: Optional[CreditType] = None
+    fiat_credit_type: Optional[CreditTypeData] = None

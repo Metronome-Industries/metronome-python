@@ -7,7 +7,7 @@ from typing_extensions import Literal
 from ...._models import BaseModel
 from ...shared.rate import Rate
 from ...shared.tier import Tier
-from ...shared.credit_type import CreditType
+from ...shared.credit_type_data import CreditTypeData
 
 __all__ = ["RateListResponse", "CommitRate"]
 
@@ -26,7 +26,7 @@ class CommitRate(BaseModel):
         "custom",
     ]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     is_prorated: Optional[bool] = None
     """Commit rate proration configuration. Only valid for SUBSCRIPTION rate_type."""
