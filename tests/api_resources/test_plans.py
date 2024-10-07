@@ -59,14 +59,14 @@ class TestPlans:
     @parametrize
     def test_method_get_details(self, client: Metronome) -> None:
         plan = client.plans.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(PlanGetDetailsResponse, plan, path=["response"])
 
     @parametrize
     def test_raw_response_get_details(self, client: Metronome) -> None:
         response = client.plans.with_raw_response.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -77,7 +77,7 @@ class TestPlans:
     @parametrize
     def test_streaming_response_get_details(self, client: Metronome) -> None:
         with client.plans.with_streaming_response.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -91,7 +91,7 @@ class TestPlans:
     def test_path_params_get_details(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `plan_id` but received ''"):
             client.plans.with_raw_response.get_details(
-                "",
+                plan_id="",
             )
 
     @parametrize
@@ -229,14 +229,14 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_get_details(self, async_client: AsyncMetronome) -> None:
         plan = await async_client.plans.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(PlanGetDetailsResponse, plan, path=["response"])
 
     @parametrize
     async def test_raw_response_get_details(self, async_client: AsyncMetronome) -> None:
         response = await async_client.plans.with_raw_response.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -247,7 +247,7 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_get_details(self, async_client: AsyncMetronome) -> None:
         async with async_client.plans.with_streaming_response.get_details(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -261,7 +261,7 @@ class TestAsyncPlans:
     async def test_path_params_get_details(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `plan_id` but received ''"):
             await async_client.plans.with_raw_response.get_details(
-                "",
+                plan_id="",
             )
 
     @parametrize

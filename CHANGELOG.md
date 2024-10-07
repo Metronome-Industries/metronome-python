@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.1.0-beta.4 (2024-10-07)
+
+Full Changelog: [v0.1.0-beta.3...v0.1.0-beta.4](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.3...v0.1.0-beta.4)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#100](https://github.com/Metronome-Industries/metronome-python/issues/100)) ([23e4233](https://github.com/Metronome-Industries/metronome-python/commit/23e4233bc784c861d75d774b0ad9b9093f604d18))
+* **api:** OpenAPI spec update via Stainless API ([#105](https://github.com/Metronome-Industries/metronome-python/issues/105)) ([d53b0c0](https://github.com/Metronome-Industries/metronome-python/commit/d53b0c047bba46b022b98ab8617cb39d9aa8d4e5))
+* **api:** OpenAPI spec update via Stainless API ([#97](https://github.com/Metronome-Industries/metronome-python/issues/97)) ([1b9edd9](https://github.com/Metronome-Industries/metronome-python/commit/1b9edd91340ad039cc9e0d20b0912bd25594b0e2))
+
+
+### Bug Fixes
+
+* **client:** avoid OverflowError with very large retry counts ([#106](https://github.com/Metronome-Industries/metronome-python/issues/106)) ([465d868](https://github.com/Metronome-Industries/metronome-python/commit/465d86895931b326f9fec627df94e82b1b6800b4))
+
+
+### Chores
+
+* add repr to PageInfo class ([#107](https://github.com/Metronome-Industries/metronome-python/issues/107)) ([8306ee7](https://github.com/Metronome-Industries/metronome-python/commit/8306ee749c394960eb57be7c6f41bf808f1612f7))
+* **internal:** add support for parsing bool response content ([#104](https://github.com/Metronome-Industries/metronome-python/issues/104)) ([2253e61](https://github.com/Metronome-Industries/metronome-python/commit/2253e6118160b5a96f6fecb01afef46167524a07))
+* **internal:** codegen related update ([#101](https://github.com/Metronome-Industries/metronome-python/issues/101)) ([b946911](https://github.com/Metronome-Industries/metronome-python/commit/b946911194053715b04abf7e7b430c95e46a460c))
+* **internal:** codegen related update ([#102](https://github.com/Metronome-Industries/metronome-python/issues/102)) ([9cbc145](https://github.com/Metronome-Industries/metronome-python/commit/9cbc145ec42ebefdfbca884ee98494ea70b8265b))
+* **internal:** codegen related update ([#103](https://github.com/Metronome-Industries/metronome-python/issues/103)) ([2ed9f53](https://github.com/Metronome-Industries/metronome-python/commit/2ed9f539743b94821193900687ac15d85d9c5346))
+* **internal:** codegen related update ([#98](https://github.com/Metronome-Industries/metronome-python/issues/98)) ([b4b48c0](https://github.com/Metronome-Industries/metronome-python/commit/b4b48c0421234322967999892118c145c31900df))
+
 ## 0.1.0-beta.3 (2024-09-20)
 
 Full Changelog: [v0.1.0-beta.2...v0.1.0-beta.3](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.2...v0.1.0-beta.3)

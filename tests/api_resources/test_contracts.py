@@ -909,6 +909,7 @@ class TestContracts:
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
@@ -3437,6 +3438,7 @@ class TestAsyncContracts:
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },

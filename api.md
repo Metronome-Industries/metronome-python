@@ -6,7 +6,7 @@ from metronome.types import (
     Commit,
     ContractWithoutAmendments,
     Credit,
-    CreditType,
+    CreditTypeData,
     Discount,
     EventTypeFilter,
     ID,
@@ -51,9 +51,9 @@ from metronome.types import (
 Methods:
 
 - <code title="get /plans">client.plans.<a href="./src/metronome/resources/plans.py">list</a>(\*\*<a href="src/metronome/types/plan_list_params.py">params</a>) -> <a href="./src/metronome/types/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
-- <code title="get /planDetails/{plan_id}">client.plans.<a href="./src/metronome/resources/plans.py">get_details</a>(plan_id) -> <a href="./src/metronome/types/plan_get_details_response.py">PlanGetDetailsResponse</a></code>
-- <code title="get /planDetails/{plan_id}/charges">client.plans.<a href="./src/metronome/resources/plans.py">list_charges</a>(plan_id, \*\*<a href="src/metronome/types/plan_list_charges_params.py">params</a>) -> <a href="./src/metronome/types/plan_list_charges_response.py">SyncCursorPage[PlanListChargesResponse]</a></code>
-- <code title="get /planDetails/{plan_id}/customers">client.plans.<a href="./src/metronome/resources/plans.py">list_customers</a>(plan_id, \*\*<a href="src/metronome/types/plan_list_customers_params.py">params</a>) -> <a href="./src/metronome/types/plan_list_customers_response.py">SyncCursorPage[PlanListCustomersResponse]</a></code>
+- <code title="get /planDetails/{plan_id}">client.plans.<a href="./src/metronome/resources/plans.py">get_details</a>(\*, plan_id) -> <a href="./src/metronome/types/plan_get_details_response.py">PlanGetDetailsResponse</a></code>
+- <code title="get /planDetails/{plan_id}/charges">client.plans.<a href="./src/metronome/resources/plans.py">list_charges</a>(\*, plan_id, \*\*<a href="src/metronome/types/plan_list_charges_params.py">params</a>) -> <a href="./src/metronome/types/plan_list_charges_response.py">SyncCursorPage[PlanListChargesResponse]</a></code>
+- <code title="get /planDetails/{plan_id}/customers">client.plans.<a href="./src/metronome/resources/plans.py">list_customers</a>(\*, plan_id, \*\*<a href="src/metronome/types/plan_list_customers_params.py">params</a>) -> <a href="./src/metronome/types/plan_list_customers_response.py">SyncCursorPage[PlanListCustomersResponse]</a></code>
 
 # CreditGrants
 
@@ -102,14 +102,14 @@ from metronome.types import (
 Methods:
 
 - <code title="post /customers">client.customers.<a href="./src/metronome/resources/customers/customers.py">create</a>(\*\*<a href="src/metronome/types/customer_create_params.py">params</a>) -> <a href="./src/metronome/types/customer_create_response.py">CustomerCreateResponse</a></code>
-- <code title="get /customers/{customer_id}">client.customers.<a href="./src/metronome/resources/customers/customers.py">retrieve</a>(customer_id) -> <a href="./src/metronome/types/customer_retrieve_response.py">CustomerRetrieveResponse</a></code>
+- <code title="get /customers/{customer_id}">client.customers.<a href="./src/metronome/resources/customers/customers.py">retrieve</a>(\*, customer_id) -> <a href="./src/metronome/types/customer_retrieve_response.py">CustomerRetrieveResponse</a></code>
 - <code title="get /customers">client.customers.<a href="./src/metronome/resources/customers/customers.py">list</a>(\*\*<a href="src/metronome/types/customer_list_params.py">params</a>) -> <a href="./src/metronome/types/customer_detail.py">SyncCursorPage[CustomerDetail]</a></code>
 - <code title="post /customers/archive">client.customers.<a href="./src/metronome/resources/customers/customers.py">archive</a>(\*\*<a href="src/metronome/types/customer_archive_params.py">params</a>) -> <a href="./src/metronome/types/customer_archive_response.py">CustomerArchiveResponse</a></code>
-- <code title="get /customers/{customer_id}/billable-metrics">client.customers.<a href="./src/metronome/resources/customers/customers.py">list_billable_metrics</a>(customer_id, \*\*<a href="src/metronome/types/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
-- <code title="get /customers/{customer_id}/costs">client.customers.<a href="./src/metronome/resources/customers/customers.py">list_costs</a>(customer_id, \*\*<a href="src/metronome/types/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
-- <code title="post /customers/{customer_id}/setIngestAliases">client.customers.<a href="./src/metronome/resources/customers/customers.py">set_ingest_aliases</a>(customer_id, \*\*<a href="src/metronome/types/customer_set_ingest_aliases_params.py">params</a>) -> None</code>
-- <code title="post /customers/{customer_id}/setName">client.customers.<a href="./src/metronome/resources/customers/customers.py">set_name</a>(customer_id, \*\*<a href="src/metronome/types/customer_set_name_params.py">params</a>) -> <a href="./src/metronome/types/customer_set_name_response.py">CustomerSetNameResponse</a></code>
-- <code title="post /customers/{customer_id}/updateConfig">client.customers.<a href="./src/metronome/resources/customers/customers.py">update_config</a>(customer_id, \*\*<a href="src/metronome/types/customer_update_config_params.py">params</a>) -> None</code>
+- <code title="get /customers/{customer_id}/billable-metrics">client.customers.<a href="./src/metronome/resources/customers/customers.py">list_billable_metrics</a>(\*, customer_id, \*\*<a href="src/metronome/types/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
+- <code title="get /customers/{customer_id}/costs">client.customers.<a href="./src/metronome/resources/customers/customers.py">list_costs</a>(\*, customer_id, \*\*<a href="src/metronome/types/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
+- <code title="post /customers/{customer_id}/setIngestAliases">client.customers.<a href="./src/metronome/resources/customers/customers.py">set_ingest_aliases</a>(\*, customer_id, \*\*<a href="src/metronome/types/customer_set_ingest_aliases_params.py">params</a>) -> None</code>
+- <code title="post /customers/{customer_id}/setName">client.customers.<a href="./src/metronome/resources/customers/customers.py">set_name</a>(\*, customer_id, \*\*<a href="src/metronome/types/customer_set_name_params.py">params</a>) -> <a href="./src/metronome/types/customer_set_name_response.py">CustomerSetNameResponse</a></code>
+- <code title="post /customers/{customer_id}/updateConfig">client.customers.<a href="./src/metronome/resources/customers/customers.py">update_config</a>(\*, customer_id, \*\*<a href="src/metronome/types/customer_update_config_params.py">params</a>) -> None</code>
 
 ## Alerts
 
@@ -140,10 +140,10 @@ from metronome.types.customers import (
 
 Methods:
 
-- <code title="get /customers/{customer_id}/plans">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">list</a>(customer_id, \*\*<a href="src/metronome/types/customers/plan_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
-- <code title="post /customers/{customer_id}/plans/add">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">add</a>(customer_id, \*\*<a href="src/metronome/types/customers/plan_add_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_add_response.py">PlanAddResponse</a></code>
-- <code title="post /customers/{customer_id}/plans/{customer_plan_id}/end">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">end</a>(customer_plan_id, \*, customer_id, \*\*<a href="src/metronome/types/customers/plan_end_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_end_response.py">PlanEndResponse</a></code>
-- <code title="get /customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">list_price_adjustments</a>(customer_plan_id, \*, customer_id, \*\*<a href="src/metronome/types/customers/plan_list_price_adjustments_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_list_price_adjustments_response.py">SyncCursorPage[PlanListPriceAdjustmentsResponse]</a></code>
+- <code title="get /customers/{customer_id}/plans">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">list</a>(\*, customer_id, \*\*<a href="src/metronome/types/customers/plan_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
+- <code title="post /customers/{customer_id}/plans/add">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">add</a>(\*, customer_id, \*\*<a href="src/metronome/types/customers/plan_add_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_add_response.py">PlanAddResponse</a></code>
+- <code title="post /customers/{customer_id}/plans/{customer_plan_id}/end">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">end</a>(\*, customer_id, customer_plan_id, \*\*<a href="src/metronome/types/customers/plan_end_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_end_response.py">PlanEndResponse</a></code>
+- <code title="get /customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments">client.customers.plans.<a href="./src/metronome/resources/customers/plans.py">list_price_adjustments</a>(\*, customer_id, customer_plan_id, \*\*<a href="src/metronome/types/customers/plan_list_price_adjustments_params.py">params</a>) -> <a href="./src/metronome/types/customers/plan_list_price_adjustments_response.py">SyncCursorPage[PlanListPriceAdjustmentsResponse]</a></code>
 
 ## Invoices
 
@@ -160,10 +160,10 @@ from metronome.types.customers import (
 
 Methods:
 
-- <code title="get /customers/{customer_id}/invoices/{invoice_id}">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">retrieve</a>(invoice_id, \*, customer_id, \*\*<a href="src/metronome/types/customers/invoice_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_retrieve_response.py">InvoiceRetrieveResponse</a></code>
-- <code title="get /customers/{customer_id}/invoices">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice.py">SyncCursorPage[Invoice]</a></code>
-- <code title="post /customers/{customer_id}/addCharge">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">add_charge</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_add_charge_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_add_charge_response.py">InvoiceAddChargeResponse</a></code>
-- <code title="get /customers/{customer_id}/invoices/breakdowns">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list_breakdowns</a>(customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_breakdowns_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_list_breakdowns_response.py">SyncCursorPage[InvoiceListBreakdownsResponse]</a></code>
+- <code title="get /customers/{customer_id}/invoices/{invoice_id}">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">retrieve</a>(\*, customer_id, invoice_id, \*\*<a href="src/metronome/types/customers/invoice_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_retrieve_response.py">InvoiceRetrieveResponse</a></code>
+- <code title="get /customers/{customer_id}/invoices">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list</a>(\*, customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice.py">SyncCursorPage[Invoice]</a></code>
+- <code title="post /customers/{customer_id}/addCharge">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">add_charge</a>(\*, customer_id, \*\*<a href="src/metronome/types/customers/invoice_add_charge_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_add_charge_response.py">InvoiceAddChargeResponse</a></code>
+- <code title="get /customers/{customer_id}/invoices/breakdowns">client.customers.invoices.<a href="./src/metronome/resources/customers/invoices.py">list_breakdowns</a>(\*, customer_id, \*\*<a href="src/metronome/types/customers/invoice_list_breakdowns_params.py">params</a>) -> <a href="./src/metronome/types/customers/invoice_list_breakdowns_response.py">SyncCursorPage[InvoiceListBreakdownsResponse]</a></code>
 
 ## BillingConfig
 
@@ -175,9 +175,9 @@ from metronome.types.customers import BillingConfigRetrieveResponse
 
 Methods:
 
-- <code title="post /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">create</a>(billing_provider_type, \*, customer_id, \*\*<a href="src/metronome/types/customers/billing_config_create_params.py">params</a>) -> None</code>
-- <code title="get /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">retrieve</a>(billing_provider_type, \*, customer_id) -> <a href="./src/metronome/types/customers/billing_config_retrieve_response.py">BillingConfigRetrieveResponse</a></code>
-- <code title="delete /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">delete</a>(billing_provider_type, \*, customer_id) -> None</code>
+- <code title="post /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">create</a>(\*, customer_id, billing_provider_type, \*\*<a href="src/metronome/types/customers/billing_config_create_params.py">params</a>) -> None</code>
+- <code title="get /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">retrieve</a>(\*, customer_id, billing_provider_type) -> <a href="./src/metronome/types/customers/billing_config_retrieve_response.py">BillingConfigRetrieveResponse</a></code>
+- <code title="delete /customers/{customer_id}/billing-config/{billing_provider_type}">client.customers.billing_config.<a href="./src/metronome/resources/customers/billing_config.py">delete</a>(\*, customer_id, billing_provider_type) -> None</code>
 
 ## Commits
 
@@ -298,7 +298,7 @@ from metronome.types import (
 Methods:
 
 - <code title="post /billable-metrics/create">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">create</a>(\*\*<a href="src/metronome/types/billable_metric_create_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_create_response.py">BillableMetricCreateResponse</a></code>
-- <code title="get /billable-metrics/{billable_metric_id}">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">retrieve</a>(billable_metric_id) -> <a href="./src/metronome/types/billable_metric_retrieve_response.py">BillableMetricRetrieveResponse</a></code>
+- <code title="get /billable-metrics/{billable_metric_id}">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">retrieve</a>(\*, billable_metric_id) -> <a href="./src/metronome/types/billable_metric_retrieve_response.py">BillableMetricRetrieveResponse</a></code>
 - <code title="get /billable-metrics">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">list</a>(\*\*<a href="src/metronome/types/billable_metric_list_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_list_response.py">SyncCursorPage[BillableMetricListResponse]</a></code>
 - <code title="post /billable-metrics/archive">client.billable_metrics.<a href="./src/metronome/resources/billable_metrics.py">archive</a>(\*\*<a href="src/metronome/types/billable_metric_archive_params.py">params</a>) -> <a href="./src/metronome/types/billable_metric_archive_response.py">BillableMetricArchiveResponse</a></code>
 

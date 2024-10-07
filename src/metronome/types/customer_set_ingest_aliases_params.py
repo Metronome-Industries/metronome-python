@@ -9,4 +9,6 @@ __all__ = ["CustomerSetIngestAliasesParams"]
 
 
 class CustomerSetIngestAliasesParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     ingest_aliases: Required[List[str]]

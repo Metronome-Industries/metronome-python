@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
 __all__ = ["PlanListResponse", "TrialInfo", "TrialInfoSpendingCap"]
 
@@ -14,7 +14,7 @@ class TrialInfoSpendingCap(BaseModel):
 
     amount_remaining: float
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
 
 class TrialInfo(BaseModel):
