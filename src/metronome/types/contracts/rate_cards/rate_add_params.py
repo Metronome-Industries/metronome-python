@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 from ...shared_params.tier import Tier
-from ...shared_params.credit_type import CreditType
+from ...shared_params.credit_type_data import CreditTypeData
 
 __all__ = ["RateAddParams", "CommitRate"]
 
@@ -96,7 +96,7 @@ class CommitRate(TypedDict, total=False):
         ]
     ]
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     is_prorated: bool
     """Commit rate proration configuration. Only valid for SUBSCRIPTION rate_type."""

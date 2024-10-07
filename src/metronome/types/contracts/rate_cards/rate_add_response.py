@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from ...._models import BaseModel
 from ...shared.tier import Tier
-from ...shared.credit_type import CreditType
+from ...shared.credit_type_data import CreditTypeData
 
 __all__ = ["RateAddResponse", "Data", "DataCommitRate"]
 
@@ -24,7 +24,7 @@ class DataCommitRate(BaseModel):
         "custom",
     ]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     is_prorated: Optional[bool] = None
     """Commit rate proration configuration. Only valid for SUBSCRIPTION rate_type."""
@@ -71,7 +71,7 @@ class Data(BaseModel):
     support to enable this feature.
     """
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
