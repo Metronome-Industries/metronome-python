@@ -101,7 +101,7 @@ class ProductsResource(SyncAPIResource):
               will not be included when computing composite usage. Defaults to false
 
           is_refundable: This field's availability is dependent on your client's configuration. Defaults
-              to true
+              to true.
 
           netsuite_internal_item_id: This field's availability is dependent on your client's configuration.
 
@@ -453,7 +453,7 @@ class AsyncProductsResource(AsyncAPIResource):
               will not be included when computing composite usage. Defaults to false
 
           is_refundable: This field's availability is dependent on your client's configuration. Defaults
-              to true
+              to true.
 
           netsuite_internal_item_id: This field's availability is dependent on your client's configuration.
 

@@ -710,7 +710,7 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractScheduleProServicesInvoiceResponse:
         """
-        Create a new, scheduled invoice for Professional Services terms on a contract.
+        Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
 
         Args:
@@ -1478,7 +1478,7 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractScheduleProServicesInvoiceResponse:
         """
-        Create a new, scheduled invoice for Professional Services terms on a contract.
+        Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
 
         Args:
