@@ -4,8 +4,8 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
-from .shared.credit_type import CreditType
 from .credit_ledger_entry import CreditLedgerEntry
+from .shared.credit_type_data import CreditTypeData
 
 __all__ = [
     "CreditGrantListEntriesResponse",
@@ -58,7 +58,7 @@ class DataLedgerStartingBalance(BaseModel):
 
 
 class DataLedger(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     ending_balance: DataLedgerEndingBalance
     """the effective balances at the end of the specified time window"""

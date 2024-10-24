@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["CustomerUpdateConfigParams"]
 
 
 class CustomerUpdateConfigParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     leave_stripe_invoices_in_draft: Optional[bool]
     """Leave in draft or set to auto-advance on invoices sent to Stripe.
 

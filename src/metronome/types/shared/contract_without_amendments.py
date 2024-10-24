@@ -32,7 +32,10 @@ class Transition(BaseModel):
 
 
 class UsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "QUARTERLY"]
+    billing_anchor_date: datetime
+    """Contract usage statements follow a selected cadence based on this date."""
+
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
 
 
 class ResellerRoyalty(BaseModel):

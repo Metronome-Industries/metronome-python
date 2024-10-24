@@ -123,8 +123,8 @@ class RateCardsResource(SyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
@@ -307,7 +307,8 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for
@@ -421,8 +422,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
@@ -605,7 +606,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for

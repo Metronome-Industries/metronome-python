@@ -36,7 +36,7 @@ class ProductCreateParams(TypedDict, total=False):
     is_refundable: bool
     """This field's availability is dependent on your client's configuration.
 
-    Defaults to true
+    Defaults to true.
     """
 
     netsuite_internal_item_id: str

@@ -13,9 +13,9 @@ __all__ = ["RateAddManyParams", "Rate"]
 
 
 class RateAddManyParams(TypedDict, total=False):
-    rate_card_id: str
+    rate_card_id: Required[str]
 
-    rates: Iterable[Rate]
+    rates: Required[Iterable[Rate]]
 
 
 class Rate(TypedDict, total=False):

@@ -31,8 +31,8 @@ class RateCardCreateParams(TypedDict, total=False):
 
     fiat_credit_type_id: str
     """
-    "The Metronome ID of the credit type to associate with the rate card, defaults
-    to USD (cents) if not passed."
+    The Metronome ID of the credit type to associate with the rate card, defaults to
+    USD (cents) if not passed.
     """
 
 

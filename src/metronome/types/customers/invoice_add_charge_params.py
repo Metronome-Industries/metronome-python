@@ -12,6 +12,8 @@ __all__ = ["InvoiceAddChargeParams"]
 
 
 class InvoiceAddChargeParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     charge_id: Required[str]
     """The Metronome ID of the charge to add to the invoice.
 

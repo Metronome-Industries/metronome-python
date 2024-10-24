@@ -28,9 +28,9 @@ class RateAddParams(TypedDict, total=False):
 
     credit_type_id: str
     """
-    "The Metronome ID of the credit type to associate with price, defaults to USD
+    The Metronome ID of the credit type to associate with price, defaults to USD
     (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-    rates use the credit type of associated rates."
+    rates use the credit type of associated rates.
     """
 
     custom_rate: Dict[str, object]

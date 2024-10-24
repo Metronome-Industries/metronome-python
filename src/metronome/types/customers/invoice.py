@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..shared.rate import Rate
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
 __all__ = [
     "Invoice",
@@ -78,13 +78,14 @@ class LineItemSubLineItem(BaseModel):
 
 
 class LineItem(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     name: str
 
     total: float
 
     commit_custom_fields: Optional[Dict[str, str]] = None
+    """only present for beta contract invoices"""
 
     commit_id: Optional[str] = None
     """only present for beta contract invoices"""
@@ -121,7 +122,7 @@ class LineItem(BaseModel):
 
     list_price: Optional[Rate] = None
     """
-    only present for contract invoices and when the include_list_prices query
+    Only present for contract invoices and when the include_list_prices query
     parameter is set to true. This will include the list rate for the charge if
     applicable. Only present for usage and subscription line items.
     """
@@ -162,6 +163,7 @@ class LineItem(BaseModel):
     product_type: Optional[str] = None
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
+    """only present for beta contract invoices"""
 
     professional_service_id: Optional[str] = None
     """only present for beta contract invoices"""
@@ -261,7 +263,7 @@ class ExternalInvoice(BaseModel):
 
 
 class InvoiceAdjustment(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -301,7 +303,7 @@ class ResellerRoyalty(BaseModel):
 class Invoice(BaseModel):
     id: str
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     customer_id: str
 

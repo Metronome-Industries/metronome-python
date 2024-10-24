@@ -115,6 +115,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -184,6 +185,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -253,6 +255,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
             ],
@@ -909,6 +912,7 @@ class TestContracts:
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
@@ -1165,6 +1169,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -1234,6 +1239,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -1303,6 +1309,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
             ],
@@ -2013,82 +2020,22 @@ class TestContracts:
         contract = client.contracts.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
         assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
 
@@ -2097,82 +2044,22 @@ class TestContracts:
         response = client.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
 
         assert response.is_closed is True
@@ -2185,82 +2072,22 @@ class TestContracts:
         with client.contracts.with_streaming_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -2643,6 +2470,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -2712,6 +2540,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -2781,6 +2610,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
             ],
@@ -3437,6 +3267,7 @@ class TestAsyncContracts:
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
@@ -3693,6 +3524,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -3762,6 +3594,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
                 {
@@ -3831,6 +3664,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
                 },
             ],
@@ -4541,82 +4375,22 @@ class TestAsyncContracts:
         contract = await async_client.contracts.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
         assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
 
@@ -4625,82 +4399,22 @@ class TestAsyncContracts:
         response = await async_client.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
 
         assert response.is_closed is True
@@ -4713,82 +4427,22 @@ class TestAsyncContracts:
         async with async_client.contracts.with_streaming_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

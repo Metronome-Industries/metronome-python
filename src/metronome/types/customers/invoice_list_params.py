@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -12,6 +12,8 @@ __all__ = ["InvoiceListParams"]
 
 
 class InvoiceListParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     credit_type_id: str
     """Only return invoices for the specified credit type"""
 

@@ -3,7 +3,7 @@
 from typing import Dict, List, Optional
 
 from .._models import BaseModel
-from .shared.credit_type import CreditType
+from .shared.credit_type_data import CreditTypeData
 
 __all__ = ["PlanDetail", "CreditGrant", "Minimum", "OverageRate"]
 
@@ -11,11 +11,11 @@ __all__ = ["PlanDetail", "CreditGrant", "Minimum", "OverageRate"]
 class CreditGrant(BaseModel):
     amount_granted: float
 
-    amount_granted_credit_type: CreditType
+    amount_granted_credit_type: CreditTypeData
 
     amount_paid: float
 
-    amount_paid_credit_type: CreditType
+    amount_paid_credit_type: CreditTypeData
 
     effective_duration: float
 
@@ -33,7 +33,7 @@ class CreditGrant(BaseModel):
 
 
 class Minimum(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -47,9 +47,9 @@ class Minimum(BaseModel):
 
 
 class OverageRate(BaseModel):
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
-    fiat_credit_type: CreditType
+    fiat_credit_type: CreditTypeData
 
     start_period: float
     """Used in price ramps.

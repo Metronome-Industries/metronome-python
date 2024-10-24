@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .tier import Tier
 from ..._models import BaseModel
-from .credit_type import CreditType
+from .credit_type_data import CreditTypeData
 
 __all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
 
@@ -30,7 +30,7 @@ class OverrideTier(BaseModel):
 class OverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -68,7 +68,7 @@ class Override(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     ending_before: Optional[datetime] = None
 

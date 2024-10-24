@@ -12,6 +12,8 @@ __all__ = ["CustomerListCostsParams"]
 
 
 class CustomerListCostsParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 

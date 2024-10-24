@@ -68,7 +68,7 @@ class RatesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[RateListResponse]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -152,9 +152,9 @@ class RatesResource(SyncAPIResource):
 
           starting_at: inclusive effective date
 
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
@@ -216,8 +216,8 @@ class RatesResource(SyncAPIResource):
     def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -289,7 +289,7 @@ class AsyncRatesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -373,9 +373,9 @@ class AsyncRatesResource(AsyncAPIResource):
 
           starting_at: inclusive effective date
 
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
@@ -437,8 +437,8 @@ class AsyncRatesResource(AsyncAPIResource):
     async def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
