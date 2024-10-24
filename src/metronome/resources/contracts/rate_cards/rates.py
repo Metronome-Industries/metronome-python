@@ -126,7 +126,6 @@ class RatesResource(SyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -153,13 +152,9 @@ class RatesResource(SyncAPIResource):
 
           starting_at: inclusive effective date
 
-          commit_rate: The rate that will be used to rate a product when it is paid for by a commit.
-              This feature requires opt-in before it can be used. Please contact Metronome
-              support to enable this feature.
-
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
@@ -200,7 +195,6 @@ class RatesResource(SyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
-                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
@@ -222,8 +216,8 @@ class RatesResource(SyncAPIResource):
     def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -353,7 +347,6 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -380,13 +373,9 @@ class AsyncRatesResource(AsyncAPIResource):
 
           starting_at: inclusive effective date
 
-          commit_rate: The rate that will be used to rate a product when it is paid for by a commit.
-              This feature requires opt-in before it can be used. Please contact Metronome
-              support to enable this feature.
-
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
@@ -427,7 +416,6 @@ class AsyncRatesResource(AsyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
-                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
@@ -449,8 +437,8 @@ class AsyncRatesResource(AsyncAPIResource):
     async def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

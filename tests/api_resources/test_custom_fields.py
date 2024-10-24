@@ -102,7 +102,7 @@ class TestCustomFields:
     def test_method_list_keys_with_all_params(self, client: Metronome) -> None:
         custom_field = client.custom_fields.list_keys(
             next_page="next_page",
-            entities=["alert", "billable_metric"],
+            entities=["alert"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
 
@@ -284,7 +284,7 @@ class TestAsyncCustomFields:
     async def test_method_list_keys_with_all_params(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.custom_fields.list_keys(
             next_page="next_page",
-            entities=["alert", "billable_metric"],
+            entities=["alert"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
 

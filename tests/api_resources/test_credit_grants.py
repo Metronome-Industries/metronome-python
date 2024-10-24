@@ -282,14 +282,14 @@ class TestCreditGrants:
     @parametrize
     def test_method_void(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
 
     @parametrize
     def test_method_void_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
@@ -298,7 +298,7 @@ class TestCreditGrants:
     @parametrize
     def test_raw_response_void(self, client: Metronome) -> None:
         response = client.credit_grants.with_raw_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
 
         assert response.is_closed is True
@@ -309,7 +309,7 @@ class TestCreditGrants:
     @parametrize
     def test_streaming_response_void(self, client: Metronome) -> None:
         with client.credit_grants.with_streaming_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -579,14 +579,14 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_method_void(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
 
     @parametrize
     async def test_method_void_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
@@ -595,7 +595,7 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncMetronome) -> None:
         response = await async_client.credit_grants.with_raw_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
 
         assert response.is_closed is True
@@ -606,7 +606,7 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncMetronome) -> None:
         async with async_client.credit_grants.with_streaming_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

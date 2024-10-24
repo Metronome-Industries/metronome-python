@@ -123,8 +123,8 @@ class RateCardsResource(SyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
@@ -422,8 +422,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
