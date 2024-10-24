@@ -223,6 +223,8 @@ class Commit(TypedDict, total=False):
     first.
     """
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 

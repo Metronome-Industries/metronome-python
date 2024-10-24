@@ -85,6 +85,7 @@ class LineItem(BaseModel):
     total: float
 
     commit_custom_fields: Optional[Dict[str, str]] = None
+    """only present for beta contract invoices"""
 
     commit_id: Optional[str] = None
     """only present for beta contract invoices"""
@@ -121,7 +122,7 @@ class LineItem(BaseModel):
 
     list_price: Optional[Rate] = None
     """
-    only present for contract invoices and when the include_list_prices query
+    Only present for contract invoices and when the include_list_prices query
     parameter is set to true. This will include the list rate for the charge if
     applicable. Only present for usage and subscription line items.
     """
@@ -162,6 +163,7 @@ class LineItem(BaseModel):
     product_type: Optional[str] = None
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
+    """only present for beta contract invoices"""
 
     professional_service_id: Optional[str] = None
     """only present for beta contract invoices"""

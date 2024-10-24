@@ -168,8 +168,8 @@ class CustomersResource(SyncAPIResource):
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
 
-          external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
-              alias) that can be used in usage events
+          external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
+              this customer in usage events
 
           ingest_aliases: Aliases that can be used to refer to this customer in usage events
 
@@ -640,8 +640,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
 
-          external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
-              alias) that can be used in usage events
+          external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
+              this customer in usage events
 
           ingest_aliases: Aliases that can be used to refer to this customer in usage events
 

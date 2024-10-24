@@ -60,13 +60,14 @@ class BillableMetricsResource(SyncAPIResource):
     def create(
         self,
         *,
-        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"],
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,13 +79,12 @@ class BillableMetricsResource(SyncAPIResource):
         Creates a new Billable Metric.
 
         Args:
-          aggregation_type: Specifies the type of aggregation performed on matching events.
-
           name: The display name of the billable metric.
 
-          aggregation_key: A key that specifies which property of the event is used to aggregate data. This
-              key must be one of the property filter names and is not applicable when the
-              aggregation type is 'count'.
+          aggregation_key: Specifies the type of aggregation performed on matching events. Required if
+              `sql` is not provided.
+
+          aggregation_type: Specifies the type of aggregation performed on matching events.
 
           custom_fields: Custom fields to attach to the billable metric.
 
@@ -96,6 +96,11 @@ class BillableMetricsResource(SyncAPIResource):
           property_filters: A list of filters to match events to this billable metric. Each filter defines a
               rule on an event property. All rules must pass for the event to match the
               billable metric.
+
+          sql: The SQL query associated with the billable metric. This field is mutually
+              exclusive with aggregation_type, event_type_filter, property_filters,
+              aggregation_key, and group_keys. If provided, these other fields must be
+              omitted.
 
           extra_headers: Send extra headers
 
@@ -109,13 +114,14 @@ class BillableMetricsResource(SyncAPIResource):
             "/billable-metrics/create",
             body=maybe_transform(
                 {
-                    "aggregation_type": aggregation_type,
                     "name": name,
                     "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
                     "custom_fields": custom_fields,
                     "event_type_filter": event_type_filter,
                     "group_keys": group_keys,
                     "property_filters": property_filters,
+                    "sql": sql,
                 },
                 billable_metric_create_params.BillableMetricCreateParams,
             ),
@@ -261,13 +267,14 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"],
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -279,13 +286,12 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         Creates a new Billable Metric.
 
         Args:
-          aggregation_type: Specifies the type of aggregation performed on matching events.
-
           name: The display name of the billable metric.
 
-          aggregation_key: A key that specifies which property of the event is used to aggregate data. This
-              key must be one of the property filter names and is not applicable when the
-              aggregation type is 'count'.
+          aggregation_key: Specifies the type of aggregation performed on matching events. Required if
+              `sql` is not provided.
+
+          aggregation_type: Specifies the type of aggregation performed on matching events.
 
           custom_fields: Custom fields to attach to the billable metric.
 
@@ -297,6 +303,11 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
           property_filters: A list of filters to match events to this billable metric. Each filter defines a
               rule on an event property. All rules must pass for the event to match the
               billable metric.
+
+          sql: The SQL query associated with the billable metric. This field is mutually
+              exclusive with aggregation_type, event_type_filter, property_filters,
+              aggregation_key, and group_keys. If provided, these other fields must be
+              omitted.
 
           extra_headers: Send extra headers
 
@@ -310,13 +321,14 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
             "/billable-metrics/create",
             body=await async_maybe_transform(
                 {
-                    "aggregation_type": aggregation_type,
                     "name": name,
                     "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
                     "custom_fields": custom_fields,
                     "event_type_filter": event_type_filter,
                     "group_keys": group_keys,
                     "property_filters": property_filters,
+                    "sql": sql,
                 },
                 billable_metric_create_params.BillableMetricCreateParams,
             ),
