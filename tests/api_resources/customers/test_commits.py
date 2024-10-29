@@ -82,7 +82,7 @@ class TestCommits:
                 "schedule_items": [
                     {
                         "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                        "amount": 10000000,
+                        "amount": 0,
                         "quantity": 1,
                         "unit_price": 10000000,
                     }
@@ -296,7 +296,7 @@ class TestAsyncCommits:
                 "schedule_items": [
                     {
                         "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                        "amount": 10000000,
+                        "amount": 0,
                         "quantity": 1,
                         "unit_price": 10000000,
                     }
