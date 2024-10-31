@@ -277,6 +277,12 @@ class Commit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
+    temporary_id: str
+    """
+    A temporary ID for the commit that can be used to reference the commit for
+    commit specific overrides.
+    """
+
 
 class CreditAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
@@ -421,6 +427,13 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
+    commit_ids: List[str]
+    """If provided, the override will only apply to the specified commits.
+
+    Can only be used for commit specific overrides. If not provided, the override
+    will apply to all commits.
+    """
+
     presentation_group_values: Dict[str, str]
     """A map of group names to values.
 
@@ -491,6 +504,13 @@ class Override(TypedDict, total=False):
 
     entitled: bool
 
+    is_commit_specific: bool
+    """Indicates whether the override should only apply to commits.
+
+    Defaults to `false`. If `true`, you can specify relevant commits in
+    `override_specifiers` by passing `commit_ids`.
+    """
+
     multiplier: float
     """Required for MULTIPLIER type. Must be >=0."""
 
@@ -514,6 +534,13 @@ class Override(TypedDict, total=False):
 
     product_id: str
     """ID of the product whose rate is being overridden"""
+
+    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    """Indicates whether the override applies to commit rates or list rates.
+
+    Can only be used for overrides that have `is_commit_specific` set to `true`.
+    Defaults to `"LIST_RATE"`.
+    """
 
     tiers: Iterable[OverrideTier]
     """Required for TIERED type. Must have at least one tier."""
