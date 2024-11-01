@@ -257,8 +257,6 @@ class Commit(BaseModel):
     will apply first.
     """
 
-    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
-
     rolled_over_from: Optional[RolledOverFrom] = None
 
     rollover_fraction: Optional[float] = None
