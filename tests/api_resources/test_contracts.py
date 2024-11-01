@@ -115,9 +115,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -186,9 +184,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -257,9 +253,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
             ],
             credits=[
@@ -491,25 +485,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -540,7 +530,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -562,25 +551,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -611,7 +596,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -633,25 +617,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -682,7 +662,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -1187,9 +1166,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1258,9 +1235,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1329,9 +1304,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
             ],
             credits=[
@@ -1559,25 +1532,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1608,7 +1577,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -1630,25 +1598,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1679,7 +1643,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -1701,25 +1664,21 @@ class TestContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1750,7 +1709,6 @@ class TestContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -2506,9 +2464,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2577,9 +2533,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2648,9 +2602,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
             ],
             credits=[
@@ -2882,25 +2834,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2931,7 +2879,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -2953,25 +2900,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3002,7 +2945,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -3024,25 +2966,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3073,7 +3011,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -3578,9 +3515,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3649,9 +3584,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3720,9 +3653,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                    "temporary_id": "temporary_id",
                 },
             ],
             credits=[
@@ -3950,25 +3881,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3999,7 +3926,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -4021,25 +3947,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -4070,7 +3992,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
@@ -4092,25 +4013,21 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string", "string", "string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
-                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string", "string", "string"],
                         },
                         {
-                            "commit_ids": ["string", "string", "string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -4141,7 +4058,6 @@ class TestAsyncContracts:
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
