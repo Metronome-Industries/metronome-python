@@ -332,6 +332,7 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -346,6 +347,8 @@ class CustomersResource(SyncAPIResource):
         Get all billable metrics for a given customer.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -373,6 +376,7 @@ class CustomersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                         "on_current_plan": on_current_plan,
@@ -804,6 +808,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -818,6 +823,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Get all billable metrics for a given customer.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -845,6 +852,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                         "on_current_plan": on_current_plan,
