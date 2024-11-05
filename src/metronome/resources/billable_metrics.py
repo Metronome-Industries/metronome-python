@@ -167,6 +167,7 @@ class BillableMetricsResource(SyncAPIResource):
     def list(
         self,
         *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -180,6 +181,8 @@ class BillableMetricsResource(SyncAPIResource):
         List all billable metrics.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -202,6 +205,7 @@ class BillableMetricsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                     },
@@ -374,6 +378,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -387,6 +392,8 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         List all billable metrics.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -409,6 +416,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                     },

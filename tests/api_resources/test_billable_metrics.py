@@ -136,6 +136,7 @@ class TestBillableMetrics:
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         billable_metric = client.billable_metrics.list(
+            include_archived=True,
             limit=1,
             next_page="next_page",
         )
@@ -309,6 +310,7 @@ class TestAsyncBillableMetrics:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         billable_metric = await async_client.billable_metrics.list(
+            include_archived=True,
             limit=1,
             next_page="next_page",
         )
