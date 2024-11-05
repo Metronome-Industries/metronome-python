@@ -11,6 +11,7 @@ from ..shared.credit_type_data import CreditTypeData
 __all__ = [
     "Invoice",
     "LineItem",
+    "LineItemAppliedCommitOrCredit",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
     "LineItemSubLineItemTierPeriod",
@@ -23,6 +24,12 @@ __all__ = [
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
 ]
+
+
+class LineItemAppliedCommitOrCredit(BaseModel):
+    id: str
+
+    type: Literal["PREPAID", "POSTPAID", "CREDIT"]
 
 
 class LineItemPostpaidCommit(BaseModel):
@@ -83,6 +90,9 @@ class LineItem(BaseModel):
     name: str
 
     total: float
+
+    applied_commit_or_credit: Optional[LineItemAppliedCommitOrCredit] = None
+    """only present for beta contract invoices"""
 
     commit_custom_fields: Optional[Dict[str, str]] = None
     """only present for beta contract invoices"""
