@@ -263,7 +263,7 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[InvoiceListBreakdownsResponse]:
         """
-        List daily or hourly breakdown invoices for a given customer, optionally
+        List daily or hourly invoice breakdowns for a given customer, optionally
         filtered by status, date range, and/or credit type.
 
         Args:
@@ -554,7 +554,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[InvoiceListBreakdownsResponse, AsyncCursorPage[InvoiceListBreakdownsResponse]]:
         """
-        List daily or hourly breakdown invoices for a given customer, optionally
+        List daily or hourly invoice breakdowns for a given customer, optionally
         filtered by status, date range, and/or credit type.
 
         Args:
