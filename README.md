@@ -30,8 +30,7 @@ import os
 from metronome import Metronome
 
 client = Metronome(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),
+    bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
 client.usage.ingest(
@@ -61,8 +60,7 @@ import asyncio
 from metronome import AsyncMetronome
 
 client = AsyncMetronome(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),
+    bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
 
