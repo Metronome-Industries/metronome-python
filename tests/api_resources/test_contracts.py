@@ -296,6 +296,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -330,6 +331,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -364,6 +366,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
             ],
             custom_fields={"foo": "string"},
@@ -1368,6 +1371,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -1402,6 +1406,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -1436,6 +1441,7 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
             ],
             custom_fields={"foo": "string"},
@@ -2687,6 +2693,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -2721,6 +2728,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -2755,6 +2763,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
             ],
             custom_fields={"foo": "string"},
@@ -3759,6 +3768,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -3793,6 +3803,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
                 {
                     "access_schedule": {
@@ -3827,6 +3838,7 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                 },
             ],
             custom_fields={"foo": "string"},

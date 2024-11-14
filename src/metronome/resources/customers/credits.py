@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -63,6 +64,7 @@ class CreditsResource(SyncAPIResource):
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -120,6 +122,7 @@ class CreditsResource(SyncAPIResource):
                     "description": description,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                 },
                 credit_create_params.CreditCreateParams,
@@ -281,6 +284,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -338,6 +342,7 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "description": description,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                 },
                 credit_create_params.CreditCreateParams,
