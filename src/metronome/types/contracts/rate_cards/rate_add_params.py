@@ -9,7 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from ...._utils import PropertyInfo
 from ...shared_params.tier import Tier
 
-__all__ = ["RateAddParams"]
+__all__ = ["RateAddParams", "CommitRate"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -25,6 +25,14 @@ class RateAddParams(TypedDict, total=False):
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""
+
+    commit_rate: CommitRate
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or
+    commit. This feature requires opt-in before it can be used. Please contact
+    Metronome support to enable this feature.
+    """
 
     credit_type_id: str
     """
@@ -70,3 +78,26 @@ class RateAddParams(TypedDict, total=False):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
+
+
+class CommitRate(TypedDict, total=False):
+    rate_type: Required[
+        Literal[
+            "FLAT",
+            "flat",
+            "PERCENTAGE",
+            "percentage",
+            "SUBSCRIPTION",
+            "subscription",
+            "TIERED",
+            "tiered",
+            "CUSTOM",
+            "custom",
+        ]
+    ]
+
+    price: float
+    """Commit rate price. For FLAT rate_type, this must be >=0."""
+
+    tiers: Iterable[Tier]
+    """Only set for TIERED rate_type."""

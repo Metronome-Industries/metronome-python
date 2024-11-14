@@ -14,6 +14,7 @@ __all__ = [
     "DataRateCardEntries",
     "DataRateCardEntriesCurrent",
     "DataRateCardEntriesUpdate",
+    "DataRateCardEntriesUpdateCommitRate",
     "DataAlias",
     "DataCreditTypeConversion",
 ]
@@ -45,6 +46,27 @@ class DataRateCardEntriesCurrent(BaseModel):
     tiers: Optional[List[Tier]] = None
 
 
+class DataRateCardEntriesUpdateCommitRate(BaseModel):
+    rate_type: Literal[
+        "FLAT",
+        "flat",
+        "PERCENTAGE",
+        "percentage",
+        "SUBSCRIPTION",
+        "subscription",
+        "TIERED",
+        "tiered",
+        "CUSTOM",
+        "custom",
+    ]
+
+    price: Optional[float] = None
+    """Commit rate price. For FLAT rate_type, this must be >=0."""
+
+    tiers: Optional[List[Tier]] = None
+    """Only set for TIERED rate_type."""
+
+
 class DataRateCardEntriesUpdate(BaseModel):
     id: str
 
@@ -59,6 +81,14 @@ class DataRateCardEntriesUpdate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
     starting_at: datetime
+
+    commit_rate: Optional[DataRateCardEntriesUpdateCommitRate] = None
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or
+    commit. This feature requires opt-in before it can be used. Please contact
+    Metronome support to enable this feature.
+    """
 
     credit_type: Optional[CreditTypeData] = None
 
