@@ -146,5 +146,7 @@ class Credit(BaseModel):
     will apply first.
     """
 
+    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
+
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""

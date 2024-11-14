@@ -67,6 +67,7 @@ class TestCredits:
             description="description",
             name="My Credit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
@@ -249,6 +250,7 @@ class TestAsyncCredits:
             description="description",
             name="My Credit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
