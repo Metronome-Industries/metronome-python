@@ -67,6 +67,7 @@ class CommitsResource(SyncAPIResource):
         invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -137,6 +138,7 @@ class CommitsResource(SyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                 },
                 commit_create_params.CommitCreateParams,
@@ -307,6 +309,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -377,6 +380,7 @@ class AsyncCommitsResource(AsyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                 },
                 commit_create_params.CommitCreateParams,

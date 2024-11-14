@@ -108,7 +108,7 @@ class Data(BaseModel):
     custom_fields: Optional[Dict[str, str]] = None
 
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
-    """This field's availability is dependent on your client's configuration."""
+    """The billing provider configuration associated with a contract."""
 
     uniqueness_key: Optional[str] = None
     """Prevents the creation of duplicates.

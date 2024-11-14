@@ -12,6 +12,8 @@ __all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Pr
 
 
 class OverrideSpecifier(BaseModel):
+    commit_ids: Optional[List[str]] = None
+
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
 
     pricing_group_values: Optional[Dict[str, str]] = None
@@ -74,6 +76,8 @@ class Override(BaseModel):
 
     entitled: Optional[bool] = None
 
+    is_commit_specific: Optional[bool] = None
+
     is_prorated: Optional[bool] = None
     """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
 
@@ -100,6 +104,8 @@ class Override(BaseModel):
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
     rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]] = None
+
+    target: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
