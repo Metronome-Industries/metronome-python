@@ -337,6 +337,8 @@ class Credit(TypedDict, total=False):
     first.
     """
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
