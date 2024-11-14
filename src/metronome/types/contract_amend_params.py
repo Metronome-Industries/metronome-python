@@ -223,8 +223,16 @@ class Commit(TypedDict, total=False):
     first.
     """
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
+
+    temporary_id: str
+    """
+    A temporary ID for the commit that can be used to reference the commit for
+    commit specific overrides.
+    """
 
 
 class CreditAccessScheduleScheduleItem(TypedDict, total=False):
@@ -370,6 +378,15 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
+    commit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to the specified commits. If not provided, the override will
+    apply to all commits.
+    """
+
     presentation_group_values: Dict[str, str]
     """A map of group names to values.
 
@@ -433,12 +450,24 @@ class Override(TypedDict, total=False):
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
     applicable_product_tags: List[str]
-    """tags identifying products whose rates are being overridden"""
+    """tags identifying products whose rates are being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the override will stop applying (exclusive)"""
 
     entitled: bool
+
+    is_commit_specific: bool
+    """Indicates whether the override should only apply to commits.
+
+    Defaults to `false`. If `true`, you can specify relevant commits in
+    `override_specifiers` by passing `commit_ids`. if you do not specify
+    `commit_ids`, then the override will apply when consuming any prepaid or
+    postpaid commit.
+    """
 
     multiplier: float
     """Required for MULTIPLIER type. Must be >=0."""
@@ -462,7 +491,17 @@ class Override(TypedDict, total=False):
     """
 
     product_id: str
-    """ID of the product whose rate is being overridden"""
+    """ID of the product whose rate is being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
+
+    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    """Indicates whether the override applies to commit rates or list rates.
+
+    Can only be used for overrides that have `is_commit_specific` set to `true`.
+    Defaults to `"LIST_RATE"`.
+    """
 
     tiers: Iterable[OverrideTier]
     """Required for TIERED type. Must have at least one tier."""
