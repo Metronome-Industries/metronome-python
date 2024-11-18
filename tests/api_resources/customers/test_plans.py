@@ -93,17 +93,7 @@ class TestPlans:
                     "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
+                }
             ],
             price_adjustments=[
                 {
@@ -113,23 +103,7 @@ class TestPlans:
                     "quantity": 0,
                     "tier": 0,
                     "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
+                }
             ],
             trial_spec={
                 "length_in_days": 0,
@@ -368,17 +342,7 @@ class TestAsyncPlans:
                     "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
+                }
             ],
             price_adjustments=[
                 {
@@ -388,23 +352,7 @@ class TestAsyncPlans:
                     "quantity": 0,
                     "tier": 0,
                     "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
+                }
             ],
             trial_spec={
                 "length_in_days": 0,
