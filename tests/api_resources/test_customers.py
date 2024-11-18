@@ -121,12 +121,12 @@ class TestCustomers:
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         customer = client.customers.list(
-            customer_ids=["string", "string", "string"],
+            customer_ids=["string"],
             ingest_alias="ingest_alias",
             limit=1,
             next_page="next_page",
             only_archived=True,
-            salesforce_account_ids=["string", "string", "string"],
+            salesforce_account_ids=["string"],
         )
         assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
@@ -516,12 +516,12 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.list(
-            customer_ids=["string", "string", "string"],
+            customer_ids=["string"],
             ingest_alias="ingest_alias",
             limit=1,
             next_page="next_page",
             only_archived=True,
-            salesforce_account_ids=["string", "string", "string"],
+            salesforce_account_ids=["string"],
         )
         assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
