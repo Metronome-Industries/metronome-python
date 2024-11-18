@@ -126,17 +126,7 @@ class TestRateCards:
                     "name": "name",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "name": "name",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "name": "name",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
+                }
             ],
             custom_fields={"foo": "string"},
             description="My Updated Rate Card Description",
@@ -368,17 +358,7 @@ class TestAsyncRateCards:
                     "name": "name",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "name": "name",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "name": "name",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
+                }
             ],
             custom_fields={"foo": "string"},
             description="My Updated Rate Card Description",

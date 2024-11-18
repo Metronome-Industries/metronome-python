@@ -40,17 +40,7 @@ class TestAlerts:
                     "entity": "Contract",
                     "key": "key",
                     "value": "value",
-                },
-                {
-                    "entity": "Contract",
-                    "key": "key",
-                    "value": "value",
-                },
-                {
-                    "entity": "Contract",
-                    "key": "key",
-                    "value": "value",
-                },
+                }
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
@@ -58,11 +48,7 @@ class TestAlerts:
                 "key": "key",
                 "value": "value",
             },
-            invoice_types_filter=[
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-            ],
+            invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
         )
@@ -162,17 +148,7 @@ class TestAsyncAlerts:
                     "entity": "Contract",
                     "key": "key",
                     "value": "value",
-                },
-                {
-                    "entity": "Contract",
-                    "key": "key",
-                    "value": "value",
-                },
-                {
-                    "entity": "Contract",
-                    "key": "key",
-                    "value": "value",
-                },
+                }
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
@@ -180,11 +156,7 @@ class TestAsyncAlerts:
                 "key": "key",
                 "value": "value",
             },
-            invoice_types_filter=[
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-                "PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE",
-            ],
+            invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
         )

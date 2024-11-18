@@ -46,7 +46,7 @@ class TestRates:
                     },
                     "pricing_group_values": {"foo": "string"},
                     "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
+                    "product_tags": ["string"],
                 }
             ],
         )
@@ -104,15 +104,7 @@ class TestRates:
                     {
                         "price": 0,
                         "size": 0,
-                    },
-                    {
-                        "price": 0,
-                        "size": 0,
-                    },
-                    {
-                        "price": 0,
-                        "size": 0,
-                    },
+                    }
                 ],
             },
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
@@ -126,15 +118,7 @@ class TestRates:
                 {
                     "price": 0,
                     "size": 0,
-                },
-                {
-                    "price": 0,
-                    "size": 0,
-                },
-                {
-                    "price": 0,
-                    "size": 0,
-                },
+                }
             ],
             use_list_prices=True,
         )
@@ -272,7 +256,7 @@ class TestAsyncRates:
                     },
                     "pricing_group_values": {"foo": "string"},
                     "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
+                    "product_tags": ["string"],
                 }
             ],
         )
@@ -330,15 +314,7 @@ class TestAsyncRates:
                     {
                         "price": 0,
                         "size": 0,
-                    },
-                    {
-                        "price": 0,
-                        "size": 0,
-                    },
-                    {
-                        "price": 0,
-                        "size": 0,
-                    },
+                    }
                 ],
             },
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
@@ -352,15 +328,7 @@ class TestAsyncRates:
                 {
                     "price": 0,
                     "size": 0,
-                },
-                {
-                    "price": 0,
-                    "size": 0,
-                },
-                {
-                    "price": 0,
-                    "size": 0,
-                },
+                }
             ],
             use_list_prices=True,
         )
