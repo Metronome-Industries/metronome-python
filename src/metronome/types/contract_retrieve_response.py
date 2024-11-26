@@ -105,6 +105,12 @@ class Data(BaseModel):
 
     initial: ContractWithoutAmendments
 
+    archived_at: Optional[datetime] = None
+    """RFC 3339 timestamp indicating when the contract was archived.
+
+    If not returned, the contract is not archived.
+    """
+
     custom_fields: Optional[Dict[str, str]] = None
 
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
