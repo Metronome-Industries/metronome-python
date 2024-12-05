@@ -49,8 +49,7 @@ class Data(BaseModel):
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or
-    commit. This feature requires opt-in before it can be used. Please contact
-    Metronome support to enable this feature.
+    commit.
     """
 
     ending_before: Optional[datetime] = None
