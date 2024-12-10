@@ -165,7 +165,8 @@ class RatesResource(SyncAPIResource):
 
           ending_before: exclusive end date
 
-          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type.
+          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type. Must be
+              set to true.
 
           price: Default price. For FLAT and SUBSCRIPTION rate_type, this must be >=0. For
               PERCENTAGE rate_type, this is a decimal fraction, e.g. use 0.1 for 10%; this
@@ -391,7 +392,8 @@ class AsyncRatesResource(AsyncAPIResource):
 
           ending_before: exclusive end date
 
-          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type.
+          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type. Must be
+              set to true.
 
           price: Default price. For FLAT and SUBSCRIPTION rate_type, this must be >=0. For
               PERCENTAGE rate_type, this is a decimal fraction, e.g. use 0.1 for 10%; this

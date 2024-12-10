@@ -61,7 +61,10 @@ class Data(BaseModel):
     """
 
     is_prorated: Optional[bool] = None
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: Optional[float] = None
     """Default price.
