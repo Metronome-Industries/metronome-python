@@ -76,7 +76,10 @@ class Rate(TypedDict, total=False):
     """exclusive end date"""
 
     is_prorated: bool
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: float
     """Default price.
