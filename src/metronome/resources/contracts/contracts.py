@@ -36,14 +36,6 @@ from .products import (
     AsyncProductsResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
-from .rate_cards import (
-    RateCardsResource,
-    AsyncRateCardsResource,
-    RateCardsResourceWithRawResponse,
-    AsyncRateCardsResourceWithRawResponse,
-    RateCardsResourceWithStreamingResponse,
-    AsyncRateCardsResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -60,7 +52,14 @@ from .named_schedules import (
     NamedSchedulesResourceWithStreamingResponse,
     AsyncNamedSchedulesResourceWithStreamingResponse,
 )
-from .rate_cards.rate_cards import RateCardsResource, AsyncRateCardsResource
+from .rate_cards.rate_cards import (
+    RateCardsResource,
+    AsyncRateCardsResource,
+    RateCardsResourceWithRawResponse,
+    AsyncRateCardsResourceWithRawResponse,
+    RateCardsResourceWithStreamingResponse,
+    AsyncRateCardsResourceWithStreamingResponse,
+)
 from ...types.contract_list_response import ContractListResponse
 from ...types.contract_amend_response import ContractAmendResponse
 from ...types.contract_create_response import ContractCreateResponse
