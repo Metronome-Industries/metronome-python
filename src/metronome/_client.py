@@ -8,7 +8,7 @@ from typing_extensions import Self, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -24,6 +24,18 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
+from .resources import (
+    plans,
+    usage,
+    alerts,
+    invoices,
+    services,
+    audit_logs,
+    dashboards,
+    credit_grants,
+    custom_fields,
+    billable_metrics,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, MetronomeError
 from ._base_client import (
@@ -31,13 +43,14 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.contracts import contracts
+from .resources.customers import customers
 
 __all__ = [
     "Timeout",
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "resources",
     "Metronome",
     "AsyncMetronome",
     "Client",
@@ -46,18 +59,18 @@ __all__ = [
 
 
 class Metronome(SyncAPIClient):
-    alerts: resources.AlertsResource
-    plans: resources.PlansResource
-    credit_grants: resources.CreditGrantsResource
-    customers: resources.CustomersResource
-    dashboards: resources.DashboardsResource
-    usage: resources.UsageResource
-    audit_logs: resources.AuditLogsResource
-    custom_fields: resources.CustomFieldsResource
-    billable_metrics: resources.BillableMetricsResource
-    services: resources.ServicesResource
-    invoices: resources.InvoicesResource
-    contracts: resources.ContractsResource
+    alerts: alerts.AlertsResource
+    plans: plans.PlansResource
+    credit_grants: credit_grants.CreditGrantsResource
+    customers: customers.CustomersResource
+    dashboards: dashboards.DashboardsResource
+    usage: usage.UsageResource
+    audit_logs: audit_logs.AuditLogsResource
+    custom_fields: custom_fields.CustomFieldsResource
+    billable_metrics: billable_metrics.BillableMetricsResource
+    services: services.ServicesResource
+    invoices: invoices.InvoicesResource
+    contracts: contracts.ContractsResource
     with_raw_response: MetronomeWithRawResponse
     with_streaming_response: MetronomeWithStreamedResponse
 
@@ -123,18 +136,18 @@ class Metronome(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.alerts = resources.AlertsResource(self)
-        self.plans = resources.PlansResource(self)
-        self.credit_grants = resources.CreditGrantsResource(self)
-        self.customers = resources.CustomersResource(self)
-        self.dashboards = resources.DashboardsResource(self)
-        self.usage = resources.UsageResource(self)
-        self.audit_logs = resources.AuditLogsResource(self)
-        self.custom_fields = resources.CustomFieldsResource(self)
-        self.billable_metrics = resources.BillableMetricsResource(self)
-        self.services = resources.ServicesResource(self)
-        self.invoices = resources.InvoicesResource(self)
-        self.contracts = resources.ContractsResource(self)
+        self.alerts = alerts.AlertsResource(self)
+        self.plans = plans.PlansResource(self)
+        self.credit_grants = credit_grants.CreditGrantsResource(self)
+        self.customers = customers.CustomersResource(self)
+        self.dashboards = dashboards.DashboardsResource(self)
+        self.usage = usage.UsageResource(self)
+        self.audit_logs = audit_logs.AuditLogsResource(self)
+        self.custom_fields = custom_fields.CustomFieldsResource(self)
+        self.billable_metrics = billable_metrics.BillableMetricsResource(self)
+        self.services = services.ServicesResource(self)
+        self.invoices = invoices.InvoicesResource(self)
+        self.contracts = contracts.ContractsResource(self)
         self.with_raw_response = MetronomeWithRawResponse(self)
         self.with_streaming_response = MetronomeWithStreamedResponse(self)
 
@@ -246,18 +259,18 @@ class Metronome(SyncAPIClient):
 
 
 class AsyncMetronome(AsyncAPIClient):
-    alerts: resources.AsyncAlertsResource
-    plans: resources.AsyncPlansResource
-    credit_grants: resources.AsyncCreditGrantsResource
-    customers: resources.AsyncCustomersResource
-    dashboards: resources.AsyncDashboardsResource
-    usage: resources.AsyncUsageResource
-    audit_logs: resources.AsyncAuditLogsResource
-    custom_fields: resources.AsyncCustomFieldsResource
-    billable_metrics: resources.AsyncBillableMetricsResource
-    services: resources.AsyncServicesResource
-    invoices: resources.AsyncInvoicesResource
-    contracts: resources.AsyncContractsResource
+    alerts: alerts.AsyncAlertsResource
+    plans: plans.AsyncPlansResource
+    credit_grants: credit_grants.AsyncCreditGrantsResource
+    customers: customers.AsyncCustomersResource
+    dashboards: dashboards.AsyncDashboardsResource
+    usage: usage.AsyncUsageResource
+    audit_logs: audit_logs.AsyncAuditLogsResource
+    custom_fields: custom_fields.AsyncCustomFieldsResource
+    billable_metrics: billable_metrics.AsyncBillableMetricsResource
+    services: services.AsyncServicesResource
+    invoices: invoices.AsyncInvoicesResource
+    contracts: contracts.AsyncContractsResource
     with_raw_response: AsyncMetronomeWithRawResponse
     with_streaming_response: AsyncMetronomeWithStreamedResponse
 
@@ -323,18 +336,18 @@ class AsyncMetronome(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.alerts = resources.AsyncAlertsResource(self)
-        self.plans = resources.AsyncPlansResource(self)
-        self.credit_grants = resources.AsyncCreditGrantsResource(self)
-        self.customers = resources.AsyncCustomersResource(self)
-        self.dashboards = resources.AsyncDashboardsResource(self)
-        self.usage = resources.AsyncUsageResource(self)
-        self.audit_logs = resources.AsyncAuditLogsResource(self)
-        self.custom_fields = resources.AsyncCustomFieldsResource(self)
-        self.billable_metrics = resources.AsyncBillableMetricsResource(self)
-        self.services = resources.AsyncServicesResource(self)
-        self.invoices = resources.AsyncInvoicesResource(self)
-        self.contracts = resources.AsyncContractsResource(self)
+        self.alerts = alerts.AsyncAlertsResource(self)
+        self.plans = plans.AsyncPlansResource(self)
+        self.credit_grants = credit_grants.AsyncCreditGrantsResource(self)
+        self.customers = customers.AsyncCustomersResource(self)
+        self.dashboards = dashboards.AsyncDashboardsResource(self)
+        self.usage = usage.AsyncUsageResource(self)
+        self.audit_logs = audit_logs.AsyncAuditLogsResource(self)
+        self.custom_fields = custom_fields.AsyncCustomFieldsResource(self)
+        self.billable_metrics = billable_metrics.AsyncBillableMetricsResource(self)
+        self.services = services.AsyncServicesResource(self)
+        self.invoices = invoices.AsyncInvoicesResource(self)
+        self.contracts = contracts.AsyncContractsResource(self)
         self.with_raw_response = AsyncMetronomeWithRawResponse(self)
         self.with_streaming_response = AsyncMetronomeWithStreamedResponse(self)
 
@@ -447,66 +460,68 @@ class AsyncMetronome(AsyncAPIClient):
 
 class MetronomeWithRawResponse:
     def __init__(self, client: Metronome) -> None:
-        self.alerts = resources.AlertsResourceWithRawResponse(client.alerts)
-        self.plans = resources.PlansResourceWithRawResponse(client.plans)
-        self.credit_grants = resources.CreditGrantsResourceWithRawResponse(client.credit_grants)
-        self.customers = resources.CustomersResourceWithRawResponse(client.customers)
-        self.dashboards = resources.DashboardsResourceWithRawResponse(client.dashboards)
-        self.usage = resources.UsageResourceWithRawResponse(client.usage)
-        self.audit_logs = resources.AuditLogsResourceWithRawResponse(client.audit_logs)
-        self.custom_fields = resources.CustomFieldsResourceWithRawResponse(client.custom_fields)
-        self.billable_metrics = resources.BillableMetricsResourceWithRawResponse(client.billable_metrics)
-        self.services = resources.ServicesResourceWithRawResponse(client.services)
-        self.invoices = resources.InvoicesResourceWithRawResponse(client.invoices)
-        self.contracts = resources.ContractsResourceWithRawResponse(client.contracts)
+        self.alerts = alerts.AlertsResourceWithRawResponse(client.alerts)
+        self.plans = plans.PlansResourceWithRawResponse(client.plans)
+        self.credit_grants = credit_grants.CreditGrantsResourceWithRawResponse(client.credit_grants)
+        self.customers = customers.CustomersResourceWithRawResponse(client.customers)
+        self.dashboards = dashboards.DashboardsResourceWithRawResponse(client.dashboards)
+        self.usage = usage.UsageResourceWithRawResponse(client.usage)
+        self.audit_logs = audit_logs.AuditLogsResourceWithRawResponse(client.audit_logs)
+        self.custom_fields = custom_fields.CustomFieldsResourceWithRawResponse(client.custom_fields)
+        self.billable_metrics = billable_metrics.BillableMetricsResourceWithRawResponse(client.billable_metrics)
+        self.services = services.ServicesResourceWithRawResponse(client.services)
+        self.invoices = invoices.InvoicesResourceWithRawResponse(client.invoices)
+        self.contracts = contracts.ContractsResourceWithRawResponse(client.contracts)
 
 
 class AsyncMetronomeWithRawResponse:
     def __init__(self, client: AsyncMetronome) -> None:
-        self.alerts = resources.AsyncAlertsResourceWithRawResponse(client.alerts)
-        self.plans = resources.AsyncPlansResourceWithRawResponse(client.plans)
-        self.credit_grants = resources.AsyncCreditGrantsResourceWithRawResponse(client.credit_grants)
-        self.customers = resources.AsyncCustomersResourceWithRawResponse(client.customers)
-        self.dashboards = resources.AsyncDashboardsResourceWithRawResponse(client.dashboards)
-        self.usage = resources.AsyncUsageResourceWithRawResponse(client.usage)
-        self.audit_logs = resources.AsyncAuditLogsResourceWithRawResponse(client.audit_logs)
-        self.custom_fields = resources.AsyncCustomFieldsResourceWithRawResponse(client.custom_fields)
-        self.billable_metrics = resources.AsyncBillableMetricsResourceWithRawResponse(client.billable_metrics)
-        self.services = resources.AsyncServicesResourceWithRawResponse(client.services)
-        self.invoices = resources.AsyncInvoicesResourceWithRawResponse(client.invoices)
-        self.contracts = resources.AsyncContractsResourceWithRawResponse(client.contracts)
+        self.alerts = alerts.AsyncAlertsResourceWithRawResponse(client.alerts)
+        self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
+        self.credit_grants = credit_grants.AsyncCreditGrantsResourceWithRawResponse(client.credit_grants)
+        self.customers = customers.AsyncCustomersResourceWithRawResponse(client.customers)
+        self.dashboards = dashboards.AsyncDashboardsResourceWithRawResponse(client.dashboards)
+        self.usage = usage.AsyncUsageResourceWithRawResponse(client.usage)
+        self.audit_logs = audit_logs.AsyncAuditLogsResourceWithRawResponse(client.audit_logs)
+        self.custom_fields = custom_fields.AsyncCustomFieldsResourceWithRawResponse(client.custom_fields)
+        self.billable_metrics = billable_metrics.AsyncBillableMetricsResourceWithRawResponse(client.billable_metrics)
+        self.services = services.AsyncServicesResourceWithRawResponse(client.services)
+        self.invoices = invoices.AsyncInvoicesResourceWithRawResponse(client.invoices)
+        self.contracts = contracts.AsyncContractsResourceWithRawResponse(client.contracts)
 
 
 class MetronomeWithStreamedResponse:
     def __init__(self, client: Metronome) -> None:
-        self.alerts = resources.AlertsResourceWithStreamingResponse(client.alerts)
-        self.plans = resources.PlansResourceWithStreamingResponse(client.plans)
-        self.credit_grants = resources.CreditGrantsResourceWithStreamingResponse(client.credit_grants)
-        self.customers = resources.CustomersResourceWithStreamingResponse(client.customers)
-        self.dashboards = resources.DashboardsResourceWithStreamingResponse(client.dashboards)
-        self.usage = resources.UsageResourceWithStreamingResponse(client.usage)
-        self.audit_logs = resources.AuditLogsResourceWithStreamingResponse(client.audit_logs)
-        self.custom_fields = resources.CustomFieldsResourceWithStreamingResponse(client.custom_fields)
-        self.billable_metrics = resources.BillableMetricsResourceWithStreamingResponse(client.billable_metrics)
-        self.services = resources.ServicesResourceWithStreamingResponse(client.services)
-        self.invoices = resources.InvoicesResourceWithStreamingResponse(client.invoices)
-        self.contracts = resources.ContractsResourceWithStreamingResponse(client.contracts)
+        self.alerts = alerts.AlertsResourceWithStreamingResponse(client.alerts)
+        self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
+        self.credit_grants = credit_grants.CreditGrantsResourceWithStreamingResponse(client.credit_grants)
+        self.customers = customers.CustomersResourceWithStreamingResponse(client.customers)
+        self.dashboards = dashboards.DashboardsResourceWithStreamingResponse(client.dashboards)
+        self.usage = usage.UsageResourceWithStreamingResponse(client.usage)
+        self.audit_logs = audit_logs.AuditLogsResourceWithStreamingResponse(client.audit_logs)
+        self.custom_fields = custom_fields.CustomFieldsResourceWithStreamingResponse(client.custom_fields)
+        self.billable_metrics = billable_metrics.BillableMetricsResourceWithStreamingResponse(client.billable_metrics)
+        self.services = services.ServicesResourceWithStreamingResponse(client.services)
+        self.invoices = invoices.InvoicesResourceWithStreamingResponse(client.invoices)
+        self.contracts = contracts.ContractsResourceWithStreamingResponse(client.contracts)
 
 
 class AsyncMetronomeWithStreamedResponse:
     def __init__(self, client: AsyncMetronome) -> None:
-        self.alerts = resources.AsyncAlertsResourceWithStreamingResponse(client.alerts)
-        self.plans = resources.AsyncPlansResourceWithStreamingResponse(client.plans)
-        self.credit_grants = resources.AsyncCreditGrantsResourceWithStreamingResponse(client.credit_grants)
-        self.customers = resources.AsyncCustomersResourceWithStreamingResponse(client.customers)
-        self.dashboards = resources.AsyncDashboardsResourceWithStreamingResponse(client.dashboards)
-        self.usage = resources.AsyncUsageResourceWithStreamingResponse(client.usage)
-        self.audit_logs = resources.AsyncAuditLogsResourceWithStreamingResponse(client.audit_logs)
-        self.custom_fields = resources.AsyncCustomFieldsResourceWithStreamingResponse(client.custom_fields)
-        self.billable_metrics = resources.AsyncBillableMetricsResourceWithStreamingResponse(client.billable_metrics)
-        self.services = resources.AsyncServicesResourceWithStreamingResponse(client.services)
-        self.invoices = resources.AsyncInvoicesResourceWithStreamingResponse(client.invoices)
-        self.contracts = resources.AsyncContractsResourceWithStreamingResponse(client.contracts)
+        self.alerts = alerts.AsyncAlertsResourceWithStreamingResponse(client.alerts)
+        self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
+        self.credit_grants = credit_grants.AsyncCreditGrantsResourceWithStreamingResponse(client.credit_grants)
+        self.customers = customers.AsyncCustomersResourceWithStreamingResponse(client.customers)
+        self.dashboards = dashboards.AsyncDashboardsResourceWithStreamingResponse(client.dashboards)
+        self.usage = usage.AsyncUsageResourceWithStreamingResponse(client.usage)
+        self.audit_logs = audit_logs.AsyncAuditLogsResourceWithStreamingResponse(client.audit_logs)
+        self.custom_fields = custom_fields.AsyncCustomFieldsResourceWithStreamingResponse(client.custom_fields)
+        self.billable_metrics = billable_metrics.AsyncBillableMetricsResourceWithStreamingResponse(
+            client.billable_metrics
+        )
+        self.services = services.AsyncServicesResourceWithStreamingResponse(client.services)
+        self.invoices = invoices.AsyncInvoicesResourceWithStreamingResponse(client.invoices)
+        self.contracts = contracts.AsyncContractsResourceWithStreamingResponse(client.contracts)
 
 
 Client = Metronome
