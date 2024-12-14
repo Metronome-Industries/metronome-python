@@ -92,6 +92,7 @@ class CommitAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -155,7 +156,7 @@ class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class CommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: CommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -249,6 +250,7 @@ class CreditAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class Credit(TypedDict, total=False):
@@ -352,7 +354,7 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
 
 class DiscountSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: DiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -641,7 +643,7 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 class ScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: ScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the

@@ -76,14 +76,14 @@ class GrantAmount(TypedDict, total=False):
     amount: Required[float]
 
     credit_type_id: Required[str]
-    """the ID of the pricing unit to be used"""
+    """the ID of the pricing unit to be used. Defaults to USD (cents) if not passed."""
 
 
 class PaidAmount(TypedDict, total=False):
     amount: Required[float]
 
     credit_type_id: Required[str]
-    """the ID of the pricing unit to be used"""
+    """the ID of the pricing unit to be used. Defaults to USD (cents) if not passed."""
 
 
 RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]

@@ -104,6 +104,7 @@ class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -167,7 +168,7 @@ class InvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class InvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: InvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
