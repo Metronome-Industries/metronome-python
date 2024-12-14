@@ -76,3 +76,4 @@ class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
