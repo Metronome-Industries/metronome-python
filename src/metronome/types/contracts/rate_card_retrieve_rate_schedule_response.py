@@ -35,6 +35,8 @@ class DataCommitRate(BaseModel):
 class Data(BaseModel):
     entitled: bool
 
+    product_custom_fields: Dict[str, str]
+
     product_id: str
 
     product_name: str
