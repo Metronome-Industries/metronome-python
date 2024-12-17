@@ -16,6 +16,7 @@ __all__ = [
     "LineItemSubLineItem",
     "LineItemSubLineItemTierPeriod",
     "LineItemSubLineItemTier",
+    "LineItemTier",
     "CorrectionRecord",
     "CorrectionRecordCorrectedExternalInvoice",
     "ExternalInvoice",
@@ -82,6 +83,14 @@ class LineItemSubLineItem(BaseModel):
     """when the current tier started and ends (for tiered charges only)"""
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
+
+
+class LineItemTier(BaseModel):
+    level: float
+
+    starting_at: str
+
+    size: Optional[str] = None
 
 
 class LineItem(BaseModel):
@@ -191,6 +200,8 @@ class LineItem(BaseModel):
     """only present for beta contract invoices"""
 
     sub_line_items: Optional[List[LineItemSubLineItem]] = None
+
+    tier: Optional[LineItemTier] = None
 
     unit_price: Optional[float] = None
     """only present for beta contract invoices"""
