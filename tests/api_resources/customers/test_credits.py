@@ -65,6 +65,7 @@ class TestCredits:
             netsuite_sales_order_id="netsuite_sales_order_id",
             rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
 
@@ -244,6 +245,7 @@ class TestAsyncCredits:
             netsuite_sales_order_id="netsuite_sales_order_id",
             rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
 

@@ -66,6 +66,7 @@ class CreditsResource(SyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -99,6 +100,11 @@ class CreditsResource(SyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -124,6 +130,7 @@ class CreditsResource(SyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 credit_create_params.CreditCreateParams,
             ),
@@ -286,6 +293,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -319,6 +327,11 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -344,6 +357,7 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 credit_create_params.CreditCreateParams,
             ),
