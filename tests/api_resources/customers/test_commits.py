@@ -88,6 +88,7 @@ class TestCommits:
             netsuite_sales_order_id="netsuite_sales_order_id",
             rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 
@@ -299,6 +300,7 @@ class TestAsyncCommits:
             netsuite_sales_order_id="netsuite_sales_order_id",
             rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 

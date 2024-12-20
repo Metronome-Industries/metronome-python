@@ -89,6 +89,14 @@ class CommitCreateParams(TypedDict, total=False):
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
 
+    uniqueness_key: str
+    """Prevents the creation of duplicates.
+
+    If a request to create a commit or credit is made with a uniqueness key that was
+    previously used to create a commit or credit, a new record will not be created
+    and the request will fail with a 409 error.
+    """
+
 
 class AccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
