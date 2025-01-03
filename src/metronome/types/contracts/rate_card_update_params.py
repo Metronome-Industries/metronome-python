@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Union, Iterable
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -21,8 +21,6 @@ class RateCardUpdateParams(TypedDict, total=False):
     If the same alias is assigned to multiple rate cards, it will reference the rate
     card to which it was most recently assigned. It is not exposed to end customers.
     """
-
-    custom_fields: Dict[str, str]
 
     description: str
 
