@@ -128,7 +128,6 @@ class TestRateCards:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
-            custom_fields={"foo": "string"},
             description="My Updated Rate Card Description",
             name="My Updated Rate Card",
         )
@@ -360,7 +359,6 @@ class TestAsyncRateCards:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
-            custom_fields={"foo": "string"},
             description="My Updated Rate Card Description",
             name="My Updated Rate Card",
         )

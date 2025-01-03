@@ -191,7 +191,6 @@ class RateCardsResource(SyncAPIResource):
         *,
         rate_card_id: str,
         aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -227,7 +226,6 @@ class RateCardsResource(SyncAPIResource):
                 {
                     "rate_card_id": rate_card_id,
                     "aliases": aliases,
-                    "custom_fields": custom_fields,
                     "description": description,
                     "name": name,
                 },
@@ -490,7 +488,6 @@ class AsyncRateCardsResource(AsyncAPIResource):
         *,
         rate_card_id: str,
         aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -526,7 +523,6 @@ class AsyncRateCardsResource(AsyncAPIResource):
                 {
                     "rate_card_id": rate_card_id,
                     "aliases": aliases,
-                    "custom_fields": custom_fields,
                     "description": description,
                     "name": name,
                 },
