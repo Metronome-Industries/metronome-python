@@ -87,6 +87,9 @@ class CommitsResource(SyncAPIResource):
           priority: If multiple credits or commits are applicable, the one with the lower priority
               will apply first.
 
+          product_id: ID of the fixed product associated with the commit. This is required because
+              products are used to invoice the commit amount.
+
           applicable_contract_ids: Which contract the commit applies to. If not provided, the commit applies to all
               contracts.
 
@@ -335,6 +338,9 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           priority: If multiple credits or commits are applicable, the one with the lower priority
               will apply first.
+
+          product_id: ID of the fixed product associated with the commit. This is required because
+              products are used to invoice the commit amount.
 
           applicable_contract_ids: Which contract the commit applies to. If not provided, the commit applies to all
               contracts.
