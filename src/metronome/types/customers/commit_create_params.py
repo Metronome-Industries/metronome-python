@@ -35,6 +35,10 @@ class CommitCreateParams(TypedDict, total=False):
     """
 
     product_id: Required[str]
+    """ID of the fixed product associated with the commit.
+
+    This is required because products are used to invoice the commit amount.
+    """
 
     type: Required[Literal["PREPAID", "POSTPAID"]]
 
