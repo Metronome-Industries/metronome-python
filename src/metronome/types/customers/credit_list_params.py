@@ -25,6 +25,12 @@ class CreditListParams(TypedDict, total=False):
     include_archived: bool
     """Include credits from archived contracts."""
 
+    include_balance: bool
+    """Include the balance in the response.
+
+    Setting this flag may cause the query to be slower.
+    """
+
     include_contract_credits: bool
     """Include credits on the contract level."""
 

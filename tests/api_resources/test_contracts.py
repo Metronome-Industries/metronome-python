@@ -315,6 +315,7 @@ class TestContracts:
         contract = client.contracts.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            include_balance=True,
             include_ledgers=True,
         )
         assert_matches_type(ContractRetrieveResponse, contract, path=["response"])
@@ -358,6 +359,7 @@ class TestContracts:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_ledgers=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -826,6 +828,7 @@ class TestContracts:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
             next_page="next_page",
@@ -1352,6 +1355,7 @@ class TestAsyncContracts:
         contract = await async_client.contracts.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            include_balance=True,
             include_ledgers=True,
         )
         assert_matches_type(ContractRetrieveResponse, contract, path=["response"])
@@ -1395,6 +1399,7 @@ class TestAsyncContracts:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_ledgers=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -1863,6 +1868,7 @@ class TestAsyncContracts:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
             next_page="next_page",

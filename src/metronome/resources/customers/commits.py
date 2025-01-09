@@ -167,6 +167,7 @@ class CommitsResource(SyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -187,6 +188,9 @@ class CommitsResource(SyncAPIResource):
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
           include_archived: Include commits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_commits: Include commits on the contract level.
 
@@ -214,6 +218,7 @@ class CommitsResource(SyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -419,6 +424,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -439,6 +445,9 @@ class AsyncCommitsResource(AsyncAPIResource):
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
           include_archived: Include commits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_commits: Include commits on the contract level.
 
@@ -466,6 +475,7 @@ class AsyncCommitsResource(AsyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
