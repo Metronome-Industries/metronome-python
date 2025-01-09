@@ -25,6 +25,12 @@ class CommitListParams(TypedDict, total=False):
     include_archived: bool
     """Include commits from archived contracts."""
 
+    include_balance: bool
+    """Include the balance in the response.
+
+    Setting this flag may cause the query to be slower.
+    """
+
     include_contract_commits: bool
     """Include commits on the contract level."""
 

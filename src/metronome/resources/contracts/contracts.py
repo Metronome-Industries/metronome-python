@@ -225,6 +225,7 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -237,6 +238,9 @@ class ContractsResource(SyncAPIResource):
         Get a specific contract
 
         Args:
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
+
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
@@ -254,6 +258,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                 },
                 contract_retrieve_params.ContractRetrieveParams,
@@ -270,6 +275,7 @@ class ContractsResource(SyncAPIResource):
         customer_id: str,
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -288,6 +294,9 @@ class ContractsResource(SyncAPIResource):
               starting_at filter is provided.
 
           include_archived: Include archived contracts in the response
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
@@ -311,6 +320,7 @@ class ContractsResource(SyncAPIResource):
                     "customer_id": customer_id,
                     "covering_date": covering_date,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                     "starting_at": starting_at,
                 },
@@ -563,6 +573,7 @@ class ContractsResource(SyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_balances: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -583,6 +594,9 @@ class ContractsResource(SyncAPIResource):
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_contract_balances: Include balances on the contract level.
 
@@ -610,6 +624,7 @@ class ContractsResource(SyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -993,6 +1008,7 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1005,6 +1021,9 @@ class AsyncContractsResource(AsyncAPIResource):
         Get a specific contract
 
         Args:
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
+
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
@@ -1022,6 +1041,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                 },
                 contract_retrieve_params.ContractRetrieveParams,
@@ -1038,6 +1058,7 @@ class AsyncContractsResource(AsyncAPIResource):
         customer_id: str,
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1056,6 +1077,9 @@ class AsyncContractsResource(AsyncAPIResource):
               starting_at filter is provided.
 
           include_archived: Include archived contracts in the response
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
@@ -1079,6 +1103,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "customer_id": customer_id,
                     "covering_date": covering_date,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                     "starting_at": starting_at,
                 },
@@ -1331,6 +1356,7 @@ class AsyncContractsResource(AsyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_balances: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -1351,6 +1377,9 @@ class AsyncContractsResource(AsyncAPIResource):
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_contract_balances: Include balances on the contract level.
 
@@ -1378,6 +1407,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
