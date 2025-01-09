@@ -148,6 +148,7 @@ class CreditsResource(SyncAPIResource):
         credit_id: str | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -168,6 +169,9 @@ class CreditsResource(SyncAPIResource):
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_credits: Include credits on the contract level.
 
@@ -195,6 +199,7 @@ class CreditsResource(SyncAPIResource):
                     "credit_id": credit_id,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -375,6 +380,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         credit_id: str | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -395,6 +401,9 @@ class AsyncCreditsResource(AsyncAPIResource):
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_credits: Include credits on the contract level.
 
@@ -422,6 +431,7 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "credit_id": credit_id,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,

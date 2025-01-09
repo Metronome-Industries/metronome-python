@@ -24,6 +24,12 @@ class ContractListParams(TypedDict, total=False):
     include_archived: bool
     """Include archived contracts in the response"""
 
+    include_balance: bool
+    """Include the balance of credits and commits in the response.
+
+    Setting this flag may cause the query to be slower.
+    """
+
     include_ledgers: bool
     """Include commit ledgers in the response.
 
