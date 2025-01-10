@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["CustomerCreateParams", "BillingConfig"]
+__all__ = ["CustomerCreateParams", "BillingConfig", "CustomerBillingProviderConfiguration"]
 
 
 class CustomerCreateParams(TypedDict, total=False):
@@ -15,6 +15,8 @@ class CustomerCreateParams(TypedDict, total=False):
     billing_config: BillingConfig
 
     custom_fields: Dict[str, str]
+
+    customer_billing_provider_configurations: Iterable[CustomerBillingProviderConfiguration]
 
     external_id: str
     """
@@ -41,6 +43,9 @@ class BillingConfig(TypedDict, total=False):
             "gcp_marketplace",
         ]
     ]
+
+    aws_is_subscription_product: bool
+    """True if the aws_product_code is a SAAS subscription product, false otherwise."""
 
     aws_product_code: str
 
@@ -73,3 +78,28 @@ class BillingConfig(TypedDict, total=False):
     ]
 
     stripe_collection_method: Literal["charge_automatically", "send_invoice"]
+
+
+class CustomerBillingProviderConfiguration(TypedDict, total=False):
+    billing_provider: Required[Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]]
+    """The billing provider set for this configuration."""
+
+    configuration: Dict[str, object]
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider and delivery
+    provider combination. Defaults to an empty object, however, for most billing
+    provider + delivery method combinations, it will not be a valid configuration.
+    """
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """The method to use for delivering invoices to this customer.
+
+    If not provided, the `delivery_method_id` must be provided.
+    """
+
+    delivery_method_id: str
+    """ID of the delivery method to use for this customer.
+
+    If not provided, the `delivery_method` must be provided.
+    """
