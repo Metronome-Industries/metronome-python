@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 
 import httpx
@@ -153,6 +153,8 @@ class CustomersResource(SyncAPIResource):
         name: str,
         billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
+        | NotGiven = NOT_GIVEN,
         external_id: str | NotGiven = NOT_GIVEN,
         ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -188,6 +190,7 @@ class CustomersResource(SyncAPIResource):
                     "name": name,
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
+                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
@@ -629,6 +632,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         name: str,
         billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
+        | NotGiven = NOT_GIVEN,
         external_id: str | NotGiven = NOT_GIVEN,
         ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -664,6 +669,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     "name": name,
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
+                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
