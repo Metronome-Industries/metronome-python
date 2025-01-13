@@ -814,6 +814,7 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -829,6 +830,11 @@ class ContractsResource(SyncAPIResource):
           contract_id: ID of the contract to update
 
           customer_id: ID of the customer whose contract is to be updated
+
+          allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to false.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
@@ -847,6 +853,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
                     "ending_before": ending_before,
                 },
                 contract_update_end_date_params.ContractUpdateEndDateParams,
@@ -1597,6 +1604,7 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1612,6 +1620,11 @@ class AsyncContractsResource(AsyncAPIResource):
           contract_id: ID of the contract to update
 
           customer_id: ID of the customer whose contract is to be updated
+
+          allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to false.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
@@ -1630,6 +1643,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
                     "ending_before": ending_before,
                 },
                 contract_update_end_date_params.ContractUpdateEndDateParams,
