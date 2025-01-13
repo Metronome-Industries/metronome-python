@@ -1035,6 +1035,7 @@ class TestContracts:
         contract = client.contracts.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            allow_ending_before_finalized_invoice=True,
             ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
         )
         assert_matches_type(ContractUpdateEndDateResponse, contract, path=["response"])
@@ -2075,6 +2076,7 @@ class TestAsyncContracts:
         contract = await async_client.contracts.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            allow_ending_before_finalized_invoice=True,
             ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
         )
         assert_matches_type(ContractUpdateEndDateResponse, contract, path=["response"])
