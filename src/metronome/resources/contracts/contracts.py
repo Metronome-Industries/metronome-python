@@ -129,6 +129,7 @@ class ContractsResource(SyncAPIResource):
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -169,6 +170,12 @@ class ContractsResource(SyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
+              usage invoice. The charge's `timestamp` must match the usage invoice's
+              `ending_before` date for consolidation to occur. This field cannot be modified
+              after a Contract has been created. If this field is omitted, charges will appear
+              on a separate invoice from usage charges.
+
           total_contract_value: This field's availability is dependent on your client's configuration.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
@@ -206,6 +213,7 @@ class ContractsResource(SyncAPIResource):
                     "reseller_royalties": reseller_royalties,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -919,6 +927,7 @@ class AsyncContractsResource(AsyncAPIResource):
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -959,6 +968,12 @@ class AsyncContractsResource(AsyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
+              usage invoice. The charge's `timestamp` must match the usage invoice's
+              `ending_before` date for consolidation to occur. This field cannot be modified
+              after a Contract has been created. If this field is omitted, charges will appear
+              on a separate invoice from usage charges.
+
           total_contract_value: This field's availability is dependent on your client's configuration.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
@@ -996,6 +1011,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "reseller_royalties": reseller_royalties,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
