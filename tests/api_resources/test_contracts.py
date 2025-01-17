@@ -141,6 +141,7 @@ class TestContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -555,6 +556,7 @@ class TestContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -1183,6 +1185,7 @@ class TestAsyncContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -1597,6 +1600,7 @@ class TestAsyncContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
