@@ -432,6 +432,8 @@ class Discount(TypedDict, total=False):
     schedule: Required[DiscountSchedule]
     """Must provide either schedule_items or recurring_schedule."""
 
+    custom_fields: Dict[str, str]
+
     name: str
     """displayed on invoices"""
 
