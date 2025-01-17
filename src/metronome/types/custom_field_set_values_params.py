@@ -23,6 +23,7 @@ class CustomFieldSetValuesParams(TypedDict, total=False):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
