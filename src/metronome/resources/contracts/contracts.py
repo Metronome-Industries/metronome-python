@@ -842,7 +842,7 @@ class ContractsResource(SyncAPIResource):
           allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want
               to incorporate the new end date, you can void and regenerate finalized usage
-              invoices. Defaults to false.
+              invoices.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
@@ -1640,7 +1640,7 @@ class AsyncContractsResource(AsyncAPIResource):
           allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want
               to incorporate the new end date, you can void and regenerate finalized usage
-              invoices. Defaults to false.
+              invoices.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
