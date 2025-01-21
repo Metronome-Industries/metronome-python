@@ -23,7 +23,7 @@ class ContractUpdateEndDateParams(TypedDict, total=False):
     If true, allows setting the contract end date earlier than the end_timestamp of
     existing finalized invoices. Finalized invoices will be unchanged; if you want
     to incorporate the new end date, you can void and regenerate finalized usage
-    invoices.
+    invoices. Defaults to true.
     """
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
