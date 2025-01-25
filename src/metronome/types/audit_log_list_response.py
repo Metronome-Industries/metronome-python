@@ -6,7 +6,15 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AuditLogListResponse", "Actor"]
+__all__ = ["AuditLogListResponse", "Request", "Actor"]
+
+
+class Request(BaseModel):
+    id: str
+
+    ip: Optional[str] = None
+
+    user_agent: Optional[str] = None
 
 
 class Actor(BaseModel):
@@ -19,6 +27,8 @@ class Actor(BaseModel):
 
 class AuditLogListResponse(BaseModel):
     id: str
+
+    request: Request
 
     timestamp: datetime
 

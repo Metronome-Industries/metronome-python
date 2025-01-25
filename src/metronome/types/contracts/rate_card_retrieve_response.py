@@ -2,83 +2,11 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ..._models import BaseModel
-from ..shared.tier import Tier
-from ..shared.credit_type import CreditType
+from ..shared.credit_type_data import CreditTypeData
 
-__all__ = [
-    "RateCardRetrieveResponse",
-    "Data",
-    "DataRateCardEntries",
-    "DataRateCardEntriesCurrent",
-    "DataRateCardEntriesUpdate",
-    "DataAlias",
-    "DataCreditTypeConversion",
-]
-
-
-class DataRateCardEntriesCurrent(BaseModel):
-    id: Optional[str] = None
-
-    created_at: Optional[datetime] = None
-
-    created_by: Optional[str] = None
-
-    credit_type: Optional[CreditType] = None
-
-    custom_rate: Optional[Dict[str, object]] = None
-
-    ending_before: Optional[datetime] = None
-
-    entitled: Optional[bool] = None
-
-    price: Optional[float] = None
-
-    product_id: Optional[str] = None
-
-    rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]] = None
-
-    starting_at: Optional[datetime] = None
-
-    tiers: Optional[List[Tier]] = None
-
-
-class DataRateCardEntriesUpdate(BaseModel):
-    id: str
-
-    created_at: datetime
-
-    created_by: str
-
-    entitled: bool
-
-    product_id: str
-
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
-
-    starting_at: datetime
-
-    credit_type: Optional[CreditType] = None
-
-    custom_rate: Optional[Dict[str, object]] = None
-
-    ending_before: Optional[datetime] = None
-
-    is_prorated: Optional[bool] = None
-
-    price: Optional[float] = None
-
-    quantity: Optional[float] = None
-
-    tiers: Optional[List[Tier]] = None
-
-
-class DataRateCardEntries(BaseModel):
-    current: Optional[DataRateCardEntriesCurrent] = None
-
-    updates: Optional[List[DataRateCardEntriesUpdate]] = None
+__all__ = ["RateCardRetrieveResponse", "Data", "DataAlias", "DataCreditTypeConversion"]
 
 
 class DataAlias(BaseModel):
@@ -90,7 +18,7 @@ class DataAlias(BaseModel):
 
 
 class DataCreditTypeConversion(BaseModel):
-    custom_credit_type: CreditType
+    custom_credit_type: CreditTypeData
 
     fiat_per_custom_credit: str
 
@@ -104,8 +32,6 @@ class Data(BaseModel):
 
     name: str
 
-    rate_card_entries: Dict[str, DataRateCardEntries]
-
     aliases: Optional[List[DataAlias]] = None
 
     credit_type_conversions: Optional[List[DataCreditTypeConversion]] = None
@@ -114,7 +40,7 @@ class Data(BaseModel):
 
     description: Optional[str] = None
 
-    fiat_credit_type: Optional[CreditType] = None
+    fiat_credit_type: Optional[CreditTypeData] = None
 
 
 class RateCardRetrieveResponse(BaseModel):

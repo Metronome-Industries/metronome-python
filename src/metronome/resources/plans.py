@@ -31,7 +31,7 @@ class PlansResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -96,8 +96,8 @@ class PlansResource(SyncAPIResource):
 
     def get_details(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,8 +129,8 @@ class PlansResource(SyncAPIResource):
 
     def list_charges(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -179,8 +179,8 @@ class PlansResource(SyncAPIResource):
 
     def list_customers(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         status: Literal["all", "active", "ended", "upcoming"] | NotGiven = NOT_GIVEN,
@@ -245,7 +245,7 @@ class AsyncPlansResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -310,8 +310,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     async def get_details(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -343,8 +343,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list_charges(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -393,8 +393,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list_customers(
         self,
-        plan_id: str,
         *,
+        plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         status: Literal["all", "active", "ended", "upcoming"] | NotGiven = NOT_GIVEN,

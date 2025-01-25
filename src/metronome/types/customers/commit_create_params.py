@@ -35,6 +35,10 @@ class CommitCreateParams(TypedDict, total=False):
     """
 
     product_id: Required[str]
+    """ID of the fixed product associated with the commit.
+
+    This is required because products are used to invoice the commit amount.
+    """
 
     type: Required[Literal["PREPAID", "POSTPAID"]]
 
@@ -84,8 +88,18 @@ class CommitCreateParams(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
+
+    uniqueness_key: str
+    """Prevents the creation of duplicates.
+
+    If a request to create a commit or credit is made with a uniqueness key that was
+    previously used to create a commit or credit, a new record will not be created
+    and the request will fail with a 409 error.
+    """
 
 
 class AccessScheduleScheduleItem(TypedDict, total=False):
@@ -102,6 +116,7 @@ class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -165,7 +180,7 @@ class InvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class InvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: InvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the

@@ -2,11 +2,34 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .shared.rate import Rate
+from .shared.tier import Tier
 
-__all__ = ["ContractRetrieveRateScheduleResponse", "Data"]
+__all__ = ["ContractRetrieveRateScheduleResponse", "Data", "DataCommitRate"]
+
+
+class DataCommitRate(BaseModel):
+    rate_type: Literal[
+        "FLAT",
+        "flat",
+        "PERCENTAGE",
+        "percentage",
+        "SUBSCRIPTION",
+        "subscription",
+        "TIERED",
+        "tiered",
+        "CUSTOM",
+        "custom",
+    ]
+
+    price: Optional[float] = None
+    """Commit rate price. For FLAT rate_type, this must be >=0."""
+
+    tiers: Optional[List[Tier]] = None
+    """Only set for TIERED rate_type."""
 
 
 class Data(BaseModel):
@@ -25,6 +48,13 @@ class Data(BaseModel):
     rate_card_id: str
 
     starting_at: datetime
+
+    commit_rate: Optional[DataCommitRate] = None
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or
+    commit.
+    """
 
     ending_before: Optional[datetime] = None
 

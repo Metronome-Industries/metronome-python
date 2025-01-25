@@ -35,13 +35,20 @@ class ProductListItemState(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     presentation_group_key: Optional[List[str]] = None
-    """For USAGE products only. Groups usage line items on invoices."""
+    """For USAGE products only.
+
+    Groups usage line items on invoices. The superset of values in the pricing group
+    key and presentation group key must be set as one compound group key on the
+    billable metric.
+    """
 
     pricing_group_key: Optional[List[str]] = None
     """For USAGE products only.
 
     If set, pricing for this product will be determined for each pricing_group_key
-    value, as opposed to the product as a whole.
+    value, as opposed to the product as a whole. The superset of values in the
+    pricing group key and presentation group key must be set as one compound group
+    key on the billable metric.
     """
 
     quantity_conversion: Optional[QuantityConversion] = None

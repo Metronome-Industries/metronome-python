@@ -93,17 +93,7 @@ class TestPlans:
                     "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
+                }
             ],
             price_adjustments=[
                 {
@@ -113,23 +103,7 @@ class TestPlans:
                     "quantity": 0,
                     "tier": 0,
                     "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
+                }
             ],
             trial_spec={
                 "length_in_days": 0,
@@ -181,16 +155,16 @@ class TestPlans:
     @parametrize
     def test_method_end(self, client: Metronome) -> None:
         plan = client.customers.plans.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
         assert_matches_type(PlanEndResponse, plan, path=["response"])
 
     @parametrize
     def test_method_end_with_all_params(self, client: Metronome) -> None:
         plan = client.customers.plans.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
             void_invoices=True,
             void_stripe_invoices=True,
@@ -200,8 +174,8 @@ class TestPlans:
     @parametrize
     def test_raw_response_end(self, client: Metronome) -> None:
         response = client.customers.plans.with_raw_response.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
 
         assert response.is_closed is True
@@ -212,8 +186,8 @@ class TestPlans:
     @parametrize
     def test_streaming_response_end(self, client: Metronome) -> None:
         with client.customers.plans.with_streaming_response.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -227,29 +201,29 @@ class TestPlans:
     def test_path_params_end(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.customers.plans.with_raw_response.end(
-                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
                 customer_id="",
+                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_plan_id` but received ''"):
             client.customers.plans.with_raw_response.end(
-                customer_plan_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                customer_plan_id="",
             )
 
     @parametrize
     def test_method_list_price_adjustments(self, client: Metronome) -> None:
         plan = client.customers.plans.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
         assert_matches_type(SyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     def test_method_list_price_adjustments_with_all_params(self, client: Metronome) -> None:
         plan = client.customers.plans.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             limit=1,
             next_page="next_page",
         )
@@ -258,8 +232,8 @@ class TestPlans:
     @parametrize
     def test_raw_response_list_price_adjustments(self, client: Metronome) -> None:
         response = client.customers.plans.with_raw_response.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
 
         assert response.is_closed is True
@@ -270,8 +244,8 @@ class TestPlans:
     @parametrize
     def test_streaming_response_list_price_adjustments(self, client: Metronome) -> None:
         with client.customers.plans.with_streaming_response.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -285,14 +259,14 @@ class TestPlans:
     def test_path_params_list_price_adjustments(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.customers.plans.with_raw_response.list_price_adjustments(
-                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
                 customer_id="",
+                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_plan_id` but received ''"):
             client.customers.plans.with_raw_response.list_price_adjustments(
-                customer_plan_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                customer_plan_id="",
             )
 
 
@@ -368,17 +342,7 @@ class TestAsyncPlans:
                     "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
-                {
-                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "fiat_currency_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "to_fiat_conversion_factor": 0,
-                },
+                }
             ],
             price_adjustments=[
                 {
@@ -388,23 +352,7 @@ class TestAsyncPlans:
                     "quantity": 0,
                     "tier": 0,
                     "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
-                {
-                    "adjustment_type": "percentage",
-                    "charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "start_period": 0,
-                    "quantity": 0,
-                    "tier": 0,
-                    "value": 0,
-                },
+                }
             ],
             trial_spec={
                 "length_in_days": 0,
@@ -456,16 +404,16 @@ class TestAsyncPlans:
     @parametrize
     async def test_method_end(self, async_client: AsyncMetronome) -> None:
         plan = await async_client.customers.plans.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
         assert_matches_type(PlanEndResponse, plan, path=["response"])
 
     @parametrize
     async def test_method_end_with_all_params(self, async_client: AsyncMetronome) -> None:
         plan = await async_client.customers.plans.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
             void_invoices=True,
             void_stripe_invoices=True,
@@ -475,8 +423,8 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_end(self, async_client: AsyncMetronome) -> None:
         response = await async_client.customers.plans.with_raw_response.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
 
         assert response.is_closed is True
@@ -487,8 +435,8 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_end(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.plans.with_streaming_response.end(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -502,29 +450,29 @@ class TestAsyncPlans:
     async def test_path_params_end(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.customers.plans.with_raw_response.end(
-                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
                 customer_id="",
+                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_plan_id` but received ''"):
             await async_client.customers.plans.with_raw_response.end(
-                customer_plan_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                customer_plan_id="",
             )
 
     @parametrize
     async def test_method_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
         plan = await async_client.customers.plans.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
         assert_matches_type(AsyncCursorPage[PlanListPriceAdjustmentsResponse], plan, path=["response"])
 
     @parametrize
     async def test_method_list_price_adjustments_with_all_params(self, async_client: AsyncMetronome) -> None:
         plan = await async_client.customers.plans.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             limit=1,
             next_page="next_page",
         )
@@ -533,8 +481,8 @@ class TestAsyncPlans:
     @parametrize
     async def test_raw_response_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
         response = await async_client.customers.plans.with_raw_response.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         )
 
         assert response.is_closed is True
@@ -545,8 +493,8 @@ class TestAsyncPlans:
     @parametrize
     async def test_streaming_response_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.plans.with_streaming_response.list_price_adjustments(
-            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -560,12 +508,12 @@ class TestAsyncPlans:
     async def test_path_params_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.customers.plans.with_raw_response.list_price_adjustments(
-                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
                 customer_id="",
+                customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_plan_id` but received ''"):
             await async_client.customers.plans.with_raw_response.list_price_adjustments(
-                customer_plan_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                customer_plan_id="",
             )

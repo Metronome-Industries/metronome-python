@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -30,6 +31,12 @@ class CustomerListBillableMetricsResponse(BaseModel):
 
     aggregation_type: Optional[Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"]] = None
     """Specifies the type of aggregation performed on matching events."""
+
+    archived_at: Optional[datetime] = None
+    """RFC 3339 timestamp indicating when the billable metric was archived.
+
+    If not provided, the billable metric is not archived.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
 

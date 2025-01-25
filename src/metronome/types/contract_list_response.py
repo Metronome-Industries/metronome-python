@@ -105,10 +105,25 @@ class Data(BaseModel):
 
     initial: ContractWithoutAmendments
 
+    archived_at: Optional[datetime] = None
+    """RFC 3339 timestamp indicating when the contract was archived.
+
+    If not returned, the contract is not archived.
+    """
+
     custom_fields: Optional[Dict[str, str]] = None
 
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
-    """This field's availability is dependent on your client's configuration."""
+    """The billing provider configuration associated with a contract."""
+
+    scheduled_charges_on_usage_invoices: Optional[Literal["ALL"]] = None
+    """
+    Determines which scheduled and commit charges to consolidate onto the Contract's
+    usage invoice. The charge's `timestamp` must match the usage invoice's
+    `ending_before` date for consolidation to occur. This field cannot be modified
+    after a Contract has been created. If this field is omitted, charges will appear
+    on a separate invoice from usage charges.
+    """
 
     uniqueness_key: Optional[str] = None
     """Prevents the creation of duplicates.

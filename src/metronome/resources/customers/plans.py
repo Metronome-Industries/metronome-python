@@ -35,7 +35,7 @@ class PlansResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -53,8 +53,8 @@ class PlansResource(SyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -103,8 +103,8 @@ class PlansResource(SyncAPIResource):
 
     def add(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -122,7 +122,7 @@ class PlansResource(SyncAPIResource):
         """Associate an existing customer with a plan for a specified date range.
 
         See the
-        [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
         for details on the price adjustments.
 
         Args:
@@ -140,7 +140,7 @@ class PlansResource(SyncAPIResource):
 
           price_adjustments: A list of price adjustments can be applied on top of the pricing in the plans.
               See the
-              [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+              [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
               for details.
 
           trial_spec: A custom trial can be set for the customer's plan. See the
@@ -179,9 +179,9 @@ class PlansResource(SyncAPIResource):
 
     def end(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         void_invoices: bool | NotGiven = NOT_GIVEN,
         void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
@@ -236,9 +236,9 @@ class PlansResource(SyncAPIResource):
 
     def list_price_adjustments(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -251,7 +251,7 @@ class PlansResource(SyncAPIResource):
         """Lists a customer plans adjustments.
 
         See the
-        [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
         for details.
 
         Args:
@@ -295,7 +295,7 @@ class AsyncPlansResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -313,8 +313,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -363,8 +363,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
     async def add(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -382,7 +382,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """Associate an existing customer with a plan for a specified date range.
 
         See the
-        [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
         for details on the price adjustments.
 
         Args:
@@ -400,7 +400,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           price_adjustments: A list of price adjustments can be applied on top of the pricing in the plans.
               See the
-              [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+              [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
               for details.
 
           trial_spec: A custom trial can be set for the customer's plan. See the
@@ -439,9 +439,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
     async def end(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         void_invoices: bool | NotGiven = NOT_GIVEN,
         void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
@@ -496,9 +496,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
     def list_price_adjustments(
         self,
-        customer_plan_id: str,
         *,
         customer_id: str,
+        customer_plan_id: str,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -511,7 +511,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """Lists a customer plans adjustments.
 
         See the
-        [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
         for details.
 
         Args:

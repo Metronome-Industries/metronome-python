@@ -41,7 +41,7 @@ class BillableMetricsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> BillableMetricsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -60,13 +60,14 @@ class BillableMetricsResource(SyncAPIResource):
     def create(
         self,
         *,
-        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"],
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,13 +79,12 @@ class BillableMetricsResource(SyncAPIResource):
         Creates a new Billable Metric.
 
         Args:
-          aggregation_type: Specifies the type of aggregation performed on matching events.
-
           name: The display name of the billable metric.
 
-          aggregation_key: A key that specifies which property of the event is used to aggregate data. This
-              key must be one of the property filter names and is not applicable when the
-              aggregation type is 'count'.
+          aggregation_key: Specifies the type of aggregation performed on matching events. Required if
+              `sql` is not provided.
+
+          aggregation_type: Specifies the type of aggregation performed on matching events.
 
           custom_fields: Custom fields to attach to the billable metric.
 
@@ -96,6 +96,11 @@ class BillableMetricsResource(SyncAPIResource):
           property_filters: A list of filters to match events to this billable metric. Each filter defines a
               rule on an event property. All rules must pass for the event to match the
               billable metric.
+
+          sql: The SQL query associated with the billable metric. This field is mutually
+              exclusive with aggregation_type, event_type_filter, property_filters,
+              aggregation_key, and group_keys. If provided, these other fields must be
+              omitted.
 
           extra_headers: Send extra headers
 
@@ -109,13 +114,14 @@ class BillableMetricsResource(SyncAPIResource):
             "/billable-metrics/create",
             body=maybe_transform(
                 {
-                    "aggregation_type": aggregation_type,
                     "name": name,
                     "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
                     "custom_fields": custom_fields,
                     "event_type_filter": event_type_filter,
                     "group_keys": group_keys,
                     "property_filters": property_filters,
+                    "sql": sql,
                 },
                 billable_metric_create_params.BillableMetricCreateParams,
             ),
@@ -127,8 +133,8 @@ class BillableMetricsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        billable_metric_id: str,
         *,
+        billable_metric_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -161,6 +167,7 @@ class BillableMetricsResource(SyncAPIResource):
     def list(
         self,
         *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -174,6 +181,8 @@ class BillableMetricsResource(SyncAPIResource):
         List all billable metrics.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -196,6 +205,7 @@ class BillableMetricsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                     },
@@ -242,7 +252,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncBillableMetricsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -261,13 +271,14 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"],
         name: str,
         aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
         group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -279,13 +290,12 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         Creates a new Billable Metric.
 
         Args:
-          aggregation_type: Specifies the type of aggregation performed on matching events.
-
           name: The display name of the billable metric.
 
-          aggregation_key: A key that specifies which property of the event is used to aggregate data. This
-              key must be one of the property filter names and is not applicable when the
-              aggregation type is 'count'.
+          aggregation_key: Specifies the type of aggregation performed on matching events. Required if
+              `sql` is not provided.
+
+          aggregation_type: Specifies the type of aggregation performed on matching events.
 
           custom_fields: Custom fields to attach to the billable metric.
 
@@ -297,6 +307,11 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
           property_filters: A list of filters to match events to this billable metric. Each filter defines a
               rule on an event property. All rules must pass for the event to match the
               billable metric.
+
+          sql: The SQL query associated with the billable metric. This field is mutually
+              exclusive with aggregation_type, event_type_filter, property_filters,
+              aggregation_key, and group_keys. If provided, these other fields must be
+              omitted.
 
           extra_headers: Send extra headers
 
@@ -310,13 +325,14 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
             "/billable-metrics/create",
             body=await async_maybe_transform(
                 {
-                    "aggregation_type": aggregation_type,
                     "name": name,
                     "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
                     "custom_fields": custom_fields,
                     "event_type_filter": event_type_filter,
                     "group_keys": group_keys,
                     "property_filters": property_filters,
+                    "sql": sql,
                 },
                 billable_metric_create_params.BillableMetricCreateParams,
             ),
@@ -328,8 +344,8 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        billable_metric_id: str,
         *,
+        billable_metric_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -362,6 +378,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -375,6 +392,8 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         List all billable metrics.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -397,6 +416,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                     },

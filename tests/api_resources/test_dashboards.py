@@ -48,16 +48,12 @@ class TestDashboards:
             ],
             dashboard_options=[
                 {
-                    "key": "key",
-                    "value": "value",
+                    "key": "show_zero_usage_line_items",
+                    "value": "false",
                 },
                 {
-                    "key": "key",
-                    "value": "value",
-                },
-                {
-                    "key": "key",
-                    "value": "value",
+                    "key": "hide_voided_invoices",
+                    "value": "true",
                 },
             ],
         )
@@ -124,16 +120,12 @@ class TestAsyncDashboards:
             ],
             dashboard_options=[
                 {
-                    "key": "key",
-                    "value": "value",
+                    "key": "show_zero_usage_line_items",
+                    "value": "false",
                 },
                 {
-                    "key": "key",
-                    "value": "value",
-                },
-                {
-                    "key": "key",
-                    "value": "value",
+                    "key": "hide_voided_invoices",
+                    "value": "true",
                 },
             ],
         )

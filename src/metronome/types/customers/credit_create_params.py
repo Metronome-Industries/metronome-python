@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -56,8 +56,18 @@ class CreditCreateParams(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
+
+    uniqueness_key: str
+    """Prevents the creation of duplicates.
+
+    If a request to create a commit or credit is made with a uniqueness key that was
+    previously used to create a commit or credit, a new record will not be created
+    and the request will fail with a 409 error.
+    """
 
 
 class AccessScheduleScheduleItem(TypedDict, total=False):
@@ -74,3 +84,4 @@ class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -33,7 +34,7 @@ class CreditsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CreditsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -63,7 +64,9 @@ class CreditsResource(SyncAPIResource):
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -97,6 +100,11 @@ class CreditsResource(SyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,7 +128,9 @@ class CreditsResource(SyncAPIResource):
                     "description": description,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 credit_create_params.CreditCreateParams,
             ),
@@ -138,6 +148,7 @@ class CreditsResource(SyncAPIResource):
         credit_id: str | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -158,6 +169,9 @@ class CreditsResource(SyncAPIResource):
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_credits: Include credits on the contract level.
 
@@ -185,6 +199,7 @@ class CreditsResource(SyncAPIResource):
                     "credit_id": credit_id,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -251,7 +266,7 @@ class AsyncCreditsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCreditsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -281,7 +296,9 @@ class AsyncCreditsResource(AsyncAPIResource):
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,6 +332,11 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -338,7 +360,9 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "description": description,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 credit_create_params.CreditCreateParams,
             ),
@@ -356,6 +380,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         credit_id: str | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -376,6 +401,9 @@ class AsyncCreditsResource(AsyncAPIResource):
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_credits: Include credits on the contract level.
 
@@ -403,6 +431,7 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "credit_id": credit_id,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,

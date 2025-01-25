@@ -36,14 +36,6 @@ from .products import (
     AsyncProductsResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
-from .rate_cards import (
-    RateCardsResource,
-    AsyncRateCardsResource,
-    RateCardsResourceWithRawResponse,
-    AsyncRateCardsResourceWithRawResponse,
-    RateCardsResourceWithStreamingResponse,
-    AsyncRateCardsResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -60,7 +52,14 @@ from .named_schedules import (
     NamedSchedulesResourceWithStreamingResponse,
     AsyncNamedSchedulesResourceWithStreamingResponse,
 )
-from .rate_cards.rate_cards import RateCardsResource, AsyncRateCardsResource
+from .rate_cards.rate_cards import (
+    RateCardsResource,
+    AsyncRateCardsResource,
+    RateCardsResourceWithRawResponse,
+    AsyncRateCardsResourceWithRawResponse,
+    RateCardsResourceWithStreamingResponse,
+    AsyncRateCardsResourceWithStreamingResponse,
+)
 from ...types.contract_list_response import ContractListResponse
 from ...types.contract_amend_response import ContractAmendResponse
 from ...types.contract_create_response import ContractCreateResponse
@@ -92,7 +91,7 @@ class ContractsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ContractsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -130,6 +129,7 @@ class ContractsResource(SyncAPIResource):
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -148,7 +148,7 @@ class ContractsResource(SyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: This field's availability is dependent on your client's configuration.
+          billing_provider_configuration: The billing provider configuration associated with a contract.
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -169,6 +169,12 @@ class ContractsResource(SyncAPIResource):
           reseller_royalties: This field's availability is dependent on your client's configuration.
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
+
+          scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
+              usage invoice. The charge's `timestamp` must match the usage invoice's
+              `ending_before` date for consolidation to occur. This field cannot be modified
+              after a Contract has been created. If this field is omitted, charges will appear
+              on a separate invoice from usage charges.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -207,6 +213,7 @@ class ContractsResource(SyncAPIResource):
                     "reseller_royalties": reseller_royalties,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -226,6 +233,7 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -238,6 +246,9 @@ class ContractsResource(SyncAPIResource):
         Get a specific contract
 
         Args:
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
+
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
@@ -255,6 +266,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                 },
                 contract_retrieve_params.ContractRetrieveParams,
@@ -271,6 +283,7 @@ class ContractsResource(SyncAPIResource):
         customer_id: str,
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -289,6 +302,9 @@ class ContractsResource(SyncAPIResource):
               starting_at filter is provided.
 
           include_archived: Include archived contracts in the response
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
@@ -312,6 +328,7 @@ class ContractsResource(SyncAPIResource):
                     "customer_id": customer_id,
                     "covering_date": covering_date,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                     "starting_at": starting_at,
                 },
@@ -564,6 +581,7 @@ class ContractsResource(SyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_balances: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -584,6 +602,9 @@ class ContractsResource(SyncAPIResource):
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_contract_balances: Include balances on the contract level.
 
@@ -611,6 +632,7 @@ class ContractsResource(SyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -710,7 +732,7 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractScheduleProServicesInvoiceResponse:
         """
-        Create a new, scheduled invoice for Professional Services terms on a contract.
+        Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
 
         Args:
@@ -800,6 +822,7 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -815,6 +838,11 @@ class ContractsResource(SyncAPIResource):
           contract_id: ID of the contract to update
 
           customer_id: ID of the customer whose contract is to be updated
+
+          allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to true.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
@@ -833,6 +861,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
                     "ending_before": ending_before,
                 },
                 contract_update_end_date_params.ContractUpdateEndDateParams,
@@ -860,7 +889,7 @@ class AsyncContractsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncContractsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -898,6 +927,7 @@ class AsyncContractsResource(AsyncAPIResource):
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -916,7 +946,7 @@ class AsyncContractsResource(AsyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: This field's availability is dependent on your client's configuration.
+          billing_provider_configuration: The billing provider configuration associated with a contract.
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -937,6 +967,12 @@ class AsyncContractsResource(AsyncAPIResource):
           reseller_royalties: This field's availability is dependent on your client's configuration.
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
+
+          scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
+              usage invoice. The charge's `timestamp` must match the usage invoice's
+              `ending_before` date for consolidation to occur. This field cannot be modified
+              after a Contract has been created. If this field is omitted, charges will appear
+              on a separate invoice from usage charges.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -975,6 +1011,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "reseller_royalties": reseller_royalties,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -994,6 +1031,7 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1006,6 +1044,9 @@ class AsyncContractsResource(AsyncAPIResource):
         Get a specific contract
 
         Args:
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
+
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
@@ -1023,6 +1064,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                 },
                 contract_retrieve_params.ContractRetrieveParams,
@@ -1039,6 +1081,7 @@ class AsyncContractsResource(AsyncAPIResource):
         customer_id: str,
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1057,6 +1100,9 @@ class AsyncContractsResource(AsyncAPIResource):
               starting_at filter is provided.
 
           include_archived: Include archived contracts in the response
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
@@ -1080,6 +1126,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "customer_id": customer_id,
                     "covering_date": covering_date,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
                     "starting_at": starting_at,
                 },
@@ -1332,6 +1379,7 @@ class AsyncContractsResource(AsyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_balances: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -1352,6 +1400,9 @@ class AsyncContractsResource(AsyncAPIResource):
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
           include_archived: Include credits from archived contracts.
+
+          include_balance: Include the balance of credits and commits in the response. Setting this flag
+              may cause the query to be slower.
 
           include_contract_balances: Include balances on the contract level.
 
@@ -1379,6 +1430,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -1478,7 +1530,7 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractScheduleProServicesInvoiceResponse:
         """
-        Create a new, scheduled invoice for Professional Services terms on a contract.
+        Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
 
         Args:
@@ -1568,6 +1620,7 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1583,6 +1636,11 @@ class AsyncContractsResource(AsyncAPIResource):
           contract_id: ID of the contract to update
 
           customer_id: ID of the customer whose contract is to be updated
+
+          allow_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to true.
 
           ending_before: RFC 3339 timestamp indicating when the contract will end (exclusive). If not
               provided, the contract will be updated to be open-ended.
@@ -1601,6 +1659,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
                     "ending_before": ending_before,
                 },
                 contract_update_end_date_params.ContractUpdateEndDateParams,

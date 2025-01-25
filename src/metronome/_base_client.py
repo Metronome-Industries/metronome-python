@@ -143,6 +143,12 @@ class PageInfo:
         self.url = url
         self.params = params
 
+    @override
+    def __repr__(self) -> str:
+        if self.url:
+            return f"{self.__class__.__name__}(url={self.url})"
+        return f"{self.__class__.__name__}(params={self.params})"
+
 
 class BasePage(GenericModel, Generic[_T]):
     """
@@ -412,7 +418,10 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         if idempotency_header and options.method.lower() != "get" and idempotency_header not in headers:
             headers[idempotency_header] = options.idempotency_key or self._idempotency_key()
 
-        headers.setdefault("x-stainless-retry-count", str(retries_taken))
+        # Don't set the retry count header if it was already set or removed by the caller. We check
+        # `custom_headers`, which can contain `Omit()`, instead of `headers` to account for the removal case.
+        if "x-stainless-retry-count" not in (header.lower() for header in custom_headers):
+            headers["x-stainless-retry-count"] = str(retries_taken)
 
         return headers
 
@@ -686,7 +695,8 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         if retry_after is not None and 0 < retry_after <= 60:
             return retry_after
 
-        nb_retries = max_retries - remaining_retries
+        # Also cap retry count to 1000 to avoid any potential overflows with `pow`
+        nb_retries = min(max_retries - remaining_retries, 1000)
 
         # Apply exponential backoff, but not more than the max.
         sleep_seconds = min(INITIAL_RETRY_DELAY * pow(2.0, nb_retries), MAX_RETRY_DELAY)
@@ -757,6 +767,9 @@ else:
 
 class SyncHttpxClientWrapper(DefaultHttpxClient):
     def __del__(self) -> None:
+        if self.is_closed:
+            return
+
         try:
             self.close()
         except Exception:
@@ -782,6 +795,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
         custom_query: Mapping[str, object] | None = None,
         _strict_response_validation: bool,
     ) -> None:
+        kwargs: dict[str, Any] = {}
         if limits is not None:
             warnings.warn(
                 "The `connection_pool_limits` argument is deprecated. The `http_client` argument should be passed instead",
@@ -794,6 +808,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
             limits = DEFAULT_CONNECTION_LIMITS
 
         if transport is not None:
+            kwargs["transport"] = transport
             warnings.warn(
                 "The `transport` argument is deprecated. The `http_client` argument should be passed instead",
                 category=DeprecationWarning,
@@ -803,6 +818,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
                 raise ValueError("The `http_client` argument is mutually exclusive with `transport`")
 
         if proxies is not None:
+            kwargs["proxies"] = proxies
             warnings.warn(
                 "The `proxies` argument is deprecated. The `http_client` argument should be passed instead",
                 category=DeprecationWarning,
@@ -846,10 +862,9 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
             base_url=base_url,
             # cast to a valid type because mypy doesn't understand our type narrowing
             timeout=cast(Timeout, timeout),
-            proxies=proxies,
-            transport=transport,
             limits=limits,
             follow_redirects=True,
+            **kwargs,  # type: ignore
         )
 
     def is_closed(self) -> bool:
@@ -1322,6 +1337,9 @@ else:
 
 class AsyncHttpxClientWrapper(DefaultAsyncHttpxClient):
     def __del__(self) -> None:
+        if self.is_closed:
+            return
+
         try:
             # TODO(someday): support non asyncio runtimes here
             asyncio.get_running_loop().create_task(self.aclose())
@@ -1348,6 +1366,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         custom_headers: Mapping[str, str] | None = None,
         custom_query: Mapping[str, object] | None = None,
     ) -> None:
+        kwargs: dict[str, Any] = {}
         if limits is not None:
             warnings.warn(
                 "The `connection_pool_limits` argument is deprecated. The `http_client` argument should be passed instead",
@@ -1360,6 +1379,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
             limits = DEFAULT_CONNECTION_LIMITS
 
         if transport is not None:
+            kwargs["transport"] = transport
             warnings.warn(
                 "The `transport` argument is deprecated. The `http_client` argument should be passed instead",
                 category=DeprecationWarning,
@@ -1369,6 +1389,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
                 raise ValueError("The `http_client` argument is mutually exclusive with `transport`")
 
         if proxies is not None:
+            kwargs["proxies"] = proxies
             warnings.warn(
                 "The `proxies` argument is deprecated. The `http_client` argument should be passed instead",
                 category=DeprecationWarning,
@@ -1412,10 +1433,9 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
             base_url=base_url,
             # cast to a valid type because mypy doesn't understand our type narrowing
             timeout=cast(Timeout, timeout),
-            proxies=proxies,
-            transport=transport,
             limits=limits,
             follow_redirects=True,
+            **kwargs,  # type: ignore
         )
 
     def is_closed(self) -> bool:
@@ -1565,7 +1585,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         except Exception as err:
             log.debug("Encountered Exception", exc_info=True)
 
-            if retries_taken > 0:
+            if remaining_retries > 0:
                 return await self._retry_request(
                     input_options,
                     cast_to,

@@ -51,7 +51,7 @@ class ContractCreateParams(TypedDict, total=False):
     """inclusive contract start time"""
 
     billing_provider_configuration: BillingProviderConfiguration
-    """This field's availability is dependent on your client's configuration."""
+    """The billing provider configuration associated with a contract."""
 
     commits: Iterable[Commit]
 
@@ -101,6 +101,15 @@ class ContractCreateParams(TypedDict, total=False):
 
     scheduled_charges: Iterable[ScheduledCharge]
 
+    scheduled_charges_on_usage_invoices: Literal["ALL"]
+    """
+    Determines which scheduled and commit charges to consolidate onto the Contract's
+    usage invoice. The charge's `timestamp` must match the usage invoice's
+    `ending_before` date for consolidation to occur. This field cannot be modified
+    after a Contract has been created. If this field is omitted, charges will appear
+    on a separate invoice from usage charges.
+    """
+
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
 
@@ -141,6 +150,7 @@ class CommitAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -204,7 +214,7 @@ class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class CommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: CommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -272,8 +282,16 @@ class Commit(TypedDict, total=False):
     first.
     """
 
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
+
+    temporary_id: str
+    """
+    A temporary ID for the commit that can be used to reference the commit for
+    commit specific overrides.
+    """
 
 
 class CreditAccessScheduleScheduleItem(TypedDict, total=False):
@@ -290,6 +308,7 @@ class CreditAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
 
 class Credit(TypedDict, total=False):
@@ -328,6 +347,8 @@ class Credit(TypedDict, total=False):
     If multiple credits are applicable, the one with the lower priority will apply
     first.
     """
+
+    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -391,7 +412,7 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
 
 class DiscountSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: DiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -411,6 +432,8 @@ class Discount(TypedDict, total=False):
     schedule: Required[DiscountSchedule]
     """Must provide either schedule_items or recurring_schedule."""
 
+    custom_fields: Dict[str, str]
+
     name: str
     """displayed on invoices"""
 
@@ -419,6 +442,15 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
+    commit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to the specified commits. If not provided, the override will
+    apply to all commits.
+    """
+
     presentation_group_values: Dict[str, str]
     """A map of group names to values.
 
@@ -455,7 +487,10 @@ class OverrideOverwriteRate(TypedDict, total=False):
     """
 
     is_prorated: bool
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: float
     """Default price.
@@ -482,12 +517,24 @@ class Override(TypedDict, total=False):
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
     applicable_product_tags: List[str]
-    """tags identifying products whose rates are being overridden"""
+    """tags identifying products whose rates are being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the override will stop applying (exclusive)"""
 
     entitled: bool
+
+    is_commit_specific: bool
+    """Indicates whether the override should only apply to commits.
+
+    Defaults to `false`. If `true`, you can specify relevant commits in
+    `override_specifiers` by passing `commit_ids`. if you do not specify
+    `commit_ids`, then the override will apply when consuming any prepaid or
+    postpaid commit.
+    """
 
     multiplier: float
     """Required for MULTIPLIER type. Must be >=0."""
@@ -511,7 +558,17 @@ class Override(TypedDict, total=False):
     """
 
     product_id: str
-    """ID of the product whose rate is being overridden"""
+    """ID of the product whose rate is being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
+
+    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    """Indicates whether the override applies to commit rates or list rates.
+
+    Can only be used for overrides that have `is_commit_specific` set to `true`.
+    Defaults to `"LIST_RATE"`.
+    """
 
     tiers: Iterable[OverrideTier]
     """Required for TIERED type. Must have at least one tier."""
@@ -645,7 +702,7 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 class ScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: ScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -690,9 +747,19 @@ class Transition(TypedDict, total=False):
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
 
-    day: Literal["FIRST_OF_MONTH", "CONTRACT_START"]
+    billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Required when using CUSTOM_DATE.
+
+    This option lets you set a historical billing anchor date, aligning future
+    billing cycles with a chosen cadence. For example, if a contract starts on
+    2024-09-15 and you set the anchor date to 2024-09-10 with a MONTHLY frequency,
+    the first usage statement will cover 09-15 to 10-10. Subsequent statements will
+    follow the 10th of each month.
+    """
+
+    day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE", "custom_date"]
     """If not provided, defaults to the first day of the month."""
 
     invoice_generation_starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

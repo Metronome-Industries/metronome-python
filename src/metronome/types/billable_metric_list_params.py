@@ -8,6 +8,9 @@ __all__ = ["BillableMetricListParams"]
 
 
 class BillableMetricListParams(TypedDict, total=False):
+    include_archived: bool
+    """If true, the list of returned metrics will include archived metrics"""
+
     limit: int
     """Max number of results that should be returned"""
 

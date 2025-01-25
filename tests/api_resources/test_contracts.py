@@ -57,27 +57,13 @@ class TestContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "invoice_schedule": {
@@ -97,164 +83,16 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
+                    "temporary_id": "temporary_id",
+                }
             ],
             credits=[
                 {
@@ -264,101 +102,20 @@ class TestContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
+                    "rate_type": "COMMIT_RATE",
+                }
             ],
             custom_fields={"foo": "string"},
             discounts=[
@@ -381,98 +138,13 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
@@ -482,29 +154,19 @@ class TestContracts:
             overrides=[
                 {
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_tags": ["string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
+                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
+                            "product_tags": ["string"],
+                        }
                     ],
                     "overwrite_rate": {
                         "rate_type": "FLAT",
@@ -517,167 +179,20 @@ class TestContracts:
                             {
                                 "price": 0,
                                 "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
+                            }
                         ],
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
                             "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
+                        }
                     ],
                     "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
+                }
             ],
             professional_services=[
                 {
@@ -688,25 +203,7 @@ class TestContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -716,12 +213,8 @@ class TestContracts:
                     "netsuite_reseller_id": "netsuite_reseller_id",
                     "reseller_type": "AWS",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "aws_options": {
                         "aws_account_number": "aws_account_number",
                         "aws_offer_id": "aws_offer_id",
@@ -733,53 +226,7 @@ class TestContracts:
                         "gcp_offer_id": "gcp_offer_id",
                     },
                     "reseller_contract_value": 0,
-                },
-                {
-                    "fraction": 0,
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_type": "AWS",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "reseller_contract_value": 0,
-                },
-                {
-                    "fraction": 0,
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_type": "AWS",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "reseller_contract_value": 0,
-                },
+                }
             ],
             salesforce_opportunity_id="salesforce_opportunity_id",
             scheduled_charges=[
@@ -802,99 +249,14 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
+            scheduled_charges_on_usage_invoices="ALL",
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -904,11 +266,12 @@ class TestContracts:
             uniqueness_key="x",
             usage_filter={
                 "group_key": "group_key",
-                "group_values": ["string", "string", "string"],
+                "group_values": ["string"],
                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
@@ -954,6 +317,7 @@ class TestContracts:
         contract = client.contracts.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            include_balance=True,
             include_ledgers=True,
         )
         assert_matches_type(ContractRetrieveResponse, contract, path=["response"])
@@ -997,6 +361,7 @@ class TestContracts:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_ledgers=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -1107,27 +472,13 @@ class TestContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "invoice_schedule": {
@@ -1147,164 +498,16 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
+                    "temporary_id": "temporary_id",
+                }
             ],
             credits=[
                 {
@@ -1314,101 +517,20 @@ class TestContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
+                    "rate_type": "COMMIT_RATE",
+                }
             ],
             custom_fields={"foo": "string"},
             discounts=[
@@ -1431,126 +553,31 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             netsuite_sales_order_id="netsuite_sales_order_id",
             overrides=[
                 {
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_tags": ["string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
+                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
+                            "product_tags": ["string"],
+                        }
                     ],
                     "overwrite_rate": {
                         "rate_type": "FLAT",
@@ -1563,167 +590,20 @@ class TestContracts:
                             {
                                 "price": 0,
                                 "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
+                            }
                         ],
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
                             "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
+                        }
                     ],
                     "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
+                }
             ],
             professional_services=[
                 {
@@ -1734,35 +614,13 @@ class TestContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             reseller_royalties=[
                 {
                     "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "aws_options": {
                         "aws_account_number": "aws_account_number",
                         "aws_offer_id": "aws_offer_id",
@@ -1777,53 +635,7 @@ class TestContracts:
                     "netsuite_reseller_id": "netsuite_reseller_id",
                     "reseller_contract_value": 0,
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "fraction": 0,
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_contract_value": 0,
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "fraction": 0,
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_contract_value": 0,
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
+                }
             ],
             salesforce_opportunity_id="salesforce_opportunity_id",
             scheduled_charges=[
@@ -1846,98 +658,12 @@ class TestContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             total_contract_value=0,
         )
@@ -2013,82 +739,22 @@ class TestContracts:
         contract = client.contracts.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
         assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
 
@@ -2097,82 +763,22 @@ class TestContracts:
         response = client.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
 
         assert response.is_closed is True
@@ -2185,82 +791,22 @@ class TestContracts:
         with client.contracts.with_streaming_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -2285,6 +831,7 @@ class TestContracts:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
             next_page="next_page",
@@ -2340,7 +887,7 @@ class TestContracts:
                     },
                     "pricing_group_values": {"foo": "string"},
                     "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
+                    "product_tags": ["string"],
                 }
             ],
         )
@@ -2378,11 +925,7 @@ class TestContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         )
         assert_matches_type(ContractScheduleProServicesInvoiceResponse, contract, path=["response"])
 
@@ -2402,27 +945,7 @@ class TestContracts:
                     "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "quantity": 0,
                     "unit_price": 0,
-                },
-                {
-                    "professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amendment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amount": 0,
-                    "metadata": "metadata",
-                    "netsuite_invoice_billing_end": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "quantity": 0,
-                    "unit_price": 0,
-                },
-                {
-                    "professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amendment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amount": 0,
-                    "metadata": "metadata",
-                    "netsuite_invoice_billing_end": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "quantity": 0,
-                    "unit_price": 0,
-                },
+                }
             ],
             netsuite_invoice_header_end=parse_datetime("2019-12-27T18:11:19.117Z"),
             netsuite_invoice_header_start=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2435,11 +958,7 @@ class TestContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         )
 
         assert response.is_closed is True
@@ -2453,11 +972,7 @@ class TestContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -2523,6 +1038,7 @@ class TestContracts:
         contract = client.contracts.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            allow_ending_before_finalized_invoice=True,
             ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
         )
         assert_matches_type(ContractUpdateEndDateResponse, contract, path=["response"])
@@ -2585,27 +1101,13 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "invoice_schedule": {
@@ -2625,164 +1127,16 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
+                    "temporary_id": "temporary_id",
+                }
             ],
             credits=[
                 {
@@ -2792,101 +1146,20 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
+                    "rate_type": "COMMIT_RATE",
+                }
             ],
             custom_fields={"foo": "string"},
             discounts=[
@@ -2909,98 +1182,13 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
@@ -3010,29 +1198,19 @@ class TestAsyncContracts:
             overrides=[
                 {
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_tags": ["string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
+                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
+                            "product_tags": ["string"],
+                        }
                     ],
                     "overwrite_rate": {
                         "rate_type": "FLAT",
@@ -3045,167 +1223,20 @@ class TestAsyncContracts:
                             {
                                 "price": 0,
                                 "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
+                            }
                         ],
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
                             "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
+                        }
                     ],
                     "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
+                }
             ],
             professional_services=[
                 {
@@ -3216,25 +1247,7 @@ class TestAsyncContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -3244,12 +1257,8 @@ class TestAsyncContracts:
                     "netsuite_reseller_id": "netsuite_reseller_id",
                     "reseller_type": "AWS",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "aws_options": {
                         "aws_account_number": "aws_account_number",
                         "aws_offer_id": "aws_offer_id",
@@ -3261,53 +1270,7 @@ class TestAsyncContracts:
                         "gcp_offer_id": "gcp_offer_id",
                     },
                     "reseller_contract_value": 0,
-                },
-                {
-                    "fraction": 0,
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_type": "AWS",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "reseller_contract_value": 0,
-                },
-                {
-                    "fraction": 0,
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_type": "AWS",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "reseller_contract_value": 0,
-                },
+                }
             ],
             salesforce_opportunity_id="salesforce_opportunity_id",
             scheduled_charges=[
@@ -3330,99 +1293,14 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
+            scheduled_charges_on_usage_invoices="ALL",
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3432,11 +1310,12 @@ class TestAsyncContracts:
             uniqueness_key="x",
             usage_filter={
                 "group_key": "group_key",
-                "group_values": ["string", "string", "string"],
+                "group_values": ["string"],
                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
             usage_statement_schedule={
                 "frequency": "MONTHLY",
+                "billing_anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
                 "day": "FIRST_OF_MONTH",
                 "invoice_generation_starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
             },
@@ -3482,6 +1361,7 @@ class TestAsyncContracts:
         contract = await async_client.contracts.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            include_balance=True,
             include_ledgers=True,
         )
         assert_matches_type(ContractRetrieveResponse, contract, path=["response"])
@@ -3525,6 +1405,7 @@ class TestAsyncContracts:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_ledgers=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -3635,27 +1516,13 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "invoice_schedule": {
@@ -3675,164 +1542,16 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
+                    "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "type": "PREPAID",
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "amount": 0,
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "invoice_schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                    "rollover_fraction": 0,
-                },
+                    "temporary_id": "temporary_id",
+                }
             ],
             credits=[
                 {
@@ -3842,101 +1561,20 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
+                            }
                         ],
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
-                {
-                    "access_schedule": {
-                        "schedule_items": [
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                            {
-                                "amount": 0,
-                                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            },
-                        ],
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "priority": 0,
-                },
+                    "rate_type": "COMMIT_RATE",
+                }
             ],
             custom_fields={"foo": "string"},
             discounts=[
@@ -3959,126 +1597,31 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             netsuite_sales_order_id="netsuite_sales_order_id",
             overrides=[
                 {
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_tags": ["string"],
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "entitled": True,
+                    "is_commit_specific": True,
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
+                            "product_tags": ["string"],
+                        }
                     ],
                     "overwrite_rate": {
                         "rate_type": "FLAT",
@@ -4091,167 +1634,20 @@ class TestAsyncContracts:
                             {
                                 "price": 0,
                                 "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
+                            }
                         ],
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "target": "COMMIT_RATE",
                     "tiers": [
                         {
                             "multiplier": 0,
                             "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
+                        }
                     ],
                     "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
-                {
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "entitled": True,
-                    "multiplier": 0,
-                    "override_specifiers": [
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                        {
-                            "presentation_group_values": {"foo": "string"},
-                            "pricing_group_values": {"foo": "string"},
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                            "product_tags": ["string", "string", "string"],
-                        },
-                    ],
-                    "overwrite_rate": {
-                        "rate_type": "FLAT",
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_rate": {"foo": "bar"},
-                        "is_prorated": True,
-                        "price": 0,
-                        "quantity": 0,
-                        "tiers": [
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                            {
-                                "price": 0,
-                                "size": 0,
-                            },
-                        ],
-                    },
-                    "priority": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "tiers": [
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                        {
-                            "multiplier": 0,
-                            "size": 0,
-                        },
-                    ],
-                    "type": "OVERWRITE",
-                },
+                }
             ],
             professional_services=[
                 {
@@ -4262,35 +1658,13 @@ class TestAsyncContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "max_amount": 0,
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "quantity": 0,
-                    "unit_price": 0,
-                    "custom_fields": {"foo": "string"},
-                    "description": "description",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             reseller_royalties=[
                 {
                     "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "aws_options": {
                         "aws_account_number": "aws_account_number",
                         "aws_offer_id": "aws_offer_id",
@@ -4305,53 +1679,7 @@ class TestAsyncContracts:
                     "netsuite_reseller_id": "netsuite_reseller_id",
                     "reseller_contract_value": 0,
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "fraction": 0,
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_contract_value": 0,
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
-                {
-                    "reseller_type": "AWS",
-                    "applicable_product_ids": [
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    ],
-                    "applicable_product_tags": ["string", "string", "string"],
-                    "aws_options": {
-                        "aws_account_number": "aws_account_number",
-                        "aws_offer_id": "aws_offer_id",
-                        "aws_payer_reference_id": "aws_payer_reference_id",
-                    },
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "fraction": 0,
-                    "gcp_options": {
-                        "gcp_account_id": "gcp_account_id",
-                        "gcp_offer_id": "gcp_offer_id",
-                    },
-                    "netsuite_reseller_id": "netsuite_reseller_id",
-                    "reseller_contract_value": 0,
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                },
+                }
             ],
             salesforce_opportunity_id="salesforce_opportunity_id",
             scheduled_charges=[
@@ -4374,98 +1702,12 @@ class TestAsyncContracts:
                                 "amount": 0,
                                 "quantity": 0,
                                 "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
+                            }
                         ],
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
-                {
-                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "schedule": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "recurring_schedule": {
-                            "amount_distribution": "DIVIDED",
-                            "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "frequency": "MONTHLY",
-                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "amount": 0,
-                            "quantity": 0,
-                            "unit_price": 0,
-                        },
-                        "schedule_items": [
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                            {
-                                "timestamp": parse_datetime("2019-12-27T18:11:19.117Z"),
-                                "amount": 0,
-                                "quantity": 0,
-                                "unit_price": 0,
-                            },
-                        ],
-                    },
-                    "name": "x",
-                    "netsuite_sales_order_id": "netsuite_sales_order_id",
-                },
+                }
             ],
             total_contract_value=0,
         )
@@ -4541,82 +1783,22 @@ class TestAsyncContracts:
         contract = await async_client.contracts.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
         assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
 
@@ -4625,82 +1807,22 @@ class TestAsyncContracts:
         response = await async_client.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         )
 
         assert response.is_closed is True
@@ -4713,82 +1835,22 @@ class TestAsyncContracts:
         async with async_client.contracts.with_streaming_response.create_historical_invoices(
             invoices=[
                 {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "contract_id": "d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                    "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                    "customer_id": "13117714-3f05-48e5-a6e9-a66093f13b4d",
+                    "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                    "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                    "issue_date": parse_datetime("2020-02-01T00:00:00.000Z"),
                     "usage_line_items": [
                         {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
+                            "exclusive_end_date": parse_datetime("2020-02-01T00:00:00.000Z"),
+                            "inclusive_start_date": parse_datetime("2020-01-01T00:00:00.000Z"),
+                            "product_id": "f14d6729-6a44-4b13-9908-9387f1918790",
+                        }
                     ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
-                {
-                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "issue_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "usage_line_items": [
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                        {
-                            "exclusive_end_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "inclusive_start_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        },
-                    ],
-                },
+                }
             ],
-            preview=True,
+            preview=False,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -4813,6 +1875,7 @@ class TestAsyncContracts:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
             next_page="next_page",
@@ -4868,7 +1931,7 @@ class TestAsyncContracts:
                     },
                     "pricing_group_values": {"foo": "string"},
                     "product_id": "d6300dbb-882e-4d2d-8dec-5125d16b65d0",
-                    "product_tags": ["string", "string", "string"],
+                    "product_tags": ["string"],
                 }
             ],
         )
@@ -4906,11 +1969,7 @@ class TestAsyncContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         )
         assert_matches_type(ContractScheduleProServicesInvoiceResponse, contract, path=["response"])
 
@@ -4930,27 +1989,7 @@ class TestAsyncContracts:
                     "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "quantity": 0,
                     "unit_price": 0,
-                },
-                {
-                    "professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amendment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amount": 0,
-                    "metadata": "metadata",
-                    "netsuite_invoice_billing_end": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "quantity": 0,
-                    "unit_price": 0,
-                },
-                {
-                    "professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amendment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "amount": 0,
-                    "metadata": "metadata",
-                    "netsuite_invoice_billing_end": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "netsuite_invoice_billing_start": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "quantity": 0,
-                    "unit_price": 0,
-                },
+                }
             ],
             netsuite_invoice_header_end=parse_datetime("2019-12-27T18:11:19.117Z"),
             netsuite_invoice_header_start=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -4963,11 +2002,7 @@ class TestAsyncContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         )
 
         assert response.is_closed is True
@@ -4981,11 +2016,7 @@ class TestAsyncContracts:
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             issued_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            line_items=[
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-                {"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
-            ],
+            line_items=[{"professional_service_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -5051,6 +2082,7 @@ class TestAsyncContracts:
         contract = await async_client.contracts.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            allow_ending_before_finalized_invoice=True,
             ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
         )
         assert_matches_type(ContractUpdateEndDateResponse, contract, path=["response"])

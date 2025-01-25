@@ -34,7 +34,7 @@ class UsageResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> UsageResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -129,8 +129,8 @@ class UsageResource(SyncAPIResource):
         The body of this request is expected to be a
         JSON array of between 1 and 100 usage events. Compressed request bodies are
         supported with a `Content-Encoding: gzip` header. See
-        [Getting usage into Metronome](https://docs.metronome.com/getting-usage-data-into-metronome/overview)
-        to learn more about usage events.
+        [Getting usage into Metronome](https://docs.metronome.com/connect-metronome/) to
+        learn more about usage events.
 
         Args:
           extra_headers: Send extra headers
@@ -232,7 +232,7 @@ class AsyncUsageResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncUsageResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -327,8 +327,8 @@ class AsyncUsageResource(AsyncAPIResource):
         The body of this request is expected to be a
         JSON array of between 1 and 100 usage events. Compressed request bodies are
         supported with a `Content-Encoding: gzip` header. See
-        [Getting usage into Metronome](https://docs.metronome.com/getting-usage-data-into-metronome/overview)
-        to learn more about usage events.
+        [Getting usage into Metronome](https://docs.metronome.com/connect-metronome/) to
+        learn more about usage events.
 
         Args:
           extra_headers: Send extra headers

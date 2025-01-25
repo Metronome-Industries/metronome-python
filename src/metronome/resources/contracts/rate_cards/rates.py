@@ -36,7 +36,7 @@ class RatesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> RatesResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -68,7 +68,7 @@ class RatesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[RateListResponse]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -126,6 +126,7 @@ class RatesResource(SyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -152,16 +153,20 @@ class RatesResource(SyncAPIResource):
 
           starting_at: inclusive effective date
 
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          commit_rate: A distinct rate on the rate card. You can choose to use this rate rather than
+              list rate when consuming a credit or commit.
+
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
 
           ending_before: exclusive end date
 
-          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type.
+          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type. Must be
+              set to true.
 
           price: Default price. For FLAT and SUBSCRIPTION rate_type, this must be >=0. For
               PERCENTAGE rate_type, this is a decimal fraction, e.g. use 0.1 for 10%; this
@@ -195,6 +200,7 @@ class RatesResource(SyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
@@ -216,8 +222,8 @@ class RatesResource(SyncAPIResource):
     def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -257,7 +263,7 @@ class AsyncRatesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncRatesResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -289,7 +295,7 @@ class AsyncRatesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
         """
-        Get rate card rates for a specific time.
+        Get all rates for a rate card at a point in time
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -347,6 +353,7 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -373,16 +380,20 @@ class AsyncRatesResource(AsyncAPIResource):
 
           starting_at: inclusive effective date
 
-          credit_type_id: "The Metronome ID of the credit type to associate with price, defaults to USD
+          commit_rate: A distinct rate on the rate card. You can choose to use this rate rather than
+              list rate when consuming a credit or commit.
+
+          credit_type_id: The Metronome ID of the credit type to associate with price, defaults to USD
               (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-              rates use the credit type of associated rates."
+              rates use the credit type of associated rates.
 
           custom_rate: Only set for CUSTOM rate_type. This field is interpreted by custom rate
               processors.
 
           ending_before: exclusive end date
 
-          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type.
+          is_prorated: Default proration configuration. Only valid for SUBSCRIPTION rate_type. Must be
+              set to true.
 
           price: Default price. For FLAT and SUBSCRIPTION rate_type, this must be >=0. For
               PERCENTAGE rate_type, this is a decimal fraction, e.g. use 0.1 for 10%; this
@@ -416,6 +427,7 @@ class AsyncRatesResource(AsyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
                     "ending_before": ending_before,
@@ -437,8 +449,8 @@ class AsyncRatesResource(AsyncAPIResource):
     async def add_many(
         self,
         *,
-        rate_card_id: str | NotGiven = NOT_GIVEN,
-        rates: Iterable[rate_add_many_params.Rate] | NotGiven = NOT_GIVEN,
+        rate_card_id: str,
+        rates: Iterable[rate_add_many_params.Rate],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

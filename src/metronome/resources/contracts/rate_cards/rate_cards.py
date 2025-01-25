@@ -78,7 +78,7 @@ class RateCardsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> RateCardsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -123,8 +123,8 @@ class RateCardsResource(SyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
@@ -191,7 +191,6 @@ class RateCardsResource(SyncAPIResource):
         *,
         rate_card_id: str,
         aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -227,7 +226,6 @@ class RateCardsResource(SyncAPIResource):
                 {
                     "rate_card_id": rate_card_id,
                     "aliases": aliases,
-                    "custom_fields": custom_fields,
                     "description": description,
                     "name": name,
                 },
@@ -307,7 +305,8 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for
@@ -376,7 +375,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncRateCardsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -421,8 +420,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
 
           credit_type_conversions: Required when using custom pricing units in rates.
 
-          fiat_credit_type_id: "The Metronome ID of the credit type to associate with the rate card, defaults
-              to USD (cents) if not passed."
+          fiat_credit_type_id: The Metronome ID of the credit type to associate with the rate card, defaults to
+              USD (cents) if not passed.
 
           extra_headers: Send extra headers
 
@@ -489,7 +488,6 @@ class AsyncRateCardsResource(AsyncAPIResource):
         *,
         rate_card_id: str,
         aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -525,7 +523,6 @@ class AsyncRateCardsResource(AsyncAPIResource):
                 {
                     "rate_card_id": rate_card_id,
                     "aliases": aliases,
-                    "custom_fields": custom_fields,
                     "description": description,
                     "name": name,
                 },
@@ -605,7 +602,8 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> RateCardRetrieveRateScheduleResponse:
         """
-        Get a specific rate schedule including all rate card entries
+        Get all rates for a rate card from starting_at (either in perpetuity or until
+        ending_before, if provided)
 
         Args:
           rate_card_id: ID of the rate card to get the schedule for

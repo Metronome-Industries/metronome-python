@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["CustomerListBillableMetricsParams"]
 
 
 class CustomerListBillableMetricsParams(TypedDict, total=False):
+    customer_id: Required[str]
+
+    include_archived: bool
+    """If true, the list of returned metrics will include archived metrics"""
+
     limit: int
     """Max number of results that should be returned"""
 

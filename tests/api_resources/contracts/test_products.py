@@ -39,18 +39,14 @@ class TestProducts:
             name="My Product",
             type="FIXED",
             billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            composite_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            composite_tags=["string", "string", "string"],
+            composite_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            composite_tags=["string"],
             exclude_free_usage=True,
             is_refundable=True,
             netsuite_internal_item_id="netsuite_internal_item_id",
             netsuite_overage_item_id="netsuite_overage_item_id",
-            presentation_group_key=["string", "string", "string"],
-            pricing_group_key=["string", "string", "string"],
+            presentation_group_key=["string"],
+            pricing_group_key=["string"],
             quantity_conversion={
                 "conversion_factor": 0,
                 "operation": "MULTIPLY",
@@ -60,7 +56,7 @@ class TestProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -135,19 +131,15 @@ class TestProducts:
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billable_metric_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            composite_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            composite_tags=["string", "string", "string"],
+            composite_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            composite_tags=["string"],
             exclude_free_usage=True,
             is_refundable=True,
             name="My Updated Product",
             netsuite_internal_item_id="netsuite_internal_item_id",
             netsuite_overage_item_id="netsuite_overage_item_id",
-            presentation_group_key=["string", "string", "string"],
-            pricing_group_key=["string", "string", "string"],
+            presentation_group_key=["string"],
+            pricing_group_key=["string"],
             quantity_conversion={
                 "conversion_factor": 0,
                 "operation": "MULTIPLY",
@@ -157,7 +149,7 @@ class TestProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(ProductUpdateResponse, product, path=["response"])
 
@@ -270,18 +262,14 @@ class TestAsyncProducts:
             name="My Product",
             type="FIXED",
             billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            composite_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            composite_tags=["string", "string", "string"],
+            composite_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            composite_tags=["string"],
             exclude_free_usage=True,
             is_refundable=True,
             netsuite_internal_item_id="netsuite_internal_item_id",
             netsuite_overage_item_id="netsuite_overage_item_id",
-            presentation_group_key=["string", "string", "string"],
-            pricing_group_key=["string", "string", "string"],
+            presentation_group_key=["string"],
+            pricing_group_key=["string"],
             quantity_conversion={
                 "conversion_factor": 0,
                 "operation": "MULTIPLY",
@@ -291,7 +279,7 @@ class TestAsyncProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -366,19 +354,15 @@ class TestAsyncProducts:
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billable_metric_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            composite_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            composite_tags=["string", "string", "string"],
+            composite_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            composite_tags=["string"],
             exclude_free_usage=True,
             is_refundable=True,
             name="My Updated Product",
             netsuite_internal_item_id="netsuite_internal_item_id",
             netsuite_overage_item_id="netsuite_overage_item_id",
-            presentation_group_key=["string", "string", "string"],
-            pricing_group_key=["string", "string", "string"],
+            presentation_group_key=["string"],
+            pricing_group_key=["string"],
             quantity_conversion={
                 "conversion_factor": 0,
                 "operation": "MULTIPLY",
@@ -388,7 +372,7 @@ class TestAsyncProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(ProductUpdateResponse, product, path=["response"])
 

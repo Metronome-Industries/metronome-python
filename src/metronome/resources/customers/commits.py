@@ -34,7 +34,7 @@ class CommitsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CommitsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -67,7 +67,9 @@ class CommitsResource(SyncAPIResource):
         invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -84,6 +86,9 @@ class CommitsResource(SyncAPIResource):
 
           priority: If multiple credits or commits are applicable, the one with the lower priority
               will apply first.
+
+          product_id: ID of the fixed product associated with the commit. This is required because
+              products are used to invoice the commit amount.
 
           applicable_contract_ids: Which contract the commit applies to. If not provided, the commit applies to all
               contracts.
@@ -111,6 +116,11 @@ class CommitsResource(SyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -137,7 +147,9 @@ class CommitsResource(SyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 commit_create_params.CommitCreateParams,
             ),
@@ -155,6 +167,7 @@ class CommitsResource(SyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -175,6 +188,9 @@ class CommitsResource(SyncAPIResource):
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
           include_archived: Include commits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_commits: Include commits on the contract level.
 
@@ -202,6 +218,7 @@ class CommitsResource(SyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,
@@ -274,7 +291,7 @@ class AsyncCommitsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCommitsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -307,7 +324,9 @@ class AsyncCommitsResource(AsyncAPIResource):
         invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -324,6 +343,9 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           priority: If multiple credits or commits are applicable, the one with the lower priority
               will apply first.
+
+          product_id: ID of the fixed product associated with the commit. This is required because
+              products are used to invoice the commit amount.
 
           applicable_contract_ids: Which contract the commit applies to. If not provided, the commit applies to all
               contracts.
@@ -351,6 +373,11 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a commit or credit
+              is made with a uniqueness key that was previously used to create a commit or
+              credit, a new record will not be created and the request will fail with a 409
+              error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -377,7 +404,9 @@ class AsyncCommitsResource(AsyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "name": name,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
                 },
                 commit_create_params.CommitCreateParams,
             ),
@@ -395,6 +424,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -415,6 +445,9 @@ class AsyncCommitsResource(AsyncAPIResource):
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
           include_archived: Include commits from archived contracts.
+
+          include_balance: Include the balance in the response. Setting this flag may cause the query to be
+              slower.
 
           include_contract_commits: Include commits on the contract level.
 
@@ -442,6 +475,7 @@ class AsyncCommitsResource(AsyncAPIResource):
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "include_archived": include_archived,
+                    "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
                     "next_page": next_page,

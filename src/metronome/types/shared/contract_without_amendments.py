@@ -32,7 +32,10 @@ class Transition(BaseModel):
 
 
 class UsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "QUARTERLY"]
+    billing_anchor_date: datetime
+    """Contract usage statements follow a selected cadence based on this date."""
+
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
 
 
 class ResellerRoyalty(BaseModel):
@@ -120,6 +123,15 @@ class ContractWithoutAmendments(BaseModel):
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    scheduled_charges_on_usage_invoices: Optional[Literal["ALL"]] = None
+    """
+    Determines which scheduled and commit charges to consolidate onto the Contract's
+    usage invoice. The charge's `timestamp` must match the usage invoice's
+    `ending_before` date for consolidation to occur. This field cannot be modified
+    after a Contract has been created. If this field is omitted, charges will appear
+    on a separate invoice from usage charges.
+    """
 
     total_contract_value: Optional[float] = None
     """This field's availability is dependent on your client's configuration."""

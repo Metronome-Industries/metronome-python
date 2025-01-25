@@ -1,6 +1,6 @@
 [project]
 name = "metronome-sdk"
-version = "0.1.0-beta.3"
+version = "0.1.0-beta.4"
 description = "The official Python library for the metronome API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -10,17 +10,15 @@ authors = [
 dependencies = [
     "httpx>=0.23.0, <1",
     "pydantic>=1.9.0, <3",
-    "typing-extensions>=4.7, <5",
+    "typing-extensions>=4.10, <5",
     "anyio>=3.5.0, <5",
     "distro>=1.7.0, <2",
     "sniffio",
-    "cached-property; python_version < '3.8'",
 ]
-requires-python = ">= 3.7"
+requires-python = ">= 3.8"
 classifiers = [
   "Typing :: Typed",
   "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -56,6 +54,7 @@ dev-dependencies = [
     "dirty-equals>=0.6.0",
     "importlib-metadata>=6.7.0",
     "rich>=13.7.1",
+    "nest_asyncio==1.6.0",
 ]
 
 [tool.rye.scripts]
@@ -63,11 +62,11 @@ format = { chain = [
   "format:ruff",
   "format:docs",
   "fix:ruff",
+  # run formatting again to fix any inconsistencies when imports are stripped
+  "format:ruff",
 ]}
-"format:black" = "black ."
 "format:docs" = "python scripts/utils/ruffen-docs.py README.md api.md"
 "format:ruff" = "ruff format"
-"format:isort" = "isort ."
 
 "lint" = { chain = [
   "check:ruff",
@@ -125,15 +124,12 @@ path = "README.md"
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
 replacement = '[\1](https://github.com/Metronome-Industries/metronome-python/tree/main/\g<2>)'
 
-[tool.black]
-line-length = 120
-target-version = ["py37"]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--tb=short"
 xfail_strict = true
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
 filterwarnings = [
   "error"
 ]
@@ -143,7 +139,7 @@ filterwarnings = [
 # there are a couple of flags that are still disabled by
 # default in strict mode as they are experimental and niche.
 typeCheckingMode = "strict"
-pythonVersion = "3.7"
+pythonVersion = "3.8"
 
 exclude = [
     "_dev",

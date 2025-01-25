@@ -45,27 +45,9 @@ class TestUsage:
                         "key": "key",
                         "values": ["x"],
                     },
-                },
-                {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "group_by": {
-                        "key": "key",
-                        "values": ["x"],
-                    },
-                },
-                {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "group_by": {
-                        "key": "key",
-                        "values": ["x"],
-                    },
-                },
+                }
             ],
-            customer_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            customer_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(UsageListResponse, usage, path=["response"])
 
@@ -231,27 +213,9 @@ class TestAsyncUsage:
                         "key": "key",
                         "values": ["x"],
                     },
-                },
-                {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "group_by": {
-                        "key": "key",
-                        "values": ["x"],
-                    },
-                },
-                {
-                    "id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "group_by": {
-                        "key": "key",
-                        "values": ["x"],
-                    },
-                },
+                }
             ],
-            customer_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            customer_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(UsageListResponse, usage, path=["response"])
 

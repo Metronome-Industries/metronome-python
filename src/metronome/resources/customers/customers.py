@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 
 import httpx
@@ -131,7 +131,7 @@ class CustomersResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CustomersResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -153,6 +153,8 @@ class CustomersResource(SyncAPIResource):
         name: str,
         billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
+        | NotGiven = NOT_GIVEN,
         external_id: str | NotGiven = NOT_GIVEN,
         ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -168,8 +170,8 @@ class CustomersResource(SyncAPIResource):
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
 
-          external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
-              alias) that can be used in usage events
+          external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
+              this customer in usage events
 
           ingest_aliases: Aliases that can be used to refer to this customer in usage events
 
@@ -188,6 +190,7 @@ class CustomersResource(SyncAPIResource):
                     "name": name,
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
+                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
@@ -201,8 +204,8 @@ class CustomersResource(SyncAPIResource):
 
     def retrieve(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -330,8 +333,9 @@ class CustomersResource(SyncAPIResource):
 
     def list_billable_metrics(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -346,6 +350,8 @@ class CustomersResource(SyncAPIResource):
         Get all billable metrics for a given customer.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -373,6 +379,7 @@ class CustomersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                         "on_current_plan": on_current_plan,
@@ -385,8 +392,8 @@ class CustomersResource(SyncAPIResource):
 
     def list_costs(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         limit: int | NotGiven = NOT_GIVEN,
@@ -445,8 +452,8 @@ class CustomersResource(SyncAPIResource):
 
     def set_ingest_aliases(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ingest_aliases: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -486,8 +493,8 @@ class CustomersResource(SyncAPIResource):
 
     def set_name(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -524,8 +531,8 @@ class CustomersResource(SyncAPIResource):
 
     def update_config(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
         salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -603,7 +610,7 @@ class AsyncCustomersResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCustomersResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -625,6 +632,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         name: str,
         billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
+        | NotGiven = NOT_GIVEN,
         external_id: str | NotGiven = NOT_GIVEN,
         ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -640,8 +649,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
 
-          external_id: (deprecated, use ingest_aliases instead) the first ID (Metronome ID or ingest
-              alias) that can be used in usage events
+          external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
+              this customer in usage events
 
           ingest_aliases: Aliases that can be used to refer to this customer in usage events
 
@@ -660,6 +669,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     "name": name,
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
+                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
@@ -673,8 +683,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -802,8 +812,9 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     def list_billable_metrics(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         on_current_plan: bool | NotGiven = NOT_GIVEN,
@@ -818,6 +829,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Get all billable metrics for a given customer.
 
         Args:
+          include_archived: If true, the list of returned metrics will include archived metrics
+
           limit: Max number of results that should be returned
 
           next_page: Cursor that indicates where the next page of results should start.
@@ -845,6 +858,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_archived": include_archived,
                         "limit": limit,
                         "next_page": next_page,
                         "on_current_plan": on_current_plan,
@@ -857,8 +871,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     def list_costs(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         limit: int | NotGiven = NOT_GIVEN,
@@ -917,8 +931,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def set_ingest_aliases(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         ingest_aliases: List[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -958,8 +972,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def set_name(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         name: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -996,8 +1010,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
     async def update_config(
         self,
-        customer_id: str,
         *,
+        customer_id: str,
         leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
         salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

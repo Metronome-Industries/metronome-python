@@ -27,16 +27,16 @@ class TestInvoices:
     @parametrize
     def test_method_retrieve(self, client: Metronome) -> None:
         invoice = client.customers.invoices.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Metronome) -> None:
         invoice = client.customers.invoices.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             skip_zero_qty_line_items=True,
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
@@ -44,8 +44,8 @@ class TestInvoices:
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
         response = client.customers.invoices.with_raw_response.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
 
         assert response.is_closed is True
@@ -56,8 +56,8 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.customers.invoices.with_streaming_response.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -71,14 +71,14 @@ class TestInvoices:
     def test_path_params_retrieve(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.customers.invoices.with_raw_response.retrieve(
-                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
                 customer_id="",
+                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invoice_id` but received ''"):
             client.customers.invoices.with_raw_response.retrieve(
-                invoice_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                invoice_id="",
             )
 
     @parametrize
@@ -265,16 +265,16 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
         invoice = await async_client.customers.invoices.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncMetronome) -> None:
         invoice = await async_client.customers.invoices.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             skip_zero_qty_line_items=True,
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
@@ -282,8 +282,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
         response = await async_client.customers.invoices.with_raw_response.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
 
         assert response.is_closed is True
@@ -294,8 +294,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.invoices.with_streaming_response.retrieve(
-            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -309,14 +309,14 @@ class TestAsyncInvoices:
     async def test_path_params_retrieve(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.customers.invoices.with_raw_response.retrieve(
-                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
                 customer_id="",
+                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invoice_id` but received ''"):
             await async_client.customers.invoices.with_raw_response.retrieve(
-                invoice_id="",
                 customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                invoice_id="",
             )
 
     @parametrize

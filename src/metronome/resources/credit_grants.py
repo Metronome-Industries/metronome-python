@@ -44,7 +44,7 @@ class CreditGrantsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CreditGrantsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -90,8 +90,7 @@ class CreditGrantsResource(SyncAPIResource):
         Args:
           customer_id: the Metronome ID of the customer
 
-          expires_at: The credit grant will only apply to billing periods that end before this
-              timestamp.
+          expires_at: The credit grant will only apply to usage or charges dated before this timestamp
 
           grant_amount: the amount of credits granted
 
@@ -101,8 +100,8 @@ class CreditGrantsResource(SyncAPIResource):
 
           custom_fields: Custom fields to attach to the credit grant.
 
-          effective_at: The credit grant will only apply to billing periods that end at or after this
-              timestamp.
+          effective_at: The credit grant will only apply to usage or charges dated on or after this
+              timestamp
 
           invoice_date: The date to issue an invoice for the paid_amount.
 
@@ -448,7 +447,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCreditGrantsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -494,8 +493,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         Args:
           customer_id: the Metronome ID of the customer
 
-          expires_at: The credit grant will only apply to billing periods that end before this
-              timestamp.
+          expires_at: The credit grant will only apply to usage or charges dated before this timestamp
 
           grant_amount: the amount of credits granted
 
@@ -505,8 +503,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
           custom_fields: Custom fields to attach to the credit grant.
 
-          effective_at: The credit grant will only apply to billing periods that end at or after this
-              timestamp.
+          effective_at: The credit grant will only apply to usage or charges dated on or after this
+              timestamp
 
           invoice_date: The date to issue an invoice for the paid_amount.
 

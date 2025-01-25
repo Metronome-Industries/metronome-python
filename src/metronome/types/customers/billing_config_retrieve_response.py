@@ -13,9 +13,8 @@ class Data(BaseModel):
     aws_expiration_date: Optional[datetime] = None
     """Contract expiration date for the customer.
 
-    The expected format is RFC 3339 and can be retrieved from AWS's GetEntitlements
-    API. (See
-    https://docs.aws.amazon.com/marketplaceentitlement/latest/APIReference/API_GetEntitlements.html.)
+    The expected format is RFC 3339 and can be retrieved from
+    [AWS's GetEntitlements API](https://docs.aws.amazon.com/marketplaceentitlement/latest/APIReference/API_GetEntitlements.html).
     """
 
     aws_product_code: Optional[str] = None
@@ -53,9 +52,8 @@ class Data(BaseModel):
     azure_expiration_date: Optional[datetime] = None
     """Subscription term start/end date for the customer.
 
-    The expected format is RFC 3339 and can be retrieved from Azure's Get
-    Subscription API. (See
-    https://learn.microsoft.com/en-us/partner-center/marketplace/partner-center-portal/pc-saas-fulfillment-subscription-api#get-subscription.)
+    The expected format is RFC 3339 and can be retrieved from
+    [Azure's Get Subscription API](https://learn.microsoft.com/en-us/partner-center/marketplace/partner-center-portal/pc-saas-fulfillment-subscription-api#get-subscription).
     """
 
     azure_plan_id: Optional[str] = None
@@ -63,9 +61,8 @@ class Data(BaseModel):
     azure_start_date: Optional[datetime] = None
     """Subscription term start/end date for the customer.
 
-    The expected format is RFC 3339 and can be retrieved from Azure's Get
-    Subscription API. (See
-    https://learn.microsoft.com/en-us/partner-center/marketplace/partner-center-portal/pc-saas-fulfillment-subscription-api#get-subscription.)
+    The expected format is RFC 3339 and can be retrieved from
+    [Azure's Get Subscription API](https://learn.microsoft.com/en-us/partner-center/marketplace/partner-center-portal/pc-saas-fulfillment-subscription-api#get-subscription).
     """
 
     azure_subscription_status: Optional[

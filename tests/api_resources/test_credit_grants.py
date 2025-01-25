@@ -63,11 +63,7 @@ class TestCreditGrants:
             custom_fields={"foo": "string"},
             effective_at=parse_datetime("2022-02-01T00:00:00Z"),
             invoice_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             reason="Incentivize new customer",
             rollover_settings={
                 "expires_at": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -137,11 +133,7 @@ class TestCreditGrants:
         credit_grant = client.credit_grants.list(
             limit=1,
             next_page="next_page",
-            credit_grant_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            credit_grant_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc", "0e5b8609-d901-4992-b394-c3c2e3f37b1c"],
             effective_before=parse_datetime("2022-02-01T00:00:00Z"),
@@ -282,14 +274,14 @@ class TestCreditGrants:
     @parametrize
     def test_method_void(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
 
     @parametrize
     def test_method_void_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
@@ -298,7 +290,7 @@ class TestCreditGrants:
     @parametrize
     def test_raw_response_void(self, client: Metronome) -> None:
         response = client.credit_grants.with_raw_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
 
         assert response.is_closed is True
@@ -309,7 +301,7 @@ class TestCreditGrants:
     @parametrize
     def test_streaming_response_void(self, client: Metronome) -> None:
         with client.credit_grants.with_streaming_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -360,11 +352,7 @@ class TestAsyncCreditGrants:
             custom_fields={"foo": "string"},
             effective_at=parse_datetime("2022-02-01T00:00:00Z"),
             invoice_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             reason="Incentivize new customer",
             rollover_settings={
                 "expires_at": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -434,11 +422,7 @@ class TestAsyncCreditGrants:
         credit_grant = await async_client.credit_grants.list(
             limit=1,
             next_page="next_page",
-            credit_grant_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            credit_grant_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc", "0e5b8609-d901-4992-b394-c3c2e3f37b1c"],
             effective_before=parse_datetime("2022-02-01T00:00:00Z"),
@@ -579,14 +563,14 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_method_void(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
         assert_matches_type(CreditGrantVoidResponse, credit_grant, path=["response"])
 
     @parametrize
     async def test_method_void_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.credit_grants.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             release_uniqueness_key=True,
             void_credit_purchase_invoice=True,
         )
@@ -595,7 +579,7 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncMetronome) -> None:
         response = await async_client.credit_grants.with_raw_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
 
         assert response.is_closed is True
@@ -606,7 +590,7 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncMetronome) -> None:
         async with async_client.credit_grants.with_streaming_response.void(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

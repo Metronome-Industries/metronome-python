@@ -56,18 +56,16 @@ class TestCredits:
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            applicable_contract_ids=["string", "string", "string"],
-            applicable_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            applicable_product_tags=["string", "string", "string"],
+            applicable_contract_ids=["string"],
+            applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            applicable_product_tags=["string"],
             custom_fields={"foo": "string"},
             description="description",
             name="My Credit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
 
@@ -132,6 +130,7 @@ class TestCredits:
             credit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_credits=True,
             include_ledgers=True,
             next_page="next_page",
@@ -238,18 +237,16 @@ class TestAsyncCredits:
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
-            applicable_contract_ids=["string", "string", "string"],
-            applicable_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            applicable_product_tags=["string", "string", "string"],
+            applicable_contract_ids=["string"],
+            applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            applicable_product_tags=["string"],
             custom_fields={"foo": "string"},
             description="description",
             name="My Credit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CreditCreateResponse, credit, path=["response"])
 
@@ -314,6 +311,7 @@ class TestAsyncCredits:
             credit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_credits=True,
             include_ledgers=True,
             next_page="next_page",

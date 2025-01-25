@@ -41,11 +41,23 @@ class TestCustomers:
             billing_config={
                 "billing_provider_customer_id": "billing_provider_customer_id",
                 "billing_provider_type": "aws_marketplace",
+                "aws_is_subscription_product": True,
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",
                 "stripe_collection_method": "charge_automatically",
             },
             custom_fields={"foo": "string"},
+            customer_billing_provider_configurations=[
+                {
+                    "billing_provider": "aws_marketplace",
+                    "configuration": {
+                        "stripe_customer_id": "bar",
+                        "stripe_collection_method": "bar",
+                    },
+                    "delivery_method": "direct_to_billing_provider",
+                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            ],
             external_id="x",
             ingest_aliases=["team@example.com"],
         )
@@ -78,14 +90,14 @@ class TestCustomers:
     @parametrize
     def test_method_retrieve(self, client: Metronome) -> None:
         customer = client.customers.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
         response = client.customers.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -96,7 +108,7 @@ class TestCustomers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -110,7 +122,7 @@ class TestCustomers:
     def test_path_params_retrieve(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.customers.with_raw_response.retrieve(
-                "",
+                customer_id="",
             )
 
     @parametrize
@@ -121,12 +133,12 @@ class TestCustomers:
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         customer = client.customers.list(
-            customer_ids=["string", "string", "string"],
+            customer_ids=["string"],
             ingest_alias="ingest_alias",
             limit=1,
             next_page="next_page",
             only_archived=True,
-            salesforce_account_ids=["string", "string", "string"],
+            salesforce_account_ids=["string"],
         )
         assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
@@ -192,6 +204,7 @@ class TestCustomers:
     def test_method_list_billable_metrics_with_all_params(self, client: Metronome) -> None:
         customer = client.customers.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            include_archived=True,
             limit=1,
             next_page="next_page",
             on_current_plan=True,
@@ -435,11 +448,23 @@ class TestAsyncCustomers:
             billing_config={
                 "billing_provider_customer_id": "billing_provider_customer_id",
                 "billing_provider_type": "aws_marketplace",
+                "aws_is_subscription_product": True,
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",
                 "stripe_collection_method": "charge_automatically",
             },
             custom_fields={"foo": "string"},
+            customer_billing_provider_configurations=[
+                {
+                    "billing_provider": "aws_marketplace",
+                    "configuration": {
+                        "stripe_customer_id": "bar",
+                        "stripe_collection_method": "bar",
+                    },
+                    "delivery_method": "direct_to_billing_provider",
+                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            ],
             external_id="x",
             ingest_aliases=["team@example.com"],
         )
@@ -472,14 +497,14 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
         assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
         response = await async_client.customers.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
@@ -490,7 +515,7 @@ class TestAsyncCustomers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -504,7 +529,7 @@ class TestAsyncCustomers:
     async def test_path_params_retrieve(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.customers.with_raw_response.retrieve(
-                "",
+                customer_id="",
             )
 
     @parametrize
@@ -515,12 +540,12 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.list(
-            customer_ids=["string", "string", "string"],
+            customer_ids=["string"],
             ingest_alias="ingest_alias",
             limit=1,
             next_page="next_page",
             only_archived=True,
-            salesforce_account_ids=["string", "string", "string"],
+            salesforce_account_ids=["string"],
         )
         assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
@@ -586,6 +611,7 @@ class TestAsyncCustomers:
     async def test_method_list_billable_metrics_with_all_params(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            include_archived=True,
             limit=1,
             next_page="next_page",
             on_current_plan=True,

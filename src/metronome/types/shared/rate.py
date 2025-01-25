@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .tier import Tier
 from ..._models import BaseModel
-from .credit_type import CreditType
+from .credit_type_data import CreditTypeData
 
 __all__ = ["Rate"]
 
@@ -13,7 +13,7 @@ __all__ = ["Rate"]
 class Rate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -22,7 +22,10 @@ class Rate(BaseModel):
     """
 
     is_prorated: Optional[bool] = None
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: Optional[float] = None
     """Default price.

@@ -18,6 +18,14 @@ class ContractUpdateEndDateParams(TypedDict, total=False):
     customer_id: Required[str]
     """ID of the customer whose contract is to be updated"""
 
+    allow_ending_before_finalized_invoice: bool
+    """
+    If true, allows setting the contract end date earlier than the end_timestamp of
+    existing finalized invoices. Finalized invoices will be unchanged; if you want
+    to incorporate the new end date, you can void and regenerate finalized usage
+    invoices. Defaults to true.
+    """
+
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive).
 

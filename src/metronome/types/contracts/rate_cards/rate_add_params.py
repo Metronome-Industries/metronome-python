@@ -9,7 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from ...._utils import PropertyInfo
 from ...shared_params.tier import Tier
 
-__all__ = ["RateAddParams"]
+__all__ = ["RateAddParams", "CommitRate"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -26,11 +26,18 @@ class RateAddParams(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""
 
+    commit_rate: CommitRate
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or
+    commit.
+    """
+
     credit_type_id: str
     """
-    "The Metronome ID of the credit type to associate with price, defaults to USD
+    The Metronome ID of the credit type to associate with price, defaults to USD
     (cents) if not passed. Used by all rate_types except type PERCENTAGE. PERCENTAGE
-    rates use the credit type of associated rates."
+    rates use the credit type of associated rates.
     """
 
     custom_rate: Dict[str, object]
@@ -43,7 +50,10 @@ class RateAddParams(TypedDict, total=False):
     """exclusive end date"""
 
     is_prorated: bool
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: float
     """Default price.
@@ -70,3 +80,26 @@ class RateAddParams(TypedDict, total=False):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
+
+
+class CommitRate(TypedDict, total=False):
+    rate_type: Required[
+        Literal[
+            "FLAT",
+            "flat",
+            "PERCENTAGE",
+            "percentage",
+            "SUBSCRIPTION",
+            "subscription",
+            "TIERED",
+            "tiered",
+            "CUSTOM",
+            "custom",
+        ]
+    ]
+
+    price: float
+    """Commit rate price. For FLAT rate_type, this must be >=0."""
+
+    tiers: Iterable[Tier]
+    """Only set for TIERED rate_type."""

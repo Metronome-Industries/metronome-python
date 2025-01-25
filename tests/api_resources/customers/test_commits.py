@@ -58,13 +58,9 @@ class TestCommits:
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
             type="PREPAID",
-            applicable_contract_ids=["string", "string", "string"],
-            applicable_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            applicable_product_tags=["string", "string", "string"],
+            applicable_contract_ids=["string"],
+            applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            applicable_product_tags=["string"],
             custom_fields={"foo": "string"},
             description="description",
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -82,7 +78,7 @@ class TestCommits:
                 "schedule_items": [
                     {
                         "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                        "amount": 10000000,
+                        "amount": 0,
                         "quantity": 1,
                         "unit_price": 10000000,
                     }
@@ -90,7 +86,9 @@ class TestCommits:
             },
             name="My Commit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 
@@ -157,6 +155,7 @@ class TestCommits:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_commits=True,
             include_ledgers=True,
             next_page="next_page",
@@ -272,13 +271,9 @@ class TestAsyncCommits:
             priority=100,
             product_id="f14d6729-6a44-4b13-9908-9387f1918790",
             type="PREPAID",
-            applicable_contract_ids=["string", "string", "string"],
-            applicable_product_ids=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            applicable_product_tags=["string", "string", "string"],
+            applicable_contract_ids=["string"],
+            applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            applicable_product_tags=["string"],
             custom_fields={"foo": "string"},
             description="description",
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -296,7 +291,7 @@ class TestAsyncCommits:
                 "schedule_items": [
                     {
                         "timestamp": parse_datetime("2020-03-01T00:00:00.000Z"),
-                        "amount": 10000000,
+                        "amount": 0,
                         "quantity": 1,
                         "unit_price": 10000000,
                     }
@@ -304,7 +299,9 @@ class TestAsyncCommits:
             },
             name="My Commit",
             netsuite_sales_order_id="netsuite_sales_order_id",
+            rate_type="COMMIT_RATE",
             salesforce_opportunity_id="salesforce_opportunity_id",
+            uniqueness_key="x",
         )
         assert_matches_type(CommitCreateResponse, commit, path=["response"])
 
@@ -371,6 +368,7 @@ class TestAsyncCommits:
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_archived=True,
+            include_balance=True,
             include_contract_commits=True,
             include_ledgers=True,
             next_page="next_page",

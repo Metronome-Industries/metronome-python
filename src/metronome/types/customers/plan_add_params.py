@@ -12,6 +12,8 @@ __all__ = ["PlanAddParams", "OverageRateAdjustment", "PriceAdjustment", "TrialSp
 
 
 class PlanAddParams(TypedDict, total=False):
+    customer_id: Required[str]
+
     plan_id: Required[str]
 
     starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -42,7 +44,7 @@ class PlanAddParams(TypedDict, total=False):
     """A list of price adjustments can be applied on top of the pricing in the plans.
 
     See the
-    [price adjustments documentation](https://docs.metronome.com/pricing/managing-plans/#price-adjustments)
+    [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
     for details.
     """
 

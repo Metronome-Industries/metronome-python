@@ -6,12 +6,14 @@ from typing_extensions import Literal
 
 from .tier import Tier
 from ..._models import BaseModel
-from .credit_type import CreditType
+from .credit_type_data import CreditTypeData
 
 __all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
 
 
 class OverrideSpecifier(BaseModel):
+    commit_ids: Optional[List[str]] = None
+
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
 
     pricing_group_values: Optional[Dict[str, str]] = None
@@ -30,7 +32,7 @@ class OverrideTier(BaseModel):
 class OverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -39,7 +41,10 @@ class OverwriteRate(BaseModel):
     """
 
     is_prorated: Optional[bool] = None
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     price: Optional[float] = None
     """Default price.
@@ -68,14 +73,19 @@ class Override(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
-    credit_type: Optional[CreditType] = None
+    credit_type: Optional[CreditTypeData] = None
 
     ending_before: Optional[datetime] = None
 
     entitled: Optional[bool] = None
 
+    is_commit_specific: Optional[bool] = None
+
     is_prorated: Optional[bool] = None
-    """Default proration configuration. Only valid for SUBSCRIPTION rate_type."""
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
 
     multiplier: Optional[float] = None
 
@@ -100,6 +110,8 @@ class Override(BaseModel):
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
     rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]] = None
+
+    target: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""

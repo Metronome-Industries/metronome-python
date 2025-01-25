@@ -37,7 +37,7 @@ class CustomFieldsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> CustomFieldsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -68,6 +68,7 @@ class CustomFieldsResource(SyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -128,6 +129,7 @@ class CustomFieldsResource(SyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -189,6 +191,7 @@ class CustomFieldsResource(SyncAPIResource):
                 "credit_grant",
                 "customer_plan",
                 "customer",
+                "discount",
                 "invoice",
                 "plan",
                 "professional_service",
@@ -250,6 +253,7 @@ class CustomFieldsResource(SyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -308,6 +312,7 @@ class CustomFieldsResource(SyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -364,7 +369,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncCustomFieldsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/Metronome-Industries/metronome-python#accessing-raw-response-data-eg-headers
@@ -395,6 +400,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -455,6 +461,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -516,6 +523,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
                 "credit_grant",
                 "customer_plan",
                 "customer",
+                "discount",
                 "invoice",
                 "plan",
                 "professional_service",
@@ -579,6 +587,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
@@ -637,6 +646,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "credit_grant",
             "customer_plan",
             "customer",
+            "discount",
             "invoice",
             "plan",
             "professional_service",
