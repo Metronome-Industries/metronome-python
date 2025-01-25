@@ -833,7 +833,7 @@ class TestMetronome:
 
         response = client.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            starting_at="2020-01-01T00:00:00.000Z",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -860,7 +860,7 @@ class TestMetronome:
 
         response = client.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            starting_at="2020-01-01T00:00:00.000Z",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1651,7 +1651,7 @@ class TestAsyncMetronome:
 
         response = await client.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            starting_at="2020-01-01T00:00:00.000Z",
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
@@ -1679,7 +1679,7 @@ class TestAsyncMetronome:
 
         response = await client.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            starting_at="2020-01-01T00:00:00.000Z",
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
