@@ -4,10 +4,10 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["CreditGrantListCreditTypesResponse"]
+__all__ = ["PricingUnitListResponse"]
 
 
-class CreditGrantListCreditTypesResponse(BaseModel):
+class PricingUnitListResponse(BaseModel):
     id: Optional[str] = None
 
     is_currency: Optional[bool] = None
