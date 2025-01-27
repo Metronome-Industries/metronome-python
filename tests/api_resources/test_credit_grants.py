@@ -15,7 +15,6 @@ from metronome.types import (
     CreditGrantVoidResponse,
     CreditGrantCreateResponse,
     CreditGrantListEntriesResponse,
-    CreditGrantListCreditTypesResponse,
 )
 from metronome._utils import parse_datetime
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
@@ -199,39 +198,6 @@ class TestCreditGrants:
 
             credit_grant = response.parse()
             assert_matches_type(CreditGrantEditResponse, credit_grant, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_list_credit_types(self, client: Metronome) -> None:
-        credit_grant = client.credit_grants.list_credit_types()
-        assert_matches_type(SyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    def test_method_list_credit_types_with_all_params(self, client: Metronome) -> None:
-        credit_grant = client.credit_grants.list_credit_types(
-            limit=1,
-            next_page="next_page",
-        )
-        assert_matches_type(SyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    def test_raw_response_list_credit_types(self, client: Metronome) -> None:
-        response = client.credit_grants.with_raw_response.list_credit_types()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        credit_grant = response.parse()
-        assert_matches_type(SyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    def test_streaming_response_list_credit_types(self, client: Metronome) -> None:
-        with client.credit_grants.with_streaming_response.list_credit_types() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            credit_grant = response.parse()
-            assert_matches_type(SyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -488,39 +454,6 @@ class TestAsyncCreditGrants:
 
             credit_grant = await response.parse()
             assert_matches_type(CreditGrantEditResponse, credit_grant, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_list_credit_types(self, async_client: AsyncMetronome) -> None:
-        credit_grant = await async_client.credit_grants.list_credit_types()
-        assert_matches_type(AsyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    async def test_method_list_credit_types_with_all_params(self, async_client: AsyncMetronome) -> None:
-        credit_grant = await async_client.credit_grants.list_credit_types(
-            limit=1,
-            next_page="next_page",
-        )
-        assert_matches_type(AsyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    async def test_raw_response_list_credit_types(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.credit_grants.with_raw_response.list_credit_types()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        credit_grant = await response.parse()
-        assert_matches_type(AsyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_list_credit_types(self, async_client: AsyncMetronome) -> None:
-        async with async_client.credit_grants.with_streaming_response.list_credit_types() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            credit_grant = await response.parse()
-            assert_matches_type(AsyncCursorPage[CreditGrantListCreditTypesResponse], credit_grant, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

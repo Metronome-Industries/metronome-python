@@ -67,7 +67,6 @@ from metronome.types import (
     CreditGrantCreateResponse,
     CreditGrantListResponse,
     CreditGrantEditResponse,
-    CreditGrantListCreditTypesResponse,
     CreditGrantListEntriesResponse,
     CreditGrantVoidResponse,
 )
@@ -78,9 +77,20 @@ Methods:
 - <code title="post /credits/createGrant">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">create</a>(\*\*<a href="src/metronome/types/credit_grant_create_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_create_response.py">CreditGrantCreateResponse</a></code>
 - <code title="post /credits/listGrants">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">list</a>(\*\*<a href="src/metronome/types/credit_grant_list_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_list_response.py">SyncCursorPage[CreditGrantListResponse]</a></code>
 - <code title="post /credits/editGrant">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">edit</a>(\*\*<a href="src/metronome/types/credit_grant_edit_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_edit_response.py">CreditGrantEditResponse</a></code>
-- <code title="get /credit-types/list">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">list_credit_types</a>(\*\*<a href="src/metronome/types/credit_grant_list_credit_types_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_list_credit_types_response.py">SyncCursorPage[CreditGrantListCreditTypesResponse]</a></code>
 - <code title="post /credits/listEntries">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">list_entries</a>(\*\*<a href="src/metronome/types/credit_grant_list_entries_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_list_entries_response.py">CreditGrantListEntriesResponse</a></code>
 - <code title="post /credits/voidGrant">client.credit_grants.<a href="./src/metronome/resources/credit_grants.py">void</a>(\*\*<a href="src/metronome/types/credit_grant_void_params.py">params</a>) -> <a href="./src/metronome/types/credit_grant_void_response.py">CreditGrantVoidResponse</a></code>
+
+# PricingUnits
+
+Types:
+
+```python
+from metronome.types import PricingUnitListResponse
+```
+
+Methods:
+
+- <code title="get /credit-types/list">client.pricing_units.<a href="./src/metronome/resources/pricing_units.py">list</a>(\*\*<a href="src/metronome/types/pricing_unit_list_params.py">params</a>) -> <a href="./src/metronome/types/pricing_unit_list_response.py">SyncCursorPage[PricingUnitListResponse]</a></code>
 
 # Customers
 

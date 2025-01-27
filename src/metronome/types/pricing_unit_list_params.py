@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["CreditGrantListCreditTypesParams"]
+__all__ = ["PricingUnitListParams"]
 
 
-class CreditGrantListCreditTypesParams(TypedDict, total=False):
+class PricingUnitListParams(TypedDict, total=False):
     limit: int
     """Max number of results that should be returned"""
 
