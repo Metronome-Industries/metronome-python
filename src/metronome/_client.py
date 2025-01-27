@@ -34,6 +34,7 @@ from .resources import (
     dashboards,
     credit_grants,
     custom_fields,
+    pricing_units,
     billable_metrics,
 )
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
@@ -62,6 +63,7 @@ class Metronome(SyncAPIClient):
     alerts: alerts.AlertsResource
     plans: plans.PlansResource
     credit_grants: credit_grants.CreditGrantsResource
+    pricing_units: pricing_units.PricingUnitsResource
     customers: customers.CustomersResource
     dashboards: dashboards.DashboardsResource
     usage: usage.UsageResource
@@ -139,6 +141,7 @@ class Metronome(SyncAPIClient):
         self.alerts = alerts.AlertsResource(self)
         self.plans = plans.PlansResource(self)
         self.credit_grants = credit_grants.CreditGrantsResource(self)
+        self.pricing_units = pricing_units.PricingUnitsResource(self)
         self.customers = customers.CustomersResource(self)
         self.dashboards = dashboards.DashboardsResource(self)
         self.usage = usage.UsageResource(self)
@@ -262,6 +265,7 @@ class AsyncMetronome(AsyncAPIClient):
     alerts: alerts.AsyncAlertsResource
     plans: plans.AsyncPlansResource
     credit_grants: credit_grants.AsyncCreditGrantsResource
+    pricing_units: pricing_units.AsyncPricingUnitsResource
     customers: customers.AsyncCustomersResource
     dashboards: dashboards.AsyncDashboardsResource
     usage: usage.AsyncUsageResource
@@ -339,6 +343,7 @@ class AsyncMetronome(AsyncAPIClient):
         self.alerts = alerts.AsyncAlertsResource(self)
         self.plans = plans.AsyncPlansResource(self)
         self.credit_grants = credit_grants.AsyncCreditGrantsResource(self)
+        self.pricing_units = pricing_units.AsyncPricingUnitsResource(self)
         self.customers = customers.AsyncCustomersResource(self)
         self.dashboards = dashboards.AsyncDashboardsResource(self)
         self.usage = usage.AsyncUsageResource(self)
@@ -463,6 +468,7 @@ class MetronomeWithRawResponse:
         self.alerts = alerts.AlertsResourceWithRawResponse(client.alerts)
         self.plans = plans.PlansResourceWithRawResponse(client.plans)
         self.credit_grants = credit_grants.CreditGrantsResourceWithRawResponse(client.credit_grants)
+        self.pricing_units = pricing_units.PricingUnitsResourceWithRawResponse(client.pricing_units)
         self.customers = customers.CustomersResourceWithRawResponse(client.customers)
         self.dashboards = dashboards.DashboardsResourceWithRawResponse(client.dashboards)
         self.usage = usage.UsageResourceWithRawResponse(client.usage)
@@ -479,6 +485,7 @@ class AsyncMetronomeWithRawResponse:
         self.alerts = alerts.AsyncAlertsResourceWithRawResponse(client.alerts)
         self.plans = plans.AsyncPlansResourceWithRawResponse(client.plans)
         self.credit_grants = credit_grants.AsyncCreditGrantsResourceWithRawResponse(client.credit_grants)
+        self.pricing_units = pricing_units.AsyncPricingUnitsResourceWithRawResponse(client.pricing_units)
         self.customers = customers.AsyncCustomersResourceWithRawResponse(client.customers)
         self.dashboards = dashboards.AsyncDashboardsResourceWithRawResponse(client.dashboards)
         self.usage = usage.AsyncUsageResourceWithRawResponse(client.usage)
@@ -495,6 +502,7 @@ class MetronomeWithStreamedResponse:
         self.alerts = alerts.AlertsResourceWithStreamingResponse(client.alerts)
         self.plans = plans.PlansResourceWithStreamingResponse(client.plans)
         self.credit_grants = credit_grants.CreditGrantsResourceWithStreamingResponse(client.credit_grants)
+        self.pricing_units = pricing_units.PricingUnitsResourceWithStreamingResponse(client.pricing_units)
         self.customers = customers.CustomersResourceWithStreamingResponse(client.customers)
         self.dashboards = dashboards.DashboardsResourceWithStreamingResponse(client.dashboards)
         self.usage = usage.UsageResourceWithStreamingResponse(client.usage)
@@ -511,6 +519,7 @@ class AsyncMetronomeWithStreamedResponse:
         self.alerts = alerts.AsyncAlertsResourceWithStreamingResponse(client.alerts)
         self.plans = plans.AsyncPlansResourceWithStreamingResponse(client.plans)
         self.credit_grants = credit_grants.AsyncCreditGrantsResourceWithStreamingResponse(client.credit_grants)
+        self.pricing_units = pricing_units.AsyncPricingUnitsResourceWithStreamingResponse(client.pricing_units)
         self.customers = customers.AsyncCustomersResourceWithStreamingResponse(client.customers)
         self.dashboards = dashboards.AsyncDashboardsResourceWithStreamingResponse(client.dashboards)
         self.usage = usage.AsyncUsageResourceWithStreamingResponse(client.usage)
