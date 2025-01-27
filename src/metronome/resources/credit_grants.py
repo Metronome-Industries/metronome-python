@@ -13,7 +13,6 @@ from ..types import (
     credit_grant_void_params,
     credit_grant_create_params,
     credit_grant_list_entries_params,
-    credit_grant_list_credit_types_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
@@ -35,7 +34,6 @@ from ..types.credit_grant_list_response import CreditGrantListResponse
 from ..types.credit_grant_void_response import CreditGrantVoidResponse
 from ..types.credit_grant_create_response import CreditGrantCreateResponse
 from ..types.credit_grant_list_entries_response import CreditGrantListEntriesResponse
-from ..types.credit_grant_list_credit_types_response import CreditGrantListCreditTypesResponse
 
 __all__ = ["CreditGrantsResource", "AsyncCreditGrantsResource"]
 
@@ -279,53 +277,6 @@ class CreditGrantsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreditGrantEditResponse,
-        )
-
-    def list_credit_types(
-        self,
-        *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[CreditGrantListCreditTypesResponse]:
-        """
-        List all pricing units (known in the API by the legacy term "credit types").
-
-        Args:
-          limit: Max number of results that should be returned
-
-          next_page: Cursor that indicates where the next page of results should start.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/credit-types/list",
-            page=SyncCursorPage[CreditGrantListCreditTypesResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    credit_grant_list_credit_types_params.CreditGrantListCreditTypesParams,
-                ),
-            ),
-            model=CreditGrantListCreditTypesResponse,
         )
 
     def list_entries(
@@ -684,53 +635,6 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             cast_to=CreditGrantEditResponse,
         )
 
-    def list_credit_types(
-        self,
-        *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CreditGrantListCreditTypesResponse, AsyncCursorPage[CreditGrantListCreditTypesResponse]]:
-        """
-        List all pricing units (known in the API by the legacy term "credit types").
-
-        Args:
-          limit: Max number of results that should be returned
-
-          next_page: Cursor that indicates where the next page of results should start.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/credit-types/list",
-            page=AsyncCursorPage[CreditGrantListCreditTypesResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    credit_grant_list_credit_types_params.CreditGrantListCreditTypesParams,
-                ),
-            ),
-            model=CreditGrantListCreditTypesResponse,
-        )
-
     async def list_entries(
         self,
         *,
@@ -859,9 +763,6 @@ class CreditGrantsResourceWithRawResponse:
         self.edit = to_raw_response_wrapper(
             credit_grants.edit,
         )
-        self.list_credit_types = to_raw_response_wrapper(
-            credit_grants.list_credit_types,
-        )
         self.list_entries = to_raw_response_wrapper(
             credit_grants.list_entries,
         )
@@ -882,9 +783,6 @@ class AsyncCreditGrantsResourceWithRawResponse:
         )
         self.edit = async_to_raw_response_wrapper(
             credit_grants.edit,
-        )
-        self.list_credit_types = async_to_raw_response_wrapper(
-            credit_grants.list_credit_types,
         )
         self.list_entries = async_to_raw_response_wrapper(
             credit_grants.list_entries,
@@ -907,9 +805,6 @@ class CreditGrantsResourceWithStreamingResponse:
         self.edit = to_streamed_response_wrapper(
             credit_grants.edit,
         )
-        self.list_credit_types = to_streamed_response_wrapper(
-            credit_grants.list_credit_types,
-        )
         self.list_entries = to_streamed_response_wrapper(
             credit_grants.list_entries,
         )
@@ -930,9 +825,6 @@ class AsyncCreditGrantsResourceWithStreamingResponse:
         )
         self.edit = async_to_streamed_response_wrapper(
             credit_grants.edit,
-        )
-        self.list_credit_types = async_to_streamed_response_wrapper(
-            credit_grants.list_credit_types,
         )
         self.list_entries = async_to_streamed_response_wrapper(
             credit_grants.list_entries,
