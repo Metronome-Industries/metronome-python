@@ -11,18 +11,7 @@ __all__ = ["RateAddResponse", "Data", "DataCommitRate"]
 
 
 class DataCommitRate(BaseModel):
-    rate_type: Literal[
-        "FLAT",
-        "flat",
-        "PERCENTAGE",
-        "percentage",
-        "SUBSCRIPTION",
-        "subscription",
-        "TIERED",
-        "tiered",
-        "CUSTOM",
-        "custom",
-    ]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
     price: Optional[float] = None
     """Commit rate price. For FLAT rate_type, this must be >=0."""
@@ -32,18 +21,7 @@ class DataCommitRate(BaseModel):
 
 
 class Data(BaseModel):
-    rate_type: Literal[
-        "FLAT",
-        "flat",
-        "PERCENTAGE",
-        "percentage",
-        "SUBSCRIPTION",
-        "subscription",
-        "CUSTOM",
-        "custom",
-        "TIERED",
-        "tiered",
-    ]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
     commit_rate: Optional[DataCommitRate] = None
     """A distinct rate on the rate card.

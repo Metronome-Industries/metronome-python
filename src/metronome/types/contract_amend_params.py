@@ -224,7 +224,7 @@ class Commit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
@@ -290,7 +290,7 @@ class Credit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -505,7 +505,7 @@ class Override(TypedDict, total=False):
     Cannot be used in conjunction with override_specifiers.
     """
 
-    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    target: Literal["COMMIT_RATE", "LIST_RATE"]
     """Indicates whether the override applies to commit rates or list rates.
 
     Can only be used for overrides that have `is_commit_specific` set to `true`.
