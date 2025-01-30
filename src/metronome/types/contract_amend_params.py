@@ -416,6 +416,22 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     tags.
     """
 
+    recurring_commit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to commits created by the specified recurring commit ids.
+    """
+
+    recurring_credit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to credits created by the specified recurring credit ids.
+    """
+
 
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
