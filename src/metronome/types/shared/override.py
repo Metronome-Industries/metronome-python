@@ -22,6 +22,10 @@ class OverrideSpecifier(BaseModel):
 
     product_tags: Optional[List[str]] = None
 
+    recurring_commit_ids: Optional[List[str]] = None
+
+    recurring_credit_ids: Optional[List[str]] = None
+
 
 class OverrideTier(BaseModel):
     multiplier: float

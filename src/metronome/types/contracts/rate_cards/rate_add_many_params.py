@@ -19,20 +19,7 @@ class RateAddManyParams(TypedDict, total=False):
 
 
 class RateCommitRate(TypedDict, total=False):
-    rate_type: Required[
-        Literal[
-            "FLAT",
-            "flat",
-            "PERCENTAGE",
-            "percentage",
-            "SUBSCRIPTION",
-            "subscription",
-            "TIERED",
-            "tiered",
-            "CUSTOM",
-            "custom",
-        ]
-    ]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     price: float
     """Commit rate price. For FLAT rate_type, this must be >=0."""

@@ -56,7 +56,7 @@ class CreditCreateParams(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
