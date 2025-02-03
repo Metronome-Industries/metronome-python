@@ -467,7 +467,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """A map of group names to values.
 
     The override will only apply to line items with the specified presentation group
-    values. Can only be used for multiplier overrides.
+    values.
     """
 
     pricing_group_values: Dict[str, str]

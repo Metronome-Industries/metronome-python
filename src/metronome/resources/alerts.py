@@ -104,9 +104,8 @@ class AlertsResource(SyncAPIResource):
               applies to, by looking at the credit_grant_type field on the credit grant. This
               field is only defined for CreditPercentage and CreditBalance alerts
 
-          custom_field_filters: Only present for beta contract invoices. This field's availability is dependent
-              on your client's configuration. A list of custom field filters for alert types
-              that support advanced filtering
+          custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
+              Only present for contract invoices.
 
           customer_id: If provided, will create this alert for this specific customer. To create an
               alert for all customers, do not specify `customer_id` or `plan_id`.
@@ -282,9 +281,8 @@ class AsyncAlertsResource(AsyncAPIResource):
               applies to, by looking at the credit_grant_type field on the credit grant. This
               field is only defined for CreditPercentage and CreditBalance alerts
 
-          custom_field_filters: Only present for beta contract invoices. This field's availability is dependent
-              on your client's configuration. A list of custom field filters for alert types
-              that support advanced filtering
+          custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
+              Only present for contract invoices.
 
           customer_id: If provided, will create this alert for this specific customer. To create an
               alert for all customers, do not specify `customer_id` or `plan_id`.
