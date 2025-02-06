@@ -678,7 +678,7 @@ class RecurringCommit(TypedDict, total=False):
     """Will be passed down to the individual commits"""
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Determines when the contract will stop creating recurring commits. optional"""
+    """determines when the contract will stop creating recurring commits. optional"""
 
     invoice_amount: RecurringCommitInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -696,7 +696,7 @@ class RecurringCommit(TypedDict, total=False):
     """Will be passed down to the individual commits.
 
     This controls how much of an individual unexpired commit will roll over upon
-    contract transition. Must be between 0 and 1.
+    contract transition
     """
 
     temporary_id: str
@@ -753,7 +753,7 @@ class RecurringCredit(TypedDict, total=False):
     """Will be passed down to the individual commits"""
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Determines when the contract will stop creating recurring commits. optional"""
+    """determines when the contract will stop creating recurring commits. optional"""
 
     invoice_amount: RecurringCreditInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -771,7 +771,7 @@ class RecurringCredit(TypedDict, total=False):
     """Will be passed down to the individual commits.
 
     This controls how much of an individual unexpired commit will roll over upon
-    contract transition. Must be between 0 and 1.
+    contract transition
     """
 
     temporary_id: str
