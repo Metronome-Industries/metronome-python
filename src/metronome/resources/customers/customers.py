@@ -263,7 +263,8 @@ class CustomersResource(SyncAPIResource):
 
           next_page: Cursor that indicates where the next page of results should start.
 
-          only_archived: Filter the customer list by only archived customers.
+          only_archived: Filter the customer list to only return archived customers. By default, only
+              active customers are returned.
 
           salesforce_account_ids: Filter the customer list by salesforce_account_id. Up to 100 ids can be
               provided.
@@ -742,7 +743,8 @@ class AsyncCustomersResource(AsyncAPIResource):
 
           next_page: Cursor that indicates where the next page of results should start.
 
-          only_archived: Filter the customer list by only archived customers.
+          only_archived: Filter the customer list to only return archived customers. By default, only
+              active customers are returned.
 
           salesforce_account_ids: Filter the customer list by salesforce_account_id. Up to 100 ids can be
               provided.
