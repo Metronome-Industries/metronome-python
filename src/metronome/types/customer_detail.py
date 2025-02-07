@@ -42,5 +42,11 @@ class CustomerDetail(BaseModel):
 
     name: str
 
+    archived_at: Optional[datetime] = None
+    """RFC 3339 timestamp indicating when the customer was archived.
+
+    Null if the customer is active.
+    """
+
     current_billable_status: Optional[CurrentBillableStatus] = None
     """This field's availability is dependent on your client's configuration."""
