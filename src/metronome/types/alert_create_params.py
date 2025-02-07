@@ -55,10 +55,9 @@ class AlertCreateParams(TypedDict, total=False):
     credit_type_id: str
 
     custom_field_filters: Iterable[CustomFieldFilter]
-    """Only present for beta contract invoices.
+    """A list of custom field filters for alert types that support advanced filtering.
 
-    This field's availability is dependent on your client's configuration. A list of
-    custom field filters for alert types that support advanced filtering
+    Only present for contract invoices.
     """
 
     customer_id: str

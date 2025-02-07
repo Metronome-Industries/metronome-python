@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-beta.6 (2025-02-07)
+
+Full Changelog: [v0.1.0-beta.5...v0.1.0-beta.6](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.5...v0.1.0-beta.6)
+
+### Features
+
+* **api:** api update ([#177](https://github.com/Metronome-Industries/metronome-python/issues/177)) ([c7434cc](https://github.com/Metronome-Industries/metronome-python/commit/c7434cc4c7ca1a9c209db010334bfae82bb9244b))
+* **api:** api update ([#179](https://github.com/Metronome-Industries/metronome-python/issues/179)) ([ab2478d](https://github.com/Metronome-Industries/metronome-python/commit/ab2478d57cc45d70cf421b2242704a41da43e2e7))
+* **api:** api update ([#182](https://github.com/Metronome-Industries/metronome-python/issues/182)) ([8b1e503](https://github.com/Metronome-Industries/metronome-python/commit/8b1e503a920271847a4c95e19e429ba5c8f56d37))
+* **api:** api update ([#183](https://github.com/Metronome-Industries/metronome-python/issues/183)) ([e50b864](https://github.com/Metronome-Industries/metronome-python/commit/e50b864c29f5f3ad6e43736d9758ba7622daf32b))
+* **api:** api update ([#184](https://github.com/Metronome-Industries/metronome-python/issues/184)) ([266e972](https://github.com/Metronome-Industries/metronome-python/commit/266e97238a4615749b1772fa87e48d1fab5672b3))
+* **api:** api update ([#186](https://github.com/Metronome-Industries/metronome-python/issues/186)) ([8c6b475](https://github.com/Metronome-Industries/metronome-python/commit/8c6b475d6de889109ecedb9aa7c27fa37be1d3a0))
+
+
+### Chores
+
+* **internal:** bummp ruff dependency ([#181](https://github.com/Metronome-Industries/metronome-python/issues/181)) ([5267fcb](https://github.com/Metronome-Industries/metronome-python/commit/5267fcbebb782c069f835b7452e9e7a43152dfb1))
+* **internal:** change default timeout to an int ([#180](https://github.com/Metronome-Industries/metronome-python/issues/180)) ([d9343b4](https://github.com/Metronome-Industries/metronome-python/commit/d9343b4b576fd0523eefe5671c3c3770a16fe614))
+* **internal:** codegen related update ([#185](https://github.com/Metronome-Industries/metronome-python/issues/185)) ([c8027ab](https://github.com/Metronome-Industries/metronome-python/commit/c8027ab74e6a3c3b0518515046003d42f3e5cbd2))
+
 ## 0.1.0-beta.5 (2025-01-27)
 
 Full Changelog: [v0.1.0-beta.4...v0.1.0-beta.5](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.4...v0.1.0-beta.5)

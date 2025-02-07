@@ -224,7 +224,7 @@ class Commit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
@@ -290,7 +290,7 @@ class Credit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -397,7 +397,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """A map of group names to values.
 
     The override will only apply to line items with the specified presentation group
-    values. Can only be used for multiplier overrides.
+    values.
     """
 
     pricing_group_values: Dict[str, str]
@@ -414,6 +414,22 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
     If provided, the override will only apply to products with all the specified
     tags.
+    """
+
+    recurring_commit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to commits created by the specified recurring commit ids.
+    """
+
+    recurring_credit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to credits created by the specified recurring credit ids.
     """
 
 
@@ -505,7 +521,7 @@ class Override(TypedDict, total=False):
     Cannot be used in conjunction with override_specifiers.
     """
 
-    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    target: Literal["COMMIT_RATE", "LIST_RATE"]
     """Indicates whether the override applies to commit rates or list rates.
 
     Can only be used for overrides that have `is_commit_specific` set to `true`.

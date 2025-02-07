@@ -17,6 +17,18 @@ __all__ = [
     "ContractWithoutAmendments",
     "Transition",
     "UsageStatementSchedule",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitProduct",
+    "RecurringCommitContract",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditProduct",
+    "RecurringCreditContract",
+    "RecurringCreditInvoiceAmount",
     "ResellerRoyalty",
     "UsageFilter",
     "UsageFilterUpdate",
@@ -36,6 +48,172 @@ class UsageStatementSchedule(BaseModel):
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+
+
+class RecurringCommitAccessAmount(BaseModel):
+    credit_type_id: str
+
+    quantity: float
+
+    unit_price: float
+
+
+class RecurringCommitCommitDuration(BaseModel):
+    value: float
+
+    unit: Optional[Literal["PERIODS"]] = None
+
+
+class RecurringCommitProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class RecurringCommitContract(BaseModel):
+    id: str
+
+
+class RecurringCommitInvoiceAmount(BaseModel):
+    credit_type_id: str
+
+    quantity: float
+
+    unit_price: float
+
+
+class RecurringCommit(BaseModel):
+    id: str
+
+    access_amount: RecurringCommitAccessAmount
+    """The amount of commit to grant."""
+
+    commit_duration: RecurringCommitCommitDuration
+    """The amount of time the created commits will be valid for"""
+
+    priority: float
+    """Will be passed down to the individual commits"""
+
+    product: RecurringCommitProduct
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    starting_at: datetime
+    """Determines the start time for the first commit"""
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Will be passed down to the individual commits"""
+
+    contract: Optional[RecurringCommitContract] = None
+
+    description: Optional[str] = None
+    """Will be passed down to the individual commits"""
+
+    ending_before: Optional[datetime] = None
+    """Determines when the contract will stop creating recurring commits. Optional"""
+
+    invoice_amount: Optional[RecurringCommitInvoiceAmount] = None
+    """The amount the customer should be billed for the commit. Not required."""
+
+    name: Optional[str] = None
+    """Displayed on invoices. Will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: Optional[str] = None
+    """Will be passed down to the individual commits"""
+
+    rollover_fraction: Optional[float] = None
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
+
+
+class RecurringCreditAccessAmount(BaseModel):
+    credit_type_id: str
+
+    quantity: float
+
+    unit_price: float
+
+
+class RecurringCreditCommitDuration(BaseModel):
+    value: float
+
+    unit: Optional[Literal["PERIODS"]] = None
+
+
+class RecurringCreditProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class RecurringCreditContract(BaseModel):
+    id: str
+
+
+class RecurringCreditInvoiceAmount(BaseModel):
+    credit_type_id: str
+
+    quantity: float
+
+    unit_price: float
+
+
+class RecurringCredit(BaseModel):
+    id: str
+
+    access_amount: RecurringCreditAccessAmount
+    """The amount of commit to grant."""
+
+    commit_duration: RecurringCreditCommitDuration
+    """The amount of time the created commits will be valid for"""
+
+    priority: float
+    """Will be passed down to the individual commits"""
+
+    product: RecurringCreditProduct
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    starting_at: datetime
+    """Determines the start time for the first commit"""
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Will be passed down to the individual commits"""
+
+    contract: Optional[RecurringCreditContract] = None
+
+    description: Optional[str] = None
+    """Will be passed down to the individual commits"""
+
+    ending_before: Optional[datetime] = None
+    """Determines when the contract will stop creating recurring commits. Optional"""
+
+    invoice_amount: Optional[RecurringCreditInvoiceAmount] = None
+    """The amount the customer should be billed for the commit. Not required."""
+
+    name: Optional[str] = None
+    """Displayed on invoices. Will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: Optional[str] = None
+    """Will be passed down to the individual commits"""
+
+    rollover_fraction: Optional[float] = None
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
 
 
 class ResellerRoyalty(BaseModel):
@@ -117,6 +295,10 @@ class ContractWithoutAmendments(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     rate_card_id: Optional[str] = None
+
+    recurring_commits: Optional[List[RecurringCommit]] = None
+
+    recurring_credits: Optional[List[RecurringCredit]] = None
 
     reseller_royalties: Optional[List[ResellerRoyalty]] = None
     """This field's availability is dependent on your client's configuration."""

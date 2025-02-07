@@ -31,6 +31,14 @@ __all__ = [
     "OverrideOverwriteRate",
     "OverrideTier",
     "ProfessionalService",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditInvoiceAmount",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
@@ -92,6 +100,10 @@ class ContractCreateParams(TypedDict, total=False):
     """
 
     rate_card_id: str
+
+    recurring_commits: Iterable[RecurringCommit]
+
+    recurring_credits: Iterable[RecurringCredit]
 
     reseller_royalties: Iterable[ResellerRoyalty]
     """This field's availability is dependent on your client's configuration."""
@@ -282,7 +294,7 @@ class Commit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
@@ -348,7 +360,7 @@ class Credit(TypedDict, total=False):
     first.
     """
 
-    rate_type: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -455,7 +467,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """A map of group names to values.
 
     The override will only apply to line items with the specified presentation group
-    values. Can only be used for multiplier overrides.
+    values.
     """
 
     pricing_group_values: Dict[str, str]
@@ -472,6 +484,22 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
     If provided, the override will only apply to products with all the specified
     tags.
+    """
+
+    recurring_commit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to commits created by the specified recurring commit ids.
+    """
+
+    recurring_credit_ids: List[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of product_id, product_tags,
+    pricing_group_values, or presentation_group_values. If provided, the override
+    will only apply to credits created by the specified recurring credit ids.
     """
 
 
@@ -563,7 +591,7 @@ class Override(TypedDict, total=False):
     Cannot be used in conjunction with override_specifiers.
     """
 
-    target: Literal["COMMIT_RATE", "commit_rate", "LIST_RATE", "list_rate"]
+    target: Literal["COMMIT_RATE", "LIST_RATE"]
     """Indicates whether the override applies to commit rates or list rates.
 
     Can only be used for overrides that have `is_commit_specific` set to `true`.
@@ -601,6 +629,156 @@ class ProfessionalService(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class RecurringCommitAccessAmount(TypedDict, total=False):
+    credit_type_id: Required[str]
+
+    quantity: Required[float]
+
+    unit_price: Required[float]
+
+
+class RecurringCommitCommitDuration(TypedDict, total=False):
+    unit: Required[Literal["PERIODS"]]
+
+    value: Required[float]
+
+
+class RecurringCommitInvoiceAmount(TypedDict, total=False):
+    credit_type_id: Required[str]
+
+    quantity: Required[float]
+
+    unit_price: Required[float]
+
+
+class RecurringCommit(TypedDict, total=False):
+    access_amount: Required[RecurringCommitAccessAmount]
+    """The amount of commit to grant."""
+
+    commit_duration: Required[RecurringCommitCommitDuration]
+    """The amount of time the created commits will be valid for."""
+
+    priority: Required[float]
+    """Will be passed down to the individual commits"""
+
+    product_id: Required[str]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """determines the start time for the first commit"""
+
+    applicable_product_ids: List[str]
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: List[str]
+    """Will be passed down to the individual commits"""
+
+    description: str
+    """Will be passed down to the individual commits"""
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Determines when the contract will stop creating recurring commits. optional"""
+
+    invoice_amount: RecurringCommitInvoiceAmount
+    """The amount the customer should be billed for the commit. Not required."""
+
+    name: str
+    """displayed on invoices. will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: str
+    """Will be passed down to the individual commits"""
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    rollover_fraction: float
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
+
+    temporary_id: str
+    """
+    A temporary ID that can be used to reference the recurring commit for commit
+    specific overrides.
+    """
+
+
+class RecurringCreditAccessAmount(TypedDict, total=False):
+    credit_type_id: Required[str]
+
+    quantity: Required[float]
+
+    unit_price: Required[float]
+
+
+class RecurringCreditCommitDuration(TypedDict, total=False):
+    unit: Required[Literal["PERIODS"]]
+
+    value: Required[float]
+
+
+class RecurringCreditInvoiceAmount(TypedDict, total=False):
+    credit_type_id: Required[str]
+
+    quantity: Required[float]
+
+    unit_price: Required[float]
+
+
+class RecurringCredit(TypedDict, total=False):
+    access_amount: Required[RecurringCreditAccessAmount]
+    """The amount of commit to grant."""
+
+    commit_duration: Required[RecurringCreditCommitDuration]
+    """The amount of time the created commits will be valid for."""
+
+    priority: Required[float]
+    """Will be passed down to the individual commits"""
+
+    product_id: Required[str]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """determines the start time for the first commit"""
+
+    applicable_product_ids: List[str]
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: List[str]
+    """Will be passed down to the individual commits"""
+
+    description: str
+    """Will be passed down to the individual commits"""
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Determines when the contract will stop creating recurring commits. optional"""
+
+    invoice_amount: RecurringCreditInvoiceAmount
+    """The amount the customer should be billed for the commit. Not required."""
+
+    name: str
+    """displayed on invoices. will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: str
+    """Will be passed down to the individual commits"""
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    rollover_fraction: float
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
+
+    temporary_id: str
+    """
+    A temporary ID that can be used to reference the recurring commit for commit
+    specific overrides.
+    """
 
 
 class ResellerRoyaltyAwsOptions(TypedDict, total=False):
@@ -759,7 +937,7 @@ class UsageStatementSchedule(TypedDict, total=False):
     follow the 10th of each month.
     """
 
-    day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE", "custom_date"]
+    day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]
     """If not provided, defaults to the first day of the month."""
 
     invoice_generation_starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
