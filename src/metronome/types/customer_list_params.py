@@ -22,7 +22,10 @@ class CustomerListParams(TypedDict, total=False):
     """Cursor that indicates where the next page of results should start."""
 
     only_archived: bool
-    """Filter the customer list by only archived customers."""
+    """Filter the customer list to only return archived customers.
+
+    By default, only active customers are returned.
+    """
 
     salesforce_account_ids: List[str]
     """Filter the customer list by salesforce_account_id.

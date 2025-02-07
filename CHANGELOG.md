@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-beta.7 (2025-02-07)
+
+Full Changelog: [v0.1.0-beta.6...v0.1.0-beta.7](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.6...v0.1.0-beta.7)
+
+### Features
+
+* **api:** api update ([#188](https://github.com/Metronome-Industries/metronome-python/issues/188)) ([9bc534d](https://github.com/Metronome-Industries/metronome-python/commit/9bc534d337ac28774730efc42b2b2dc775c7d49c))
+
 ## 0.1.0-beta.6 (2025-02-07)
 
 Full Changelog: [v0.1.0-beta.5...v0.1.0-beta.6](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.5...v0.1.0-beta.6)
