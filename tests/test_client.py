@@ -23,6 +23,7 @@ from pydantic import ValidationError
 
 from metronome import Metronome, AsyncMetronome, APIResponseValidationError
 from metronome._types import Omit
+from metronome._utils import parse_datetime, maybe_transform
 from metronome._models import BaseModel, FinalRequestOptions
 from metronome._constants import RAW_RESPONSE_HEADER
 from metronome._exceptions import APIStatusError, MetronomeError, APITimeoutError, APIResponseValidationError
@@ -32,6 +33,7 @@ from metronome._base_client import (
     BaseClient,
     make_request_options,
 )
+from metronome.types.contract_create_params import ContractCreateParams
 
 from .utils import update_env
 
@@ -747,9 +749,12 @@ class TestMetronome:
                 "/contracts/create",
                 body=cast(
                     object,
-                    dict(
-                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at="2020-01-01T00:00:00.000Z",
+                    maybe_transform(
+                        dict(
+                            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        ),
+                        ContractCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -768,9 +773,12 @@ class TestMetronome:
                 "/contracts/create",
                 body=cast(
                     object,
-                    dict(
-                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at="2020-01-01T00:00:00.000Z",
+                    maybe_transform(
+                        dict(
+                            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        ),
+                        ContractCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1563,9 +1571,12 @@ class TestAsyncMetronome:
                 "/contracts/create",
                 body=cast(
                     object,
-                    dict(
-                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at="2020-01-01T00:00:00.000Z",
+                    maybe_transform(
+                        dict(
+                            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        ),
+                        ContractCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1584,9 +1595,12 @@ class TestAsyncMetronome:
                 "/contracts/create",
                 body=cast(
                     object,
-                    dict(
-                        customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-                        starting_at="2020-01-01T00:00:00.000Z",
+                    maybe_transform(
+                        dict(
+                            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+                            starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+                        ),
+                        ContractCreateParams,
                     ),
                 ),
                 cast_to=httpx.Response,
