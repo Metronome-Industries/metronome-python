@@ -38,7 +38,6 @@ __all__ = [
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
-    "RecurringCreditInvoiceAmount",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
@@ -720,14 +719,6 @@ class RecurringCreditCommitDuration(TypedDict, total=False):
     value: Required[float]
 
 
-class RecurringCreditInvoiceAmount(TypedDict, total=False):
-    credit_type_id: Required[str]
-
-    quantity: Required[float]
-
-    unit_price: Required[float]
-
-
 class RecurringCredit(TypedDict, total=False):
     access_amount: Required[RecurringCreditAccessAmount]
     """The amount of commit to grant."""
@@ -754,9 +745,6 @@ class RecurringCredit(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
-
-    invoice_amount: RecurringCreditInvoiceAmount
-    """The amount the customer should be billed for the commit. Not required."""
 
     name: str
     """displayed on invoices. will be passed through to the individual commits"""
