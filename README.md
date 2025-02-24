@@ -31,16 +31,7 @@ client = Metronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
-client.usage.ingest(
-    usage=[
-        {
-            "customer_id": "team@example.com",
-            "event_type": "heartbeat",
-            "timestamp": "2021-01-01T00:00:00Z",
-            "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-        }
-    ],
-)
+client.usage.ingest()
 ```
 
 While you can provide a `bearer_token` keyword argument,
@@ -63,16 +54,7 @@ client = AsyncMetronome(
 
 
 async def main() -> None:
-    await client.usage.ingest(
-        usage=[
-            {
-                "customer_id": "team@example.com",
-                "event_type": "heartbeat",
-                "timestamp": "2021-01-01T00:00:00Z",
-                "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-            }
-        ],
-    )
+    await client.usage.ingest()
 
 
 asyncio.run(main())

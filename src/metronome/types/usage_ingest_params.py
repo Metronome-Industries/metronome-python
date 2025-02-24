@@ -9,7 +9,7 @@ __all__ = ["UsageIngestParams", "Usage"]
 
 
 class UsageIngestParams(TypedDict, total=False):
-    usage: Required[Iterable[Usage]]
+    usage: Iterable[Usage]
 
 
 class Usage(TypedDict, total=False):

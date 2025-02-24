@@ -159,25 +159,21 @@ class TestRateCards:
 
     @parametrize
     def test_method_list(self, client: Metronome) -> None:
-        rate_card = client.contracts.rate_cards.list(
-            body={},
-        )
+        rate_card = client.contracts.rate_cards.list()
         assert_matches_type(SyncCursorPage[RateCardListResponse], rate_card, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         rate_card = client.contracts.rate_cards.list(
-            body={},
             limit=1,
             next_page="next_page",
+            body={},
         )
         assert_matches_type(SyncCursorPage[RateCardListResponse], rate_card, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-        response = client.contracts.rate_cards.with_raw_response.list(
-            body={},
-        )
+        response = client.contracts.rate_cards.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -186,9 +182,7 @@ class TestRateCards:
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
-        with client.contracts.rate_cards.with_streaming_response.list(
-            body={},
-        ) as response:
+        with client.contracts.rate_cards.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -390,25 +384,21 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_method_list(self, async_client: AsyncMetronome) -> None:
-        rate_card = await async_client.contracts.rate_cards.list(
-            body={},
-        )
+        rate_card = await async_client.contracts.rate_cards.list()
         assert_matches_type(AsyncCursorPage[RateCardListResponse], rate_card, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         rate_card = await async_client.contracts.rate_cards.list(
-            body={},
             limit=1,
             next_page="next_page",
+            body={},
         )
         assert_matches_type(AsyncCursorPage[RateCardListResponse], rate_card, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.contracts.rate_cards.with_raw_response.list(
-            body={},
-        )
+        response = await async_client.contracts.rate_cards.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -417,9 +407,7 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
-        async with async_client.contracts.rate_cards.with_streaming_response.list(
-            body={},
-        ) as response:
+        async with async_client.contracts.rate_cards.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
