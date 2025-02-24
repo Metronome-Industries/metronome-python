@@ -81,6 +81,11 @@ class TestUsage:
 
     @parametrize
     def test_method_ingest(self, client: Metronome) -> None:
+        usage = client.usage.ingest()
+        assert usage is None
+
+    @parametrize
+    def test_method_ingest_with_all_params(self, client: Metronome) -> None:
         usage = client.usage.ingest(
             usage=[
                 {
@@ -88,6 +93,11 @@ class TestUsage:
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
                     "transaction_id": "2021-01-01T00:00:00Z_cluster42",
+                    "properties": {
+                        "cluster_id": "bar",
+                        "cpu_seconds": "bar",
+                        "region": "bar",
+                    },
                 }
             ],
         )
@@ -95,16 +105,7 @@ class TestUsage:
 
     @parametrize
     def test_raw_response_ingest(self, client: Metronome) -> None:
-        response = client.usage.with_raw_response.ingest(
-            usage=[
-                {
-                    "customer_id": "team@example.com",
-                    "event_type": "heartbeat",
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-                }
-            ],
-        )
+        response = client.usage.with_raw_response.ingest()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -113,16 +114,7 @@ class TestUsage:
 
     @parametrize
     def test_streaming_response_ingest(self, client: Metronome) -> None:
-        with client.usage.with_streaming_response.ingest(
-            usage=[
-                {
-                    "customer_id": "team@example.com",
-                    "event_type": "heartbeat",
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-                }
-            ],
-        ) as response:
+        with client.usage.with_streaming_response.ingest() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -249,6 +241,11 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_method_ingest(self, async_client: AsyncMetronome) -> None:
+        usage = await async_client.usage.ingest()
+        assert usage is None
+
+    @parametrize
+    async def test_method_ingest_with_all_params(self, async_client: AsyncMetronome) -> None:
         usage = await async_client.usage.ingest(
             usage=[
                 {
@@ -256,6 +253,11 @@ class TestAsyncUsage:
                     "event_type": "heartbeat",
                     "timestamp": "2021-01-01T00:00:00Z",
                     "transaction_id": "2021-01-01T00:00:00Z_cluster42",
+                    "properties": {
+                        "cluster_id": "bar",
+                        "cpu_seconds": "bar",
+                        "region": "bar",
+                    },
                 }
             ],
         )
@@ -263,16 +265,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_raw_response_ingest(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.usage.with_raw_response.ingest(
-            usage=[
-                {
-                    "customer_id": "team@example.com",
-                    "event_type": "heartbeat",
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-                }
-            ],
-        )
+        response = await async_client.usage.with_raw_response.ingest()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -281,16 +274,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_streaming_response_ingest(self, async_client: AsyncMetronome) -> None:
-        async with async_client.usage.with_streaming_response.ingest(
-            usage=[
-                {
-                    "customer_id": "team@example.com",
-                    "event_type": "heartbeat",
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "2021-01-01T00:00:00Z_cluster42",
-                }
-            ],
-        ) as response:
+        async with async_client.usage.with_streaming_response.ingest() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

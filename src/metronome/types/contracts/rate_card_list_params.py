@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["RateCardListParams"]
 
 
 class RateCardListParams(TypedDict, total=False):
-    body: Required[object]
-
     limit: int
     """Max number of results that should be returned"""
 
     next_page: str
     """Cursor that indicates where the next page of results should start."""
+
+    body: object
