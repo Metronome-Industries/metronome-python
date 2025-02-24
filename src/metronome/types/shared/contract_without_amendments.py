@@ -28,7 +28,6 @@ __all__ = [
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditInvoiceAmount",
     "ResellerRoyalty",
     "UsageFilter",
     "UsageFilterUpdate",
@@ -157,14 +156,6 @@ class RecurringCreditContract(BaseModel):
     id: str
 
 
-class RecurringCreditInvoiceAmount(BaseModel):
-    credit_type_id: str
-
-    quantity: float
-
-    unit_price: float
-
-
 class RecurringCredit(BaseModel):
     id: str
 
@@ -198,9 +189,6 @@ class RecurringCredit(BaseModel):
 
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
-
-    invoice_amount: Optional[RecurringCreditInvoiceAmount] = None
-    """The amount the customer should be billed for the commit. Not required."""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
