@@ -104,7 +104,7 @@ class Metronome(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous metronome client instance.
+        """Construct a new synchronous Metronome client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `bearer_token` from `METRONOME_BEARER_TOKEN`
@@ -306,7 +306,7 @@ class AsyncMetronome(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async metronome client instance.
+        """Construct a new async AsyncMetronome client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `bearer_token` from `METRONOME_BEARER_TOKEN`
