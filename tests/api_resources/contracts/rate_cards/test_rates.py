@@ -97,6 +97,7 @@ class TestRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rate_type="FLAT",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            billing_frequency="MONTHLY",
             commit_rate={
                 "rate_type": "FLAT",
                 "price": 0,
@@ -307,6 +308,7 @@ class TestAsyncRates:
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rate_type="FLAT",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+            billing_frequency="MONTHLY",
             commit_rate={
                 "rate_type": "FLAT",
                 "price": 0,
