@@ -126,6 +126,7 @@ class RatesResource(SyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
         commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
@@ -152,6 +153,9 @@ class RatesResource(SyncAPIResource):
           rate_card_id: ID of the rate card to update
 
           starting_at: inclusive effective date
+
+          billing_frequency: Optional. Frequency to bill subscriptions with. Required for subscription type
+              products with Flat rate.
 
           commit_rate: A distinct rate on the rate card. You can choose to use this rate rather than
               list rate when consuming a credit or commit.
@@ -200,6 +204,7 @@ class RatesResource(SyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "billing_frequency": billing_frequency,
                     "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
@@ -353,6 +358,7 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_card_id: str,
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
+        billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
         commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
@@ -379,6 +385,9 @@ class AsyncRatesResource(AsyncAPIResource):
           rate_card_id: ID of the rate card to update
 
           starting_at: inclusive effective date
+
+          billing_frequency: Optional. Frequency to bill subscriptions with. Required for subscription type
+              products with Flat rate.
 
           commit_rate: A distinct rate on the rate card. You can choose to use this rate rather than
               list rate when consuming a credit or commit.
@@ -427,6 +436,7 @@ class AsyncRatesResource(AsyncAPIResource):
                     "rate_card_id": rate_card_id,
                     "rate_type": rate_type,
                     "starting_at": starting_at,
+                    "billing_frequency": billing_frequency,
                     "commit_rate": commit_rate,
                     "credit_type_id": credit_type_id,
                     "custom_rate": custom_rate,
