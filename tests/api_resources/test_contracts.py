@@ -940,6 +940,7 @@ class TestContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -2043,6 +2044,7 @@ class TestAsyncContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
