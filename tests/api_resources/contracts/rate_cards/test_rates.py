@@ -40,6 +40,7 @@ class TestRates:
             next_page="next_page",
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -251,6 +252,7 @@ class TestAsyncRates:
             next_page="next_page",
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
