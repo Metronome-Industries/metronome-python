@@ -45,6 +45,8 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
+    "ThresholdBillingConfiguration",
+    "ThresholdBillingConfigurationCommit",
     "Transition",
     "TransitionFutureInvoiceBehavior",
     "UsageStatementSchedule",
@@ -120,6 +122,8 @@ class ContractCreateParams(TypedDict, total=False):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
+
+    threshold_billing_configuration: ThresholdBillingConfiguration
 
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
@@ -893,6 +897,50 @@ class ScheduledCharge(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class ThresholdBillingConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class ThresholdBillingConfiguration(TypedDict, total=False):
+    commit: Required[ThresholdBillingConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state
+    """
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
 
 
 class TransitionFutureInvoiceBehavior(TypedDict, total=False):
