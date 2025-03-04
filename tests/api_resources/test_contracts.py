@@ -314,6 +314,17 @@ class TestContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
+            threshold_billing_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "threshold_amount": 0,
+            },
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1418,6 +1429,17 @@ class TestAsyncContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
+            threshold_billing_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "threshold_amount": 0,
+            },
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
