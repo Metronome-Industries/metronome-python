@@ -234,7 +234,9 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "proration": "NONE",
                     "rate_type": "COMMIT_RATE",
+                    "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
                     "temporary_id": "temporary_id",
                 }
@@ -259,7 +261,9 @@ class TestContracts:
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "proration": "NONE",
                     "rate_type": "COMMIT_RATE",
+                    "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
                     "temporary_id": "temporary_id",
                 }
@@ -1349,7 +1353,9 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "proration": "NONE",
                     "rate_type": "COMMIT_RATE",
+                    "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
                     "temporary_id": "temporary_id",
                 }
@@ -1374,7 +1380,9 @@ class TestAsyncContracts:
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "proration": "NONE",
                     "rate_type": "COMMIT_RATE",
+                    "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
                     "temporary_id": "temporary_id",
                 }
