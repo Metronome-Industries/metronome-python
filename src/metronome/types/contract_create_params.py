@@ -692,8 +692,24 @@ class RecurringCommit(TypedDict, total=False):
     netsuite_sales_order_id: str
     """Will be passed down to the individual commits"""
 
+    proration: Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
+
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    start_date rather than the usage invoice dates.
+    """
 
     rollover_fraction: float
     """Will be passed down to the individual commits.
@@ -756,8 +772,24 @@ class RecurringCredit(TypedDict, total=False):
     netsuite_sales_order_id: str
     """Will be passed down to the individual commits"""
 
+    proration: Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
+
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    start_date rather than the usage invoice dates.
+    """
 
     rollover_fraction: float
     """Will be passed down to the individual commits.
