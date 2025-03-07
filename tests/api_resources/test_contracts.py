@@ -161,6 +161,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -644,6 +645,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -1280,6 +1282,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -1763,6 +1766,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},

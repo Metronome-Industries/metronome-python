@@ -384,6 +384,8 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+
     commit_ids: List[str]
     """Can only be used for commit specific overrides.
 
