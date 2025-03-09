@@ -134,6 +134,27 @@ for product in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from metronome import Metronome
+
+client = Metronome()
+
+alert = client.alerts.create(
+    alert_type="low_credit_balance_reached",
+    name="$100 spend threshold reached",
+    threshold=10000,
+    group_key_filter={
+        "key": "key",
+        "value": "value",
+    },
+)
+print(alert.group_key_filter)
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `metronome.APIConnectionError` is raised.
