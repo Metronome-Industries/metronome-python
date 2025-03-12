@@ -319,6 +319,24 @@ class TestContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
+            subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             threshold_billing_configuration={
                 "commit": {
                     "product_id": "product_id",
@@ -1440,6 +1458,24 @@ class TestAsyncContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
+            subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             threshold_billing_configuration={
                 "commit": {
                     "product_id": "product_id",
