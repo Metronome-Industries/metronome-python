@@ -45,6 +45,9 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
+    "Subscription",
+    "SubscriptionProration",
+    "SubscriptionSubscriptionRate",
     "ThresholdBillingConfiguration",
     "ThresholdBillingConfigurationCommit",
     "Transition",
@@ -122,6 +125,8 @@ class ContractCreateParams(TypedDict, total=False):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
+
+    subscriptions: Iterable[Subscription]
 
     threshold_billing_configuration: ThresholdBillingConfiguration
 
@@ -931,6 +936,56 @@ class ScheduledCharge(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class SubscriptionProration(TypedDict, total=False):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+    """Indicates how mid-period quantity adjustments are invoiced.
+
+    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
+    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
+    increase will be billed for in-arrears at the end of the period.
+    """
+
+    is_prorated: bool
+    """Indicates if the partial period will be prorated or charged a full amount."""
+
+
+class SubscriptionSubscriptionRate(TypedDict, total=False):
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
+    """Frequency to bill subscription with.
+
+    Together with product_id, must match existing rate on the rate card.
+    """
+
+    product_id: Required[str]
+    """Must be subscription type product"""
+
+
+class Subscription(TypedDict, total=False):
+    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
+
+    initial_quantity: Required[float]
+
+    proration: Required[SubscriptionProration]
+
+    subscription_rate: Required[SubscriptionSubscriptionRate]
+
+    description: str
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Exclusive end time for the subscription.
+
+    If not provided, subscription inherits contract end date.
+    """
+
+    name: str
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Inclusive start time for the subscription.
+
+    If not provided, defaults to contract start date
+    """
 
 
 class ThresholdBillingConfigurationCommit(TypedDict, total=False):
