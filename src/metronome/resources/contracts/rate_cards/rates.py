@@ -2,35 +2,45 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from ...._compat import cached_property
-from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ....pagination import SyncCursorPage, AsyncCursorPage
-from ...._base_client import AsyncPaginator, make_request_options
-from ....types.shared_params.tier import Tier
-from ....types.contracts.rate_cards import rate_add_params, rate_list_params, rate_add_many_params
-from ....types.contracts.rate_cards.rate_add_response import RateAddResponse
+
 from ....types.contracts.rate_cards.rate_list_response import RateListResponse
+
+from ....pagination import SyncCursorPage, AsyncCursorPage
+
+from ...._utils import maybe_transform, async_maybe_transform
+
+from ...._base_client import make_request_options, AsyncPaginator
+
+from typing import Union, Iterable, Dict
+
+from datetime import datetime
+
+from ....types.contracts.rate_cards.rate_add_response import RateAddResponse
+
+from typing_extensions import Literal
+
+from ....types.shared_params.tier import Tier
+
 from ....types.contracts.rate_cards.rate_add_many_response import RateAddManyResponse
 
-__all__ = ["RatesResource", "AsyncRatesResource"]
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
+from ....types.contracts.rate_cards import rate_list_params, rate_add_params, rate_add_many_params
+
+import warnings
+from typing_extensions import Literal, overload
+from ...._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ...._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ....types import shared_params
+from ....types.contracts.rate_cards import rate_list_params
+from ....types.contracts.rate_cards import rate_add_params
+from ....types.contracts.rate_cards import rate_add_many_params
+
+__all__ = ["RatesResource", "AsyncRatesResource"]
 
 class RatesResource(SyncAPIResource):
     @cached_property
@@ -52,21 +62,19 @@ class RatesResource(SyncAPIResource):
         """
         return RatesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        at: Union[str, datetime],
-        rate_card_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_list_params.Selector] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[RateListResponse]:
+    def list(self,
+    *,
+    at: Union[str, datetime],
+    rate_card_id: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    selectors: Iterable[rate_list_params.Selector] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[RateListResponse]:
         """
         Get all rates for a rate card at a point in time
 
@@ -92,58 +100,44 @@ class RatesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/contract-pricing/rate-cards/getRates",
-            page=SyncCursorPage[RateListResponse],
-            body=maybe_transform(
-                {
-                    "at": at,
-                    "rate_card_id": rate_card_id,
-                    "selectors": selectors,
-                },
-                rate_list_params.RateListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_list_params.RateListParams,
-                ),
-            ),
+            page = SyncCursorPage[RateListResponse],
+            body=maybe_transform({
+                "at": at,
+                "rate_card_id": rate_card_id,
+                "selectors": selectors,
+            }, rate_list_params.RateListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_list_params.RateListParams)),
             model=RateListResponse,
             method="post",
         )
 
-    def add(
-        self,
-        *,
-        entitled: bool,
-        product_id: str,
-        rate_card_id: str,
-        rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
-        starting_at: Union[str, datetime],
-        billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        is_prorated: bool | NotGiven = NOT_GIVEN,
-        price: float | NotGiven = NOT_GIVEN,
-        pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
-        quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
-        use_list_prices: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateAddResponse:
+    def add(self,
+    *,
+    entitled: bool,
+    product_id: str,
+    rate_card_id: str,
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
+    starting_at: Union[str, datetime],
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
+    commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+    credit_type_id: str | NotGiven = NOT_GIVEN,
+    custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
+    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    is_prorated: bool | NotGiven = NOT_GIVEN,
+    price: float | NotGiven = NOT_GIVEN,
+    pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
+    quantity: float | NotGiven = NOT_GIVEN,
+    tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
+    use_list_prices: bool | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateAddResponse:
         """
         Add a new rate
 
@@ -197,45 +191,38 @@ class RatesResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/addRate",
-            body=maybe_transform(
-                {
-                    "entitled": entitled,
-                    "product_id": product_id,
-                    "rate_card_id": rate_card_id,
-                    "rate_type": rate_type,
-                    "starting_at": starting_at,
-                    "billing_frequency": billing_frequency,
-                    "commit_rate": commit_rate,
-                    "credit_type_id": credit_type_id,
-                    "custom_rate": custom_rate,
-                    "ending_before": ending_before,
-                    "is_prorated": is_prorated,
-                    "price": price,
-                    "pricing_group_values": pricing_group_values,
-                    "quantity": quantity,
-                    "tiers": tiers,
-                    "use_list_prices": use_list_prices,
-                },
-                rate_add_params.RateAddParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "entitled": entitled,
+                "product_id": product_id,
+                "rate_card_id": rate_card_id,
+                "rate_type": rate_type,
+                "starting_at": starting_at,
+                "billing_frequency": billing_frequency,
+                "commit_rate": commit_rate,
+                "credit_type_id": credit_type_id,
+                "custom_rate": custom_rate,
+                "ending_before": ending_before,
+                "is_prorated": is_prorated,
+                "price": price,
+                "pricing_group_values": pricing_group_values,
+                "quantity": quantity,
+                "tiers": tiers,
+                "use_list_prices": use_list_prices,
+            }, rate_add_params.RateAddParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateAddResponse,
         )
 
-    def add_many(
-        self,
-        *,
-        rate_card_id: str,
-        rates: Iterable[rate_add_many_params.Rate],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateAddManyResponse:
+    def add_many(self,
+    *,
+    rate_card_id: str,
+    rates: Iterable[rate_add_many_params.Rate],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateAddManyResponse:
         """
         Add new rates
 
@@ -250,19 +237,13 @@ class RatesResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/addRates",
-            body=maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "rates": rates,
-                },
-                rate_add_many_params.RateAddManyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "rate_card_id": rate_card_id,
+                "rates": rates,
+            }, rate_add_many_params.RateAddManyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateAddManyResponse,
         )
-
 
 class AsyncRatesResource(AsyncAPIResource):
     @cached_property
@@ -284,21 +265,19 @@ class AsyncRatesResource(AsyncAPIResource):
         """
         return AsyncRatesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        at: Union[str, datetime],
-        rate_card_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_list_params.Selector] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
+    def list(self,
+    *,
+    at: Union[str, datetime],
+    rate_card_id: str,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    selectors: Iterable[rate_list_params.Selector] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
         """
         Get all rates for a rate card at a point in time
 
@@ -324,58 +303,44 @@ class AsyncRatesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/contract-pricing/rate-cards/getRates",
-            page=AsyncCursorPage[RateListResponse],
-            body=maybe_transform(
-                {
-                    "at": at,
-                    "rate_card_id": rate_card_id,
-                    "selectors": selectors,
-                },
-                rate_list_params.RateListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_list_params.RateListParams,
-                ),
-            ),
+            page = AsyncCursorPage[RateListResponse],
+            body=maybe_transform({
+                "at": at,
+                "rate_card_id": rate_card_id,
+                "selectors": selectors,
+            }, rate_list_params.RateListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_list_params.RateListParams)),
             model=RateListResponse,
             method="post",
         )
 
-    async def add(
-        self,
-        *,
-        entitled: bool,
-        product_id: str,
-        rate_card_id: str,
-        rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
-        starting_at: Union[str, datetime],
-        billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        is_prorated: bool | NotGiven = NOT_GIVEN,
-        price: float | NotGiven = NOT_GIVEN,
-        pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
-        quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
-        use_list_prices: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateAddResponse:
+    async def add(self,
+    *,
+    entitled: bool,
+    product_id: str,
+    rate_card_id: str,
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
+    starting_at: Union[str, datetime],
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"] | NotGiven = NOT_GIVEN,
+    commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+    credit_type_id: str | NotGiven = NOT_GIVEN,
+    custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
+    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    is_prorated: bool | NotGiven = NOT_GIVEN,
+    price: float | NotGiven = NOT_GIVEN,
+    pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
+    quantity: float | NotGiven = NOT_GIVEN,
+    tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
+    use_list_prices: bool | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateAddResponse:
         """
         Add a new rate
 
@@ -429,45 +394,38 @@ class AsyncRatesResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/addRate",
-            body=await async_maybe_transform(
-                {
-                    "entitled": entitled,
-                    "product_id": product_id,
-                    "rate_card_id": rate_card_id,
-                    "rate_type": rate_type,
-                    "starting_at": starting_at,
-                    "billing_frequency": billing_frequency,
-                    "commit_rate": commit_rate,
-                    "credit_type_id": credit_type_id,
-                    "custom_rate": custom_rate,
-                    "ending_before": ending_before,
-                    "is_prorated": is_prorated,
-                    "price": price,
-                    "pricing_group_values": pricing_group_values,
-                    "quantity": quantity,
-                    "tiers": tiers,
-                    "use_list_prices": use_list_prices,
-                },
-                rate_add_params.RateAddParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "entitled": entitled,
+                "product_id": product_id,
+                "rate_card_id": rate_card_id,
+                "rate_type": rate_type,
+                "starting_at": starting_at,
+                "billing_frequency": billing_frequency,
+                "commit_rate": commit_rate,
+                "credit_type_id": credit_type_id,
+                "custom_rate": custom_rate,
+                "ending_before": ending_before,
+                "is_prorated": is_prorated,
+                "price": price,
+                "pricing_group_values": pricing_group_values,
+                "quantity": quantity,
+                "tiers": tiers,
+                "use_list_prices": use_list_prices,
+            }, rate_add_params.RateAddParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateAddResponse,
         )
 
-    async def add_many(
-        self,
-        *,
-        rate_card_id: str,
-        rates: Iterable[rate_add_many_params.Rate],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateAddManyResponse:
+    async def add_many(self,
+    *,
+    rate_card_id: str,
+    rates: Iterable[rate_add_many_params.Rate],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateAddManyResponse:
         """
         Add new rates
 
@@ -482,19 +440,13 @@ class AsyncRatesResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/addRates",
-            body=await async_maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "rates": rates,
-                },
-                rate_add_many_params.RateAddManyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "rate_card_id": rate_card_id,
+                "rates": rates,
+            }, rate_add_many_params.RateAddManyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateAddManyResponse,
         )
-
 
 class RatesResourceWithRawResponse:
     def __init__(self, rates: RatesResource) -> None:
@@ -510,7 +462,6 @@ class RatesResourceWithRawResponse:
             rates.add_many,
         )
 
-
 class AsyncRatesResourceWithRawResponse:
     def __init__(self, rates: AsyncRatesResource) -> None:
         self._rates = rates
@@ -525,7 +476,6 @@ class AsyncRatesResourceWithRawResponse:
             rates.add_many,
         )
 
-
 class RatesResourceWithStreamingResponse:
     def __init__(self, rates: RatesResource) -> None:
         self._rates = rates
@@ -539,7 +489,6 @@ class RatesResourceWithStreamingResponse:
         self.add_many = to_streamed_response_wrapper(
             rates.add_many,
         )
-
 
 class AsyncRatesResourceWithStreamingResponse:
     def __init__(self, rates: AsyncRatesResource) -> None:

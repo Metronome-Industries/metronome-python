@@ -1,40 +1,32 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
 from typing_extensions import Literal
 
-from .commit import Commit
-from .credit import Credit
-from .discount import Discount
-from .override import Override
-from ..._models import BaseModel
-from .pro_service import ProService
-from .scheduled_charge import ScheduledCharge
+from datetime import datetime
+
+from typing import Optional, List
+
 from .base_usage_filter import BaseUsageFilter
 
-__all__ = [
-    "ContractWithoutAmendments",
-    "Transition",
-    "UsageStatementSchedule",
-    "RecurringCommit",
-    "RecurringCommitAccessAmount",
-    "RecurringCommitCommitDuration",
-    "RecurringCommitProduct",
-    "RecurringCommitContract",
-    "RecurringCommitInvoiceAmount",
-    "RecurringCredit",
-    "RecurringCreditAccessAmount",
-    "RecurringCreditCommitDuration",
-    "RecurringCreditProduct",
-    "RecurringCreditContract",
-    "ResellerRoyalty",
-    "ThresholdBillingConfiguration",
-    "ThresholdBillingConfigurationCommit",
-    "UsageFilter",
-    "UsageFilterUpdate",
-]
+from .commit import Commit
 
+from .override import Override
+
+from .scheduled_charge import ScheduledCharge
+
+from .credit import Credit
+
+from .discount import Discount
+
+from .pro_service import ProService
+
+from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
+
+__all__ = ["ContractWithoutAmendments", "Transition", "UsageStatementSchedule", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitProduct", "RecurringCommitContract", "RecurringCommitInvoiceAmount", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditProduct", "RecurringCreditContract", "ResellerRoyalty", "ThresholdBillingConfiguration", "ThresholdBillingConfigurationCommit", "UsageFilter", "UsageFilterUpdate"]
 
 class Transition(BaseModel):
     from_contract_id: str
@@ -43,13 +35,11 @@ class Transition(BaseModel):
 
     type: Literal["SUPERSEDE", "RENEWAL"]
 
-
 class UsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-
 
 class RecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
@@ -58,22 +48,18 @@ class RecurringCommitAccessAmount(BaseModel):
 
     unit_price: float
 
-
 class RecurringCommitCommitDuration(BaseModel):
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class RecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
-
 class RecurringCommitContract(BaseModel):
     id: str
-
 
 class RecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
@@ -81,7 +67,6 @@ class RecurringCommitInvoiceAmount(BaseModel):
     quantity: float
 
     unit_price: float
-
 
 class RecurringCommit(BaseModel):
     id: str
@@ -149,7 +134,6 @@ class RecurringCommit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-
 class RecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
 
@@ -157,22 +141,18 @@ class RecurringCreditAccessAmount(BaseModel):
 
     unit_price: float
 
-
 class RecurringCreditCommitDuration(BaseModel):
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class RecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
-
 class RecurringCreditContract(BaseModel):
     id: str
-
 
 class RecurringCredit(BaseModel):
     id: str
@@ -237,7 +217,6 @@ class RecurringCredit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-
 class ResellerRoyalty(BaseModel):
     fraction: float
 
@@ -265,7 +244,6 @@ class ResellerRoyalty(BaseModel):
 
     reseller_contract_value: Optional[float] = None
 
-
 class ThresholdBillingConfigurationCommit(BaseModel):
     product_id: str
 
@@ -291,7 +269,6 @@ class ThresholdBillingConfigurationCommit(BaseModel):
     If left blank, it will default to the commit product name.
     """
 
-
 class ThresholdBillingConfiguration(BaseModel):
     commit: ThresholdBillingConfigurationCommit
 
@@ -309,7 +286,6 @@ class ThresholdBillingConfiguration(BaseModel):
     initiated.
     """
 
-
 class UsageFilterUpdate(BaseModel):
     group_key: str
 
@@ -317,14 +293,12 @@ class UsageFilterUpdate(BaseModel):
 
     starting_at: datetime
 
-
 class UsageFilter(BaseModel):
     current: Optional[BaseUsageFilter] = None
 
     initial: BaseUsageFilter
 
     updates: List[UsageFilterUpdate]
-
 
 class ContractWithoutAmendments(BaseModel):
     commits: List[Commit]

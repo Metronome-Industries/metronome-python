@@ -1,11 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-
 from .._models import BaseModel
 
-__all__ = ["PlanListResponse"]
+from typing import Optional, Dict
 
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
+
+__all__ = ["PlanListResponse"]
 
 class PlanListResponse(BaseModel):
     id: str

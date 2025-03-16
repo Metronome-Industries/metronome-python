@@ -1,13 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
-
 from ..._models import BaseModel
+
 from ..shared.credit_type_data import CreditTypeData
 
-__all__ = ["PlanListResponse", "TrialInfo", "TrialInfoSpendingCap"]
+from datetime import datetime
 
+from typing import List, Dict, Optional
+
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
+
+__all__ = ["PlanListResponse", "TrialInfo", "TrialInfoSpendingCap"]
 
 class TrialInfoSpendingCap(BaseModel):
     amount: float
@@ -16,12 +20,10 @@ class TrialInfoSpendingCap(BaseModel):
 
     credit_type: CreditTypeData
 
-
 class TrialInfo(BaseModel):
     ending_before: datetime
 
     spending_caps: List[TrialInfoSpendingCap]
-
 
 class PlanListResponse(BaseModel):
     id: str

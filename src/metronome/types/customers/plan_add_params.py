@@ -2,27 +2,32 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated, Literal
+
 from typing import Union, Iterable
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["PlanAddParams", "OverageRateAdjustment", "PriceAdjustment", "TrialSpec", "TrialSpecSpendingCap"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["PlanAddParams", "OverageRateAdjustment", "PriceAdjustment", "TrialSpec", "TrialSpecSpendingCap"]
 
 class PlanAddParams(TypedDict, total=False):
     customer_id: Required[str]
 
     plan_id: Required[str]
 
-    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp for when the plan becomes active for this customer.
 
     Must be at 0:00 UTC (midnight).
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp for when the plan ends (exclusive) for this customer.
 
     Must be at 0:00 UTC (midnight).
@@ -56,7 +61,6 @@ class PlanAddParams(TypedDict, total=False):
     for details.
     """
 
-
 class OverageRateAdjustment(TypedDict, total=False):
     custom_credit_type_id: Required[str]
 
@@ -64,7 +68,6 @@ class OverageRateAdjustment(TypedDict, total=False):
 
     to_fiat_conversion_factor: Required[float]
     """The overage cost in fiat currency for each credit of the custom credit type."""
-
 
 class PriceAdjustment(TypedDict, total=False):
     adjustment_type: Required[Literal["percentage", "fixed", "override", "quantity"]]
@@ -90,7 +93,6 @@ class PriceAdjustment(TypedDict, total=False):
     adjustments should be decimals, e.g. -0.05 for a 5% discount.
     """
 
-
 class TrialSpecSpendingCap(TypedDict, total=False):
     amount: Required[float]
     """The credit amount in the given denomination based on the credit type, e.g.
@@ -100,7 +102,6 @@ class TrialSpecSpendingCap(TypedDict, total=False):
 
     credit_type_id: Required[str]
     """The credit type ID for the spending cap."""
-
 
 class TrialSpec(TypedDict, total=False):
     length_in_days: Required[float]

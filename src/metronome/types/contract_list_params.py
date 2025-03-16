@@ -2,19 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
+from typing import Union
+
+from datetime import datetime
+
+from .._utils import PropertyInfo
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
 from .._utils import PropertyInfo
 
 __all__ = ["ContractListParams"]
 
-
 class ContractListParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    covering_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    covering_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """Optional RFC 3339 timestamp.
 
     If provided, the response will include only contracts effective on the provided
@@ -36,7 +41,7 @@ class ContractListParams(TypedDict, total=False):
     Setting this flag may cause the query to be slower.
     """
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """Optional RFC 3339 timestamp.
 
     If provided, the response will include only contracts where effective_at is on

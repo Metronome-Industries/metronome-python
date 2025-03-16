@@ -2,30 +2,34 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
-
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from ...._compat import cached_property
-from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...._base_client import make_request_options
-from ....types.contracts.rate_cards import product_order_set_params, product_order_update_params
-from ....types.contracts.rate_cards.product_order_set_response import ProductOrderSetResponse
+
 from ....types.contracts.rate_cards.product_order_update_response import ProductOrderUpdateResponse
 
-__all__ = ["ProductOrdersResource", "AsyncProductOrdersResource"]
+from ...._utils import maybe_transform, async_maybe_transform
 
+from ...._base_client import make_request_options
+
+from typing import Iterable, List
+
+from ....types.contracts.rate_cards.product_order_set_response import ProductOrderSetResponse
+
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ....types.contracts.rate_cards import product_order_update_params
+
+import warnings
+from typing_extensions import Literal, overload
+from ...._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ...._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ....types import shared_params
+from ....types.contracts.rate_cards import product_order_update_params
+from ....types.contracts.rate_cards import product_order_set_params
+
+__all__ = ["ProductOrdersResource", "AsyncProductOrdersResource"]
 
 class ProductOrdersResource(SyncAPIResource):
     @cached_property
@@ -47,18 +51,16 @@ class ProductOrdersResource(SyncAPIResource):
         """
         return ProductOrdersResourceWithStreamingResponse(self)
 
-    def update(
-        self,
-        *,
-        product_moves: Iterable[product_order_update_params.ProductMove],
-        rate_card_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProductOrderUpdateResponse:
+    def update(self,
+    *,
+    product_moves: Iterable[product_order_update_params.ProductMove],
+    rate_card_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProductOrderUpdateResponse:
         """
         Updates ordering of specified products
 
@@ -75,31 +77,24 @@ class ProductOrdersResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/moveRateCardProducts",
-            body=maybe_transform(
-                {
-                    "product_moves": product_moves,
-                    "rate_card_id": rate_card_id,
-                },
-                product_order_update_params.ProductOrderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "product_moves": product_moves,
+                "rate_card_id": rate_card_id,
+            }, product_order_update_params.ProductOrderUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductOrderUpdateResponse,
         )
 
-    def set(
-        self,
-        *,
-        product_order: List[str],
-        rate_card_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProductOrderSetResponse:
+    def set(self,
+    *,
+    product_order: List[str],
+    rate_card_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProductOrderSetResponse:
         """
         Sets the ordering of products within a rate card
 
@@ -116,19 +111,13 @@ class ProductOrdersResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/setRateCardProductsOrder",
-            body=maybe_transform(
-                {
-                    "product_order": product_order,
-                    "rate_card_id": rate_card_id,
-                },
-                product_order_set_params.ProductOrderSetParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "product_order": product_order,
+                "rate_card_id": rate_card_id,
+            }, product_order_set_params.ProductOrderSetParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductOrderSetResponse,
         )
-
 
 class AsyncProductOrdersResource(AsyncAPIResource):
     @cached_property
@@ -150,18 +139,16 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         """
         return AsyncProductOrdersResourceWithStreamingResponse(self)
 
-    async def update(
-        self,
-        *,
-        product_moves: Iterable[product_order_update_params.ProductMove],
-        rate_card_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProductOrderUpdateResponse:
+    async def update(self,
+    *,
+    product_moves: Iterable[product_order_update_params.ProductMove],
+    rate_card_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProductOrderUpdateResponse:
         """
         Updates ordering of specified products
 
@@ -178,31 +165,24 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/moveRateCardProducts",
-            body=await async_maybe_transform(
-                {
-                    "product_moves": product_moves,
-                    "rate_card_id": rate_card_id,
-                },
-                product_order_update_params.ProductOrderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "product_moves": product_moves,
+                "rate_card_id": rate_card_id,
+            }, product_order_update_params.ProductOrderUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductOrderUpdateResponse,
         )
 
-    async def set(
-        self,
-        *,
-        product_order: List[str],
-        rate_card_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProductOrderSetResponse:
+    async def set(self,
+    *,
+    product_order: List[str],
+    rate_card_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProductOrderSetResponse:
         """
         Sets the ordering of products within a rate card
 
@@ -219,19 +199,13 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/setRateCardProductsOrder",
-            body=await async_maybe_transform(
-                {
-                    "product_order": product_order,
-                    "rate_card_id": rate_card_id,
-                },
-                product_order_set_params.ProductOrderSetParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "product_order": product_order,
+                "rate_card_id": rate_card_id,
+            }, product_order_set_params.ProductOrderSetParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductOrderSetResponse,
         )
-
 
 class ProductOrdersResourceWithRawResponse:
     def __init__(self, product_orders: ProductOrdersResource) -> None:
@@ -244,7 +218,6 @@ class ProductOrdersResourceWithRawResponse:
             product_orders.set,
         )
 
-
 class AsyncProductOrdersResourceWithRawResponse:
     def __init__(self, product_orders: AsyncProductOrdersResource) -> None:
         self._product_orders = product_orders
@@ -256,7 +229,6 @@ class AsyncProductOrdersResourceWithRawResponse:
             product_orders.set,
         )
 
-
 class ProductOrdersResourceWithStreamingResponse:
     def __init__(self, product_orders: ProductOrdersResource) -> None:
         self._product_orders = product_orders
@@ -267,7 +239,6 @@ class ProductOrdersResourceWithStreamingResponse:
         self.set = to_streamed_response_wrapper(
             product_orders.set,
         )
-
 
 class AsyncProductOrdersResourceWithStreamingResponse:
     def __init__(self, product_orders: AsyncProductOrdersResource) -> None:

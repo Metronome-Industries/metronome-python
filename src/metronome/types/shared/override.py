@@ -1,15 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict
+
 from typing_extensions import Literal
 
-from .tier import Tier
-from ..._models import BaseModel
 from .credit_type_data import CreditTypeData
 
-__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
+from .tier import Tier
 
+from datetime import datetime
+
+from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
+
+__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
 
 class OverrideSpecifier(BaseModel):
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
@@ -28,12 +35,10 @@ class OverrideSpecifier(BaseModel):
 
     recurring_credit_ids: Optional[List[str]] = None
 
-
 class OverrideTier(BaseModel):
     multiplier: float
 
     size: Optional[float] = None
-
 
 class OverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
@@ -65,12 +70,10 @@ class OverwriteRate(BaseModel):
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
 
-
 class Product(BaseModel):
     id: str
 
     name: str
-
 
 class Override(BaseModel):
     id: str

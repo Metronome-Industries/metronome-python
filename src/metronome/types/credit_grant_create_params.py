@@ -2,22 +2,29 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing_extensions import TypedDict, Required, Annotated, TypeAliasType, TypeAlias
+
+from typing import Union, Dict, List
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .rollover_amount_max_amount_param import RolloverAmountMaxAmountParam
+
 from .rollover_amount_max_percentage_param import RolloverAmountMaxPercentageParam
 
-__all__ = ["CreditGrantCreateParams", "GrantAmount", "PaidAmount", "RolloverSettings", "RolloverSettingsRolloverAmount"]
+from .rollover_amount_max_amount_param import RolloverAmountMaxAmountParam
 
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+
+__all__ = ["CreditGrantCreateParams", "GrantAmount", "PaidAmount", "RolloverSettings", "RolloverSettingsRolloverAmount"]
 
 class CreditGrantCreateParams(TypedDict, total=False):
     customer_id: Required[str]
     """the Metronome ID of the customer"""
 
-    expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """
     The credit grant will only apply to usage or charges dated before this timestamp
     """
@@ -38,13 +45,13 @@ class CreditGrantCreateParams(TypedDict, total=False):
     custom_fields: Dict[str, str]
     """Custom fields to attach to the credit grant."""
 
-    effective_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    effective_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """
     The credit grant will only apply to usage or charges dated on or after this
     timestamp
     """
 
-    invoice_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    invoice_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """The date to issue an invoice for the paid_amount."""
 
     product_ids: List[str]
@@ -71,13 +78,11 @@ class CreditGrantCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-
 class GrantAmount(TypedDict, total=False):
     amount: Required[float]
 
     credit_type_id: Required[str]
     """the ID of the pricing unit to be used. Defaults to USD (cents) if not passed."""
-
 
 class PaidAmount(TypedDict, total=False):
     amount: Required[float]
@@ -85,12 +90,10 @@ class PaidAmount(TypedDict, total=False):
     credit_type_id: Required[str]
     """the ID of the pricing unit to be used. Defaults to USD (cents) if not passed."""
 
-
 RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]
 
-
 class RolloverSettings(TypedDict, total=False):
-    expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """The date to expire the rollover credits."""
 
     priority: Required[float]
