@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["InvoiceAddChargeParams"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["InvoiceAddChargeParams"]
 
 class InvoiceAddChargeParams(TypedDict, total=False):
     customer_id: Required[str]
@@ -26,7 +31,7 @@ class InvoiceAddChargeParams(TypedDict, total=False):
 
     description: Required[str]
 
-    invoice_start_timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    invoice_start_timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """The start_timestamp of the invoice to add the charge to."""
 
     price: Required[float]

@@ -2,31 +2,18 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Literal, Required
+
 from typing import List, Iterable
-from typing_extensions import Literal, Required, TypedDict
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
 
 __all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupKeyFilter"]
 
-
 class AlertCreateParams(TypedDict, total=False):
-    alert_type: Required[
-        Literal[
-            "low_credit_balance_reached",
-            "spend_threshold_reached",
-            "monthly_invoice_total_spend_threshold_reached",
-            "low_remaining_days_in_plan_reached",
-            "low_remaining_credit_percentage_reached",
-            "usage_threshold_reached",
-            "low_remaining_days_for_commit_segment_reached",
-            "low_remaining_commit_balance_reached",
-            "low_remaining_commit_percentage_reached",
-            "low_remaining_days_for_contract_credit_segment_reached",
-            "low_remaining_contract_credit_balance_reached",
-            "low_remaining_contract_credit_percentage_reached",
-            "low_remaining_contract_credit_and_commit_balance_reached",
-            "invoice_total_reached",
-        ]
-    ]
+    alert_type: Required[Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "invoice_total_reached"]]
     """Type of the alert"""
 
     name: Required[str]
@@ -98,14 +85,12 @@ class AlertCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-
 class CustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Contract", "Commit", "ContractCredit"]]
 
     key: Required[str]
 
     value: Required[str]
-
 
 class GroupKeyFilter(TypedDict, total=False):
     key: Required[str]

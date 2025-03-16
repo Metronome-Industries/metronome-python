@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing_extensions import TypedDict, Required, Literal, Annotated
+
+from typing import List, Dict, Iterable, Union
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem"]
 
 class CreditCreateParams(TypedDict, total=False):
     access_schedule: Required[AccessSchedule]
@@ -69,16 +74,14 @@ class CreditCreateParams(TypedDict, total=False):
     and the request will fail with a 409 error.
     """
 
-
 class AccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
-
 
 class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]

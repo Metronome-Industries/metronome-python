@@ -2,102 +2,68 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from datetime import datetime
-
 import httpx
 
-from .plans import (
-    PlansResource,
-    AsyncPlansResource,
-    PlansResourceWithRawResponse,
-    AsyncPlansResourceWithRawResponse,
-    PlansResourceWithStreamingResponse,
-    AsyncPlansResourceWithStreamingResponse,
-)
-from .alerts import (
-    AlertsResource,
-    AsyncAlertsResource,
-    AlertsResourceWithRawResponse,
-    AsyncAlertsResourceWithRawResponse,
-    AlertsResourceWithStreamingResponse,
-    AsyncAlertsResourceWithStreamingResponse,
-)
-from ...types import (
-    customer_list_params,
-    customer_create_params,
-    customer_archive_params,
-    customer_set_name_params,
-    customer_list_costs_params,
-    customer_update_config_params,
-    customer_set_ingest_aliases_params,
-    customer_list_billable_metrics_params,
-)
-from .commits import (
-    CommitsResource,
-    AsyncCommitsResource,
-    CommitsResourceWithRawResponse,
-    AsyncCommitsResourceWithRawResponse,
-    CommitsResourceWithStreamingResponse,
-    AsyncCommitsResourceWithStreamingResponse,
-)
-from .credits import (
-    CreditsResource,
-    AsyncCreditsResource,
-    CreditsResourceWithRawResponse,
-    AsyncCreditsResourceWithRawResponse,
-    CreditsResourceWithStreamingResponse,
-    AsyncCreditsResourceWithStreamingResponse,
-)
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
-from .invoices import (
-    InvoicesResource,
-    AsyncInvoicesResource,
-    InvoicesResourceWithRawResponse,
-    AsyncInvoicesResourceWithRawResponse,
-    InvoicesResourceWithStreamingResponse,
-    AsyncInvoicesResourceWithStreamingResponse,
-)
+from .alerts import AlertsResource, AsyncAlertsResource, AlertsResourceWithRawResponse, AsyncAlertsResourceWithRawResponse, AlertsResourceWithStreamingResponse, AsyncAlertsResourceWithStreamingResponse
+
 from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import AsyncPaginator, make_request_options
-from .billing_config import (
-    BillingConfigResource,
-    AsyncBillingConfigResource,
-    BillingConfigResourceWithRawResponse,
-    AsyncBillingConfigResourceWithRawResponse,
-    BillingConfigResourceWithStreamingResponse,
-    AsyncBillingConfigResourceWithStreamingResponse,
-)
-from .named_schedules import (
-    NamedSchedulesResource,
-    AsyncNamedSchedulesResource,
-    NamedSchedulesResourceWithRawResponse,
-    AsyncNamedSchedulesResourceWithRawResponse,
-    NamedSchedulesResourceWithStreamingResponse,
-    AsyncNamedSchedulesResourceWithStreamingResponse,
-)
-from ...types.customer_detail import CustomerDetail
+
+from .plans import PlansResource, AsyncPlansResource, PlansResourceWithRawResponse, AsyncPlansResourceWithRawResponse, PlansResourceWithStreamingResponse, AsyncPlansResourceWithStreamingResponse
+
+from .invoices import InvoicesResource, AsyncInvoicesResource, InvoicesResourceWithRawResponse, AsyncInvoicesResourceWithRawResponse, InvoicesResourceWithStreamingResponse, AsyncInvoicesResourceWithStreamingResponse
+
+from .billing_config import BillingConfigResource, AsyncBillingConfigResource, BillingConfigResourceWithRawResponse, AsyncBillingConfigResourceWithRawResponse, BillingConfigResourceWithStreamingResponse, AsyncBillingConfigResourceWithStreamingResponse
+
+from .commits import CommitsResource, AsyncCommitsResource, CommitsResourceWithRawResponse, AsyncCommitsResourceWithRawResponse, CommitsResourceWithStreamingResponse, AsyncCommitsResourceWithStreamingResponse
+
+from .credits import CreditsResource, AsyncCreditsResource, CreditsResourceWithRawResponse, AsyncCreditsResourceWithRawResponse, CreditsResourceWithStreamingResponse, AsyncCreditsResourceWithStreamingResponse
+
+from .named_schedules import NamedSchedulesResource, AsyncNamedSchedulesResource, NamedSchedulesResourceWithRawResponse, AsyncNamedSchedulesResourceWithRawResponse, NamedSchedulesResourceWithStreamingResponse, AsyncNamedSchedulesResourceWithStreamingResponse
+
 from ...types.customer_create_response import CustomerCreateResponse
-from ...types.customer_archive_response import CustomerArchiveResponse
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Dict, Iterable, List, Union, Optional
+
 from ...types.customer_retrieve_response import CustomerRetrieveResponse
-from ...types.customer_set_name_response import CustomerSetNameResponse
-from ...types.customer_list_costs_response import CustomerListCostsResponse
+
+from ...types.customer_detail import CustomerDetail
+
+from ...pagination import SyncCursorPage, AsyncCursorPage
+
+from ...types.customer_archive_response import CustomerArchiveResponse
+
 from ...types.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
 
-__all__ = ["CustomersResource", "AsyncCustomersResource"]
+from ...types.customer_list_costs_response import CustomerListCostsResponse
 
+from datetime import datetime
+
+from ...types.customer_set_name_response import CustomerSetNameResponse
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types import customer_create_params
+
+import warnings
+from typing_extensions import Literal, overload
+from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ...types import shared_params
+from ...types import customer_create_params
+from ...types import customer_list_params
+from ...types import customer_archive_params
+from ...types import customer_list_billable_metrics_params
+from ...types import customer_list_costs_params
+from ...types import customer_set_ingest_aliases_params
+from ...types import customer_set_name_params
+from ...types import customer_update_config_params
+
+__all__ = ["CustomersResource", "AsyncCustomersResource"]
 
 class CustomersResource(SyncAPIResource):
     @cached_property
@@ -147,23 +113,20 @@ class CustomersResource(SyncAPIResource):
         """
         return CustomersResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
-        | NotGiven = NOT_GIVEN,
-        external_id: str | NotGiven = NOT_GIVEN,
-        ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerCreateResponse:
+    def create(self,
+    *,
+    name: str,
+    billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration] | NotGiven = NOT_GIVEN,
+    external_id: str | NotGiven = NOT_GIVEN,
+    ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerCreateResponse:
         """
         Create a new customer
 
@@ -185,34 +148,27 @@ class CustomersResource(SyncAPIResource):
         """
         return self._post(
             "/customers",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "billing_config": billing_config,
-                    "custom_fields": custom_fields,
-                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
-                    "external_id": external_id,
-                    "ingest_aliases": ingest_aliases,
-                },
-                customer_create_params.CustomerCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "billing_config": billing_config,
+                "custom_fields": custom_fields,
+                "customer_billing_provider_configurations": customer_billing_provider_configurations,
+                "external_id": external_id,
+                "ingest_aliases": ingest_aliases,
+            }, customer_create_params.CustomerCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerRetrieveResponse:
+    def retrieve(self,
+    *,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerRetrieveResponse:
         """
         Get a customer by Metronome ID.
 
@@ -226,31 +182,29 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._get(
             f"/customers/{customer_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
-        ingest_alias: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        only_archived: bool | NotGiven = NOT_GIVEN,
-        salesforce_account_ids: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[CustomerDetail]:
+    def list(self,
+    *,
+    customer_ids: List[str] | NotGiven = NOT_GIVEN,
+    ingest_alias: str | NotGiven = NOT_GIVEN,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    only_archived: bool | NotGiven = NOT_GIVEN,
+    salesforce_account_ids: List[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[CustomerDetail]:
         """
         List all customers.
 
@@ -279,38 +233,27 @@ class CustomersResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/customers",
-            page=SyncCursorPage[CustomerDetail],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "customer_ids": customer_ids,
-                        "ingest_alias": ingest_alias,
-                        "limit": limit,
-                        "next_page": next_page,
-                        "only_archived": only_archived,
-                        "salesforce_account_ids": salesforce_account_ids,
-                    },
-                    customer_list_params.CustomerListParams,
-                ),
-            ),
+            page = SyncCursorPage[CustomerDetail],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "customer_ids": customer_ids,
+                "ingest_alias": ingest_alias,
+                "limit": limit,
+                "next_page": next_page,
+                "only_archived": only_archived,
+                "salesforce_account_ids": salesforce_account_ids,
+            }, customer_list_params.CustomerListParams)),
             model=CustomerDetail,
         )
 
-    def archive(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerArchiveResponse:
+    def archive(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerArchiveResponse:
         """
         Archive a customer
 
@@ -325,28 +268,26 @@ class CustomersResource(SyncAPIResource):
         """
         return self._post(
             "/customers/archive",
-            body=maybe_transform({"id": id}, customer_archive_params.CustomerArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id
+            }, customer_archive_params.CustomerArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerArchiveResponse,
         )
 
-    def list_billable_metrics(
-        self,
-        *,
-        customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
+    def list_billable_metrics(self,
+    *,
+    customer_id: str,
+    include_archived: bool | NotGiven = NOT_GIVEN,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    on_current_plan: bool | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
         """
         Get all billable metrics for a given customer.
 
@@ -369,43 +310,34 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
-            page=SyncCursorPage[CustomerListBillableMetricsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "include_archived": include_archived,
-                        "limit": limit,
-                        "next_page": next_page,
-                        "on_current_plan": on_current_plan,
-                    },
-                    customer_list_billable_metrics_params.CustomerListBillableMetricsParams,
-                ),
-            ),
+            page = SyncCursorPage[CustomerListBillableMetricsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "include_archived": include_archived,
+                "limit": limit,
+                "next_page": next_page,
+                "on_current_plan": on_current_plan,
+            }, customer_list_billable_metrics_params.CustomerListBillableMetricsParams)),
             model=CustomerListBillableMetricsResponse,
         )
 
-    def list_costs(
-        self,
-        *,
-        customer_id: str,
-        ending_before: Union[str, datetime],
-        starting_on: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[CustomerListCostsResponse]:
+    def list_costs(self,
+    *,
+    customer_id: str,
+    ending_before: Union[str, datetime],
+    starting_on: Union[str, datetime],
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[CustomerListCostsResponse]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
@@ -429,40 +361,31 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._get_api_list(
             f"/customers/{customer_id}/costs",
-            page=SyncCursorPage[CustomerListCostsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "ending_before": ending_before,
-                        "starting_on": starting_on,
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    customer_list_costs_params.CustomerListCostsParams,
-                ),
-            ),
+            page = SyncCursorPage[CustomerListCostsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+                "limit": limit,
+                "next_page": next_page,
+            }, customer_list_costs_params.CustomerListCostsParams)),
             model=CustomerListCostsResponse,
         )
 
-    def set_ingest_aliases(
-        self,
-        *,
-        customer_id: str,
-        ingest_aliases: List[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    def set_ingest_aliases(self,
+    *,
+    customer_id: str,
+    ingest_aliases: List[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """Sets the ingest aliases for a customer.
 
         Ingest aliases can be used in the
@@ -479,31 +402,29 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/customers/{customer_id}/setIngestAliases",
-            body=maybe_transform(
-                {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "ingest_aliases": ingest_aliases
+            }, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def set_name(
-        self,
-        *,
-        customer_id: str,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerSetNameResponse:
+    def set_name(self,
+    *,
+    customer_id: str,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerSetNameResponse:
         """
         Updates the specified customer's name.
 
@@ -520,29 +441,29 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._post(
             f"/customers/{customer_id}/setName",
-            body=maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name
+            }, customer_set_name_params.CustomerSetNameParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerSetNameResponse,
         )
 
-    def update_config(
-        self,
-        *,
-        customer_id: str,
-        leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
-        salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    def update_config(self,
+    *,
+    customer_id: str,
+    leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
+    salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Updates the specified customer's config.
 
@@ -561,23 +482,19 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/customers/{customer_id}/updateConfig",
-            body=maybe_transform(
-                {
-                    "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
-                    "salesforce_account_id": salesforce_account_id,
-                },
-                customer_update_config_params.CustomerUpdateConfigParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
+                "salesforce_account_id": salesforce_account_id,
+            }, customer_update_config_params.CustomerUpdateConfigParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
-
 
 class AsyncCustomersResource(AsyncAPIResource):
     @cached_property
@@ -627,23 +544,20 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         return AsyncCustomersResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
-        | NotGiven = NOT_GIVEN,
-        external_id: str | NotGiven = NOT_GIVEN,
-        ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerCreateResponse:
+    async def create(self,
+    *,
+    name: str,
+    billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration] | NotGiven = NOT_GIVEN,
+    external_id: str | NotGiven = NOT_GIVEN,
+    ingest_aliases: List[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerCreateResponse:
         """
         Create a new customer
 
@@ -665,34 +579,27 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         return await self._post(
             "/customers",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "billing_config": billing_config,
-                    "custom_fields": custom_fields,
-                    "customer_billing_provider_configurations": customer_billing_provider_configurations,
-                    "external_id": external_id,
-                    "ingest_aliases": ingest_aliases,
-                },
-                customer_create_params.CustomerCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "billing_config": billing_config,
+                "custom_fields": custom_fields,
+                "customer_billing_provider_configurations": customer_billing_provider_configurations,
+                "external_id": external_id,
+                "ingest_aliases": ingest_aliases,
+            }, customer_create_params.CustomerCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerRetrieveResponse:
+    async def retrieve(self,
+    *,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerRetrieveResponse:
         """
         Get a customer by Metronome ID.
 
@@ -706,31 +613,29 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return await self._get(
             f"/customers/{customer_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
-        ingest_alias: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        only_archived: bool | NotGiven = NOT_GIVEN,
-        salesforce_account_ids: List[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
+    def list(self,
+    *,
+    customer_ids: List[str] | NotGiven = NOT_GIVEN,
+    ingest_alias: str | NotGiven = NOT_GIVEN,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    only_archived: bool | NotGiven = NOT_GIVEN,
+    salesforce_account_ids: List[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
         """
         List all customers.
 
@@ -759,38 +664,27 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/customers",
-            page=AsyncCursorPage[CustomerDetail],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "customer_ids": customer_ids,
-                        "ingest_alias": ingest_alias,
-                        "limit": limit,
-                        "next_page": next_page,
-                        "only_archived": only_archived,
-                        "salesforce_account_ids": salesforce_account_ids,
-                    },
-                    customer_list_params.CustomerListParams,
-                ),
-            ),
+            page = AsyncCursorPage[CustomerDetail],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "customer_ids": customer_ids,
+                "ingest_alias": ingest_alias,
+                "limit": limit,
+                "next_page": next_page,
+                "only_archived": only_archived,
+                "salesforce_account_ids": salesforce_account_ids,
+            }, customer_list_params.CustomerListParams)),
             model=CustomerDetail,
         )
 
-    async def archive(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerArchiveResponse:
+    async def archive(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerArchiveResponse:
         """
         Archive a customer
 
@@ -805,28 +699,26 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         return await self._post(
             "/customers/archive",
-            body=await async_maybe_transform({"id": id}, customer_archive_params.CustomerArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id
+            }, customer_archive_params.CustomerArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerArchiveResponse,
         )
 
-    def list_billable_metrics(
-        self,
-        *,
-        customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
+    def list_billable_metrics(self,
+    *,
+    customer_id: str,
+    include_archived: bool | NotGiven = NOT_GIVEN,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    on_current_plan: bool | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
         """
         Get all billable metrics for a given customer.
 
@@ -849,43 +741,34 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._get_api_list(
             f"/customers/{customer_id}/billable-metrics",
-            page=AsyncCursorPage[CustomerListBillableMetricsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "include_archived": include_archived,
-                        "limit": limit,
-                        "next_page": next_page,
-                        "on_current_plan": on_current_plan,
-                    },
-                    customer_list_billable_metrics_params.CustomerListBillableMetricsParams,
-                ),
-            ),
+            page = AsyncCursorPage[CustomerListBillableMetricsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "include_archived": include_archived,
+                "limit": limit,
+                "next_page": next_page,
+                "on_current_plan": on_current_plan,
+            }, customer_list_billable_metrics_params.CustomerListBillableMetricsParams)),
             model=CustomerListBillableMetricsResponse,
         )
 
-    def list_costs(
-        self,
-        *,
-        customer_id: str,
-        ending_before: Union[str, datetime],
-        starting_on: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CustomerListCostsResponse, AsyncCursorPage[CustomerListCostsResponse]]:
+    def list_costs(self,
+    *,
+    customer_id: str,
+    ending_before: Union[str, datetime],
+    starting_on: Union[str, datetime],
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[CustomerListCostsResponse, AsyncCursorPage[CustomerListCostsResponse]]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
@@ -909,40 +792,31 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return self._get_api_list(
             f"/customers/{customer_id}/costs",
-            page=AsyncCursorPage[CustomerListCostsResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "ending_before": ending_before,
-                        "starting_on": starting_on,
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    customer_list_costs_params.CustomerListCostsParams,
-                ),
-            ),
+            page = AsyncCursorPage[CustomerListCostsResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+                "limit": limit,
+                "next_page": next_page,
+            }, customer_list_costs_params.CustomerListCostsParams)),
             model=CustomerListCostsResponse,
         )
 
-    async def set_ingest_aliases(
-        self,
-        *,
-        customer_id: str,
-        ingest_aliases: List[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    async def set_ingest_aliases(self,
+    *,
+    customer_id: str,
+    ingest_aliases: List[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """Sets the ingest aliases for a customer.
 
         Ingest aliases can be used in the
@@ -959,31 +833,29 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/customers/{customer_id}/setIngestAliases",
-            body=await async_maybe_transform(
-                {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "ingest_aliases": ingest_aliases
+            }, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    async def set_name(
-        self,
-        *,
-        customer_id: str,
-        name: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerSetNameResponse:
+    async def set_name(self,
+    *,
+    customer_id: str,
+    name: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CustomerSetNameResponse:
         """
         Updates the specified customer's name.
 
@@ -1000,29 +872,29 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         return await self._post(
             f"/customers/{customer_id}/setName",
-            body=await async_maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name
+            }, customer_set_name_params.CustomerSetNameParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CustomerSetNameResponse,
         )
 
-    async def update_config(
-        self,
-        *,
-        customer_id: str,
-        leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
-        salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
+    async def update_config(self,
+    *,
+    customer_id: str,
+    leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
+    salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
         """
         Updates the specified customer's config.
 
@@ -1041,23 +913,19 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/customers/{customer_id}/updateConfig",
-            body=await async_maybe_transform(
-                {
-                    "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
-                    "salesforce_account_id": salesforce_account_id,
-                },
-                customer_update_config_params.CustomerUpdateConfigParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
+                "salesforce_account_id": salesforce_account_id,
+            }, customer_update_config_params.CustomerUpdateConfigParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
-
 
 class CustomersResourceWithRawResponse:
     def __init__(self, customers: CustomersResource) -> None:
@@ -1119,7 +987,6 @@ class CustomersResourceWithRawResponse:
     def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
         return NamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
 
-
 class AsyncCustomersResourceWithRawResponse:
     def __init__(self, customers: AsyncCustomersResource) -> None:
         self._customers = customers
@@ -1180,7 +1047,6 @@ class AsyncCustomersResourceWithRawResponse:
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
         return AsyncNamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
 
-
 class CustomersResourceWithStreamingResponse:
     def __init__(self, customers: CustomersResource) -> None:
         self._customers = customers
@@ -1240,7 +1106,6 @@ class CustomersResourceWithStreamingResponse:
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
         return NamedSchedulesResourceWithStreamingResponse(self._customers.named_schedules)
-
 
 class AsyncCustomersResourceWithStreamingResponse:
     def __init__(self, customers: AsyncCustomersResource) -> None:

@@ -2,17 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Annotated, Required, Literal
 
+from typing import Union, Iterable, Dict, List
+
+from datetime import datetime
+
+from ...._utils import PropertyInfo
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ...._types import FileTypes
 from ...._utils import PropertyInfo
 
 __all__ = ["RateListParams", "Selector"]
 
-
 class RateListParams(TypedDict, total=False):
-    at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """inclusive starting point for the rates schedule"""
 
     rate_card_id: Required[str]
@@ -29,7 +34,6 @@ class RateListParams(TypedDict, total=False):
     List of rate selectors, rates matching ANY of the selector will be included in
     the response Passing no selectors will result in all rates being returned.
     """
-
 
 class Selector(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]

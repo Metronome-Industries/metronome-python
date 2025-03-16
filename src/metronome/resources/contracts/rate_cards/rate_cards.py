@@ -2,65 +2,53 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from datetime import datetime
-
 import httpx
 
-from .rates import (
-    RatesResource,
-    AsyncRatesResource,
-    RatesResourceWithRawResponse,
-    AsyncRatesResourceWithRawResponse,
-    RatesResourceWithStreamingResponse,
-    AsyncRatesResourceWithStreamingResponse,
-)
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .product_orders import ProductOrdersResource, AsyncProductOrdersResource, ProductOrdersResourceWithRawResponse, AsyncProductOrdersResourceWithRawResponse, ProductOrdersResourceWithStreamingResponse, AsyncProductOrdersResourceWithStreamingResponse
+
 from ...._compat import cached_property
-from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ....pagination import SyncCursorPage, AsyncCursorPage
-from .product_orders import (
-    ProductOrdersResource,
-    AsyncProductOrdersResource,
-    ProductOrdersResourceWithRawResponse,
-    AsyncProductOrdersResourceWithRawResponse,
-    ProductOrdersResourceWithStreamingResponse,
-    AsyncProductOrdersResourceWithStreamingResponse,
-)
-from ...._base_client import AsyncPaginator, make_request_options
-from .named_schedules import (
-    NamedSchedulesResource,
-    AsyncNamedSchedulesResource,
-    NamedSchedulesResourceWithRawResponse,
-    AsyncNamedSchedulesResourceWithRawResponse,
-    NamedSchedulesResourceWithStreamingResponse,
-    AsyncNamedSchedulesResourceWithStreamingResponse,
-)
-from ....types.contracts import (
-    rate_card_list_params,
-    rate_card_create_params,
-    rate_card_update_params,
-    rate_card_retrieve_params,
-    rate_card_retrieve_rate_schedule_params,
-)
-from ....types.contracts.rate_card_list_response import RateCardListResponse
+
+from .rates import RatesResource, AsyncRatesResource, RatesResourceWithRawResponse, AsyncRatesResourceWithRawResponse, RatesResourceWithStreamingResponse, AsyncRatesResourceWithStreamingResponse
+
+from .named_schedules import NamedSchedulesResource, AsyncNamedSchedulesResource, NamedSchedulesResourceWithRawResponse, AsyncNamedSchedulesResourceWithRawResponse, NamedSchedulesResourceWithStreamingResponse, AsyncNamedSchedulesResourceWithStreamingResponse
+
 from ....types.contracts.rate_card_create_response import RateCardCreateResponse
-from ....types.contracts.rate_card_update_response import RateCardUpdateResponse
+
+from ...._utils import maybe_transform, async_maybe_transform
+
+from ...._base_client import make_request_options, AsyncPaginator
+
+from typing import Iterable, Dict, Union
+
 from ....types.contracts.rate_card_retrieve_response import RateCardRetrieveResponse
+
+from ....types.contracts.rate_card_update_response import RateCardUpdateResponse
+
+from ....types.contracts.rate_card_list_response import RateCardListResponse
+
+from ....pagination import SyncCursorPage, AsyncCursorPage
+
 from ....types.contracts.rate_card_retrieve_rate_schedule_response import RateCardRetrieveRateScheduleResponse
 
-__all__ = ["RateCardsResource", "AsyncRateCardsResource"]
+from datetime import datetime
 
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ....types.contracts import rate_card_create_params, rate_card_update_params, rate_card_retrieve_rate_schedule_params
+
+import warnings
+from typing_extensions import Literal, overload
+from ...._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ...._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ....types import shared_params
+from ....types.contracts import rate_card_create_params
+from ....types.contracts import rate_card_retrieve_params
+from ....types.contracts import rate_card_update_params
+from ....types.contracts import rate_card_list_params
+from ....types.contracts import rate_card_retrieve_rate_schedule_params
+
+__all__ = ["RateCardsResource", "AsyncRateCardsResource"]
 
 class RateCardsResource(SyncAPIResource):
     @cached_property
@@ -94,22 +82,20 @@ class RateCardsResource(SyncAPIResource):
         """
         return RateCardsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
-        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardCreateResponse:
+    def create(self,
+    *,
+    name: str,
+    aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
+    credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardCreateResponse:
         """Create a new rate card
 
         Args:
@@ -136,34 +122,27 @@ class RateCardsResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/create",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "aliases": aliases,
-                    "credit_type_conversions": credit_type_conversions,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "fiat_credit_type_id": fiat_credit_type_id,
-                },
-                rate_card_create_params.RateCardCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "aliases": aliases,
+                "credit_type_conversions": credit_type_conversions,
+                "custom_fields": custom_fields,
+                "description": description,
+                "fiat_credit_type_id": fiat_credit_type_id,
+            }, rate_card_create_params.RateCardCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardRetrieveResponse:
+    def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardRetrieveResponse:
         """
         Get a specific rate card NOTE: Use `/contract-pricing/rate-cards/getRates` to
         retrieve rate card rates.
@@ -179,27 +158,25 @@ class RateCardsResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/get",
-            body=maybe_transform({"id": id}, rate_card_retrieve_params.RateCardRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id
+            }, rate_card_retrieve_params.RateCardRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardRetrieveResponse,
         )
 
-    def update(
-        self,
-        *,
-        rate_card_id: str,
-        aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardUpdateResponse:
+    def update(self,
+    *,
+    rate_card_id: str,
+    aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    name: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardUpdateResponse:
         """
         Update a rate card
 
@@ -222,34 +199,27 @@ class RateCardsResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/update",
-            body=maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "aliases": aliases,
-                    "description": description,
-                    "name": name,
-                },
-                rate_card_update_params.RateCardUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "rate_card_id": rate_card_id,
+                "aliases": aliases,
+                "description": description,
+                "name": name,
+            }, rate_card_update_params.RateCardUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardUpdateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        body: object | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[RateCardListResponse]:
+    def list(self,
+    *,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    body: object | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[RateCardListResponse]:
         """
         List rate cards NOTE: Use `/contract-pricing/rate-cards/getRates` to retrieve
         rate card rates.
@@ -269,41 +239,30 @@ class RateCardsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/contract-pricing/rate-cards/list",
-            page=SyncCursorPage[RateCardListResponse],
+            page = SyncCursorPage[RateCardListResponse],
             body=maybe_transform(body, rate_card_list_params.RateCardListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_card_list_params.RateCardListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_card_list_params.RateCardListParams)),
             model=RateCardListResponse,
             method="post",
         )
 
-    def retrieve_rate_schedule(
-        self,
-        *,
-        rate_card_id: str,
-        starting_at: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardRetrieveRateScheduleResponse:
+    def retrieve_rate_schedule(self,
+    *,
+    rate_card_id: str,
+    starting_at: Union[str, datetime],
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardRetrieveRateScheduleResponse:
         """
         Get all rates for a rate card from starting_at (either in perpetuity or until
         ending_before, if provided)
@@ -333,31 +292,18 @@ class RateCardsResource(SyncAPIResource):
         """
         return self._post(
             "/contract-pricing/rate-cards/getRateSchedule",
-            body=maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "starting_at": starting_at,
-                    "ending_before": ending_before,
-                    "selectors": selectors,
-                },
-                rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams,
-                ),
-            ),
+            body=maybe_transform({
+                "rate_card_id": rate_card_id,
+                "starting_at": starting_at,
+                "ending_before": ending_before,
+                "selectors": selectors,
+            }, rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams)),
             cast_to=RateCardRetrieveRateScheduleResponse,
         )
-
 
 class AsyncRateCardsResource(AsyncAPIResource):
     @cached_property
@@ -391,22 +337,20 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return AsyncRateCardsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
-        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardCreateResponse:
+    async def create(self,
+    *,
+    name: str,
+    aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
+    credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardCreateResponse:
         """Create a new rate card
 
         Args:
@@ -433,34 +377,27 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/create",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "aliases": aliases,
-                    "credit_type_conversions": credit_type_conversions,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "fiat_credit_type_id": fiat_credit_type_id,
-                },
-                rate_card_create_params.RateCardCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "aliases": aliases,
+                "credit_type_conversions": credit_type_conversions,
+                "custom_fields": custom_fields,
+                "description": description,
+                "fiat_credit_type_id": fiat_credit_type_id,
+            }, rate_card_create_params.RateCardCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardRetrieveResponse:
+    async def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardRetrieveResponse:
         """
         Get a specific rate card NOTE: Use `/contract-pricing/rate-cards/getRates` to
         retrieve rate card rates.
@@ -476,27 +413,25 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/get",
-            body=await async_maybe_transform({"id": id}, rate_card_retrieve_params.RateCardRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id
+            }, rate_card_retrieve_params.RateCardRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardRetrieveResponse,
         )
 
-    async def update(
-        self,
-        *,
-        rate_card_id: str,
-        aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardUpdateResponse:
+    async def update(self,
+    *,
+    rate_card_id: str,
+    aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    name: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardUpdateResponse:
         """
         Update a rate card
 
@@ -519,34 +454,27 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/update",
-            body=await async_maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "aliases": aliases,
-                    "description": description,
-                    "name": name,
-                },
-                rate_card_update_params.RateCardUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "rate_card_id": rate_card_id,
+                "aliases": aliases,
+                "description": description,
+                "name": name,
+            }, rate_card_update_params.RateCardUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=RateCardUpdateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        body: object | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[RateCardListResponse, AsyncCursorPage[RateCardListResponse]]:
+    def list(self,
+    *,
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    body: object | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[RateCardListResponse, AsyncCursorPage[RateCardListResponse]]:
         """
         List rate cards NOTE: Use `/contract-pricing/rate-cards/getRates` to retrieve
         rate card rates.
@@ -566,41 +494,30 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/contract-pricing/rate-cards/list",
-            page=AsyncCursorPage[RateCardListResponse],
+            page = AsyncCursorPage[RateCardListResponse],
             body=maybe_transform(body, rate_card_list_params.RateCardListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_card_list_params.RateCardListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_card_list_params.RateCardListParams)),
             model=RateCardListResponse,
             method="post",
         )
 
-    async def retrieve_rate_schedule(
-        self,
-        *,
-        rate_card_id: str,
-        starting_at: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> RateCardRetrieveRateScheduleResponse:
+    async def retrieve_rate_schedule(self,
+    *,
+    rate_card_id: str,
+    starting_at: Union[str, datetime],
+    limit: int | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> RateCardRetrieveRateScheduleResponse:
         """
         Get all rates for a rate card from starting_at (either in perpetuity or until
         ending_before, if provided)
@@ -630,31 +547,18 @@ class AsyncRateCardsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contract-pricing/rate-cards/getRateSchedule",
-            body=await async_maybe_transform(
-                {
-                    "rate_card_id": rate_card_id,
-                    "starting_at": starting_at,
-                    "ending_before": ending_before,
-                    "selectors": selectors,
-                },
-                rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams,
-                ),
-            ),
+            body=await async_maybe_transform({
+                "rate_card_id": rate_card_id,
+                "starting_at": starting_at,
+                "ending_before": ending_before,
+                "selectors": selectors,
+            }, rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, rate_card_retrieve_rate_schedule_params.RateCardRetrieveRateScheduleParams)),
             cast_to=RateCardRetrieveRateScheduleResponse,
         )
-
 
 class RateCardsResourceWithRawResponse:
     def __init__(self, rate_cards: RateCardsResource) -> None:
@@ -688,7 +592,6 @@ class RateCardsResourceWithRawResponse:
     def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
         return NamedSchedulesResourceWithRawResponse(self._rate_cards.named_schedules)
 
-
 class AsyncRateCardsResourceWithRawResponse:
     def __init__(self, rate_cards: AsyncRateCardsResource) -> None:
         self._rate_cards = rate_cards
@@ -721,7 +624,6 @@ class AsyncRateCardsResourceWithRawResponse:
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
         return AsyncNamedSchedulesResourceWithRawResponse(self._rate_cards.named_schedules)
 
-
 class RateCardsResourceWithStreamingResponse:
     def __init__(self, rate_cards: RateCardsResource) -> None:
         self._rate_cards = rate_cards
@@ -753,7 +655,6 @@ class RateCardsResourceWithStreamingResponse:
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
         return NamedSchedulesResourceWithStreamingResponse(self._rate_cards.named_schedules)
-
 
 class AsyncRateCardsResourceWithStreamingResponse:
     def __init__(self, rate_cards: AsyncRateCardsResource) -> None:

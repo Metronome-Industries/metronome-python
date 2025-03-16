@@ -1,12 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
-
 from .._models import BaseModel
 
-__all__ = ["UsageListResponse", "Data"]
+from datetime import datetime
 
+from typing import Optional, Dict, List
+
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
+
+__all__ = ["UsageListResponse", "Data"]
 
 class Data(BaseModel):
     billable_metric_id: str
@@ -26,7 +29,6 @@ class Data(BaseModel):
 
     Null indicates that there were no matches for the group_by value.
     """
-
 
 class UsageListResponse(BaseModel):
     data: List[Data]

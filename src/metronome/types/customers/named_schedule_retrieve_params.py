@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["NamedScheduleRetrieveParams"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["NamedScheduleRetrieveParams"]
 
 class NamedScheduleRetrieveParams(TypedDict, total=False):
     customer_id: Required[str]
@@ -18,7 +23,7 @@ class NamedScheduleRetrieveParams(TypedDict, total=False):
     schedule_name: Required[str]
     """The identifier for the schedule to be retrieved"""
 
-    covering_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    covering_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """
     If provided, at most one schedule segment will be returned (the one that covers
     this date). If not provided, all segments will be returned.

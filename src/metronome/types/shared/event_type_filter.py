@@ -1,11 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-
 from ..._models import BaseModel
 
-__all__ = ["EventTypeFilter"]
+from typing import Optional, List
 
+from typing_extensions import Literal
+
+from pydantic import Field as FieldInfo
+
+__all__ = ["EventTypeFilter"]
 
 class EventTypeFilter(BaseModel):
     in_values: Optional[List[str]] = None
