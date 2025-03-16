@@ -1,14 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from ..._models import BaseModel
+
 from datetime import datetime
 
-from ..._models import BaseModel
-from .quantity_rounding import QuantityRounding
+from typing import Optional, List
+
 from .quantity_conversion import QuantityConversion
 
-__all__ = ["ProductListItemState"]
+from .quantity_rounding import QuantityRounding
 
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
+
+__all__ = ["ProductListItemState"]
 
 class ProductListItemState(BaseModel):
     created_at: datetime

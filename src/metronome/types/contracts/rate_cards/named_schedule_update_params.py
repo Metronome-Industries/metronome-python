@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 
-__all__ = ["NamedScheduleUpdateParams"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ...._types import FileTypes
+from ...._utils import PropertyInfo
 
+__all__ = ["NamedScheduleUpdateParams"]
 
 class NamedScheduleUpdateParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -21,7 +26,7 @@ class NamedScheduleUpdateParams(TypedDict, total=False):
     schedule_name: Required[str]
     """The identifier for the schedule to be updated"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
     value: Required[object]
     """The value to set for the named schedule.
@@ -29,4 +34,4 @@ class NamedScheduleUpdateParams(TypedDict, total=False):
     The structure of this object is specific to the named schedule.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]

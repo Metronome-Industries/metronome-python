@@ -2,26 +2,31 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated, Literal
 
+from typing import Union
+
+from datetime import datetime
+
+from ..._utils import PropertyInfo
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
 from ..._utils import PropertyInfo
 
 __all__ = ["InvoiceListBreakdownsParams"]
 
-
 class InvoiceListBreakdownsParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp.
 
     Breakdowns will only be returned for time windows that end on or before this
     time.
     """
 
-    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp.
 
     Breakdowns will only be returned for time windows that start on or after this

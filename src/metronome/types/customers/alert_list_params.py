@@ -2,11 +2,15 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Literal
+
 from typing import List
-from typing_extensions import Literal, Required, TypedDict
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
 __all__ = ["AlertListParams"]
-
 
 class AlertListParams(TypedDict, total=False):
     customer_id: Required[str]

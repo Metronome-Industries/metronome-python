@@ -2,37 +2,62 @@
 
 from __future__ import annotations
 
+from metronome import Metronome, AsyncMetronome
+
+from metronome.types import CustomerCreateResponse, CustomerRetrieveResponse, CustomerDetail, CustomerArchiveResponse, CustomerListBillableMetricsResponse, CustomerListCostsResponse, CustomerSetNameResponse
+
+from typing import cast, Any
+
+from metronome.pagination import SyncCursorPage, AsyncCursorPage
+
 import os
-from typing import Any, cast
-
 import pytest
-
+import httpx
+from typing_extensions import get_args
+from respx import MockRouter
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
-from metronome.types import (
-    CustomerDetail,
-    CustomerCreateResponse,
-    CustomerArchiveResponse,
-    CustomerSetNameResponse,
-    CustomerRetrieveResponse,
-    CustomerListCostsResponse,
-    CustomerListBillableMetricsResponse,
-)
+from metronome.types import customer_create_params
+from metronome.types import customer_list_params
+from metronome.types import customer_archive_params
+from metronome.types import customer_list_billable_metrics_params
+from metronome.types import customer_list_costs_params
+from metronome.types import customer_set_ingest_aliases_params
+from metronome.types import customer_set_name_params
+from metronome.types import customer_update_config_params
 from metronome._utils import parse_datetime
-from metronome.pagination import SyncCursorPage, AsyncCursorPage
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
+from metronome._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-
 class TestCustomers:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
+
 
     @parametrize
     def test_method_create(self, client: Metronome) -> None:
         customer = client.customers.create(
             name="Example, Inc.",
         )
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Metronome) -> None:
@@ -46,44 +71,45 @@ class TestCustomers:
                 "aws_region": "af-south-1",
                 "stripe_collection_method": "charge_automatically",
             },
-            custom_fields={"foo": "string"},
-            customer_billing_provider_configurations=[
-                {
-                    "billing_provider": "aws_marketplace",
-                    "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
-                    },
-                    "delivery_method": "direct_to_billing_provider",
-                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
-            ],
+            custom_fields={
+                "foo": "string"
+            },
+            customer_billing_provider_configurations=[{
+                "billing_provider": "aws_marketplace",
+                "configuration": {
+                    "stripe_customer_id": "bar",
+                    "stripe_collection_method": "bar",
+                },
+                "delivery_method": "direct_to_billing_provider",
+                "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            }],
             external_id="x",
             ingest_aliases=["team@example.com"],
         )
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.create(
             name="Example, Inc.",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     def test_streaming_response_create(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.create(
             name="Example, Inc.",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+            assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -92,43 +118,44 @@ class TestCustomers:
         customer = client.customers.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+            assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_retrieve(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.retrieve(
-                customer_id="",
-            )
+          client.customers.with_raw_response.retrieve(
+              customer_id="",
+          )
 
     @parametrize
     def test_method_list(self, client: Metronome) -> None:
         customer = client.customers.list()
-        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -140,25 +167,26 @@ class TestCustomers:
             only_archived=True,
             salesforce_account_ids=["string"],
         )
-        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
-        with client.customers.with_streaming_response.list() as response:
+        with client.customers.with_streaming_response.list() as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -167,29 +195,30 @@ class TestCustomers:
         customer = client.customers.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
-        assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+        assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+        assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
     @parametrize
     def test_streaming_response_archive(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+            assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -198,7 +227,7 @@ class TestCustomers:
         customer = client.customers.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     def test_method_list_billable_metrics_with_all_params(self, client: Metronome) -> None:
@@ -209,38 +238,39 @@ class TestCustomers:
             next_page="next_page",
             on_current_plan=True,
         )
-        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     def test_raw_response_list_billable_metrics(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     def test_streaming_response_list_billable_metrics(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_list_billable_metrics(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.list_billable_metrics(
-                customer_id="",
-            )
+          client.customers.with_raw_response.list_billable_metrics(
+              customer_id="",
+          )
 
     @parametrize
     def test_method_list_costs(self, client: Metronome) -> None:
@@ -249,7 +279,7 @@ class TestCustomers:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     def test_method_list_costs_with_all_params(self, client: Metronome) -> None:
@@ -260,10 +290,11 @@ class TestCustomers:
             limit=1,
             next_page="next_page",
         )
-        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     def test_raw_response_list_costs(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.list_costs(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -271,9 +302,9 @@ class TestCustomers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     def test_streaming_response_list_costs(self, client: Metronome) -> None:
@@ -281,23 +312,23 @@ class TestCustomers:
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_list_costs(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.list_costs(
-                customer_id="",
-                ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-                starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-            )
+          client.customers.with_raw_response.list_costs(
+              customer_id="",
+              ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+              starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
+          )
 
     @parametrize
     def test_method_set_ingest_aliases(self, client: Metronome) -> None:
@@ -309,13 +340,14 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_set_ingest_aliases(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
         assert customer is None
 
@@ -324,9 +356,9 @@ class TestCustomers:
         with client.customers.with_streaming_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
             assert customer is None
@@ -336,10 +368,10 @@ class TestCustomers:
     @parametrize
     def test_path_params_set_ingest_aliases(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.set_ingest_aliases(
-                customer_id="",
-                ingest_aliases=["team@example.com"],
-            )
+          client.customers.with_raw_response.set_ingest_aliases(
+              customer_id="",
+              ingest_aliases=["team@example.com"],
+          )
 
     @parametrize
     def test_method_set_name(self, client: Metronome) -> None:
@@ -347,41 +379,42 @@ class TestCustomers:
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
         )
-        assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+        assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
     @parametrize
     def test_raw_response_set_name(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
-        assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+        assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
     @parametrize
     def test_streaming_response_set_name(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
-            assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+            assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_set_name(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.set_name(
-                customer_id="",
-                name="Example, Inc.",
-            )
+          client.customers.with_raw_response.set_name(
+              customer_id="",
+              name="Example, Inc.",
+          )
 
     @parametrize
     def test_method_update_config(self, client: Metronome) -> None:
@@ -401,12 +434,13 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_update_config(self, client: Metronome) -> None:
+
         response = client.customers.with_raw_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = response.parse()
         assert customer is None
 
@@ -414,9 +448,9 @@ class TestCustomers:
     def test_streaming_response_update_config(self, client: Metronome) -> None:
         with client.customers.with_streaming_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = response.parse()
             assert customer is None
@@ -426,20 +460,19 @@ class TestCustomers:
     @parametrize
     def test_path_params_update_config(self, client: Metronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.customers.with_raw_response.update_config(
-                customer_id="",
-            )
-
-
+          client.customers.with_raw_response.update_config(
+              customer_id="",
+          )
 class TestAsyncCustomers:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=['loose', 'strict'])
+
 
     @parametrize
     async def test_method_create(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.create(
             name="Example, Inc.",
         )
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -453,44 +486,45 @@ class TestAsyncCustomers:
                 "aws_region": "af-south-1",
                 "stripe_collection_method": "charge_automatically",
             },
-            custom_fields={"foo": "string"},
-            customer_billing_provider_configurations=[
-                {
-                    "billing_provider": "aws_marketplace",
-                    "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
-                    },
-                    "delivery_method": "direct_to_billing_provider",
-                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
-            ],
+            custom_fields={
+                "foo": "string"
+            },
+            customer_billing_provider_configurations=[{
+                "billing_provider": "aws_marketplace",
+                "configuration": {
+                    "stripe_customer_id": "bar",
+                    "stripe_collection_method": "bar",
+                },
+                "delivery_method": "direct_to_billing_provider",
+                "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            }],
             external_id="x",
             ingest_aliases=["team@example.com"],
         )
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.create(
             name="Example, Inc.",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+        assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.create(
             name="Example, Inc.",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(CustomerCreateResponse, customer, path=["response"])
+            assert_matches_type(CustomerCreateResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -499,43 +533,44 @@ class TestAsyncCustomers:
         customer = await async_client.customers.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(CustomerRetrieveResponse, customer, path=["response"])
+            assert_matches_type(CustomerRetrieveResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.retrieve(
-                customer_id="",
-            )
+          await async_client.customers.with_raw_response.retrieve(
+              customer_id="",
+          )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.customers.list()
-        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -547,25 +582,26 @@ class TestAsyncCustomers:
             only_archived=True,
             salesforce_account_ids=["string"],
         )
-        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
-        async with async_client.customers.with_streaming_response.list() as response:
+        async with async_client.customers.with_streaming_response.list() as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -574,29 +610,30 @@ class TestAsyncCustomers:
         customer = await async_client.customers.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
-        assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+        assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+        assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_archive(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+            assert_matches_type(CustomerArchiveResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -605,7 +642,7 @@ class TestAsyncCustomers:
         customer = await async_client.customers.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     async def test_method_list_billable_metrics_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -616,38 +653,39 @@ class TestAsyncCustomers:
             next_page="next_page",
             on_current_plan=True,
         )
-        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     async def test_raw_response_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerListBillableMetricsResponse], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.list_billable_metrics(
-                customer_id="",
-            )
+          await async_client.customers.with_raw_response.list_billable_metrics(
+              customer_id="",
+          )
 
     @parametrize
     async def test_method_list_costs(self, async_client: AsyncMetronome) -> None:
@@ -656,7 +694,7 @@ class TestAsyncCustomers:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     async def test_method_list_costs_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -667,10 +705,11 @@ class TestAsyncCustomers:
             limit=1,
             next_page="next_page",
         )
-        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     async def test_raw_response_list_costs(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.list_costs(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -678,9 +717,9 @@ class TestAsyncCustomers:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_list_costs(self, async_client: AsyncMetronome) -> None:
@@ -688,23 +727,23 @@ class TestAsyncCustomers:
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerListCostsResponse], customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_list_costs(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.list_costs(
-                customer_id="",
-                ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-                starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-            )
+          await async_client.customers.with_raw_response.list_costs(
+              customer_id="",
+              ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+              starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
+          )
 
     @parametrize
     async def test_method_set_ingest_aliases(self, async_client: AsyncMetronome) -> None:
@@ -716,13 +755,14 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_set_ingest_aliases(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
         assert customer is None
 
@@ -731,9 +771,9 @@ class TestAsyncCustomers:
         async with async_client.customers.with_streaming_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
             assert customer is None
@@ -743,10 +783,10 @@ class TestAsyncCustomers:
     @parametrize
     async def test_path_params_set_ingest_aliases(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.set_ingest_aliases(
-                customer_id="",
-                ingest_aliases=["team@example.com"],
-            )
+          await async_client.customers.with_raw_response.set_ingest_aliases(
+              customer_id="",
+              ingest_aliases=["team@example.com"],
+          )
 
     @parametrize
     async def test_method_set_name(self, async_client: AsyncMetronome) -> None:
@@ -754,41 +794,42 @@ class TestAsyncCustomers:
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
         )
-        assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+        assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
     @parametrize
     async def test_raw_response_set_name(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
-        assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+        assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
     @parametrize
     async def test_streaming_response_set_name(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
-            assert_matches_type(CustomerSetNameResponse, customer, path=["response"])
+            assert_matches_type(CustomerSetNameResponse, customer, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_set_name(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.set_name(
-                customer_id="",
-                name="Example, Inc.",
-            )
+          await async_client.customers.with_raw_response.set_name(
+              customer_id="",
+              name="Example, Inc.",
+          )
 
     @parametrize
     async def test_method_update_config(self, async_client: AsyncMetronome) -> None:
@@ -808,12 +849,13 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_update_config(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.customers.with_raw_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         customer = await response.parse()
         assert customer is None
 
@@ -821,9 +863,9 @@ class TestAsyncCustomers:
     async def test_streaming_response_update_config(self, async_client: AsyncMetronome) -> None:
         async with async_client.customers.with_streaming_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             customer = await response.parse()
             assert customer is None
@@ -833,6 +875,6 @@ class TestAsyncCustomers:
     @parametrize
     async def test_path_params_update_config(self, async_client: AsyncMetronome) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.customers.with_raw_response.update_config(
-                customer_id="",
-            )
+          await async_client.customers.with_raw_response.update_config(
+              customer_id="",
+          )

@@ -1,20 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from .._models import BaseModel
+
 from datetime import datetime
 
-from .._models import BaseModel
-from .credit_ledger_entry import CreditLedgerEntry
 from .shared.credit_type_data import CreditTypeData
 
-__all__ = [
-    "CreditGrantListEntriesResponse",
-    "Data",
-    "DataLedger",
-    "DataLedgerEndingBalance",
-    "DataLedgerStartingBalance",
-]
+from typing import List, Optional
 
+from .credit_ledger_entry import CreditLedgerEntry
+
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
+
+__all__ = ["CreditGrantListEntriesResponse", "Data", "DataLedger", "DataLedgerEndingBalance", "DataLedgerStartingBalance"]
 
 class DataLedgerEndingBalance(BaseModel):
     effective_at: datetime
@@ -36,7 +35,6 @@ class DataLedgerEndingBalance(BaseModel):
     expirations that will happen by the effective_at date
     """
 
-
 class DataLedgerStartingBalance(BaseModel):
     effective_at: datetime
     """
@@ -56,7 +54,6 @@ class DataLedgerStartingBalance(BaseModel):
     at the time of the query
     """
 
-
 class DataLedger(BaseModel):
     credit_type: CreditTypeData
 
@@ -69,12 +66,10 @@ class DataLedger(BaseModel):
 
     starting_balance: DataLedgerStartingBalance
 
-
 class Data(BaseModel):
     customer_id: str
 
     ledgers: List[DataLedger]
-
 
 class CreditGrantListEntriesResponse(BaseModel):
     data: List[Data]

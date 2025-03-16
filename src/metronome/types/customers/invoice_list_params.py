@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated, Literal
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["InvoiceListParams"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["InvoiceListParams"]
 
 class InvoiceListParams(TypedDict, total=False):
     customer_id: Required[str]
@@ -17,7 +22,7 @@ class InvoiceListParams(TypedDict, total=False):
     credit_type_id: str
     """Only return invoices for the specified credit type"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp (exclusive).
 
     Invoices will only be returned for billing periods that end before this time.
@@ -38,7 +43,7 @@ class InvoiceListParams(TypedDict, total=False):
     date_asc or date_desc. Defaults to date_asc.
     """
 
-    starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    starting_on: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp (inclusive).
 
     Invoices will only be returned for billing periods that start at or after this

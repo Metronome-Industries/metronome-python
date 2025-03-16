@@ -1,11 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-
 from ..._models import BaseModel
+
 from ..shared.id import ID
 
-__all__ = ["CommitUpdateEndDateResponse"]
+from typing_extensions import Literal
+from pydantic import Field as FieldInfo
 
+__all__ = ["CommitUpdateEndDateResponse"]
 
 class CommitUpdateEndDateResponse(BaseModel):
     data: ID

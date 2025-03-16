@@ -2,22 +2,29 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing_extensions import TypedDict, Required, Annotated
+
+from typing import Union, List, Optional
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from .quantity_rounding_param import QuantityRoundingParam
+
 from .quantity_conversion_param import QuantityConversionParam
 
-__all__ = ["ProductUpdateParams"]
+from .quantity_rounding_param import QuantityRoundingParam
 
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
+
+__all__ = ["ProductUpdateParams"]
 
 class ProductUpdateParams(TypedDict, total=False):
     product_id: Required[str]
     """ID of the product to update"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """Timestamp representing when the update should go into effect.
 
     It must be on an hour boundary (e.g. 1:00, not 1:30).

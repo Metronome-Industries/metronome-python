@@ -1,13 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from ..._models import BaseModel
+
 from datetime import datetime
 
-from ..._models import BaseModel
+from typing import Optional, List
+
 from .credit_type_data import CreditTypeData
 
-__all__ = ["SchedulePointInTime", "ScheduleItem"]
+from typing_extensions import Literal
 
+from pydantic import Field as FieldInfo
+
+__all__ = ["SchedulePointInTime", "ScheduleItem"]
 
 class ScheduleItem(BaseModel):
     id: str
@@ -21,7 +26,6 @@ class ScheduleItem(BaseModel):
     timestamp: datetime
 
     unit_price: float
-
 
 class SchedulePointInTime(BaseModel):
     credit_type: Optional[CreditTypeData] = None

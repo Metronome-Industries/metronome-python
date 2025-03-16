@@ -2,32 +2,36 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union, Iterable
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ContractScheduleProServicesInvoiceParams", "LineItem"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
 
+__all__ = ["ContractScheduleProServicesInvoiceParams", "LineItem"]
 
 class ContractScheduleProServicesInvoiceParams(TypedDict, total=False):
     contract_id: Required[str]
 
     customer_id: Required[str]
 
-    issued_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    issued_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """The date the invoice is issued"""
 
     line_items: Required[Iterable[LineItem]]
     """Each line requires an amount or both unit_price and quantity."""
 
-    netsuite_invoice_header_end: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    netsuite_invoice_header_end: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """The end date of the invoice header in Netsuite"""
 
-    netsuite_invoice_header_start: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    netsuite_invoice_header_start: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """The start date of the invoice header in Netsuite"""
-
 
 class LineItem(TypedDict, total=False):
     professional_service_id: Required[str]
@@ -41,10 +45,10 @@ class LineItem(TypedDict, total=False):
     metadata: str
     """For client use."""
 
-    netsuite_invoice_billing_end: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    netsuite_invoice_billing_end: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """The end date for the billing period on the invoice."""
 
-    netsuite_invoice_billing_start: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    netsuite_invoice_billing_start: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """The start date for the billing period on the invoice."""
 
     quantity: float

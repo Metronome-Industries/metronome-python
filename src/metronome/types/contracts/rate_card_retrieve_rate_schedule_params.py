@@ -2,20 +2,25 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing_extensions import TypedDict, Required, Annotated, Literal
+
+from typing import Union, Iterable, Dict
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["RateCardRetrieveRateScheduleParams", "Selector"]
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from ..._types import FileTypes
+from ..._utils import PropertyInfo
 
+__all__ = ["RateCardRetrieveRateScheduleParams", "Selector"]
 
 class RateCardRetrieveRateScheduleParams(TypedDict, total=False):
     rate_card_id: Required[str]
     """ID of the rate card to get the schedule for"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """inclusive starting point for the rates schedule"""
 
     limit: int
@@ -24,7 +29,7 @@ class RateCardRetrieveRateScheduleParams(TypedDict, total=False):
     next_page: str
     """Cursor that indicates where the next page of results should start."""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """optional exclusive end date for the rates schedule.
 
     When not specified rates will show all future schedule segments.
@@ -35,7 +40,6 @@ class RateCardRetrieveRateScheduleParams(TypedDict, total=False):
     List of rate selectors, rates matching ANY of the selector will be included in
     the response Passing no selectors will result in all rates being returned.
     """
-
 
 class Selector(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]

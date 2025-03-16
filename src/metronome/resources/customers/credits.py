@@ -2,33 +2,41 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
-from ...types.customers import credit_list_params, credit_create_params, credit_update_end_date_params
-from ...types.customers.credit_list_response import CreditListResponse
+
 from ...types.customers.credit_create_response import CreditCreateResponse
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options
+
+from typing import List, Dict, Union
+
+from typing_extensions import Literal
+
+from ...types.customers.credit_list_response import CreditListResponse
+
+from datetime import datetime
+
 from ...types.customers.credit_update_end_date_response import CreditUpdateEndDateResponse
 
-__all__ = ["CreditsResource", "AsyncCreditsResource"]
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
+from ...types.customers import credit_create_params
+
+import warnings
+from typing_extensions import Literal, overload
+from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ...types import shared_params
+from ...types.customers import credit_create_params
+from ...types.customers import credit_list_params
+from ...types.customers import credit_update_end_date_params
+
+__all__ = ["CreditsResource", "AsyncCreditsResource"]
 
 class CreditsResource(SyncAPIResource):
     @cached_property
@@ -50,30 +58,28 @@ class CreditsResource(SyncAPIResource):
         """
         return CreditsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        access_schedule: credit_create_params.AccessSchedule,
-        customer_id: str,
-        priority: float,
-        product_id: str,
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditCreateResponse:
+    def create(self,
+    *,
+    access_schedule: credit_create_params.AccessSchedule,
+    customer_id: str,
+    priority: float,
+    product_id: str,
+    applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
+    applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
+    applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    name: str | NotGiven = NOT_GIVEN,
+    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
+    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+    uniqueness_key: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditCreateResponse:
         """
         Create a new credit at the customer level.
 
@@ -115,51 +121,44 @@ class CreditsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCredits/create",
-            body=maybe_transform(
-                {
-                    "access_schedule": access_schedule,
-                    "customer_id": customer_id,
-                    "priority": priority,
-                    "product_id": product_id,
-                    "applicable_contract_ids": applicable_contract_ids,
-                    "applicable_product_ids": applicable_product_ids,
-                    "applicable_product_tags": applicable_product_tags,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "name": name,
-                    "netsuite_sales_order_id": netsuite_sales_order_id,
-                    "rate_type": rate_type,
-                    "salesforce_opportunity_id": salesforce_opportunity_id,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_create_params.CreditCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "access_schedule": access_schedule,
+                "customer_id": customer_id,
+                "priority": priority,
+                "product_id": product_id,
+                "applicable_contract_ids": applicable_contract_ids,
+                "applicable_product_ids": applicable_product_ids,
+                "applicable_product_tags": applicable_product_tags,
+                "custom_fields": custom_fields,
+                "description": description,
+                "name": name,
+                "netsuite_sales_order_id": netsuite_sales_order_id,
+                "rate_type": rate_type,
+                "salesforce_opportunity_id": salesforce_opportunity_id,
+                "uniqueness_key": uniqueness_key,
+            }, credit_create_params.CreditCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditCreateResponse,
         )
 
-    def list(
-        self,
-        *,
-        customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        credit_id: str | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_credits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    def list(self,
+    *,
+    customer_id: str,
+    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    credit_id: str | NotGiven = NOT_GIVEN,
+    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    include_archived: bool | NotGiven = NOT_GIVEN,
+    include_balance: bool | NotGiven = NOT_GIVEN,
+    include_contract_credits: bool | NotGiven = NOT_GIVEN,
+    include_ledgers: bool | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditListResponse:
         """
         List credits.
 
@@ -192,40 +191,33 @@ class CreditsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCredits/list",
-            body=maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "covering_date": covering_date,
-                    "credit_id": credit_id,
-                    "effective_before": effective_before,
-                    "include_archived": include_archived,
-                    "include_balance": include_balance,
-                    "include_contract_credits": include_contract_credits,
-                    "include_ledgers": include_ledgers,
-                    "next_page": next_page,
-                    "starting_at": starting_at,
-                },
-                credit_list_params.CreditListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "customer_id": customer_id,
+                "covering_date": covering_date,
+                "credit_id": credit_id,
+                "effective_before": effective_before,
+                "include_archived": include_archived,
+                "include_balance": include_balance,
+                "include_contract_credits": include_contract_credits,
+                "include_ledgers": include_ledgers,
+                "next_page": next_page,
+                "starting_at": starting_at,
+            }, credit_list_params.CreditListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditListResponse,
         )
 
-    def update_end_date(
-        self,
-        *,
-        access_ending_before: Union[str, datetime],
-        credit_id: str,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditUpdateEndDateResponse:
+    def update_end_date(self,
+    *,
+    access_ending_before: Union[str, datetime],
+    credit_id: str,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditUpdateEndDateResponse:
         """
         Update the end date of a credit
 
@@ -247,20 +239,14 @@ class CreditsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCredits/updateEndDate",
-            body=maybe_transform(
-                {
-                    "access_ending_before": access_ending_before,
-                    "credit_id": credit_id,
-                    "customer_id": customer_id,
-                },
-                credit_update_end_date_params.CreditUpdateEndDateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "access_ending_before": access_ending_before,
+                "credit_id": credit_id,
+                "customer_id": customer_id,
+            }, credit_update_end_date_params.CreditUpdateEndDateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditUpdateEndDateResponse,
         )
-
 
 class AsyncCreditsResource(AsyncAPIResource):
     @cached_property
@@ -282,30 +268,28 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return AsyncCreditsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        access_schedule: credit_create_params.AccessSchedule,
-        customer_id: str,
-        priority: float,
-        product_id: str,
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditCreateResponse:
+    async def create(self,
+    *,
+    access_schedule: credit_create_params.AccessSchedule,
+    customer_id: str,
+    priority: float,
+    product_id: str,
+    applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
+    applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
+    applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+    description: str | NotGiven = NOT_GIVEN,
+    name: str | NotGiven = NOT_GIVEN,
+    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
+    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+    uniqueness_key: str | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditCreateResponse:
         """
         Create a new credit at the customer level.
 
@@ -347,51 +331,44 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCredits/create",
-            body=await async_maybe_transform(
-                {
-                    "access_schedule": access_schedule,
-                    "customer_id": customer_id,
-                    "priority": priority,
-                    "product_id": product_id,
-                    "applicable_contract_ids": applicable_contract_ids,
-                    "applicable_product_ids": applicable_product_ids,
-                    "applicable_product_tags": applicable_product_tags,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "name": name,
-                    "netsuite_sales_order_id": netsuite_sales_order_id,
-                    "rate_type": rate_type,
-                    "salesforce_opportunity_id": salesforce_opportunity_id,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_create_params.CreditCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "access_schedule": access_schedule,
+                "customer_id": customer_id,
+                "priority": priority,
+                "product_id": product_id,
+                "applicable_contract_ids": applicable_contract_ids,
+                "applicable_product_ids": applicable_product_ids,
+                "applicable_product_tags": applicable_product_tags,
+                "custom_fields": custom_fields,
+                "description": description,
+                "name": name,
+                "netsuite_sales_order_id": netsuite_sales_order_id,
+                "rate_type": rate_type,
+                "salesforce_opportunity_id": salesforce_opportunity_id,
+                "uniqueness_key": uniqueness_key,
+            }, credit_create_params.CreditCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditCreateResponse,
         )
 
-    async def list(
-        self,
-        *,
-        customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        credit_id: str | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_credits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    async def list(self,
+    *,
+    customer_id: str,
+    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    credit_id: str | NotGiven = NOT_GIVEN,
+    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    include_archived: bool | NotGiven = NOT_GIVEN,
+    include_balance: bool | NotGiven = NOT_GIVEN,
+    include_contract_credits: bool | NotGiven = NOT_GIVEN,
+    include_ledgers: bool | NotGiven = NOT_GIVEN,
+    next_page: str | NotGiven = NOT_GIVEN,
+    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditListResponse:
         """
         List credits.
 
@@ -424,40 +401,33 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCredits/list",
-            body=await async_maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "covering_date": covering_date,
-                    "credit_id": credit_id,
-                    "effective_before": effective_before,
-                    "include_archived": include_archived,
-                    "include_balance": include_balance,
-                    "include_contract_credits": include_contract_credits,
-                    "include_ledgers": include_ledgers,
-                    "next_page": next_page,
-                    "starting_at": starting_at,
-                },
-                credit_list_params.CreditListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "customer_id": customer_id,
+                "covering_date": covering_date,
+                "credit_id": credit_id,
+                "effective_before": effective_before,
+                "include_archived": include_archived,
+                "include_balance": include_balance,
+                "include_contract_credits": include_contract_credits,
+                "include_ledgers": include_ledgers,
+                "next_page": next_page,
+                "starting_at": starting_at,
+            }, credit_list_params.CreditListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditListResponse,
         )
 
-    async def update_end_date(
-        self,
-        *,
-        access_ending_before: Union[str, datetime],
-        credit_id: str,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditUpdateEndDateResponse:
+    async def update_end_date(self,
+    *,
+    access_ending_before: Union[str, datetime],
+    credit_id: str,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CreditUpdateEndDateResponse:
         """
         Update the end date of a credit
 
@@ -479,20 +449,14 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCredits/updateEndDate",
-            body=await async_maybe_transform(
-                {
-                    "access_ending_before": access_ending_before,
-                    "credit_id": credit_id,
-                    "customer_id": customer_id,
-                },
-                credit_update_end_date_params.CreditUpdateEndDateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "access_ending_before": access_ending_before,
+                "credit_id": credit_id,
+                "customer_id": customer_id,
+            }, credit_update_end_date_params.CreditUpdateEndDateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditUpdateEndDateResponse,
         )
-
 
 class CreditsResourceWithRawResponse:
     def __init__(self, credits: CreditsResource) -> None:
@@ -508,7 +472,6 @@ class CreditsResourceWithRawResponse:
             credits.update_end_date,
         )
 
-
 class AsyncCreditsResourceWithRawResponse:
     def __init__(self, credits: AsyncCreditsResource) -> None:
         self._credits = credits
@@ -523,7 +486,6 @@ class AsyncCreditsResourceWithRawResponse:
             credits.update_end_date,
         )
 
-
 class CreditsResourceWithStreamingResponse:
     def __init__(self, credits: CreditsResource) -> None:
         self._credits = credits
@@ -537,7 +499,6 @@ class CreditsResourceWithStreamingResponse:
         self.update_end_date = to_streamed_response_wrapper(
             credits.update_end_date,
         )
-
 
 class AsyncCreditsResourceWithStreamingResponse:
     def __init__(self, credits: AsyncCreditsResource) -> None:

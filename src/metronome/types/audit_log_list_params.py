@@ -2,17 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import TypedDict, Annotated, Literal
 
+from typing import Union
+
+from datetime import datetime
+
+from .._utils import PropertyInfo
+
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
 from .._utils import PropertyInfo
 
 __all__ = ["AuditLogListParams"]
 
-
 class AuditLogListParams(TypedDict, total=False):
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp (exclusive). Cannot be used with 'next_page'."""
 
     limit: int
@@ -36,7 +41,7 @@ class AuditLogListParams(TypedDict, total=False):
     sort: Literal["date_asc", "date_desc"]
     """Sort order by timestamp, e.g. date_asc or date_desc. Defaults to date_asc."""
 
-    starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    starting_on: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp of the earliest audit log to return.
 
     Cannot be used with 'next_page'.
