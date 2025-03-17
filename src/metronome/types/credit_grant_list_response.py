@@ -1,19 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
+from typing import Dict, List, Optional
 from datetime import datetime
 
+from .._models import BaseModel
+from .credit_ledger_entry import CreditLedgerEntry
 from .shared.credit_type_data import CreditTypeData
 
-from typing import Dict, List, Optional
-
-from .credit_ledger_entry import CreditLedgerEntry
-
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
+
 
 class Balance(BaseModel):
     effective_at: datetime
@@ -32,11 +27,13 @@ class Balance(BaseModel):
     this amount will be 0.
     """
 
+
 class GrantAmount(BaseModel):
     amount: float
 
     credit_type: CreditTypeData
     """the credit type for the amount granted"""
+
 
 class PaidAmount(BaseModel):
     amount: float
@@ -44,10 +41,12 @@ class PaidAmount(BaseModel):
     credit_type: CreditTypeData
     """the credit type for the amount paid"""
 
+
 class Product(BaseModel):
     id: str
 
     name: str
+
 
 class CreditGrantListResponse(BaseModel):
     id: str

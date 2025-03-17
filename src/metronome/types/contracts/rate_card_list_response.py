@@ -1,17 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, List, Dict
-
+from typing import Dict, List, Optional
 from datetime import datetime
 
+from ..._models import BaseModel
 from ..shared.credit_type_data import CreditTypeData
 
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["RateCardListResponse", "Alias", "CreditTypeConversion"]
+
 
 class Alias(BaseModel):
     name: str
@@ -20,10 +16,12 @@ class Alias(BaseModel):
 
     starting_at: Optional[datetime] = None
 
+
 class CreditTypeConversion(BaseModel):
     custom_credit_type: CreditTypeData
 
     fiat_per_custom_credit: str
+
 
 class RateCardListResponse(BaseModel):
     id: str

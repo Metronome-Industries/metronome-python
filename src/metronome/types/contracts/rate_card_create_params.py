@@ -2,19 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated
-
-from typing import Iterable, Dict, Union
-
+from typing import Dict, Union, Iterable
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
-from ..._utils import PropertyInfo
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
 from ..._utils import PropertyInfo
 
 __all__ = ["RateCardCreateParams", "Alias", "CreditTypeConversion"]
+
 
 class RateCardCreateParams(TypedDict, total=False):
     name: Required[str]
@@ -40,12 +35,14 @@ class RateCardCreateParams(TypedDict, total=False):
     USD (cents) if not passed.
     """
 
+
 class Alias(TypedDict, total=False):
     name: Required[str]
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class CreditTypeConversion(TypedDict, total=False):
     custom_credit_type_id: Required[str]

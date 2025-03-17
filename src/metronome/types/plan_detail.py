@@ -1,15 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
+from typing import Dict, List, Optional
 
+from .._models import BaseModel
 from .shared.credit_type_data import CreditTypeData
 
-from typing import Optional, Dict, List
-
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["PlanDetail", "CreditGrant", "Minimum", "OverageRate"]
+
 
 class CreditGrant(BaseModel):
     amount_granted: float
@@ -34,6 +31,7 @@ class CreditGrant(BaseModel):
 
     recurrence_interval: Optional[float] = None
 
+
 class Minimum(BaseModel):
     credit_type: CreditTypeData
 
@@ -47,6 +45,7 @@ class Minimum(BaseModel):
 
     value: float
 
+
 class OverageRate(BaseModel):
     credit_type: CreditTypeData
 
@@ -59,6 +58,7 @@ class OverageRate(BaseModel):
     """
 
     to_fiat_conversion_factor: float
+
 
 class PlanDetail(BaseModel):
     id: str

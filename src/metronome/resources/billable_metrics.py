@@ -2,46 +2,40 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._compat import cached_property
-
-from ..types.billable_metric_create_response import BillableMetricCreateResponse
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
+from typing import Dict, List, Iterable
 from typing_extensions import Literal
 
-from typing import Dict, Iterable, List
+import httpx
 
-from ..types.shared_params.event_type_filter import EventTypeFilter
-
+from ..types import (
+    billable_metric_list_params,
+    billable_metric_create_params,
+    billable_metric_archive_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.billable_metric_list_response import BillableMetricListResponse
 from ..types.shared_params.property_filter import PropertyFilter
-
+from ..types.billable_metric_create_response import BillableMetricCreateResponse
+from ..types.shared_params.event_type_filter import EventTypeFilter
+from ..types.billable_metric_archive_response import BillableMetricArchiveResponse
 from ..types.billable_metric_retrieve_response import BillableMetricRetrieveResponse
 
-from ..types.billable_metric_list_response import BillableMetricListResponse
-
-from ..pagination import SyncCursorPage, AsyncCursorPage
-
-from ..types.billable_metric_archive_response import BillableMetricArchiveResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing_extensions import Literal, overload
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import billable_metric_create_params
-from ..types import billable_metric_list_params
-from ..types import billable_metric_archive_params
-from ..types import shared
-
 __all__ = ["BillableMetricsResource", "AsyncBillableMetricsResource"]
+
 
 class BillableMetricsResource(SyncAPIResource):
     @cached_property
@@ -63,22 +57,24 @@ class BillableMetricsResource(SyncAPIResource):
         """
         return BillableMetricsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    aggregation_key: str | NotGiven = NOT_GIVEN,
-    aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-    group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
-    property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
-    sql: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricCreateResponse:
+    def create(
+        self,
+        *,
+        name: str,
+        aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricCreateResponse:
         """
         Creates a new Billable Metric.
 
@@ -116,29 +112,36 @@ class BillableMetricsResource(SyncAPIResource):
         """
         return self._post(
             "/billable-metrics/create",
-            body=maybe_transform({
-                "name": name,
-                "aggregation_key": aggregation_key,
-                "aggregation_type": aggregation_type,
-                "custom_fields": custom_fields,
-                "event_type_filter": event_type_filter,
-                "group_keys": group_keys,
-                "property_filters": property_filters,
-                "sql": sql,
-            }, billable_metric_create_params.BillableMetricCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
+                    "custom_fields": custom_fields,
+                    "event_type_filter": event_type_filter,
+                    "group_keys": group_keys,
+                    "property_filters": property_filters,
+                    "sql": sql,
+                },
+                billable_metric_create_params.BillableMetricCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricCreateResponse,
         )
 
-    def retrieve(self,
-    *,
-    billable_metric_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricRetrieveResponse:
+    def retrieve(
+        self,
+        *,
+        billable_metric_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricRetrieveResponse:
         """
         Get a billable metric.
 
@@ -152,26 +155,28 @@ class BillableMetricsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not billable_metric_id:
-          raise ValueError(
-            f'Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}")
         return self._get(
             f"/billable-metrics/{billable_metric_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[BillableMetricListResponse]:
+    def list(
+        self,
+        *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[BillableMetricListResponse]:
         """
         List all billable metrics.
 
@@ -192,24 +197,35 @@ class BillableMetricsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/billable-metrics",
-            page = SyncCursorPage[BillableMetricListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "include_archived": include_archived,
-                "limit": limit,
-                "next_page": next_page,
-            }, billable_metric_list_params.BillableMetricListParams)),
+            page=SyncCursorPage[BillableMetricListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_archived": include_archived,
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    billable_metric_list_params.BillableMetricListParams,
+                ),
+            ),
             model=BillableMetricListResponse,
         )
 
-    def archive(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricArchiveResponse:
+    def archive(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricArchiveResponse:
         """
         Archive an existing billable metric.
 
@@ -224,12 +240,13 @@ class BillableMetricsResource(SyncAPIResource):
         """
         return self._post(
             "/billable-metrics/archive",
-            body=maybe_transform({
-                "id": id
-            }, billable_metric_archive_params.BillableMetricArchiveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"id": id}, billable_metric_archive_params.BillableMetricArchiveParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricArchiveResponse,
         )
+
 
 class AsyncBillableMetricsResource(AsyncAPIResource):
     @cached_property
@@ -251,22 +268,24 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         """
         return AsyncBillableMetricsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    aggregation_key: str | NotGiven = NOT_GIVEN,
-    aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-    group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
-    property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
-    sql: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricCreateResponse:
+    async def create(
+        self,
+        *,
+        name: str,
+        aggregation_key: str | NotGiven = NOT_GIVEN,
+        aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
+        sql: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricCreateResponse:
         """
         Creates a new Billable Metric.
 
@@ -304,29 +323,36 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         """
         return await self._post(
             "/billable-metrics/create",
-            body=await async_maybe_transform({
-                "name": name,
-                "aggregation_key": aggregation_key,
-                "aggregation_type": aggregation_type,
-                "custom_fields": custom_fields,
-                "event_type_filter": event_type_filter,
-                "group_keys": group_keys,
-                "property_filters": property_filters,
-                "sql": sql,
-            }, billable_metric_create_params.BillableMetricCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "aggregation_key": aggregation_key,
+                    "aggregation_type": aggregation_type,
+                    "custom_fields": custom_fields,
+                    "event_type_filter": event_type_filter,
+                    "group_keys": group_keys,
+                    "property_filters": property_filters,
+                    "sql": sql,
+                },
+                billable_metric_create_params.BillableMetricCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricCreateResponse,
         )
 
-    async def retrieve(self,
-    *,
-    billable_metric_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricRetrieveResponse:
+    async def retrieve(
+        self,
+        *,
+        billable_metric_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricRetrieveResponse:
         """
         Get a billable metric.
 
@@ -340,26 +366,28 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not billable_metric_id:
-          raise ValueError(
-            f'Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}")
         return await self._get(
             f"/billable-metrics/{billable_metric_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
+    def list(
+        self,
+        *,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
         """
         List all billable metrics.
 
@@ -380,24 +408,35 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/billable-metrics",
-            page = AsyncCursorPage[BillableMetricListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "include_archived": include_archived,
-                "limit": limit,
-                "next_page": next_page,
-            }, billable_metric_list_params.BillableMetricListParams)),
+            page=AsyncCursorPage[BillableMetricListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_archived": include_archived,
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    billable_metric_list_params.BillableMetricListParams,
+                ),
+            ),
             model=BillableMetricListResponse,
         )
 
-    async def archive(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> BillableMetricArchiveResponse:
+    async def archive(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> BillableMetricArchiveResponse:
         """
         Archive an existing billable metric.
 
@@ -412,12 +451,13 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         """
         return await self._post(
             "/billable-metrics/archive",
-            body=await async_maybe_transform({
-                "id": id
-            }, billable_metric_archive_params.BillableMetricArchiveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"id": id}, billable_metric_archive_params.BillableMetricArchiveParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillableMetricArchiveResponse,
         )
+
 
 class BillableMetricsResourceWithRawResponse:
     def __init__(self, billable_metrics: BillableMetricsResource) -> None:
@@ -436,6 +476,7 @@ class BillableMetricsResourceWithRawResponse:
             billable_metrics.archive,
         )
 
+
 class AsyncBillableMetricsResourceWithRawResponse:
     def __init__(self, billable_metrics: AsyncBillableMetricsResource) -> None:
         self._billable_metrics = billable_metrics
@@ -453,6 +494,7 @@ class AsyncBillableMetricsResourceWithRawResponse:
             billable_metrics.archive,
         )
 
+
 class BillableMetricsResourceWithStreamingResponse:
     def __init__(self, billable_metrics: BillableMetricsResource) -> None:
         self._billable_metrics = billable_metrics
@@ -469,6 +511,7 @@ class BillableMetricsResourceWithStreamingResponse:
         self.archive = to_streamed_response_wrapper(
             billable_metrics.archive,
         )
+
 
 class AsyncBillableMetricsResourceWithStreamingResponse:
     def __init__(self, billable_metrics: AsyncBillableMetricsResource) -> None:

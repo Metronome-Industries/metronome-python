@@ -1,19 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from datetime import datetime
-
-from typing import Optional, List
-
+from ..._models import BaseModel
 from ..shared.credit_type_data import CreditTypeData
 
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["CustomerAlert", "Alert", "AlertCustomFieldFilter", "AlertGroupKeyFilter"]
+
 
 class AlertCustomFieldFilter(BaseModel):
     entity: Literal["Contract", "Commit", "ContractCredit"]
@@ -22,10 +17,12 @@ class AlertCustomFieldFilter(BaseModel):
 
     value: str
 
+
 class AlertGroupKeyFilter(BaseModel):
     key: str
 
     value: str
+
 
 class Alert(BaseModel):
     id: str
@@ -40,7 +37,22 @@ class Alert(BaseModel):
     threshold: float
     """Threshold value of the alert policy"""
 
-    type: Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "invoice_total_reached"]
+    type: Literal[
+        "low_credit_balance_reached",
+        "spend_threshold_reached",
+        "monthly_invoice_total_spend_threshold_reached",
+        "low_remaining_days_in_plan_reached",
+        "low_remaining_credit_percentage_reached",
+        "usage_threshold_reached",
+        "low_remaining_days_for_commit_segment_reached",
+        "low_remaining_commit_balance_reached",
+        "low_remaining_commit_percentage_reached",
+        "low_remaining_days_for_contract_credit_segment_reached",
+        "low_remaining_contract_credit_balance_reached",
+        "low_remaining_contract_credit_percentage_reached",
+        "low_remaining_contract_credit_and_commit_balance_reached",
+        "invoice_total_reached",
+    ]
     """Type of the alert"""
 
     updated_at: datetime
@@ -76,6 +88,7 @@ class Alert(BaseModel):
     If a request to create a record is made with a previously used uniqueness key, a
     new record will not be created and the request will fail with a 409 error.
     """
+
 
 class CustomerAlert(BaseModel):
     alert: Alert

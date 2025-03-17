@@ -1,21 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
+from typing import Dict, Optional
 
+from ..._models import BaseModel
 from .schedule_point_in_time import SchedulePointInTime
 
-from typing import Optional, Dict
-
-from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
-
 __all__ = ["Discount", "Product"]
+
 
 class Product(BaseModel):
     id: str
 
     name: str
+
 
 class Discount(BaseModel):
     id: str

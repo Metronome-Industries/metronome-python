@@ -2,21 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Union, Dict, Iterable
-
+from typing import Dict, Union, Iterable
 from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
-
 from ...shared_params.tier import Tier
 
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ...._types import FileTypes
-from ...._utils import PropertyInfo
-
 __all__ = ["RateAddParams", "CommitRate"]
+
 
 class RateAddParams(TypedDict, total=False):
     entitled: Required[bool]
@@ -29,7 +23,7 @@ class RateAddParams(TypedDict, total=False):
 
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""
 
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
@@ -59,7 +53,7 @@ class RateAddParams(TypedDict, total=False):
     This field is interpreted by custom rate processors.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """exclusive end date"""
 
     is_prorated: bool
@@ -93,6 +87,7 @@ class RateAddParams(TypedDict, total=False):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
+
 
 class CommitRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]

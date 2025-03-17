@@ -2,13 +2,10 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
-from ..._utils import PropertyInfo
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["ProductListParams"]
+
 
 class ProductListParams(TypedDict, total=False):
     limit: int

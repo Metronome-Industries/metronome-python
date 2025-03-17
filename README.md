@@ -52,8 +52,10 @@ client = AsyncMetronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
+
 async def main() -> None:
-  await client.usage.ingest()
+    await client.usage.ingest()
+
 
 asyncio.run(main())
 ```
@@ -96,12 +98,14 @@ from metronome import AsyncMetronome
 
 client = AsyncMetronome()
 
+
 async def main() -> None:
     all_products = []
     # Iterate through items across all pages, issuing requests as needed.
     async for product in client.contracts.products.list():
         all_products.append(product)
     print(all_products)
+
 
 asyncio.run(main())
 ```
@@ -123,7 +127,7 @@ Or just work directly with the returned data:
 ```python
 first_page = await client.contracts.products.list()
 
-print(f"next page cursor: {first_page.next_page}") # => "next page cursor: ..."
+print(f"next page cursor: {first_page.next_page}")  # => "next page cursor: ..."
 for product in first_page.data:
     print(product.id)
 
@@ -175,7 +179,7 @@ try:
     )
 except metronome.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__) # an underlying Exception, likely raised within httpx.
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
 except metronome.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except metronome.APIStatusError as e:
@@ -217,7 +221,7 @@ client = Metronome(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries = 5).contracts.create(
+client.with_options(max_retries=5).contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
@@ -245,7 +249,7 @@ client = Metronome(
 )
 
 # Override per-request:
-client.with_options(timeout = 5.0).contracts.create(
+client.with_options(timeout=5.0).contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
@@ -313,11 +317,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.contracts.with_streaming_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
-) as response :
-    print(response.headers.get('X-My-Header'))
+) as response:
+    print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
-      print(line)
+        print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -371,7 +375,10 @@ from metronome import Metronome, DefaultHttpxClient
 client = Metronome(
     # Or use the `METRONOME_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
+    http_client=DefaultHttpxClient(
+        proxy="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
 )
 ```
 

@@ -2,15 +2,11 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import TypedDict
 
-from typing import List
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["CustomerListParams"]
+
 
 class CustomerListParams(TypedDict, total=False):
     customer_ids: List[str]

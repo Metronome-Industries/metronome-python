@@ -2,44 +2,40 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._compat import cached_property
-
-from ...types.customers.invoice_retrieve_response import InvoiceRetrieveResponse
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ...types.customers.invoice import Invoice
-
-from ...pagination import SyncCursorPage, AsyncCursorPage
-
 from typing import Union
-
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from ...types.customers.invoice_add_charge_response import InvoiceAddChargeResponse
+import httpx
 
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.customers import (
+    invoice_list_params,
+    invoice_retrieve_params,
+    invoice_add_charge_params,
+    invoice_list_breakdowns_params,
+)
+from ...types.customers.invoice import Invoice
+from ...types.customers.invoice_retrieve_response import InvoiceRetrieveResponse
+from ...types.customers.invoice_add_charge_response import InvoiceAddChargeResponse
 from ...types.customers.invoice_list_breakdowns_response import InvoiceListBreakdownsResponse
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing_extensions import Literal, overload
-from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ...types import shared_params
-from ...types.customers import invoice_retrieve_params
-from ...types.customers import invoice_list_params
-from ...types.customers import invoice_add_charge_params
-from ...types.customers import invoice_list_breakdowns_params
-
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
+
 
 class InvoicesResource(SyncAPIResource):
     @cached_property
@@ -61,17 +57,19 @@ class InvoicesResource(SyncAPIResource):
         """
         return InvoicesResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    *,
-    customer_id: str,
-    invoice_id: str,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InvoiceRetrieveResponse:
+    def retrieve(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceRetrieveResponse:
         """
         Fetch a specific invoice for a given customer.
 
@@ -87,38 +85,43 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not invoice_id:
-          raise ValueError(
-            f'Expected a non-empty value for `invoice_id` but received {invoice_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         return self._get(
             f"/customers/{customer_id}/invoices/{invoice_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "skip_zero_qty_line_items": skip_zero_qty_line_items
-            }, invoice_retrieve_params.InvoiceRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"skip_zero_qty_line_items": skip_zero_qty_line_items},
+                    invoice_retrieve_params.InvoiceRetrieveParams,
+                ),
+            ),
             cast_to=InvoiceRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    credit_type_id: str | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    status: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[Invoice]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[Invoice]:
         """
         List all invoices for a given customer, optionally filtered by status, date
         range, and/or credit type.
@@ -152,40 +155,49 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/invoices",
-            page = SyncCursorPage[Invoice],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "credit_type_id": credit_type_id,
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                "sort": sort,
-                "starting_on": starting_on,
-                "status": status,
-            }, invoice_list_params.InvoiceListParams)),
+            page=SyncCursorPage[Invoice],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "credit_type_id": credit_type_id,
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                        "status": status,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
+            ),
             model=Invoice,
         )
 
-    def add_charge(self,
-    *,
-    customer_id: str,
-    charge_id: str,
-    customer_plan_id: str,
-    description: str,
-    invoice_start_timestamp: Union[str, datetime],
-    price: float,
-    quantity: float,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InvoiceAddChargeResponse:
+    def add_charge(
+        self,
+        *,
+        customer_id: str,
+        charge_id: str,
+        customer_plan_id: str,
+        description: str,
+        invoice_start_timestamp: Union[str, datetime],
+        price: float,
+        quantity: float,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceAddChargeResponse:
         """
         Add a one time charge to the specified invoice
 
@@ -210,41 +222,46 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
             f"/customers/{customer_id}/addCharge",
-            body=maybe_transform({
-                "charge_id": charge_id,
-                "customer_plan_id": customer_plan_id,
-                "description": description,
-                "invoice_start_timestamp": invoice_start_timestamp,
-                "price": price,
-                "quantity": quantity,
-            }, invoice_add_charge_params.InvoiceAddChargeParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "charge_id": charge_id,
+                    "customer_plan_id": customer_plan_id,
+                    "description": description,
+                    "invoice_start_timestamp": invoice_start_timestamp,
+                    "price": price,
+                    "quantity": quantity,
+                },
+                invoice_add_charge_params.InvoiceAddChargeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceAddChargeResponse,
         )
 
-    def list_breakdowns(self,
-    *,
-    customer_id: str,
-    ending_before: Union[str, datetime],
-    starting_on: Union[str, datetime],
-    credit_type_id: str | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    status: str | NotGiven = NOT_GIVEN,
-    window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[InvoiceListBreakdownsResponse]:
+    def list_breakdowns(
+        self,
+        *,
+        customer_id: str,
+        ending_before: Union[str, datetime],
+        starting_on: Union[str, datetime],
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[InvoiceListBreakdownsResponse]:
         """
         List daily or hourly invoice breakdowns for a given customer, optionally
         filtered by status, date range, and/or credit type. Important considerations:
@@ -286,25 +303,33 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/invoices/breakdowns",
-            page = SyncCursorPage[InvoiceListBreakdownsResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "starting_on": starting_on,
-                "credit_type_id": credit_type_id,
-                "limit": limit,
-                "next_page": next_page,
-                "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                "sort": sort,
-                "status": status,
-                "window_size": window_size,
-            }, invoice_list_breakdowns_params.InvoiceListBreakdownsParams)),
+            page=SyncCursorPage[InvoiceListBreakdownsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "starting_on": starting_on,
+                        "credit_type_id": credit_type_id,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "status": status,
+                        "window_size": window_size,
+                    },
+                    invoice_list_breakdowns_params.InvoiceListBreakdownsParams,
+                ),
+            ),
             model=InvoiceListBreakdownsResponse,
         )
+
 
 class AsyncInvoicesResource(AsyncAPIResource):
     @cached_property
@@ -326,17 +351,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return AsyncInvoicesResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    *,
-    customer_id: str,
-    invoice_id: str,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InvoiceRetrieveResponse:
+    async def retrieve(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceRetrieveResponse:
         """
         Fetch a specific invoice for a given customer.
 
@@ -352,38 +379,43 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not invoice_id:
-          raise ValueError(
-            f'Expected a non-empty value for `invoice_id` but received {invoice_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         return await self._get(
             f"/customers/{customer_id}/invoices/{invoice_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "skip_zero_qty_line_items": skip_zero_qty_line_items
-            }, invoice_retrieve_params.InvoiceRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"skip_zero_qty_line_items": skip_zero_qty_line_items},
+                    invoice_retrieve_params.InvoiceRetrieveParams,
+                ),
+            ),
             cast_to=InvoiceRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    credit_type_id: str | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    status: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[Invoice, AsyncCursorPage[Invoice]]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Invoice, AsyncCursorPage[Invoice]]:
         """
         List all invoices for a given customer, optionally filtered by status, date
         range, and/or credit type.
@@ -417,40 +449,49 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/invoices",
-            page = AsyncCursorPage[Invoice],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "credit_type_id": credit_type_id,
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                "sort": sort,
-                "starting_on": starting_on,
-                "status": status,
-            }, invoice_list_params.InvoiceListParams)),
+            page=AsyncCursorPage[Invoice],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "credit_type_id": credit_type_id,
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                        "status": status,
+                    },
+                    invoice_list_params.InvoiceListParams,
+                ),
+            ),
             model=Invoice,
         )
 
-    async def add_charge(self,
-    *,
-    customer_id: str,
-    charge_id: str,
-    customer_plan_id: str,
-    description: str,
-    invoice_start_timestamp: Union[str, datetime],
-    price: float,
-    quantity: float,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InvoiceAddChargeResponse:
+    async def add_charge(
+        self,
+        *,
+        customer_id: str,
+        charge_id: str,
+        customer_plan_id: str,
+        description: str,
+        invoice_start_timestamp: Union[str, datetime],
+        price: float,
+        quantity: float,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InvoiceAddChargeResponse:
         """
         Add a one time charge to the specified invoice
 
@@ -475,41 +516,46 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
             f"/customers/{customer_id}/addCharge",
-            body=await async_maybe_transform({
-                "charge_id": charge_id,
-                "customer_plan_id": customer_plan_id,
-                "description": description,
-                "invoice_start_timestamp": invoice_start_timestamp,
-                "price": price,
-                "quantity": quantity,
-            }, invoice_add_charge_params.InvoiceAddChargeParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "charge_id": charge_id,
+                    "customer_plan_id": customer_plan_id,
+                    "description": description,
+                    "invoice_start_timestamp": invoice_start_timestamp,
+                    "price": price,
+                    "quantity": quantity,
+                },
+                invoice_add_charge_params.InvoiceAddChargeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceAddChargeResponse,
         )
 
-    def list_breakdowns(self,
-    *,
-    customer_id: str,
-    ending_before: Union[str, datetime],
-    starting_on: Union[str, datetime],
-    credit_type_id: str | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    status: str | NotGiven = NOT_GIVEN,
-    window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[InvoiceListBreakdownsResponse, AsyncCursorPage[InvoiceListBreakdownsResponse]]:
+    def list_breakdowns(
+        self,
+        *,
+        customer_id: str,
+        ending_before: Union[str, datetime],
+        starting_on: Union[str, datetime],
+        credit_type_id: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        status: str | NotGiven = NOT_GIVEN,
+        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[InvoiceListBreakdownsResponse, AsyncCursorPage[InvoiceListBreakdownsResponse]]:
         """
         List daily or hourly invoice breakdowns for a given customer, optionally
         filtered by status, date range, and/or credit type. Important considerations:
@@ -551,25 +597,33 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/invoices/breakdowns",
-            page = AsyncCursorPage[InvoiceListBreakdownsResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "starting_on": starting_on,
-                "credit_type_id": credit_type_id,
-                "limit": limit,
-                "next_page": next_page,
-                "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                "sort": sort,
-                "status": status,
-                "window_size": window_size,
-            }, invoice_list_breakdowns_params.InvoiceListBreakdownsParams)),
+            page=AsyncCursorPage[InvoiceListBreakdownsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "starting_on": starting_on,
+                        "credit_type_id": credit_type_id,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "skip_zero_qty_line_items": skip_zero_qty_line_items,
+                        "sort": sort,
+                        "status": status,
+                        "window_size": window_size,
+                    },
+                    invoice_list_breakdowns_params.InvoiceListBreakdownsParams,
+                ),
+            ),
             model=InvoiceListBreakdownsResponse,
         )
+
 
 class InvoicesResourceWithRawResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
@@ -588,6 +642,7 @@ class InvoicesResourceWithRawResponse:
             invoices.list_breakdowns,
         )
 
+
 class AsyncInvoicesResourceWithRawResponse:
     def __init__(self, invoices: AsyncInvoicesResource) -> None:
         self._invoices = invoices
@@ -605,6 +660,7 @@ class AsyncInvoicesResourceWithRawResponse:
             invoices.list_breakdowns,
         )
 
+
 class InvoicesResourceWithStreamingResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
         self._invoices = invoices
@@ -621,6 +677,7 @@ class InvoicesResourceWithStreamingResponse:
         self.list_breakdowns = to_streamed_response_wrapper(
             invoices.list_breakdowns,
         )
+
 
 class AsyncInvoicesResourceWithStreamingResponse:
     def __init__(self, invoices: AsyncInvoicesResource) -> None:

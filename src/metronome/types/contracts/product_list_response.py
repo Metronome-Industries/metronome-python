@@ -1,23 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
-from typing import Optional, List, Dict
-
-from .quantity_conversion import QuantityConversion
-
+from ..._models import BaseModel
 from .quantity_rounding import QuantityRounding
-
+from .quantity_conversion import QuantityConversion
 from .product_list_item_state import ProductListItemState
 
-from typing_extensions import Literal
-
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["ProductListResponse", "Update"]
+
 
 class Update(BaseModel):
     created_at: datetime
@@ -83,6 +76,7 @@ class Update(BaseModel):
     starting_at: Optional[datetime] = None
 
     tags: Optional[List[str]] = None
+
 
 class ProductListResponse(BaseModel):
     id: str
