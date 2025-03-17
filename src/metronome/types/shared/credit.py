@@ -1,28 +1,35 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Union, Optional, List, Dict
-
+from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias
-
+from ..._models import BaseModel
 from .schedule_duration import ScheduleDuration
 
-from typing_extensions import Literal
+__all__ = [
+    "Credit",
+    "Product",
+    "Contract",
+    "Ledger",
+    "LedgerCreditSegmentStartLedgerEntry",
+    "LedgerCreditAutomatedInvoiceDeductionLedgerEntry",
+    "LedgerCreditExpirationLedgerEntry",
+    "LedgerCreditCanceledLedgerEntry",
+    "LedgerCreditCreditedLedgerEntry",
+    "LedgerCreditManualLedgerEntry",
+]
 
-from pydantic import Field as FieldInfo
-
-__all__ = ["Credit", "Product", "Contract", "Ledger", "LedgerCreditSegmentStartLedgerEntry", "LedgerCreditAutomatedInvoiceDeductionLedgerEntry", "LedgerCreditExpirationLedgerEntry", "LedgerCreditCanceledLedgerEntry", "LedgerCreditCreditedLedgerEntry", "LedgerCreditManualLedgerEntry"]
 
 class Product(BaseModel):
     id: str
 
     name: str
 
+
 class Contract(BaseModel):
     id: str
+
 
 class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -32,6 +39,7 @@ class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_SEGMENT_START"]
+
 
 class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -44,6 +52,7 @@ class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+
 class LedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -52,6 +61,7 @@ class LedgerCreditExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_EXPIRATION"]
+
 
 class LedgerCreditCanceledLedgerEntry(BaseModel):
     amount: float
@@ -64,6 +74,7 @@ class LedgerCreditCanceledLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CANCELED"]
 
+
 class LedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -75,6 +86,7 @@ class LedgerCreditCreditedLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CREDITED"]
 
+
 class LedgerCreditManualLedgerEntry(BaseModel):
     amount: float
 
@@ -84,7 +96,16 @@ class LedgerCreditManualLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_MANUAL"]
 
-Ledger: TypeAlias = Union[LedgerCreditSegmentStartLedgerEntry, LedgerCreditAutomatedInvoiceDeductionLedgerEntry, LedgerCreditExpirationLedgerEntry, LedgerCreditCanceledLedgerEntry, LedgerCreditCreditedLedgerEntry, LedgerCreditManualLedgerEntry]
+
+Ledger: TypeAlias = Union[
+    LedgerCreditSegmentStartLedgerEntry,
+    LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
+    LedgerCreditExpirationLedgerEntry,
+    LedgerCreditCanceledLedgerEntry,
+    LedgerCreditCreditedLedgerEntry,
+    LedgerCreditManualLedgerEntry,
+]
+
 
 class Credit(BaseModel):
     id: str

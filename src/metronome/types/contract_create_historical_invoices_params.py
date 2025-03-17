@@ -2,36 +2,38 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Iterable, Union, Dict
-
+from typing import Dict, Union, Iterable
 from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+__all__ = [
+    "ContractCreateHistoricalInvoicesParams",
+    "Invoice",
+    "InvoiceUsageLineItem",
+    "InvoiceUsageLineItemSubtotalsWithQuantity",
+]
 
-__all__ = ["ContractCreateHistoricalInvoicesParams", "Invoice", "InvoiceUsageLineItem", "InvoiceUsageLineItemSubtotalsWithQuantity"]
 
 class ContractCreateHistoricalInvoicesParams(TypedDict, total=False):
     invoices: Required[Iterable[Invoice]]
 
     preview: Required[bool]
 
-class InvoiceUsageLineItemSubtotalsWithQuantity(TypedDict, total=False):
-    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
-    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+class InvoiceUsageLineItemSubtotalsWithQuantity(TypedDict, total=False):
+    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
+    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     quantity: Required[float]
 
-class InvoiceUsageLineItem(TypedDict, total=False):
-    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
-    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+class InvoiceUsageLineItem(TypedDict, total=False):
+    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
+    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     product_id: Required[str]
 
@@ -43,6 +45,7 @@ class InvoiceUsageLineItem(TypedDict, total=False):
 
     subtotals_with_quantity: Iterable[InvoiceUsageLineItemSubtotalsWithQuantity]
 
+
 class Invoice(TypedDict, total=False):
     contract_id: Required[str]
 
@@ -50,11 +53,11 @@ class Invoice(TypedDict, total=False):
 
     customer_id: Required[str]
 
-    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    exclusive_end_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    inclusive_start_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    issue_date: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    issue_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     usage_line_items: Required[Iterable[InvoiceUsageLineItem]]
 

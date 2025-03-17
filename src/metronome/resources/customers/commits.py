@@ -2,41 +2,33 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._compat import cached_property
-
-from ...types.customers.commit_create_response import CommitCreateResponse
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ..._base_client import make_request_options
-
+from typing import Dict, List, Union
+from datetime import datetime
 from typing_extensions import Literal
 
-from typing import List, Dict, Union
+import httpx
 
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.customers import commit_list_params, commit_create_params, commit_update_end_date_params
 from ...types.customers.commit_list_response import CommitListResponse
-
-from datetime import datetime
-
+from ...types.customers.commit_create_response import CommitCreateResponse
 from ...types.customers.commit_update_end_date_response import CommitUpdateEndDateResponse
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types.customers import commit_create_params
-
-import warnings
-from typing_extensions import Literal, overload
-from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ...types import shared_params
-from ...types.customers import commit_create_params
-from ...types.customers import commit_list_params
-from ...types.customers import commit_update_end_date_params
-
 __all__ = ["CommitsResource", "AsyncCommitsResource"]
+
 
 class CommitsResource(SyncAPIResource):
     @cached_property
@@ -58,31 +50,33 @@ class CommitsResource(SyncAPIResource):
         """
         return CommitsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    access_schedule: commit_create_params.AccessSchedule,
-    customer_id: str,
-    priority: float,
-    product_id: str,
-    type: Literal["PREPAID", "POSTPAID"],
-    applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-    applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-    applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    description: str | NotGiven = NOT_GIVEN,
-    invoice_contract_id: str | NotGiven = NOT_GIVEN,
-    invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-    name: str | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    uniqueness_key: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitCreateResponse:
+    def create(
+        self,
+        *,
+        access_schedule: commit_create_params.AccessSchedule,
+        customer_id: str,
+        priority: float,
+        product_id: str,
+        type: Literal["PREPAID", "POSTPAID"],
+        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        description: str | NotGiven = NOT_GIVEN,
+        invoice_contract_id: str | NotGiven = NOT_GIVEN,
+        invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitCreateResponse:
         """
         Create a new commit at the customer level.
 
@@ -137,47 +131,54 @@ class CommitsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCommits/create",
-            body=maybe_transform({
-                "access_schedule": access_schedule,
-                "customer_id": customer_id,
-                "priority": priority,
-                "product_id": product_id,
-                "type": type,
-                "applicable_contract_ids": applicable_contract_ids,
-                "applicable_product_ids": applicable_product_ids,
-                "applicable_product_tags": applicable_product_tags,
-                "custom_fields": custom_fields,
-                "description": description,
-                "invoice_contract_id": invoice_contract_id,
-                "invoice_schedule": invoice_schedule,
-                "name": name,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "rate_type": rate_type,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "uniqueness_key": uniqueness_key,
-            }, commit_create_params.CommitCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "access_schedule": access_schedule,
+                    "customer_id": customer_id,
+                    "priority": priority,
+                    "product_id": product_id,
+                    "type": type,
+                    "applicable_contract_ids": applicable_contract_ids,
+                    "applicable_product_ids": applicable_product_ids,
+                    "applicable_product_tags": applicable_product_tags,
+                    "custom_fields": custom_fields,
+                    "description": description,
+                    "invoice_contract_id": invoice_contract_id,
+                    "invoice_schedule": invoice_schedule,
+                    "name": name,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
+                },
+                commit_create_params.CommitCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitCreateResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    commit_id: str | NotGiven = NOT_GIVEN,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_contract_commits: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitListResponse:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        commit_id: str | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_contract_commits: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitListResponse:
         """
         List commits.
 
@@ -210,34 +211,41 @@ class CommitsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCommits/list",
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "commit_id": commit_id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_commits": include_contract_commits,
-                "include_ledgers": include_ledgers,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, commit_list_params.CommitListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "commit_id": commit_id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_commits": include_contract_commits,
+                    "include_ledgers": include_ledgers,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                commit_list_params.CommitListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitListResponse,
         )
 
-    def update_end_date(self,
-    *,
-    commit_id: str,
-    customer_id: str,
-    access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitUpdateEndDateResponse:
+    def update_end_date(
+        self,
+        *,
+        commit_id: str,
+        customer_id: str,
+        access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitUpdateEndDateResponse:
         """
         Update the end date of a PREPAID commit
 
@@ -263,15 +271,21 @@ class CommitsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerCommits/updateEndDate",
-            body=maybe_transform({
-                "commit_id": commit_id,
-                "customer_id": customer_id,
-                "access_ending_before": access_ending_before,
-                "invoices_ending_before": invoices_ending_before,
-            }, commit_update_end_date_params.CommitUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "commit_id": commit_id,
+                    "customer_id": customer_id,
+                    "access_ending_before": access_ending_before,
+                    "invoices_ending_before": invoices_ending_before,
+                },
+                commit_update_end_date_params.CommitUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitUpdateEndDateResponse,
         )
+
 
 class AsyncCommitsResource(AsyncAPIResource):
     @cached_property
@@ -293,31 +307,33 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return AsyncCommitsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    access_schedule: commit_create_params.AccessSchedule,
-    customer_id: str,
-    priority: float,
-    product_id: str,
-    type: Literal["PREPAID", "POSTPAID"],
-    applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-    applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-    applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    description: str | NotGiven = NOT_GIVEN,
-    invoice_contract_id: str | NotGiven = NOT_GIVEN,
-    invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-    name: str | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    uniqueness_key: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitCreateResponse:
+    async def create(
+        self,
+        *,
+        access_schedule: commit_create_params.AccessSchedule,
+        customer_id: str,
+        priority: float,
+        product_id: str,
+        type: Literal["PREPAID", "POSTPAID"],
+        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        description: str | NotGiven = NOT_GIVEN,
+        invoice_contract_id: str | NotGiven = NOT_GIVEN,
+        invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitCreateResponse:
         """
         Create a new commit at the customer level.
 
@@ -372,47 +388,54 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCommits/create",
-            body=await async_maybe_transform({
-                "access_schedule": access_schedule,
-                "customer_id": customer_id,
-                "priority": priority,
-                "product_id": product_id,
-                "type": type,
-                "applicable_contract_ids": applicable_contract_ids,
-                "applicable_product_ids": applicable_product_ids,
-                "applicable_product_tags": applicable_product_tags,
-                "custom_fields": custom_fields,
-                "description": description,
-                "invoice_contract_id": invoice_contract_id,
-                "invoice_schedule": invoice_schedule,
-                "name": name,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "rate_type": rate_type,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "uniqueness_key": uniqueness_key,
-            }, commit_create_params.CommitCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "access_schedule": access_schedule,
+                    "customer_id": customer_id,
+                    "priority": priority,
+                    "product_id": product_id,
+                    "type": type,
+                    "applicable_contract_ids": applicable_contract_ids,
+                    "applicable_product_ids": applicable_product_ids,
+                    "applicable_product_tags": applicable_product_tags,
+                    "custom_fields": custom_fields,
+                    "description": description,
+                    "invoice_contract_id": invoice_contract_id,
+                    "invoice_schedule": invoice_schedule,
+                    "name": name,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "uniqueness_key": uniqueness_key,
+                },
+                commit_create_params.CommitCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitCreateResponse,
         )
 
-    async def list(self,
-    *,
-    customer_id: str,
-    commit_id: str | NotGiven = NOT_GIVEN,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_contract_commits: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitListResponse:
+    async def list(
+        self,
+        *,
+        customer_id: str,
+        commit_id: str | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_contract_commits: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitListResponse:
         """
         List commits.
 
@@ -445,34 +468,41 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCommits/list",
-            body=await async_maybe_transform({
-                "customer_id": customer_id,
-                "commit_id": commit_id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_commits": include_contract_commits,
-                "include_ledgers": include_ledgers,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, commit_list_params.CommitListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "commit_id": commit_id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_commits": include_contract_commits,
+                    "include_ledgers": include_ledgers,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                commit_list_params.CommitListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitListResponse,
         )
 
-    async def update_end_date(self,
-    *,
-    commit_id: str,
-    customer_id: str,
-    access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CommitUpdateEndDateResponse:
+    async def update_end_date(
+        self,
+        *,
+        commit_id: str,
+        customer_id: str,
+        access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CommitUpdateEndDateResponse:
         """
         Update the end date of a PREPAID commit
 
@@ -498,15 +528,21 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerCommits/updateEndDate",
-            body=await async_maybe_transform({
-                "commit_id": commit_id,
-                "customer_id": customer_id,
-                "access_ending_before": access_ending_before,
-                "invoices_ending_before": invoices_ending_before,
-            }, commit_update_end_date_params.CommitUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "commit_id": commit_id,
+                    "customer_id": customer_id,
+                    "access_ending_before": access_ending_before,
+                    "invoices_ending_before": invoices_ending_before,
+                },
+                commit_update_end_date_params.CommitUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitUpdateEndDateResponse,
         )
+
 
 class CommitsResourceWithRawResponse:
     def __init__(self, commits: CommitsResource) -> None:
@@ -522,6 +558,7 @@ class CommitsResourceWithRawResponse:
             commits.update_end_date,
         )
 
+
 class AsyncCommitsResourceWithRawResponse:
     def __init__(self, commits: AsyncCommitsResource) -> None:
         self._commits = commits
@@ -536,6 +573,7 @@ class AsyncCommitsResourceWithRawResponse:
             commits.update_end_date,
         )
 
+
 class CommitsResourceWithStreamingResponse:
     def __init__(self, commits: CommitsResource) -> None:
         self._commits = commits
@@ -549,6 +587,7 @@ class CommitsResourceWithStreamingResponse:
         self.update_end_date = to_streamed_response_wrapper(
             commits.update_end_date,
         )
+
 
 class AsyncCommitsResourceWithStreamingResponse:
     def __init__(self, commits: AsyncCommitsResource) -> None:

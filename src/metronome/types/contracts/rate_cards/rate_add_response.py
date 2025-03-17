@@ -1,19 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
-from typing import Optional, List, Dict
-
+from ...._models import BaseModel
 from ...shared.tier import Tier
-
 from ...shared.credit_type_data import CreditTypeData
 
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["RateAddResponse", "Data", "DataCommitRate"]
+
 
 class DataCommitRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
@@ -23,6 +18,7 @@ class DataCommitRate(BaseModel):
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
+
 
 class Data(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
@@ -73,6 +69,7 @@ class Data(BaseModel):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
+
 
 class RateAddResponse(BaseModel):
     data: Data
