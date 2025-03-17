@@ -2,73 +2,78 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .products import ProductsResource, AsyncProductsResource, ProductsResourceWithRawResponse, AsyncProductsResourceWithRawResponse, ProductsResourceWithStreamingResponse, AsyncProductsResourceWithStreamingResponse
-
-from ..._compat import cached_property
-
-from .rate_cards.rate_cards import RateCardsResource, AsyncRateCardsResource, RateCardsResourceWithRawResponse, AsyncRateCardsResourceWithRawResponse, RateCardsResourceWithStreamingResponse, AsyncRateCardsResourceWithStreamingResponse
-
-from .named_schedules import NamedSchedulesResource, AsyncNamedSchedulesResource, NamedSchedulesResourceWithRawResponse, AsyncNamedSchedulesResourceWithRawResponse, NamedSchedulesResourceWithStreamingResponse, AsyncNamedSchedulesResourceWithStreamingResponse
-
-from ...types.contract_create_response import ContractCreateResponse
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ..._base_client import make_request_options
-
-from typing import Union, Iterable, Dict, List
-
+from typing import Dict, List, Union, Iterable
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from ...types.shared_params.base_usage_filter import BaseUsageFilter
+import httpx
 
-from ...types.contract_retrieve_response import ContractRetrieveResponse
-
+from ...types import (
+    contract_list_params,
+    contract_amend_params,
+    contract_create_params,
+    contract_archive_params,
+    contract_retrieve_params,
+    contract_list_balances_params,
+    contract_update_end_date_params,
+    contract_set_usage_filter_params,
+    contract_retrieve_rate_schedule_params,
+    contract_add_manual_balance_entry_params,
+    contract_create_historical_invoices_params,
+    contract_schedule_pro_services_invoice_params,
+)
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from .products import (
+    ProductsResource,
+    AsyncProductsResource,
+    ProductsResourceWithRawResponse,
+    AsyncProductsResourceWithRawResponse,
+    ProductsResourceWithStreamingResponse,
+    AsyncProductsResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from .named_schedules import (
+    NamedSchedulesResource,
+    AsyncNamedSchedulesResource,
+    NamedSchedulesResourceWithRawResponse,
+    AsyncNamedSchedulesResourceWithRawResponse,
+    NamedSchedulesResourceWithStreamingResponse,
+    AsyncNamedSchedulesResourceWithStreamingResponse,
+)
+from .rate_cards.rate_cards import (
+    RateCardsResource,
+    AsyncRateCardsResource,
+    RateCardsResourceWithRawResponse,
+    AsyncRateCardsResourceWithRawResponse,
+    RateCardsResourceWithStreamingResponse,
+    AsyncRateCardsResourceWithStreamingResponse,
+)
 from ...types.contract_list_response import ContractListResponse
-
 from ...types.contract_amend_response import ContractAmendResponse
-
+from ...types.contract_create_response import ContractCreateResponse
 from ...types.contract_archive_response import ContractArchiveResponse
-
-from ...types.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
-
+from ...types.contract_retrieve_response import ContractRetrieveResponse
 from ...types.contract_list_balances_response import ContractListBalancesResponse
-
+from ...types.shared_params.base_usage_filter import BaseUsageFilter
+from ...types.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ...types.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
-
+from ...types.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ...types.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
 
-from ...types.contract_update_end_date_response import ContractUpdateEndDateResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types import contract_create_params, contract_amend_params, contract_create_historical_invoices_params, contract_retrieve_rate_schedule_params, contract_schedule_pro_services_invoice_params
-
-import warnings
-from typing_extensions import Literal, overload
-from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ...types import shared_params
-from ...types import contract_create_params
-from ...types import contract_retrieve_params
-from ...types import contract_list_params
-from ...types import contract_add_manual_balance_entry_params
-from ...types import contract_amend_params
-from ...types import contract_archive_params
-from ...types import contract_create_historical_invoices_params
-from ...types import contract_list_balances_params
-from ...types import contract_retrieve_rate_schedule_params
-from ...types import contract_schedule_pro_services_invoice_params
-from ...types import contract_set_usage_filter_params
-from ...types import contract_update_end_date_params
-from ...types import shared
-
 __all__ = ["ContractsResource", "AsyncContractsResource"]
+
 
 class ContractsResource(SyncAPIResource):
     @cached_property
@@ -102,43 +107,45 @@ class ContractsResource(SyncAPIResource):
         """
         return ContractsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    customer_id: str,
-    starting_at: Union[str, datetime],
-    billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
-    commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
-    credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
-    name: str | NotGiven = NOT_GIVEN,
-    net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-    professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
-    rate_card_alias: str | NotGiven = NOT_GIVEN,
-    rate_card_id: str | NotGiven = NOT_GIVEN,
-    recurring_commits: Iterable[contract_create_params.RecurringCommit] | NotGiven = NOT_GIVEN,
-    recurring_credits: Iterable[contract_create_params.RecurringCredit] | NotGiven = NOT_GIVEN,
-    reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
-    scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-    subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
-    threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
-    total_contract_value: float | NotGiven = NOT_GIVEN,
-    transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
-    uniqueness_key: str | NotGiven = NOT_GIVEN,
-    usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
-    usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractCreateResponse:
+    def create(
+        self,
+        *,
+        customer_id: str,
+        starting_at: Union[str, datetime],
+        billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
+        commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
+        credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
+        professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
+        rate_card_alias: str | NotGiven = NOT_GIVEN,
+        rate_card_id: str | NotGiven = NOT_GIVEN,
+        recurring_commits: Iterable[contract_create_params.RecurringCommit] | NotGiven = NOT_GIVEN,
+        recurring_credits: Iterable[contract_create_params.RecurringCredit] | NotGiven = NOT_GIVEN,
+        reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
+        threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
+        total_contract_value: float | NotGiven = NOT_GIVEN,
+        transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateResponse:
         """
         Create a new contract
 
@@ -189,53 +196,60 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/create",
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "starting_at": starting_at,
-                "billing_provider_configuration": billing_provider_configuration,
-                "commits": commits,
-                "credits": credits,
-                "custom_fields": custom_fields,
-                "discounts": discounts,
-                "ending_before": ending_before,
-                "multiplier_override_prioritization": multiplier_override_prioritization,
-                "name": name,
-                "net_payment_terms_days": net_payment_terms_days,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "overrides": overrides,
-                "professional_services": professional_services,
-                "rate_card_alias": rate_card_alias,
-                "rate_card_id": rate_card_id,
-                "recurring_commits": recurring_commits,
-                "recurring_credits": recurring_credits,
-                "reseller_royalties": reseller_royalties,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "scheduled_charges": scheduled_charges,
-                "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                "subscriptions": subscriptions,
-                "threshold_billing_configuration": threshold_billing_configuration,
-                "total_contract_value": total_contract_value,
-                "transition": transition,
-                "uniqueness_key": uniqueness_key,
-                "usage_filter": usage_filter,
-                "usage_statement_schedule": usage_statement_schedule,
-            }, contract_create_params.ContractCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "starting_at": starting_at,
+                    "billing_provider_configuration": billing_provider_configuration,
+                    "commits": commits,
+                    "credits": credits,
+                    "custom_fields": custom_fields,
+                    "discounts": discounts,
+                    "ending_before": ending_before,
+                    "multiplier_override_prioritization": multiplier_override_prioritization,
+                    "name": name,
+                    "net_payment_terms_days": net_payment_terms_days,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "overrides": overrides,
+                    "professional_services": professional_services,
+                    "rate_card_alias": rate_card_alias,
+                    "rate_card_id": rate_card_id,
+                    "recurring_commits": recurring_commits,
+                    "recurring_credits": recurring_credits,
+                    "reseller_royalties": reseller_royalties,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
+                    "subscriptions": subscriptions,
+                    "threshold_billing_configuration": threshold_billing_configuration,
+                    "total_contract_value": total_contract_value,
+                    "transition": transition,
+                    "uniqueness_key": uniqueness_key,
+                    "usage_filter": usage_filter,
+                    "usage_statement_schedule": usage_statement_schedule,
+                },
+                contract_create_params.ContractCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractCreateResponse,
         )
 
-    def retrieve(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractRetrieveResponse:
+    def retrieve(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveResponse:
         """
         Get a specific contract
 
@@ -256,30 +270,37 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/get",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "include_balance": include_balance,
-                "include_ledgers": include_ledgers,
-            }, contract_retrieve_params.ContractRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "include_balance": include_balance,
+                    "include_ledgers": include_ledgers,
+                },
+                contract_retrieve_params.ContractRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractListResponse:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractListResponse:
         """
         List all contracts for a customer
 
@@ -310,33 +331,40 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/list",
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "covering_date": covering_date,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_ledgers": include_ledgers,
-                "starting_at": starting_at,
-            }, contract_list_params.ContractListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "covering_date": covering_date,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_ledgers": include_ledgers,
+                    "starting_at": starting_at,
+                },
+                contract_list_params.ContractListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractListResponse,
         )
 
-    def add_manual_balance_entry(self,
-    *,
-    id: str,
-    amount: float,
-    customer_id: str,
-    reason: str,
-    segment_id: str,
-    contract_id: str | NotGiven = NOT_GIVEN,
-    timestamp: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    def add_manual_balance_entry(
+        self,
+        *,
+        id: str,
+        amount: float,
+        customer_id: str,
+        reason: str,
+        segment_id: str,
+        contract_id: str | NotGiven = NOT_GIVEN,
+        timestamp: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """
         Add a manual balance entry
 
@@ -367,41 +395,48 @@ class ContractsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/contracts/addManualBalanceLedgerEntry",
-            body=maybe_transform({
-                "id": id,
-                "amount": amount,
-                "customer_id": customer_id,
-                "reason": reason,
-                "segment_id": segment_id,
-                "contract_id": contract_id,
-                "timestamp": timestamp,
-            }, contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "amount": amount,
+                    "customer_id": customer_id,
+                    "reason": reason,
+                    "segment_id": segment_id,
+                    "contract_id": contract_id,
+                    "timestamp": timestamp,
+                },
+                contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    def amend(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    starting_at: Union[str, datetime],
-    commits: Iterable[contract_amend_params.Commit] | NotGiven = NOT_GIVEN,
-    credits: Iterable[contract_amend_params.Credit] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    discounts: Iterable[contract_amend_params.Discount] | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    overrides: Iterable[contract_amend_params.Override] | NotGiven = NOT_GIVEN,
-    professional_services: Iterable[contract_amend_params.ProfessionalService] | NotGiven = NOT_GIVEN,
-    reseller_royalties: Iterable[contract_amend_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    scheduled_charges: Iterable[contract_amend_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
-    total_contract_value: float | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractAmendResponse:
+    def amend(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        starting_at: Union[str, datetime],
+        commits: Iterable[contract_amend_params.Commit] | NotGiven = NOT_GIVEN,
+        credits: Iterable[contract_amend_params.Credit] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        discounts: Iterable[contract_amend_params.Discount] | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        overrides: Iterable[contract_amend_params.Override] | NotGiven = NOT_GIVEN,
+        professional_services: Iterable[contract_amend_params.ProfessionalService] | NotGiven = NOT_GIVEN,
+        reseller_royalties: Iterable[contract_amend_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        scheduled_charges: Iterable[contract_amend_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        total_contract_value: float | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractAmendResponse:
         """
         Amend a contract
 
@@ -434,37 +469,44 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/amend",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "starting_at": starting_at,
-                "commits": commits,
-                "credits": credits,
-                "custom_fields": custom_fields,
-                "discounts": discounts,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "overrides": overrides,
-                "professional_services": professional_services,
-                "reseller_royalties": reseller_royalties,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "scheduled_charges": scheduled_charges,
-                "total_contract_value": total_contract_value,
-            }, contract_amend_params.ContractAmendParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "starting_at": starting_at,
+                    "commits": commits,
+                    "credits": credits,
+                    "custom_fields": custom_fields,
+                    "discounts": discounts,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "overrides": overrides,
+                    "professional_services": professional_services,
+                    "reseller_royalties": reseller_royalties,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "scheduled_charges": scheduled_charges,
+                    "total_contract_value": total_contract_value,
+                },
+                contract_amend_params.ContractAmendParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractAmendResponse,
         )
 
-    def archive(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    void_invoices: bool,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractArchiveResponse:
+    def archive(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        void_invoices: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractArchiveResponse:
         """
         Archive a contract
 
@@ -486,25 +528,32 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/archive",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "void_invoices": void_invoices,
-            }, contract_archive_params.ContractArchiveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "void_invoices": void_invoices,
+                },
+                contract_archive_params.ContractArchiveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractArchiveResponse,
         )
 
-    def create_historical_invoices(self,
-    *,
-    invoices: Iterable[contract_create_historical_invoices_params.Invoice],
-    preview: bool,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractCreateHistoricalInvoicesResponse:
+    def create_historical_invoices(
+        self,
+        *,
+        invoices: Iterable[contract_create_historical_invoices_params.Invoice],
+        preview: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateHistoricalInvoicesResponse:
         """
         Creates historical usage invoices for a contract
 
@@ -519,32 +568,39 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/createHistoricalInvoices",
-            body=maybe_transform({
-                "invoices": invoices,
-                "preview": preview,
-            }, contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "invoices": invoices,
+                    "preview": preview,
+                },
+                contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    def list_balances(self,
-    *,
-    customer_id: str,
-    id: str | NotGiven = NOT_GIVEN,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_contract_balances: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractListBalancesResponse:
+    def list_balances(
+        self,
+        *,
+        customer_id: str,
+        id: str | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_contract_balances: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractListBalancesResponse:
         """
         List balances (commits and credits).
 
@@ -577,36 +633,43 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/customerBalances/list",
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "id": id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_balances": include_contract_balances,
-                "include_ledgers": include_ledgers,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, contract_list_balances_params.ContractListBalancesParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "id": id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_balances": include_contract_balances,
+                    "include_ledgers": include_ledgers,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                contract_list_balances_params.ContractListBalancesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractListBalancesResponse,
         )
 
-    def retrieve_rate_schedule(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    selectors: Iterable[contract_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractRetrieveRateScheduleResponse:
+    def retrieve_rate_schedule(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        selectors: Iterable[contract_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveRateScheduleResponse:
         """
         Get the rate schedule for the rate card on a given contract.
 
@@ -635,33 +698,47 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/getContractRateSchedule",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "at": at,
-                "selectors": selectors,
-            }, contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams)),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "at": at,
+                    "selectors": selectors,
+                },
+                contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams,
+                ),
+            ),
             cast_to=ContractRetrieveRateScheduleResponse,
         )
 
-    def schedule_pro_services_invoice(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    issued_at: Union[str, datetime],
-    line_items: Iterable[contract_schedule_pro_services_invoice_params.LineItem],
-    netsuite_invoice_header_end: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    netsuite_invoice_header_start: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractScheduleProServicesInvoiceResponse:
+    def schedule_pro_services_invoice(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        issued_at: Union[str, datetime],
+        line_items: Iterable[contract_schedule_pro_services_invoice_params.LineItem],
+        netsuite_invoice_header_end: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        netsuite_invoice_header_start: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractScheduleProServicesInvoiceResponse:
         """
         Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
@@ -685,31 +762,38 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/scheduleProServicesInvoice",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "issued_at": issued_at,
-                "line_items": line_items,
-                "netsuite_invoice_header_end": netsuite_invoice_header_end,
-                "netsuite_invoice_header_start": netsuite_invoice_header_start,
-            }, contract_schedule_pro_services_invoice_params.ContractScheduleProServicesInvoiceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "issued_at": issued_at,
+                    "line_items": line_items,
+                    "netsuite_invoice_header_end": netsuite_invoice_header_end,
+                    "netsuite_invoice_header_start": netsuite_invoice_header_start,
+                },
+                contract_schedule_pro_services_invoice_params.ContractScheduleProServicesInvoiceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractScheduleProServicesInvoiceResponse,
         )
 
-    def set_usage_filter(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    group_key: str,
-    group_values: List[str],
-    starting_at: Union[str, datetime],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    def set_usage_filter(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        group_key: str,
+        group_values: List[str],
+        starting_at: Union[str, datetime],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """
         Set usage filter for a contract
 
@@ -725,29 +809,36 @@ class ContractsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/contracts/setUsageFilter",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "group_key": group_key,
-                "group_values": group_values,
-                "starting_at": starting_at,
-            }, contract_set_usage_filter_params.ContractSetUsageFilterParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "group_key": group_key,
+                    "group_values": group_values,
+                    "starting_at": starting_at,
+                },
+                contract_set_usage_filter_params.ContractSetUsageFilterParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    def update_end_date(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractUpdateEndDateResponse:
+    def update_end_date(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractUpdateEndDateResponse:
         """
         Update the end date of a contract
 
@@ -774,15 +865,21 @@ class ContractsResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/updateEndDate",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
-                "ending_before": ending_before,
-            }, contract_update_end_date_params.ContractUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
+                    "ending_before": ending_before,
+                },
+                contract_update_end_date_params.ContractUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractUpdateEndDateResponse,
         )
+
 
 class AsyncContractsResource(AsyncAPIResource):
     @cached_property
@@ -816,43 +913,45 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return AsyncContractsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    customer_id: str,
-    starting_at: Union[str, datetime],
-    billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
-    commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
-    credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
-    name: str | NotGiven = NOT_GIVEN,
-    net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-    professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
-    rate_card_alias: str | NotGiven = NOT_GIVEN,
-    rate_card_id: str | NotGiven = NOT_GIVEN,
-    recurring_commits: Iterable[contract_create_params.RecurringCommit] | NotGiven = NOT_GIVEN,
-    recurring_credits: Iterable[contract_create_params.RecurringCredit] | NotGiven = NOT_GIVEN,
-    reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
-    scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-    subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
-    threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
-    total_contract_value: float | NotGiven = NOT_GIVEN,
-    transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
-    uniqueness_key: str | NotGiven = NOT_GIVEN,
-    usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
-    usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractCreateResponse:
+    async def create(
+        self,
+        *,
+        customer_id: str,
+        starting_at: Union[str, datetime],
+        billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
+        commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
+        credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
+        professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
+        rate_card_alias: str | NotGiven = NOT_GIVEN,
+        rate_card_id: str | NotGiven = NOT_GIVEN,
+        recurring_commits: Iterable[contract_create_params.RecurringCommit] | NotGiven = NOT_GIVEN,
+        recurring_credits: Iterable[contract_create_params.RecurringCredit] | NotGiven = NOT_GIVEN,
+        reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
+        threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
+        total_contract_value: float | NotGiven = NOT_GIVEN,
+        transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateResponse:
         """
         Create a new contract
 
@@ -903,53 +1002,60 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/create",
-            body=await async_maybe_transform({
-                "customer_id": customer_id,
-                "starting_at": starting_at,
-                "billing_provider_configuration": billing_provider_configuration,
-                "commits": commits,
-                "credits": credits,
-                "custom_fields": custom_fields,
-                "discounts": discounts,
-                "ending_before": ending_before,
-                "multiplier_override_prioritization": multiplier_override_prioritization,
-                "name": name,
-                "net_payment_terms_days": net_payment_terms_days,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "overrides": overrides,
-                "professional_services": professional_services,
-                "rate_card_alias": rate_card_alias,
-                "rate_card_id": rate_card_id,
-                "recurring_commits": recurring_commits,
-                "recurring_credits": recurring_credits,
-                "reseller_royalties": reseller_royalties,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "scheduled_charges": scheduled_charges,
-                "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                "subscriptions": subscriptions,
-                "threshold_billing_configuration": threshold_billing_configuration,
-                "total_contract_value": total_contract_value,
-                "transition": transition,
-                "uniqueness_key": uniqueness_key,
-                "usage_filter": usage_filter,
-                "usage_statement_schedule": usage_statement_schedule,
-            }, contract_create_params.ContractCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "starting_at": starting_at,
+                    "billing_provider_configuration": billing_provider_configuration,
+                    "commits": commits,
+                    "credits": credits,
+                    "custom_fields": custom_fields,
+                    "discounts": discounts,
+                    "ending_before": ending_before,
+                    "multiplier_override_prioritization": multiplier_override_prioritization,
+                    "name": name,
+                    "net_payment_terms_days": net_payment_terms_days,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "overrides": overrides,
+                    "professional_services": professional_services,
+                    "rate_card_alias": rate_card_alias,
+                    "rate_card_id": rate_card_id,
+                    "recurring_commits": recurring_commits,
+                    "recurring_credits": recurring_credits,
+                    "reseller_royalties": reseller_royalties,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "scheduled_charges": scheduled_charges,
+                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
+                    "subscriptions": subscriptions,
+                    "threshold_billing_configuration": threshold_billing_configuration,
+                    "total_contract_value": total_contract_value,
+                    "transition": transition,
+                    "uniqueness_key": uniqueness_key,
+                    "usage_filter": usage_filter,
+                    "usage_statement_schedule": usage_statement_schedule,
+                },
+                contract_create_params.ContractCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractCreateResponse,
         )
 
-    async def retrieve(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractRetrieveResponse:
+    async def retrieve(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveResponse:
         """
         Get a specific contract
 
@@ -970,30 +1076,37 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/get",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "include_balance": include_balance,
-                "include_ledgers": include_ledgers,
-            }, contract_retrieve_params.ContractRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "include_balance": include_balance,
+                    "include_ledgers": include_ledgers,
+                },
+                contract_retrieve_params.ContractRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractRetrieveResponse,
         )
 
-    async def list(self,
-    *,
-    customer_id: str,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractListResponse:
+    async def list(
+        self,
+        *,
+        customer_id: str,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractListResponse:
         """
         List all contracts for a customer
 
@@ -1024,33 +1137,40 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/list",
-            body=await async_maybe_transform({
-                "customer_id": customer_id,
-                "covering_date": covering_date,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_ledgers": include_ledgers,
-                "starting_at": starting_at,
-            }, contract_list_params.ContractListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "covering_date": covering_date,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_ledgers": include_ledgers,
+                    "starting_at": starting_at,
+                },
+                contract_list_params.ContractListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractListResponse,
         )
 
-    async def add_manual_balance_entry(self,
-    *,
-    id: str,
-    amount: float,
-    customer_id: str,
-    reason: str,
-    segment_id: str,
-    contract_id: str | NotGiven = NOT_GIVEN,
-    timestamp: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    async def add_manual_balance_entry(
+        self,
+        *,
+        id: str,
+        amount: float,
+        customer_id: str,
+        reason: str,
+        segment_id: str,
+        contract_id: str | NotGiven = NOT_GIVEN,
+        timestamp: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """
         Add a manual balance entry
 
@@ -1081,41 +1201,48 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/contracts/addManualBalanceLedgerEntry",
-            body=await async_maybe_transform({
-                "id": id,
-                "amount": amount,
-                "customer_id": customer_id,
-                "reason": reason,
-                "segment_id": segment_id,
-                "contract_id": contract_id,
-                "timestamp": timestamp,
-            }, contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "amount": amount,
+                    "customer_id": customer_id,
+                    "reason": reason,
+                    "segment_id": segment_id,
+                    "contract_id": contract_id,
+                    "timestamp": timestamp,
+                },
+                contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    async def amend(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    starting_at: Union[str, datetime],
-    commits: Iterable[contract_amend_params.Commit] | NotGiven = NOT_GIVEN,
-    credits: Iterable[contract_amend_params.Credit] | NotGiven = NOT_GIVEN,
-    custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-    discounts: Iterable[contract_amend_params.Discount] | NotGiven = NOT_GIVEN,
-    netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-    overrides: Iterable[contract_amend_params.Override] | NotGiven = NOT_GIVEN,
-    professional_services: Iterable[contract_amend_params.ProfessionalService] | NotGiven = NOT_GIVEN,
-    reseller_royalties: Iterable[contract_amend_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
-    salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-    scheduled_charges: Iterable[contract_amend_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
-    total_contract_value: float | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractAmendResponse:
+    async def amend(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        starting_at: Union[str, datetime],
+        commits: Iterable[contract_amend_params.Commit] | NotGiven = NOT_GIVEN,
+        credits: Iterable[contract_amend_params.Credit] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        discounts: Iterable[contract_amend_params.Discount] | NotGiven = NOT_GIVEN,
+        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
+        overrides: Iterable[contract_amend_params.Override] | NotGiven = NOT_GIVEN,
+        professional_services: Iterable[contract_amend_params.ProfessionalService] | NotGiven = NOT_GIVEN,
+        reseller_royalties: Iterable[contract_amend_params.ResellerRoyalty] | NotGiven = NOT_GIVEN,
+        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
+        scheduled_charges: Iterable[contract_amend_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
+        total_contract_value: float | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractAmendResponse:
         """
         Amend a contract
 
@@ -1148,37 +1275,44 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/amend",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "starting_at": starting_at,
-                "commits": commits,
-                "credits": credits,
-                "custom_fields": custom_fields,
-                "discounts": discounts,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "overrides": overrides,
-                "professional_services": professional_services,
-                "reseller_royalties": reseller_royalties,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "scheduled_charges": scheduled_charges,
-                "total_contract_value": total_contract_value,
-            }, contract_amend_params.ContractAmendParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "starting_at": starting_at,
+                    "commits": commits,
+                    "credits": credits,
+                    "custom_fields": custom_fields,
+                    "discounts": discounts,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "overrides": overrides,
+                    "professional_services": professional_services,
+                    "reseller_royalties": reseller_royalties,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "scheduled_charges": scheduled_charges,
+                    "total_contract_value": total_contract_value,
+                },
+                contract_amend_params.ContractAmendParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractAmendResponse,
         )
 
-    async def archive(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    void_invoices: bool,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractArchiveResponse:
+    async def archive(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        void_invoices: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractArchiveResponse:
         """
         Archive a contract
 
@@ -1200,25 +1334,32 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/archive",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "void_invoices": void_invoices,
-            }, contract_archive_params.ContractArchiveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "void_invoices": void_invoices,
+                },
+                contract_archive_params.ContractArchiveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractArchiveResponse,
         )
 
-    async def create_historical_invoices(self,
-    *,
-    invoices: Iterable[contract_create_historical_invoices_params.Invoice],
-    preview: bool,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractCreateHistoricalInvoicesResponse:
+    async def create_historical_invoices(
+        self,
+        *,
+        invoices: Iterable[contract_create_historical_invoices_params.Invoice],
+        preview: bool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractCreateHistoricalInvoicesResponse:
         """
         Creates historical usage invoices for a contract
 
@@ -1233,32 +1374,39 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/createHistoricalInvoices",
-            body=await async_maybe_transform({
-                "invoices": invoices,
-                "preview": preview,
-            }, contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "invoices": invoices,
+                    "preview": preview,
+                },
+                contract_create_historical_invoices_params.ContractCreateHistoricalInvoicesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def list_balances(self,
-    *,
-    customer_id: str,
-    id: str | NotGiven = NOT_GIVEN,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    include_archived: bool | NotGiven = NOT_GIVEN,
-    include_balance: bool | NotGiven = NOT_GIVEN,
-    include_contract_balances: bool | NotGiven = NOT_GIVEN,
-    include_ledgers: bool | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractListBalancesResponse:
+    async def list_balances(
+        self,
+        *,
+        customer_id: str,
+        id: str | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_balance: bool | NotGiven = NOT_GIVEN,
+        include_contract_balances: bool | NotGiven = NOT_GIVEN,
+        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractListBalancesResponse:
         """
         List balances (commits and credits).
 
@@ -1291,36 +1439,43 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/customerBalances/list",
-            body=await async_maybe_transform({
-                "customer_id": customer_id,
-                "id": id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_balances": include_contract_balances,
-                "include_ledgers": include_ledgers,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, contract_list_balances_params.ContractListBalancesParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "id": id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_balances": include_contract_balances,
+                    "include_ledgers": include_ledgers,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                contract_list_balances_params.ContractListBalancesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractListBalancesResponse,
         )
 
-    async def retrieve_rate_schedule(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    at: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    selectors: Iterable[contract_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractRetrieveRateScheduleResponse:
+    async def retrieve_rate_schedule(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        selectors: Iterable[contract_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveRateScheduleResponse:
         """
         Get the rate schedule for the rate card on a given contract.
 
@@ -1349,33 +1504,47 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/getContractRateSchedule",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "at": at,
-                "selectors": selectors,
-            }, contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams)),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "at": at,
+                    "selectors": selectors,
+                },
+                contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    contract_retrieve_rate_schedule_params.ContractRetrieveRateScheduleParams,
+                ),
+            ),
             cast_to=ContractRetrieveRateScheduleResponse,
         )
 
-    async def schedule_pro_services_invoice(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    issued_at: Union[str, datetime],
-    line_items: Iterable[contract_schedule_pro_services_invoice_params.LineItem],
-    netsuite_invoice_header_end: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    netsuite_invoice_header_start: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractScheduleProServicesInvoiceResponse:
+    async def schedule_pro_services_invoice(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        issued_at: Union[str, datetime],
+        line_items: Iterable[contract_schedule_pro_services_invoice_params.LineItem],
+        netsuite_invoice_header_end: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        netsuite_invoice_header_start: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractScheduleProServicesInvoiceResponse:
         """
         Create a new scheduled invoice for Professional Services terms on a contract.
         This endpoint's availability is dependent on your client's configuration.
@@ -1399,31 +1568,38 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/scheduleProServicesInvoice",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "issued_at": issued_at,
-                "line_items": line_items,
-                "netsuite_invoice_header_end": netsuite_invoice_header_end,
-                "netsuite_invoice_header_start": netsuite_invoice_header_start,
-            }, contract_schedule_pro_services_invoice_params.ContractScheduleProServicesInvoiceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "issued_at": issued_at,
+                    "line_items": line_items,
+                    "netsuite_invoice_header_end": netsuite_invoice_header_end,
+                    "netsuite_invoice_header_start": netsuite_invoice_header_start,
+                },
+                contract_schedule_pro_services_invoice_params.ContractScheduleProServicesInvoiceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractScheduleProServicesInvoiceResponse,
         )
 
-    async def set_usage_filter(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    group_key: str,
-    group_values: List[str],
-    starting_at: Union[str, datetime],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    async def set_usage_filter(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        group_key: str,
+        group_values: List[str],
+        starting_at: Union[str, datetime],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """
         Set usage filter for a contract
 
@@ -1439,29 +1615,36 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/contracts/setUsageFilter",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "group_key": group_key,
-                "group_values": group_values,
-                "starting_at": starting_at,
-            }, contract_set_usage_filter_params.ContractSetUsageFilterParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "group_key": group_key,
+                    "group_values": group_values,
+                    "starting_at": starting_at,
+                },
+                contract_set_usage_filter_params.ContractSetUsageFilterParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    async def update_end_date(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ContractUpdateEndDateResponse:
+    async def update_end_date(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        allow_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractUpdateEndDateResponse:
         """
         Update the end date of a contract
 
@@ -1488,15 +1671,21 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/updateEndDate",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
-                "ending_before": ending_before,
-            }, contract_update_end_date_params.ContractUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "allow_ending_before_finalized_invoice": allow_ending_before_finalized_invoice,
+                    "ending_before": ending_before,
+                },
+                contract_update_end_date_params.ContractUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ContractUpdateEndDateResponse,
         )
+
 
 class ContractsResourceWithRawResponse:
     def __init__(self, contracts: ContractsResource) -> None:
@@ -1551,6 +1740,7 @@ class ContractsResourceWithRawResponse:
     def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
         return NamedSchedulesResourceWithRawResponse(self._contracts.named_schedules)
 
+
 class AsyncContractsResourceWithRawResponse:
     def __init__(self, contracts: AsyncContractsResource) -> None:
         self._contracts = contracts
@@ -1604,6 +1794,7 @@ class AsyncContractsResourceWithRawResponse:
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
         return AsyncNamedSchedulesResourceWithRawResponse(self._contracts.named_schedules)
 
+
 class ContractsResourceWithStreamingResponse:
     def __init__(self, contracts: ContractsResource) -> None:
         self._contracts = contracts
@@ -1656,6 +1847,7 @@ class ContractsResourceWithStreamingResponse:
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
         return NamedSchedulesResourceWithStreamingResponse(self._contracts.named_schedules)
+
 
 class AsyncContractsResourceWithStreamingResponse:
     def __init__(self, contracts: AsyncContractsResource) -> None:

@@ -2,35 +2,29 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._compat import cached_property
-
-from ..types.audit_log_list_response import AuditLogListResponse
-
-from ..pagination import SyncCursorPage, AsyncCursorPage
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from .._utils import maybe_transform
-
 from typing import Union
-
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-import warnings
-from typing_extensions import Literal, overload
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
 from ..types import audit_log_list_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.audit_log_list_response import AuditLogListResponse
 
 __all__ = ["AuditLogsResource", "AsyncAuditLogsResource"]
+
 
 class AuditLogsResource(SyncAPIResource):
     @cached_property
@@ -52,21 +46,23 @@ class AuditLogsResource(SyncAPIResource):
         """
         return AuditLogsResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    resource_id: str | NotGiven = NOT_GIVEN,
-    resource_type: str | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[AuditLogListResponse]:
+    def list(
+        self,
+        *,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        resource_id: str | NotGiven = NOT_GIVEN,
+        resource_type: str | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[AuditLogListResponse]:
         """Retrieves a range of audit logs.
 
         If no further audit logs are currently
@@ -102,18 +98,28 @@ class AuditLogsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/auditLogs",
-            page = SyncCursorPage[AuditLogListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "resource_id": resource_id,
-                "resource_type": resource_type,
-                "sort": sort,
-                "starting_on": starting_on,
-            }, audit_log_list_params.AuditLogListParams)),
+            page=SyncCursorPage[AuditLogListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                    },
+                    audit_log_list_params.AuditLogListParams,
+                ),
+            ),
             model=AuditLogListResponse,
         )
+
 
 class AsyncAuditLogsResource(AsyncAPIResource):
     @cached_property
@@ -135,21 +141,23 @@ class AsyncAuditLogsResource(AsyncAPIResource):
         """
         return AsyncAuditLogsResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    resource_id: str | NotGiven = NOT_GIVEN,
-    resource_type: str | NotGiven = NOT_GIVEN,
-    sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-    starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[AuditLogListResponse, AsyncCursorPage[AuditLogListResponse]]:
+    def list(
+        self,
+        *,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        resource_id: str | NotGiven = NOT_GIVEN,
+        resource_type: str | NotGiven = NOT_GIVEN,
+        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
+        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[AuditLogListResponse, AsyncCursorPage[AuditLogListResponse]]:
         """Retrieves a range of audit logs.
 
         If no further audit logs are currently
@@ -185,18 +193,28 @@ class AsyncAuditLogsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/auditLogs",
-            page = AsyncCursorPage[AuditLogListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "resource_id": resource_id,
-                "resource_type": resource_type,
-                "sort": sort,
-                "starting_on": starting_on,
-            }, audit_log_list_params.AuditLogListParams)),
+            page=AsyncCursorPage[AuditLogListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                    },
+                    audit_log_list_params.AuditLogListParams,
+                ),
+            ),
             model=AuditLogListResponse,
         )
+
 
 class AuditLogsResourceWithRawResponse:
     def __init__(self, audit_logs: AuditLogsResource) -> None:
@@ -206,6 +224,7 @@ class AuditLogsResourceWithRawResponse:
             audit_logs.list,
         )
 
+
 class AsyncAuditLogsResourceWithRawResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:
         self._audit_logs = audit_logs
@@ -214,6 +233,7 @@ class AsyncAuditLogsResourceWithRawResponse:
             audit_logs.list,
         )
 
+
 class AuditLogsResourceWithStreamingResponse:
     def __init__(self, audit_logs: AuditLogsResource) -> None:
         self._audit_logs = audit_logs
@@ -221,6 +241,7 @@ class AuditLogsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             audit_logs.list,
         )
+
 
 class AsyncAuditLogsResourceWithStreamingResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:

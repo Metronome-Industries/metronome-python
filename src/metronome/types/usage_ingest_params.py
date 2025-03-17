@@ -2,18 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required
-
-from typing import Iterable, Dict
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+from typing import Dict, Iterable
+from typing_extensions import Required, TypedDict
 
 __all__ = ["UsageIngestParams", "Usage"]
 
+
 class UsageIngestParams(TypedDict, total=False):
     usage: Iterable[Usage]
+
 
 class Usage(TypedDict, total=False):
     customer_id: Required[str]

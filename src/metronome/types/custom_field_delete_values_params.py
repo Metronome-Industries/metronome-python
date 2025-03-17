@@ -2,18 +2,34 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal, Required
-
 from typing import List
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CustomFieldDeleteValuesParams"]
 
+
 class CustomFieldDeleteValuesParams(TypedDict, total=False):
-    entity: Required[Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge"]]
+    entity: Required[
+        Literal[
+            "alert",
+            "billable_metric",
+            "charge",
+            "commit",
+            "contract_credit",
+            "contract_product",
+            "contract",
+            "credit_grant",
+            "customer_plan",
+            "customer",
+            "discount",
+            "invoice",
+            "plan",
+            "professional_service",
+            "product",
+            "rate_card",
+            "scheduled_charge",
+        ]
+    ]
 
     entity_id: Required[str]
 

@@ -1,34 +1,47 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from datetime import datetime
-
-from typing import Optional, Dict, List
-
+from ..._models import BaseModel
+from ..shared.rate import Rate
 from ..shared.credit_type_data import CreditTypeData
 
-from ..shared.rate import Rate
+__all__ = [
+    "Invoice",
+    "LineItem",
+    "LineItemAppliedCommitOrCredit",
+    "LineItemPostpaidCommit",
+    "LineItemSubLineItem",
+    "LineItemSubLineItemTierPeriod",
+    "LineItemSubLineItemTier",
+    "LineItemTier",
+    "CorrectionRecord",
+    "CorrectionRecordCorrectedExternalInvoice",
+    "ExternalInvoice",
+    "InvoiceAdjustment",
+    "ResellerRoyalty",
+    "ResellerRoyaltyAwsOptions",
+    "ResellerRoyaltyGcpOptions",
+]
 
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
-__all__ = ["Invoice", "LineItem", "LineItemAppliedCommitOrCredit", "LineItemPostpaidCommit", "LineItemSubLineItem", "LineItemSubLineItemTierPeriod", "LineItemSubLineItemTier", "LineItemTier", "CorrectionRecord", "CorrectionRecordCorrectedExternalInvoice", "ExternalInvoice", "InvoiceAdjustment", "ResellerRoyalty", "ResellerRoyaltyAwsOptions", "ResellerRoyaltyGcpOptions"]
 
 class LineItemAppliedCommitOrCredit(BaseModel):
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
 
+
 class LineItemPostpaidCommit(BaseModel):
     id: str
+
 
 class LineItemSubLineItemTierPeriod(BaseModel):
     starting_at: datetime
 
     ending_before: Optional[datetime] = None
+
 
 class LineItemSubLineItemTier(BaseModel):
     price: float
@@ -39,6 +52,7 @@ class LineItemSubLineItemTier(BaseModel):
     """at what metric amount this tier begins"""
 
     subtotal: float
+
 
 class LineItemSubLineItem(BaseModel):
     custom_fields: Dict[str, str]
@@ -70,12 +84,14 @@ class LineItemSubLineItem(BaseModel):
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
 
+
 class LineItemTier(BaseModel):
     level: float
 
     starting_at: str
 
     size: Optional[str] = None
+
 
 class LineItem(BaseModel):
     credit_type: CreditTypeData
@@ -190,14 +206,39 @@ class LineItem(BaseModel):
     unit_price: Optional[float] = None
     """only present for beta contract invoices"""
 
-class CorrectionRecordCorrectedExternalInvoice(BaseModel):
-    billing_provider_type: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace"]
 
-    external_status: Optional[Literal["DRAFT", "FINALIZED", "PAID", "UNCOLLECTIBLE", "VOID", "DELETED", "PAYMENT_FAILED", "INVALID_REQUEST_ERROR", "SKIPPED", "SENT", "QUEUED"]] = None
+class CorrectionRecordCorrectedExternalInvoice(BaseModel):
+    billing_provider_type: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+    ]
+
+    external_status: Optional[
+        Literal[
+            "DRAFT",
+            "FINALIZED",
+            "PAID",
+            "UNCOLLECTIBLE",
+            "VOID",
+            "DELETED",
+            "PAYMENT_FAILED",
+            "INVALID_REQUEST_ERROR",
+            "SKIPPED",
+            "SENT",
+            "QUEUED",
+        ]
+    ] = None
 
     invoice_id: Optional[str] = None
 
     issued_at_timestamp: Optional[datetime] = None
+
 
 class CorrectionRecord(BaseModel):
     corrected_invoice_id: str
@@ -208,14 +249,39 @@ class CorrectionRecord(BaseModel):
 
     corrected_external_invoice: Optional[CorrectionRecordCorrectedExternalInvoice] = None
 
-class ExternalInvoice(BaseModel):
-    billing_provider_type: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace"]
 
-    external_status: Optional[Literal["DRAFT", "FINALIZED", "PAID", "UNCOLLECTIBLE", "VOID", "DELETED", "PAYMENT_FAILED", "INVALID_REQUEST_ERROR", "SKIPPED", "SENT", "QUEUED"]] = None
+class ExternalInvoice(BaseModel):
+    billing_provider_type: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+    ]
+
+    external_status: Optional[
+        Literal[
+            "DRAFT",
+            "FINALIZED",
+            "PAID",
+            "UNCOLLECTIBLE",
+            "VOID",
+            "DELETED",
+            "PAYMENT_FAILED",
+            "INVALID_REQUEST_ERROR",
+            "SKIPPED",
+            "SENT",
+            "QUEUED",
+        ]
+    ] = None
 
     invoice_id: Optional[str] = None
 
     issued_at_timestamp: Optional[datetime] = None
+
 
 class InvoiceAdjustment(BaseModel):
     credit_type: CreditTypeData
@@ -228,6 +294,7 @@ class InvoiceAdjustment(BaseModel):
 
     credit_grant_id: Optional[str] = None
 
+
 class ResellerRoyaltyAwsOptions(BaseModel):
     aws_account_number: Optional[str] = None
 
@@ -235,10 +302,12 @@ class ResellerRoyaltyAwsOptions(BaseModel):
 
     aws_payer_reference_id: Optional[str] = None
 
+
 class ResellerRoyaltyGcpOptions(BaseModel):
     gcp_account_id: Optional[str] = None
 
     gcp_offer_id: Optional[str] = None
+
 
 class ResellerRoyalty(BaseModel):
     fraction: str
@@ -250,6 +319,7 @@ class ResellerRoyalty(BaseModel):
     aws_options: Optional[ResellerRoyaltyAwsOptions] = None
 
     gcp_options: Optional[ResellerRoyaltyGcpOptions] = None
+
 
 class Invoice(BaseModel):
     id: str

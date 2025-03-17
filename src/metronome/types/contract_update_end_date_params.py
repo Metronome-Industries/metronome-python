@@ -2,19 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated
-
 from typing import Union
-
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
-from .._utils import PropertyInfo
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
 from .._utils import PropertyInfo
 
 __all__ = ["ContractUpdateEndDateParams"]
+
 
 class ContractUpdateEndDateParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -31,7 +26,7 @@ class ContractUpdateEndDateParams(TypedDict, total=False):
     invoices. Defaults to true.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive).
 
     If not provided, the contract will be updated to be open-ended.

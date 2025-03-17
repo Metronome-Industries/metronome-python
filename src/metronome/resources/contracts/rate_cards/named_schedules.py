@@ -2,32 +2,30 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ...._compat import cached_property
-
-from ....types.contracts.rate_cards.named_schedule_retrieve_response import NamedScheduleRetrieveResponse
-
-from ...._utils import maybe_transform, async_maybe_transform
-
-from ...._base_client import make_request_options
-
 from typing import Union
-
 from datetime import datetime
 
-from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-import warnings
-from typing_extensions import Literal, overload
-from ...._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ...._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ...._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
-from ....types import shared_params
-from ....types.contracts.rate_cards import named_schedule_retrieve_params
-from ....types.contracts.rate_cards import named_schedule_update_params
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...._base_client import make_request_options
+from ....types.contracts.rate_cards import named_schedule_update_params, named_schedule_retrieve_params
+from ....types.contracts.rate_cards.named_schedule_retrieve_response import NamedScheduleRetrieveResponse
 
 __all__ = ["NamedSchedulesResource", "AsyncNamedSchedulesResource"]
+
 
 class NamedSchedulesResource(SyncAPIResource):
     @cached_property
@@ -49,18 +47,20 @@ class NamedSchedulesResource(SyncAPIResource):
         """
         return NamedSchedulesResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    schedule_name: str,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> NamedScheduleRetrieveResponse:
+    def retrieve(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        schedule_name: str,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> NamedScheduleRetrieveResponse:
         """Get a named schedule for the given contract.
 
         This endpoint's availability is
@@ -86,30 +86,37 @@ class NamedSchedulesResource(SyncAPIResource):
         """
         return self._post(
             "/contracts/getNamedSchedule",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "schedule_name": schedule_name,
-                "covering_date": covering_date,
-            }, named_schedule_retrieve_params.NamedScheduleRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "schedule_name": schedule_name,
+                    "covering_date": covering_date,
+                },
+                named_schedule_retrieve_params.NamedScheduleRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NamedScheduleRetrieveResponse,
         )
 
-    def update(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    schedule_name: str,
-    starting_at: Union[str, datetime],
-    value: object,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    def update(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        schedule_name: str,
+        starting_at: Union[str, datetime],
+        value: object,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """Update a named schedule for the given contract.
 
         This endpoint's availability is
@@ -136,17 +143,23 @@ class NamedSchedulesResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/contracts/updateNamedSchedule",
-            body=maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "schedule_name": schedule_name,
-                "starting_at": starting_at,
-                "value": value,
-                "ending_before": ending_before,
-            }, named_schedule_update_params.NamedScheduleUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "schedule_name": schedule_name,
+                    "starting_at": starting_at,
+                    "value": value,
+                    "ending_before": ending_before,
+                },
+                named_schedule_update_params.NamedScheduleUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
+
 
 class AsyncNamedSchedulesResource(AsyncAPIResource):
     @cached_property
@@ -168,18 +181,20 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         """
         return AsyncNamedSchedulesResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    schedule_name: str,
-    covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> NamedScheduleRetrieveResponse:
+    async def retrieve(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        schedule_name: str,
+        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> NamedScheduleRetrieveResponse:
         """Get a named schedule for the given contract.
 
         This endpoint's availability is
@@ -205,30 +220,37 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         """
         return await self._post(
             "/contracts/getNamedSchedule",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "schedule_name": schedule_name,
-                "covering_date": covering_date,
-            }, named_schedule_retrieve_params.NamedScheduleRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "schedule_name": schedule_name,
+                    "covering_date": covering_date,
+                },
+                named_schedule_retrieve_params.NamedScheduleRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NamedScheduleRetrieveResponse,
         )
 
-    async def update(self,
-    *,
-    contract_id: str,
-    customer_id: str,
-    schedule_name: str,
-    starting_at: Union[str, datetime],
-    value: object,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> None:
+    async def update(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        schedule_name: str,
+        starting_at: Union[str, datetime],
+        value: object,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
         """Update a named schedule for the given contract.
 
         This endpoint's availability is
@@ -255,17 +277,23 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/contracts/updateNamedSchedule",
-            body=await async_maybe_transform({
-                "contract_id": contract_id,
-                "customer_id": customer_id,
-                "schedule_name": schedule_name,
-                "starting_at": starting_at,
-                "value": value,
-                "ending_before": ending_before,
-            }, named_schedule_update_params.NamedScheduleUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "schedule_name": schedule_name,
+                    "starting_at": starting_at,
+                    "value": value,
+                    "ending_before": ending_before,
+                },
+                named_schedule_update_params.NamedScheduleUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
+
 
 class NamedSchedulesResourceWithRawResponse:
     def __init__(self, named_schedules: NamedSchedulesResource) -> None:
@@ -278,6 +306,7 @@ class NamedSchedulesResourceWithRawResponse:
             named_schedules.update,
         )
 
+
 class AsyncNamedSchedulesResourceWithRawResponse:
     def __init__(self, named_schedules: AsyncNamedSchedulesResource) -> None:
         self._named_schedules = named_schedules
@@ -289,6 +318,7 @@ class AsyncNamedSchedulesResourceWithRawResponse:
             named_schedules.update,
         )
 
+
 class NamedSchedulesResourceWithStreamingResponse:
     def __init__(self, named_schedules: NamedSchedulesResource) -> None:
         self._named_schedules = named_schedules
@@ -299,6 +329,7 @@ class NamedSchedulesResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             named_schedules.update,
         )
+
 
 class AsyncNamedSchedulesResourceWithStreamingResponse:
     def __init__(self, named_schedules: AsyncNamedSchedulesResource) -> None:

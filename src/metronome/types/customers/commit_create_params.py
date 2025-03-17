@@ -2,19 +2,21 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import List, Dict, Iterable, Union
-
+from typing import Dict, List, Union, Iterable
 from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
-from ..._utils import PropertyInfo
+__all__ = [
+    "CommitCreateParams",
+    "AccessSchedule",
+    "AccessScheduleScheduleItem",
+    "InvoiceSchedule",
+    "InvoiceScheduleRecurringSchedule",
+    "InvoiceScheduleScheduleItem",
+]
 
-__all__ = ["CommitCreateParams", "AccessSchedule", "AccessScheduleScheduleItem", "InvoiceSchedule", "InvoiceScheduleRecurringSchedule", "InvoiceScheduleScheduleItem"]
 
 class CommitCreateParams(TypedDict, total=False):
     access_schedule: Required[AccessSchedule]
@@ -99,14 +101,16 @@ class CommitCreateParams(TypedDict, total=False):
     and the request will fail with a 409 error.
     """
 
+
 class AccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class AccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
@@ -114,15 +118,16 @@ class AccessSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
 
+
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -146,8 +151,9 @@ class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class InvoiceScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -170,6 +176,7 @@ class InvoiceScheduleScheduleItem(TypedDict, total=False):
     Will be multiplied by quantity to determine the amount and must be specified
     with quantity. If specified amount cannot be provided.
     """
+
 
 class InvoiceSchedule(TypedDict, total=False):
     credit_type_id: str

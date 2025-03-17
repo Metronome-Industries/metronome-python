@@ -2,19 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
 from typing import List, Optional
-
-from .quantity_conversion_param import QuantityConversionParam
+from typing_extensions import Literal, Required, TypedDict
 
 from .quantity_rounding_param import QuantityRoundingParam
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
-from ..._utils import PropertyInfo
+from .quantity_conversion_param import QuantityConversionParam
 
 __all__ = ["ProductCreateParams"]
+
 
 class ProductCreateParams(TypedDict, total=False):
     name: Required[str]

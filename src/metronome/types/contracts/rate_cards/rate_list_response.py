@@ -1,21 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from typing import Optional, List, Dict
-
+from ...._models import BaseModel
+from ...shared.rate import Rate
 from ...shared.tier import Tier
 
-from ...shared.rate import Rate
-
-from datetime import datetime
-
-from typing_extensions import Literal
-from pydantic import Field as FieldInfo
-
 __all__ = ["RateListResponse", "CommitRate"]
+
 
 class CommitRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
@@ -25,6 +19,7 @@ class CommitRate(BaseModel):
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
+
 
 class RateListResponse(BaseModel):
     entitled: bool

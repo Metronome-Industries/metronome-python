@@ -2,22 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Annotated, Required
-
 from typing import Union
-
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
-from ..._utils import PropertyInfo
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
 from ..._utils import PropertyInfo
 
 __all__ = ["CreditUpdateEndDateParams"]
 
+
 class CreditUpdateEndDateParams(TypedDict, total=False):
-    access_ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    access_ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """
     RFC 3339 timestamp indicating when access to the credit will end and it will no
     longer be possible to draw it down (exclusive).

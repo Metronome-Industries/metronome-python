@@ -2,44 +2,34 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._compat import cached_property
-
-from ...types.customers.plan_list_response import PlanListResponse
-
-from ...pagination import SyncCursorPage, AsyncCursorPage
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ...types.customers.plan_add_response import PlanAddResponse
-
 from typing import Union, Iterable
-
 from datetime import datetime
 
-from ...types.customers.plan_end_response import PlanEndResponse
+import httpx
 
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.customers import plan_add_params, plan_end_params, plan_list_params, plan_list_price_adjustments_params
+from ...types.customers.plan_add_response import PlanAddResponse
+from ...types.customers.plan_end_response import PlanEndResponse
+from ...types.customers.plan_list_response import PlanListResponse
 from ...types.customers.plan_list_price_adjustments_response import PlanListPriceAdjustmentsResponse
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types.customers import plan_add_params
-
-import warnings
-from typing_extensions import Literal, overload
-from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ...types import shared_params
-from ...types.customers import plan_list_params
-from ...types.customers import plan_add_params
-from ...types.customers import plan_end_params
-from ...types.customers import plan_list_price_adjustments_params
-
 __all__ = ["PlansResource", "AsyncPlansResource"]
+
 
 class PlansResource(SyncAPIResource):
     @cached_property
@@ -61,17 +51,19 @@ class PlansResource(SyncAPIResource):
         """
         return PlansResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    customer_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[PlanListResponse]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[PlanListResponse]:
         """
         List the given customer's plans in reverse-chronological order.
 
@@ -89,35 +81,44 @@ class PlansResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/plans",
-            page = SyncCursorPage[PlanListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, plan_list_params.PlanListParams)),
+            page=SyncCursorPage[PlanListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    plan_list_params.PlanListParams,
+                ),
+            ),
             model=PlanListResponse,
         )
 
-    def add(self,
-    *,
-    customer_id: str,
-    plan_id: str,
-    starting_on: Union[str, datetime],
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-    overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
-    price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
-    trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> PlanAddResponse:
+    def add(
+        self,
+        *,
+        customer_id: str,
+        plan_id: str,
+        starting_on: Union[str, datetime],
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
+        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
+        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
+        trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> PlanAddResponse:
         """Associate an existing customer with a plan for a specified date range.
 
         See the
@@ -155,37 +156,42 @@ class PlansResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
             f"/customers/{customer_id}/plans/add",
-            body=maybe_transform({
-                "plan_id": plan_id,
-                "starting_on": starting_on,
-                "ending_before": ending_before,
-                "net_payment_terms_days": net_payment_terms_days,
-                "overage_rate_adjustments": overage_rate_adjustments,
-                "price_adjustments": price_adjustments,
-                "trial_spec": trial_spec,
-            }, plan_add_params.PlanAddParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "starting_on": starting_on,
+                    "ending_before": ending_before,
+                    "net_payment_terms_days": net_payment_terms_days,
+                    "overage_rate_adjustments": overage_rate_adjustments,
+                    "price_adjustments": price_adjustments,
+                    "trial_spec": trial_spec,
+                },
+                plan_add_params.PlanAddParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PlanAddResponse,
         )
 
-    def end(self,
-    *,
-    customer_id: str,
-    customer_plan_id: str,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    void_invoices: bool | NotGiven = NOT_GIVEN,
-    void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> PlanEndResponse:
+    def end(
+        self,
+        *,
+        customer_id: str,
+        customer_plan_id: str,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        void_invoices: bool | NotGiven = NOT_GIVEN,
+        void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> PlanEndResponse:
         """
         Change the end date of a customer's plan.
 
@@ -209,36 +215,39 @@ class PlansResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._post(
             f"/customers/{customer_id}/plans/{customer_plan_id}/end",
-            body=maybe_transform({
-                "ending_before": ending_before,
-                "void_invoices": void_invoices,
-                "void_stripe_invoices": void_stripe_invoices,
-            }, plan_end_params.PlanEndParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "ending_before": ending_before,
+                    "void_invoices": void_invoices,
+                    "void_stripe_invoices": void_stripe_invoices,
+                },
+                plan_end_params.PlanEndParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PlanEndResponse,
         )
 
-    def list_price_adjustments(self,
-    *,
-    customer_id: str,
-    customer_plan_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncCursorPage[PlanListPriceAdjustmentsResponse]:
+    def list_price_adjustments(
+        self,
+        *,
+        customer_id: str,
+        customer_plan_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncCursorPage[PlanListPriceAdjustmentsResponse]:
         """Lists a customer plans adjustments.
 
         See the
@@ -259,22 +268,28 @@ class PlansResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
-            page = SyncCursorPage[PlanListPriceAdjustmentsResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams)),
+            page=SyncCursorPage[PlanListPriceAdjustmentsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams,
+                ),
+            ),
             model=PlanListPriceAdjustmentsResponse,
         )
+
 
 class AsyncPlansResource(AsyncAPIResource):
     @cached_property
@@ -296,17 +311,19 @@ class AsyncPlansResource(AsyncAPIResource):
         """
         return AsyncPlansResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    customer_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
         List the given customer's plans in reverse-chronological order.
 
@@ -324,35 +341,44 @@ class AsyncPlansResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/plans",
-            page = AsyncCursorPage[PlanListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, plan_list_params.PlanListParams)),
+            page=AsyncCursorPage[PlanListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    plan_list_params.PlanListParams,
+                ),
+            ),
             model=PlanListResponse,
         )
 
-    async def add(self,
-    *,
-    customer_id: str,
-    plan_id: str,
-    starting_on: Union[str, datetime],
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-    overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
-    price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
-    trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> PlanAddResponse:
+    async def add(
+        self,
+        *,
+        customer_id: str,
+        plan_id: str,
+        starting_on: Union[str, datetime],
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
+        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
+        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
+        trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> PlanAddResponse:
         """Associate an existing customer with a plan for a specified date range.
 
         See the
@@ -390,37 +416,42 @@ class AsyncPlansResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
             f"/customers/{customer_id}/plans/add",
-            body=await async_maybe_transform({
-                "plan_id": plan_id,
-                "starting_on": starting_on,
-                "ending_before": ending_before,
-                "net_payment_terms_days": net_payment_terms_days,
-                "overage_rate_adjustments": overage_rate_adjustments,
-                "price_adjustments": price_adjustments,
-                "trial_spec": trial_spec,
-            }, plan_add_params.PlanAddParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "starting_on": starting_on,
+                    "ending_before": ending_before,
+                    "net_payment_terms_days": net_payment_terms_days,
+                    "overage_rate_adjustments": overage_rate_adjustments,
+                    "price_adjustments": price_adjustments,
+                    "trial_spec": trial_spec,
+                },
+                plan_add_params.PlanAddParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PlanAddResponse,
         )
 
-    async def end(self,
-    *,
-    customer_id: str,
-    customer_plan_id: str,
-    ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-    void_invoices: bool | NotGiven = NOT_GIVEN,
-    void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> PlanEndResponse:
+    async def end(
+        self,
+        *,
+        customer_id: str,
+        customer_plan_id: str,
+        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        void_invoices: bool | NotGiven = NOT_GIVEN,
+        void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> PlanEndResponse:
         """
         Change the end date of a customer's plan.
 
@@ -444,36 +475,39 @@ class AsyncPlansResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return await self._post(
             f"/customers/{customer_id}/plans/{customer_plan_id}/end",
-            body=await async_maybe_transform({
-                "ending_before": ending_before,
-                "void_invoices": void_invoices,
-                "void_stripe_invoices": void_stripe_invoices,
-            }, plan_end_params.PlanEndParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "ending_before": ending_before,
+                    "void_invoices": void_invoices,
+                    "void_stripe_invoices": void_stripe_invoices,
+                },
+                plan_end_params.PlanEndParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PlanEndResponse,
         )
 
-    def list_price_adjustments(self,
-    *,
-    customer_id: str,
-    customer_plan_id: str,
-    limit: int | NotGiven = NOT_GIVEN,
-    next_page: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[PlanListPriceAdjustmentsResponse, AsyncCursorPage[PlanListPriceAdjustmentsResponse]]:
+    def list_price_adjustments(
+        self,
+        *,
+        customer_id: str,
+        customer_plan_id: str,
+        limit: int | NotGiven = NOT_GIVEN,
+        next_page: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[PlanListPriceAdjustmentsResponse, AsyncCursorPage[PlanListPriceAdjustmentsResponse]]:
         """Lists a customer plans adjustments.
 
         See the
@@ -494,22 +528,28 @@ class AsyncPlansResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not customer_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_id` but received {customer_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         if not customer_plan_id:
-          raise ValueError(
-            f'Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._get_api_list(
             f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
-            page = AsyncCursorPage[PlanListPriceAdjustmentsResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "next_page": next_page,
-            }, plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams)),
+            page=AsyncCursorPage[PlanListPriceAdjustmentsResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "next_page": next_page,
+                    },
+                    plan_list_price_adjustments_params.PlanListPriceAdjustmentsParams,
+                ),
+            ),
             model=PlanListPriceAdjustmentsResponse,
         )
+
 
 class PlansResourceWithRawResponse:
     def __init__(self, plans: PlansResource) -> None:
@@ -528,6 +568,7 @@ class PlansResourceWithRawResponse:
             plans.list_price_adjustments,
         )
 
+
 class AsyncPlansResourceWithRawResponse:
     def __init__(self, plans: AsyncPlansResource) -> None:
         self._plans = plans
@@ -545,6 +586,7 @@ class AsyncPlansResourceWithRawResponse:
             plans.list_price_adjustments,
         )
 
+
 class PlansResourceWithStreamingResponse:
     def __init__(self, plans: PlansResource) -> None:
         self._plans = plans
@@ -561,6 +603,7 @@ class PlansResourceWithStreamingResponse:
         self.list_price_adjustments = to_streamed_response_wrapper(
             plans.list_price_adjustments,
         )
+
 
 class AsyncPlansResourceWithStreamingResponse:
     def __init__(self, plans: AsyncPlansResource) -> None:

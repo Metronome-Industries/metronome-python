@@ -1,33 +1,49 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Union, Optional, List, Dict
-
+from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias
-
+from ..._models import BaseModel
 from .schedule_duration import ScheduleDuration
-
 from .schedule_point_in_time import SchedulePointInTime
 
-from typing_extensions import Literal
+__all__ = [
+    "Commit",
+    "Product",
+    "Contract",
+    "InvoiceContract",
+    "Ledger",
+    "LedgerPrepaidCommitSegmentStartLedgerEntry",
+    "LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry",
+    "LedgerPrepaidCommitRolloverLedgerEntry",
+    "LedgerPrepaidCommitExpirationLedgerEntry",
+    "LedgerPrepaidCommitCanceledLedgerEntry",
+    "LedgerPrepaidCommitCreditedLedgerEntry",
+    "LedgerPostpaidCommitInitialBalanceLedgerEntry",
+    "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
+    "LedgerPostpaidCommitRolloverLedgerEntry",
+    "LedgerPostpaidCommitTrueupLedgerEntry",
+    "LedgerPrepaidCommitManualLedgerEntry",
+    "LedgerPostpaidCommitManualLedgerEntry",
+    "LedgerPostpaidCommitExpirationLedgerEntry",
+    "RolledOverFrom",
+]
 
-from pydantic import Field as FieldInfo
-
-__all__ = ["Commit", "Product", "Contract", "InvoiceContract", "Ledger", "LedgerPrepaidCommitSegmentStartLedgerEntry", "LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry", "LedgerPrepaidCommitRolloverLedgerEntry", "LedgerPrepaidCommitExpirationLedgerEntry", "LedgerPrepaidCommitCanceledLedgerEntry", "LedgerPrepaidCommitCreditedLedgerEntry", "LedgerPostpaidCommitInitialBalanceLedgerEntry", "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry", "LedgerPostpaidCommitRolloverLedgerEntry", "LedgerPostpaidCommitTrueupLedgerEntry", "LedgerPrepaidCommitManualLedgerEntry", "LedgerPostpaidCommitManualLedgerEntry", "LedgerPostpaidCommitExpirationLedgerEntry", "RolledOverFrom"]
 
 class Product(BaseModel):
     id: str
 
     name: str
 
+
 class Contract(BaseModel):
     id: str
 
+
 class InvoiceContract(BaseModel):
     id: str
+
 
 class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -37,6 +53,7 @@ class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_SEGMENT_START"]
+
 
 class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -49,6 +66,7 @@ class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+
 class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -60,6 +78,7 @@ class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_ROLLOVER"]
 
+
 class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -68,6 +87,7 @@ class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_EXPIRATION"]
+
 
 class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
     amount: float
@@ -80,6 +100,7 @@ class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CANCELED"]
 
+
 class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -91,12 +112,14 @@ class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CREDITED"]
 
+
 class LedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_INITIAL_BALANCE"]
+
 
 class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -109,6 +132,7 @@ class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+
 class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -120,6 +144,7 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
+
 class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
 
@@ -128,6 +153,7 @@ class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_TRUEUP"]
+
 
 class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
     amount: float
@@ -138,6 +164,7 @@ class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_MANUAL"]
 
+
 class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
     amount: float
 
@@ -147,6 +174,7 @@ class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_MANUAL"]
 
+
 class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -154,12 +182,29 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
-Ledger: TypeAlias = Union[LedgerPrepaidCommitSegmentStartLedgerEntry, LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry, LedgerPrepaidCommitRolloverLedgerEntry, LedgerPrepaidCommitExpirationLedgerEntry, LedgerPrepaidCommitCanceledLedgerEntry, LedgerPrepaidCommitCreditedLedgerEntry, LedgerPostpaidCommitInitialBalanceLedgerEntry, LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry, LedgerPostpaidCommitRolloverLedgerEntry, LedgerPostpaidCommitTrueupLedgerEntry, LedgerPrepaidCommitManualLedgerEntry, LedgerPostpaidCommitManualLedgerEntry, LedgerPostpaidCommitExpirationLedgerEntry]
+
+Ledger: TypeAlias = Union[
+    LedgerPrepaidCommitSegmentStartLedgerEntry,
+    LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
+    LedgerPrepaidCommitRolloverLedgerEntry,
+    LedgerPrepaidCommitExpirationLedgerEntry,
+    LedgerPrepaidCommitCanceledLedgerEntry,
+    LedgerPrepaidCommitCreditedLedgerEntry,
+    LedgerPostpaidCommitInitialBalanceLedgerEntry,
+    LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
+    LedgerPostpaidCommitRolloverLedgerEntry,
+    LedgerPostpaidCommitTrueupLedgerEntry,
+    LedgerPrepaidCommitManualLedgerEntry,
+    LedgerPostpaidCommitManualLedgerEntry,
+    LedgerPostpaidCommitExpirationLedgerEntry,
+]
+
 
 class RolledOverFrom(BaseModel):
     commit_id: str
 
     contract_id: str
+
 
 class Commit(BaseModel):
     id: str

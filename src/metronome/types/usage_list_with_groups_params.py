@@ -2,19 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Union, List
-
+from typing import List, Union
 from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
-from .._utils import PropertyInfo
-
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
 from .._utils import PropertyInfo
 
 __all__ = ["UsageListWithGroupsParams", "GroupBy"]
+
 
 class UsageListWithGroupsParams(TypedDict, total=False):
     billable_metric_id: Required[str]
@@ -41,11 +36,12 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     and ending_before are specified when this is true.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     group_by: GroupBy
 
-    starting_on: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class GroupBy(TypedDict, total=False):
     key: Required[str]
