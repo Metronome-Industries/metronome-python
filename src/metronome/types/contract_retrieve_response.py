@@ -98,6 +98,14 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
+    id: Optional[str] = None
+
+    configuration: Optional[Dict[str, object]] = None
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider.
+    """
+
 
 class DataSubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
