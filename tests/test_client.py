@@ -33,7 +33,7 @@ from metronome._base_client import (
     BaseClient,
     make_request_options,
 )
-from metronome.types.contract_create_params import ContractCreateParams
+from metronome.types.v1.contract_create_params import ContractCreateParams
 
 from .utils import update_env
 
@@ -813,7 +813,7 @@ class TestMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = client.contracts.with_raw_response.create(
+        response = client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
         )
 
@@ -839,7 +839,7 @@ class TestMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = client.contracts.with_raw_response.create(
+        response = client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             extra_headers={"x-stainless-retry-count": Omit()},
@@ -866,7 +866,7 @@ class TestMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = client.contracts.with_raw_response.create(
+        response = client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             extra_headers={"x-stainless-retry-count": "42"},
@@ -1636,7 +1636,7 @@ class TestAsyncMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = await client.contracts.with_raw_response.create(
+        response = await client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d", starting_at=parse_datetime("2020-01-01T00:00:00.000Z")
         )
 
@@ -1663,7 +1663,7 @@ class TestAsyncMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = await client.contracts.with_raw_response.create(
+        response = await client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             extra_headers={"x-stainless-retry-count": Omit()},
@@ -1691,7 +1691,7 @@ class TestAsyncMetronome:
 
         respx_mock.post("/v1/contracts/create").mock(side_effect=retry_handler)
 
-        response = await client.contracts.with_raw_response.create(
+        response = await client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             extra_headers={"x-stainless-retry-count": "42"},
