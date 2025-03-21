@@ -76,7 +76,7 @@ class PlansResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/plans",
+            "/v1/plans",
             page=SyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -120,7 +120,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get(
-            f"/planDetails/{plan_id}",
+            f"/v1/planDetails/{plan_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -159,7 +159,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/planDetails/{plan_id}/charges",
+            f"/v1/planDetails/{plan_id}/charges",
             page=SyncCursorPage[PlanListChargesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -221,7 +221,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/planDetails/{plan_id}/customers",
+            f"/v1/planDetails/{plan_id}/customers",
             page=SyncCursorPage[PlanListCustomersResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -290,7 +290,7 @@ class AsyncPlansResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/plans",
+            "/v1/plans",
             page=AsyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -334,7 +334,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return await self._get(
-            f"/planDetails/{plan_id}",
+            f"/v1/planDetails/{plan_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -373,7 +373,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/planDetails/{plan_id}/charges",
+            f"/v1/planDetails/{plan_id}/charges",
             page=AsyncCursorPage[PlanListChargesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -435,7 +435,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/planDetails/{plan_id}/customers",
+            f"/v1/planDetails/{plan_id}/customers",
             page=AsyncCursorPage[PlanListCustomersResponse],
             options=make_request_options(
                 extra_headers=extra_headers,

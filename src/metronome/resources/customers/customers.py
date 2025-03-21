@@ -184,7 +184,7 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customers",
+            "/v1/customers",
             body=maybe_transform(
                 {
                     "name": name,
@@ -228,7 +228,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get(
-            f"/customers/{customer_id}",
+            f"/v1/customers/{customer_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -278,7 +278,7 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/customers",
+            "/v1/customers",
             page=SyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -324,7 +324,7 @@ class CustomersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customers/archive",
+            "/v1/customers/archive",
             body=maybe_transform({"id": id}, customer_archive_params.CustomerArchiveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -371,7 +371,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/billable-metrics",
+            f"/v1/customers/{customer_id}/billable-metrics",
             page=SyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -431,7 +431,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/costs",
+            f"/v1/customers/{customer_id}/costs",
             page=SyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -482,7 +482,7 @@ class CustomersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/customers/{customer_id}/setIngestAliases",
+            f"/v1/customers/{customer_id}/setIngestAliases",
             body=maybe_transform(
                 {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
             ),
@@ -522,7 +522,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
-            f"/customers/{customer_id}/setName",
+            f"/v1/customers/{customer_id}/setName",
             body=maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -564,7 +564,7 @@ class CustomersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/customers/{customer_id}/updateConfig",
+            f"/v1/customers/{customer_id}/updateConfig",
             body=maybe_transform(
                 {
                     "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
@@ -664,7 +664,7 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customers",
+            "/v1/customers",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -708,7 +708,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._get(
-            f"/customers/{customer_id}",
+            f"/v1/customers/{customer_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -758,7 +758,7 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/customers",
+            "/v1/customers",
             page=AsyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -804,7 +804,7 @@ class AsyncCustomersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customers/archive",
+            "/v1/customers/archive",
             body=await async_maybe_transform({"id": id}, customer_archive_params.CustomerArchiveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -851,7 +851,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/billable-metrics",
+            f"/v1/customers/{customer_id}/billable-metrics",
             page=AsyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -911,7 +911,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/costs",
+            f"/v1/customers/{customer_id}/costs",
             page=AsyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -962,7 +962,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/customers/{customer_id}/setIngestAliases",
+            f"/v1/customers/{customer_id}/setIngestAliases",
             body=await async_maybe_transform(
                 {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
             ),
@@ -1002,7 +1002,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
-            f"/customers/{customer_id}/setName",
+            f"/v1/customers/{customer_id}/setName",
             body=await async_maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1044,7 +1044,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/customers/{customer_id}/updateConfig",
+            f"/v1/customers/{customer_id}/updateConfig",
             body=await async_maybe_transform(
                 {
                     "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,

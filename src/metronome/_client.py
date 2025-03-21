@@ -125,7 +125,7 @@ class Metronome(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("METRONOME_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.metronome.com/v1"
+            base_url = f"https://api.metronome.com"
 
         super().__init__(
             version=__version__,
@@ -327,7 +327,7 @@ class AsyncMetronome(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("METRONOME_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.metronome.com/v1"
+            base_url = f"https://api.metronome.com"
 
         super().__init__(
             version=__version__,

@@ -86,7 +86,7 @@ class DashboardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/dashboards/getEmbeddableUrl",
+            "/v1/dashboards/getEmbeddableUrl",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -163,7 +163,7 @@ class AsyncDashboardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/dashboards/getEmbeddableUrl",
+            "/v1/dashboards/getEmbeddableUrl",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,

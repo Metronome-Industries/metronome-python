@@ -100,7 +100,7 @@ class CustomFieldsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customFields/addKey",
+            "/v1/customFields/addKey",
             body=maybe_transform(
                 {
                     "enforce_uniqueness": enforce_uniqueness,
@@ -160,7 +160,7 @@ class CustomFieldsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customFields/deleteValues",
+            "/v1/customFields/deleteValues",
             body=maybe_transform(
                 {
                     "entity": entity,
@@ -225,7 +225,7 @@ class CustomFieldsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customFields/listKeys",
+            "/v1/customFields/listKeys",
             body=maybe_transform({"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -283,7 +283,7 @@ class CustomFieldsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customFields/removeKey",
+            "/v1/customFields/removeKey",
             body=maybe_transform(
                 {
                     "entity": entity,
@@ -349,7 +349,7 @@ class CustomFieldsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customFields/setValues",
+            "/v1/customFields/setValues",
             body=maybe_transform(
                 {
                     "custom_fields": custom_fields,
@@ -432,7 +432,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customFields/addKey",
+            "/v1/customFields/addKey",
             body=await async_maybe_transform(
                 {
                     "enforce_uniqueness": enforce_uniqueness,
@@ -492,7 +492,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customFields/deleteValues",
+            "/v1/customFields/deleteValues",
             body=await async_maybe_transform(
                 {
                     "entity": entity,
@@ -557,7 +557,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customFields/listKeys",
+            "/v1/customFields/listKeys",
             body=await async_maybe_transform(
                 {"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams
             ),
@@ -617,7 +617,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customFields/removeKey",
+            "/v1/customFields/removeKey",
             body=await async_maybe_transform(
                 {
                     "entity": entity,
@@ -683,7 +683,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customFields/setValues",
+            "/v1/customFields/setValues",
             body=await async_maybe_transform(
                 {
                     "custom_fields": custom_fields,

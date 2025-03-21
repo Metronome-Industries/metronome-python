@@ -125,7 +125,7 @@ class CreditGrantsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/credits/createGrant",
+            "/v1/credits/createGrant",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -199,7 +199,7 @@ class CreditGrantsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/credits/listGrants",
+            "/v1/credits/listGrants",
             page=SyncCursorPage[CreditGrantListResponse],
             body=maybe_transform(
                 {
@@ -263,7 +263,7 @@ class CreditGrantsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/credits/editGrant",
+            "/v1/credits/editGrant",
             body=maybe_transform(
                 {
                     "id": id,
@@ -326,7 +326,7 @@ class CreditGrantsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/credits/listEntries",
+            "/v1/credits/listEntries",
             body=maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
@@ -378,7 +378,7 @@ class CreditGrantsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/credits/voidGrant",
+            "/v1/credits/voidGrant",
             body=maybe_transform(
                 {
                     "id": id,
@@ -481,7 +481,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/credits/createGrant",
+            "/v1/credits/createGrant",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -555,7 +555,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/credits/listGrants",
+            "/v1/credits/listGrants",
             page=AsyncCursorPage[CreditGrantListResponse],
             body=maybe_transform(
                 {
@@ -619,7 +619,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/credits/editGrant",
+            "/v1/credits/editGrant",
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -682,7 +682,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/credits/listEntries",
+            "/v1/credits/listEntries",
             body=await async_maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
@@ -734,7 +734,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/credits/voidGrant",
+            "/v1/credits/voidGrant",
             body=await async_maybe_transform(
                 {
                     "id": id,

@@ -71,7 +71,7 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/invoices/regenerate",
+            "/v1/invoices/regenerate",
             body=maybe_transform({"id": id}, invoice_regenerate_params.InvoiceRegenerateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -105,7 +105,7 @@ class InvoicesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/invoices/void",
+            "/v1/invoices/void",
             body=maybe_transform({"id": id}, invoice_void_params.InvoiceVoidParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -160,7 +160,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/invoices/regenerate",
+            "/v1/invoices/regenerate",
             body=await async_maybe_transform({"id": id}, invoice_regenerate_params.InvoiceRegenerateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -194,7 +194,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/invoices/void",
+            "/v1/invoices/void",
             body=await async_maybe_transform({"id": id}, invoice_void_params.InvoiceVoidParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
