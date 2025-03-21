@@ -91,7 +91,7 @@ class RatesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/rate-cards/getRates",
+            "/v1/contract-pricing/rate-cards/getRates",
             page=SyncCursorPage[RateListResponse],
             body=maybe_transform(
                 {
@@ -196,7 +196,7 @@ class RatesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/addRate",
+            "/v1/contract-pricing/rate-cards/addRate",
             body=maybe_transform(
                 {
                     "entitled": entitled,
@@ -249,7 +249,7 @@ class RatesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/addRates",
+            "/v1/contract-pricing/rate-cards/addRates",
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -323,7 +323,7 @@ class AsyncRatesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/rate-cards/getRates",
+            "/v1/contract-pricing/rate-cards/getRates",
             page=AsyncCursorPage[RateListResponse],
             body=maybe_transform(
                 {
@@ -428,7 +428,7 @@ class AsyncRatesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/addRate",
+            "/v1/contract-pricing/rate-cards/addRate",
             body=await async_maybe_transform(
                 {
                     "entitled": entitled,
@@ -481,7 +481,7 @@ class AsyncRatesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/addRates",
+            "/v1/contract-pricing/rate-cards/addRates",
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,

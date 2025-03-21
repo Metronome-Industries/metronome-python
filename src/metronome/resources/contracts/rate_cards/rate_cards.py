@@ -135,7 +135,7 @@ class RateCardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/create",
+            "/v1/contract-pricing/rate-cards/create",
             body=maybe_transform(
                 {
                     "name": name,
@@ -178,7 +178,7 @@ class RateCardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/get",
+            "/v1/contract-pricing/rate-cards/get",
             body=maybe_transform({"id": id}, rate_card_retrieve_params.RateCardRetrieveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -221,7 +221,7 @@ class RateCardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/update",
+            "/v1/contract-pricing/rate-cards/update",
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -268,7 +268,7 @@ class RateCardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/rate-cards/list",
+            "/v1/contract-pricing/rate-cards/list",
             page=SyncCursorPage[RateCardListResponse],
             body=maybe_transform(body, rate_card_list_params.RateCardListParams),
             options=make_request_options(
@@ -332,7 +332,7 @@ class RateCardsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/getRateSchedule",
+            "/v1/contract-pricing/rate-cards/getRateSchedule",
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -432,7 +432,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/create",
+            "/v1/contract-pricing/rate-cards/create",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -475,7 +475,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/get",
+            "/v1/contract-pricing/rate-cards/get",
             body=await async_maybe_transform({"id": id}, rate_card_retrieve_params.RateCardRetrieveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -518,7 +518,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/update",
+            "/v1/contract-pricing/rate-cards/update",
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -565,7 +565,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/rate-cards/list",
+            "/v1/contract-pricing/rate-cards/list",
             page=AsyncCursorPage[RateCardListResponse],
             body=maybe_transform(body, rate_card_list_params.RateCardListParams),
             options=make_request_options(
@@ -629,7 +629,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/getRateSchedule",
+            "/v1/contract-pricing/rate-cards/getRateSchedule",
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,

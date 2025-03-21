@@ -83,7 +83,7 @@ class PlansResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/plans",
+            f"/v1/customers/{customer_id}/plans",
             page=SyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -158,7 +158,7 @@ class PlansResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
-            f"/customers/{customer_id}/plans/add",
+            f"/v1/customers/{customer_id}/plans/add",
             body=maybe_transform(
                 {
                     "plan_id": plan_id,
@@ -219,7 +219,7 @@ class PlansResource(SyncAPIResource):
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._post(
-            f"/customers/{customer_id}/plans/{customer_plan_id}/end",
+            f"/v1/customers/{customer_id}/plans/{customer_plan_id}/end",
             body=maybe_transform(
                 {
                     "ending_before": ending_before,
@@ -272,7 +272,7 @@ class PlansResource(SyncAPIResource):
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
+            f"/v1/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
             page=SyncCursorPage[PlanListPriceAdjustmentsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -343,7 +343,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/plans",
+            f"/v1/customers/{customer_id}/plans",
             page=AsyncCursorPage[PlanListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -418,7 +418,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
-            f"/customers/{customer_id}/plans/add",
+            f"/v1/customers/{customer_id}/plans/add",
             body=await async_maybe_transform(
                 {
                     "plan_id": plan_id,
@@ -479,7 +479,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return await self._post(
-            f"/customers/{customer_id}/plans/{customer_plan_id}/end",
+            f"/v1/customers/{customer_id}/plans/{customer_plan_id}/end",
             body=await async_maybe_transform(
                 {
                     "ending_before": ending_before,
@@ -532,7 +532,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not customer_plan_id:
             raise ValueError(f"Expected a non-empty value for `customer_plan_id` but received {customer_plan_id!r}")
         return self._get_api_list(
-            f"/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
+            f"/v1/customers/{customer_id}/plans/{customer_plan_id}/priceAdjustments",
             page=AsyncCursorPage[PlanListPriceAdjustmentsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,

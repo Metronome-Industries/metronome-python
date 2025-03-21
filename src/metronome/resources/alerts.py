@@ -136,7 +136,7 @@ class AlertsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/alerts/create",
+            "/v1/alerts/create",
             body=maybe_transform(
                 {
                     "alert_type": alert_type,
@@ -190,7 +190,7 @@ class AlertsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/alerts/archive",
+            "/v1/alerts/archive",
             body=maybe_transform(
                 {
                     "id": id,
@@ -313,7 +313,7 @@ class AsyncAlertsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/alerts/create",
+            "/v1/alerts/create",
             body=await async_maybe_transform(
                 {
                     "alert_type": alert_type,
@@ -367,7 +367,7 @@ class AsyncAlertsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/alerts/archive",
+            "/v1/alerts/archive",
             body=await async_maybe_transform(
                 {
                     "id": id,

@@ -138,7 +138,7 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/products/create",
+            "/v1/contract-pricing/products/create",
             body=maybe_transform(
                 {
                     "name": name,
@@ -188,7 +188,7 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/products/get",
+            "/v1/contract-pricing/products/get",
             body=maybe_transform({"id": id}, product_retrieve_params.ProductRetrieveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -287,7 +287,7 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/products/update",
+            "/v1/contract-pricing/products/update",
             body=maybe_transform(
                 {
                     "product_id": product_id,
@@ -346,7 +346,7 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/products/list",
+            "/v1/contract-pricing/products/list",
             page=SyncCursorPage[ProductListResponse],
             body=maybe_transform({"archive_filter": archive_filter}, product_list_params.ProductListParams),
             options=make_request_options(
@@ -392,7 +392,7 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/products/archive",
+            "/v1/contract-pricing/products/archive",
             body=maybe_transform({"product_id": product_id}, product_archive_params.ProductArchiveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -498,7 +498,7 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/products/create",
+            "/v1/contract-pricing/products/create",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -548,7 +548,7 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/products/get",
+            "/v1/contract-pricing/products/get",
             body=await async_maybe_transform({"id": id}, product_retrieve_params.ProductRetrieveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -647,7 +647,7 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/products/update",
+            "/v1/contract-pricing/products/update",
             body=await async_maybe_transform(
                 {
                     "product_id": product_id,
@@ -706,7 +706,7 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/contract-pricing/products/list",
+            "/v1/contract-pricing/products/list",
             page=AsyncCursorPage[ProductListResponse],
             body=maybe_transform({"archive_filter": archive_filter}, product_list_params.ProductListParams),
             options=make_request_options(
@@ -752,7 +752,7 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/products/archive",
+            "/v1/contract-pricing/products/archive",
             body=await async_maybe_transform({"product_id": product_id}, product_archive_params.ProductArchiveParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

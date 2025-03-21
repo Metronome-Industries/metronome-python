@@ -82,7 +82,7 @@ class NamedSchedulesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/getNamedSchedule",
+            "/v1/contract-pricing/rate-cards/getNamedSchedule",
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -135,7 +135,7 @@ class NamedSchedulesResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/contract-pricing/rate-cards/updateNamedSchedule",
+            "/v1/contract-pricing/rate-cards/updateNamedSchedule",
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -208,7 +208,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/getNamedSchedule",
+            "/v1/contract-pricing/rate-cards/getNamedSchedule",
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
@@ -261,7 +261,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/contract-pricing/rate-cards/updateNamedSchedule",
+            "/v1/contract-pricing/rate-cards/updateNamedSchedule",
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,

@@ -195,7 +195,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/create",
+            "/v1/contracts/create",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -269,7 +269,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/get",
+            "/v1/contracts/get",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -330,7 +330,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/list",
+            "/v1/contracts/list",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -394,7 +394,7 @@ class ContractsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/contracts/addManualBalanceLedgerEntry",
+            "/v1/contracts/addManualBalanceLedgerEntry",
             body=maybe_transform(
                 {
                     "id": id,
@@ -468,7 +468,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/amend",
+            "/v1/contracts/amend",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -527,7 +527,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/archive",
+            "/v1/contracts/archive",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -567,7 +567,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/createHistoricalInvoices",
+            "/v1/contracts/createHistoricalInvoices",
             body=maybe_transform(
                 {
                     "invoices": invoices,
@@ -632,7 +632,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerBalances/list",
+            "/v1/contracts/customerBalances/list",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -697,7 +697,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/getContractRateSchedule",
+            "/v1/contracts/getContractRateSchedule",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -761,7 +761,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/scheduleProServicesInvoice",
+            "/v1/contracts/scheduleProServicesInvoice",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -808,7 +808,7 @@ class ContractsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/contracts/setUsageFilter",
+            "/v1/contracts/setUsageFilter",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -864,7 +864,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/updateEndDate",
+            "/v1/contracts/updateEndDate",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1001,7 +1001,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/create",
+            "/v1/contracts/create",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -1075,7 +1075,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/get",
+            "/v1/contracts/get",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1136,7 +1136,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/list",
+            "/v1/contracts/list",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -1200,7 +1200,7 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/contracts/addManualBalanceLedgerEntry",
+            "/v1/contracts/addManualBalanceLedgerEntry",
             body=await async_maybe_transform(
                 {
                     "id": id,
@@ -1274,7 +1274,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/amend",
+            "/v1/contracts/amend",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1333,7 +1333,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/archive",
+            "/v1/contracts/archive",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1373,7 +1373,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/createHistoricalInvoices",
+            "/v1/contracts/createHistoricalInvoices",
             body=await async_maybe_transform(
                 {
                     "invoices": invoices,
@@ -1438,7 +1438,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerBalances/list",
+            "/v1/contracts/customerBalances/list",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -1503,7 +1503,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/getContractRateSchedule",
+            "/v1/contracts/getContractRateSchedule",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1567,7 +1567,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/scheduleProServicesInvoice",
+            "/v1/contracts/scheduleProServicesInvoice",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1614,7 +1614,7 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/contracts/setUsageFilter",
+            "/v1/contracts/setUsageFilter",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -1670,7 +1670,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/updateEndDate",
+            "/v1/contracts/updateEndDate",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,

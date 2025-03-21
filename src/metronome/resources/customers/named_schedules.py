@@ -82,7 +82,7 @@ class NamedSchedulesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customers/getNamedSchedule",
+            "/v1/customers/getNamedSchedule",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -135,7 +135,7 @@ class NamedSchedulesResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customers/updateNamedSchedule",
+            "/v1/customers/updateNamedSchedule",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -208,7 +208,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customers/getNamedSchedule",
+            "/v1/customers/getNamedSchedule",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -261,7 +261,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customers/updateNamedSchedule",
+            "/v1/customers/updateNamedSchedule",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,

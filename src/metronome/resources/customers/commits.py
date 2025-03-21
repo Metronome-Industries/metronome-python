@@ -130,7 +130,7 @@ class CommitsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCommits/create",
+            "/v1/contracts/customerCommits/create",
             body=maybe_transform(
                 {
                     "access_schedule": access_schedule,
@@ -210,7 +210,7 @@ class CommitsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCommits/list",
+            "/v1/contracts/customerCommits/list",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -270,7 +270,7 @@ class CommitsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCommits/updateEndDate",
+            "/v1/contracts/customerCommits/updateEndDate",
             body=maybe_transform(
                 {
                     "commit_id": commit_id,
@@ -387,7 +387,7 @@ class AsyncCommitsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCommits/create",
+            "/v1/contracts/customerCommits/create",
             body=await async_maybe_transform(
                 {
                     "access_schedule": access_schedule,
@@ -467,7 +467,7 @@ class AsyncCommitsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCommits/list",
+            "/v1/contracts/customerCommits/list",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -527,7 +527,7 @@ class AsyncCommitsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCommits/updateEndDate",
+            "/v1/contracts/customerCommits/updateEndDate",
             body=await async_maybe_transform(
                 {
                     "commit_id": commit_id,

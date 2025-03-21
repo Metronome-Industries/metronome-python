@@ -57,7 +57,7 @@ class ServicesResource(SyncAPIResource):
         first time.
         """
         return self._get(
-            "/services",
+            "/v1/services",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -103,7 +103,7 @@ class AsyncServicesResource(AsyncAPIResource):
         first time.
         """
         return await self._get(
-            "/services",
+            "/v1/services",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

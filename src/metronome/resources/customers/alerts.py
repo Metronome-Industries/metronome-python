@@ -78,7 +78,7 @@ class AlertsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customer-alerts/get",
+            "/v1/customer-alerts/get",
             body=maybe_transform(
                 {
                     "alert_id": alert_id,
@@ -125,7 +125,7 @@ class AlertsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/customer-alerts/list",
+            "/v1/customer-alerts/list",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -173,7 +173,7 @@ class AlertsResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/customer-alerts/reset",
+            "/v1/customer-alerts/reset",
             body=maybe_transform(
                 {
                     "alert_id": alert_id,
@@ -238,7 +238,7 @@ class AsyncAlertsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customer-alerts/get",
+            "/v1/customer-alerts/get",
             body=await async_maybe_transform(
                 {
                     "alert_id": alert_id,
@@ -285,7 +285,7 @@ class AsyncAlertsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/customer-alerts/list",
+            "/v1/customer-alerts/list",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -333,7 +333,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/customer-alerts/reset",
+            "/v1/customer-alerts/reset",
             body=await async_maybe_transform(
                 {
                     "alert_id": alert_id,

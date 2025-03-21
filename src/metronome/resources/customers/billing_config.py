@@ -121,7 +121,7 @@ class BillingConfigResource(SyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             body=maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
@@ -177,7 +177,7 @@ class BillingConfigResource(SyncAPIResource):
                 f"Expected a non-empty value for `billing_provider_type` but received {billing_provider_type!r}"
             )
         return self._get(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -227,7 +227,7 @@ class BillingConfigResource(SyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -330,7 +330,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             body=await async_maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
@@ -386,7 +386,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
                 f"Expected a non-empty value for `billing_provider_type` but received {billing_provider_type!r}"
             )
         return await self._get(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -436,7 +436,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/customers/{customer_id}/billing-config/{billing_provider_type}",
+            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
