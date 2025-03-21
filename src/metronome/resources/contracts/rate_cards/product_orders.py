@@ -74,7 +74,7 @@ class ProductOrdersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/moveRateCardProducts",
+            "/v1/contract-pricing/rate-cards/moveRateCardProducts",
             body=maybe_transform(
                 {
                     "product_moves": product_moves,
@@ -115,7 +115,7 @@ class ProductOrdersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contract-pricing/rate-cards/setRateCardProductsOrder",
+            "/v1/contract-pricing/rate-cards/setRateCardProductsOrder",
             body=maybe_transform(
                 {
                     "product_order": product_order,
@@ -177,7 +177,7 @@ class AsyncProductOrdersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/moveRateCardProducts",
+            "/v1/contract-pricing/rate-cards/moveRateCardProducts",
             body=await async_maybe_transform(
                 {
                     "product_moves": product_moves,
@@ -218,7 +218,7 @@ class AsyncProductOrdersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contract-pricing/rate-cards/setRateCardProductsOrder",
+            "/v1/contract-pricing/rate-cards/setRateCardProductsOrder",
             body=await async_maybe_transform(
                 {
                     "product_order": product_order,

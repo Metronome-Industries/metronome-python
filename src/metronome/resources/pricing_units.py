@@ -71,7 +71,7 @@ class PricingUnitsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/credit-types/list",
+            "/v1/credit-types/list",
             page=SyncCursorPage[PricingUnitListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -139,7 +139,7 @@ class AsyncPricingUnitsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/credit-types/list",
+            "/v1/credit-types/list",
             page=AsyncCursorPage[PricingUnitListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,

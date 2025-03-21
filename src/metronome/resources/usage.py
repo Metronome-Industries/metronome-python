@@ -92,7 +92,7 @@ class UsageResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/usage",
+            "/v1/usage",
             body=maybe_transform(
                 {
                     "ending_before": ending_before,
@@ -143,7 +143,7 @@ class UsageResource(SyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            "/ingest",
+            "/v1/ingest",
             body=maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -196,7 +196,7 @@ class UsageResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/usage/groups",
+            "/v1/usage/groups",
             page=SyncCursorPage[UsageListWithGroupsResponse],
             body=maybe_transform(
                 {
@@ -290,7 +290,7 @@ class AsyncUsageResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/usage",
+            "/v1/usage",
             body=await async_maybe_transform(
                 {
                     "ending_before": ending_before,
@@ -341,7 +341,7 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            "/ingest",
+            "/v1/ingest",
             body=await async_maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -394,7 +394,7 @@ class AsyncUsageResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/usage/groups",
+            "/v1/usage/groups",
             page=AsyncCursorPage[UsageListWithGroupsResponse],
             body=maybe_transform(
                 {

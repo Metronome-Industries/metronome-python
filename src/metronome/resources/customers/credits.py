@@ -114,7 +114,7 @@ class CreditsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCredits/create",
+            "/v1/contracts/customerCredits/create",
             body=maybe_transform(
                 {
                     "access_schedule": access_schedule,
@@ -191,7 +191,7 @@ class CreditsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCredits/list",
+            "/v1/contracts/customerCredits/list",
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -246,7 +246,7 @@ class CreditsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/contracts/customerCredits/updateEndDate",
+            "/v1/contracts/customerCredits/updateEndDate",
             body=maybe_transform(
                 {
                     "access_ending_before": access_ending_before,
@@ -346,7 +346,7 @@ class AsyncCreditsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCredits/create",
+            "/v1/contracts/customerCredits/create",
             body=await async_maybe_transform(
                 {
                     "access_schedule": access_schedule,
@@ -423,7 +423,7 @@ class AsyncCreditsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCredits/list",
+            "/v1/contracts/customerCredits/list",
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -478,7 +478,7 @@ class AsyncCreditsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/contracts/customerCredits/updateEndDate",
+            "/v1/contracts/customerCredits/updateEndDate",
             body=await async_maybe_transform(
                 {
                     "access_ending_before": access_ending_before,

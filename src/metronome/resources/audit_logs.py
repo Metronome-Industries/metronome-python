@@ -97,7 +97,7 @@ class AuditLogsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/auditLogs",
+            "/v1/auditLogs",
             page=SyncCursorPage[AuditLogListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -192,7 +192,7 @@ class AsyncAuditLogsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/auditLogs",
+            "/v1/auditLogs",
             page=AsyncCursorPage[AuditLogListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
