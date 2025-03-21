@@ -31,7 +31,7 @@ client = Metronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
-client.usage.ingest()
+client.v1.usage.ingest()
 ```
 
 While you can provide a `bearer_token` keyword argument,
@@ -54,7 +54,7 @@ client = AsyncMetronome(
 
 
 async def main() -> None:
-    await client.usage.ingest()
+    await client.v1.usage.ingest()
 
 
 asyncio.run(main())
@@ -84,7 +84,7 @@ client = Metronome()
 
 all_products = []
 # Automatically fetches more pages as needed.
-for product in client.contracts.products.list():
+for product in client.v1.contracts.products.list():
     # Do something with product here
     all_products.append(product)
 print(all_products)
@@ -102,7 +102,7 @@ client = AsyncMetronome()
 async def main() -> None:
     all_products = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for product in client.contracts.products.list():
+    async for product in client.v1.contracts.products.list():
         all_products.append(product)
     print(all_products)
 
@@ -113,7 +113,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.contracts.products.list()
+first_page = await client.v1.contracts.products.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -125,7 +125,7 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.contracts.products.list()
+first_page = await client.v1.contracts.products.list()
 
 print(f"next page cursor: {first_page.next_page}")  # => "next page cursor: ..."
 for product in first_page.data:
@@ -133,6 +133,11 @@ for product in first_page.data:
 
 # Remove `await` for non-async usage.
 ```
+
+from metronome.\_utils import parse_datetime
+from metronome.\_utils import parse_datetime
+from metronome.\_utils import parse_datetime
+from metronome.\_utils import parse_datetime
 
 ## Nested params
 
@@ -143,16 +148,29 @@ from metronome import Metronome
 
 client = Metronome()
 
-alert = client.alerts.create(
-    alert_type="low_credit_balance_reached",
-    name="$100 spend threshold reached",
-    threshold=10000,
-    group_key_filter={
-        "key": "key",
-        "value": "value",
+response = client.v2.contracts.edit_commit(
+    commit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
+    customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
+    access_schedule={
+        "add_schedule_items": [
+            {
+                "amount": 0,
+                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+            }
+        ],
+        "remove_schedule_items": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+        "update_schedule_items": [
+            {
+                "id": "d5edbd32-c744-48cb-9475-a9bca0e6fa39",
+                "amount": 0,
+                "ending_before": parse_datetime("2025-03-12T00:00:00Z"),
+                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+            }
+        ],
     },
 )
-print(alert.group_key_filter)
+print(response.access_schedule)
 ```
 
 ## Handling errors
@@ -173,7 +191,7 @@ from metronome import Metronome
 client = Metronome()
 
 try:
-    client.contracts.create(
+    client.v1.contracts.create(
         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
     )
@@ -221,7 +239,7 @@ client = Metronome(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).contracts.create(
+client.with_options(max_retries=5).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
@@ -249,7 +267,7 @@ client = Metronome(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).contracts.create(
+client.with_options(timeout=5.0).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
@@ -293,13 +311,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from metronome import Metronome
 
 client = Metronome()
-response = client.contracts.with_raw_response.create(
+response = client.v1.contracts.with_raw_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 )
 print(response.headers.get('X-My-Header'))
 
-contract = response.parse()  # get the object that `contracts.create()` would have returned
+contract = response.parse()  # get the object that `v1.contracts.create()` would have returned
 print(contract.data)
 ```
 
@@ -314,7 +332,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.contracts.with_streaming_response.create(
+with client.v1.contracts.with_streaming_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
 ) as response:
