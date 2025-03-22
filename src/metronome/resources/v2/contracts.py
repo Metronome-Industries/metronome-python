@@ -74,12 +74,13 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """Get a specific contract
+        """Get a specific contract.
+
+        New clients should use this endpoint rather than the v1
+        endpoint.
 
         Args:
-          as_of_date: Optional RFC 3339 timestamp.
-
-        Return the contract as of this date. Cannot be used
+          as_of_date: Optional RFC 3339 timestamp. Return the contract as of this date. Cannot be used
               with include_ledgers parameter.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -201,7 +202,7 @@ class ContractsResource(SyncAPIResource):
     ) -> ContractEditResponse:
         """Edit a contract.
 
-        Contracts can only be edited if contract editing is enabled.
+        Contract editing must be enabled to use this endpoint.
 
         Args:
           contract_id: ID of the contract being edited
@@ -265,8 +266,8 @@ class ContractsResource(SyncAPIResource):
     ) -> ContractEditCommitResponse:
         """Edit a customer or contract commit.
 
-        Contract commits can only be edited if
-        contract editing is enabled.
+        Contract commits can only be edited using
+        this endpoint if contract editing is enabled.
 
         Args:
           commit_id: ID of the commit to edit
@@ -328,8 +329,8 @@ class ContractsResource(SyncAPIResource):
     ) -> ContractEditCreditResponse:
         """Edit a customer or contract credit.
 
-        Contract credits can only be edited if
-        contract editing is enabled.
+        Contract credits can only be edited using
+        this endpoint if contract editing is enabled.
 
         Args:
           credit_id: ID of the credit to edit
@@ -444,12 +445,13 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """Get a specific contract
+        """Get a specific contract.
+
+        New clients should use this endpoint rather than the v1
+        endpoint.
 
         Args:
-          as_of_date: Optional RFC 3339 timestamp.
-
-        Return the contract as of this date. Cannot be used
+          as_of_date: Optional RFC 3339 timestamp. Return the contract as of this date. Cannot be used
               with include_ledgers parameter.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -571,7 +573,7 @@ class AsyncContractsResource(AsyncAPIResource):
     ) -> ContractEditResponse:
         """Edit a contract.
 
-        Contracts can only be edited if contract editing is enabled.
+        Contract editing must be enabled to use this endpoint.
 
         Args:
           contract_id: ID of the contract being edited
@@ -635,8 +637,8 @@ class AsyncContractsResource(AsyncAPIResource):
     ) -> ContractEditCommitResponse:
         """Edit a customer or contract commit.
 
-        Contract commits can only be edited if
-        contract editing is enabled.
+        Contract commits can only be edited using
+        this endpoint if contract editing is enabled.
 
         Args:
           commit_id: ID of the commit to edit
@@ -698,8 +700,8 @@ class AsyncContractsResource(AsyncAPIResource):
     ) -> ContractEditCreditResponse:
         """Edit a customer or contract credit.
 
-        Contract credits can only be edited if
-        contract editing is enabled.
+        Contract credits can only be edited using
+        this endpoint if contract editing is enabled.
 
         Args:
           credit_id: ID of the credit to edit
