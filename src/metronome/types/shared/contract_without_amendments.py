@@ -28,8 +28,9 @@ __all__ = [
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditInvoiceAmount",
     "ResellerRoyalty",
+    "ThresholdBillingConfiguration",
+    "ThresholdBillingConfigurationCommit",
     "UsageFilter",
     "UsageFilterUpdate",
 ]
@@ -125,6 +126,22 @@ class RecurringCommit(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """Will be passed down to the individual commits"""
 
+    proration: Optional[Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]] = None
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    start_date rather than the usage invoice dates.
+    """
+
     rollover_fraction: Optional[float] = None
     """Will be passed down to the individual commits.
 
@@ -155,14 +172,6 @@ class RecurringCreditProduct(BaseModel):
 
 class RecurringCreditContract(BaseModel):
     id: str
-
-
-class RecurringCreditInvoiceAmount(BaseModel):
-    credit_type_id: str
-
-    quantity: float
-
-    unit_price: float
 
 
 class RecurringCredit(BaseModel):
@@ -199,14 +208,27 @@ class RecurringCredit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    invoice_amount: Optional[RecurringCreditInvoiceAmount] = None
-    """The amount the customer should be billed for the commit. Not required."""
-
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
 
     netsuite_sales_order_id: Optional[str] = None
     """Will be passed down to the individual commits"""
+
+    proration: Optional[Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]] = None
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    start_date rather than the usage invoice dates.
+    """
 
     rollover_fraction: Optional[float] = None
     """Will be passed down to the individual commits.
@@ -242,6 +264,50 @@ class ResellerRoyalty(BaseModel):
     gcp_offer_id: Optional[str] = None
 
     reseller_contract_value: Optional[float] = None
+
+
+class ThresholdBillingConfigurationCommit(BaseModel):
+    product_id: str
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class ThresholdBillingConfiguration(BaseModel):
+    commit: ThresholdBillingConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state
+    """
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
 
 
 class UsageFilterUpdate(BaseModel):
@@ -314,6 +380,8 @@ class ContractWithoutAmendments(BaseModel):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
+
+    threshold_billing_configuration: Optional[ThresholdBillingConfiguration] = None
 
     total_contract_value: Optional[float] = None
     """This field's availability is dependent on your client's configuration."""
