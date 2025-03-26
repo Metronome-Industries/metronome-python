@@ -246,8 +246,11 @@ class CommitsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CommitUpdateEndDateResponse:
-        """
-        Update the end date of a PREPAID commit
+        """Pull forward the end date of a prepaid commit.
+
+        Use the "edit a commit" endpoint
+        to extend the end date of a prepaid commit, or to make other edits to the
+        commit.
 
         Args:
           commit_id: ID of the commit to update. Only supports "PREPAID" commits.
@@ -503,8 +506,11 @@ class AsyncCommitsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CommitUpdateEndDateResponse:
-        """
-        Update the end date of a PREPAID commit
+        """Pull forward the end date of a prepaid commit.
+
+        Use the "edit a commit" endpoint
+        to extend the end date of a prepaid commit, or to make other edits to the
+        commit.
 
         Args:
           commit_id: ID of the commit to update. Only supports "PREPAID" commits.
