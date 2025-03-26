@@ -131,8 +131,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """
-        List all contracts for a customer
+        """List all contracts for a customer.
+
+        New clients should use this endpoint rather
+        than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -382,8 +384,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractGetEditHistoryResponse:
-        """
-        Get the edit history of a specific contract
+        """Get the edit history of a specific contract.
+
+        Contract editing must be enabled to
+        use this endpoint.
 
         Args:
           extra_headers: Send extra headers
@@ -502,8 +506,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """
-        List all contracts for a customer
+        """List all contracts for a customer.
+
+        New clients should use this endpoint rather
+        than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -753,8 +759,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractGetEditHistoryResponse:
-        """
-        Get the edit history of a specific contract
+        """Get the edit history of a specific contract.
+
+        Contract editing must be enabled to
+        use this endpoint.
 
         Args:
           extra_headers: Send extra headers
