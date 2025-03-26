@@ -248,8 +248,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """
-        Get a specific contract
+        """This is the v1 endpoint to get a contract.
+
+        New clients should implement using
+        the v2 endpoint.
 
         Args:
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -299,8 +301,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """
-        List all contracts for a customer
+        """This is the v1 endpoint to list all contracts for a customer.
+
+        New clients should
+        implement using the v2 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. If provided, the response will include only
@@ -435,8 +439,13 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractAmendResponse:
-        """
-        Amend a contract
+        """Amendments will be replaced by Contract editing.
+
+        New clients should implement
+        using the editContract endpoint. Read more about the migration to contract
+        editing [here](https://docs.metronome.com/migrate-amendments-to-edits/) and
+        reach out to your Metronome representative for more details. Once contract
+        editing is enabled, access to this endpoint will be removed.
 
         Args:
           contract_id: ID of the contract to amend
@@ -1052,8 +1061,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """
-        Get a specific contract
+        """This is the v1 endpoint to get a contract.
+
+        New clients should implement using
+        the v2 endpoint.
 
         Args:
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -1103,8 +1114,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """
-        List all contracts for a customer
+        """This is the v1 endpoint to list all contracts for a customer.
+
+        New clients should
+        implement using the v2 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. If provided, the response will include only
@@ -1239,8 +1252,13 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractAmendResponse:
-        """
-        Amend a contract
+        """Amendments will be replaced by Contract editing.
+
+        New clients should implement
+        using the editContract endpoint. Read more about the migration to contract
+        editing [here](https://docs.metronome.com/migrate-amendments-to-edits/) and
+        reach out to your Metronome representative for more details. Once contract
+        editing is enabled, access to this endpoint will be removed.
 
         Args:
           contract_id: ID of the contract to amend
