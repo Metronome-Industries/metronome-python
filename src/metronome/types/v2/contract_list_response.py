@@ -319,7 +319,7 @@ class DataCommit(BaseModel):
 
 
 class DataOverrideOverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
     commit_ids: Optional[List[str]] = None
 
@@ -439,7 +439,7 @@ class DataUsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
 
 class DataCreditProduct(BaseModel):
@@ -681,7 +681,7 @@ class DataRecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -769,7 +769,7 @@ class DataRecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
