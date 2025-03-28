@@ -226,8 +226,10 @@ class CreditsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """
-        Update the end date of a credit
+        """Pull forward the end date of a credit.
+
+        Use the "edit a credit" endpoint to
+        extend the end date of a credit, or to make other edits to the credit.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no
@@ -458,8 +460,10 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """
-        Update the end date of a credit
+        """Pull forward the end date of a credit.
+
+        Use the "edit a credit" endpoint to
+        extend the end date of a credit, or to make other edits to the credit.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no

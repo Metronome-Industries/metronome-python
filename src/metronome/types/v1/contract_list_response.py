@@ -19,11 +19,6 @@ __all__ = [
     "DataAmendment",
     "DataAmendmentResellerRoyalty",
     "DataCustomerBillingProviderConfiguration",
-    "DataSubscription",
-    "DataSubscriptionProration",
-    "DataSubscriptionQuantitySchedule",
-    "DataSubscriptionSubscriptionRate",
-    "DataSubscriptionSubscriptionRateProduct",
 ]
 
 
@@ -107,50 +102,6 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     """
 
 
-class DataSubscriptionProration(BaseModel):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-
-    is_prorated: bool
-
-
-class DataSubscriptionQuantitySchedule(BaseModel):
-    quantity: float
-
-    starting_at: datetime
-
-    ending_before: Optional[datetime] = None
-
-
-class DataSubscriptionSubscriptionRateProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class DataSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-
-    product: DataSubscriptionSubscriptionRateProduct
-
-
-class DataSubscription(BaseModel):
-    collection_schedule: Literal["ADVANCE", "ARREARS"]
-
-    proration: DataSubscriptionProration
-
-    quantity_schedule: List[DataSubscriptionQuantitySchedule]
-
-    starting_at: datetime
-
-    subscription_rate: DataSubscriptionSubscriptionRate
-
-    description: Optional[str] = None
-
-    ending_before: Optional[datetime] = None
-
-    name: Optional[str] = None
-
-
 class Data(BaseModel):
     id: str
 
@@ -181,8 +132,6 @@ class Data(BaseModel):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
-
-    subscriptions: Optional[List[DataSubscription]] = None
 
     uniqueness_key: Optional[str] = None
     """Prevents the creation of duplicates.

@@ -67,11 +67,6 @@ __all__ = [
     "DataRecurringCreditContract",
     "DataResellerRoyalty",
     "DataResellerRoyaltySegment",
-    "DataSubscription",
-    "DataSubscriptionProration",
-    "DataSubscriptionQuantitySchedule",
-    "DataSubscriptionSubscriptionRate",
-    "DataSubscriptionSubscriptionRateProduct",
     "DataThresholdBillingConfiguration",
     "DataThresholdBillingConfigurationCommit",
 ]
@@ -324,7 +319,7 @@ class DataCommit(BaseModel):
 
 
 class DataOverrideOverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
     commit_ids: Optional[List[str]] = None
 
@@ -444,7 +439,7 @@ class DataUsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
 
 class DataCreditProduct(BaseModel):
@@ -686,7 +681,7 @@ class DataRecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -774,7 +769,7 @@ class DataRecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -823,50 +818,6 @@ class DataResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
 
     segments: List[DataResellerRoyaltySegment]
-
-
-class DataSubscriptionProration(BaseModel):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-
-    is_prorated: bool
-
-
-class DataSubscriptionQuantitySchedule(BaseModel):
-    quantity: float
-
-    starting_at: datetime
-
-    ending_before: Optional[datetime] = None
-
-
-class DataSubscriptionSubscriptionRateProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class DataSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-
-    product: DataSubscriptionSubscriptionRateProduct
-
-
-class DataSubscription(BaseModel):
-    collection_schedule: Literal["ADVANCE", "ARREARS"]
-
-    proration: DataSubscriptionProration
-
-    quantity_schedule: List[DataSubscriptionQuantitySchedule]
-
-    starting_at: datetime
-
-    subscription_rate: DataSubscriptionSubscriptionRate
-
-    description: Optional[str] = None
-
-    ending_before: Optional[datetime] = None
-
-    name: Optional[str] = None
 
 
 class DataThresholdBillingConfigurationCommit(BaseModel):
@@ -988,8 +939,6 @@ class Data(BaseModel):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
-
-    subscriptions: Optional[List[DataSubscription]] = None
 
     threshold_billing_configuration: Optional[DataThresholdBillingConfiguration] = None
 

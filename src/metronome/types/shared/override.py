@@ -12,8 +12,6 @@ __all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Pr
 
 
 class OverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
-
     commit_ids: Optional[List[str]] = None
 
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None

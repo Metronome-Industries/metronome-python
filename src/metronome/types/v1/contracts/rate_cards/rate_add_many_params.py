@@ -39,13 +39,6 @@ class Rate(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-    """Optional.
-
-    Frequency to bill subscriptions with. Required for subscription type products
-    with Flat rate.
-    """
-
     commit_rate: RateCommitRate
     """A distinct rate on the rate card.
 

@@ -209,7 +209,6 @@ class TestRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -435,7 +434,6 @@ class TestAsyncRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
