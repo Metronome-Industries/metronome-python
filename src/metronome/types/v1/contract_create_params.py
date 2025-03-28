@@ -702,7 +702,7 @@ class RecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -782,7 +782,7 @@ class RecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -993,7 +993,7 @@ class Transition(TypedDict, total=False):
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
 
     billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Required when using CUSTOM_DATE.
