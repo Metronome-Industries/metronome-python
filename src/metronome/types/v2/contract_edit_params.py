@@ -91,6 +91,18 @@ class ContractEditParams(TypedDict, total=False):
 
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
+    archive_commits: List[str]
+    """IDs of commits to archive"""
+
+    archive_credits: List[str]
+    """IDs of credits to archive"""
+
+    archive_scheduled_charges: List[str]
+    """IDs of scheduled charges to archive"""
+
+    remove_overrides: List[str]
+    """IDs of overrides to remove"""
+
     update_commits: Iterable[UpdateCommit]
 
     update_credits: Iterable[UpdateCredit]
