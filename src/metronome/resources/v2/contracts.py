@@ -192,6 +192,10 @@ class ContractsResource(SyncAPIResource):
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
+        archive_commits: List[str] | NotGiven = NOT_GIVEN,
+        archive_credits: List[str] | NotGiven = NOT_GIVEN,
+        archive_scheduled_charges: List[str] | NotGiven = NOT_GIVEN,
+        remove_overrides: List[str] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
@@ -212,6 +216,14 @@ class ContractsResource(SyncAPIResource):
           customer_id: ID of the customer whose contract is being edited
 
           add_professional_services: This field's availability is dependent on your client's configuration.
+
+          archive_commits: IDs of commits to archive
+
+          archive_credits: IDs of credits to archive
+
+          archive_scheduled_charges: IDs of scheduled charges to archive
+
+          remove_overrides: IDs of overrides to remove
 
           extra_headers: Send extra headers
 
@@ -236,6 +248,10 @@ class ContractsResource(SyncAPIResource):
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
+                    "archive_commits": archive_commits,
+                    "archive_credits": archive_credits,
+                    "archive_scheduled_charges": archive_scheduled_charges,
+                    "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
@@ -567,6 +583,10 @@ class AsyncContractsResource(AsyncAPIResource):
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
+        archive_commits: List[str] | NotGiven = NOT_GIVEN,
+        archive_credits: List[str] | NotGiven = NOT_GIVEN,
+        archive_scheduled_charges: List[str] | NotGiven = NOT_GIVEN,
+        remove_overrides: List[str] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
@@ -587,6 +607,14 @@ class AsyncContractsResource(AsyncAPIResource):
           customer_id: ID of the customer whose contract is being edited
 
           add_professional_services: This field's availability is dependent on your client's configuration.
+
+          archive_commits: IDs of commits to archive
+
+          archive_credits: IDs of credits to archive
+
+          archive_scheduled_charges: IDs of scheduled charges to archive
+
+          remove_overrides: IDs of overrides to remove
 
           extra_headers: Send extra headers
 
@@ -611,6 +639,10 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
+                    "archive_commits": archive_commits,
+                    "archive_credits": archive_credits,
+                    "archive_scheduled_charges": archive_scheduled_charges,
+                    "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
