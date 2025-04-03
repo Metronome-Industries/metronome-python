@@ -2,13 +2,10 @@
 
 
 from ..._models import BaseModel
+from ..shared.id import ID
 
-__all__ = ["ContractAmendResponse", "Data"]
-
-
-class Data(BaseModel):
-    id: str
+__all__ = ["ContractAmendResponse"]
 
 
 class ContractAmendResponse(BaseModel):
-    data: Data
+    data: ID
