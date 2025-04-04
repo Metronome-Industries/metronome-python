@@ -39,6 +39,10 @@ __all__ = [
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
     "DataAddUsageFilter",
+    "DataArchiveCommit",
+    "DataArchiveCredit",
+    "DataArchiveScheduledCharge",
+    "DataRemoveOverride",
     "DataUpdateCommit",
     "DataUpdateCommitAccessSchedule",
     "DataUpdateCommitAccessScheduleAddScheduleItem",
@@ -494,6 +498,22 @@ class DataAddUsageFilter(BaseModel):
     """
 
 
+class DataArchiveCommit(BaseModel):
+    id: str
+
+
+class DataArchiveCredit(BaseModel):
+    id: str
+
+
+class DataArchiveScheduledCharge(BaseModel):
+    id: str
+
+
+class DataRemoveOverride(BaseModel):
+    id: str
+
+
 class DataUpdateCommitAccessScheduleAddScheduleItem(BaseModel):
     amount: float
 
@@ -798,6 +818,14 @@ class Data(BaseModel):
     add_scheduled_charges: Optional[List[DataAddScheduledCharge]] = None
 
     add_usage_filters: Optional[List[DataAddUsageFilter]] = None
+
+    archive_commits: Optional[List[DataArchiveCommit]] = None
+
+    archive_credits: Optional[List[DataArchiveCredit]] = None
+
+    archive_scheduled_charges: Optional[List[DataArchiveScheduledCharge]] = None
+
+    remove_overrides: Optional[List[DataRemoveOverride]] = None
 
     timestamp: Optional[datetime] = None
 

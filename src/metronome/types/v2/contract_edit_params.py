@@ -43,6 +43,10 @@ __all__ = [
     "AddScheduledChargeSchedule",
     "AddScheduledChargeScheduleRecurringSchedule",
     "AddScheduledChargeScheduleScheduleItem",
+    "ArchiveCommit",
+    "ArchiveCredit",
+    "ArchiveScheduledCharge",
+    "RemoveOverride",
     "UpdateCommit",
     "UpdateCommitAccessSchedule",
     "UpdateCommitAccessScheduleAddScheduleItem",
@@ -91,16 +95,16 @@ class ContractEditParams(TypedDict, total=False):
 
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
-    archive_commits: List[str]
+    archive_commits: Iterable[ArchiveCommit]
     """IDs of commits to archive"""
 
-    archive_credits: List[str]
+    archive_credits: Iterable[ArchiveCredit]
     """IDs of credits to archive"""
 
-    archive_scheduled_charges: List[str]
+    archive_scheduled_charges: Iterable[ArchiveScheduledCharge]
     """IDs of scheduled charges to archive"""
 
-    remove_overrides: List[str]
+    remove_overrides: Iterable[RemoveOverride]
     """IDs of overrides to remove"""
 
     update_commits: Iterable[UpdateCommit]
@@ -877,6 +881,22 @@ class AddScheduledCharge(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class ArchiveCommit(TypedDict, total=False):
+    id: Required[str]
+
+
+class ArchiveCredit(TypedDict, total=False):
+    id: Required[str]
+
+
+class ArchiveScheduledCharge(TypedDict, total=False):
+    id: Required[str]
+
+
+class RemoveOverride(TypedDict, total=False):
+    id: Required[str]
 
 
 class UpdateCommitAccessScheduleAddScheduleItem(TypedDict, total=False):

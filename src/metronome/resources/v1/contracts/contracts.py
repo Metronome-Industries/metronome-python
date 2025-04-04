@@ -616,7 +616,7 @@ class ContractsResource(SyncAPIResource):
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
-          include_archived: Include credits from archived contracts.
+          include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
               may cause the query to be slower.
@@ -1429,7 +1429,7 @@ class AsyncContractsResource(AsyncAPIResource):
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
-          include_archived: Include credits from archived contracts.
+          include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
               may cause the query to be slower.
