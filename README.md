@@ -163,9 +163,6 @@ for product in first_page.data:
 ```
 
 from metronome.\_utils import parse_datetime
-from metronome.\_utils import parse_datetime
-from metronome.\_utils import parse_datetime
-from metronome.\_utils import parse_datetime
 
 ## Nested params
 
@@ -176,29 +173,16 @@ from metronome import Metronome
 
 client = Metronome()
 
-response = client.v2.contracts.edit_commit(
-    commit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
-    customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
-    access_schedule={
-        "add_schedule_items": [
-            {
-                "amount": 0,
-                "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-            }
-        ],
-        "remove_schedule_items": [{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        "update_schedule_items": [
-            {
-                "id": "d5edbd32-c744-48cb-9475-a9bca0e6fa39",
-                "amount": 0,
-                "ending_before": parse_datetime("2025-03-12T00:00:00Z"),
-                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-            }
-        ],
+contract = client.v1.contracts.create(
+    customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    billing_provider_configuration={
+        "billing_provider": "aws_marketplace",
+        "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        "delivery_method": "direct_to_billing_provider",
     },
 )
-print(response.access_schedule)
+print(contract.billing_provider_configuration)
 ```
 
 ## Handling errors
