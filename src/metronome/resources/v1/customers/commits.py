@@ -187,7 +187,7 @@ class CommitsResource(SyncAPIResource):
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
-          include_archived: Include commits from archived contracts.
+          include_archived: Include archived commits and commits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.
@@ -447,7 +447,7 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
-          include_archived: Include commits from archived contracts.
+          include_archived: Include archived commits and commits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.

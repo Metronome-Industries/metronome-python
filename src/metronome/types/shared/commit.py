@@ -228,6 +228,12 @@ class Commit(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
+    archived_at: Optional[datetime] = None
+    """RFC 3339 timestamp indicating when the commit was archived.
+
+    If not provided, the commit is not archived.
+    """
+
     balance: Optional[float] = None
     """The current balance of the credit or commit.
 
