@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
+from datetime import datetime
 
 from ..._models import BaseModel
 from .schedule_point_in_time import SchedulePointInTime
@@ -20,6 +21,8 @@ class ScheduledCharge(BaseModel):
     product: Product
 
     schedule: SchedulePointInTime
+
+    archived_at: Optional[datetime] = None
 
     custom_fields: Optional[Dict[str, str]] = None
 

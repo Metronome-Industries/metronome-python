@@ -266,6 +266,8 @@ class DataCommit(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
+    archived_at: Optional[datetime] = None
+
     balance: Optional[float] = None
     """The current balance of the credit or commit.
 

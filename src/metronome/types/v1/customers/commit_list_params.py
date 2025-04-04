@@ -23,7 +23,7 @@ class CommitListParams(TypedDict, total=False):
     """Include only commits that have any access before the provided date (exclusive)"""
 
     include_archived: bool
-    """Include commits from archived contracts."""
+    """Include archived commits and commits from archived contracts."""
 
     include_balance: bool
     """Include the balance in the response.
