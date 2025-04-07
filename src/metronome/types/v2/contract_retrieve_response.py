@@ -68,7 +68,10 @@ __all__ = [
     "DataResellerRoyalty",
     "DataResellerRoyaltySegment",
     "DataThresholdBillingConfiguration",
-    "DataThresholdBillingConfigurationCommit",
+    "DataThresholdBillingConfigurationCreditBalanceThresholdConfiguration",
+    "DataThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit",
+    "DataThresholdBillingConfigurationSpendThresholdConfiguration",
+    "DataThresholdBillingConfigurationSpendThresholdConfigurationCommit",
 ]
 
 
@@ -822,7 +825,7 @@ class DataResellerRoyalty(BaseModel):
     segments: List[DataResellerRoyaltySegment]
 
 
-class DataThresholdBillingConfigurationCommit(BaseModel):
+class DataThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit(BaseModel):
     product_id: str
 
     applicable_product_ids: Optional[List[str]] = None
@@ -848,8 +851,55 @@ class DataThresholdBillingConfigurationCommit(BaseModel):
     """
 
 
-class DataThresholdBillingConfiguration(BaseModel):
-    commit: DataThresholdBillingConfigurationCommit
+class DataThresholdBillingConfigurationCreditBalanceThresholdConfiguration(BaseModel):
+    commit: DataThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state
+    """
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
+
+
+class DataThresholdBillingConfigurationSpendThresholdConfigurationCommit(BaseModel):
+    product_id: str
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataThresholdBillingConfigurationSpendThresholdConfiguration(BaseModel):
+    commit: DataThresholdBillingConfigurationSpendThresholdConfigurationCommit
 
     is_enabled: bool
     """
@@ -864,6 +914,14 @@ class DataThresholdBillingConfiguration(BaseModel):
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
     """
+
+
+class DataThresholdBillingConfiguration(BaseModel):
+    credit_balance_threshold_configuration: Optional[
+        DataThresholdBillingConfigurationCreditBalanceThresholdConfiguration
+    ] = None
+
+    spend_threshold_configuration: Optional[DataThresholdBillingConfigurationSpendThresholdConfiguration] = None
 
 
 class Data(BaseModel):

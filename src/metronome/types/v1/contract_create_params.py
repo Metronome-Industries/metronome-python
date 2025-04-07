@@ -46,7 +46,10 @@ __all__ = [
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
     "ThresholdBillingConfiguration",
-    "ThresholdBillingConfigurationCommit",
+    "ThresholdBillingConfigurationCreditBalanceThresholdConfiguration",
+    "ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit",
+    "ThresholdBillingConfigurationSpendThresholdConfiguration",
+    "ThresholdBillingConfigurationSpendThresholdConfigurationCommit",
     "Transition",
     "TransitionFutureInvoiceBehavior",
     "UsageStatementSchedule",
@@ -931,7 +934,7 @@ class ScheduledCharge(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
-class ThresholdBillingConfigurationCommit(TypedDict, total=False):
+class ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
 
     applicable_product_ids: List[str]
@@ -957,8 +960,55 @@ class ThresholdBillingConfigurationCommit(TypedDict, total=False):
     """
 
 
-class ThresholdBillingConfiguration(TypedDict, total=False):
-    commit: Required[ThresholdBillingConfigurationCommit]
+class ThresholdBillingConfigurationCreditBalanceThresholdConfiguration(TypedDict, total=False):
+    commit: Required[ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state
+    """
+
+    recharge_to_amount: Required[float]
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
+
+
+class ThresholdBillingConfigurationSpendThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class ThresholdBillingConfigurationSpendThresholdConfiguration(TypedDict, total=False):
+    commit: Required[ThresholdBillingConfigurationSpendThresholdConfigurationCommit]
 
     is_enabled: Required[bool]
     """
@@ -973,6 +1023,12 @@ class ThresholdBillingConfiguration(TypedDict, total=False):
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
     """
+
+
+class ThresholdBillingConfiguration(TypedDict, total=False):
+    credit_balance_threshold_configuration: ThresholdBillingConfigurationCreditBalanceThresholdConfiguration
+
+    spend_threshold_configuration: ThresholdBillingConfigurationSpendThresholdConfiguration
 
 
 class TransitionFutureInvoiceBehavior(TypedDict, total=False):
