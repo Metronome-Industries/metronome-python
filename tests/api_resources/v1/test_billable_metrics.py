@@ -35,7 +35,7 @@ class TestBillableMetrics:
         billable_metric = client.v1.billable_metrics.create(
             name="CPU Hours",
             aggregation_key="cpu_hours",
-            aggregation_type="COUNT",
+            aggregation_type="SUM",
             custom_fields={"foo": "string"},
             event_type_filter={
                 "in_values": ["cpu_usage"],
@@ -209,7 +209,7 @@ class TestAsyncBillableMetrics:
         billable_metric = await async_client.v1.billable_metrics.create(
             name="CPU Hours",
             aggregation_key="cpu_hours",
-            aggregation_type="COUNT",
+            aggregation_type="SUM",
             custom_fields={"foo": "string"},
             event_type_filter={
                 "in_values": ["cpu_usage"],
