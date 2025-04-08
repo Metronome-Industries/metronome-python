@@ -21,7 +21,7 @@ class TestBillingConfig:
     def test_method_create(self, client: Metronome) -> None:
         billing_config = client.v1.customers.billing_config.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         )
         assert billing_config is None
@@ -30,7 +30,7 @@ class TestBillingConfig:
     def test_method_create_with_all_params(self, client: Metronome) -> None:
         billing_config = client.v1.customers.billing_config.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
             aws_product_code="aws_product_code",
             aws_region="af-south-1",
@@ -42,7 +42,7 @@ class TestBillingConfig:
     def test_raw_response_create(self, client: Metronome) -> None:
         response = client.v1.customers.billing_config.with_raw_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         )
 
@@ -55,7 +55,7 @@ class TestBillingConfig:
     def test_streaming_response_create(self, client: Metronome) -> None:
         with client.v1.customers.billing_config.with_streaming_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         ) as response:
             assert not response.is_closed
@@ -71,7 +71,7 @@ class TestBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.v1.customers.billing_config.with_raw_response.create(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
                 billing_provider_customer_id="cus_AJ6y20bjkOOayM",
             )
 
@@ -79,7 +79,7 @@ class TestBillingConfig:
     def test_method_retrieve(self, client: Metronome) -> None:
         billing_config = client.v1.customers.billing_config.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
         assert_matches_type(BillingConfigRetrieveResponse, billing_config, path=["response"])
 
@@ -87,7 +87,7 @@ class TestBillingConfig:
     def test_raw_response_retrieve(self, client: Metronome) -> None:
         response = client.v1.customers.billing_config.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
 
         assert response.is_closed is True
@@ -99,7 +99,7 @@ class TestBillingConfig:
     def test_streaming_response_retrieve(self, client: Metronome) -> None:
         with client.v1.customers.billing_config.with_streaming_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -114,14 +114,14 @@ class TestBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.v1.customers.billing_config.with_raw_response.retrieve(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
             )
 
     @parametrize
     def test_method_delete(self, client: Metronome) -> None:
         billing_config = client.v1.customers.billing_config.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
         assert billing_config is None
 
@@ -129,7 +129,7 @@ class TestBillingConfig:
     def test_raw_response_delete(self, client: Metronome) -> None:
         response = client.v1.customers.billing_config.with_raw_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
 
         assert response.is_closed is True
@@ -141,7 +141,7 @@ class TestBillingConfig:
     def test_streaming_response_delete(self, client: Metronome) -> None:
         with client.v1.customers.billing_config.with_streaming_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -156,7 +156,7 @@ class TestBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             client.v1.customers.billing_config.with_raw_response.delete(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
             )
 
 
@@ -167,7 +167,7 @@ class TestAsyncBillingConfig:
     async def test_method_create(self, async_client: AsyncMetronome) -> None:
         billing_config = await async_client.v1.customers.billing_config.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         )
         assert billing_config is None
@@ -176,7 +176,7 @@ class TestAsyncBillingConfig:
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
         billing_config = await async_client.v1.customers.billing_config.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
             aws_product_code="aws_product_code",
             aws_region="af-south-1",
@@ -188,7 +188,7 @@ class TestAsyncBillingConfig:
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.customers.billing_config.with_raw_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         )
 
@@ -201,7 +201,7 @@ class TestAsyncBillingConfig:
     async def test_streaming_response_create(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.customers.billing_config.with_streaming_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
             billing_provider_customer_id="cus_AJ6y20bjkOOayM",
         ) as response:
             assert not response.is_closed
@@ -217,7 +217,7 @@ class TestAsyncBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.v1.customers.billing_config.with_raw_response.create(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
                 billing_provider_customer_id="cus_AJ6y20bjkOOayM",
             )
 
@@ -225,7 +225,7 @@ class TestAsyncBillingConfig:
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
         billing_config = await async_client.v1.customers.billing_config.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
         assert_matches_type(BillingConfigRetrieveResponse, billing_config, path=["response"])
 
@@ -233,7 +233,7 @@ class TestAsyncBillingConfig:
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.customers.billing_config.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
 
         assert response.is_closed is True
@@ -245,7 +245,7 @@ class TestAsyncBillingConfig:
     async def test_streaming_response_retrieve(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.customers.billing_config.with_streaming_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -260,14 +260,14 @@ class TestAsyncBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.v1.customers.billing_config.with_raw_response.retrieve(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
             )
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncMetronome) -> None:
         billing_config = await async_client.v1.customers.billing_config.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
         assert billing_config is None
 
@@ -275,7 +275,7 @@ class TestAsyncBillingConfig:
     async def test_raw_response_delete(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.customers.billing_config.with_raw_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         )
 
         assert response.is_closed is True
@@ -287,7 +287,7 @@ class TestAsyncBillingConfig:
     async def test_streaming_response_delete(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.customers.billing_config.with_streaming_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            billing_provider_type="aws_marketplace",
+            billing_provider_type="stripe",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -302,5 +302,5 @@ class TestAsyncBillingConfig:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
             await async_client.v1.customers.billing_config.with_raw_response.delete(
                 customer_id="",
-                billing_provider_type="aws_marketplace",
+                billing_provider_type="stripe",
             )

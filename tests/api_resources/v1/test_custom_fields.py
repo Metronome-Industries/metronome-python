@@ -23,7 +23,7 @@ class TestCustomFields:
     def test_method_add_key(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
         assert custom_field is None
@@ -32,7 +32,7 @@ class TestCustomFields:
     def test_raw_response_add_key(self, client: Metronome) -> None:
         response = client.v1.custom_fields.with_raw_response.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
 
@@ -45,7 +45,7 @@ class TestCustomFields:
     def test_streaming_response_add_key(self, client: Metronome) -> None:
         with client.v1.custom_fields.with_streaming_response.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         ) as response:
             assert not response.is_closed
@@ -59,7 +59,7 @@ class TestCustomFields:
     @parametrize
     def test_method_delete_values(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         )
@@ -68,7 +68,7 @@ class TestCustomFields:
     @parametrize
     def test_raw_response_delete_values(self, client: Metronome) -> None:
         response = client.v1.custom_fields.with_raw_response.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         )
@@ -81,7 +81,7 @@ class TestCustomFields:
     @parametrize
     def test_streaming_response_delete_values(self, client: Metronome) -> None:
         with client.v1.custom_fields.with_streaming_response.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         ) as response:
@@ -102,7 +102,7 @@ class TestCustomFields:
     def test_method_list_keys_with_all_params(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.list_keys(
             next_page="next_page",
-            entities=["alert"],
+            entities=["customer"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
 
@@ -129,7 +129,7 @@ class TestCustomFields:
     @parametrize
     def test_method_remove_key(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
         assert custom_field is None
@@ -137,7 +137,7 @@ class TestCustomFields:
     @parametrize
     def test_raw_response_remove_key(self, client: Metronome) -> None:
         response = client.v1.custom_fields.with_raw_response.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
 
@@ -149,7 +149,7 @@ class TestCustomFields:
     @parametrize
     def test_streaming_response_remove_key(self, client: Metronome) -> None:
         with client.v1.custom_fields.with_streaming_response.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         ) as response:
             assert not response.is_closed
@@ -164,7 +164,7 @@ class TestCustomFields:
     def test_method_set_values(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         )
         assert custom_field is None
@@ -173,7 +173,7 @@ class TestCustomFields:
     def test_raw_response_set_values(self, client: Metronome) -> None:
         response = client.v1.custom_fields.with_raw_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         )
 
@@ -186,7 +186,7 @@ class TestCustomFields:
     def test_streaming_response_set_values(self, client: Metronome) -> None:
         with client.v1.custom_fields.with_streaming_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         ) as response:
             assert not response.is_closed
@@ -205,7 +205,7 @@ class TestAsyncCustomFields:
     async def test_method_add_key(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
         assert custom_field is None
@@ -214,7 +214,7 @@ class TestAsyncCustomFields:
     async def test_raw_response_add_key(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.custom_fields.with_raw_response.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
 
@@ -227,7 +227,7 @@ class TestAsyncCustomFields:
     async def test_streaming_response_add_key(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.custom_fields.with_streaming_response.add_key(
             enforce_uniqueness=True,
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         ) as response:
             assert not response.is_closed
@@ -241,7 +241,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_method_delete_values(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         )
@@ -250,7 +250,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_raw_response_delete_values(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.custom_fields.with_raw_response.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         )
@@ -263,7 +263,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_streaming_response_delete_values(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.custom_fields.with_streaming_response.delete_values(
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
             keys=["x_account_id"],
         ) as response:
@@ -284,7 +284,7 @@ class TestAsyncCustomFields:
     async def test_method_list_keys_with_all_params(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.list_keys(
             next_page="next_page",
-            entities=["alert"],
+            entities=["customer"],
         )
         assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
 
@@ -311,7 +311,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_method_remove_key(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
         assert custom_field is None
@@ -319,7 +319,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_raw_response_remove_key(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.custom_fields.with_raw_response.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         )
 
@@ -331,7 +331,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_streaming_response_remove_key(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.custom_fields.with_streaming_response.remove_key(
-            entity="alert",
+            entity="customer",
             key="x_account_id",
         ) as response:
             assert not response.is_closed
@@ -346,7 +346,7 @@ class TestAsyncCustomFields:
     async def test_method_set_values(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         )
         assert custom_field is None
@@ -355,7 +355,7 @@ class TestAsyncCustomFields:
     async def test_raw_response_set_values(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.custom_fields.with_raw_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         )
 
@@ -368,7 +368,7 @@ class TestAsyncCustomFields:
     async def test_streaming_response_set_values(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.custom_fields.with_streaming_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
-            entity="alert",
+            entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
         ) as response:
             assert not response.is_closed
