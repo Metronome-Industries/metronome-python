@@ -49,7 +49,7 @@ class TestCustomers:
             custom_fields={"foo": "string"},
             customer_billing_provider_configurations=[
                 {
-                    "billing_provider": "aws_marketplace",
+                    "billing_provider": "stripe",
                     "configuration": {
                         "stripe_customer_id": "bar",
                         "stripe_collection_method": "bar",
@@ -456,7 +456,7 @@ class TestAsyncCustomers:
             custom_fields={"foo": "string"},
             customer_billing_provider_configurations=[
                 {
-                    "billing_provider": "aws_marketplace",
+                    "billing_provider": "stripe",
                     "configuration": {
                         "stripe_customer_id": "bar",
                         "stripe_collection_method": "bar",

@@ -266,7 +266,7 @@ class TestContracts:
                             "size": 0,
                         }
                     ],
-                    "type": "OVERWRITE",
+                    "type": "MULTIPLIER",
                 }
             ],
             add_professional_services=[
@@ -947,7 +947,7 @@ class TestAsyncContracts:
                             "size": 0,
                         }
                     ],
-                    "type": "OVERWRITE",
+                    "type": "MULTIPLIER",
                 }
             ],
             add_professional_services=[
