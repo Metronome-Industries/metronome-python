@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.1.0-beta.8 (2025-04-14)
+
+Full Changelog: [v0.1.0-beta.7...v0.1.0-beta.8](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.7...v0.1.0-beta.8)
+
+### Features
+
+* **api:** api update ([7ce64ef](https://github.com/Metronome-Industries/metronome-python/commit/7ce64efa5ebefb6da3344284fe5d657b8c4b943c))
+* **api:** api update ([edeb0ac](https://github.com/Metronome-Industries/metronome-python/commit/edeb0acccf41b276b8fccc705e823be28a210ffe))
+* **api:** api update ([9b2bf32](https://github.com/Metronome-Industries/metronome-python/commit/9b2bf3257fadde9abb40a1bc4b97f0bd20572b1b))
+* **api:** api update ([9ed8dbd](https://github.com/Metronome-Industries/metronome-python/commit/9ed8dbda090cfe775f4fe1cc67b9833fe05d30e3))
+* **api:** api update ([3a1453b](https://github.com/Metronome-Industries/metronome-python/commit/3a1453bc06224c8aca93128118d4faed1fbccf03))
+* **api:** api update ([385ce51](https://github.com/Metronome-Industries/metronome-python/commit/385ce51e272c8677376f51ca4d907c2f8b4b5a3c))
+* **api:** api update ([#228](https://github.com/Metronome-Industries/metronome-python/issues/228)) ([d801c0a](https://github.com/Metronome-Industries/metronome-python/commit/d801c0aec2faa8121dbde95976fa62c4219313cb))
+* **api:** api update ([#229](https://github.com/Metronome-Industries/metronome-python/issues/229)) ([4798ffc](https://github.com/Metronome-Industries/metronome-python/commit/4798ffcb8249b59d55f88e838ce302a4368b6672))
+* **api:** api update ([#230](https://github.com/Metronome-Industries/metronome-python/issues/230)) ([df64884](https://github.com/Metronome-Industries/metronome-python/commit/df648845ce28065b3bb5bcb95a2e79dcaa9b7f52))
+* **api:** api update ([#231](https://github.com/Metronome-Industries/metronome-python/issues/231)) ([a805f0f](https://github.com/Metronome-Industries/metronome-python/commit/a805f0f8f995b64dade952b45a60de611145d182))
+* **api:** api update ([#232](https://github.com/Metronome-Industries/metronome-python/issues/232)) ([6bed0ca](https://github.com/Metronome-Industries/metronome-python/commit/6bed0cafe4e1b3509d0e8aac0d750a75b5bdc379))
+* **api:** api update ([#234](https://github.com/Metronome-Industries/metronome-python/issues/234)) ([df25d2b](https://github.com/Metronome-Industries/metronome-python/commit/df25d2b01f4ac71c9e0f4f1ce76ca23425847f1d))
+* **api:** api update ([#235](https://github.com/Metronome-Industries/metronome-python/issues/235)) ([645f9ce](https://github.com/Metronome-Industries/metronome-python/commit/645f9cec4cda934bb1625c3a91b5497dbf0a2ae2))
+* **api:** api update ([#237](https://github.com/Metronome-Industries/metronome-python/issues/237)) ([188234f](https://github.com/Metronome-Industries/metronome-python/commit/188234f4f255d9ed1515671f78d175d3524ebc2f))
+
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([a7bdeb7](https://github.com/Metronome-Industries/metronome-python/commit/a7bdeb7f6912dd65fb563f46e030a33bbb87181b))
+* **perf:** skip traversing types for NotGiven values ([38728e0](https://github.com/Metronome-Industries/metronome-python/commit/38728e04a8823902142e87ca129899947fe8e33d))
+
+
+### Chores
+
+* add hash of OpenAPI spec/config inputs to .stats.yml ([6fd85a0](https://github.com/Metronome-Industries/metronome-python/commit/6fd85a030be63ea99a2d305670f2ad79b812dff2))
+* **client:** minor internal fixes ([7faf5a3](https://github.com/Metronome-Industries/metronome-python/commit/7faf5a30a955fecbbc5ab97b8088b4809414b437))
+* fix typos ([#226](https://github.com/Metronome-Industries/metronome-python/issues/226)) ([4b2e083](https://github.com/Metronome-Industries/metronome-python/commit/4b2e083adc82e1777419ad0837d34fe74ba70f44))
+* **internal:** expand CI branch coverage ([#240](https://github.com/Metronome-Industries/metronome-python/issues/240)) ([c87b106](https://github.com/Metronome-Industries/metronome-python/commit/c87b106d1265fc3e54595c09b324630bb5b41a02))
+* **internal:** reduce CI branch coverage ([2fe4d4d](https://github.com/Metronome-Industries/metronome-python/commit/2fe4d4de4b503a9071b691d646511c6485aac0ca))
+* **internal:** remove trailing character ([#233](https://github.com/Metronome-Industries/metronome-python/issues/233)) ([6a92eca](https://github.com/Metronome-Industries/metronome-python/commit/6a92ecaa7e684b8f13df4b4dfd50be670a44128f))
+* **internal:** slight transform perf improvement ([#238](https://github.com/Metronome-Industries/metronome-python/issues/238)) ([ae468b0](https://github.com/Metronome-Industries/metronome-python/commit/ae468b00b306a32ac8bd9b33c9031188c5e44816))
+* **internal:** update pyright settings ([54bc1f6](https://github.com/Metronome-Industries/metronome-python/commit/54bc1f6a2ead9b6abc02c8239e8a32d3282d38de))
+* **tests:** improve enum examples ([#239](https://github.com/Metronome-Industries/metronome-python/issues/239)) ([8e18bf5](https://github.com/Metronome-Industries/metronome-python/commit/8e18bf5dc1c18654702669d8e858f7a1ded4fd59))
+
+
+### Documentation
+
+* remove private imports from datetime snippets ([59a71b3](https://github.com/Metronome-Industries/metronome-python/commit/59a71b36222422de381d96a312917504d88987e1))
+* swap examples used in readme ([#236](https://github.com/Metronome-Industries/metronome-python/issues/236)) ([dfbdd9a](https://github.com/Metronome-Industries/metronome-python/commit/dfbdd9ad2d4493b4e229aa3203012e9f129150ea))
+
 ## 0.1.0-beta.7 (2025-03-25)
 
 Full Changelog: [v0.1.0-beta.6...v0.1.0-beta.7](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.6...v0.1.0-beta.7)
