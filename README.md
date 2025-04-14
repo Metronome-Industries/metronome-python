@@ -164,7 +164,7 @@ for product in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
-from metronome.\_utils import parse_datetime
+from datetime import datetime
 
 ## Nested params
 
@@ -177,7 +177,7 @@ client = Metronome()
 
 contract = client.v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
     billing_provider_configuration={
         "billing_provider": "stripe",
         "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -197,7 +197,7 @@ response), a subclass of `metronome.APIStatusError` is raised, containing `statu
 All errors inherit from `metronome.APIError`.
 
 ```python
-from metronome._utils import parse_datetime
+from datetime import datetime
 
 import metronome
 from metronome import Metronome
@@ -207,7 +207,7 @@ client = Metronome()
 try:
     client.v1.contracts.create(
         customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-        starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+        starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
     )
 except metronome.APIConnectionError as e:
     print("The server could not be reached")
@@ -242,7 +242,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from metronome._utils import parse_datetime
+from datetime import datetime
 
 from metronome import Metronome
 
@@ -255,7 +255,7 @@ client = Metronome(
 # Or, configure per-request:
 client.with_options(max_retries=5).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
 ```
 
@@ -265,7 +265,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from metronome._utils import parse_datetime
+from datetime import datetime
 
 from metronome import Metronome
 
@@ -283,7 +283,7 @@ client = Metronome(
 # Override per-request:
 client.with_options(timeout=5.0).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
 ```
 
@@ -327,7 +327,7 @@ from metronome import Metronome
 client = Metronome()
 response = client.v1.contracts.with_raw_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    starting_at=SDK_Symbol_0_datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
 print(response.headers.get('X-My-Header'))
 
@@ -348,7 +348,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.v1.contracts.with_streaming_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
+    starting_at=SDK_Symbol_1_datetime.fromisoformat("2020-01-01T00:00:00.000"),
 ) as response:
     print(response.headers.get("X-My-Header"))
 
