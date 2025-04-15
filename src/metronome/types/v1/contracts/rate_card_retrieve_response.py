@@ -4,9 +4,15 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from ...._models import BaseModel
-from ...shared.credit_type_data import CreditTypeData
 
-__all__ = ["RateCardRetrieveResponse", "Data", "DataAlias", "DataCreditTypeConversion"]
+__all__ = [
+    "RateCardRetrieveResponse",
+    "Data",
+    "DataAlias",
+    "DataCreditTypeConversion",
+    "DataCreditTypeConversionCustomCreditType",
+    "DataFiatCreditType",
+]
 
 
 class DataAlias(BaseModel):
@@ -17,10 +23,22 @@ class DataAlias(BaseModel):
     starting_at: Optional[datetime] = None
 
 
+class DataCreditTypeConversionCustomCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
 class DataCreditTypeConversion(BaseModel):
-    custom_credit_type: CreditTypeData
+    custom_credit_type: DataCreditTypeConversionCustomCreditType
 
     fiat_per_custom_credit: str
+
+
+class DataFiatCreditType(BaseModel):
+    id: str
+
+    name: str
 
 
 class Data(BaseModel):
@@ -40,7 +58,7 @@ class Data(BaseModel):
 
     description: Optional[str] = None
 
-    fiat_credit_type: Optional[CreditTypeData] = None
+    fiat_credit_type: Optional[DataFiatCreditType] = None
 
 
 class RateCardRetrieveResponse(BaseModel):
