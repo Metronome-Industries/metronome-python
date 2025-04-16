@@ -2,13 +2,10 @@
 
 
 from ...._models import BaseModel
+from ...shared.id import ID
 
-__all__ = ["CommitUpdateEndDateResponse", "Data"]
-
-
-class Data(BaseModel):
-    id: str
+__all__ = ["CommitUpdateEndDateResponse"]
 
 
 class CommitUpdateEndDateResponse(BaseModel):
-    data: Data
+    data: ID

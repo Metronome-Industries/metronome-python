@@ -65,6 +65,7 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
+from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -113,6 +114,8 @@ class ContractsResource(SyncAPIResource):
         starting_at: Union[str, datetime],
         billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
         commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
+        credit_balance_threshold_configuration: contract_create_params.CreditBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
@@ -131,11 +134,11 @@ class ContractsResource(SyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -200,6 +203,7 @@ class ContractsResource(SyncAPIResource):
                     "starting_at": starting_at,
                     "billing_provider_configuration": billing_provider_configuration,
                     "commits": commits,
+                    "credit_balance_threshold_configuration": credit_balance_threshold_configuration,
                     "credits": credits,
                     "custom_fields": custom_fields,
                     "discounts": discounts,
@@ -218,7 +222,7 @@ class ContractsResource(SyncAPIResource):
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                    "threshold_billing_configuration": threshold_billing_configuration,
+                    "spend_threshold_configuration": spend_threshold_configuration,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -926,6 +930,8 @@ class AsyncContractsResource(AsyncAPIResource):
         starting_at: Union[str, datetime],
         billing_provider_configuration: contract_create_params.BillingProviderConfiguration | NotGiven = NOT_GIVEN,
         commits: Iterable[contract_create_params.Commit] | NotGiven = NOT_GIVEN,
+        credit_balance_threshold_configuration: contract_create_params.CreditBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         credits: Iterable[contract_create_params.Credit] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
@@ -944,11 +950,11 @@ class AsyncContractsResource(AsyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        threshold_billing_configuration: contract_create_params.ThresholdBillingConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1013,6 +1019,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "starting_at": starting_at,
                     "billing_provider_configuration": billing_provider_configuration,
                     "commits": commits,
+                    "credit_balance_threshold_configuration": credit_balance_threshold_configuration,
                     "credits": credits,
                     "custom_fields": custom_fields,
                     "discounts": discounts,
@@ -1031,7 +1038,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                    "threshold_billing_configuration": threshold_billing_configuration,
+                    "spend_threshold_configuration": spend_threshold_configuration,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,

@@ -7,6 +7,8 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -17,6 +19,12 @@ __all__ = [
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
+    "CommitPaymentGateConfig",
+    "CommitPaymentGateConfigStripeConfig",
+    "CreditBalanceThresholdConfiguration",
+    "CreditBalanceThresholdConfigurationCommit",
+    "CreditBalanceThresholdConfigurationPaymentGateConfig",
+    "CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
@@ -27,7 +35,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "ProfessionalService",
     "RecurringCommit",
@@ -44,14 +51,12 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
-    "ThresholdBillingConfiguration",
-    "ThresholdBillingConfigurationCreditBalanceThresholdConfiguration",
-    "ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit",
-    "ThresholdBillingConfigurationSpendThresholdConfiguration",
-    "ThresholdBillingConfigurationSpendThresholdConfigurationCommit",
+    "SpendThresholdConfiguration",
+    "SpendThresholdConfigurationCommit",
+    "SpendThresholdConfigurationPaymentGateConfig",
+    "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "Transition",
     "TransitionFutureInvoiceBehavior",
-    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -66,6 +71,8 @@ class ContractCreateParams(TypedDict, total=False):
     """The billing provider configuration associated with a contract."""
 
     commits: Iterable[Commit]
+
+    credit_balance_threshold_configuration: CreditBalanceThresholdConfiguration
 
     credits: Iterable[Credit]
 
@@ -126,7 +133,7 @@ class ContractCreateParams(TypedDict, total=False):
     on a separate invoice from usage charges.
     """
 
-    threshold_billing_configuration: ThresholdBillingConfiguration
+    spend_threshold_configuration: SpendThresholdConfiguration
 
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
@@ -140,7 +147,7 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: UsageFilter
+    usage_filter: BaseUsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
@@ -246,6 +253,24 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class CommitPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: CommitPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -294,6 +319,9 @@ class Commit(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+    payment_gate_config: CommitPaymentGateConfig
+    """optionally payment gate this commit"""
+
     priority: float
     """
     If multiple commits are applicable, the one with the lower priority will apply
@@ -309,6 +337,77 @@ class Commit(TypedDict, total=False):
     """
     A temporary ID for the commit that can be used to reference the commit for
     commit specific overrides.
+    """
+
+
+class CreditBalanceThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class CreditBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
+class CreditBalanceThresholdConfiguration(TypedDict, total=False):
+    commit: Required[CreditBalanceThresholdConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: Required[CreditBalanceThresholdConfigurationPaymentGateConfig]
+
+    recharge_to_amount: Required[float]
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
     """
 
 
@@ -509,12 +608,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -542,7 +635,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -940,21 +1033,11 @@ class ScheduledCharge(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
-class ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit(TypedDict, total=False):
+class SpendThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
-
-    applicable_product_ids: List[str]
-    """Which products the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
     """
-
-    applicable_product_tags: List[str]
-    """Which tags the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    The commit product that will be used to generate the line item for commit
+    payment.
     """
 
     description: str
@@ -966,62 +1049,35 @@ class ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit(Typ
     """
 
 
-class ThresholdBillingConfigurationCreditBalanceThresholdConfiguration(TypedDict, total=False):
-    commit: Required[ThresholdBillingConfigurationCreditBalanceThresholdConfigurationCommit]
+class SpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class SpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: SpendThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
+class SpendThresholdConfiguration(TypedDict, total=False):
+    commit: Required[SpendThresholdConfigurationCommit]
 
     is_enabled: Required[bool]
     """
     When set to false, the contract will not be evaluated against the
     threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state
+    regardless of prior state.
     """
 
-    recharge_to_amount: Required[float]
-    """Specify the amount the balance should be recharged to."""
-
-    threshold_amount: Required[float]
-    """Specify the threshold amount for the contract.
-
-    Each time the contract's balance lowers to this amount, a threshold charge will
-    be initiated.
-    """
-
-
-class ThresholdBillingConfigurationSpendThresholdConfigurationCommit(TypedDict, total=False):
-    product_id: Required[str]
-
-    applicable_product_ids: List[str]
-    """Which products the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
-    """
-
-    applicable_product_tags: List[str]
-    """Which tags the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
-    """
-
-    description: str
-
-    name: str
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-
-class ThresholdBillingConfigurationSpendThresholdConfiguration(TypedDict, total=False):
-    commit: Required[ThresholdBillingConfigurationSpendThresholdConfigurationCommit]
-
-    is_enabled: Required[bool]
-    """
-    When set to false, the contract will not be evaluated against the
-    threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state
-    """
+    payment_gate_config: Required[SpendThresholdConfigurationPaymentGateConfig]
 
     threshold_amount: Required[float]
     """Specify the threshold amount for the contract.
@@ -1029,12 +1085,6 @@ class ThresholdBillingConfigurationSpendThresholdConfiguration(TypedDict, total=
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
     """
-
-
-class ThresholdBillingConfiguration(TypedDict, total=False):
-    credit_balance_threshold_configuration: ThresholdBillingConfigurationCreditBalanceThresholdConfiguration
-
-    spend_threshold_configuration: ThresholdBillingConfigurationSpendThresholdConfiguration
 
 
 class TransitionFutureInvoiceBehavior(TypedDict, total=False):
@@ -1052,14 +1102,6 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
-
-
-class UsageFilter(TypedDict, total=False):
-    group_key: Required[str]
-
-    group_values: Required[List[str]]
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):
