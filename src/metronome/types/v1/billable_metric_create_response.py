@@ -2,13 +2,10 @@
 
 
 from ..._models import BaseModel
+from ..shared.id import ID
 
-__all__ = ["BillableMetricCreateResponse", "Data"]
-
-
-class Data(BaseModel):
-    id: str
+__all__ = ["BillableMetricCreateResponse"]
 
 
 class BillableMetricCreateResponse(BaseModel):
-    data: Data
+    data: ID

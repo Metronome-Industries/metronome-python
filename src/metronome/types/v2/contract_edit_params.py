@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -16,6 +17,8 @@ __all__ = [
     "AddCommitInvoiceSchedule",
     "AddCommitInvoiceScheduleRecurringSchedule",
     "AddCommitInvoiceScheduleScheduleItem",
+    "AddCommitPaymentGateConfig",
+    "AddCommitPaymentGateConfigStripeConfig",
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
@@ -26,7 +29,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddProfessionalService",
     "AddRecurringCommit",
@@ -43,6 +45,10 @@ __all__ = [
     "AddScheduledChargeSchedule",
     "AddScheduledChargeScheduleRecurringSchedule",
     "AddScheduledChargeScheduleScheduleItem",
+    "AddSpendThresholdConfiguration",
+    "AddSpendThresholdConfigurationCommit",
+    "AddSpendThresholdConfigurationPaymentGateConfig",
+    "AddSpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "ArchiveCommit",
     "ArchiveCredit",
     "ArchiveScheduledCharge",
@@ -66,6 +72,10 @@ __all__ = [
     "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
     "UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
+    "UpdateSpendThresholdConfiguration",
+    "UpdateSpendThresholdConfigurationCommit",
+    "UpdateSpendThresholdConfigurationPaymentGateConfig",
+    "UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig",
 ]
 
 
@@ -95,6 +105,8 @@ class ContractEditParams(TypedDict, total=False):
 
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
+    add_spend_threshold_configuration: AddSpendThresholdConfiguration
+
     archive_commits: Iterable[ArchiveCommit]
     """IDs of commits to archive"""
 
@@ -112,6 +124,8 @@ class ContractEditParams(TypedDict, total=False):
     update_credits: Iterable[UpdateCredit]
 
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
+
+    update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -205,6 +219,24 @@ class AddCommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class AddCommitPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: AddCommitPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -252,6 +284,9 @@ class AddCommit(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+    payment_gate_config: AddCommitPaymentGateConfig
+    """optionally payment gate this commit"""
 
     priority: float
     """
@@ -465,12 +500,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -498,7 +527,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -889,6 +918,60 @@ class AddScheduledCharge(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
+class AddSpendThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class AddSpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class AddSpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: AddSpendThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
+class AddSpendThresholdConfiguration(TypedDict, total=False):
+    commit: Required[AddSpendThresholdConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: Required[AddSpendThresholdConfigurationPaymentGateConfig]
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
+
+
 class ArchiveCommit(TypedDict, total=False):
     id: Required[str]
 
@@ -1091,3 +1174,53 @@ class UpdateScheduledCharge(TypedDict, total=False):
     invoice_schedule: UpdateScheduledChargeInvoiceSchedule
 
     netsuite_sales_order_id: Optional[str]
+
+
+class UpdateSpendThresholdConfigurationCommit(TypedDict, total=False):
+    description: Optional[str]
+
+    name: Optional[str]
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+    product_id: str
+
+
+class UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class UpdateSpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+
+class UpdateSpendThresholdConfiguration(TypedDict, total=False):
+    commit: UpdateSpendThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: UpdateSpendThresholdConfigurationPaymentGateConfig
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """

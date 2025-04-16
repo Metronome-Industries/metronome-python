@@ -192,6 +192,7 @@ class ContractsResource(SyncAPIResource):
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
+        add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
@@ -199,6 +200,8 @@ class ContractsResource(SyncAPIResource):
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
+        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -248,6 +251,7 @@ class ContractsResource(SyncAPIResource):
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
+                    "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
@@ -255,6 +259,7 @@ class ContractsResource(SyncAPIResource):
                     "update_commits": update_commits,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
+                    "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
                 contract_edit_params.ContractEditParams,
             ),
@@ -583,6 +588,7 @@ class AsyncContractsResource(AsyncAPIResource):
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
+        add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
@@ -590,6 +596,8 @@ class AsyncContractsResource(AsyncAPIResource):
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
+        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -639,6 +647,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
+                    "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
@@ -646,6 +655,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_commits": update_commits,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
+                    "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
                 contract_edit_params.ContractEditParams,
             ),
