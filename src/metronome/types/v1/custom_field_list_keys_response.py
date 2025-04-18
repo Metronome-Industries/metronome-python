@@ -29,6 +29,7 @@ class Data(BaseModel):
         "product",
         "rate_card",
         "scheduled_charge",
+        "subscription",
     ]
 
     key: str

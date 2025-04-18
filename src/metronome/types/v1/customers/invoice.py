@@ -201,6 +201,8 @@ class LineItem(BaseModel):
 
     sub_line_items: Optional[List[LineItemSubLineItem]] = None
 
+    subscription_custom_fields: Optional[Dict[str, str]] = None
+
     tier: Optional[LineItemTier] = None
 
     unit_price: Optional[float] = None
