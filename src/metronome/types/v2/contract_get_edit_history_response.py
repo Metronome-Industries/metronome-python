@@ -526,6 +526,8 @@ class DataAddSubscription(BaseModel):
 
     id: Optional[str] = None
 
+    custom_fields: Optional[Dict[str, str]] = None
+
     description: Optional[str] = None
 
     ending_before: Optional[datetime] = None

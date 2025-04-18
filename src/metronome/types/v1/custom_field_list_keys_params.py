@@ -31,6 +31,7 @@ class CustomFieldListKeysParams(TypedDict, total=False):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ]
     ]
     """Optional list of entity types to return keys for"""
