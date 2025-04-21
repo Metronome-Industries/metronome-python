@@ -179,6 +179,8 @@ class LineItem(BaseModel):
 
     product_id: Optional[str] = None
 
+    product_tags: Optional[List[str]] = None
+
     product_type: Optional[str] = None
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
