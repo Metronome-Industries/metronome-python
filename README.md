@@ -322,18 +322,22 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
+from datetime import datetime
+
 from metronome import Metronome
 
 client = Metronome()
 response = client.v1.contracts.with_raw_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=SDK_Symbol_0_datetime.fromisoformat("2020-01-01T00:00:00.000"),
+    starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
 print(response.headers.get('X-My-Header'))
 
 contract = response.parse()  # get the object that `v1.contracts.create()` would have returned
 print(contract.data)
 ```
+
+from datetime import datetime
 
 These methods return an [`APIResponse`](https://github.com/Metronome-Industries/metronome-python/tree/main/src/metronome/_response.py) object.
 
@@ -348,7 +352,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.v1.contracts.with_streaming_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-    starting_at=SDK_Symbol_1_datetime.fromisoformat("2020-01-01T00:00:00.000"),
+    starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 ) as response:
     print(response.headers.get("X-My-Header"))
 
