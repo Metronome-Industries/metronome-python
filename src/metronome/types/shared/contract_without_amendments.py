@@ -104,6 +104,13 @@ class CreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     stripe_config: Optional[CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
     """Only applicable if using Stripe as your payment gateway through Metronome."""
 
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
 
 class CreditBalanceThresholdConfiguration(BaseModel):
     commit: CreditBalanceThresholdConfigurationCommit
@@ -375,6 +382,13 @@ class SpendThresholdConfigurationPaymentGateConfig(BaseModel):
 
     stripe_config: Optional[SpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
     """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
 
 
 class SpendThresholdConfiguration(BaseModel):

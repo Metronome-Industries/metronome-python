@@ -910,6 +910,13 @@ class DataSpendThresholdConfigurationPaymentGateConfig(BaseModel):
     stripe_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
     """Only applicable if using Stripe as your payment gateway through Metronome."""
 
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
 
 class DataSpendThresholdConfiguration(BaseModel):
     commit: DataSpendThresholdConfigurationCommit
