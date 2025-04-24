@@ -270,6 +270,13 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     stripe_config: CommitPaymentGateConfigStripeConfig
     """Only applicable if using Stripe as your payment gateway through Metronome."""
 
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
 
 class Commit(TypedDict, total=False):
     product_id: Required[str]
@@ -386,6 +393,13 @@ class CreditBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=Fals
 
     stripe_config: CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig
     """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
 
 
 class CreditBalanceThresholdConfiguration(TypedDict, total=False):
@@ -1065,6 +1079,13 @@ class SpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
 
     stripe_config: SpendThresholdConfigurationPaymentGateConfigStripeConfig
     """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
 
 
 class SpendThresholdConfiguration(TypedDict, total=False):

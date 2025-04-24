@@ -91,6 +91,7 @@ class TestContracts:
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
                         "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
                     },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
@@ -110,6 +111,7 @@ class TestContracts:
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
                     "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
@@ -348,6 +350,7 @@ class TestContracts:
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
                     "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
             },
@@ -600,6 +603,7 @@ class TestContracts:
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
                         "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
                     },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
@@ -1235,6 +1239,7 @@ class TestAsyncContracts:
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
                         "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
                     },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
@@ -1254,6 +1259,7 @@ class TestAsyncContracts:
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
                     "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
@@ -1492,6 +1498,7 @@ class TestAsyncContracts:
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
                     "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
             },
@@ -1744,6 +1751,7 @@ class TestAsyncContracts:
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
                         "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
                     },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
