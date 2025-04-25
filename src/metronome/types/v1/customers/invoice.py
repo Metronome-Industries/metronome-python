@@ -101,47 +101,49 @@ class LineItem(BaseModel):
     total: float
 
     applied_commit_or_credit: Optional[LineItemAppliedCommitOrCredit] = None
-    """only present for beta contract invoices"""
+    """Details about the credit or commit that was applied to this line item.
+
+    Only present on line items with product of `USAGE`, `SUBSCRIPTION` or
+    `COMPOSITE` types.
+    """
 
     commit_custom_fields: Optional[Dict[str, str]] = None
-    """only present for beta contract invoices"""
 
     commit_id: Optional[str] = None
-    """only present for beta contract invoices"""
+    """
+    For line items with product of `USAGE`, `SUBSCRIPTION`, or `COMPOSITE` types,
+    the ID of the credit or commit that was applied to this line item. For line
+    items with product type of `FIXED`, the ID of the prepaid or postpaid commit
+    that is being paid for.
+    """
 
     commit_netsuite_item_id: Optional[str] = None
-    """only present for beta contract invoices.
-
-    This field's availability is dependent on your client's configuration.
-    """
 
     commit_netsuite_sales_order_id: Optional[str] = None
-    """only present for beta contract invoices.
-
-    This field's availability is dependent on your client's configuration.
-    """
 
     commit_segment_id: Optional[str] = None
-    """only present for beta contract invoices"""
 
     commit_type: Optional[str] = None
-    """only present for beta contract invoices"""
+    """
+    `PrepaidCommit` (for commit types `PREPAID` and `CREDIT`) or `PostpaidCommit`
+    (for commit type `POSTPAID`).
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
 
     ending_before: Optional[datetime] = None
-    """only present for beta contract invoices"""
+    """The line item's end date (exclusive)."""
 
     group_key: Optional[str] = None
 
     group_value: Optional[str] = None
 
     is_prorated: Optional[bool] = None
-    """only present for beta contract invoices"""
+    """Indicates whether the line item is prorated for `SUBSCRIPTION` type product."""
 
     list_price: Optional[Rate] = None
     """
-    Only present for contract invoices and when the include_list_prices query
+    Only present for contract invoices and when the `include_list_prices` query
     parameter is set to true. This will include the list rate for the charge if
     applicable. Only present for usage and subscription line items.
     """
@@ -155,33 +157,39 @@ class LineItem(BaseModel):
     """The start date for the billing period on the invoice."""
 
     netsuite_item_id: Optional[str] = None
-    """only present for beta contract invoices.
-
-    This field's availability is dependent on your client's configuration.
-    """
 
     postpaid_commit: Optional[LineItemPostpaidCommit] = None
-    """only present for beta contract invoices"""
+    """Only present for line items paying for a postpaid commit true-up."""
 
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
     """
-    if presentation groups are used, this will contain the values used to break down
-    the line item
+    Includes the presentation group values associated with this line item if
+    presentation group keys are used.
     """
 
     pricing_group_values: Optional[Dict[str, str]] = None
     """
-    if pricing groups are used, this will contain the values used to calculate the
-    price
+    Includes the pricing group values associated with this line item if dimensional
+    pricing is used.
     """
 
     product_custom_fields: Optional[Dict[str, str]] = None
 
     product_id: Optional[str] = None
+    """ID of the product associated with the line item."""
 
     product_tags: Optional[List[str]] = None
+    """The current product tags associated with the line item's `product_id`."""
 
     product_type: Optional[str] = None
+    """The type of the line item's product.
+
+    Possible values are `FixedProductListItem` (for `FIXED` type products),
+    `UsageProductListItem` (for `USAGE` type products),
+    `SubscriptionProductListItem` (for `SUBSCRIPTION` type products) or
+    `CompositeProductListItem` (for `COMPOSITE` type products). For scheduled
+    charges, commit and credit payments, the value is `FixedProductListItem`.
+    """
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
     """only present for beta contract invoices"""
@@ -190,6 +198,7 @@ class LineItem(BaseModel):
     """only present for beta contract invoices"""
 
     quantity: Optional[float] = None
+    """The quantity associated with the line item."""
 
     reseller_type: Optional[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]] = None
 
@@ -199,16 +208,17 @@ class LineItem(BaseModel):
     """only present for beta contract invoices"""
 
     starting_at: Optional[datetime] = None
-    """only present for beta contract invoices"""
+    """The line item's start date (inclusive)."""
 
     sub_line_items: Optional[List[LineItemSubLineItem]] = None
 
     subscription_custom_fields: Optional[Dict[str, str]] = None
 
     tier: Optional[LineItemTier] = None
+    """Populated if the line item has a tiered price."""
 
     unit_price: Optional[float] = None
-    """only present for beta contract invoices"""
+    """The unit price associated with the line item."""
 
 
 class CorrectionRecordCorrectedExternalInvoice(BaseModel):
@@ -383,7 +393,7 @@ class Invoice(BaseModel):
     plan_name: Optional[str] = None
 
     reseller_royalty: Optional[ResellerRoyalty] = None
-    """only present for beta contract invoices with reseller royalties"""
+    """Only present for contract invoices with reseller royalties."""
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
