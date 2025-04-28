@@ -38,11 +38,6 @@ __all__ = [
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
-    "DataAddSubscription",
-    "DataAddSubscriptionProration",
-    "DataAddSubscriptionQuantitySchedule",
-    "DataAddSubscriptionSubscriptionRate",
-    "DataAddSubscriptionSubscriptionRateProduct",
     "DataAddUsageFilter",
     "DataArchiveCommit",
     "DataArchiveCredit",
@@ -72,8 +67,6 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
-    "DataUpdateSubscription",
-    "DataUpdateSubscriptionQuantityUpdate",
 ]
 
 
@@ -162,8 +155,6 @@ class DataAddCredit(BaseModel):
 
 
 class DataAddOverrideOverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
-
     commit_ids: Optional[List[str]] = None
 
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
@@ -487,56 +478,6 @@ class DataAddScheduledCharge(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
 
-class DataAddSubscriptionProration(BaseModel):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-
-    is_prorated: bool
-
-
-class DataAddSubscriptionQuantitySchedule(BaseModel):
-    quantity: float
-
-    starting_at: datetime
-
-    ending_before: Optional[datetime] = None
-
-
-class DataAddSubscriptionSubscriptionRateProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class DataAddSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
-
-    product: DataAddSubscriptionSubscriptionRateProduct
-
-
-class DataAddSubscription(BaseModel):
-    collection_schedule: Literal["ADVANCE", "ARREARS"]
-
-    proration: DataAddSubscriptionProration
-
-    quantity_schedule: List[DataAddSubscriptionQuantitySchedule]
-
-    starting_at: datetime
-
-    subscription_rate: DataAddSubscriptionSubscriptionRate
-
-    id: Optional[str] = None
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    ending_before: Optional[datetime] = None
-
-    fiat_credit_type_id: Optional[str] = None
-
-    name: Optional[str] = None
-
-
 class DataAddUsageFilter(BaseModel):
     group_key: str
 
@@ -853,20 +794,6 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
-class DataUpdateSubscriptionQuantityUpdate(BaseModel):
-    quantity: float
-
-    starting_at: datetime
-
-
-class DataUpdateSubscription(BaseModel):
-    id: str
-
-    ending_before: Optional[datetime] = None
-
-    quantity_updates: Optional[List[DataUpdateSubscriptionQuantityUpdate]] = None
-
-
 class Data(BaseModel):
     id: str
 
@@ -887,8 +814,6 @@ class Data(BaseModel):
     add_reseller_royalties: Optional[List[DataAddResellerRoyalty]] = None
 
     add_scheduled_charges: Optional[List[DataAddScheduledCharge]] = None
-
-    add_subscriptions: Optional[List[DataAddSubscription]] = None
 
     add_usage_filters: Optional[List[DataAddUsageFilter]] = None
 
@@ -913,8 +838,6 @@ class Data(BaseModel):
     update_refund_invoices: Optional[List[DataUpdateRefundInvoice]] = None
 
     update_scheduled_charges: Optional[List[DataUpdateScheduledCharge]] = None
-
-    update_subscriptions: Optional[List[DataUpdateSubscription]] = None
 
 
 class ContractGetEditHistoryResponse(BaseModel):
