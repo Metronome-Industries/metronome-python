@@ -325,8 +325,6 @@ class DataCommit(BaseModel):
 
 
 class DataOverrideOverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
-
     commit_ids: Optional[List[str]] = None
 
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
