@@ -107,6 +107,14 @@ class ContractEditParams(TypedDict, total=False):
 
     add_spend_threshold_configuration: AddSpendThresholdConfiguration
 
+    allow_contract_ending_before_finalized_invoice: bool
+    """
+    If true, allows setting the contract end date earlier than the end_timestamp of
+    existing finalized invoices. Finalized invoices will be unchanged; if you want
+    to incorporate the new end date, you can void and regenerate finalized usage
+    invoices. Defaults to true.
+    """
+
     archive_commits: Iterable[ArchiveCommit]
     """IDs of commits to archive"""
 
@@ -120,6 +128,9 @@ class ContractEditParams(TypedDict, total=False):
     """IDs of overrides to remove"""
 
     update_commits: Iterable[UpdateCommit]
+
+    update_contract_end_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_credits: Iterable[UpdateCredit]
 

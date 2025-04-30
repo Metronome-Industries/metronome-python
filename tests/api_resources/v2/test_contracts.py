@@ -406,6 +406,7 @@ class TestContracts:
                 },
                 "threshold_amount": 0,
             },
+            allow_contract_ending_before_finalized_invoice=True,
             archive_commits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_scheduled_charges=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
@@ -458,6 +459,7 @@ class TestContracts:
                     "rollover_fraction": 0,
                 }
             ],
+            update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1120,6 +1122,7 @@ class TestAsyncContracts:
                 },
                 "threshold_amount": 0,
             },
+            allow_contract_ending_before_finalized_invoice=True,
             archive_commits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_scheduled_charges=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
@@ -1172,6 +1175,7 @@ class TestAsyncContracts:
                     "rollover_fraction": 0,
                 }
             ],
+            update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

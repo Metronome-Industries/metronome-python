@@ -190,11 +190,13 @@ class ContractsResource(SyncAPIResource):
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
         add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
+        update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
@@ -217,6 +219,11 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to true.
+
           archive_commits: IDs of commits to archive
 
           archive_credits: IDs of credits to archive
@@ -224,6 +231,8 @@ class ContractsResource(SyncAPIResource):
           archive_scheduled_charges: IDs of scheduled charges to archive
 
           remove_overrides: IDs of overrides to remove
+
+          update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
           extra_headers: Send extra headers
 
@@ -249,11 +258,13 @@ class ContractsResource(SyncAPIResource):
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
+                    "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
@@ -586,11 +597,13 @@ class AsyncContractsResource(AsyncAPIResource):
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
         add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
+        update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
@@ -613,6 +626,11 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
+              existing finalized invoices. Finalized invoices will be unchanged; if you want
+              to incorporate the new end date, you can void and regenerate finalized usage
+              invoices. Defaults to true.
+
           archive_commits: IDs of commits to archive
 
           archive_credits: IDs of credits to archive
@@ -620,6 +638,8 @@ class AsyncContractsResource(AsyncAPIResource):
           archive_scheduled_charges: IDs of scheduled charges to archive
 
           remove_overrides: IDs of overrides to remove
+
+          update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
           extra_headers: Send extra headers
 
@@ -645,11 +665,13 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
+                    "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
