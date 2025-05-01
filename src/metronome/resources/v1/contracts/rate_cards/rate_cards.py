@@ -47,12 +47,14 @@ from .....types.v1.contracts import (
     rate_card_list_params,
     rate_card_create_params,
     rate_card_update_params,
+    rate_card_archive_params,
     rate_card_retrieve_params,
     rate_card_retrieve_rate_schedule_params,
 )
 from .....types.v1.contracts.rate_card_list_response import RateCardListResponse
 from .....types.v1.contracts.rate_card_create_response import RateCardCreateResponse
 from .....types.v1.contracts.rate_card_update_response import RateCardUpdateResponse
+from .....types.v1.contracts.rate_card_archive_response import RateCardArchiveResponse
 from .....types.v1.contracts.rate_card_retrieve_response import RateCardRetrieveResponse
 from .....types.v1.contracts.rate_card_retrieve_rate_schedule_response import RateCardRetrieveRateScheduleResponse
 
@@ -283,6 +285,38 @@ class RateCardsResource(SyncAPIResource):
             ),
             model=RateCardListResponse,
             method="post",
+        )
+
+    def archive(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> RateCardArchiveResponse:
+        """
+        Archive a rate card
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/contract-pricing/rate-cards/archive",
+            body=maybe_transform({"id": id}, rate_card_archive_params.RateCardArchiveParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RateCardArchiveResponse,
         )
 
     def retrieve_rate_schedule(
@@ -582,6 +616,38 @@ class AsyncRateCardsResource(AsyncAPIResource):
             method="post",
         )
 
+    async def archive(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> RateCardArchiveResponse:
+        """
+        Archive a rate card
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/contract-pricing/rate-cards/archive",
+            body=await async_maybe_transform({"id": id}, rate_card_archive_params.RateCardArchiveParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RateCardArchiveResponse,
+        )
+
     async def retrieve_rate_schedule(
         self,
         *,
@@ -669,6 +735,9 @@ class RateCardsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             rate_cards.list,
         )
+        self.archive = to_raw_response_wrapper(
+            rate_cards.archive,
+        )
         self.retrieve_rate_schedule = to_raw_response_wrapper(
             rate_cards.retrieve_rate_schedule,
         )
@@ -701,6 +770,9 @@ class AsyncRateCardsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             rate_cards.list,
+        )
+        self.archive = async_to_raw_response_wrapper(
+            rate_cards.archive,
         )
         self.retrieve_rate_schedule = async_to_raw_response_wrapper(
             rate_cards.retrieve_rate_schedule,
@@ -735,6 +807,9 @@ class RateCardsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             rate_cards.list,
         )
+        self.archive = to_streamed_response_wrapper(
+            rate_cards.archive,
+        )
         self.retrieve_rate_schedule = to_streamed_response_wrapper(
             rate_cards.retrieve_rate_schedule,
         )
@@ -767,6 +842,9 @@ class AsyncRateCardsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             rate_cards.list,
+        )
+        self.archive = async_to_streamed_response_wrapper(
+            rate_cards.archive,
         )
         self.retrieve_rate_schedule = async_to_streamed_response_wrapper(
             rate_cards.retrieve_rate_schedule,

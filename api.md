@@ -434,6 +434,7 @@ from metronome.types.v1.contracts import (
     RateCardRetrieveResponse,
     RateCardUpdateResponse,
     RateCardListResponse,
+    RateCardArchiveResponse,
     RateCardRetrieveRateScheduleResponse,
 )
 ```
@@ -444,6 +445,7 @@ Methods:
 - <code title="post /v1/contract-pricing/rate-cards/get">client.v1.contracts.rate_cards.<a href="./src/metronome/resources/v1/contracts/rate_cards/rate_cards.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_card_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_card_retrieve_response.py">RateCardRetrieveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/update">client.v1.contracts.rate_cards.<a href="./src/metronome/resources/v1/contracts/rate_cards/rate_cards.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_card_update_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_card_update_response.py">RateCardUpdateResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/list">client.v1.contracts.rate_cards.<a href="./src/metronome/resources/v1/contracts/rate_cards/rate_cards.py">list</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_card_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_card_list_response.py">SyncCursorPage[RateCardListResponse]</a></code>
+- <code title="post /v1/contract-pricing/rate-cards/archive">client.v1.contracts.rate_cards.<a href="./src/metronome/resources/v1/contracts/rate_cards/rate_cards.py">archive</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_card_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_card_archive_response.py">RateCardArchiveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/getRateSchedule">client.v1.contracts.rate_cards.<a href="./src/metronome/resources/v1/contracts/rate_cards/rate_cards.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_card_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_card_retrieve_rate_schedule_response.py">RateCardRetrieveRateScheduleResponse</a></code>
 
 #### ProductOrders

@@ -18,7 +18,15 @@ __all__ = [
     "Data",
     "DataAmendment",
     "DataAmendmentResellerRoyalty",
+    "DataCreditBalanceThresholdConfiguration",
+    "DataCreditBalanceThresholdConfigurationCommit",
+    "DataCreditBalanceThresholdConfigurationPaymentGateConfig",
+    "DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataCustomerBillingProviderConfiguration",
+    "DataSpendThresholdConfiguration",
+    "DataSpendThresholdConfigurationCommit",
+    "DataSpendThresholdConfigurationPaymentGateConfig",
+    "DataSpendThresholdConfigurationPaymentGateConfigStripeConfig",
 ]
 
 
@@ -79,6 +87,84 @@ class DataAmendment(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
 
+class DataCreditBalanceThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class DataCreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataCreditBalanceThresholdConfiguration(BaseModel):
+    commit: DataCreditBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataCreditBalanceThresholdConfigurationPaymentGateConfig
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
+
+
 class DataCustomerBillingProviderConfiguration(BaseModel):
     billing_provider: Literal[
         "aws_marketplace",
@@ -102,6 +188,67 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     """
 
 
+class DataSpendThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataSpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class DataSpendThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataSpendThresholdConfiguration(BaseModel):
+    commit: DataSpendThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataSpendThresholdConfigurationPaymentGateConfig
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
+
+
 class Data(BaseModel):
     id: str
 
@@ -119,6 +266,8 @@ class Data(BaseModel):
     If not returned, the contract is not archived.
     """
 
+    credit_balance_threshold_configuration: Optional[DataCreditBalanceThresholdConfiguration] = None
+
     custom_fields: Optional[Dict[str, str]] = None
 
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
@@ -132,6 +281,8 @@ class Data(BaseModel):
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
     """
+
+    spend_threshold_configuration: Optional[DataSpendThresholdConfiguration] = None
 
     uniqueness_key: Optional[str] = None
     """Prevents the creation of duplicates.
