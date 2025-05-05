@@ -192,10 +192,8 @@ class LineItem(BaseModel):
     """
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
-    """only present for beta contract invoices"""
 
     professional_service_id: Optional[str] = None
-    """only present for beta contract invoices"""
 
     quantity: Optional[float] = None
     """The quantity associated with the line item."""
@@ -205,7 +203,7 @@ class LineItem(BaseModel):
     scheduled_charge_custom_fields: Optional[Dict[str, str]] = None
 
     scheduled_charge_id: Optional[str] = None
-    """only present for beta contract invoices"""
+    """ID of scheduled charge."""
 
     starting_at: Optional[datetime] = None
     """The line item's start date (inclusive)."""
