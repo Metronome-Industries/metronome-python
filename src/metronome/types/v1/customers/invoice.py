@@ -131,6 +131,11 @@ class LineItem(BaseModel):
 
     custom_fields: Optional[Dict[str, str]] = None
 
+    discount_custom_fields: Optional[Dict[str, str]] = None
+
+    discount_id: Optional[str] = None
+    """ID of the discount applied to this line item."""
+
     ending_before: Optional[datetime] = None
     """The line item's end date (exclusive)."""
 
