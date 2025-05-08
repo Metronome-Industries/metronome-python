@@ -18,11 +18,11 @@ __all__ = [
     "Data",
     "DataAmendment",
     "DataAmendmentResellerRoyalty",
-    "DataCreditBalanceThresholdConfiguration",
-    "DataCreditBalanceThresholdConfigurationCommit",
-    "DataCreditBalanceThresholdConfigurationPaymentGateConfig",
-    "DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataCustomerBillingProviderConfiguration",
+    "DataPrepaidBalanceThresholdConfiguration",
+    "DataPrepaidBalanceThresholdConfigurationCommit",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataSpendThresholdConfiguration",
     "DataSpendThresholdConfigurationCommit",
     "DataSpendThresholdConfigurationPaymentGateConfig",
@@ -87,7 +87,30 @@ class DataAmendment(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
 
-class DataCreditBalanceThresholdConfigurationCommit(BaseModel):
+class DataCustomerBillingProviderConfiguration(BaseModel):
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+    ]
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+    id: Optional[str] = None
+
+    configuration: Optional[Dict[str, object]] = None
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider.
+    """
+
+
+class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     product_id: str
     """
     The commit product that will be used to generate the line item for commit
@@ -117,12 +140,12 @@ class DataCreditBalanceThresholdConfigurationCommit(BaseModel):
     """
 
 
-class DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
     payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
     """If left blank, will default to INVOICE"""
 
 
-class DataCreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
     """Gate access to the commit balance based on successful collection of payment.
 
@@ -131,7 +154,7 @@ class DataCreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: Optional[DataCreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    stripe_config: Optional[DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
     """Only applicable if using Stripe as your payment gateway through Metronome."""
 
     tax_type: Optional[Literal["NONE", "STRIPE"]] = None
@@ -142,8 +165,8 @@ class DataCreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     """
 
 
-class DataCreditBalanceThresholdConfiguration(BaseModel):
-    commit: DataCreditBalanceThresholdConfigurationCommit
+class DataPrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: DataPrepaidBalanceThresholdConfigurationCommit
 
     is_enabled: bool
     """
@@ -152,7 +175,7 @@ class DataCreditBalanceThresholdConfiguration(BaseModel):
     regardless of prior state.
     """
 
-    payment_gate_config: DataCreditBalanceThresholdConfigurationPaymentGateConfig
+    payment_gate_config: DataPrepaidBalanceThresholdConfigurationPaymentGateConfig
 
     recharge_to_amount: float
     """Specify the amount the balance should be recharged to."""
@@ -160,31 +183,8 @@ class DataCreditBalanceThresholdConfiguration(BaseModel):
     threshold_amount: float
     """Specify the threshold amount for the contract.
 
-    Each time the contract's balance lowers to this amount, a threshold charge will
-    be initiated.
-    """
-
-
-class DataCustomerBillingProviderConfiguration(BaseModel):
-    billing_provider: Literal[
-        "aws_marketplace",
-        "stripe",
-        "netsuite",
-        "custom",
-        "azure_marketplace",
-        "quickbooks_online",
-        "workday",
-        "gcp_marketplace",
-    ]
-
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
-
-    id: Optional[str] = None
-
-    configuration: Optional[Dict[str, object]] = None
-    """Configuration for the billing provider.
-
-    The structure of this object is specific to the billing provider.
+    Each time the contract's prepaid balance lowers to this amount, a threshold
+    charge will be initiated.
     """
 
 
@@ -266,12 +266,12 @@ class Data(BaseModel):
     If not returned, the contract is not archived.
     """
 
-    credit_balance_threshold_configuration: Optional[DataCreditBalanceThresholdConfiguration] = None
-
     custom_fields: Optional[Dict[str, str]] = None
 
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
     """The billing provider configuration associated with a contract."""
+
+    prepaid_balance_threshold_configuration: Optional[DataPrepaidBalanceThresholdConfiguration] = None
 
     scheduled_charges_on_usage_invoices: Optional[Literal["ALL"]] = None
     """

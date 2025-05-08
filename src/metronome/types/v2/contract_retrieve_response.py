@@ -43,8 +43,6 @@ __all__ = [
     "DataTransition",
     "DataUsageFilter",
     "DataUsageStatementSchedule",
-    "DataCreditBalanceThresholdConfiguration",
-    "DataCreditBalanceThresholdConfigurationCommit",
     "DataCredit",
     "DataCreditProduct",
     "DataCreditContract",
@@ -56,6 +54,8 @@ __all__ = [
     "DataCreditLedgerCreditCreditedLedgerEntry",
     "DataCreditLedgerCreditManualLedgerEntry",
     "DataCustomerBillingProviderConfiguration",
+    "DataPrepaidBalanceThresholdConfiguration",
+    "DataPrepaidBalanceThresholdConfigurationCommit",
     "DataRecurringCommit",
     "DataRecurringCommitAccessAmount",
     "DataRecurringCommitCommitDuration",
@@ -446,57 +446,6 @@ class DataUsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
 
-class DataCreditBalanceThresholdConfigurationCommit(BaseModel):
-    product_id: str
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-    applicable_product_ids: Optional[List[str]] = None
-    """Which products the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
-    """
-
-    applicable_product_tags: Optional[List[str]] = None
-    """Which tags the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
-    """
-
-    description: Optional[str] = None
-
-    name: Optional[str] = None
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-
-class DataCreditBalanceThresholdConfiguration(BaseModel):
-    commit: DataCreditBalanceThresholdConfigurationCommit
-
-    is_enabled: bool
-    """
-    When set to false, the contract will not be evaluated against the
-    threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state.
-    """
-
-    recharge_to_amount: float
-    """Specify the amount the balance should be recharged to."""
-
-    threshold_amount: float
-    """Specify the threshold amount for the contract.
-
-    Each time the contract's balance lowers to this amount, a threshold charge will
-    be initiated.
-    """
-
-
 class DataCreditProduct(BaseModel):
     id: str
 
@@ -652,6 +601,57 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     ]
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+
+class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataPrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: DataPrepaidBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
 
 
 class DataRecurringCommitAccessAmount(BaseModel):
@@ -961,8 +961,6 @@ class Data(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    credit_balance_threshold_configuration: Optional[DataCreditBalanceThresholdConfiguration] = None
-
     credits: Optional[List[DataCredit]] = None
 
     custom_fields: Optional[Dict[str, str]] = None
@@ -989,6 +987,8 @@ class Data(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    prepaid_balance_threshold_configuration: Optional[DataPrepaidBalanceThresholdConfiguration] = None
 
     professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
