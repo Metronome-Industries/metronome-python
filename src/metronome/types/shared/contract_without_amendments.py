@@ -17,10 +17,10 @@ __all__ = [
     "ContractWithoutAmendments",
     "Transition",
     "UsageStatementSchedule",
-    "CreditBalanceThresholdConfiguration",
-    "CreditBalanceThresholdConfigurationCommit",
-    "CreditBalanceThresholdConfigurationPaymentGateConfig",
-    "CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "PrepaidBalanceThresholdConfiguration",
+    "PrepaidBalanceThresholdConfigurationCommit",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
     "RecurringCommitCommitDuration",
@@ -57,7 +57,7 @@ class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
 
-class CreditBalanceThresholdConfigurationCommit(BaseModel):
+class PrepaidBalanceThresholdConfigurationCommit(BaseModel):
     product_id: str
     """
     The commit product that will be used to generate the line item for commit
@@ -87,12 +87,12 @@ class CreditBalanceThresholdConfigurationCommit(BaseModel):
     """
 
 
-class CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+class PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
     payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
     """If left blank, will default to INVOICE"""
 
 
-class CreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+class PrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
     """Gate access to the commit balance based on successful collection of payment.
 
@@ -101,7 +101,7 @@ class CreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: Optional[CreditBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    stripe_config: Optional[PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
     """Only applicable if using Stripe as your payment gateway through Metronome."""
 
     tax_type: Optional[Literal["NONE", "STRIPE"]] = None
@@ -112,8 +112,8 @@ class CreditBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     """
 
 
-class CreditBalanceThresholdConfiguration(BaseModel):
-    commit: CreditBalanceThresholdConfigurationCommit
+class PrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: PrepaidBalanceThresholdConfigurationCommit
 
     is_enabled: bool
     """
@@ -122,7 +122,7 @@ class CreditBalanceThresholdConfiguration(BaseModel):
     regardless of prior state.
     """
 
-    payment_gate_config: CreditBalanceThresholdConfigurationPaymentGateConfig
+    payment_gate_config: PrepaidBalanceThresholdConfigurationPaymentGateConfig
 
     recharge_to_amount: float
     """Specify the amount the balance should be recharged to."""
@@ -130,8 +130,8 @@ class CreditBalanceThresholdConfiguration(BaseModel):
     threshold_amount: float
     """Specify the threshold amount for the contract.
 
-    Each time the contract's balance lowers to this amount, a threshold charge will
-    be initiated.
+    Each time the contract's prepaid balance lowers to this amount, a threshold
+    charge will be initiated.
     """
 
 
@@ -444,8 +444,6 @@ class ContractWithoutAmendments(BaseModel):
 
     usage_statement_schedule: UsageStatementSchedule
 
-    credit_balance_threshold_configuration: Optional[CreditBalanceThresholdConfiguration] = None
-
     credits: Optional[List[Credit]] = None
 
     discounts: Optional[List[Discount]] = None
@@ -459,6 +457,8 @@ class ContractWithoutAmendments(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfiguration] = None
 
     professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
