@@ -274,6 +274,23 @@ class TestContracts:
                     "type": "MULTIPLIER",
                 }
             ],
+            add_prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             add_professional_services=[
                 {
                     "max_amount": 0,
@@ -487,6 +504,23 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            update_prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             update_scheduled_charges=[
                 {
                     "scheduled_charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -990,6 +1024,23 @@ class TestAsyncContracts:
                     "type": "MULTIPLIER",
                 }
             ],
+            add_prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             add_professional_services=[
                 {
                     "max_amount": 0,
@@ -1203,6 +1254,23 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
+            update_prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             update_scheduled_charges=[
                 {
                     "scheduled_charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
