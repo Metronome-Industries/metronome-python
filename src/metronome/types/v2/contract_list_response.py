@@ -56,6 +56,8 @@ __all__ = [
     "DataCustomerBillingProviderConfiguration",
     "DataPrepaidBalanceThresholdConfiguration",
     "DataPrepaidBalanceThresholdConfigurationCommit",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataRecurringCommit",
     "DataRecurringCommitAccessAmount",
     "DataRecurringCommitCommitDuration",
@@ -633,6 +635,31 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     """
 
 
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
 class DataPrepaidBalanceThresholdConfiguration(BaseModel):
     commit: DataPrepaidBalanceThresholdConfigurationCommit
 
@@ -642,6 +669,8 @@ class DataPrepaidBalanceThresholdConfiguration(BaseModel):
     threshold_amount. Toggling to true will result an immediate evaluation,
     regardless of prior state.
     """
+
+    payment_gate_config: DataPrepaidBalanceThresholdConfigurationPaymentGateConfig
 
     recharge_to_amount: float
     """Specify the amount the balance should be recharged to."""

@@ -30,6 +30,10 @@ __all__ = [
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
     "AddOverrideTier",
+    "AddPrepaidBalanceThresholdConfiguration",
+    "AddPrepaidBalanceThresholdConfigurationCommit",
+    "AddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "AddProfessionalService",
     "AddRecurringCommit",
     "AddRecurringCommitAccessAmount",
@@ -67,6 +71,10 @@ __all__ = [
     "UpdateCreditAccessScheduleAddScheduleItem",
     "UpdateCreditAccessScheduleRemoveScheduleItem",
     "UpdateCreditAccessScheduleUpdateScheduleItem",
+    "UpdatePrepaidBalanceThresholdConfiguration",
+    "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "UpdateScheduledCharge",
     "UpdateScheduledChargeInvoiceSchedule",
     "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
@@ -93,6 +101,8 @@ class ContractEditParams(TypedDict, total=False):
     add_discounts: Iterable[AddDiscount]
 
     add_overrides: Iterable[AddOverride]
+
+    add_prepaid_balance_threshold_configuration: AddPrepaidBalanceThresholdConfiguration
 
     add_professional_services: Iterable[AddProfessionalService]
     """This field's availability is dependent on your client's configuration."""
@@ -133,6 +143,8 @@ class ContractEditParams(TypedDict, total=False):
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_credits: Iterable[UpdateCredit]
+
+    update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
 
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
@@ -610,6 +622,84 @@ class AddOverride(TypedDict, total=False):
 
     type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
+
+
+class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class AddPrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class AddPrepaidBalanceThresholdConfiguration(TypedDict, total=False):
+    commit: Required[AddPrepaidBalanceThresholdConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: Required[AddPrepaidBalanceThresholdConfigurationPaymentGateConfig]
+
+    recharge_to_amount: Required[float]
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
 
 
 class AddProfessionalService(TypedDict, total=False):
@@ -1157,6 +1247,84 @@ class UpdateCredit(TypedDict, total=False):
     netsuite_sales_order_id: Optional[str]
 
     product_id: str
+
+
+class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
+    commit: UpdatePrepaidBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
 
 
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):

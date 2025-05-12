@@ -184,6 +184,8 @@ class ContractsResource(SyncAPIResource):
         add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
         add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
+        add_prepaid_balance_threshold_configuration: contract_edit_params.AddPrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
@@ -198,6 +200,8 @@ class ContractsResource(SyncAPIResource):
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
+        update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -252,6 +256,7 @@ class ContractsResource(SyncAPIResource):
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
                     "add_overrides": add_overrides,
+                    "add_prepaid_balance_threshold_configuration": add_prepaid_balance_threshold_configuration,
                     "add_professional_services": add_professional_services,
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
@@ -266,6 +271,7 @@ class ContractsResource(SyncAPIResource):
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
+                    "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
@@ -591,6 +597,8 @@ class AsyncContractsResource(AsyncAPIResource):
         add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
         add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
+        add_prepaid_balance_threshold_configuration: contract_edit_params.AddPrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
@@ -605,6 +613,8 @@ class AsyncContractsResource(AsyncAPIResource):
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
+        update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -659,6 +669,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
                     "add_overrides": add_overrides,
+                    "add_prepaid_balance_threshold_configuration": add_prepaid_balance_threshold_configuration,
                     "add_professional_services": add_professional_services,
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
@@ -673,6 +684,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
+                    "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
