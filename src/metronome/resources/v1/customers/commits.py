@@ -9,10 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -187,7 +184,7 @@ class CommitsResource(SyncAPIResource):
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
-          include_archived: Include commits from archived contracts.
+          include_archived: Include archived commits and commits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.
@@ -246,8 +243,11 @@ class CommitsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CommitUpdateEndDateResponse:
-        """
-        Update the end date of a PREPAID commit
+        """Pull forward the end date of a prepaid commit.
+
+        Use the "edit a commit" endpoint
+        to extend the end date of a prepaid commit, or to make other edits to the
+        commit.
 
         Args:
           commit_id: ID of the commit to update. Only supports "PREPAID" commits.
@@ -444,7 +444,7 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
 
-          include_archived: Include commits from archived contracts.
+          include_archived: Include archived commits and commits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.
@@ -503,8 +503,11 @@ class AsyncCommitsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CommitUpdateEndDateResponse:
-        """
-        Update the end date of a PREPAID commit
+        """Pull forward the end date of a prepaid commit.
+
+        Use the "edit a commit" endpoint
+        to extend the end date of a prepaid commit, or to make other edits to the
+        commit.
 
         Args:
           commit_id: ID of the commit to update. Only supports "PREPAID" commits.

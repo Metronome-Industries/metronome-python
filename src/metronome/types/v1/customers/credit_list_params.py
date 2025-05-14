@@ -23,7 +23,7 @@ class CreditListParams(TypedDict, total=False):
     """Include only credits that have any access before the provided date (exclusive)"""
 
     include_archived: bool
-    """Include credits from archived contracts."""
+    """Include archived credits and credits from archived contracts."""
 
     include_balance: bool
     """Include the balance in the response.

@@ -4,10 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["Tier"]
+__all__ = ["RateCardArchiveParams"]
 
 
-class Tier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
+class RateCardArchiveParams(TypedDict, total=False):
+    id: Required[str]

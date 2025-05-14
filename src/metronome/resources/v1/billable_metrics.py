@@ -8,10 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import billable_metric_list_params, billable_metric_create_params, billable_metric_archive_params
 from ..._resource import SyncAPIResource, AsyncAPIResource

@@ -9,10 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -168,7 +165,7 @@ class CreditsResource(SyncAPIResource):
 
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
-          include_archived: Include credits from archived contracts.
+          include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.
@@ -226,8 +223,10 @@ class CreditsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """
-        Update the end date of a credit
+        """Pull forward the end date of a credit.
+
+        Use the "edit a credit" endpoint to
+        extend the end date of a credit, or to make other edits to the credit.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no
@@ -400,7 +399,7 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           effective_before: Include only credits that have any access before the provided date (exclusive)
 
-          include_archived: Include credits from archived contracts.
+          include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance in the response. Setting this flag may cause the query to be
               slower.
@@ -458,8 +457,10 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """
-        Update the end date of a credit
+        """Pull forward the end date of a credit.
+
+        Use the "edit a credit" endpoint to
+        extend the end date of a credit, or to make other edits to the credit.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no

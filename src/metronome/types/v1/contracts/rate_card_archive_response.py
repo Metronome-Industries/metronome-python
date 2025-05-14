@@ -3,8 +3,8 @@
 from ...._models import BaseModel
 from ...shared.id import ID
 
-__all__ = ["RateCardUpdateResponse"]
+__all__ = ["RateCardArchiveResponse"]
 
 
-class RateCardUpdateResponse(BaseModel):
+class RateCardArchiveResponse(BaseModel):
     data: ID

@@ -19,11 +19,14 @@ __all__ = [
     "DataAmendment",
     "DataAmendmentResellerRoyalty",
     "DataCustomerBillingProviderConfiguration",
-    "DataSubscription",
-    "DataSubscriptionProration",
-    "DataSubscriptionQuantitySchedule",
-    "DataSubscriptionSubscriptionRate",
-    "DataSubscriptionSubscriptionRateProduct",
+    "DataPrepaidBalanceThresholdConfiguration",
+    "DataPrepaidBalanceThresholdConfigurationCommit",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "DataSpendThresholdConfiguration",
+    "DataSpendThresholdConfigurationCommit",
+    "DataSpendThresholdConfigurationPaymentGateConfig",
+    "DataSpendThresholdConfigurationPaymentGateConfigStripeConfig",
 ]
 
 
@@ -107,48 +110,143 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     """
 
 
-class DataSubscriptionProration(BaseModel):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
 
-    is_prorated: bool
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
 
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
 
-class DataSubscriptionQuantitySchedule(BaseModel):
-    quantity: float
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
 
-    starting_at: datetime
-
-    ending_before: Optional[datetime] = None
-
-
-class DataSubscriptionSubscriptionRateProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class DataSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-
-    product: DataSubscriptionSubscriptionRateProduct
-
-
-class DataSubscription(BaseModel):
-    collection_schedule: Literal["ADVANCE", "ARREARS"]
-
-    proration: DataSubscriptionProration
-
-    quantity_schedule: List[DataSubscriptionQuantitySchedule]
-
-    starting_at: datetime
-
-    subscription_rate: DataSubscriptionSubscriptionRate
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
 
     description: Optional[str] = None
 
-    ending_before: Optional[datetime] = None
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataPrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: DataPrepaidBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataPrepaidBalanceThresholdConfigurationPaymentGateConfig
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's prepaid balance lowers to this amount, a threshold
+    charge will be initiated.
+    """
+
+
+class DataSpendThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    description: Optional[str] = None
 
     name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataSpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class DataSpendThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataSpendThresholdConfiguration(BaseModel):
+    commit: DataSpendThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataSpendThresholdConfigurationPaymentGateConfig
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
 
 
 class Data(BaseModel):
@@ -173,6 +271,8 @@ class Data(BaseModel):
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
     """The billing provider configuration associated with a contract."""
 
+    prepaid_balance_threshold_configuration: Optional[DataPrepaidBalanceThresholdConfiguration] = None
+
     scheduled_charges_on_usage_invoices: Optional[Literal["ALL"]] = None
     """
     Determines which scheduled and commit charges to consolidate onto the Contract's
@@ -182,7 +282,7 @@ class Data(BaseModel):
     on a separate invoice from usage charges.
     """
 
-    subscriptions: Optional[List[DataSubscription]] = None
+    spend_threshold_configuration: Optional[DataSpendThresholdConfiguration] = None
 
     uniqueness_key: Optional[str] = None
     """Prevents the creation of duplicates.

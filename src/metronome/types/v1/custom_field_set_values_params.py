@@ -30,6 +30,7 @@ class CustomFieldSetValuesParams(TypedDict, total=False):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ]
     ]
 

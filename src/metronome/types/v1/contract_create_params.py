@@ -19,6 +19,8 @@ __all__ = [
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
+    "CommitPaymentGateConfig",
+    "CommitPaymentGateConfigStripeConfig",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
@@ -30,6 +32,10 @@ __all__ = [
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
     "OverrideTier",
+    "PrepaidBalanceThresholdConfiguration",
+    "PrepaidBalanceThresholdConfigurationCommit",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "ProfessionalService",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
@@ -45,11 +51,10 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
-    "Subscription",
-    "SubscriptionProration",
-    "SubscriptionSubscriptionRate",
-    "ThresholdBillingConfiguration",
-    "ThresholdBillingConfigurationCommit",
+    "SpendThresholdConfiguration",
+    "SpendThresholdConfigurationCommit",
+    "SpendThresholdConfigurationPaymentGateConfig",
+    "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "Transition",
     "TransitionFutureInvoiceBehavior",
     "UsageStatementSchedule",
@@ -94,6 +99,8 @@ class ContractCreateParams(TypedDict, total=False):
 
     overrides: Iterable[Override]
 
+    prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
+
     professional_services: Iterable[ProfessionalService]
     """This field's availability is dependent on your client's configuration."""
 
@@ -126,9 +133,7 @@ class ContractCreateParams(TypedDict, total=False):
     on a separate invoice from usage charges.
     """
 
-    subscriptions: Iterable[Subscription]
-
-    threshold_billing_configuration: ThresholdBillingConfiguration
+    spend_threshold_configuration: SpendThresholdConfiguration
 
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
@@ -248,6 +253,31 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class CommitPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: CommitPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -295,6 +325,9 @@ class Commit(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+    payment_gate_config: CommitPaymentGateConfig
+    """optionally payment gate this commit"""
 
     priority: float
     """
@@ -462,8 +495,6 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
-
     commit_ids: List[str]
     """Can only be used for commit specific overrides.
 
@@ -615,6 +646,84 @@ class Override(TypedDict, total=False):
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
+class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
+    product_id: Required[str]
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: List[str]
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: List[str]
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: str
+
+    name: str
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class PrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
+    commit: Required[PrepaidBalanceThresholdConfigurationCommit]
+
+    is_enabled: Required[bool]
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: Required[PrepaidBalanceThresholdConfigurationPaymentGateConfig]
+
+    recharge_to_amount: Required[float]
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: Required[float]
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's prepaid balance lowers to this amount, a threshold
+    charge will be initiated.
+    """
+
+
 class ProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
     """Maximum amount for the term."""
@@ -709,7 +818,7 @@ class RecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -789,7 +898,7 @@ class RecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -938,71 +1047,11 @@ class ScheduledCharge(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
-class SubscriptionProration(TypedDict, total=False):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-    """Indicates how mid-period quantity adjustments are invoiced.
-
-    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
-    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
-    increase will be billed for in-arrears at the end of the period.
-    """
-
-    is_prorated: bool
-    """Indicates if the partial period will be prorated or charged a full amount."""
-
-
-class SubscriptionSubscriptionRate(TypedDict, total=False):
-    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
-    """Frequency to bill subscription with.
-
-    Together with product_id, must match existing rate on the rate card.
-    """
-
+class SpendThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
-    """Must be subscription type product"""
-
-
-class Subscription(TypedDict, total=False):
-    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
-
-    initial_quantity: Required[float]
-
-    proration: Required[SubscriptionProration]
-
-    subscription_rate: Required[SubscriptionSubscriptionRate]
-
-    description: str
-
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Exclusive end time for the subscription.
-
-    If not provided, subscription inherits contract end date.
     """
-
-    name: str
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Inclusive start time for the subscription.
-
-    If not provided, defaults to contract start date
-    """
-
-
-class ThresholdBillingConfigurationCommit(TypedDict, total=False):
-    product_id: Required[str]
-
-    applicable_product_ids: List[str]
-    """Which products the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
-    """
-
-    applicable_product_tags: List[str]
-    """Which tags the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    The commit product that will be used to generate the line item for commit
+    payment.
     """
 
     description: str
@@ -1014,15 +1063,42 @@ class ThresholdBillingConfigurationCommit(TypedDict, total=False):
     """
 
 
-class ThresholdBillingConfiguration(TypedDict, total=False):
-    commit: Required[ThresholdBillingConfigurationCommit]
+class SpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
+    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
+    """If left blank, will default to INVOICE"""
+
+
+class SpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
+    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: SpendThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Literal["NONE", "STRIPE"]
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class SpendThresholdConfiguration(TypedDict, total=False):
+    commit: Required[SpendThresholdConfigurationCommit]
 
     is_enabled: Required[bool]
     """
     When set to false, the contract will not be evaluated against the
     threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state
+    regardless of prior state.
     """
+
+    payment_gate_config: Required[SpendThresholdConfigurationPaymentGateConfig]
 
     threshold_amount: Required[float]
     """Specify the threshold amount for the contract.
@@ -1050,7 +1126,7 @@ class Transition(TypedDict, total=False):
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
 
     billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Required when using CUSTOM_DATE.

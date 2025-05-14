@@ -15,6 +15,7 @@ from metronome.types.v1.contracts import (
     RateCardListResponse,
     RateCardCreateResponse,
     RateCardUpdateResponse,
+    RateCardArchiveResponse,
     RateCardRetrieveResponse,
     RateCardRetrieveRateScheduleResponse,
 )
@@ -192,6 +193,37 @@ class TestRateCards:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_archive(self, client: Metronome) -> None:
+        rate_card = client.v1.contracts.rate_cards.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        )
+        assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+    @parametrize
+    def test_raw_response_archive(self, client: Metronome) -> None:
+        response = client.v1.contracts.rate_cards.with_raw_response.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        rate_card = response.parse()
+        assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+    @parametrize
+    def test_streaming_response_archive(self, client: Metronome) -> None:
+        with client.v1.contracts.rate_cards.with_streaming_response.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            rate_card = response.parse()
+            assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_retrieve_rate_schedule(self, client: Metronome) -> None:
         rate_card = client.v1.contracts.rate_cards.retrieve_rate_schedule(
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
@@ -209,7 +241,6 @@ class TestRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -418,6 +449,37 @@ class TestAsyncRateCards:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_archive(self, async_client: AsyncMetronome) -> None:
+        rate_card = await async_client.v1.contracts.rate_cards.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        )
+        assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+    @parametrize
+    async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.rate_cards.with_raw_response.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        rate_card = await response.parse()
+        assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_archive(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.rate_cards.with_streaming_response.archive(
+            id="12b21470-4570-40df-8998-449d0b0bc52f",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            rate_card = await response.parse()
+            assert_matches_type(RateCardArchiveResponse, rate_card, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_retrieve_rate_schedule(self, async_client: AsyncMetronome) -> None:
         rate_card = await async_client.v1.contracts.rate_cards.retrieve_rate_schedule(
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
@@ -435,7 +497,6 @@ class TestAsyncRateCards:
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",

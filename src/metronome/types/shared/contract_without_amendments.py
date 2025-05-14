@@ -17,6 +17,10 @@ __all__ = [
     "ContractWithoutAmendments",
     "Transition",
     "UsageStatementSchedule",
+    "PrepaidBalanceThresholdConfiguration",
+    "PrepaidBalanceThresholdConfigurationCommit",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
     "RecurringCommitCommitDuration",
@@ -29,8 +33,10 @@ __all__ = [
     "RecurringCreditProduct",
     "RecurringCreditContract",
     "ResellerRoyalty",
-    "ThresholdBillingConfiguration",
-    "ThresholdBillingConfigurationCommit",
+    "SpendThresholdConfiguration",
+    "SpendThresholdConfigurationCommit",
+    "SpendThresholdConfigurationPaymentGateConfig",
+    "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "UsageFilter",
     "UsageFilterUpdate",
 ]
@@ -48,7 +54,85 @@ class UsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+
+class PrepaidBalanceThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class PrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class PrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: PrepaidBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: PrepaidBalanceThresholdConfigurationPaymentGateConfig
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's prepaid balance lowers to this amount, a threshold
+    charge will be initiated.
+    """
 
 
 class RecurringCommitAccessAmount(BaseModel):
@@ -133,7 +217,7 @@ class RecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -221,7 +305,7 @@ class RecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -266,21 +350,11 @@ class ResellerRoyalty(BaseModel):
     reseller_contract_value: Optional[float] = None
 
 
-class ThresholdBillingConfigurationCommit(BaseModel):
+class SpendThresholdConfigurationCommit(BaseModel):
     product_id: str
-
-    applicable_product_ids: Optional[List[str]] = None
-    """Which products the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
     """
-
-    applicable_product_tags: Optional[List[str]] = None
-    """Which tags the threshold commit applies to.
-
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    The commit product that will be used to generate the line item for commit
+    payment.
     """
 
     description: Optional[str] = None
@@ -292,15 +366,42 @@ class ThresholdBillingConfigurationCommit(BaseModel):
     """
 
 
-class ThresholdBillingConfiguration(BaseModel):
-    commit: ThresholdBillingConfigurationCommit
+class SpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+
+class SpendThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    stripe_config: Optional[SpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using Stripe as your payment gateway through Metronome."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class SpendThresholdConfiguration(BaseModel):
+    commit: SpendThresholdConfigurationCommit
 
     is_enabled: bool
     """
     When set to false, the contract will not be evaluated against the
     threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state
+    regardless of prior state.
     """
+
+    payment_gate_config: SpendThresholdConfigurationPaymentGateConfig
 
     threshold_amount: float
     """Specify the threshold amount for the contract.
@@ -357,6 +458,8 @@ class ContractWithoutAmendments(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
+    prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfiguration] = None
+
     professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
 
@@ -381,7 +484,7 @@ class ContractWithoutAmendments(BaseModel):
     on a separate invoice from usage charges.
     """
 
-    threshold_billing_configuration: Optional[ThresholdBillingConfiguration] = None
+    spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None
 
     total_contract_value: Optional[float] = None
     """This field's availability is dependent on your client's configuration."""

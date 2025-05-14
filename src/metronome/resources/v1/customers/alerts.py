@@ -8,10 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from ...._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -53,6 +50,7 @@ class AlertsResource(SyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,6 +67,9 @@ class AlertsResource(SyncAPIResource):
 
           customer_id: The Metronome ID of the customer
 
+          plans_or_contracts: When parallel alerts are enabled during migration, this flag denotes whether to
+              fetch alerts for plans or contracts.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -83,6 +84,7 @@ class AlertsResource(SyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "plans_or_contracts": plans_or_contracts,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
             ),
@@ -213,6 +215,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -229,6 +232,9 @@ class AsyncAlertsResource(AsyncAPIResource):
 
           customer_id: The Metronome ID of the customer
 
+          plans_or_contracts: When parallel alerts are enabled during migration, this flag denotes whether to
+              fetch alerts for plans or contracts.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -243,6 +249,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "plans_or_contracts": plans_or_contracts,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
             ),

@@ -8,10 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import (
     custom_field_add_key_params,
@@ -75,6 +72,7 @@ class CustomFieldsResource(SyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         key: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -136,6 +134,7 @@ class CustomFieldsResource(SyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         entity_id: str,
         keys: List[str],
@@ -198,6 +197,7 @@ class CustomFieldsResource(SyncAPIResource):
                 "product",
                 "rate_card",
                 "scheduled_charge",
+                "subscription",
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -260,6 +260,7 @@ class CustomFieldsResource(SyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         key: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -319,6 +320,7 @@ class CustomFieldsResource(SyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -407,6 +409,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         key: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -468,6 +471,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         entity_id: str,
         keys: List[str],
@@ -530,6 +534,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
                 "product",
                 "rate_card",
                 "scheduled_charge",
+                "subscription",
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -594,6 +599,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         key: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -653,6 +659,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             "product",
             "rate_card",
             "scheduled_charge",
+            "subscription",
         ],
         entity_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

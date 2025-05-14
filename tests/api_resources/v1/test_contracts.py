@@ -43,7 +43,7 @@ class TestContracts:
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billing_provider_configuration={
-                "billing_provider": "aws_marketplace",
+                "billing_provider": "stripe",
                 "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "delivery_method": "direct_to_billing_provider",
             },
@@ -88,6 +88,11 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "payment_gate_config": {
+                        "payment_gate_type": "NONE",
+                        "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
+                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -161,7 +166,6 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -197,6 +201,23 @@ class TestContracts:
                     "type": "OVERWRITE",
                 }
             ],
+            prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             professional_services=[
                 {
                     "max_amount": 0,
@@ -319,33 +340,18 @@ class TestContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
-            subscriptions=[
-                {
-                    "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
-                    "proration": {
-                        "invoice_behavior": "BILL_IMMEDIATELY",
-                        "is_prorated": True,
-                    },
-                    "subscription_rate": {
-                        "billing_frequency": "MONTHLY",
-                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "description": "description",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                }
-            ],
-            threshold_billing_configuration={
+            spend_threshold_configuration={
                 "commit": {
                     "product_id": "product_id",
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                 },
                 "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
                 "threshold_amount": 0,
             },
             total_contract_value=0,
@@ -594,6 +600,11 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "payment_gate_config": {
+                        "payment_gate_type": "NONE",
+                        "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
+                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -663,7 +674,6 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -975,7 +985,6 @@ class TestContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -1182,7 +1191,7 @@ class TestAsyncContracts:
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
             billing_provider_configuration={
-                "billing_provider": "aws_marketplace",
+                "billing_provider": "stripe",
                 "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "delivery_method": "direct_to_billing_provider",
             },
@@ -1227,6 +1236,11 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "payment_gate_config": {
+                        "payment_gate_type": "NONE",
+                        "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
+                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -1300,7 +1314,6 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -1336,6 +1349,23 @@ class TestAsyncContracts:
                     "type": "OVERWRITE",
                 }
             ],
+            prepaid_balance_threshold_configuration={
+                "commit": {
+                    "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
+                    "description": "description",
+                    "name": "name",
+                },
+                "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
+                "recharge_to_amount": 0,
+                "threshold_amount": 0,
+            },
             professional_services=[
                 {
                     "max_amount": 0,
@@ -1458,33 +1488,18 @@ class TestAsyncContracts:
                 }
             ],
             scheduled_charges_on_usage_invoices="ALL",
-            subscriptions=[
-                {
-                    "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
-                    "proration": {
-                        "invoice_behavior": "BILL_IMMEDIATELY",
-                        "is_prorated": True,
-                    },
-                    "subscription_rate": {
-                        "billing_frequency": "MONTHLY",
-                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "description": "description",
-                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "name": "name",
-                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                }
-            ],
-            threshold_billing_configuration={
+            spend_threshold_configuration={
                 "commit": {
                     "product_id": "product_id",
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                 },
                 "is_enabled": True,
+                "payment_gate_config": {
+                    "payment_gate_type": "NONE",
+                    "stripe_config": {"payment_type": "INVOICE"},
+                    "tax_type": "NONE",
+                },
                 "threshold_amount": 0,
             },
             total_contract_value=0,
@@ -1733,6 +1748,11 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "payment_gate_config": {
+                        "payment_gate_type": "NONE",
+                        "stripe_config": {"payment_type": "INVOICE"},
+                        "tax_type": "NONE",
+                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -1802,7 +1822,6 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
-                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -2114,7 +2133,6 @@ class TestAsyncContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
-                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",

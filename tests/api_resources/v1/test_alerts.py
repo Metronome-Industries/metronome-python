@@ -20,7 +20,7 @@ class TestAlerts:
     @parametrize
     def test_method_create(self, client: Metronome) -> None:
         alert = client.v1.alerts.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         )
@@ -29,7 +29,7 @@ class TestAlerts:
     @parametrize
     def test_method_create_with_all_params(self, client: Metronome) -> None:
         alert = client.v1.alerts.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
             billable_metric_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -57,7 +57,7 @@ class TestAlerts:
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
         response = client.v1.alerts.with_raw_response.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         )
@@ -70,7 +70,7 @@ class TestAlerts:
     @parametrize
     def test_streaming_response_create(self, client: Metronome) -> None:
         with client.v1.alerts.with_streaming_response.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         ) as response:
@@ -128,7 +128,7 @@ class TestAsyncAlerts:
     @parametrize
     async def test_method_create(self, async_client: AsyncMetronome) -> None:
         alert = await async_client.v1.alerts.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         )
@@ -137,7 +137,7 @@ class TestAsyncAlerts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncMetronome) -> None:
         alert = await async_client.v1.alerts.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
             billable_metric_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -165,7 +165,7 @@ class TestAsyncAlerts:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
         response = await async_client.v1.alerts.with_raw_response.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         )
@@ -178,7 +178,7 @@ class TestAsyncAlerts:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncMetronome) -> None:
         async with async_client.v1.alerts.with_streaming_response.create(
-            alert_type="low_credit_balance_reached",
+            alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
         ) as response:

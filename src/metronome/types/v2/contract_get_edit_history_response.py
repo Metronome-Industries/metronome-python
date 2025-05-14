@@ -39,6 +39,10 @@ __all__ = [
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
     "DataAddUsageFilter",
+    "DataArchiveCommit",
+    "DataArchiveCredit",
+    "DataArchiveScheduledCharge",
+    "DataRemoveOverride",
     "DataUpdateCommit",
     "DataUpdateCommitAccessSchedule",
     "DataUpdateCommitAccessScheduleAddScheduleItem",
@@ -151,8 +155,6 @@ class DataAddCredit(BaseModel):
 
 
 class DataAddOverrideOverrideSpecifier(BaseModel):
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
-
     commit_ids: Optional[List[str]] = None
 
     presentation_group_values: Optional[Dict[str, Optional[str]]] = None
@@ -323,7 +325,7 @@ class DataAddRecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -411,7 +413,7 @@ class DataAddRecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -492,6 +494,22 @@ class DataAddUsageFilter(BaseModel):
     This will match contract ending_before value if usage filter is active until the
     end of the contract. It will be undefined if the contract is open-ended.
     """
+
+
+class DataArchiveCommit(BaseModel):
+    id: str
+
+
+class DataArchiveCredit(BaseModel):
+    id: str
+
+
+class DataArchiveScheduledCharge(BaseModel):
+    id: str
+
+
+class DataRemoveOverride(BaseModel):
+    id: str
 
 
 class DataUpdateCommitAccessScheduleAddScheduleItem(BaseModel):
@@ -644,7 +662,7 @@ class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
     ending_before: datetime
     """RFC 3339 timestamp (exclusive)."""
 
-    frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     starting_at: datetime
     """RFC 3339 timestamp (inclusive)."""
@@ -798,6 +816,14 @@ class Data(BaseModel):
     add_scheduled_charges: Optional[List[DataAddScheduledCharge]] = None
 
     add_usage_filters: Optional[List[DataAddUsageFilter]] = None
+
+    archive_commits: Optional[List[DataArchiveCommit]] = None
+
+    archive_credits: Optional[List[DataArchiveCredit]] = None
+
+    archive_scheduled_charges: Optional[List[DataArchiveScheduledCharge]] = None
+
+    remove_overrides: Optional[List[DataRemoveOverride]] = None
 
     timestamp: Optional[datetime] = None
 

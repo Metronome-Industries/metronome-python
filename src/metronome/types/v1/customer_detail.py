@@ -24,6 +24,9 @@ class CustomerDetail(BaseModel):
     id: str
     """the Metronome ID of the customer"""
 
+    created_at: datetime
+    """RFC 3339 timestamp indicating when the customer was created."""
+
     custom_fields: Dict[str, str]
 
     customer_config: CustomerConfig

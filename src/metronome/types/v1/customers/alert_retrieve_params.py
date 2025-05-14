@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AlertRetrieveParams"]
 
@@ -13,3 +13,9 @@ class AlertRetrieveParams(TypedDict, total=False):
 
     customer_id: Required[str]
     """The Metronome ID of the customer"""
+
+    plans_or_contracts: Literal["PLANS", "CONTRACTS"]
+    """
+    When parallel alerts are enabled during migration, this flag denotes whether to
+    fetch alerts for plans or contracts.
+    """
