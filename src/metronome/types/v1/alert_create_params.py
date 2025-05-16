@@ -63,7 +63,7 @@ class AlertCreateParams(TypedDict, total=False):
     customer_id: str
     """If provided, will create this alert for this specific customer.
 
-    To create an alert for all customers, do not specify `customer_id` or `plan_id`.
+    To create an alert for all customers, do not specify a `customer_id`.
     """
 
     evaluate_on_create: bool
@@ -88,7 +88,7 @@ class AlertCreateParams(TypedDict, total=False):
     plan_id: str
     """If provided, will create this alert for this specific plan.
 
-    To create an alert for all customers, do not specify `customer_id` or `plan_id`.
+    To create an alert for all customers, do not specify a `plan_id`.
     """
 
     uniqueness_key: str

@@ -15,4 +15,4 @@ class ProductListParams(TypedDict, total=False):
     """Cursor that indicates where the next page of results should start."""
 
     archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"]
-    """Filter options for the product list"""
+    """Filter options for the product list. If not provided, defaults to not archived."""

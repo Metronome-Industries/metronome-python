@@ -105,7 +105,7 @@ class AlertsResource(SyncAPIResource):
               Only present for contract invoices.
 
           customer_id: If provided, will create this alert for this specific customer. To create an
-              alert for all customers, do not specify `customer_id` or `plan_id`.
+              alert for all customers, do not specify a `customer_id`.
 
           evaluate_on_create: If true, the alert will evaluate immediately on customers that already meet the
               alert threshold. If false, it will only evaluate on future customers that
@@ -118,7 +118,7 @@ class AlertsResource(SyncAPIResource):
               evaluate.
 
           plan_id: If provided, will create this alert for this specific plan. To create an alert
-              for all customers, do not specify `customer_id` or `plan_id`.
+              for all customers, do not specify a `plan_id`.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
@@ -282,7 +282,7 @@ class AsyncAlertsResource(AsyncAPIResource):
               Only present for contract invoices.
 
           customer_id: If provided, will create this alert for this specific customer. To create an
-              alert for all customers, do not specify `customer_id` or `plan_id`.
+              alert for all customers, do not specify a `customer_id`.
 
           evaluate_on_create: If true, the alert will evaluate immediately on customers that already meet the
               alert threshold. If false, it will only evaluate on future customers that
@@ -295,7 +295,7 @@ class AsyncAlertsResource(AsyncAPIResource):
               evaluate.
 
           plan_id: If provided, will create this alert for this specific plan. To create an alert
-              for all customers, do not specify `customer_id` or `plan_id`.
+              for all customers, do not specify a `plan_id`.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the

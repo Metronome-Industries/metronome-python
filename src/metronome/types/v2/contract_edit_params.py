@@ -139,7 +139,7 @@ class ContractEditParams(TypedDict, total=False):
 
     update_commits: Iterable[UpdateCommit]
 
-    update_contract_end_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_credits: Iterable[UpdateCredit]
