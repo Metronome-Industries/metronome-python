@@ -332,7 +332,7 @@ class ProductsResource(SyncAPIResource):
 
           next_page: Cursor that indicates where the next page of results should start.
 
-          archive_filter: Filter options for the product list
+          archive_filter: Filter options for the product list. If not provided, defaults to not archived.
 
           extra_headers: Send extra headers
 
@@ -692,7 +692,7 @@ class AsyncProductsResource(AsyncAPIResource):
 
           next_page: Cursor that indicates where the next page of results should start.
 
-          archive_filter: Filter options for the product list
+          archive_filter: Filter options for the product list. If not provided, defaults to not archived.
 
           extra_headers: Send extra headers
 
