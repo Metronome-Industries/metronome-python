@@ -198,7 +198,7 @@ class ContractsResource(SyncAPIResource):
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
-        update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -611,7 +611,7 @@ class AsyncContractsResource(AsyncAPIResource):
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
-        update_contract_end_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
