@@ -7,8 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
-from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -31,6 +29,7 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
+    "OverrideOverwriteRateTier",
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
@@ -57,6 +56,7 @@ __all__ = [
     "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "Transition",
     "TransitionFutureInvoiceBehavior",
+    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -147,7 +147,7 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: BaseUsageFilter
+    usage_filter: UsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
@@ -544,6 +544,12 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class OverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -571,7 +577,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[OverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
@@ -1123,6 +1129,14 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
+
+
+class UsageFilter(TypedDict, total=False):
+    group_key: Required[str]
+
+    group_values: Required[List[str]]
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):
