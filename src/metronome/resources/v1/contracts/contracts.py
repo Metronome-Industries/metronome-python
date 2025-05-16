@@ -62,6 +62,7 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
+from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -134,7 +135,7 @@ class ContractsResource(SyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -950,7 +951,7 @@ class AsyncContractsResource(AsyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
