@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -27,11 +27,13 @@ __all__ = [
     "RecurringCommitProduct",
     "RecurringCommitContract",
     "RecurringCommitInvoiceAmount",
+    "RecurringCommitSpecifier",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
+    "RecurringCreditSpecifier",
     "ResellerRoyalty",
     "SpendThresholdConfiguration",
     "SpendThresholdConfigurationCommit",
@@ -167,6 +169,23 @@ class RecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class RecurringCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class RecurringCommit(BaseModel):
     id: str
 
@@ -233,6 +252,13 @@ class RecurringCommit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
+    specifiers: Optional[List[RecurringCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown.
+    """
+
 
 class RecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
@@ -256,6 +282,23 @@ class RecurringCreditProduct(BaseModel):
 
 class RecurringCreditContract(BaseModel):
     id: str
+
+
+class RecurringCreditSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class RecurringCredit(BaseModel):
@@ -319,6 +362,13 @@ class RecurringCredit(BaseModel):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Optional[List[RecurringCreditSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown.
     """
 
 

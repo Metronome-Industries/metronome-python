@@ -19,9 +19,11 @@ __all__ = [
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
     "CommitPaymentGateConfigStripeConfig",
+    "CommitSpecifier",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
+    "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
@@ -197,6 +199,23 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class CommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -259,6 +278,14 @@ class Commit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
+    specifiers: Iterable[CommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
     temporary_id: str
     """
     A temporary ID for the commit that can be used to reference the commit for
@@ -281,6 +308,23 @@ class CreditAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
+
+class CreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class Credit(TypedDict, total=False):
@@ -321,6 +365,14 @@ class Credit(TypedDict, total=False):
     """
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    specifiers: Iterable[CreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):

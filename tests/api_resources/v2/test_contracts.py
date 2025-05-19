@@ -175,6 +175,14 @@ class TestContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -199,6 +207,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             add_discounts=[
@@ -331,6 +347,14 @@ class TestContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -358,6 +382,14 @@ class TestContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -645,6 +677,14 @@ class TestContracts:
                 ],
             },
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            specifiers=[
+                {
+                    "presentation_group_values": {"foo": "string"},
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "product_tags": ["string"],
+                }
+            ],
         )
         assert_matches_type(ContractEditCommitResponse, contract, path=["response"])
 
@@ -708,6 +748,14 @@ class TestContracts:
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            specifiers=[
+                {
+                    "presentation_group_values": {"foo": "string"},
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "product_tags": ["string"],
+                }
+            ],
         )
         assert_matches_type(ContractEditCreditResponse, contract, path=["response"])
 
@@ -925,6 +973,14 @@ class TestAsyncContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -949,6 +1005,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             add_discounts=[
@@ -1081,6 +1145,14 @@ class TestAsyncContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1108,6 +1180,14 @@ class TestAsyncContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1395,6 +1475,14 @@ class TestAsyncContracts:
                 ],
             },
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            specifiers=[
+                {
+                    "presentation_group_values": {"foo": "string"},
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "product_tags": ["string"],
+                }
+            ],
         )
         assert_matches_type(ContractEditCommitResponse, contract, path=["response"])
 
@@ -1458,6 +1546,14 @@ class TestAsyncContracts:
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            specifiers=[
+                {
+                    "presentation_group_values": {"foo": "string"},
+                    "pricing_group_values": {"foo": "string"},
+                    "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "product_tags": ["string"],
+                }
+            ],
         )
         assert_matches_type(ContractEditCreditResponse, contract, path=["response"])
 
