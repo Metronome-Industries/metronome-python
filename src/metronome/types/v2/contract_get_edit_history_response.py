@@ -17,8 +17,10 @@ __all__ = [
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitSpecifier",
     "DataAddCredit",
     "DataAddCreditProduct",
+    "DataAddCreditSpecifier",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
     "DataAddOverrideOverrideTier",
@@ -30,11 +32,13 @@ __all__ = [
     "DataAddRecurringCommitProduct",
     "DataAddRecurringCommitContract",
     "DataAddRecurringCommitInvoiceAmount",
+    "DataAddRecurringCommitSpecifier",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
     "DataAddRecurringCreditProduct",
     "DataAddRecurringCreditContract",
+    "DataAddRecurringCreditSpecifier",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
@@ -52,6 +56,7 @@ __all__ = [
     "DataUpdateCommitInvoiceScheduleAddScheduleItem",
     "DataUpdateCommitInvoiceScheduleRemoveScheduleItem",
     "DataUpdateCommitInvoiceScheduleUpdateScheduleItem",
+    "DataUpdateCommitSpecifier",
     "DataUpdateCredit",
     "DataUpdateCreditAccessSchedule",
     "DataUpdateCreditAccessScheduleAddScheduleItem",
@@ -74,6 +79,23 @@ class DataAddCommitProduct(BaseModel):
     id: str
 
     name: str
+
+
+class DataAddCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class DataAddCommit(BaseModel):
@@ -116,11 +138,36 @@ class DataAddCommit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
+    specifiers: Optional[List[DataAddCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
 
 class DataAddCreditProduct(BaseModel):
     id: str
 
     name: str
+
+
+class DataAddCreditSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class DataAddCredit(BaseModel):
@@ -152,6 +199,14 @@ class DataAddCredit(BaseModel):
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    specifiers: Optional[List[DataAddCreditSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class DataAddOverrideOverrideSpecifier(BaseModel):
@@ -275,6 +330,23 @@ class DataAddRecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class DataAddRecurringCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataAddRecurringCommit(BaseModel):
     id: str
 
@@ -341,6 +413,13 @@ class DataAddRecurringCommit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
+    specifiers: Optional[List[DataAddRecurringCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown.
+    """
+
 
 class DataAddRecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
@@ -364,6 +443,23 @@ class DataAddRecurringCreditProduct(BaseModel):
 
 class DataAddRecurringCreditContract(BaseModel):
     id: str
+
+
+class DataAddRecurringCreditSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class DataAddRecurringCredit(BaseModel):
@@ -427,6 +523,13 @@ class DataAddRecurringCredit(BaseModel):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Optional[List[DataAddRecurringCreditSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown.
     """
 
 
@@ -580,6 +683,23 @@ class DataUpdateCommitInvoiceSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCommitInvoiceScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataUpdateCommit(BaseModel):
     id: str
 
@@ -608,6 +728,14 @@ class DataUpdateCommit(BaseModel):
     product_id: Optional[str] = None
 
     rollover_fraction: Optional[float] = None
+
+    specifiers: Optional[List[DataUpdateCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class DataUpdateCreditAccessScheduleAddScheduleItem(BaseModel):

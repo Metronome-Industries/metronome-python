@@ -19,9 +19,11 @@ __all__ = [
     "AddCommitInvoiceScheduleScheduleItem",
     "AddCommitPaymentGateConfig",
     "AddCommitPaymentGateConfigStripeConfig",
+    "AddCommitSpecifier",
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
+    "AddCreditSpecifier",
     "AddDiscount",
     "AddDiscountSchedule",
     "AddDiscountScheduleRecurringSchedule",
@@ -39,9 +41,11 @@ __all__ = [
     "AddRecurringCommitAccessAmount",
     "AddRecurringCommitCommitDuration",
     "AddRecurringCommitInvoiceAmount",
+    "AddRecurringCommitSpecifier",
     "AddRecurringCredit",
     "AddRecurringCreditAccessAmount",
     "AddRecurringCreditCommitDuration",
+    "AddRecurringCreditSpecifier",
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
@@ -267,6 +271,23 @@ class AddCommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class AddCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -329,6 +350,14 @@ class AddCommit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
+    specifiers: Iterable[AddCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
     temporary_id: str
     """
     A temporary ID for the commit that can be used to reference the commit for
@@ -350,6 +379,23 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
+
+class AddCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddCredit(TypedDict, total=False):
@@ -390,6 +436,14 @@ class AddCredit(TypedDict, total=False):
     """
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    specifiers: Iterable[AddCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -750,6 +804,23 @@ class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
     unit_price: Required[float]
 
 
+class AddRecurringCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
     """The amount of commit to grant."""
@@ -812,6 +883,14 @@ class AddRecurringCommit(TypedDict, total=False):
     contract transition. Must be between 0 and 1.
     """
 
+    specifiers: Iterable[AddRecurringCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
     temporary_id: str
     """
     A temporary ID that can be used to reference the recurring commit for commit
@@ -831,6 +910,23 @@ class AddRecurringCreditCommitDuration(TypedDict, total=False):
     unit: Required[Literal["PERIODS"]]
 
     value: Required[float]
+
+
+class AddRecurringCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddRecurringCredit(TypedDict, total=False):
@@ -890,6 +986,14 @@ class AddRecurringCredit(TypedDict, total=False):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[AddRecurringCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
     temporary_id: str

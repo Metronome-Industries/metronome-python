@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -14,6 +14,7 @@ __all__ = [
     "AccessScheduleAddScheduleItem",
     "AccessScheduleRemoveScheduleItem",
     "AccessScheduleUpdateScheduleItem",
+    "Specifier",
 ]
 
 
@@ -41,6 +42,14 @@ class ContractEditCreditParams(TypedDict, total=False):
     """
 
     product_id: str
+
+    specifiers: Iterable[Specifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class AccessScheduleAddScheduleItem(TypedDict, total=False):
@@ -71,3 +80,20 @@ class AccessSchedule(TypedDict, total=False):
     remove_schedule_items: Iterable[AccessScheduleRemoveScheduleItem]
 
     update_schedule_items: Iterable[AccessScheduleUpdateScheduleItem]
+
+
+class Specifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """

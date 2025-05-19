@@ -294,6 +294,7 @@ class ContractsResource(SyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -319,6 +320,11 @@ class ContractsResource(SyncAPIResource):
 
           invoice_contract_id: ID of contract to use for invoicing
 
+          specifiers: List of filters that determine what kind of customer usage draws down a commit
+              or credit. A customer's usage needs to meet the condition of at least one of the
+              specifiers to contribute to a commit's or credit's drawdown. This field cannot
+              be used together with `applicable_product_ids` or `applicable_product_tags`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -339,6 +345,7 @@ class ContractsResource(SyncAPIResource):
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "product_id": product_id,
+                    "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
             ),
@@ -357,6 +364,7 @@ class ContractsResource(SyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,6 +388,11 @@ class ContractsResource(SyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          specifiers: List of filters that determine what kind of customer usage draws down a commit
+              or credit. A customer's usage needs to meet the condition of at least one of the
+              specifiers to contribute to a commit's or credit's drawdown. This field cannot
+              be used together with `applicable_product_ids` or `applicable_product_tags`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -398,6 +411,7 @@ class ContractsResource(SyncAPIResource):
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "product_id": product_id,
+                    "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,
             ),
@@ -707,6 +721,7 @@ class AsyncContractsResource(AsyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -732,6 +747,11 @@ class AsyncContractsResource(AsyncAPIResource):
 
           invoice_contract_id: ID of contract to use for invoicing
 
+          specifiers: List of filters that determine what kind of customer usage draws down a commit
+              or credit. A customer's usage needs to meet the condition of at least one of the
+              specifiers to contribute to a commit's or credit's drawdown. This field cannot
+              be used together with `applicable_product_ids` or `applicable_product_tags`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -752,6 +772,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "product_id": product_id,
+                    "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
             ),
@@ -770,6 +791,7 @@ class AsyncContractsResource(AsyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -793,6 +815,11 @@ class AsyncContractsResource(AsyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          specifiers: List of filters that determine what kind of customer usage draws down a commit
+              or credit. A customer's usage needs to meet the condition of at least one of the
+              specifiers to contribute to a commit's or credit's drawdown. This field cannot
+              be used together with `applicable_product_ids` or `applicable_product_tags`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -811,6 +838,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "product_id": product_id,
+                    "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,
             ),
