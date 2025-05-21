@@ -224,6 +224,14 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -1420,6 +1428,14 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 },
                 "is_enabled": True,
                 "payment_gate_config": {

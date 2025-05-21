@@ -34,6 +34,7 @@ __all__ = [
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
+    "AddPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "AddProfessionalService",
@@ -77,6 +78,7 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "UpdateScheduledCharge",
@@ -678,6 +680,23 @@ class AddOverride(TypedDict, total=False):
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
+class AddPrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
     """
@@ -705,6 +724,14 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Iterable[AddPrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -873,7 +900,7 @@ class AddRecurringCommit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -978,7 +1005,7 @@ class AddRecurringCredit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -1353,6 +1380,23 @@ class UpdateCredit(TypedDict, total=False):
     product_id: str
 
 
+class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
     """
@@ -1380,6 +1424,14 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
