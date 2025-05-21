@@ -36,6 +36,7 @@ __all__ = [
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
+    "PrepaidBalanceThresholdConfigurationCommitSpecifier",
     "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "ProfessionalService",
@@ -700,6 +701,23 @@ class Override(TypedDict, total=False):
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
+class PrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
     """
@@ -727,6 +745,14 @@ class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Iterable[PrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -895,7 +921,7 @@ class RecurringCommit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -1000,7 +1026,7 @@ class RecurringCredit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float

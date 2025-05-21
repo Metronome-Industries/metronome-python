@@ -58,6 +58,7 @@ __all__ = [
     "DataCustomerBillingProviderConfiguration",
     "DataPrepaidBalanceThresholdConfiguration",
     "DataPrepaidBalanceThresholdConfigurationCommit",
+    "DataPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataRecurringCommit",
@@ -657,6 +658,23 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
 
+class DataPrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     product_id: str
     """
@@ -684,6 +702,14 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Optional[List[DataPrepaidBalanceThresholdConfigurationCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -840,7 +866,7 @@ class DataRecurringCommit(BaseModel):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: Optional[float] = None
@@ -952,7 +978,7 @@ class DataRecurringCredit(BaseModel):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: Optional[float] = None
