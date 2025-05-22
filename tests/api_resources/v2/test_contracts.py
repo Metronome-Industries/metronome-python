@@ -569,6 +569,30 @@ class TestContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
             },
+            update_recurring_commits=[
+                {
+                    "recurring_commit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "access_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "invoice_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                }
+            ],
+            update_recurring_credits=[
+                {
+                    "recurring_credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "access_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             update_scheduled_charges=[
                 {
                     "scheduled_charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1383,6 +1407,30 @@ class TestAsyncContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
             },
+            update_recurring_commits=[
+                {
+                    "recurring_commit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "access_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "invoice_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                }
+            ],
+            update_recurring_credits=[
+                {
+                    "recurring_credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "access_amount": {
+                        "quantity": 0,
+                        "unit_price": 0,
+                    },
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             update_scheduled_charges=[
                 {
                     "scheduled_charge_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

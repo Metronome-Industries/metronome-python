@@ -202,6 +202,8 @@ class ContractsResource(SyncAPIResource):
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | NotGiven = NOT_GIVEN,
+        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -272,6 +274,8 @@ class ContractsResource(SyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
+                    "update_recurring_commits": update_recurring_commits,
+                    "update_recurring_credits": update_recurring_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
@@ -629,6 +633,8 @@ class AsyncContractsResource(AsyncAPIResource):
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | NotGiven = NOT_GIVEN,
+        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | NotGiven = NOT_GIVEN,
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -699,6 +705,8 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
+                    "update_recurring_commits": update_recurring_commits,
+                    "update_recurring_credits": update_recurring_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
                 },
