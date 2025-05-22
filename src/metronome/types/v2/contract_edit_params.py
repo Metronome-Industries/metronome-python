@@ -81,6 +81,11 @@ __all__ = [
     "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "UpdateRecurringCommit",
+    "UpdateRecurringCommitAccessAmount",
+    "UpdateRecurringCommitInvoiceAmount",
+    "UpdateRecurringCredit",
+    "UpdateRecurringCreditAccessAmount",
     "UpdateScheduledCharge",
     "UpdateScheduledChargeInvoiceSchedule",
     "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
@@ -151,6 +156,10 @@ class ContractEditParams(TypedDict, total=False):
     update_credits: Iterable[UpdateCredit]
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
+
+    update_recurring_commits: Iterable[UpdateRecurringCommit]
+
+    update_recurring_credits: Iterable[UpdateRecurringCredit]
 
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
@@ -1481,6 +1490,42 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     Each time the contract's balance lowers to this amount, a threshold charge will
     be initiated.
     """
+
+
+class UpdateRecurringCommitAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommitInvoiceAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommit(TypedDict, total=False):
+    recurring_commit_id: Required[str]
+
+    access_amount: UpdateRecurringCommitAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    invoice_amount: UpdateRecurringCommitInvoiceAmount
+
+
+class UpdateRecurringCreditAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCredit(TypedDict, total=False):
+    recurring_credit_id: Required[str]
+
+    access_amount: UpdateRecurringCreditAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
 
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):

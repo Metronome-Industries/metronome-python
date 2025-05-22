@@ -66,6 +66,11 @@ __all__ = [
     "DataUpdateDiscountSchedule",
     "DataUpdateDiscountScheduleRecurringSchedule",
     "DataUpdateDiscountScheduleScheduleItem",
+    "DataUpdateRecurringCommit",
+    "DataUpdateRecurringCommitAccessAmount",
+    "DataUpdateRecurringCommitInvoiceAmount",
+    "DataUpdateRecurringCredit",
+    "DataUpdateRecurringCreditAccessAmount",
     "DataUpdateRefundInvoice",
     "DataUpdateScheduledCharge",
     "DataUpdateScheduledChargeInvoiceSchedule",
@@ -872,6 +877,42 @@ class DataUpdateDiscount(BaseModel):
     """Must provide either schedule_items or recurring_schedule."""
 
 
+class DataUpdateRecurringCommitAccessAmount(BaseModel):
+    quantity: Optional[float] = None
+
+    unit_price: Optional[float] = None
+
+
+class DataUpdateRecurringCommitInvoiceAmount(BaseModel):
+    quantity: Optional[float] = None
+
+    unit_price: Optional[float] = None
+
+
+class DataUpdateRecurringCommit(BaseModel):
+    id: str
+
+    access_amount: Optional[DataUpdateRecurringCommitAccessAmount] = None
+
+    ending_before: Optional[datetime] = None
+
+    invoice_amount: Optional[DataUpdateRecurringCommitInvoiceAmount] = None
+
+
+class DataUpdateRecurringCreditAccessAmount(BaseModel):
+    quantity: Optional[float] = None
+
+    unit_price: Optional[float] = None
+
+
+class DataUpdateRecurringCredit(BaseModel):
+    id: str
+
+    access_amount: Optional[DataUpdateRecurringCreditAccessAmount] = None
+
+    ending_before: Optional[datetime] = None
+
+
 class DataUpdateRefundInvoice(BaseModel):
     date: datetime
 
@@ -962,6 +1003,10 @@ class Data(BaseModel):
     update_credits: Optional[List[DataUpdateCredit]] = None
 
     update_discounts: Optional[List[DataUpdateDiscount]] = None
+
+    update_recurring_commits: Optional[List[DataUpdateRecurringCommit]] = None
+
+    update_recurring_credits: Optional[List[DataUpdateRecurringCredit]] = None
 
     update_refund_invoices: Optional[List[DataUpdateRefundInvoice]] = None
 
