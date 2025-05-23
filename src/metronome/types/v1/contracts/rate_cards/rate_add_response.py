@@ -4,10 +4,14 @@ from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from ....._models import BaseModel
-from ....shared.tier import Tier
-from ....shared.credit_type_data import CreditTypeData
 
-__all__ = ["RateAddResponse", "Data", "DataCommitRate"]
+__all__ = ["RateAddResponse", "Data", "DataCommitRate", "DataCommitRateTier", "DataCreditType", "DataTier"]
+
+
+class DataCommitRateTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
 
 
 class DataCommitRate(BaseModel):
@@ -16,8 +20,20 @@ class DataCommitRate(BaseModel):
     price: Optional[float] = None
     """Commit rate price. For FLAT rate_type, this must be >=0."""
 
-    tiers: Optional[List[Tier]] = None
+    tiers: Optional[List[DataCommitRateTier]] = None
     """Only set for TIERED rate_type."""
+
+
+class DataCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
 
 
 class Data(BaseModel):
@@ -30,7 +46,7 @@ class Data(BaseModel):
     commit.
     """
 
-    credit_type: Optional[CreditTypeData] = None
+    credit_type: Optional[DataCreditType] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -60,7 +76,7 @@ class Data(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Optional[List[Tier]] = None
+    tiers: Optional[List[DataTier]] = None
     """Only set for TIERED rate_type."""
 
     use_list_prices: Optional[bool] = None

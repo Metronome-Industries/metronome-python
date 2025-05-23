@@ -7,7 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -19,9 +18,11 @@ __all__ = [
     "AddCommitInvoiceScheduleScheduleItem",
     "AddCommitPaymentGateConfig",
     "AddCommitPaymentGateConfigStripeConfig",
+    "AddCommitSpecifier",
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
+    "AddCreditSpecifier",
     "AddDiscount",
     "AddDiscountSchedule",
     "AddDiscountScheduleRecurringSchedule",
@@ -29,9 +30,11 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
+    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
+    "AddPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "AddProfessionalService",
@@ -39,9 +42,11 @@ __all__ = [
     "AddRecurringCommitAccessAmount",
     "AddRecurringCommitCommitDuration",
     "AddRecurringCommitInvoiceAmount",
+    "AddRecurringCommitSpecifier",
     "AddRecurringCredit",
     "AddRecurringCreditAccessAmount",
     "AddRecurringCreditCommitDuration",
+    "AddRecurringCreditSpecifier",
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
@@ -73,8 +78,14 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "UpdateRecurringCommit",
+    "UpdateRecurringCommitAccessAmount",
+    "UpdateRecurringCommitInvoiceAmount",
+    "UpdateRecurringCredit",
+    "UpdateRecurringCreditAccessAmount",
     "UpdateScheduledCharge",
     "UpdateScheduledChargeInvoiceSchedule",
     "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
@@ -139,12 +150,16 @@ class ContractEditParams(TypedDict, total=False):
 
     update_commits: Iterable[UpdateCommit]
 
-    update_contract_end_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_credits: Iterable[UpdateCredit]
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
+
+    update_recurring_commits: Iterable[UpdateRecurringCommit]
+
+    update_recurring_credits: Iterable[UpdateRecurringCredit]
 
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
@@ -267,6 +282,23 @@ class AddCommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class AddCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -329,6 +361,14 @@ class AddCommit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
+    specifiers: Iterable[AddCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
     temporary_id: str
     """
     A temporary ID for the commit that can be used to reference the commit for
@@ -350,6 +390,23 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
+
+class AddCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddCredit(TypedDict, total=False):
@@ -390,6 +447,14 @@ class AddCredit(TypedDict, total=False):
     """
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    specifiers: Iterable[AddCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -530,6 +595,12 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class AddOverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -557,7 +628,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[AddOverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
@@ -624,6 +695,23 @@ class AddOverride(TypedDict, total=False):
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
+class AddPrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
     """
@@ -651,6 +739,14 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Iterable[AddPrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -750,6 +846,23 @@ class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
     unit_price: Required[float]
 
 
+class AddRecurringCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
     """The amount of commit to grant."""
@@ -802,7 +915,7 @@ class AddRecurringCommit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -810,6 +923,14 @@ class AddRecurringCommit(TypedDict, total=False):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[AddRecurringCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
     temporary_id: str
@@ -831,6 +952,23 @@ class AddRecurringCreditCommitDuration(TypedDict, total=False):
     unit: Required[Literal["PERIODS"]]
 
     value: Required[float]
+
+
+class AddRecurringCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddRecurringCredit(TypedDict, total=False):
@@ -882,7 +1020,7 @@ class AddRecurringCredit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -890,6 +1028,14 @@ class AddRecurringCredit(TypedDict, total=False):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[AddRecurringCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
     temporary_id: str
@@ -1249,13 +1395,24 @@ class UpdateCredit(TypedDict, total=False):
     product_id: str
 
 
-class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
-    product_id: Required[str]
+class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
     """
-    The commit product that will be used to generate the line item for commit
-    payment.
+    If provided, the specifier will only apply to the product with the specified ID.
     """
 
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
@@ -1276,6 +1433,20 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -1327,6 +1498,42 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class UpdateRecurringCommitAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommitInvoiceAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommit(TypedDict, total=False):
+    recurring_commit_id: Required[str]
+
+    access_amount: UpdateRecurringCommitAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    invoice_amount: UpdateRecurringCommitInvoiceAmount
+
+
+class UpdateRecurringCreditAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCredit(TypedDict, total=False):
+    recurring_credit_id: Required[str]
+
+    access_amount: UpdateRecurringCreditAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):
     timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
@@ -1370,15 +1577,19 @@ class UpdateScheduledCharge(TypedDict, total=False):
 
 
 class UpdateSpendThresholdConfigurationCommit(TypedDict, total=False):
-    description: Optional[str]
+    description: str
 
-    name: Optional[str]
+    name: str
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
     """
 
     product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
 
 
 class UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):

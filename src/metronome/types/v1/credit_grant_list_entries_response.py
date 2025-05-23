@@ -4,16 +4,23 @@ from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
-from .credit_ledger_entry import CreditLedgerEntry
-from ..shared.credit_type_data import CreditTypeData
 
 __all__ = [
     "CreditGrantListEntriesResponse",
     "Data",
     "DataLedger",
+    "DataLedgerCreditType",
     "DataLedgerEndingBalance",
+    "DataLedgerEntry",
+    "DataLedgerPendingEntry",
     "DataLedgerStartingBalance",
 ]
+
+
+class DataLedgerCreditType(BaseModel):
+    id: str
+
+    name: str
 
 
 class DataLedgerEndingBalance(BaseModel):
@@ -34,6 +41,60 @@ class DataLedgerEndingBalance(BaseModel):
     """
     the excluding_pending balance plus any pending invoice deductions and
     expirations that will happen by the effective_at date
+    """
+
+
+class DataLedgerEntry(BaseModel):
+    amount: float
+    """an amount representing the change to the customer's credit balance"""
+
+    created_by: str
+
+    credit_grant_id: str
+    """the credit grant this entry is related to"""
+
+    effective_at: datetime
+
+    reason: str
+
+    running_balance: float
+    """
+    the running balance for this credit type at the time of the ledger entry,
+    including all preceding charges
+    """
+
+    invoice_id: Optional[str] = None
+    """
+    if this entry is a deduction, the Metronome ID of the invoice where the credit
+    deduction was consumed; if this entry is a grant, the Metronome ID of the
+    invoice where the grant's paid_amount was charged
+    """
+
+
+class DataLedgerPendingEntry(BaseModel):
+    amount: float
+    """an amount representing the change to the customer's credit balance"""
+
+    created_by: str
+
+    credit_grant_id: str
+    """the credit grant this entry is related to"""
+
+    effective_at: datetime
+
+    reason: str
+
+    running_balance: float
+    """
+    the running balance for this credit type at the time of the ledger entry,
+    including all preceding charges
+    """
+
+    invoice_id: Optional[str] = None
+    """
+    if this entry is a deduction, the Metronome ID of the invoice where the credit
+    deduction was consumed; if this entry is a grant, the Metronome ID of the
+    invoice where the grant's paid_amount was charged
     """
 
 
@@ -58,14 +119,14 @@ class DataLedgerStartingBalance(BaseModel):
 
 
 class DataLedger(BaseModel):
-    credit_type: CreditTypeData
+    credit_type: DataLedgerCreditType
 
     ending_balance: DataLedgerEndingBalance
     """the effective balances at the end of the specified time window"""
 
-    entries: List[CreditLedgerEntry]
+    entries: List[DataLedgerEntry]
 
-    pending_entries: List[CreditLedgerEntry]
+    pending_entries: List[DataLedgerPendingEntry]
 
     starting_balance: DataLedgerStartingBalance
 

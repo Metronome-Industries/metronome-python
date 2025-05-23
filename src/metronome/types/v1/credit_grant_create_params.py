@@ -4,13 +4,19 @@ from __future__ import annotations
 
 from typing import Dict, List, Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from .rollover_amount_max_amount_param import RolloverAmountMaxAmountParam
-from .rollover_amount_max_percentage_param import RolloverAmountMaxPercentageParam
 
-__all__ = ["CreditGrantCreateParams", "GrantAmount", "PaidAmount", "RolloverSettings", "RolloverSettingsRolloverAmount"]
+__all__ = [
+    "CreditGrantCreateParams",
+    "GrantAmount",
+    "PaidAmount",
+    "RolloverSettings",
+    "RolloverSettingsRolloverAmount",
+    "RolloverSettingsRolloverAmountUnionMember0",
+    "RolloverSettingsRolloverAmountUnionMember1",
+]
 
 
 class CreditGrantCreateParams(TypedDict, total=False):
@@ -86,7 +92,25 @@ class PaidAmount(TypedDict, total=False):
     """the ID of the pricing unit to be used. Defaults to USD (cents) if not passed."""
 
 
-RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentageParam, RolloverAmountMaxAmountParam]
+class RolloverSettingsRolloverAmountUnionMember0(TypedDict, total=False):
+    type: Required[Literal["MAX_PERCENTAGE"]]
+    """Rollover up to a percentage of the original credit grant amount."""
+
+    value: Required[float]
+    """The maximum percentage (0-1) of the original credit grant to rollover."""
+
+
+class RolloverSettingsRolloverAmountUnionMember1(TypedDict, total=False):
+    type: Required[Literal["MAX_AMOUNT"]]
+    """Rollover up to a fixed amount of the original credit grant amount."""
+
+    value: Required[float]
+    """The maximum amount to rollover."""
+
+
+RolloverSettingsRolloverAmount: TypeAlias = Union[
+    RolloverSettingsRolloverAmountUnionMember0, RolloverSettingsRolloverAmountUnionMember1
+]
 
 
 class RolloverSettings(TypedDict, total=False):
