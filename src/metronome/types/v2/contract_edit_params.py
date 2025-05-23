@@ -7,7 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -31,6 +30,7 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
+    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -595,6 +595,12 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class AddOverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -622,7 +628,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[AddOverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
@@ -1407,12 +1413,6 @@ class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total
 
 
 class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
-    product_id: Required[str]
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
@@ -1433,6 +1433,12 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
     """
 
     specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
@@ -1571,15 +1577,19 @@ class UpdateScheduledCharge(TypedDict, total=False):
 
 
 class UpdateSpendThresholdConfigurationCommit(TypedDict, total=False):
-    description: Optional[str]
+    description: str
 
-    name: Optional[str]
+    name: str
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
     """
 
     product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
 
 
 class UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
