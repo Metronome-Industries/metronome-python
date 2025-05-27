@@ -192,6 +192,7 @@ class ContractsResource(SyncAPIResource):
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
         add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
         allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
@@ -207,6 +208,7 @@ class ContractsResource(SyncAPIResource):
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -225,6 +227,8 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_subscriptions: (beta) Optional list of subscriptions to add to the contract.
+
           allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want
               to incorporate the new end date, you can void and regenerate finalized usage
@@ -239,6 +243,8 @@ class ContractsResource(SyncAPIResource):
           remove_overrides: IDs of overrides to remove
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
+
+          update_subscriptions: (beta) Optional list of subscriptions to update.
 
           extra_headers: Send extra headers
 
@@ -265,6 +271,7 @@ class ContractsResource(SyncAPIResource):
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "add_subscriptions": add_subscriptions,
                     "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
@@ -278,6 +285,7 @@ class ContractsResource(SyncAPIResource):
                     "update_recurring_credits": update_recurring_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
+                    "update_subscriptions": update_subscriptions,
                 },
                 contract_edit_params.ContractEditParams,
             ),
@@ -623,6 +631,7 @@ class AsyncContractsResource(AsyncAPIResource):
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
         add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
         allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
@@ -638,6 +647,7 @@ class AsyncContractsResource(AsyncAPIResource):
         update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
         update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -656,6 +666,8 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_subscriptions: (beta) Optional list of subscriptions to add to the contract.
+
           allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want
               to incorporate the new end date, you can void and regenerate finalized usage
@@ -670,6 +682,8 @@ class AsyncContractsResource(AsyncAPIResource):
           remove_overrides: IDs of overrides to remove
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
+
+          update_subscriptions: (beta) Optional list of subscriptions to update.
 
           extra_headers: Send extra headers
 
@@ -696,6 +710,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_reseller_royalties": add_reseller_royalties,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "add_subscriptions": add_subscriptions,
                     "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
@@ -709,6 +724,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_recurring_credits": update_recurring_credits,
                     "update_scheduled_charges": update_scheduled_charges,
                     "update_spend_threshold_configuration": update_spend_threshold_configuration,
+                    "update_subscriptions": update_subscriptions,
                 },
                 contract_edit_params.ContractEditParams,
             ),
