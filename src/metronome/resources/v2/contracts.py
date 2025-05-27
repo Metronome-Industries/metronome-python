@@ -244,6 +244,14 @@ class ContractsResource(SyncAPIResource):
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
+          update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
+              has not started. Expired commits, and commits with an active access schedule
+              will remain unchanged.
+
+          update_recurring_credits: Edits to these recurring credits will only affect credits whose access schedules
+              has not started. Expired credits, and credits with an active access schedule
+              will remain unchanged.
+
           update_subscriptions: (beta) Optional list of subscriptions to update.
 
           extra_headers: Send extra headers
@@ -682,6 +690,14 @@ class AsyncContractsResource(AsyncAPIResource):
           remove_overrides: IDs of overrides to remove
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
+
+          update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
+              has not started. Expired commits, and commits with an active access schedule
+              will remain unchanged.
+
+          update_recurring_credits: Edits to these recurring credits will only affect credits whose access schedules
+              has not started. Expired credits, and credits with an active access schedule
+              will remain unchanged.
 
           update_subscriptions: (beta) Optional list of subscriptions to update.
 

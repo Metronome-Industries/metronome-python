@@ -166,8 +166,18 @@ class ContractEditParams(TypedDict, total=False):
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
 
     update_recurring_commits: Iterable[UpdateRecurringCommit]
+    """
+    Edits to these recurring commits will only affect commits whose access schedules
+    has not started. Expired commits, and commits with an active access schedule
+    will remain unchanged.
+    """
 
     update_recurring_credits: Iterable[UpdateRecurringCredit]
+    """
+    Edits to these recurring credits will only affect credits whose access schedules
+    has not started. Expired credits, and credits with an active access schedule
+    will remain unchanged.
+    """
 
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
