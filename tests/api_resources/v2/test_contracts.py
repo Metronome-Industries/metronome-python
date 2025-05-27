@@ -255,6 +255,7 @@ class TestContracts:
                     "multiplier": 2,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -463,6 +464,25 @@ class TestContracts:
                 },
                 "threshold_amount": 0,
             },
+            add_subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "custom_fields": {"foo": "string"},
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             allow_contract_ending_before_finalized_invoice=True,
             archive_commits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
@@ -633,6 +653,19 @@ class TestContracts:
                 },
                 "threshold_amount": 0,
             },
+            update_subscriptions=[
+                {
+                    "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "quantity_updates": [
+                        {
+                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            "quantity": 0,
+                            "quantity_delta": 0,
+                        }
+                    ],
+                }
+            ],
         )
         assert_matches_type(ContractEditResponse, contract, path=["response"])
 
@@ -1093,6 +1126,7 @@ class TestAsyncContracts:
                     "multiplier": 2,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -1301,6 +1335,25 @@ class TestAsyncContracts:
                 },
                 "threshold_amount": 0,
             },
+            add_subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "custom_fields": {"foo": "string"},
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             allow_contract_ending_before_finalized_invoice=True,
             archive_commits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
@@ -1471,6 +1524,19 @@ class TestAsyncContracts:
                 },
                 "threshold_amount": 0,
             },
+            update_subscriptions=[
+                {
+                    "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "quantity_updates": [
+                        {
+                            "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            "quantity": 0,
+                            "quantity_delta": 0,
+                        }
+                    ],
+                }
+            ],
         )
         assert_matches_type(ContractEditResponse, contract, path=["response"])
 

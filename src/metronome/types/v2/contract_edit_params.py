@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -30,7 +31,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -58,6 +58,9 @@ __all__ = [
     "AddSpendThresholdConfigurationCommit",
     "AddSpendThresholdConfigurationPaymentGateConfig",
     "AddSpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "AddSubscription",
+    "AddSubscriptionProration",
+    "AddSubscriptionSubscriptionRate",
     "ArchiveCommit",
     "ArchiveCredit",
     "ArchiveScheduledCharge",
@@ -95,6 +98,8 @@ __all__ = [
     "UpdateSpendThresholdConfigurationCommit",
     "UpdateSpendThresholdConfigurationPaymentGateConfig",
     "UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "UpdateSubscription",
+    "UpdateSubscriptionQuantityUpdate",
 ]
 
 
@@ -127,6 +132,9 @@ class ContractEditParams(TypedDict, total=False):
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
     add_spend_threshold_configuration: AddSpendThresholdConfiguration
+
+    add_subscriptions: Iterable[AddSubscription]
+    """(beta) Optional list of subscriptions to add to the contract."""
 
     allow_contract_ending_before_finalized_invoice: bool
     """
@@ -164,6 +172,9 @@ class ContractEditParams(TypedDict, total=False):
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
     update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
+
+    update_subscriptions: Iterable[UpdateSubscription]
+    """(beta) Optional list of subscriptions to update."""
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -548,6 +559,8 @@ class AddDiscount(TypedDict, total=False):
 
 
 class AddOverrideOverrideSpecifier(TypedDict, total=False):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
     commit_ids: List[str]
     """If provided, the override will only apply to the specified commits.
 
@@ -595,12 +608,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -628,7 +635,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -1233,6 +1240,58 @@ class AddSpendThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class AddSubscriptionProration(TypedDict, total=False):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+    """Indicates how mid-period quantity adjustments are invoiced.
+
+    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
+    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
+    increase will be billed for in-arrears at the end of the period.
+    """
+
+    is_prorated: bool
+    """Indicates if the partial period will be prorated or charged a full amount."""
+
+
+class AddSubscriptionSubscriptionRate(TypedDict, total=False):
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    """Frequency to bill subscription with.
+
+    Together with product_id, must match existing rate on the rate card.
+    """
+
+    product_id: Required[str]
+    """Must be subscription type product"""
+
+
+class AddSubscription(TypedDict, total=False):
+    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
+
+    initial_quantity: Required[float]
+
+    proration: Required[AddSubscriptionProration]
+
+    subscription_rate: Required[AddSubscriptionSubscriptionRate]
+
+    custom_fields: Dict[str, str]
+
+    description: str
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Exclusive end time for the subscription.
+
+    If not provided, subscription inherits contract end date.
+    """
+
+    name: str
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Inclusive start time for the subscription.
+
+    If not provided, defaults to contract start date
+    """
+
+
 class ArchiveCommit(TypedDict, total=False):
     id: Required[str]
 
@@ -1634,4 +1693,34 @@ class UpdateSpendThresholdConfiguration(TypedDict, total=False):
 
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
+    """
+
+
+class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
+    quantity: float
+    """The new quantity for the subscription.
+
+    Must be provided if quantity_delta is not provided. Must be non-negative.
+    """
+
+    quantity_delta: float
+    """The delta to add to the subscription's quantity.
+
+    Must be provided if quantity is not provided. Can't be zero. It also can't
+    result in a negative quantity on the subscription.
+    """
+
+
+class UpdateSubscription(TypedDict, total=False):
+    subscription_id: Required[str]
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    quantity_updates: Iterable[UpdateSubscriptionQuantityUpdate]
+    """
+    Quantity changes are applied on the effective date based on the order which they
+    are sent. For example, if I scheduled the quantity to be 12 on May 21 and then
+    scheduled a quantity delta change of -1, the result from that day would be 11.
     """

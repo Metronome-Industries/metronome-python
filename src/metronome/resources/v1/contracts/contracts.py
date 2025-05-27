@@ -62,6 +62,7 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
+from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -131,10 +132,11 @@ class ContractsResource(SyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -176,6 +178,8 @@ class ContractsResource(SyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+          subscriptions: (beta) Optional list of subscriptions to add to the contract.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -219,6 +223,7 @@ class ContractsResource(SyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -947,10 +952,11 @@ class AsyncContractsResource(AsyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -992,6 +998,8 @@ class AsyncContractsResource(AsyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+          subscriptions: (beta) Optional list of subscriptions to add to the contract.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -1035,6 +1043,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, Union, Iterable
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 
@@ -38,6 +38,12 @@ class RateCardRetrieveRateScheduleParams(TypedDict, total=False):
 
 
 class Selector(TypedDict, total=False):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    """
+    Subscription rates matching the billing frequency will be included in the
+    response.
+    """
+
     partial_pricing_group_values: Dict[str, str]
     """
     List of pricing group key value pairs, rates containing the matching key / value

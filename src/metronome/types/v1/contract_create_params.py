@@ -7,6 +7,8 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -31,7 +33,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
@@ -59,9 +60,11 @@ __all__ = [
     "SpendThresholdConfigurationCommit",
     "SpendThresholdConfigurationPaymentGateConfig",
     "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "Subscription",
+    "SubscriptionProration",
+    "SubscriptionSubscriptionRate",
     "Transition",
     "TransitionFutureInvoiceBehavior",
-    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -140,6 +143,9 @@ class ContractCreateParams(TypedDict, total=False):
 
     spend_threshold_configuration: SpendThresholdConfiguration
 
+    subscriptions: Iterable[Subscription]
+    """(beta) Optional list of subscriptions to add to the contract."""
+
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
 
@@ -152,7 +158,7 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: UsageFilter
+    usage_filter: BaseUsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
@@ -550,6 +556,8 @@ class Discount(TypedDict, total=False):
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
     commit_ids: List[str]
     """Can only be used for commit specific overrides.
 
@@ -599,12 +607,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -632,7 +634,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -1244,6 +1246,59 @@ class SpendThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class SubscriptionProration(TypedDict, total=False):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+    """Indicates how mid-period quantity adjustments are invoiced.
+
+    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
+    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
+    increase will be billed for in-arrears at the end of the period.
+    """
+
+    is_prorated: bool
+    """Indicates if the partial period will be prorated or charged a full amount."""
+
+
+class SubscriptionSubscriptionRate(TypedDict, total=False):
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    """Frequency to bill subscription with.
+
+    Together with product_id, must match existing rate on the rate card.
+    """
+
+    product_id: Required[str]
+    """Must be subscription type product"""
+
+
+class Subscription(TypedDict, total=False):
+    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
+
+    initial_quantity: Required[float]
+    """The initial quantity for the subscription. It must be non-negative value."""
+
+    proration: Required[SubscriptionProration]
+
+    subscription_rate: Required[SubscriptionSubscriptionRate]
+
+    custom_fields: Dict[str, str]
+
+    description: str
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Exclusive end time for the subscription.
+
+    If not provided, subscription inherits contract end date.
+    """
+
+    name: str
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Inclusive start time for the subscription.
+
+    If not provided, defaults to contract start date
+    """
+
+
 class TransitionFutureInvoiceBehavior(TypedDict, total=False):
     trueup: Optional[Literal["REMOVE", "AS_IS"]]
     """Controls whether future trueup invoices are billed or removed.
@@ -1259,14 +1314,6 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
-
-
-class UsageFilter(TypedDict, total=False):
-    group_key: Required[str]
-
-    group_values: Required[List[str]]
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):
