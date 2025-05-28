@@ -114,3 +114,9 @@ from .contract_schedule_pro_services_invoice_params import (
 from .contract_schedule_pro_services_invoice_response import (
     ContractScheduleProServicesInvoiceResponse as ContractScheduleProServicesInvoiceResponse,
 )
+from .contract_get_subscription_quantity_history_params import (
+    ContractGetSubscriptionQuantityHistoryParams as ContractGetSubscriptionQuantityHistoryParams,
+)
+from .contract_get_subscription_quantity_history_response import (
+    ContractGetSubscriptionQuantityHistoryResponse as ContractGetSubscriptionQuantityHistoryResponse,
+)
