@@ -32,7 +32,7 @@ from ....types.v1 import (
     contract_add_manual_balance_entry_params,
     contract_create_historical_invoices_params,
     contract_schedule_pro_services_invoice_params,
-    contract_get_subscription_quantity_history_params,
+    contract_retrieve_subscription_quantity_history_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -69,8 +69,8 @@ from ....types.v1.contract_update_end_date_response import ContractUpdateEndDate
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
-from ....types.v1.contract_get_subscription_quantity_history_response import (
-    ContractGetSubscriptionQuantityHistoryResponse,
+from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
+    ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 
 __all__ = ["ContractsResource", "AsyncContractsResource"]
@@ -596,49 +596,6 @@ class ContractsResource(SyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    def get_subscription_quantity_history(
-        self,
-        *,
-        contract_id: str,
-        customer_id: str,
-        subscription_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractGetSubscriptionQuantityHistoryResponse:
-        """Fetch the quantity and price for a subscription over time.
-
-        End-point does not
-        return future scheduled changes.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/contracts/getSubscriptionQuantityHistory",
-            body=maybe_transform(
-                {
-                    "contract_id": contract_id,
-                    "customer_id": customer_id,
-                    "subscription_id": subscription_id,
-                },
-                contract_get_subscription_quantity_history_params.ContractGetSubscriptionQuantityHistoryParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ContractGetSubscriptionQuantityHistoryResponse,
-        )
-
     def list_balances(
         self,
         *,
@@ -779,6 +736,49 @@ class ContractsResource(SyncAPIResource):
                 ),
             ),
             cast_to=ContractRetrieveRateScheduleResponse,
+        )
+
+    def retrieve_subscription_quantity_history(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        subscription_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
+        """Fetch the quantity and price for a subscription over time.
+
+        End-point does not
+        return future scheduled changes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/contracts/getSubscriptionQuantityHistory",
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "subscription_id": subscription_id,
+                },
+                contract_retrieve_subscription_quantity_history_params.ContractRetrieveSubscriptionQuantityHistoryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractRetrieveSubscriptionQuantityHistoryResponse,
         )
 
     def schedule_pro_services_invoice(
@@ -1459,49 +1459,6 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def get_subscription_quantity_history(
-        self,
-        *,
-        contract_id: str,
-        customer_id: str,
-        subscription_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractGetSubscriptionQuantityHistoryResponse:
-        """Fetch the quantity and price for a subscription over time.
-
-        End-point does not
-        return future scheduled changes.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/contracts/getSubscriptionQuantityHistory",
-            body=await async_maybe_transform(
-                {
-                    "contract_id": contract_id,
-                    "customer_id": customer_id,
-                    "subscription_id": subscription_id,
-                },
-                contract_get_subscription_quantity_history_params.ContractGetSubscriptionQuantityHistoryParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ContractGetSubscriptionQuantityHistoryResponse,
-        )
-
     async def list_balances(
         self,
         *,
@@ -1642,6 +1599,49 @@ class AsyncContractsResource(AsyncAPIResource):
                 ),
             ),
             cast_to=ContractRetrieveRateScheduleResponse,
+        )
+
+    async def retrieve_subscription_quantity_history(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        subscription_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
+        """Fetch the quantity and price for a subscription over time.
+
+        End-point does not
+        return future scheduled changes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/contracts/getSubscriptionQuantityHistory",
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "subscription_id": subscription_id,
+                },
+                contract_retrieve_subscription_quantity_history_params.ContractRetrieveSubscriptionQuantityHistoryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractRetrieveSubscriptionQuantityHistoryResponse,
         )
 
     async def schedule_pro_services_invoice(
@@ -1827,14 +1827,14 @@ class ContractsResourceWithRawResponse:
         self.create_historical_invoices = to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_quantity_history = to_raw_response_wrapper(
-            contracts.get_subscription_quantity_history,
-        )
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
         )
         self.retrieve_rate_schedule = to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = to_raw_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = to_raw_response_wrapper(
             contracts.schedule_pro_services_invoice,
@@ -1884,14 +1884,14 @@ class AsyncContractsResourceWithRawResponse:
         self.create_historical_invoices = async_to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_quantity_history = async_to_raw_response_wrapper(
-            contracts.get_subscription_quantity_history,
-        )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
         )
         self.retrieve_rate_schedule = async_to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = async_to_raw_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = async_to_raw_response_wrapper(
             contracts.schedule_pro_services_invoice,
@@ -1941,14 +1941,14 @@ class ContractsResourceWithStreamingResponse:
         self.create_historical_invoices = to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_quantity_history = to_streamed_response_wrapper(
-            contracts.get_subscription_quantity_history,
-        )
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
         )
         self.retrieve_rate_schedule = to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = to_streamed_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = to_streamed_response_wrapper(
             contracts.schedule_pro_services_invoice,
@@ -1998,14 +1998,14 @@ class AsyncContractsResourceWithStreamingResponse:
         self.create_historical_invoices = async_to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_quantity_history = async_to_streamed_response_wrapper(
-            contracts.get_subscription_quantity_history,
-        )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,
         )
         self.retrieve_rate_schedule = async_to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = async_to_streamed_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = async_to_streamed_response_wrapper(
             contracts.schedule_pro_services_invoice,

@@ -21,7 +21,7 @@ from metronome.types.v1 import (
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
-    ContractGetSubscriptionQuantityHistoryResponse,
+    ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -999,43 +999,6 @@ class TestContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_get_subscription_quantity_history(self, client: Metronome) -> None:
-        contract = client.v1.contracts.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-        assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_subscription_quantity_history(self, client: Metronome) -> None:
-        response = client.v1.contracts.with_raw_response.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        contract = response.parse()
-        assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_subscription_quantity_history(self, client: Metronome) -> None:
-        with client.v1.contracts.with_streaming_response.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            contract = response.parse()
-            assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_list_balances(self, client: Metronome) -> None:
         contract = client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1136,6 +1099,43 @@ class TestContracts:
 
             contract = response.parse()
             assert_matches_type(ContractRetrieveRateScheduleResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        contract = client.v1.contracts.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_raw_response_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = response.parse()
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_streaming_response_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = response.parse()
+            assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2262,43 +2262,6 @@ class TestAsyncContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_get_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
-        contract = await async_client.v1.contracts.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-        assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.contracts.with_raw_response.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        contract = await response.parse()
-        assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
-        async with async_client.v1.contracts.with_streaming_response.get_subscription_quantity_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            contract = await response.parse()
-            assert_matches_type(ContractGetSubscriptionQuantityHistoryResponse, contract, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     async def test_method_list_balances(self, async_client: AsyncMetronome) -> None:
         contract = await async_client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2399,6 +2362,45 @@ class TestAsyncContracts:
 
             contract = await response.parse()
             assert_matches_type(ContractRetrieveRateScheduleResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_retrieve_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_raw_response_retrieve_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = await response.parse()
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_retrieve_subscription_quantity_history(
+        self, async_client: AsyncMetronome
+    ) -> None:
+        async with async_client.v1.contracts.with_streaming_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = await response.parse()
+            assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

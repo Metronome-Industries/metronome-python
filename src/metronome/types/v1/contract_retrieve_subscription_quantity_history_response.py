@@ -5,7 +5,7 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["ContractGetSubscriptionQuantityHistoryResponse", "Data", "DataHistory", "DataHistoryData"]
+__all__ = ["ContractRetrieveSubscriptionQuantityHistoryResponse", "Data", "DataHistory", "DataHistoryData"]
 
 
 class DataHistoryData(BaseModel):
@@ -30,5 +30,5 @@ class Data(BaseModel):
     subscription_id: Optional[str] = None
 
 
-class ContractGetSubscriptionQuantityHistoryResponse(BaseModel):
+class ContractRetrieveSubscriptionQuantityHistoryResponse(BaseModel):
     data: Data
