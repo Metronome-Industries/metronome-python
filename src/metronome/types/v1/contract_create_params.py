@@ -144,7 +144,11 @@ class ContractCreateParams(TypedDict, total=False):
     spend_threshold_configuration: SpendThresholdConfiguration
 
     subscriptions: Iterable[Subscription]
-    """(beta) Optional list of subscriptions to add to the contract."""
+    """
+    (beta) Optional list of
+    [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+    to add to the contract.
+    """
 
     total_contract_value: float
     """This field's availability is dependent on your client's configuration."""
