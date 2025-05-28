@@ -227,7 +227,9 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
-          add_subscriptions: (beta) Optional list of subscriptions to add to the contract.
+          add_subscriptions: (beta) Optional list of
+              [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+              to add to the contract.
 
           allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want
@@ -674,7 +676,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
-          add_subscriptions: (beta) Optional list of subscriptions to add to the contract.
+          add_subscriptions: (beta) Optional list of
+              [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+              to add to the contract.
 
           allow_contract_ending_before_finalized_invoice: If true, allows setting the contract end date earlier than the end_timestamp of
               existing finalized invoices. Finalized invoices will be unchanged; if you want

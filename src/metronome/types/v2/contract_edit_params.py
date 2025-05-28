@@ -134,7 +134,11 @@ class ContractEditParams(TypedDict, total=False):
     add_spend_threshold_configuration: AddSpendThresholdConfiguration
 
     add_subscriptions: Iterable[AddSubscription]
-    """(beta) Optional list of subscriptions to add to the contract."""
+    """
+    (beta) Optional list of
+    [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+    to add to the contract.
+    """
 
     allow_contract_ending_before_finalized_invoice: bool
     """
