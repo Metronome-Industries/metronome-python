@@ -377,9 +377,9 @@ from metronome.types.v1 import (
     ContractAmendResponse,
     ContractArchiveResponse,
     ContractCreateHistoricalInvoicesResponse,
-    ContractGetSubscriptionQuantityHistoryResponse,
     ContractListBalancesResponse,
     ContractRetrieveRateScheduleResponse,
+    ContractRetrieveSubscriptionQuantityHistoryResponse,
     ContractScheduleProServicesInvoiceResponse,
     ContractUpdateEndDateResponse,
 )
@@ -394,9 +394,9 @@ Methods:
 - <code title="post /v1/contracts/amend">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/v1/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_amend_response.py">ContractAmendResponse</a></code>
 - <code title="post /v1/contracts/archive">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/v1/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_archive_response.py">ContractArchiveResponse</a></code>
 - <code title="post /v1/contracts/createHistoricalInvoices">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">create_historical_invoices</a>(\*\*<a href="src/metronome/types/v1/contract_create_historical_invoices_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_create_historical_invoices_response.py">ContractCreateHistoricalInvoicesResponse</a></code>
-- <code title="post /v1/contracts/getSubscriptionQuantityHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">get_subscription_quantity_history</a>(\*\*<a href="src/metronome/types/v1/contract_get_subscription_quantity_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_get_subscription_quantity_history_response.py">ContractGetSubscriptionQuantityHistoryResponse</a></code>
 - <code title="post /v1/contracts/customerBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_balances_response.py">ContractListBalancesResponse</a></code>
 - <code title="post /v1/contracts/getContractRateSchedule">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
+- <code title="post /v1/contracts/getSubscriptionQuantityHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_subscription_quantity_history</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_subscription_quantity_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_subscription_quantity_history_response.py">ContractRetrieveSubscriptionQuantityHistoryResponse</a></code>
 - <code title="post /v1/contracts/scheduleProServicesInvoice">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">schedule_pro_services_invoice</a>(\*\*<a href="src/metronome/types/v1/contract_schedule_pro_services_invoice_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_schedule_pro_services_invoice_response.py">ContractScheduleProServicesInvoiceResponse</a></code>
 - <code title="post /v1/contracts/setUsageFilter">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">set_usage_filter</a>(\*\*<a href="src/metronome/types/v1/contract_set_usage_filter_params.py">params</a>) -> None</code>
 - <code title="post /v1/contracts/updateEndDate">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">update_end_date</a>(\*\*<a href="src/metronome/types/v1/contract_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_update_end_date_response.py">ContractUpdateEndDateResponse</a></code>

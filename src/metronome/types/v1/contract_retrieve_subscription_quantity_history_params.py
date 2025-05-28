@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ContractGetSubscriptionQuantityHistoryParams"]
+__all__ = ["ContractRetrieveSubscriptionQuantityHistoryParams"]
 
 
-class ContractGetSubscriptionQuantityHistoryParams(TypedDict, total=False):
+class ContractRetrieveSubscriptionQuantityHistoryParams(TypedDict, total=False):
     contract_id: Required[str]
 
     customer_id: Required[str]
