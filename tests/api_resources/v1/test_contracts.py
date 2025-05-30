@@ -265,8 +265,8 @@ class TestContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -305,8 +305,8 @@ class TestContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1528,8 +1528,8 @@ class TestAsyncContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1568,8 +1568,8 @@ class TestAsyncContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

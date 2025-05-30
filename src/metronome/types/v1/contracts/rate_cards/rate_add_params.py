@@ -7,9 +7,8 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ....._utils import PropertyInfo
-from ....shared_params.tier import Tier
 
-__all__ = ["RateAddParams", "CommitRate"]
+__all__ = ["RateAddParams", "CommitRate", "CommitRateTier", "Tier"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -89,11 +88,23 @@ class RateAddParams(TypedDict, total=False):
     """
 
 
+class CommitRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class CommitRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     price: float
     """Commit rate price. For FLAT rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[CommitRateTier]
     """Only set for TIERED rate_type."""
+
+
+class Tier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
