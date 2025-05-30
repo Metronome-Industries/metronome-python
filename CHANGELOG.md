@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.1.0-beta.9 (2025-05-30)
+
+Full Changelog: [v0.1.0-beta.8...v0.1.0-beta.9](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.8...v0.1.0-beta.9)
+
+### Features
+
+* **api:** add subscription quantity history endpoint ([0aff6fb](https://github.com/Metronome-Industries/metronome-python/commit/0aff6fb4b54c349e03e5cd9e92ceab5320339895))
+* **api:** api update ([fd41393](https://github.com/Metronome-Industries/metronome-python/commit/fd413935dcb6ecd175605982f2fec3e27479b157))
+* **api:** api update ([3046ce2](https://github.com/Metronome-Industries/metronome-python/commit/3046ce2fed13706294644dfb624a14002e6e7eed))
+* **api:** api update ([8bfddc5](https://github.com/Metronome-Industries/metronome-python/commit/8bfddc52087bdb17f31299e072f96b9ff28a0bc0))
+* **api:** api update ([9be044e](https://github.com/Metronome-Industries/metronome-python/commit/9be044e897b5d84a76965891d0e462abc995728e))
+* **api:** api update ([402f778](https://github.com/Metronome-Industries/metronome-python/commit/402f77874c0e41a8807bc332516407531f4bcf3d))
+* **api:** api update ([3a93a05](https://github.com/Metronome-Industries/metronome-python/commit/3a93a057c20bf5fed2cf1ce7c7ecf661a691a4ae))
+* **api:** api update ([41b3e5c](https://github.com/Metronome-Industries/metronome-python/commit/41b3e5c6649d4165a3a0af933b42d7949bc28822))
+* **api:** api update ([e10e81c](https://github.com/Metronome-Industries/metronome-python/commit/e10e81cc9840904c608128473a6ae8ff36c3103e))
+* **api:** api update ([8ca1842](https://github.com/Metronome-Industries/metronome-python/commit/8ca18428d24888a81d0c0454cbaf971c46b17ae9))
+* **api:** api update ([38b3ea8](https://github.com/Metronome-Industries/metronome-python/commit/38b3ea828e3d2f7e63075a3151903e6550f36c90))
+* **api:** api update ([a30e1ef](https://github.com/Metronome-Industries/metronome-python/commit/a30e1eff6ccbc13f31baa56d9e5ac2e4ad63a1f2))
+* **api:** rename get subscription quantity history to retrieve ([48abe1b](https://github.com/Metronome-Industries/metronome-python/commit/48abe1b9a5fcbc0dd93743059a1fa892b2c1dd03))
+
+
+### Chores
+
+* **ci:** fix installation instructions ([2632526](https://github.com/Metronome-Industries/metronome-python/commit/263252635cac2eee3d250bba87bc1c4455e15b03))
+* **ci:** upload sdks to package manager ([bfcf037](https://github.com/Metronome-Industries/metronome-python/commit/bfcf0377811a96a7d2f8ca74f743a0fb75909a3f))
+* **ci:** use --pre flag for prerelease installation instructions ([f043a72](https://github.com/Metronome-Industries/metronome-python/commit/f043a72250275647b0522767dcbdf38d62057211))
+* **ci:** use --pre flag for prerelease installation instructions ([1a8388a](https://github.com/Metronome-Industries/metronome-python/commit/1a8388ae25570bcec94274e5867867d611a136b3))
+* configure new SDK language ([5809492](https://github.com/Metronome-Industries/metronome-python/commit/5809492e9786e5e0d7f1d51f262e76fce97404b4))
+* **docs:** grammar improvements ([d7c697d](https://github.com/Metronome-Industries/metronome-python/commit/d7c697d72fc08f18f401b7f49362588f556148bf))
+
 ## 0.1.0-beta.8 (2025-05-14)
 
 Full Changelog: [v0.1.0-beta.7...v0.1.0-beta.8](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.7...v0.1.0-beta.8)
