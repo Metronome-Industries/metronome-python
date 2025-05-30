@@ -7,7 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -31,6 +30,7 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
+    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -622,6 +622,12 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class AddOverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -649,7 +655,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[AddOverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
@@ -854,9 +860,9 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
-    unit: Required[Literal["PERIODS"]]
-
     value: Required[float]
+
+    unit: Literal["PERIODS"]
 
 
 class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
@@ -889,7 +895,11 @@ class AddRecurringCommit(TypedDict, total=False):
     """The amount of commit to grant."""
 
     commit_duration: Required[AddRecurringCommitCommitDuration]
-    """The amount of time the created commits will be valid for."""
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
 
     priority: Required[float]
     """Will be passed down to the individual commits"""
@@ -970,9 +980,9 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):
-    unit: Required[Literal["PERIODS"]]
-
     value: Required[float]
+
+    unit: Literal["PERIODS"]
 
 
 class AddRecurringCreditSpecifier(TypedDict, total=False):
@@ -997,7 +1007,11 @@ class AddRecurringCredit(TypedDict, total=False):
     """The amount of commit to grant."""
 
     commit_duration: Required[AddRecurringCreditCommitDuration]
-    """The amount of time the created commits will be valid for."""
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
 
     priority: Required[float]
     """Will be passed down to the individual commits"""
