@@ -21,6 +21,7 @@ from metronome.types.v1 import (
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
+    ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -96,6 +97,14 @@ class TestContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -120,6 +129,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             custom_fields={"foo": "string"},
@@ -166,6 +183,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -208,6 +226,14 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -239,8 +265,8 @@ class TestContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -260,6 +286,14 @@ class TestContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -271,8 +305,8 @@ class TestContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -287,6 +321,14 @@ class TestContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -354,6 +396,25 @@ class TestContracts:
                 },
                 "threshold_amount": 0,
             },
+            subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "custom_fields": {"foo": "string"},
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -608,6 +669,14 @@ class TestContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -632,6 +701,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             custom_fields={"foo": "string"},
@@ -674,6 +751,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -985,6 +1063,7 @@ class TestContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -1020,6 +1099,43 @@ class TestContracts:
 
             contract = response.parse()
             assert_matches_type(ContractRetrieveRateScheduleResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        contract = client.v1.contracts.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_raw_response_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = response.parse()
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_streaming_response_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = response.parse()
+            assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1244,6 +1360,14 @@ class TestAsyncContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1268,6 +1392,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             custom_fields={"foo": "string"},
@@ -1314,6 +1446,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -1356,6 +1489,14 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -1387,8 +1528,8 @@ class TestAsyncContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1408,6 +1549,14 @@ class TestAsyncContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1419,8 +1568,8 @@ class TestAsyncContracts:
                         "unit_price": 0,
                     },
                     "commit_duration": {
-                        "unit": "PERIODS",
                         "value": 0,
+                        "unit": "PERIODS",
                     },
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1435,6 +1584,14 @@ class TestAsyncContracts:
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1502,6 +1659,25 @@ class TestAsyncContracts:
                 },
                 "threshold_amount": 0,
             },
+            subscriptions=[
+                {
+                    "collection_schedule": "ADVANCE",
+                    "initial_quantity": 0,
+                    "proration": {
+                        "invoice_behavior": "BILL_IMMEDIATELY",
+                        "is_prorated": True,
+                    },
+                    "subscription_rate": {
+                        "billing_frequency": "MONTHLY",
+                        "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "custom_fields": {"foo": "string"},
+                    "description": "description",
+                    "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
+                    "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                }
+            ],
             total_contract_value=0,
             transition={
                 "from_contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1756,6 +1932,14 @@ class TestAsyncContracts:
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1780,6 +1964,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "specifiers": [
+                        {
+                            "presentation_group_values": {"foo": "string"},
+                            "pricing_group_values": {"foo": "string"},
+                            "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                            "product_tags": ["string"],
+                        }
+                    ],
                 }
             ],
             custom_fields={"foo": "string"},
@@ -1822,6 +2014,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
                             "pricing_group_values": {"foo": "string"},
@@ -2133,6 +2326,7 @@ class TestAsyncContracts:
             at=parse_datetime("2020-01-01T00:00:00.000Z"),
             selectors=[
                 {
+                    "billing_frequency": "MONTHLY",
                     "partial_pricing_group_values": {
                         "region": "us-west-2",
                         "cloud": "aws",
@@ -2168,6 +2362,45 @@ class TestAsyncContracts:
 
             contract = await response.parse()
             assert_matches_type(ContractRetrieveRateScheduleResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_retrieve_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_raw_response_retrieve_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = await response.parse()
+        assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_retrieve_subscription_quantity_history(
+        self, async_client: AsyncMetronome
+    ) -> None:
+        async with async_client.v1.contracts.with_streaming_response.retrieve_subscription_quantity_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = await response.parse()
+            assert_matches_type(ContractRetrieveSubscriptionQuantityHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

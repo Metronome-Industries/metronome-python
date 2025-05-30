@@ -7,7 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -19,9 +18,11 @@ __all__ = [
     "AddCommitInvoiceScheduleScheduleItem",
     "AddCommitPaymentGateConfig",
     "AddCommitPaymentGateConfigStripeConfig",
+    "AddCommitSpecifier",
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
+    "AddCreditSpecifier",
     "AddDiscount",
     "AddDiscountSchedule",
     "AddDiscountScheduleRecurringSchedule",
@@ -29,9 +30,11 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
+    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
+    "AddPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "AddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "AddProfessionalService",
@@ -39,9 +42,11 @@ __all__ = [
     "AddRecurringCommitAccessAmount",
     "AddRecurringCommitCommitDuration",
     "AddRecurringCommitInvoiceAmount",
+    "AddRecurringCommitSpecifier",
     "AddRecurringCredit",
     "AddRecurringCreditAccessAmount",
     "AddRecurringCreditCommitDuration",
+    "AddRecurringCreditSpecifier",
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
@@ -53,6 +58,9 @@ __all__ = [
     "AddSpendThresholdConfigurationCommit",
     "AddSpendThresholdConfigurationPaymentGateConfig",
     "AddSpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "AddSubscription",
+    "AddSubscriptionProration",
+    "AddSubscriptionSubscriptionRate",
     "ArchiveCommit",
     "ArchiveCredit",
     "ArchiveScheduledCharge",
@@ -73,8 +81,14 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "UpdateRecurringCommit",
+    "UpdateRecurringCommitAccessAmount",
+    "UpdateRecurringCommitInvoiceAmount",
+    "UpdateRecurringCredit",
+    "UpdateRecurringCreditAccessAmount",
     "UpdateScheduledCharge",
     "UpdateScheduledChargeInvoiceSchedule",
     "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
@@ -84,6 +98,8 @@ __all__ = [
     "UpdateSpendThresholdConfigurationCommit",
     "UpdateSpendThresholdConfigurationPaymentGateConfig",
     "UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "UpdateSubscription",
+    "UpdateSubscriptionQuantityUpdate",
 ]
 
 
@@ -117,6 +133,13 @@ class ContractEditParams(TypedDict, total=False):
 
     add_spend_threshold_configuration: AddSpendThresholdConfiguration
 
+    add_subscriptions: Iterable[AddSubscription]
+    """
+    (beta) Optional list of
+    [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+    to add to the contract.
+    """
+
     allow_contract_ending_before_finalized_invoice: bool
     """
     If true, allows setting the contract end date earlier than the end_timestamp of
@@ -139,16 +162,33 @@ class ContractEditParams(TypedDict, total=False):
 
     update_commits: Iterable[UpdateCommit]
 
-    update_contract_end_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_credits: Iterable[UpdateCredit]
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
 
+    update_recurring_commits: Iterable[UpdateRecurringCommit]
+    """
+    Edits to these recurring commits will only affect commits whose access schedules
+    has not started. Expired commits, and commits with an active access schedule
+    will remain unchanged.
+    """
+
+    update_recurring_credits: Iterable[UpdateRecurringCredit]
+    """
+    Edits to these recurring credits will only affect credits whose access schedules
+    has not started. Expired credits, and credits with an active access schedule
+    will remain unchanged.
+    """
+
     update_scheduled_charges: Iterable[UpdateScheduledCharge]
 
     update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
+
+    update_subscriptions: Iterable[UpdateSubscription]
+    """(beta) Optional list of subscriptions to update."""
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -267,6 +307,23 @@ class AddCommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class AddCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -329,6 +386,14 @@ class AddCommit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
+    specifiers: Iterable[AddCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
     temporary_id: str
     """
     A temporary ID for the commit that can be used to reference the commit for
@@ -350,6 +415,23 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
+
+class AddCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddCredit(TypedDict, total=False):
@@ -390,6 +472,14 @@ class AddCredit(TypedDict, total=False):
     """
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    specifiers: Iterable[AddCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
 
 
 class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
@@ -483,6 +573,8 @@ class AddDiscount(TypedDict, total=False):
 
 
 class AddOverrideOverrideSpecifier(TypedDict, total=False):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
     commit_ids: List[str]
     """If provided, the override will only apply to the specified commits.
 
@@ -530,6 +622,12 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class AddOverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -557,7 +655,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[AddOverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
@@ -624,6 +722,23 @@ class AddOverride(TypedDict, total=False):
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
 
+class AddPrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     product_id: Required[str]
     """
@@ -651,6 +766,14 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Iterable[AddPrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -737,9 +860,9 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
-    unit: Required[Literal["PERIODS"]]
-
     value: Required[float]
+
+    unit: Literal["PERIODS"]
 
 
 class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
@@ -750,12 +873,33 @@ class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
     unit_price: Required[float]
 
 
+class AddRecurringCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
     """The amount of commit to grant."""
 
     commit_duration: Required[AddRecurringCommitCommitDuration]
-    """The amount of time the created commits will be valid for."""
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
 
     priority: Required[float]
     """Will be passed down to the individual commits"""
@@ -802,7 +946,7 @@ class AddRecurringCommit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -810,6 +954,14 @@ class AddRecurringCommit(TypedDict, total=False):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[AddRecurringCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
     temporary_id: str
@@ -828,9 +980,26 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):
-    unit: Required[Literal["PERIODS"]]
-
     value: Required[float]
+
+    unit: Literal["PERIODS"]
+
+
+class AddRecurringCreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
 
 
 class AddRecurringCredit(TypedDict, total=False):
@@ -838,7 +1007,11 @@ class AddRecurringCredit(TypedDict, total=False):
     """The amount of commit to grant."""
 
     commit_duration: Required[AddRecurringCreditCommitDuration]
-    """The amount of time the created commits will be valid for."""
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
 
     priority: Required[float]
     """Will be passed down to the individual commits"""
@@ -882,7 +1055,7 @@ class AddRecurringCredit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    start_date rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates.
     """
 
     rollover_fraction: float
@@ -890,6 +1063,14 @@ class AddRecurringCredit(TypedDict, total=False):
 
     This controls how much of an individual unexpired commit will roll over upon
     contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[AddRecurringCreditSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
     temporary_id: str
@@ -1087,6 +1268,58 @@ class AddSpendThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class AddSubscriptionProration(TypedDict, total=False):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+    """Indicates how mid-period quantity adjustments are invoiced.
+
+    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
+    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
+    increase will be billed for in-arrears at the end of the period.
+    """
+
+    is_prorated: bool
+    """Indicates if the partial period will be prorated or charged a full amount."""
+
+
+class AddSubscriptionSubscriptionRate(TypedDict, total=False):
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    """Frequency to bill subscription with.
+
+    Together with product_id, must match existing rate on the rate card.
+    """
+
+    product_id: Required[str]
+    """Must be subscription type product"""
+
+
+class AddSubscription(TypedDict, total=False):
+    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
+
+    initial_quantity: Required[float]
+
+    proration: Required[AddSubscriptionProration]
+
+    subscription_rate: Required[AddSubscriptionSubscriptionRate]
+
+    custom_fields: Dict[str, str]
+
+    description: str
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Exclusive end time for the subscription.
+
+    If not provided, subscription inherits contract end date.
+    """
+
+    name: str
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Inclusive start time for the subscription.
+
+    If not provided, defaults to contract start date
+    """
+
+
 class ArchiveCommit(TypedDict, total=False):
     id: Required[str]
 
@@ -1249,13 +1482,24 @@ class UpdateCredit(TypedDict, total=False):
     product_id: str
 
 
-class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
-    product_id: Required[str]
+class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
     """
-    The commit product that will be used to generate the line item for commit
-    payment.
+    If provided, the specifier will only apply to the product with the specified ID.
     """
 
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
@@ -1276,6 +1520,20 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
+    """
+
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
 
@@ -1327,6 +1585,42 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class UpdateRecurringCommitAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommitInvoiceAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCommit(TypedDict, total=False):
+    recurring_commit_id: Required[str]
+
+    access_amount: UpdateRecurringCommitAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    invoice_amount: UpdateRecurringCommitInvoiceAmount
+
+
+class UpdateRecurringCreditAccessAmount(TypedDict, total=False):
+    quantity: float
+
+    unit_price: float
+
+
+class UpdateRecurringCredit(TypedDict, total=False):
+    recurring_credit_id: Required[str]
+
+    access_amount: UpdateRecurringCreditAccessAmount
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):
     timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
@@ -1370,15 +1664,19 @@ class UpdateScheduledCharge(TypedDict, total=False):
 
 
 class UpdateSpendThresholdConfigurationCommit(TypedDict, total=False):
-    description: Optional[str]
+    description: str
 
-    name: Optional[str]
+    name: str
     """Specify the name of the line item for the threshold charge.
 
     If left blank, it will default to the commit product name.
     """
 
     product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
 
 
 class UpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
@@ -1423,4 +1721,34 @@ class UpdateSpendThresholdConfiguration(TypedDict, total=False):
 
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
+    """
+
+
+class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
+    quantity: float
+    """The new quantity for the subscription.
+
+    Must be provided if quantity_delta is not provided. Must be non-negative.
+    """
+
+    quantity_delta: float
+    """The delta to add to the subscription's quantity.
+
+    Must be provided if quantity is not provided. Can't be zero. It also can't
+    result in a negative quantity on the subscription.
+    """
+
+
+class UpdateSubscription(TypedDict, total=False):
+    subscription_id: Required[str]
+
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    quantity_updates: Iterable[UpdateSubscriptionQuantityUpdate]
+    """
+    Quantity changes are applied on the effective date based on the order which they
+    are sent. For example, if I scheduled the quantity to be 12 on May 21 and then
+    scheduled a quantity delta change of -1, the result from that day would be 11.
     """

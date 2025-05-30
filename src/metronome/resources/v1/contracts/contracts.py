@@ -32,6 +32,7 @@ from ....types.v1 import (
     contract_add_manual_balance_entry_params,
     contract_create_historical_invoices_params,
     contract_schedule_pro_services_invoice_params,
+    contract_retrieve_subscription_quantity_history_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -62,12 +63,14 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
-from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
+from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
+    ContractRetrieveSubscriptionQuantityHistoryResponse,
+)
 
 __all__ = ["ContractsResource", "AsyncContractsResource"]
 
@@ -132,10 +135,11 @@ class ContractsResource(SyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -177,6 +181,10 @@ class ContractsResource(SyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+          subscriptions: (beta) Optional list of
+              [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+              to add to the contract.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -220,6 +228,7 @@ class ContractsResource(SyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -730,6 +739,49 @@ class ContractsResource(SyncAPIResource):
             cast_to=ContractRetrieveRateScheduleResponse,
         )
 
+    def retrieve_subscription_quantity_history(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        subscription_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
+        """Fetch the quantity and price for a subscription over time.
+
+        End-point does not
+        return future scheduled changes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/contracts/getSubscriptionQuantityHistory",
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "subscription_id": subscription_id,
+                },
+                contract_retrieve_subscription_quantity_history_params.ContractRetrieveSubscriptionQuantityHistoryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractRetrieveSubscriptionQuantityHistoryResponse,
+        )
+
     def schedule_pro_services_invoice(
         self,
         *,
@@ -948,10 +1000,11 @@ class AsyncContractsResource(AsyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
         spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -993,6 +1046,10 @@ class AsyncContractsResource(AsyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+          subscriptions: (beta) Optional list of
+              [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
+              to add to the contract.
 
           total_contract_value: This field's availability is dependent on your client's configuration.
 
@@ -1036,6 +1093,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
                     "uniqueness_key": uniqueness_key,
@@ -1546,6 +1604,49 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractRetrieveRateScheduleResponse,
         )
 
+    async def retrieve_subscription_quantity_history(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        subscription_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
+        """Fetch the quantity and price for a subscription over time.
+
+        End-point does not
+        return future scheduled changes.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/contracts/getSubscriptionQuantityHistory",
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "subscription_id": subscription_id,
+                },
+                contract_retrieve_subscription_quantity_history_params.ContractRetrieveSubscriptionQuantityHistoryParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractRetrieveSubscriptionQuantityHistoryResponse,
+        )
+
     async def schedule_pro_services_invoice(
         self,
         *,
@@ -1735,6 +1836,9 @@ class ContractsResourceWithRawResponse:
         self.retrieve_rate_schedule = to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
         )
+        self.retrieve_subscription_quantity_history = to_raw_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
+        )
         self.schedule_pro_services_invoice = to_raw_response_wrapper(
             contracts.schedule_pro_services_invoice,
         )
@@ -1788,6 +1892,9 @@ class AsyncContractsResourceWithRawResponse:
         )
         self.retrieve_rate_schedule = async_to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = async_to_raw_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = async_to_raw_response_wrapper(
             contracts.schedule_pro_services_invoice,
@@ -1843,6 +1950,9 @@ class ContractsResourceWithStreamingResponse:
         self.retrieve_rate_schedule = to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,
         )
+        self.retrieve_subscription_quantity_history = to_streamed_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
+        )
         self.schedule_pro_services_invoice = to_streamed_response_wrapper(
             contracts.schedule_pro_services_invoice,
         )
@@ -1896,6 +2006,9 @@ class AsyncContractsResourceWithStreamingResponse:
         )
         self.retrieve_rate_schedule = async_to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,
+        )
+        self.retrieve_subscription_quantity_history = async_to_streamed_response_wrapper(
+            contracts.retrieve_subscription_quantity_history,
         )
         self.schedule_pro_services_invoice = async_to_streamed_response_wrapper(
             contracts.schedule_pro_services_invoice,
