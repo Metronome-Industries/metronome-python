@@ -210,6 +210,7 @@ class TestCreditGrants:
     def test_method_list_entries_with_all_params(self, client: Metronome) -> None:
         credit_grant = client.v1.credit_grants.list_entries(
             next_page="next_page",
+            sort="asc",
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["6a37bb88-8538-48c5-b37b-a41c836328bd"],
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
@@ -466,6 +467,7 @@ class TestAsyncCreditGrants:
     async def test_method_list_entries_with_all_params(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.v1.credit_grants.list_entries(
             next_page="next_page",
+            sort="asc",
             credit_type_ids=["2714e483-4ff1-48e4-9e25-ac732e8f24f2"],
             customer_ids=["6a37bb88-8538-48c5-b37b-a41c836328bd"],
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),

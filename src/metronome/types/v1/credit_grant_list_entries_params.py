@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -14,6 +14,9 @@ __all__ = ["CreditGrantListEntriesParams"]
 class CreditGrantListEntriesParams(TypedDict, total=False):
     next_page: str
     """Cursor that indicates where the next page of results should start."""
+
+    sort: Literal["asc", "desc"]
+    """Ledgers sort order by date, asc or desc. Defaults to asc."""
 
     credit_type_ids: List[str]
     """A list of Metronome credit type IDs to fetch ledger entries for.
