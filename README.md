@@ -180,7 +180,6 @@ contract = client.v1.contracts.create(
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
     billing_provider_configuration={
         "billing_provider": "stripe",
-        "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         "delivery_method": "direct_to_billing_provider",
     },
 )

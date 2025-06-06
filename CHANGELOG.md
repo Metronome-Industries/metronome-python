@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-beta.10 (2025-06-06)
+
+Full Changelog: [v0.1.0-beta.9...v0.1.0-beta.10](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.9...v0.1.0-beta.10)
+
+### Features
+
+* **api:** api update ([3564f52](https://github.com/Metronome-Industries/metronome-python/commit/3564f526944329716f1503f26b7be6e665ab2917))
+* **api:** api update ([5080e6d](https://github.com/Metronome-Industries/metronome-python/commit/5080e6d2ab0f8f7942550c474fb758455f772152))
+* **client:** add follow_redirects request option ([1885158](https://github.com/Metronome-Industries/metronome-python/commit/1885158245b73e4820661a2d297fa8ba897323ce))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([ad4d425](https://github.com/Metronome-Industries/metronome-python/commit/ad4d425fdb206451bdebfba56f14f06db010f9f0))
+* **docs:** remove unnecessary param examples ([52c671a](https://github.com/Metronome-Industries/metronome-python/commit/52c671a3b8859d512358f12cf9427a86d3024425))
+
 ## 0.1.0-beta.9 (2025-05-30)
 
 Full Changelog: [v0.1.0-beta.8...v0.1.0-beta.9](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.8...v0.1.0-beta.9)

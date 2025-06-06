@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -280,6 +281,7 @@ class CreditGrantsResource(SyncAPIResource):
         self,
         *,
         next_page: str | NotGiven = NOT_GIVEN,
+        sort: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
         customer_ids: List[str] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -299,6 +301,8 @@ class CreditGrantsResource(SyncAPIResource):
 
         Args:
           next_page: Cursor that indicates where the next page of results should start.
+
+          sort: Ledgers sort order by date, asc or desc. Defaults to asc.
 
           credit_type_ids: A list of Metronome credit type IDs to fetch ledger entries for. If absent,
               ledger entries for all credit types will be returned.
@@ -339,7 +343,11 @@ class CreditGrantsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"next_page": next_page}, credit_grant_list_entries_params.CreditGrantListEntriesParams
+                    {
+                        "next_page": next_page,
+                        "sort": sort,
+                    },
+                    credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
             cast_to=CreditGrantListEntriesResponse,
@@ -636,6 +644,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         self,
         *,
         next_page: str | NotGiven = NOT_GIVEN,
+        sort: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
         credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
         customer_ids: List[str] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -655,6 +664,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
         Args:
           next_page: Cursor that indicates where the next page of results should start.
+
+          sort: Ledgers sort order by date, asc or desc. Defaults to asc.
 
           credit_type_ids: A list of Metronome credit type IDs to fetch ledger entries for. If absent,
               ledger entries for all credit types will be returned.
@@ -695,7 +706,11 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"next_page": next_page}, credit_grant_list_entries_params.CreditGrantListEntriesParams
+                    {
+                        "next_page": next_page,
+                        "sort": sort,
+                    },
+                    credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
             cast_to=CreditGrantListEntriesResponse,
