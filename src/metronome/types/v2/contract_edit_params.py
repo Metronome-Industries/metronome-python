@@ -848,9 +848,14 @@ class AddProfessionalService(TypedDict, total=False):
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
@@ -968,9 +973,14 @@ class AddRecurringCommit(TypedDict, total=False):
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):

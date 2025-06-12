@@ -166,9 +166,9 @@ class PrepaidBalanceThresholdConfiguration(BaseModel):
 class RecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
 
-    quantity: float
-
     unit_price: float
+
+    quantity: Optional[float] = None
 
 
 class RecurringCommitCommitDuration(BaseModel):
@@ -289,9 +289,9 @@ class RecurringCommit(BaseModel):
 class RecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
 
-    quantity: float
-
     unit_price: float
+
+    quantity: Optional[float] = None
 
 
 class RecurringCreditCommitDuration(BaseModel):
