@@ -436,9 +436,9 @@ class DataAddPrepaidBalanceThresholdConfiguration(BaseModel):
 class DataAddRecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
 
-    quantity: float
-
     unit_price: float
+
+    quantity: Optional[float] = None
 
 
 class DataAddRecurringCommitCommitDuration(BaseModel):
@@ -529,7 +529,7 @@ class DataAddRecurringCommit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits).
+    last commits). subscription_config:
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -559,9 +559,9 @@ class DataAddRecurringCommit(BaseModel):
 class DataAddRecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
 
-    quantity: float
-
     unit_price: float
+
+    quantity: Optional[float] = None
 
 
 class DataAddRecurringCreditCommitDuration(BaseModel):
@@ -641,7 +641,7 @@ class DataAddRecurringCredit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits).
+    last commits). subscription_config:
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
