@@ -135,7 +135,7 @@ class ContractEditParams(TypedDict, total=False):
 
     add_subscriptions: Iterable[AddSubscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
@@ -188,7 +188,7 @@ class ContractEditParams(TypedDict, total=False):
     update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
 
     update_subscriptions: Iterable[UpdateSubscription]
-    """(beta) Optional list of subscriptions to update."""
+    """Optional list of subscriptions to update."""
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):

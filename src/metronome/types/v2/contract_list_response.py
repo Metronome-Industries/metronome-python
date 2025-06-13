@@ -1130,6 +1130,10 @@ class DataSubscription(BaseModel):
     proration: DataSubscriptionProration
 
     quantity_schedule: List[DataSubscriptionQuantitySchedule]
+    """List of quantity schedule items for the subscription.
+
+    Only includes the current quantity and future quantity changes.
+    """
 
     starting_at: datetime
 
@@ -1229,7 +1233,7 @@ class Data(BaseModel):
     spend_threshold_configuration: Optional[DataSpendThresholdConfiguration] = None
 
     subscriptions: Optional[List[DataSubscription]] = None
-    """(beta) List of subscriptions on the contract."""
+    """List of subscriptions on the contract."""
 
     total_contract_value: Optional[float] = None
 

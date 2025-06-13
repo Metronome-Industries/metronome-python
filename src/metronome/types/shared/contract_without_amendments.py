@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from .commit import Commit
 from .credit import Credit
@@ -17,6 +17,11 @@ __all__ = [
     "ContractWithoutAmendments",
     "Transition",
     "UsageStatementSchedule",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParentHierarchyConfiguration",
+    "HierarchyConfigurationParentHierarchyConfigurationChild",
+    "HierarchyConfigurationChildHierarchyConfiguration",
+    "HierarchyConfigurationChildHierarchyConfigurationParent",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
     "PrepaidBalanceThresholdConfigurationCommitSpecifier",
@@ -58,6 +63,33 @@ class UsageStatementSchedule(BaseModel):
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+
+class HierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+
+class HierarchyConfigurationParentHierarchyConfiguration(BaseModel):
+    children: List[HierarchyConfigurationParentHierarchyConfigurationChild]
+    """List of contracts that belong to this parent."""
+
+
+class HierarchyConfigurationChildHierarchyConfigurationParent(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+
+class HierarchyConfigurationChildHierarchyConfiguration(BaseModel):
+    parent: HierarchyConfigurationChildHierarchyConfigurationParent
+    """The single parent contract/customer for this child."""
+
+
+HierarchyConfiguration: TypeAlias = Union[
+    HierarchyConfigurationParentHierarchyConfiguration, HierarchyConfigurationChildHierarchyConfiguration
+]
 
 
 class PrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
@@ -526,6 +558,12 @@ class ContractWithoutAmendments(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     ending_before: Optional[datetime] = None
+
+    hierarchy_configuration: Optional[HierarchyConfiguration] = None
+    """
+    Either a **parent** configuration with a list of children or a **child**
+    configuration with a single parent.
+    """
 
     name: Optional[str] = None
 
