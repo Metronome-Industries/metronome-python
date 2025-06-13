@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.1.0-beta.10 (2025-06-13)
+
+Full Changelog: [v0.1.0-beta.9...v0.1.0-beta.10](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.9...v0.1.0-beta.10)
+
+### Features
+
+* **api:** api update ([8ada045](https://github.com/Metronome-Industries/metronome-python/commit/8ada045bfc15cb3e99e223440d848a232cc79d20))
+* **api:** api update ([4d42085](https://github.com/Metronome-Industries/metronome-python/commit/4d42085911b7335015334fa03f72093a1c67bd62))
+* **api:** api update ([3564f52](https://github.com/Metronome-Industries/metronome-python/commit/3564f526944329716f1503f26b7be6e665ab2917))
+* **api:** api update ([5080e6d](https://github.com/Metronome-Industries/metronome-python/commit/5080e6d2ab0f8f7942550c474fb758455f772152))
+* **client:** add follow_redirects request option ([1885158](https://github.com/Metronome-Industries/metronome-python/commit/1885158245b73e4820661a2d297fa8ba897323ce))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([30fb991](https://github.com/Metronome-Industries/metronome-python/commit/30fb991418019272b5719e68bc94fe10e241a411))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([ad4d425](https://github.com/Metronome-Industries/metronome-python/commit/ad4d425fdb206451bdebfba56f14f06db010f9f0))
+* **docs:** remove unnecessary param examples ([52c671a](https://github.com/Metronome-Industries/metronome-python/commit/52c671a3b8859d512358f12cf9427a86d3024425))
+* **tests:** run tests in parallel ([1133ea9](https://github.com/Metronome-Industries/metronome-python/commit/1133ea98e20bbcc06e6aed2aa74d4692388e825c))
+
 ## 0.1.0-beta.9 (2025-05-30)
 
 Full Changelog: [v0.1.0-beta.8...v0.1.0-beta.9](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.8...v0.1.0-beta.9)

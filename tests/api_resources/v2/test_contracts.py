@@ -331,8 +331,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -371,8 +371,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1202,8 +1202,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1242,8 +1242,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
