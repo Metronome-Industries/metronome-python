@@ -183,7 +183,7 @@ class ContractsResource(SyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
-          subscriptions: (beta) Optional list of
+          subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 
@@ -1048,7 +1048,7 @@ class AsyncContractsResource(AsyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
-          subscriptions: (beta) Optional list of
+          subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 

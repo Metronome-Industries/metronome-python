@@ -145,7 +145,7 @@ class ContractCreateParams(TypedDict, total=False):
 
     subscriptions: Iterable[Subscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
