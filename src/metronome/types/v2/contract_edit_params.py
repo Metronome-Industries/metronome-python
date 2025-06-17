@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -30,7 +31,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -135,7 +135,7 @@ class ContractEditParams(TypedDict, total=False):
 
     add_subscriptions: Iterable[AddSubscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
@@ -188,7 +188,7 @@ class ContractEditParams(TypedDict, total=False):
     update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
 
     update_subscriptions: Iterable[UpdateSubscription]
-    """(beta) Optional list of subscriptions to update."""
+    """Optional list of subscriptions to update."""
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -622,12 +622,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -655,7 +649,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -854,9 +848,14 @@ class AddProfessionalService(TypedDict, total=False):
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
@@ -974,9 +973,14 @@ class AddRecurringCommit(TypedDict, total=False):
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):

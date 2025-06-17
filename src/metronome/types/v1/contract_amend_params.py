@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractAmendParams",
@@ -30,7 +31,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "ProfessionalService",
     "ResellerRoyalty",
@@ -517,12 +517,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -550,7 +544,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
