@@ -90,6 +90,53 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install --pre metronome-sdk[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from metronome import DefaultAioHttpClient
+from metronome import AsyncMetronome
+
+
+async def main() -> None:
+    async with AsyncMetronome(
+        bearer_token=os.environ.get(
+            "METRONOME_BEARER_TOKEN"
+        ),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        await client.v1.usage.ingest(
+            usage=[
+                {
+                    "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
+                    "customer_id": "team@example.com",
+                    "event_type": "heartbeat",
+                    "timestamp": "2024-01-01T00:00:00Z",
+                    "properties": {
+                        "cluster_id": "42",
+                        "cpu_seconds": 60,
+                        "region": "Europe",
+                    },
+                }
+            ],
+        )
+
+
+asyncio.run(main())
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
