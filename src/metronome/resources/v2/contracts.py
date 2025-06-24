@@ -316,7 +316,7 @@ class ContractsResource(SyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -386,7 +386,7 @@ class ContractsResource(SyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -765,7 +765,7 @@ class AsyncContractsResource(AsyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -835,7 +835,7 @@ class AsyncContractsResource(AsyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
