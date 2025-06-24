@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -30,7 +31,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -622,12 +622,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -655,7 +649,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -1510,14 +1504,14 @@ class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total
 
 
 class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
-    applicable_product_ids: List[str]
+    applicable_product_ids: Optional[List[str]]
     """Which products the threshold commit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: Optional[List[str]]
     """Which tags the threshold commit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -1538,7 +1532,7 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     payment.
     """
 
-    specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
+    specifiers: Optional[Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
