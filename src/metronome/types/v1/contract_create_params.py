@@ -328,15 +328,15 @@ class Commit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     custom_fields: Dict[str, str]
@@ -740,15 +740,15 @@ class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     description: str

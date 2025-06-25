@@ -357,15 +357,15 @@ class DataAddPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: Optional[List[str]] = None
     """Which tags the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     description: Optional[str] = None
@@ -958,15 +958,15 @@ class DataUpdateCommit(BaseModel):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: Optional[List[str]] = None
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     invoice_schedule: Optional[DataUpdateCommitInvoiceSchedule] = None
