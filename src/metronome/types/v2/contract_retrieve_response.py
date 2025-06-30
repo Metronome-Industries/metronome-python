@@ -56,6 +56,11 @@ __all__ = [
     "DataCreditLedgerCreditManualLedgerEntry",
     "DataCreditSpecifier",
     "DataCustomerBillingProviderConfiguration",
+    "DataHierarchyConfiguration",
+    "DataHierarchyConfigurationParentHierarchyConfiguration",
+    "DataHierarchyConfigurationParentHierarchyConfigurationChild",
+    "DataHierarchyConfigurationChildHierarchyConfiguration",
+    "DataHierarchyConfigurationChildHierarchyConfigurationParent",
     "DataPrepaidBalanceThresholdConfiguration",
     "DataPrepaidBalanceThresholdConfigurationCommit",
     "DataPrepaidBalanceThresholdConfigurationCommitSpecifier",
@@ -665,6 +670,33 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
 
+class DataHierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+
+class DataHierarchyConfigurationParentHierarchyConfiguration(BaseModel):
+    children: List[DataHierarchyConfigurationParentHierarchyConfigurationChild]
+    """List of contracts that belong to this parent."""
+
+
+class DataHierarchyConfigurationChildHierarchyConfigurationParent(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+
+class DataHierarchyConfigurationChildHierarchyConfiguration(BaseModel):
+    parent: DataHierarchyConfigurationChildHierarchyConfigurationParent
+    """The single parent contract/customer for this child."""
+
+
+DataHierarchyConfiguration: TypeAlias = Union[
+    DataHierarchyConfigurationParentHierarchyConfiguration, DataHierarchyConfigurationChildHierarchyConfiguration
+]
+
+
 class DataPrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
     presentation_group_values: Optional[Dict[str, str]] = None
 
@@ -1188,6 +1220,12 @@ class Data(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     ending_before: Optional[datetime] = None
+
+    hierarchy_configuration: Optional[DataHierarchyConfiguration] = None
+    """
+    Either a **parent** configuration with a list of children or a **child**
+    configuration with a single parent.
+    """
 
     multiplier_override_prioritization: Optional[Literal["LOWEST_MULTIPLIER", "EXPLICIT"]] = None
     """
