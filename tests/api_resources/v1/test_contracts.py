@@ -169,6 +169,12 @@ class TestContracts:
                 }
             ],
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            hierarchy_configuration={
+                "parent": {
+                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
             name="name",
             net_payment_terms_days=0,
@@ -1434,6 +1440,12 @@ class TestAsyncContracts:
                 }
             ],
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            hierarchy_configuration={
+                "parent": {
+                    "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            },
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
             name="name",
             net_payment_terms_days=0,
