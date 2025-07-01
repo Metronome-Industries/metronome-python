@@ -30,6 +30,8 @@ __all__ = [
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
     "DiscountScheduleScheduleItem",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParent",
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
@@ -89,6 +91,8 @@ class ContractCreateParams(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """exclusive contract end time"""
+
+    hierarchy_configuration: HierarchyConfiguration
 
     multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"]
     """
@@ -557,6 +561,16 @@ class Discount(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class HierarchyConfigurationParent(TypedDict, total=False):
+    contract_id: Required[str]
+
+    customer_id: Required[str]
+
+
+class HierarchyConfiguration(TypedDict, total=False):
+    parent: Required[HierarchyConfigurationParent]
 
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
