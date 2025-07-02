@@ -165,6 +165,12 @@ class ContractEditParams(TypedDict, total=False):
     update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
+    update_contract_name: Optional[str]
+    """Value to update the contract name to.
+
+    If not provided, the contract name will remain unchanged.
+    """
+
     update_credits: Iterable[UpdateCredit]
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration

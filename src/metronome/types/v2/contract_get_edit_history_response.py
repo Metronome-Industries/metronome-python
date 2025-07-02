@@ -1432,6 +1432,12 @@ class Data(BaseModel):
 
     update_contract_end_date: Optional[datetime] = None
 
+    update_contract_name: Optional[str] = None
+    """Value to update the contract name to.
+
+    If not provided, the contract name will remain unchanged.
+    """
+
     update_credits: Optional[List[DataUpdateCredit]] = None
 
     update_discounts: Optional[List[DataUpdateDiscount]] = None
