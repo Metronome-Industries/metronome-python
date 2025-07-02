@@ -200,6 +200,7 @@ class ContractsResource(SyncAPIResource):
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -246,6 +247,9 @@ class ContractsResource(SyncAPIResource):
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
+          update_contract_name: Value to update the contract name to. If not provided, the contract name will
+              remain unchanged.
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -289,6 +293,7 @@ class ContractsResource(SyncAPIResource):
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
+                    "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
@@ -651,6 +656,7 @@ class AsyncContractsResource(AsyncAPIResource):
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -697,6 +703,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
+          update_contract_name: Value to update the contract name to. If not provided, the contract name will
+              remain unchanged.
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -740,6 +749,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
+                    "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
