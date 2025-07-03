@@ -1244,6 +1244,9 @@ class Data(BaseModel):
 
     prepaid_balance_threshold_configuration: Optional[DataPrepaidBalanceThresholdConfiguration] = None
 
+    priority: Optional[float] = None
+    """Priority of the contract."""
+
     professional_services: Optional[List[ProService]] = None
     """This field's availability is dependent on your client's configuration."""
 
