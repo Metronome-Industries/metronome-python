@@ -133,7 +133,6 @@ from metronome.types.v1 import (
     CustomerArchiveResponse,
     CustomerListBillableMetricsResponse,
     CustomerListCostsResponse,
-    CustomerPreviewEventsResponse,
     CustomerSetNameResponse,
 )
 ```
@@ -146,7 +145,6 @@ Methods:
 - <code title="post /v1/customers/archive">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">archive</a>(\*\*<a href="src/metronome/types/v1/customer_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_archive_response.py">CustomerArchiveResponse</a></code>
 - <code title="get /v1/customers/{customer_id}/billable-metrics">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_billable_metrics</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
 - <code title="get /v1/customers/{customer_id}/costs">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_costs</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
-- <code title="post /v1/customers/{customer_id}/previewEvents">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">preview_events</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_preview_events_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_preview_events_response.py">CustomerPreviewEventsResponse</a></code>
 - <code title="post /v1/customers/{customer_id}/setIngestAliases">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_ingest_aliases</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_ingest_aliases_params.py">params</a>) -> None</code>
 - <code title="post /v1/customers/{customer_id}/setName">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_name</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_name_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_set_name_response.py">CustomerSetNameResponse</a></code>
 - <code title="post /v1/customers/{customer_id}/updateConfig">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">update_config</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_update_config_params.py">params</a>) -> None</code>
