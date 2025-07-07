@@ -17,7 +17,6 @@ from metronome.types.v1 import (
     CustomerSetNameResponse,
     CustomerRetrieveResponse,
     CustomerListCostsResponse,
-    CustomerPreviewEventsResponse,
     CustomerListBillableMetricsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
@@ -298,69 +297,6 @@ class TestCustomers:
                 customer_id="",
                 ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
                 starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-            )
-
-    @parametrize
-    def test_method_preview_events(self, client: Metronome) -> None:
-        customer = client.v1.customers.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        )
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    def test_method_preview_events_with_all_params(self, client: Metronome) -> None:
-        customer = client.v1.customers.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[
-                {
-                    "event_type": "heartbeat",
-                    "customer_id": "x",
-                    "properties": {
-                        "cpu_hours": "bar",
-                        "memory_gb_hours": "bar",
-                    },
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "x",
-                }
-            ],
-            mode="replace",
-            skip_zero_qty_line_items=True,
-        )
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    def test_raw_response_preview_events(self, client: Metronome) -> None:
-        response = client.v1.customers.with_raw_response.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        customer = response.parse()
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    def test_streaming_response_preview_events(self, client: Metronome) -> None:
-        with client.v1.customers.with_streaming_response.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            customer = response.parse()
-            assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_preview_events(self, client: Metronome) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            client.v1.customers.with_raw_response.preview_events(
-                customer_id="",
-                events=[{"event_type": "heartbeat"}],
             )
 
     @parametrize
@@ -770,69 +706,6 @@ class TestAsyncCustomers:
                 customer_id="",
                 ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
                 starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
-            )
-
-    @parametrize
-    async def test_method_preview_events(self, async_client: AsyncMetronome) -> None:
-        customer = await async_client.v1.customers.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        )
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    async def test_method_preview_events_with_all_params(self, async_client: AsyncMetronome) -> None:
-        customer = await async_client.v1.customers.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[
-                {
-                    "event_type": "heartbeat",
-                    "customer_id": "x",
-                    "properties": {
-                        "cpu_hours": "bar",
-                        "memory_gb_hours": "bar",
-                    },
-                    "timestamp": "2021-01-01T00:00:00Z",
-                    "transaction_id": "x",
-                }
-            ],
-            mode="replace",
-            skip_zero_qty_line_items=True,
-        )
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    async def test_raw_response_preview_events(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.customers.with_raw_response.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        customer = await response.parse()
-        assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_preview_events(self, async_client: AsyncMetronome) -> None:
-        async with async_client.v1.customers.with_streaming_response.preview_events(
-            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            events=[{"event_type": "heartbeat"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            customer = await response.parse()
-            assert_matches_type(CustomerPreviewEventsResponse, customer, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_preview_events(self, async_client: AsyncMetronome) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
-            await async_client.v1.customers.with_raw_response.preview_events(
-                customer_id="",
-                events=[{"event_type": "heartbeat"}],
             )
 
     @parametrize

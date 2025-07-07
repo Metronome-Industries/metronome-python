@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 import httpx
 
@@ -58,7 +57,6 @@ from ....types.v1 import (
     customer_set_name_params,
     customer_list_costs_params,
     customer_update_config_params,
-    customer_preview_events_params,
     customer_set_ingest_aliases_params,
     customer_list_billable_metrics_params,
 )
@@ -93,7 +91,6 @@ from ....types.v1.customer_archive_response import CustomerArchiveResponse
 from ....types.v1.customer_retrieve_response import CustomerRetrieveResponse
 from ....types.v1.customer_set_name_response import CustomerSetNameResponse
 from ....types.v1.customer_list_costs_response import CustomerListCostsResponse
-from ....types.v1.customer_preview_events_response import CustomerPreviewEventsResponse
 from ....types.v1.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
 
 __all__ = ["CustomersResource", "AsyncCustomersResource"]
@@ -450,58 +447,6 @@ class CustomersResource(SyncAPIResource):
                 ),
             ),
             model=CustomerListCostsResponse,
-        )
-
-    def preview_events(
-        self,
-        *,
-        customer_id: str,
-        events: Iterable[customer_preview_events_params.Event],
-        mode: Literal["replace", "merge"] | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerPreviewEventsResponse:
-        """
-        Generates a draft invoice for a customer using their current contract
-        configuration and the provided events. This is useful for testing how new events
-        will affect the customer's invoice before they are actually processed.
-
-        Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
-
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return self._post(
-            f"/v1/customers/{customer_id}/previewEvents",
-            body=maybe_transform(
-                {
-                    "events": events,
-                    "mode": mode,
-                    "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                },
-                customer_preview_events_params.CustomerPreviewEventsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CustomerPreviewEventsResponse,
         )
 
     def set_ingest_aliases(
@@ -985,58 +930,6 @@ class AsyncCustomersResource(AsyncAPIResource):
             model=CustomerListCostsResponse,
         )
 
-    async def preview_events(
-        self,
-        *,
-        customer_id: str,
-        events: Iterable[customer_preview_events_params.Event],
-        mode: Literal["replace", "merge"] | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerPreviewEventsResponse:
-        """
-        Generates a draft invoice for a customer using their current contract
-        configuration and the provided events. This is useful for testing how new events
-        will affect the customer's invoice before they are actually processed.
-
-        Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
-
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not customer_id:
-            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
-        return await self._post(
-            f"/v1/customers/{customer_id}/previewEvents",
-            body=await async_maybe_transform(
-                {
-                    "events": events,
-                    "mode": mode,
-                    "skip_zero_qty_line_items": skip_zero_qty_line_items,
-                },
-                customer_preview_events_params.CustomerPreviewEventsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CustomerPreviewEventsResponse,
-        )
-
     async def set_ingest_aliases(
         self,
         *,
@@ -1187,9 +1080,6 @@ class CustomersResourceWithRawResponse:
         self.list_costs = to_raw_response_wrapper(
             customers.list_costs,
         )
-        self.preview_events = to_raw_response_wrapper(
-            customers.preview_events,
-        )
         self.set_ingest_aliases = to_raw_response_wrapper(
             customers.set_ingest_aliases,
         )
@@ -1250,9 +1140,6 @@ class AsyncCustomersResourceWithRawResponse:
         )
         self.list_costs = async_to_raw_response_wrapper(
             customers.list_costs,
-        )
-        self.preview_events = async_to_raw_response_wrapper(
-            customers.preview_events,
         )
         self.set_ingest_aliases = async_to_raw_response_wrapper(
             customers.set_ingest_aliases,
@@ -1315,9 +1202,6 @@ class CustomersResourceWithStreamingResponse:
         self.list_costs = to_streamed_response_wrapper(
             customers.list_costs,
         )
-        self.preview_events = to_streamed_response_wrapper(
-            customers.preview_events,
-        )
         self.set_ingest_aliases = to_streamed_response_wrapper(
             customers.set_ingest_aliases,
         )
@@ -1378,9 +1262,6 @@ class AsyncCustomersResourceWithStreamingResponse:
         )
         self.list_costs = async_to_streamed_response_wrapper(
             customers.list_costs,
-        )
-        self.preview_events = async_to_streamed_response_wrapper(
-            customers.preview_events,
         )
         self.set_ingest_aliases = async_to_streamed_response_wrapper(
             customers.set_ingest_aliases,
