@@ -250,6 +250,7 @@ class TestContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
             },
+            priority=0,
             professional_services=[
                 {
                     "max_amount": 0,
@@ -1521,6 +1522,7 @@ class TestAsyncContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
             },
+            priority=0,
             professional_services=[
                 {
                     "max_amount": 0,

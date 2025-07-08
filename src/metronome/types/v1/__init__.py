@@ -13,7 +13,6 @@ from .credit_ledger_entry import CreditLedgerEntry as CreditLedgerEntry
 from .invoice_void_params import InvoiceVoidParams as InvoiceVoidParams
 from .usage_ingest_params import UsageIngestParams as UsageIngestParams
 from .usage_list_response import UsageListResponse as UsageListResponse
-from .usage_search_params import UsageSearchParams as UsageSearchParams
 from .alert_archive_params import AlertArchiveParams as AlertArchiveParams
 from .contract_list_params import ContractListParams as ContractListParams
 from .customer_list_params import CustomerListParams as CustomerListParams
@@ -22,7 +21,6 @@ from .audit_log_list_params import AuditLogListParams as AuditLogListParams
 from .contract_amend_params import ContractAmendParams as ContractAmendParams
 from .invoice_void_response import InvoiceVoidResponse as InvoiceVoidResponse
 from .service_list_response import ServiceListResponse as ServiceListResponse
-from .usage_search_response import UsageSearchResponse as UsageSearchResponse
 from .alert_archive_response import AlertArchiveResponse as AlertArchiveResponse
 from .contract_create_params import ContractCreateParams as ContractCreateParams
 from .contract_list_response import ContractListResponse as ContractListResponse
