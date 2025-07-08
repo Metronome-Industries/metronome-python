@@ -127,6 +127,7 @@ class ContractsResource(SyncAPIResource):
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
         prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
         rate_card_id: str | NotGiven = NOT_GIVEN,
@@ -168,6 +169,8 @@ class ContractsResource(SyncAPIResource):
               first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
+
+          priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -221,6 +224,7 @@ class ContractsResource(SyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,
@@ -994,6 +998,7 @@ class AsyncContractsResource(AsyncAPIResource):
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
         prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
         rate_card_id: str | NotGiven = NOT_GIVEN,
@@ -1035,6 +1040,8 @@ class AsyncContractsResource(AsyncAPIResource):
               first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
+
+          priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -1088,6 +1095,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,

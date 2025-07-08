@@ -12,7 +12,6 @@ from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
 from metronome.types.v1 import (
     UsageListResponse,
-    UsageSearchResponse,
     UsageListWithGroupsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
@@ -179,37 +178,6 @@ class TestUsage:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_search(self, client: Metronome) -> None:
-        usage = client.v1.usage.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        )
-        assert_matches_type(UsageSearchResponse, usage, path=["response"])
-
-    @parametrize
-    def test_raw_response_search(self, client: Metronome) -> None:
-        response = client.v1.usage.with_raw_response.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        usage = response.parse()
-        assert_matches_type(UsageSearchResponse, usage, path=["response"])
-
-    @parametrize
-    def test_streaming_response_search(self, client: Metronome) -> None:
-        with client.v1.usage.with_streaming_response.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            usage = response.parse()
-            assert_matches_type(UsageSearchResponse, usage, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncUsage:
     parametrize = pytest.mark.parametrize(
@@ -369,36 +337,5 @@ class TestAsyncUsage:
 
             usage = await response.parse()
             assert_matches_type(AsyncCursorPage[UsageListWithGroupsResponse], usage, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_search(self, async_client: AsyncMetronome) -> None:
-        usage = await async_client.v1.usage.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        )
-        assert_matches_type(UsageSearchResponse, usage, path=["response"])
-
-    @parametrize
-    async def test_raw_response_search(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.usage.with_raw_response.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        usage = await response.parse()
-        assert_matches_type(UsageSearchResponse, usage, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_search(self, async_client: AsyncMetronome) -> None:
-        async with async_client.v1.usage.with_streaming_response.search(
-            transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            usage = await response.parse()
-            assert_matches_type(UsageSearchResponse, usage, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -285,7 +285,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import UsageListResponse, UsageListWithGroupsResponse, UsageSearchResponse
+from metronome.types.v1 import UsageListResponse, UsageListWithGroupsResponse
 ```
 
 Methods:
@@ -293,7 +293,6 @@ Methods:
 - <code title="post /v1/usage">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list</a>(\*\*<a href="src/metronome/types/v1/usage_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_response.py">UsageListResponse</a></code>
 - <code title="post /v1/ingest">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">ingest</a>(\*\*<a href="src/metronome/types/v1/usage_ingest_params.py">params</a>) -> None</code>
 - <code title="post /v1/usage/groups">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list_with_groups</a>(\*\*<a href="src/metronome/types/v1/usage_list_with_groups_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_with_groups_response.py">SyncCursorPage[UsageListWithGroupsResponse]</a></code>
-- <code title="post /v1/events/search">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">search</a>(\*\*<a href="src/metronome/types/v1/usage_search_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_search_response.py">UsageSearchResponse</a></code>
 
 ## AuditLogs
 
