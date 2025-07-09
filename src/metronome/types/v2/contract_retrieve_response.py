@@ -799,6 +799,12 @@ class DataPrepaidBalanceThresholdConfiguration(BaseModel):
     be initiated.
     """
 
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class DataRecurringCommitAccessAmount(BaseModel):
     credit_type_id: str

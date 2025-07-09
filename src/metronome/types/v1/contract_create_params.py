@@ -832,6 +832,12 @@ class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     charge will be initiated.
     """
 
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class ProfessionalService(TypedDict, total=False):
     max_amount: Required[float]

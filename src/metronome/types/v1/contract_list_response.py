@@ -218,6 +218,12 @@ class DataPrepaidBalanceThresholdConfiguration(BaseModel):
     charge will be initiated.
     """
 
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class DataSpendThresholdConfigurationCommit(BaseModel):
     product_id: str
