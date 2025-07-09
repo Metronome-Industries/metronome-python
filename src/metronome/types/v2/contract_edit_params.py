@@ -824,6 +824,12 @@ class AddPrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     be initiated.
     """
 
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class AddProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
@@ -1574,6 +1580,12 @@ class UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, tot
 
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
+
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
 
     is_enabled: bool
     """

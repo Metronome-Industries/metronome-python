@@ -432,6 +432,12 @@ class DataAddPrepaidBalanceThresholdConfiguration(BaseModel):
     be initiated.
     """
 
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class DataAddRecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
@@ -1204,6 +1210,12 @@ class DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel)
 
 class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommit] = None
+
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
 
     is_enabled: Optional[bool] = None
     """
