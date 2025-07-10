@@ -236,10 +236,11 @@ class UsageResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UsageSearchResponse:
-        """Find events to match to customers, billable metrics, etc.
-
-        We only look for
-        transactions that occurred in the last 34 days.
+        """
+        For a set of events, look up matched billable metrics and customers by
+        transaction id. This endpoint looks at transactions that occurred in the last 34
+        days, and is intended for sampling-based testing workflows. It is heavily rate
+        limited.
 
         Args:
           transaction_ids: The transaction IDs of the events to retrieve
@@ -470,10 +471,11 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> UsageSearchResponse:
-        """Find events to match to customers, billable metrics, etc.
-
-        We only look for
-        transactions that occurred in the last 34 days.
+        """
+        For a set of events, look up matched billable metrics and customers by
+        transaction id. This endpoint looks at transactions that occurred in the last 34
+        days, and is intended for sampling-based testing workflows. It is heavily rate
+        limited.
 
         Args:
           transaction_ids: The transaction IDs of the events to retrieve
