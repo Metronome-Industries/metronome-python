@@ -315,7 +315,7 @@ class TestContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
-                "custom_credit_type_id": "custom_credit_type_id",
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -582,7 +582,7 @@ class TestContracts:
                         }
                     ],
                 },
-                "custom_credit_type_id": "custom_credit_type_id",
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
@@ -1191,7 +1191,7 @@ class TestAsyncContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
-                "custom_credit_type_id": "custom_credit_type_id",
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -1458,7 +1458,7 @@ class TestAsyncContracts:
                         }
                     ],
                 },
-                "custom_credit_type_id": "custom_credit_type_id",
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",

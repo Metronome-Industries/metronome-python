@@ -1581,7 +1581,7 @@ class UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, tot
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
 
-    custom_credit_type_id: str
+    custom_credit_type_id: Optional[str]
     """
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
