@@ -43,7 +43,7 @@ class ContractEditCreditParams(TypedDict, total=False):
 
     product_id: str
 
-    specifiers: Iterable[Specifier]
+    specifiers: Optional[Iterable[Specifier]]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the

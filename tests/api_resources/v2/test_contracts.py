@@ -315,6 +315,7 @@ class TestContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -331,8 +332,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -371,8 +372,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -537,6 +538,7 @@ class TestContracts:
                 }
             ],
             update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            update_contract_name="update_contract_name",
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -580,6 +582,7 @@ class TestContracts:
                         }
                     ],
                 },
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
@@ -894,7 +897,9 @@ class TestContracts:
 
 
 class TestAsyncContracts:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
@@ -1186,6 +1191,7 @@ class TestAsyncContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -1202,8 +1208,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1242,8 +1248,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1408,6 +1414,7 @@ class TestAsyncContracts:
                 }
             ],
             update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            update_contract_name="update_contract_name",
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1451,6 +1458,7 @@ class TestAsyncContracts:
                         }
                     ],
                 },
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",

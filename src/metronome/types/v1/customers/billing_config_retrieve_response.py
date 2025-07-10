@@ -17,6 +17,9 @@ class Data(BaseModel):
     [AWS's GetEntitlements API](https://docs.aws.amazon.com/marketplaceentitlement/latest/APIReference/API_GetEntitlements.html).
     """
 
+    aws_is_subscription_product: Optional[bool] = None
+    """True if the aws_product_code is a SAAS subscription product, false otherwise."""
+
     aws_product_code: Optional[str] = None
 
     aws_region: Optional[

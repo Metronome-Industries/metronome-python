@@ -7,6 +7,8 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -28,10 +30,11 @@ __all__ = [
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
     "DiscountScheduleScheduleItem",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParent",
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
@@ -64,7 +67,6 @@ __all__ = [
     "SubscriptionSubscriptionRate",
     "Transition",
     "TransitionFutureInvoiceBehavior",
-    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -90,6 +92,8 @@ class ContractCreateParams(TypedDict, total=False):
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """exclusive contract end time"""
 
+    hierarchy_configuration: HierarchyConfiguration
+
     multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"]
     """
     Defaults to LOWEST_MULTIPLIER, which applies the greatest discount to list
@@ -108,6 +112,9 @@ class ContractCreateParams(TypedDict, total=False):
     overrides: Iterable[Override]
 
     prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
+
+    priority: float
+    """Priority of the contract."""
 
     professional_services: Iterable[ProfessionalService]
     """This field's availability is dependent on your client's configuration."""
@@ -145,7 +152,7 @@ class ContractCreateParams(TypedDict, total=False):
 
     subscriptions: Iterable[Subscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
@@ -162,7 +169,7 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: UsageFilter
+    usage_filter: BaseUsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
@@ -328,15 +335,15 @@ class Commit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     custom_fields: Dict[str, str]
@@ -559,6 +566,16 @@ class Discount(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
+class HierarchyConfigurationParent(TypedDict, total=False):
+    contract_id: Required[str]
+
+    customer_id: Required[str]
+
+
+class HierarchyConfiguration(TypedDict, total=False):
+    parent: Required[HierarchyConfigurationParent]
+
+
 class OverrideOverrideSpecifier(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
@@ -611,12 +628,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -644,7 +655,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -746,15 +757,15 @@ class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     description: str
@@ -821,6 +832,12 @@ class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     charge will be initiated.
     """
 
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class ProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
@@ -851,9 +868,14 @@ class ProfessionalService(TypedDict, total=False):
 class RecurringCommitAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class RecurringCommitCommitDuration(TypedDict, total=False):
@@ -971,9 +993,14 @@ class RecurringCommit(TypedDict, total=False):
 class RecurringCreditAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class RecurringCreditCommitDuration(TypedDict, total=False):
@@ -1332,14 +1359,6 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
-
-
-class UsageFilter(TypedDict, total=False):
-    group_key: Required[str]
-
-    group_values: Required[List[str]]
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):

@@ -5,7 +5,10 @@ from __future__ import annotations
 from typing import Dict, List, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["BillableMetricCreateParams", "EventTypeFilter", "PropertyFilter"]
+from ..shared_params.property_filter import PropertyFilter
+from ..shared_params.event_type_filter import EventTypeFilter
+
+__all__ = ["BillableMetricCreateParams"]
 
 
 class BillableMetricCreateParams(TypedDict, total=False):
@@ -47,49 +50,4 @@ class BillableMetricCreateParams(TypedDict, total=False):
     This field is mutually exclusive with aggregation_type, event_type_filter,
     property_filters, aggregation_key, and group_keys. If provided, these other
     fields must be omitted.
-    """
-
-
-class EventTypeFilter(TypedDict, total=False):
-    in_values: List[str]
-    """A list of event types that are explicitly included in the billable metric.
-
-    If specified, only events of these types will match the billable metric. Must be
-    non-empty if present.
-    """
-
-    not_in_values: List[str]
-    """A list of event types that are explicitly excluded from the billable metric.
-
-    If specified, events of these types will not match the billable metric. Must be
-    non-empty if present.
-    """
-
-
-class PropertyFilter(TypedDict, total=False):
-    name: Required[str]
-    """The name of the event property."""
-
-    exists: bool
-    """Determines whether the property must exist in the event.
-
-    If true, only events with this property will pass the filter. If false, only
-    events without this property will pass the filter. If null or omitted, the
-    existence of the property is optional.
-    """
-
-    in_values: List[str]
-    """Specifies the allowed values for the property to match an event.
-
-    An event will pass the filter only if its property value is included in this
-    list. If undefined, all property values will pass the filter. Must be non-empty
-    if present.
-    """
-
-    not_in_values: List[str]
-    """Specifies the values that prevent an event from matching the filter.
-
-    An event will not pass the filter if its property value is included in this
-    list. If null or empty, all property values will pass the filter. Must be
-    non-empty if present.
     """

@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -30,7 +31,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -135,7 +135,7 @@ class ContractEditParams(TypedDict, total=False):
 
     add_subscriptions: Iterable[AddSubscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
@@ -165,6 +165,12 @@ class ContractEditParams(TypedDict, total=False):
     update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
+    update_contract_name: Optional[str]
+    """Value to update the contract name to.
+
+    If not provided, the contract name will remain unchanged.
+    """
+
     update_credits: Iterable[UpdateCredit]
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
@@ -188,7 +194,7 @@ class ContractEditParams(TypedDict, total=False):
     update_spend_threshold_configuration: UpdateSpendThresholdConfiguration
 
     update_subscriptions: Iterable[UpdateSubscription]
-    """(beta) Optional list of subscriptions to update."""
+    """Optional list of subscriptions to update."""
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -342,15 +348,15 @@ class AddCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     custom_fields: Dict[str, str]
@@ -622,12 +628,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -655,7 +655,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -749,15 +749,15 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     description: str
@@ -824,6 +824,12 @@ class AddPrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     be initiated.
     """
 
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
 
 class AddProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
@@ -854,9 +860,14 @@ class AddProfessionalService(TypedDict, total=False):
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
@@ -974,9 +985,14 @@ class AddRecurringCommit(TypedDict, total=False):
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):
@@ -1408,15 +1424,15 @@ class UpdateCommit(TypedDict, total=False):
     applicable_product_ids: Optional[List[str]]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: Optional[List[str]]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     invoice_schedule: UpdateCommitInvoiceSchedule
@@ -1466,15 +1482,15 @@ class UpdateCredit(TypedDict, total=False):
     applicable_product_ids: Optional[List[str]]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: Optional[List[str]]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     netsuite_sales_order_id: Optional[str]
@@ -1500,14 +1516,14 @@ class UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(TypedDict, total
 
 
 class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
-    applicable_product_ids: List[str]
+    applicable_product_ids: Optional[List[str]]
     """Which products the threshold commit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: Optional[List[str]]
     """Which tags the threshold commit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -1528,7 +1544,7 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     payment.
     """
 
-    specifiers: Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]
+    specifiers: Optional[Iterable[UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -1564,6 +1580,12 @@ class UpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, tot
 
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
+
+    custom_credit_type_id: Optional[str]
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
 
     is_enabled: bool
     """

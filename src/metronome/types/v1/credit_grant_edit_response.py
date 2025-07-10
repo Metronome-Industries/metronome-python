@@ -1,13 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from ..._models import BaseModel
+from ..shared.id import ID
 
-__all__ = ["CreditGrantEditResponse", "Data"]
-
-
-class Data(BaseModel):
-    id: str
+__all__ = ["CreditGrantEditResponse"]
 
 
 class CreditGrantEditResponse(BaseModel):
-    data: Data
+    data: ID
