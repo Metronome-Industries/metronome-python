@@ -105,7 +105,6 @@ pip install --pre metronome-sdk[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from metronome import DefaultAioHttpClient
 from metronome import AsyncMetronome
@@ -113,9 +112,7 @@ from metronome import AsyncMetronome
 
 async def main() -> None:
     async with AsyncMetronome(
-        bearer_token=os.environ.get(
-            "METRONOME_BEARER_TOKEN"
-        ),  # This is the default and can be omitted
+        bearer_token="My Bearer Token",
         http_client=DefaultAioHttpClient(),
     ) as client:
         await client.v1.usage.ingest(
