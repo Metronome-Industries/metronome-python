@@ -92,7 +92,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
@@ -246,7 +253,14 @@ class TestContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
@@ -401,7 +415,14 @@ class TestContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
@@ -674,7 +695,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
@@ -1369,7 +1397,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
@@ -1523,7 +1558,14 @@ class TestAsyncContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
@@ -1678,7 +1720,14 @@ class TestAsyncContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
@@ -1951,7 +2000,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
