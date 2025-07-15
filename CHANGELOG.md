@@ -1,5 +1,71 @@
 # Changelog
 
+## 0.1.0-beta.10 (2025-07-15)
+
+Full Changelog: [v0.1.0-beta.9...v0.1.0-beta.10](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.9...v0.1.0-beta.10)
+
+### Features
+
+* **api:** Add Event Search API ([9b27405](https://github.com/Metronome-Industries/metronome-python/commit/9b27405b9fb62810baefb241cccc4a7ed9315116))
+* **api:** add previewEvents API ([c055fa9](https://github.com/Metronome-Industries/metronome-python/commit/c055fa990129a42da17d3e38ad7811b524c8e87a))
+* **api:** api update ([eaca7c5](https://github.com/Metronome-Industries/metronome-python/commit/eaca7c57b0d332fd54dfa12189ae43be6612fa4d))
+* **api:** api update ([c85c47d](https://github.com/Metronome-Industries/metronome-python/commit/c85c47d909a47309d431dd25bdf1e2e5ba93049b))
+* **api:** api update ([2579d74](https://github.com/Metronome-Industries/metronome-python/commit/2579d74bae1f0cd4cee6ec2335b9c5a71fdbab4e))
+* **api:** api update ([2163f6a](https://github.com/Metronome-Industries/metronome-python/commit/2163f6afbc57f6f9ab4a255190f9ae978ceb63ef))
+* **api:** api update ([5a8950b](https://github.com/Metronome-Industries/metronome-python/commit/5a8950b9128a9b0123d371ce41965815d0217638))
+* **api:** api update ([e5be3f5](https://github.com/Metronome-Industries/metronome-python/commit/e5be3f565a51232aacc572e82cb13fbbaf36117b))
+* **api:** api update ([97b68a7](https://github.com/Metronome-Industries/metronome-python/commit/97b68a7533fc016a27fe4db30cd56e1c8cf03f80))
+* **api:** api update ([c50bf4c](https://github.com/Metronome-Industries/metronome-python/commit/c50bf4cb3e12b8a6adc25a7cbdbfd7a1089603f4))
+* **api:** api update ([c6e1932](https://github.com/Metronome-Industries/metronome-python/commit/c6e1932f3d4d04c0eefb3d759da5031303319a34))
+* **api:** api update ([285bb4b](https://github.com/Metronome-Industries/metronome-python/commit/285bb4b2ea59ad4c5f31edad295605e725490ab1))
+* **api:** api update ([908cddd](https://github.com/Metronome-Industries/metronome-python/commit/908cddd68c0e5397061948cfa09a8d9b6b6ca62c))
+* **api:** api update ([19bdcb7](https://github.com/Metronome-Industries/metronome-python/commit/19bdcb72cf94b067b04d09df946d6786357380a7))
+* **api:** api update ([a2d49b4](https://github.com/Metronome-Industries/metronome-python/commit/a2d49b44541f6ffe1287b337a1e15d610fda44c0))
+* **api:** api update ([8ef7f4f](https://github.com/Metronome-Industries/metronome-python/commit/8ef7f4f614e1fa9fd9335a94b27314028a6d48ac))
+* **api:** api update ([d155aad](https://github.com/Metronome-Industries/metronome-python/commit/d155aad46141751d70bf4c5f956327419f0bc7dd))
+* **api:** api update ([7482bee](https://github.com/Metronome-Industries/metronome-python/commit/7482bee421069684a21026dc87bda3231066a398))
+* **api:** api update ([9fb516e](https://github.com/Metronome-Industries/metronome-python/commit/9fb516e0dec265ff4d493a38bc6c5c35ceeb9abc))
+* **api:** api update ([966f3d8](https://github.com/Metronome-Industries/metronome-python/commit/966f3d80cff025b19f21537c25a00bbc5621782e))
+* **api:** api update ([8ada045](https://github.com/Metronome-Industries/metronome-python/commit/8ada045bfc15cb3e99e223440d848a232cc79d20))
+* **api:** api update ([4d42085](https://github.com/Metronome-Industries/metronome-python/commit/4d42085911b7335015334fa03f72093a1c67bd62))
+* **api:** api update ([3564f52](https://github.com/Metronome-Industries/metronome-python/commit/3564f526944329716f1503f26b7be6e665ab2917))
+* **api:** api update ([5080e6d](https://github.com/Metronome-Industries/metronome-python/commit/5080e6d2ab0f8f7942550c474fb758455f772152))
+* clean up environment call outs ([3e9ff48](https://github.com/Metronome-Industries/metronome-python/commit/3e9ff486b99daf8dfbad4c5b4c0837b46e70427c))
+* **client:** add follow_redirects request option ([1885158](https://github.com/Metronome-Industries/metronome-python/commit/1885158245b73e4820661a2d297fa8ba897323ce))
+* **client:** add support for aiohttp ([9a5188d](https://github.com/Metronome-Industries/metronome-python/commit/9a5188d89a5d6c070a6c3045afc48597875658aa))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([6aa265b](https://github.com/Metronome-Industries/metronome-python/commit/6aa265bd6b91d2184c256d5099263e1d8e8f9011))
+* **ci:** release-doctor — report correct token name ([c513faf](https://github.com/Metronome-Industries/metronome-python/commit/c513faf443bf500285e4e763c84f74f9225d1da7))
+* **client:** correctly parse binary response | stream ([30fb991](https://github.com/Metronome-Industries/metronome-python/commit/30fb991418019272b5719e68bc94fe10e241a411))
+* **client:** don't send Content-Type header on GET requests ([b9837d7](https://github.com/Metronome-Industries/metronome-python/commit/b9837d71f5c500b3f2e43da07ee4bbc0e4ae644b))
+* **parsing:** correctly handle nested discriminated unions ([b4c9cd4](https://github.com/Metronome-Industries/metronome-python/commit/b4c9cd425e4b3490efd4edbe94ebad66bdf0a08b))
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([9d3de0c](https://github.com/Metronome-Industries/metronome-python/commit/9d3de0c0da730adf9085f91425a341717efc7c6d))
+
+
+### Chores
+
+* **ci:** change upload type ([63fd7db](https://github.com/Metronome-Industries/metronome-python/commit/63fd7dbce912e2b37ef6f498cbd16ed333db8a83))
+* **ci:** enable for pull requests ([b1b5781](https://github.com/Metronome-Industries/metronome-python/commit/b1b5781cff9902ee5aa0ee54b70163403fc98e7e))
+* **ci:** only run for pushes and fork pull requests ([9a18b0f](https://github.com/Metronome-Industries/metronome-python/commit/9a18b0f504e8b393c73e5959edfd1d80f2b86d12))
+* **docs:** remove reference to rye shell ([ad4d425](https://github.com/Metronome-Industries/metronome-python/commit/ad4d425fdb206451bdebfba56f14f06db010f9f0))
+* **docs:** remove unnecessary param examples ([52c671a](https://github.com/Metronome-Industries/metronome-python/commit/52c671a3b8859d512358f12cf9427a86d3024425))
+* **internal:** bump pinned h11 dep ([9d639c5](https://github.com/Metronome-Industries/metronome-python/commit/9d639c5aac9d7795fd4e76a1be1c4dd57af547df))
+* **internal:** update conftest.py ([8f6de39](https://github.com/Metronome-Industries/metronome-python/commit/8f6de39968c5df64728156726bc43906cb01753c))
+* **package:** mark python 3.13 as supported ([fcb8743](https://github.com/Metronome-Industries/metronome-python/commit/fcb87431b4f00c1af8394265dbc0926ec1ee6406))
+* **readme:** fix version rendering on pypi ([272e07c](https://github.com/Metronome-Industries/metronome-python/commit/272e07cbbf215ffea5e88ee31522e8550861285b))
+* **readme:** update badges ([9082dfa](https://github.com/Metronome-Industries/metronome-python/commit/9082dfa601fa5cdfa7c9b2503329edbca6450b52))
+* **tests:** add tests for httpx client instantiation & proxies ([d45d617](https://github.com/Metronome-Industries/metronome-python/commit/d45d617056a6cf140c61b942639e4eb50ddcaa24))
+* **tests:** run tests in parallel ([1133ea9](https://github.com/Metronome-Industries/metronome-python/commit/1133ea98e20bbcc06e6aed2aa74d4692388e825c))
+* **tests:** skip some failing tests on the latest python versions ([78320cd](https://github.com/Metronome-Industries/metronome-python/commit/78320cddaf394b52b8e0caca78319eb3e27d38ae))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([d9bf14d](https://github.com/Metronome-Industries/metronome-python/commit/d9bf14d25a6e69e3ce3e063d157152f1cc7f8d0d))
+
 ## 0.1.0-beta.9 (2025-05-30)
 
 Full Changelog: [v0.1.0-beta.8...v0.1.0-beta.9](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.8...v0.1.0-beta.9)
