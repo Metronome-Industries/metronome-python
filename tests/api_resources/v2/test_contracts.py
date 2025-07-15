@@ -145,6 +145,7 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "recurring_schedule": {
@@ -203,6 +204,7 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
@@ -512,6 +514,7 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
                             {
@@ -562,6 +565,7 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -1021,6 +1025,7 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "recurring_schedule": {
@@ -1079,6 +1084,7 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
@@ -1388,6 +1394,7 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
                             {
@@ -1438,6 +1445,7 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }

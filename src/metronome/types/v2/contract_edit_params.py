@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
@@ -14,6 +14,11 @@ __all__ = [
     "AddCommit",
     "AddCommitAccessSchedule",
     "AddCommitAccessScheduleScheduleItem",
+    "AddCommitHierarchyConfiguration",
+    "AddCommitHierarchyConfigurationChildAccess",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddCommitInvoiceSchedule",
     "AddCommitInvoiceScheduleRecurringSchedule",
     "AddCommitInvoiceScheduleScheduleItem",
@@ -23,6 +28,11 @@ __all__ = [
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
+    "AddCreditHierarchyConfiguration",
+    "AddCreditHierarchyConfigurationChildAccess",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddCreditSpecifier",
     "AddDiscount",
     "AddDiscountSchedule",
@@ -70,6 +80,11 @@ __all__ = [
     "UpdateCommitAccessScheduleAddScheduleItem",
     "UpdateCommitAccessScheduleRemoveScheduleItem",
     "UpdateCommitAccessScheduleUpdateScheduleItem",
+    "UpdateCommitHierarchyConfiguration",
+    "UpdateCommitHierarchyConfigurationChildAccess",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "UpdateCommitInvoiceSchedule",
     "UpdateCommitInvoiceScheduleAddScheduleItem",
     "UpdateCommitInvoiceScheduleRemoveScheduleItem",
@@ -79,6 +94,11 @@ __all__ = [
     "UpdateCreditAccessScheduleAddScheduleItem",
     "UpdateCreditAccessScheduleRemoveScheduleItem",
     "UpdateCreditAccessScheduleUpdateScheduleItem",
+    "UpdateCreditHierarchyConfiguration",
+    "UpdateCreditHierarchyConfigurationChildAccess",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
     "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
@@ -211,6 +231,31 @@ class AddCommitAccessSchedule(TypedDict, total=False):
     schedule_items: Required[Iterable[AddCommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
+
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+AddCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class AddCommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[AddCommitHierarchyConfigurationChildAccess]
 
 
 class AddCommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -364,6 +409,9 @@ class AddCommit(TypedDict, total=False):
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
 
+    hierarchy_configuration: AddCommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_schedule: AddCommitInvoiceSchedule
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this
@@ -423,6 +471,31 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     credit_type_id: str
 
 
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+AddCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class AddCreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[AddCreditHierarchyConfigurationChildAccess]
+
+
 class AddCreditSpecifier(TypedDict, total=False):
     presentation_group_values: Dict[str, str]
 
@@ -464,6 +537,9 @@ class AddCredit(TypedDict, total=False):
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: AddCreditHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
 
     name: str
     """displayed on invoices"""
@@ -1382,6 +1458,31 @@ class UpdateCommitAccessSchedule(TypedDict, total=False):
     update_schedule_items: Iterable[UpdateCommitAccessScheduleUpdateScheduleItem]
 
 
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+UpdateCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class UpdateCommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[UpdateCommitHierarchyConfigurationChildAccess]
+
+
 class UpdateCommitInvoiceScheduleAddScheduleItem(TypedDict, total=False):
     timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
@@ -1435,6 +1536,9 @@ class UpdateCommit(TypedDict, total=False):
     provided, the commit applies to all products.
     """
 
+    hierarchy_configuration: UpdateCommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_schedule: UpdateCommitInvoiceSchedule
 
     netsuite_sales_order_id: Optional[str]
@@ -1474,6 +1578,31 @@ class UpdateCreditAccessSchedule(TypedDict, total=False):
     update_schedule_items: Iterable[UpdateCreditAccessScheduleUpdateScheduleItem]
 
 
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+UpdateCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class UpdateCreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[UpdateCreditHierarchyConfigurationChildAccess]
+
+
 class UpdateCredit(TypedDict, total=False):
     credit_id: Required[str]
 
@@ -1492,6 +1621,9 @@ class UpdateCredit(TypedDict, total=False):
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
+
+    hierarchy_configuration: UpdateCreditHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
 
     netsuite_sales_order_id: Optional[str]
 

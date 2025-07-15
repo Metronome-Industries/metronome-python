@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
@@ -14,6 +14,11 @@ __all__ = [
     "Commit",
     "CommitAccessSchedule",
     "CommitAccessScheduleScheduleItem",
+    "CommitHierarchyConfiguration",
+    "CommitHierarchyConfigurationChildAccess",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
@@ -23,6 +28,11 @@ __all__ = [
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
+    "CreditHierarchyConfiguration",
+    "CreditHierarchyConfigurationChildAccess",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
@@ -97,6 +107,31 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CommitHierarchyConfigurationChildAccess]
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -250,6 +285,9 @@ class Commit(TypedDict, total=False):
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
 
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_schedule: CommitInvoiceSchedule
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this
@@ -310,6 +348,31 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CreditHierarchyConfigurationChildAccess]
+
+
 class CreditSpecifier(TypedDict, total=False):
     presentation_group_values: Dict[str, str]
 
@@ -351,6 +414,9 @@ class Credit(TypedDict, total=False):
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CreditHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
 
     name: str
     """displayed on invoices"""
