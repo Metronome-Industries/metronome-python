@@ -128,10 +128,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer.
+        """List all contracts for a customer in chronological order.
 
-        New clients should use this endpoint rather
-        than the v1 endpoint.
+        New clients should use
+        this endpoint rather than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -584,10 +584,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer.
+        """List all contracts for a customer in chronological order.
 
-        New clients should use this endpoint rather
-        than the v1 endpoint.
+        New clients should use
+        this endpoint rather than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
