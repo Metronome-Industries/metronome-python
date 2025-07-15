@@ -4,7 +4,8 @@
 > This is prerelease software that is not ready for production use. There may be bugs and
 > there will be breaking changes version to version. Use at your own risk.
 
-[![PyPI version](<https://img.shields.io/pypi/v/metronome-sdk.svg?label=pypi%20(stable)>)](https://pypi.org/project/metronome-sdk/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/metronome-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/metronome-sdk/)
 
 The Metronome Python library provides convenient access to the Metronome REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
