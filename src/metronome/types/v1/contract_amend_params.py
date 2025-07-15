@@ -23,6 +23,7 @@ __all__ = [
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
+    "CommitPaymentGateConfigPrecalculatedTaxConfig",
     "CommitPaymentGateConfigStripeConfig",
     "CommitSpecifier",
     "Credit",
@@ -209,9 +210,30 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    tax_amount: Required[float]
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: str
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Dict[str, str]
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class CommitPaymentGateConfig(TypedDict, total=False):
@@ -223,10 +245,13 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: CommitPaymentGateConfigStripeConfig
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: CommitPaymentGateConfigPrecalculatedTaxConfig
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Literal["NONE", "STRIPE"]
+    stripe_config: CommitPaymentGateConfigStripeConfig
+    """Only applicable if using STRIPE as your payment gate type."""
+
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.

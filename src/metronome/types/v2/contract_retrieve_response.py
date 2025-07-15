@@ -65,6 +65,7 @@ __all__ = [
     "DataPrepaidBalanceThresholdConfigurationCommit",
     "DataPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataRecurringCommit",
     "DataRecurringCommitAccessAmount",
@@ -84,6 +85,7 @@ __all__ = [
     "DataSpendThresholdConfiguration",
     "DataSpendThresholdConfigurationCommit",
     "DataSpendThresholdConfigurationPaymentGateConfig",
+    "DataSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "DataSpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataSubscription",
     "DataSubscriptionProration",
@@ -752,9 +754,30 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     """
 
 
+class DataPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
     payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class DataPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
@@ -766,10 +789,15 @@ class DataPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: Optional[DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: Optional[
+        DataPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig
+    ] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    stripe_config: Optional[DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
@@ -1091,9 +1119,30 @@ class DataSpendThresholdConfigurationCommit(BaseModel):
     """
 
 
+class DataSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class DataSpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
     payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class DataSpendThresholdConfigurationPaymentGateConfig(BaseModel):
@@ -1105,10 +1154,13 @@ class DataSpendThresholdConfigurationPaymentGateConfig(BaseModel):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Optional[Literal["NONE", "STRIPE"]] = None
+    stripe_config: Optional[DataSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
