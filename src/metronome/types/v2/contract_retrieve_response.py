@@ -19,6 +19,11 @@ __all__ = [
     "DataCommit",
     "DataCommitProduct",
     "DataCommitContract",
+    "DataCommitHierarchyConfiguration",
+    "DataCommitHierarchyConfigurationChildAccess",
+    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataCommitInvoiceContract",
     "DataCommitLedger",
     "DataCommitLedgerPrepaidCommitSegmentStartLedgerEntry",
@@ -47,6 +52,11 @@ __all__ = [
     "DataCredit",
     "DataCreditProduct",
     "DataCreditContract",
+    "DataCreditHierarchyConfiguration",
+    "DataCreditHierarchyConfigurationChildAccess",
+    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataCreditLedger",
     "DataCreditLedgerCreditSegmentStartLedgerEntry",
     "DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
@@ -103,6 +113,31 @@ class DataCommitProduct(BaseModel):
 
 class DataCommitContract(BaseModel):
     id: str
+
+
+class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataCommitHierarchyConfiguration(BaseModel):
+    child_access: DataCommitHierarchyConfigurationChildAccess
 
 
 class DataCommitInvoiceContract(BaseModel):
@@ -327,6 +362,9 @@ class DataCommit(BaseModel):
 
     description: Optional[str] = None
 
+    hierarchy_configuration: Optional[DataCommitHierarchyConfiguration] = None
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_contract: Optional[DataCommitInvoiceContract] = None
     """The contract that this commit will be billed on."""
 
@@ -501,6 +539,31 @@ class DataCreditContract(BaseModel):
     id: str
 
 
+class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataCreditHierarchyConfiguration(BaseModel):
+    child_access: DataCreditHierarchyConfigurationChildAccess
+
+
 class DataCreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
     amount: float
 
@@ -628,6 +691,9 @@ class DataCredit(BaseModel):
     custom_fields: Optional[Dict[str, str]] = None
 
     description: Optional[str] = None
+
+    hierarchy_configuration: Optional[DataCreditHierarchyConfiguration] = None
+    """Optional configuration for credit hierarchy access control"""
 
     ledger: Optional[List[DataCreditLedger]] = None
     """A list of ordered events that impact the balance of a credit.
