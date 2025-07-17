@@ -14,13 +14,13 @@ class ScheduleItem(BaseModel):
 
     amount: float
 
-    invoice_id: str
-
     quantity: float
 
     timestamp: datetime
 
     unit_price: float
+
+    invoice_id: Optional[str] = None
 
 
 class SchedulePointInTime(BaseModel):
