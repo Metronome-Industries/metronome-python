@@ -101,6 +101,10 @@ class AlertsResource(SyncAPIResource):
               applies to, by looking at the credit_grant_type field on the credit grant. This
               field is only defined for CreditPercentage and CreditBalance alerts
 
+          credit_type_id: ID of the credit's currency, defaults to USD. If the specific alert type
+              requires a pricing unit/currency, find the ID in the
+              [Metronome app](https://app.metronome.com/offering/pricing-units).
+
           custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
               Only present for contract invoices.
 
@@ -277,6 +281,10 @@ class AsyncAlertsResource(AsyncAPIResource):
           credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this alert
               applies to, by looking at the credit_grant_type field on the credit grant. This
               field is only defined for CreditPercentage and CreditBalance alerts
+
+          credit_type_id: ID of the credit's currency, defaults to USD. If the specific alert type
+              requires a pricing unit/currency, find the ID in the
+              [Metronome app](https://app.metronome.com/offering/pricing-units).
 
           custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
               Only present for contract invoices.

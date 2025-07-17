@@ -157,7 +157,8 @@ class ContractsResource(SyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: The billing provider configuration associated with a contract.
+          billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -1028,7 +1029,8 @@ class AsyncContractsResource(AsyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: The billing provider configuration associated with a contract.
+          billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
 
           discounts: This field's availability is dependent on your client's configuration.
 
