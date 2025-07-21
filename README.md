@@ -4,7 +4,8 @@
 > This is prerelease software that is not ready for production use. There may be bugs and
 > there will be breaking changes version to version. Use at your own risk.
 
-[![PyPI version](https://img.shields.io/pypi/v/metronome-sdk.svg)](https://pypi.org/project/metronome-sdk/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/metronome-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/metronome-sdk/)
 
 The Metronome Python library provides convenient access to the Metronome REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -91,6 +92,50 @@ asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install --pre metronome-sdk[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import asyncio
+from metronome import DefaultAioHttpClient
+from metronome import AsyncMetronome
+
+
+async def main() -> None:
+    async with AsyncMetronome(
+        bearer_token="My Bearer Token",
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        await client.v1.usage.ingest(
+            usage=[
+                {
+                    "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
+                    "customer_id": "team@example.com",
+                    "event_type": "heartbeat",
+                    "timestamp": "2024-01-01T00:00:00Z",
+                    "properties": {
+                        "cluster_id": "42",
+                        "cpu_seconds": 60,
+                        "region": "Europe",
+                    },
+                }
+            ],
+        )
+
+
+asyncio.run(main())
+```
 
 ## Using types
 
@@ -180,7 +225,6 @@ contract = client.v1.contracts.create(
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
     billing_provider_configuration={
         "billing_provider": "stripe",
-        "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         "delivery_method": "direct_to_billing_provider",
     },
 )
@@ -262,7 +306,7 @@ client.with_options(max_retries=5).v1.contracts.create(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from datetime import datetime

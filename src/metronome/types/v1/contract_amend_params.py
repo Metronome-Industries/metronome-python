@@ -4,24 +4,36 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractAmendParams",
     "Commit",
     "CommitAccessSchedule",
     "CommitAccessScheduleScheduleItem",
+    "CommitHierarchyConfiguration",
+    "CommitHierarchyConfigurationChildAccess",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
+    "CommitPaymentGateConfigPrecalculatedTaxConfig",
     "CommitPaymentGateConfigStripeConfig",
     "CommitSpecifier",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
+    "CreditHierarchyConfiguration",
+    "CreditHierarchyConfigurationChildAccess",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
@@ -30,7 +42,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "ProfessionalService",
     "ResellerRoyalty",
@@ -97,6 +108,31 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CommitHierarchyConfigurationChildAccess]
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -174,9 +210,30 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    tax_amount: Required[float]
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: str
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Dict[str, str]
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class CommitPaymentGateConfig(TypedDict, total=False):
@@ -188,10 +245,13 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: CommitPaymentGateConfigStripeConfig
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: CommitPaymentGateConfigPrecalculatedTaxConfig
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Literal["NONE", "STRIPE"]
+    stripe_config: CommitPaymentGateConfigStripeConfig
+    """Only applicable if using STRIPE as your payment gate type."""
+
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
@@ -234,21 +294,24 @@ class Commit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     custom_fields: Dict[str, str]
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
 
     invoice_schedule: CommitInvoiceSchedule
     """
@@ -310,6 +373,31 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CreditHierarchyConfigurationChildAccess]
+
+
 class CreditSpecifier(TypedDict, total=False):
     presentation_group_values: Dict[str, str]
 
@@ -351,6 +439,9 @@ class Credit(TypedDict, total=False):
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CreditHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
 
     name: str
     """displayed on invoices"""
@@ -517,12 +608,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -550,7 +635,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 

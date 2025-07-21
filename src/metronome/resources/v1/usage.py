@@ -11,7 +11,7 @@ import httpx
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
-from ...types.v1 import usage_list_params, usage_ingest_params, usage_list_with_groups_params
+from ...types.v1 import usage_list_params, usage_ingest_params, usage_search_params, usage_list_with_groups_params
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -22,6 +22,7 @@ from ..._response import (
 from ...pagination import SyncCursorPage, AsyncCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.v1.usage_list_response import UsageListResponse
+from ...types.v1.usage_search_response import UsageSearchResponse
 from ...types.v1.usage_list_with_groups_response import UsageListWithGroupsResponse
 
 __all__ = ["UsageResource", "AsyncUsageResource"]
@@ -224,6 +225,43 @@ class UsageResource(SyncAPIResource):
             method="post",
         )
 
+    def search(
+        self,
+        *,
+        transaction_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UsageSearchResponse:
+        """
+        For a set of events, look up matched billable metrics and customers by
+        transaction id. This endpoint looks at transactions that occurred in the last 34
+        days, and is intended for sampling-based testing workflows. It is heavily rate
+        limited.
+
+        Args:
+          transaction_ids: The transaction IDs of the events to retrieve
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/events/search",
+            body=maybe_transform({"transaction_ids": transaction_ids}, usage_search_params.UsageSearchParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UsageSearchResponse,
+        )
+
 
 class AsyncUsageResource(AsyncAPIResource):
     @cached_property
@@ -422,6 +460,45 @@ class AsyncUsageResource(AsyncAPIResource):
             method="post",
         )
 
+    async def search(
+        self,
+        *,
+        transaction_ids: List[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> UsageSearchResponse:
+        """
+        For a set of events, look up matched billable metrics and customers by
+        transaction id. This endpoint looks at transactions that occurred in the last 34
+        days, and is intended for sampling-based testing workflows. It is heavily rate
+        limited.
+
+        Args:
+          transaction_ids: The transaction IDs of the events to retrieve
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/events/search",
+            body=await async_maybe_transform(
+                {"transaction_ids": transaction_ids}, usage_search_params.UsageSearchParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UsageSearchResponse,
+        )
+
 
 class UsageResourceWithRawResponse:
     def __init__(self, usage: UsageResource) -> None:
@@ -435,6 +512,9 @@ class UsageResourceWithRawResponse:
         )
         self.list_with_groups = to_raw_response_wrapper(
             usage.list_with_groups,
+        )
+        self.search = to_raw_response_wrapper(
+            usage.search,
         )
 
 
@@ -451,6 +531,9 @@ class AsyncUsageResourceWithRawResponse:
         self.list_with_groups = async_to_raw_response_wrapper(
             usage.list_with_groups,
         )
+        self.search = async_to_raw_response_wrapper(
+            usage.search,
+        )
 
 
 class UsageResourceWithStreamingResponse:
@@ -466,6 +549,9 @@ class UsageResourceWithStreamingResponse:
         self.list_with_groups = to_streamed_response_wrapper(
             usage.list_with_groups,
         )
+        self.search = to_streamed_response_wrapper(
+            usage.search,
+        )
 
 
 class AsyncUsageResourceWithStreamingResponse:
@@ -480,4 +566,7 @@ class AsyncUsageResourceWithStreamingResponse:
         )
         self.list_with_groups = async_to_streamed_response_wrapper(
             usage.list_with_groups,
+        )
+        self.search = async_to_streamed_response_wrapper(
+            usage.search,
         )

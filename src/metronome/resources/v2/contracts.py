@@ -128,10 +128,10 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer.
+        """List all contracts for a customer in chronological order.
 
-        New clients should use this endpoint rather
-        than the v1 endpoint.
+        New clients should use
+        this endpoint rather than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -200,6 +200,7 @@ class ContractsResource(SyncAPIResource):
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -227,7 +228,7 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
-          add_subscriptions: (beta) Optional list of
+          add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 
@@ -246,6 +247,9 @@ class ContractsResource(SyncAPIResource):
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
+          update_contract_name: Value to update the contract name to. If not provided, the contract name will
+              remain unchanged.
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -254,7 +258,7 @@ class ContractsResource(SyncAPIResource):
               has not started. Expired credits, and credits with an active access schedule
               will remain unchanged.
 
-          update_subscriptions: (beta) Optional list of subscriptions to update.
+          update_subscriptions: Optional list of subscriptions to update.
 
           extra_headers: Send extra headers
 
@@ -289,6 +293,7 @@ class ContractsResource(SyncAPIResource):
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
+                    "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
@@ -316,7 +321,7 @@ class ContractsResource(SyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -334,11 +339,13 @@ class ContractsResource(SyncAPIResource):
 
           customer_id: ID of the customer whose commit is being edited
 
-          applicable_product_ids: Which products the commit applies to. If both applicable_product_ids and
-              applicable_product_tags are not provided, the commit applies to all products.
+          applicable_product_ids: Which products the commit applies to. If applicable_product_ids,
+              applicable_product_tags or specifiers are not provided, the commit applies to
+              all products.
 
-          applicable_product_tags: Which tags the commit applies to. If both applicable_product_ids and
-              applicable_product_tags are not provided, the commit applies to all products.
+          applicable_product_tags: Which tags the commit applies to. If applicable_product_ids,
+              applicable_product_tags or specifiers are not provided, the commit applies to
+              all products.
 
           invoice_contract_id: ID of contract to use for invoicing
 
@@ -386,7 +393,7 @@ class ContractsResource(SyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -577,10 +584,10 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer.
+        """List all contracts for a customer in chronological order.
 
-        New clients should use this endpoint rather
-        than the v1 endpoint.
+        New clients should use
+        this endpoint rather than the v1 endpoint.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -649,6 +656,7 @@ class AsyncContractsResource(AsyncAPIResource):
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
@@ -676,7 +684,7 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
-          add_subscriptions: (beta) Optional list of
+          add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 
@@ -695,6 +703,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
+          update_contract_name: Value to update the contract name to. If not provided, the contract name will
+              remain unchanged.
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -703,7 +714,7 @@ class AsyncContractsResource(AsyncAPIResource):
               has not started. Expired credits, and credits with an active access schedule
               will remain unchanged.
 
-          update_subscriptions: (beta) Optional list of subscriptions to update.
+          update_subscriptions: Optional list of subscriptions to update.
 
           extra_headers: Send extra headers
 
@@ -738,6 +749,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "remove_overrides": remove_overrides,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
+                    "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
@@ -765,7 +777,7 @@ class AsyncContractsResource(AsyncAPIResource):
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_commit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -783,11 +795,13 @@ class AsyncContractsResource(AsyncAPIResource):
 
           customer_id: ID of the customer whose commit is being edited
 
-          applicable_product_ids: Which products the commit applies to. If both applicable_product_ids and
-              applicable_product_tags are not provided, the commit applies to all products.
+          applicable_product_ids: Which products the commit applies to. If applicable_product_ids,
+              applicable_product_tags or specifiers are not provided, the commit applies to
+              all products.
 
-          applicable_product_tags: Which tags the commit applies to. If both applicable_product_ids and
-              applicable_product_tags are not provided, the commit applies to all products.
+          applicable_product_tags: Which tags the commit applies to. If applicable_product_ids,
+              applicable_product_tags or specifiers are not provided, the commit applies to
+              all products.
 
           invoice_contract_id: ID of contract to use for invoicing
 
@@ -835,7 +849,7 @@ class AsyncContractsResource(AsyncAPIResource):
         applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[contract_edit_credit_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

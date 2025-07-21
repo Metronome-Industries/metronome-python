@@ -145,6 +145,7 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "recurring_schedule": {
@@ -169,7 +170,14 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
@@ -203,6 +211,7 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
@@ -310,11 +319,19 @@ class TestContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -331,8 +348,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -371,8 +388,8 @@ class TestContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -459,7 +476,14 @@ class TestContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
@@ -511,6 +535,7 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
                             {
@@ -537,6 +562,7 @@ class TestContracts:
                 }
             ],
             update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            update_contract_name="update_contract_name",
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -560,6 +586,7 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -580,10 +607,18 @@ class TestContracts:
                         }
                     ],
                 },
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
@@ -648,7 +683,14 @@ class TestContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
@@ -894,7 +936,9 @@ class TestContracts:
 
 
 class TestAsyncContracts:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncMetronome) -> None:
@@ -1016,6 +1060,7 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "recurring_schedule": {
@@ -1040,7 +1085,14 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "payment_gate_config": {
                         "payment_gate_type": "NONE",
-                        "stripe_config": {"payment_type": "INVOICE"},
+                        "precalculated_tax_config": {
+                            "tax_amount": 0,
+                            "tax_name": "tax_name",
+                        },
+                        "stripe_config": {
+                            "payment_type": "INVOICE",
+                            "invoice_metadata": {"foo": "string"},
+                        },
                         "tax_type": "NONE",
                     },
                     "priority": 0,
@@ -1074,6 +1126,7 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "custom_fields": {"foo": "string"},
                     "description": "description",
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
@@ -1181,11 +1234,19 @@ class TestAsyncContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             },
             add_professional_services=[
                 {
@@ -1202,8 +1263,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1242,8 +1303,8 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "quantity": 0,
                         "unit_price": 0,
+                        "quantity": 0,
                     },
                     "commit_duration": {
                         "value": 0,
@@ -1330,7 +1391,14 @@ class TestAsyncContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
@@ -1382,6 +1450,7 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
                             {
@@ -1408,6 +1477,7 @@ class TestAsyncContracts:
                 }
             ],
             update_contract_end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            update_contract_name="update_contract_name",
             update_credits=[
                 {
                     "credit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1431,6 +1501,7 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
@@ -1451,10 +1522,18 @@ class TestAsyncContracts:
                         }
                     ],
                 },
+                "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "recharge_to_amount": 0,
@@ -1519,7 +1598,14 @@ class TestAsyncContracts:
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
-                    "stripe_config": {"payment_type": "INVOICE"},
+                    "precalculated_tax_config": {
+                        "tax_amount": 0,
+                        "tax_name": "tax_name",
+                    },
+                    "stripe_config": {
+                        "payment_type": "INVOICE",
+                        "invoice_metadata": {"foo": "string"},
+                    },
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,

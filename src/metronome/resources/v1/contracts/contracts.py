@@ -63,6 +63,7 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
+from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -118,6 +119,7 @@ class ContractsResource(SyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        hierarchy_configuration: contract_create_params.HierarchyConfiguration | NotGiven = NOT_GIVEN,
         multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
@@ -125,6 +127,7 @@ class ContractsResource(SyncAPIResource):
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
         prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
         rate_card_id: str | NotGiven = NOT_GIVEN,
@@ -139,7 +142,7 @@ class ContractsResource(SyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -154,7 +157,8 @@ class ContractsResource(SyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: The billing provider configuration associated with a contract.
+          billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -166,6 +170,8 @@ class ContractsResource(SyncAPIResource):
               first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
+
+          priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -182,7 +188,7 @@ class ContractsResource(SyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
-          subscriptions: (beta) Optional list of
+          subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 
@@ -212,12 +218,14 @@ class ContractsResource(SyncAPIResource):
                     "custom_fields": custom_fields,
                     "discounts": discounts,
                     "ending_before": ending_before,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "multiplier_override_prioritization": multiplier_override_prioritization,
                     "name": name,
                     "net_payment_terms_days": net_payment_terms_days,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,
@@ -983,6 +991,7 @@ class AsyncContractsResource(AsyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         discounts: Iterable[contract_create_params.Discount] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        hierarchy_configuration: contract_create_params.HierarchyConfiguration | NotGiven = NOT_GIVEN,
         multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
@@ -990,6 +999,7 @@ class AsyncContractsResource(AsyncAPIResource):
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
         prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
         | NotGiven = NOT_GIVEN,
+        priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
         rate_card_id: str | NotGiven = NOT_GIVEN,
@@ -1004,7 +1014,7 @@ class AsyncContractsResource(AsyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1019,7 +1029,8 @@ class AsyncContractsResource(AsyncAPIResource):
         Args:
           starting_at: inclusive contract start time
 
-          billing_provider_configuration: The billing provider configuration associated with a contract.
+          billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -1031,6 +1042,8 @@ class AsyncContractsResource(AsyncAPIResource):
               first. If tiered overrides are used, prioritization must be explicit.
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
+
+          priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -1047,7 +1060,7 @@ class AsyncContractsResource(AsyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
-          subscriptions: (beta) Optional list of
+          subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
 
@@ -1077,12 +1090,14 @@ class AsyncContractsResource(AsyncAPIResource):
                     "custom_fields": custom_fields,
                     "discounts": discounts,
                     "ending_before": ending_before,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "multiplier_override_prioritization": multiplier_override_prioritization,
                     "name": name,
                     "net_payment_terms_days": net_payment_terms_days,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,

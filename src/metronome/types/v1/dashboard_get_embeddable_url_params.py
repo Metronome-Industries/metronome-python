@@ -11,7 +11,7 @@ __all__ = ["DashboardGetEmbeddableURLParams", "BmGroupKeyOverride", "ColorOverri
 class DashboardGetEmbeddableURLParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    dashboard: Required[Literal["invoices", "usage", "credits"]]
+    dashboard: Required[Literal["invoices", "usage", "credits", "commits_and_credits"]]
     """The type of dashboard to retrieve."""
 
     bm_group_key_overrides: Iterable[BmGroupKeyOverride]

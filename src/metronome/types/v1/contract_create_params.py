@@ -4,9 +4,11 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -14,29 +16,42 @@ __all__ = [
     "Commit",
     "CommitAccessSchedule",
     "CommitAccessScheduleScheduleItem",
+    "CommitHierarchyConfiguration",
+    "CommitHierarchyConfigurationChildAccess",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
+    "CommitPaymentGateConfigPrecalculatedTaxConfig",
     "CommitPaymentGateConfigStripeConfig",
     "CommitSpecifier",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
+    "CreditHierarchyConfiguration",
+    "CreditHierarchyConfigurationChildAccess",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
     "DiscountScheduleScheduleItem",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParent",
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
     "PrepaidBalanceThresholdConfigurationCommitSpecifier",
     "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "ProfessionalService",
     "RecurringCommit",
@@ -58,13 +73,13 @@ __all__ = [
     "SpendThresholdConfiguration",
     "SpendThresholdConfigurationCommit",
     "SpendThresholdConfigurationPaymentGateConfig",
+    "SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "Subscription",
     "SubscriptionProration",
     "SubscriptionSubscriptionRate",
     "Transition",
     "TransitionFutureInvoiceBehavior",
-    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -76,7 +91,10 @@ class ContractCreateParams(TypedDict, total=False):
     """inclusive contract start time"""
 
     billing_provider_configuration: BillingProviderConfiguration
-    """The billing provider configuration associated with a contract."""
+    """The billing provider configuration associated with a contract.
+
+    Provide either an ID or the provider and delivery method.
+    """
 
     commits: Iterable[Commit]
 
@@ -89,6 +107,8 @@ class ContractCreateParams(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """exclusive contract end time"""
+
+    hierarchy_configuration: HierarchyConfiguration
 
     multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"]
     """
@@ -108,6 +128,9 @@ class ContractCreateParams(TypedDict, total=False):
     overrides: Iterable[Override]
 
     prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
+
+    priority: float
+    """Priority of the contract."""
 
     professional_services: Iterable[ProfessionalService]
     """This field's availability is dependent on your client's configuration."""
@@ -145,7 +168,7 @@ class ContractCreateParams(TypedDict, total=False):
 
     subscriptions: Iterable[Subscription]
     """
-    (beta) Optional list of
+    Optional list of
     [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
     to add to the contract.
     """
@@ -162,18 +185,25 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: UsageFilter
+    usage_filter: BaseUsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
 
 class BillingProviderConfiguration(TypedDict, total=False):
     billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
+    """Do not specify if using billing_provider_configuration_id."""
 
     billing_provider_configuration_id: str
-    """The Metronome ID of the billing provider configuration"""
+    """The Metronome ID of the billing provider configuration.
+
+    Use when a customer has multiple configurations with the same billing provider
+    and delivery method. Otherwise, specify the billing_provider and
+    delivery_method.
+    """
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """Do not specify if using billing_provider_configuration_id."""
 
 
 class CommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -191,6 +221,31 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CommitHierarchyConfigurationChildAccess]
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -268,9 +323,30 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    tax_amount: Required[float]
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: str
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Dict[str, str]
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class CommitPaymentGateConfig(TypedDict, total=False):
@@ -282,10 +358,13 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: CommitPaymentGateConfigStripeConfig
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: CommitPaymentGateConfigPrecalculatedTaxConfig
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Literal["NONE", "STRIPE"]
+    stripe_config: CommitPaymentGateConfigStripeConfig
+    """Only applicable if using STRIPE as your payment gate type."""
+
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
@@ -328,21 +407,24 @@ class Commit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     custom_fields: Dict[str, str]
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
 
     invoice_schedule: CommitInvoiceSchedule
     """
@@ -404,6 +486,31 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class CreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CreditHierarchyConfigurationChildAccess]
+
+
 class CreditSpecifier(TypedDict, total=False):
     presentation_group_values: Dict[str, str]
 
@@ -445,6 +552,9 @@ class Credit(TypedDict, total=False):
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CreditHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
 
     name: str
     """displayed on invoices"""
@@ -559,6 +669,16 @@ class Discount(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
+class HierarchyConfigurationParent(TypedDict, total=False):
+    contract_id: Required[str]
+
+    customer_id: Required[str]
+
+
+class HierarchyConfiguration(TypedDict, total=False):
+    parent: Required[HierarchyConfigurationParent]
+
+
 class OverrideOverrideSpecifier(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
@@ -611,12 +731,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -644,7 +758,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -746,15 +860,15 @@ class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     applicable_product_tags: List[str]
     """Which tags the threshold commit applies to.
 
-    If both applicable_product_ids and applicable_product_tags are not provided, the
-    commit applies to all products.
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
     """
 
     description: str
@@ -774,9 +888,30 @@ class PrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     """
 
 
+class PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    tax_amount: Required[float]
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: str
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Dict[str, str]
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class PrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
@@ -788,10 +923,13 @@ class PrepaidBalanceThresholdConfigurationPaymentGateConfig(TypedDict, total=Fal
     wish to payment gate the commit balance.
     """
 
-    stripe_config: PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Literal["NONE", "STRIPE"]
+    stripe_config: PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using STRIPE as your payment gate type."""
+
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
@@ -819,6 +957,12 @@ class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
 
     Each time the contract's prepaid balance lowers to this amount, a threshold
     charge will be initiated.
+    """
+
+    custom_credit_type_id: str
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
     """
 
 
@@ -851,9 +995,14 @@ class ProfessionalService(TypedDict, total=False):
 class RecurringCommitAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class RecurringCommitCommitDuration(TypedDict, total=False):
@@ -971,9 +1120,14 @@ class RecurringCommit(TypedDict, total=False):
 class RecurringCreditAccessAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
-    quantity: Required[float]
-
     unit_price: Required[float]
+
+    quantity: float
+    """This field is currently required.
+
+    Upcoming recurring commit/credit configuration options will allow it to be
+    optional.
+    """
 
 
 class RecurringCreditCommitDuration(TypedDict, total=False):
@@ -1219,9 +1373,30 @@ class SpendThresholdConfigurationCommit(TypedDict, total=False):
     """
 
 
+class SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    tax_amount: Required[float]
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: str
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
 class SpendThresholdConfigurationPaymentGateConfigStripeConfig(TypedDict, total=False):
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Dict[str, str]
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
 
 
 class SpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
@@ -1233,10 +1408,13 @@ class SpendThresholdConfigurationPaymentGateConfig(TypedDict, total=False):
     wish to payment gate the commit balance.
     """
 
-    stripe_config: SpendThresholdConfigurationPaymentGateConfigStripeConfig
-    """Only applicable if using Stripe as your payment gateway through Metronome."""
+    precalculated_tax_config: SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig
+    """Only applicable if using PRECALCULATED as your tax type."""
 
-    tax_type: Literal["NONE", "STRIPE"]
+    stripe_config: SpendThresholdConfigurationPaymentGateConfigStripeConfig
+    """Only applicable if using STRIPE as your payment gate type."""
+
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
@@ -1332,14 +1510,6 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
-
-
-class UsageFilter(TypedDict, total=False):
-    group_key: Required[str]
-
-    group_values: Required[List[str]]
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):
