@@ -12,6 +12,11 @@ __all__ = [
     "Commit",
     "Product",
     "Contract",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationChildAccess",
+    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "InvoiceContract",
     "Ledger",
     "LedgerPrepaidCommitSegmentStartLedgerEntry",
@@ -40,6 +45,31 @@ class Product(BaseModel):
 
 class Contract(BaseModel):
     id: str
+
+
+class HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+HierarchyConfigurationChildAccess: TypeAlias = Union[
+    HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class HierarchyConfiguration(BaseModel):
+    child_access: HierarchyConfigurationChildAccess
 
 
 class InvoiceContract(BaseModel):
@@ -270,6 +300,9 @@ class Commit(BaseModel):
     custom_fields: Optional[Dict[str, str]] = None
 
     description: Optional[str] = None
+
+    hierarchy_configuration: Optional[HierarchyConfiguration] = None
+    """Optional configuration for commit hierarchy access control"""
 
     invoice_contract: Optional[InvoiceContract] = None
     """The contract that this commit will be billed on."""

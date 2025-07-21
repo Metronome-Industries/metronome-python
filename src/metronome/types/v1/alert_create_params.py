@@ -53,6 +53,11 @@ class AlertCreateParams(TypedDict, total=False):
     """
 
     credit_type_id: str
+    """ID of the credit's currency, defaults to USD.
+
+    If the specific alert type requires a pricing unit/currency, find the ID in the
+    [Metronome app](https://app.metronome.com/offering/pricing-units).
+    """
 
     custom_field_filters: Iterable[CustomFieldFilter]
     """A list of custom field filters for alert types that support advanced filtering.

@@ -91,7 +91,10 @@ class ContractCreateParams(TypedDict, total=False):
     """inclusive contract start time"""
 
     billing_provider_configuration: BillingProviderConfiguration
-    """The billing provider configuration associated with a contract."""
+    """The billing provider configuration associated with a contract.
+
+    Provide either an ID or the provider and delivery method.
+    """
 
     commits: Iterable[Commit]
 
@@ -189,11 +192,18 @@ class ContractCreateParams(TypedDict, total=False):
 
 class BillingProviderConfiguration(TypedDict, total=False):
     billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
+    """Do not specify if using billing_provider_configuration_id."""
 
     billing_provider_configuration_id: str
-    """The Metronome ID of the billing provider configuration"""
+    """The Metronome ID of the billing provider configuration.
+
+    Use when a customer has multiple configurations with the same billing provider
+    and delivery method. Otherwise, specify the billing_provider and
+    delivery_method.
+    """
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """Do not specify if using billing_provider_configuration_id."""
 
 
 class CommitAccessScheduleScheduleItem(TypedDict, total=False):
