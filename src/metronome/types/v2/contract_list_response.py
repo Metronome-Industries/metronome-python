@@ -32,6 +32,7 @@ __all__ = [
     "DataCommitLedgerPrepaidCommitExpirationLedgerEntry",
     "DataCommitLedgerPrepaidCommitCanceledLedgerEntry",
     "DataCommitLedgerPrepaidCommitCreditedLedgerEntry",
+    "DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
     "DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry",
     "DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "DataCommitLedgerPostpaidCommitRolloverLedgerEntry",
@@ -64,6 +65,7 @@ __all__ = [
     "DataCreditLedgerCreditCanceledLedgerEntry",
     "DataCreditLedgerCreditCreditedLedgerEntry",
     "DataCreditLedgerCreditManualLedgerEntry",
+    "DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
     "DataCreditSpecifier",
     "DataCustomerBillingProviderConfiguration",
     "DataHierarchyConfiguration",
@@ -212,6 +214,16 @@ class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_CREDITED"]
 
 
+class DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
+
+
 class DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
@@ -289,6 +301,7 @@ DataCommitLedger: TypeAlias = Union[
     DataCommitLedgerPrepaidCommitExpirationLedgerEntry,
     DataCommitLedgerPrepaidCommitCanceledLedgerEntry,
     DataCommitLedgerPrepaidCommitCreditedLedgerEntry,
+    DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
     DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry,
     DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     DataCommitLedgerPostpaidCommitRolloverLedgerEntry,
@@ -630,6 +643,16 @@ class DataCreditLedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
+class DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
+
+
 DataCreditLedger: TypeAlias = Union[
     DataCreditLedgerCreditSegmentStartLedgerEntry,
     DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
@@ -637,6 +660,7 @@ DataCreditLedger: TypeAlias = Union[
     DataCreditLedgerCreditCanceledLedgerEntry,
     DataCreditLedgerCreditCreditedLedgerEntry,
     DataCreditLedgerCreditManualLedgerEntry,
+    DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry,
 ]
 
 
