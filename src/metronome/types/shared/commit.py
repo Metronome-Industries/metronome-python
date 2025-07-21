@@ -25,6 +25,7 @@ __all__ = [
     "LedgerPrepaidCommitExpirationLedgerEntry",
     "LedgerPrepaidCommitCanceledLedgerEntry",
     "LedgerPrepaidCommitCreditedLedgerEntry",
+    "LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
     "LedgerPostpaidCommitInitialBalanceLedgerEntry",
     "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "LedgerPostpaidCommitRolloverLedgerEntry",
@@ -144,6 +145,16 @@ class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_CREDITED"]
 
 
+class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
+
+
 class LedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
@@ -221,6 +232,7 @@ Ledger: TypeAlias = Union[
     LedgerPrepaidCommitExpirationLedgerEntry,
     LedgerPrepaidCommitCanceledLedgerEntry,
     LedgerPrepaidCommitCreditedLedgerEntry,
+    LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
     LedgerPostpaidCommitInitialBalanceLedgerEntry,
     LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     LedgerPostpaidCommitRolloverLedgerEntry,
