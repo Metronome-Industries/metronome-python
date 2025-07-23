@@ -33,11 +33,6 @@ __all__ = [
     "RecurringCommitCommitDuration",
     "RecurringCommitProduct",
     "RecurringCommitContract",
-    "RecurringCommitHierarchyConfiguration",
-    "RecurringCommitHierarchyConfigurationChildAccess",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
     "RecurringCommitSpecifier",
     "RecurringCredit",
@@ -45,11 +40,6 @@ __all__ = [
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditHierarchyConfiguration",
-    "RecurringCreditHierarchyConfigurationChildAccess",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCreditSpecifier",
     "ResellerRoyalty",
     "SpendThresholdConfiguration",
@@ -263,31 +253,6 @@ class RecurringCommitContract(BaseModel):
     id: str
 
 
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-RecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class RecurringCommitHierarchyConfiguration(BaseModel):
-    child_access: RecurringCommitHierarchyConfigurationChildAccess
-
-
 class RecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
 
@@ -346,9 +311,6 @@ class RecurringCommit(BaseModel):
 
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
-
-    hierarchy_configuration: Optional[RecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
 
     invoice_amount: Optional[RecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
@@ -414,31 +376,6 @@ class RecurringCreditContract(BaseModel):
     id: str
 
 
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-RecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class RecurringCreditHierarchyConfiguration(BaseModel):
-    child_access: RecurringCreditHierarchyConfigurationChildAccess
-
-
 class RecurringCreditSpecifier(BaseModel):
     presentation_group_values: Optional[Dict[str, str]] = None
 
@@ -489,9 +426,6 @@ class RecurringCredit(BaseModel):
 
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
-
-    hierarchy_configuration: Optional[RecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
