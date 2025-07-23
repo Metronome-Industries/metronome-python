@@ -40,9 +40,6 @@ class ContractListBalancesParams(TypedDict, total=False):
     Setting this flag may cause the query to be slower.
     """
 
-    limit: int
-    """The maximum number of commits to return. Defaults to 25."""
-
     next_page: str
     """The next page token from a previous response."""
 

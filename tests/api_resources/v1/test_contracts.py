@@ -299,7 +299,6 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
@@ -340,7 +339,6 @@ class TestContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
@@ -1058,7 +1056,6 @@ class TestContracts:
             include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
-            limit=1,
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -1607,7 +1604,6 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_amount": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
@@ -1648,7 +1644,6 @@ class TestAsyncContracts:
                     "applicable_product_tags": ["string"],
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
@@ -2366,7 +2361,6 @@ class TestAsyncContracts:
             include_balance=True,
             include_contract_balances=True,
             include_ledgers=True,
-            limit=1,
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )

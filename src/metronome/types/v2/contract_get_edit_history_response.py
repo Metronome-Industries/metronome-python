@@ -1,8 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..shared.tier import Tier
@@ -37,11 +37,6 @@ __all__ = [
     "DataAddRecurringCommitCommitDuration",
     "DataAddRecurringCommitProduct",
     "DataAddRecurringCommitContract",
-    "DataAddRecurringCommitHierarchyConfiguration",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccess",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCommitInvoiceAmount",
     "DataAddRecurringCommitSpecifier",
     "DataAddRecurringCredit",
@@ -49,11 +44,6 @@ __all__ = [
     "DataAddRecurringCreditCommitDuration",
     "DataAddRecurringCreditProduct",
     "DataAddRecurringCreditContract",
-    "DataAddRecurringCreditHierarchyConfiguration",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccess",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCreditSpecifier",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
@@ -503,31 +493,6 @@ class DataAddRecurringCommitContract(BaseModel):
     id: str
 
 
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-DataAddRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class DataAddRecurringCommitHierarchyConfiguration(BaseModel):
-    child_access: DataAddRecurringCommitHierarchyConfigurationChildAccess
-
-
 class DataAddRecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
 
@@ -587,9 +552,6 @@ class DataAddRecurringCommit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[DataAddRecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
-
     invoice_amount: Optional[DataAddRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
 
@@ -603,7 +565,7 @@ class DataAddRecurringCommit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits).
+    last commits). subscription_config:
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -652,31 +614,6 @@ class DataAddRecurringCreditProduct(BaseModel):
 
 class DataAddRecurringCreditContract(BaseModel):
     id: str
-
-
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-DataAddRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class DataAddRecurringCreditHierarchyConfiguration(BaseModel):
-    child_access: DataAddRecurringCreditHierarchyConfigurationChildAccess
 
 
 class DataAddRecurringCreditSpecifier(BaseModel):
@@ -730,9 +667,6 @@ class DataAddRecurringCredit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[DataAddRecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
-
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
 
@@ -743,7 +677,7 @@ class DataAddRecurringCredit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits).
+    last commits). subscription_config:
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None

@@ -155,7 +155,6 @@ class CreditsResource(SyncAPIResource):
         include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -183,8 +182,6 @@ class CreditsResource(SyncAPIResource):
           include_ledgers: Include credit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
-          limit: The maximum number of commits to return. Defaults to 25.
-
           next_page: The next page token from a previous response.
 
           starting_at: Include only credits that have any access on or after the provided date
@@ -209,7 +206,6 @@ class CreditsResource(SyncAPIResource):
                     "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
-                    "limit": limit,
                     "next_page": next_page,
                     "starting_at": starting_at,
                 },
@@ -400,7 +396,6 @@ class AsyncCreditsResource(AsyncAPIResource):
         include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_credits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -428,8 +423,6 @@ class AsyncCreditsResource(AsyncAPIResource):
           include_ledgers: Include credit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
-          limit: The maximum number of commits to return. Defaults to 25.
-
           next_page: The next page token from a previous response.
 
           starting_at: Include only credits that have any access on or after the provided date
@@ -454,7 +447,6 @@ class AsyncCreditsResource(AsyncAPIResource):
                     "include_balance": include_balance,
                     "include_contract_credits": include_contract_credits,
                     "include_ledgers": include_ledgers,
-                    "limit": limit,
                     "next_page": next_page,
                     "starting_at": starting_at,
                 },
