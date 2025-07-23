@@ -57,11 +57,21 @@ __all__ = [
     "RecurringCommit",
     "RecurringCommitAccessAmount",
     "RecurringCommitCommitDuration",
+    "RecurringCommitHierarchyConfiguration",
+    "RecurringCommitHierarchyConfigurationChildAccess",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
     "RecurringCommitSpecifier",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
+    "RecurringCreditHierarchyConfiguration",
+    "RecurringCreditHierarchyConfigurationChildAccess",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCreditSpecifier",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
@@ -1011,6 +1021,31 @@ class RecurringCommitCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+RecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class RecurringCommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[RecurringCommitHierarchyConfigurationChildAccess]
+
+
 class RecurringCommitInvoiceAmount(TypedDict, total=False):
     credit_type_id: Required[str]
 
@@ -1066,6 +1101,9 @@ class RecurringCommit(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
+
+    hierarchy_configuration: RecurringCommitHierarchyConfiguration
+    """Optional configuration for recurring commit/credit hierarchy access control"""
 
     invoice_amount: RecurringCommitInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -1136,6 +1174,31 @@ class RecurringCreditCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+RecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class RecurringCreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[RecurringCreditHierarchyConfigurationChildAccess]
+
+
 class RecurringCreditSpecifier(TypedDict, total=False):
     presentation_group_values: Dict[str, str]
 
@@ -1183,6 +1246,9 @@ class RecurringCredit(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
+
+    hierarchy_configuration: RecurringCreditHierarchyConfiguration
+    """Optional configuration for recurring commit/credit hierarchy access control"""
 
     name: str
     """displayed on invoices. will be passed through to the individual commits"""

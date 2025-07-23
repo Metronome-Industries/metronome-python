@@ -176,6 +176,7 @@ class CommitsResource(SyncAPIResource):
         include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -203,6 +204,8 @@ class CommitsResource(SyncAPIResource):
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
+          limit: The maximum number of commits to return. Defaults to 25.
+
           next_page: The next page token from a previous response.
 
           starting_at: Include only commits that have any access on or after the provided date
@@ -227,6 +230,7 @@ class CommitsResource(SyncAPIResource):
                     "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "next_page": next_page,
                     "starting_at": starting_at,
                 },
@@ -445,6 +449,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         include_balance: bool | NotGiven = NOT_GIVEN,
         include_contract_commits: bool | NotGiven = NOT_GIVEN,
         include_ledgers: bool | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
         starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -472,6 +477,8 @@ class AsyncCommitsResource(AsyncAPIResource):
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
+          limit: The maximum number of commits to return. Defaults to 25.
+
           next_page: The next page token from a previous response.
 
           starting_at: Include only commits that have any access on or after the provided date
@@ -496,6 +503,7 @@ class AsyncCommitsResource(AsyncAPIResource):
                     "include_balance": include_balance,
                     "include_contract_commits": include_contract_commits,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "next_page": next_page,
                     "starting_at": starting_at,
                 },
