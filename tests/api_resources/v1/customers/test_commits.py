@@ -166,6 +166,7 @@ class TestCommits:
             include_balance=True,
             include_contract_commits=True,
             include_ledgers=True,
+            limit=1,
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
@@ -389,6 +390,7 @@ class TestAsyncCommits:
             include_balance=True,
             include_contract_commits=True,
             include_ledgers=True,
+            limit=1,
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
