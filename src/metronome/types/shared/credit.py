@@ -23,6 +23,7 @@ __all__ = [
     "LedgerCreditCanceledLedgerEntry",
     "LedgerCreditCreditedLedgerEntry",
     "LedgerCreditManualLedgerEntry",
+    "LedgerCreditSeatBasedAdjustmentLedgerEntry",
     "Specifier",
 ]
 
@@ -128,6 +129,16 @@ class LedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
+class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
+
+
 Ledger: TypeAlias = Union[
     LedgerCreditSegmentStartLedgerEntry,
     LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
@@ -135,6 +146,7 @@ Ledger: TypeAlias = Union[
     LedgerCreditCanceledLedgerEntry,
     LedgerCreditCreditedLedgerEntry,
     LedgerCreditManualLedgerEntry,
+    LedgerCreditSeatBasedAdjustmentLedgerEntry,
 ]
 
 

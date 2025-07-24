@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.0 (2025-07-24)
+
+Full Changelog: [v0.1.0-beta.10...v0.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.10...v0.1.0)
+
+### Features
+
+* **api:** Allow for Pagination past empty pages ([6125dac](https://github.com/Metronome-Industries/metronome-python/commit/6125dac096d7047556558ef1c0679ddf5325c71a))
+* **api:** api update ([8c6ee39](https://github.com/Metronome-Industries/metronome-python/commit/8c6ee3958588bff07360058c37cae3cc0cd4061e))
+* **api:** api update ([ba09495](https://github.com/Metronome-Industries/metronome-python/commit/ba09495d05aa90e64844a52fc7ed7c790033df54))
+* **api:** api update ([9fba59d](https://github.com/Metronome-Industries/metronome-python/commit/9fba59d5d9e1195198efb1016bfafccfda155bfc))
+* **api:** api update ([547e91e](https://github.com/Metronome-Industries/metronome-python/commit/547e91e47b4116f9015df00ba2d708faf5c7278f))
+
+
+### Bug Fixes
+
+* **parsing:** parse extra field types ([6f30f29](https://github.com/Metronome-Industries/metronome-python/commit/6f30f296f158d68530a0ed0bbdbf52a3cdae9159))
+
+
+### Chores
+
+* **project:** add settings file for vscode ([41f1b0a](https://github.com/Metronome-Industries/metronome-python/commit/41f1b0ae3457b89f6dfeb2a471698324e65ffc35))
+
 ## 0.1.0-beta.10 (2025-07-21)
 
 Full Changelog: [v0.1.0-beta.9...v0.1.0-beta.10](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0-beta.9...v0.1.0-beta.10)

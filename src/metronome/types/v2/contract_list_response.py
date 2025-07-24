@@ -32,6 +32,7 @@ __all__ = [
     "DataCommitLedgerPrepaidCommitExpirationLedgerEntry",
     "DataCommitLedgerPrepaidCommitCanceledLedgerEntry",
     "DataCommitLedgerPrepaidCommitCreditedLedgerEntry",
+    "DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
     "DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry",
     "DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
     "DataCommitLedgerPostpaidCommitRolloverLedgerEntry",
@@ -64,8 +65,10 @@ __all__ = [
     "DataCreditLedgerCreditCanceledLedgerEntry",
     "DataCreditLedgerCreditCreditedLedgerEntry",
     "DataCreditLedgerCreditManualLedgerEntry",
+    "DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
     "DataCreditSpecifier",
     "DataCustomerBillingProviderConfiguration",
+    "DataHasMore",
     "DataHierarchyConfiguration",
     "DataHierarchyConfigurationParentHierarchyConfiguration",
     "DataHierarchyConfigurationParentHierarchyConfigurationChild",
@@ -82,6 +85,11 @@ __all__ = [
     "DataRecurringCommitCommitDuration",
     "DataRecurringCommitProduct",
     "DataRecurringCommitContract",
+    "DataRecurringCommitHierarchyConfiguration",
+    "DataRecurringCommitHierarchyConfigurationChildAccess",
+    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataRecurringCommitInvoiceAmount",
     "DataRecurringCommitSpecifier",
     "DataRecurringCredit",
@@ -89,6 +97,11 @@ __all__ = [
     "DataRecurringCreditCommitDuration",
     "DataRecurringCreditProduct",
     "DataRecurringCreditContract",
+    "DataRecurringCreditHierarchyConfiguration",
+    "DataRecurringCreditHierarchyConfigurationChildAccess",
+    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataRecurringCreditSpecifier",
     "DataResellerRoyalty",
     "DataResellerRoyaltySegment",
@@ -212,6 +225,16 @@ class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_CREDITED"]
 
 
+class DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
+
+
 class DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
@@ -289,6 +312,7 @@ DataCommitLedger: TypeAlias = Union[
     DataCommitLedgerPrepaidCommitExpirationLedgerEntry,
     DataCommitLedgerPrepaidCommitCanceledLedgerEntry,
     DataCommitLedgerPrepaidCommitCreditedLedgerEntry,
+    DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
     DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry,
     DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
     DataCommitLedgerPostpaidCommitRolloverLedgerEntry,
@@ -630,6 +654,16 @@ class DataCreditLedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
+class DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+    amount: float
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
+
+
 DataCreditLedger: TypeAlias = Union[
     DataCreditLedgerCreditSegmentStartLedgerEntry,
     DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
@@ -637,6 +671,7 @@ DataCreditLedger: TypeAlias = Union[
     DataCreditLedgerCreditCanceledLedgerEntry,
     DataCreditLedgerCreditCreditedLedgerEntry,
     DataCreditLedgerCreditManualLedgerEntry,
+    DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry,
 ]
 
 
@@ -736,6 +771,24 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     ]
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+
+class DataHasMore(BaseModel):
+    commits: bool
+    """Whether there are more commits on this contract than the limit for this
+    endpoint.
+
+    Use the /contracts/customerCommits/list endpoint to get the full list of
+    commits.
+    """
+
+    credits: bool
+    """Whether there are more credits on this contract than the limit for this
+    endpoint.
+
+    Use the /contracts/customerCredits/list endpoint to get the full list of
+    credits.
+    """
 
 
 class DataHierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
@@ -924,6 +977,31 @@ class DataRecurringCommitContract(BaseModel):
     id: str
 
 
+class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataRecurringCommitHierarchyConfiguration(BaseModel):
+    child_access: DataRecurringCommitHierarchyConfigurationChildAccess
+
+
 class DataRecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
 
@@ -983,6 +1061,9 @@ class DataRecurringCommit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
+    hierarchy_configuration: Optional[DataRecurringCommitHierarchyConfiguration] = None
+    """Optional configuration for recurring commit/credit hierarchy access control"""
+
     invoice_amount: Optional[DataRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
 
@@ -996,7 +1077,7 @@ class DataRecurringCommit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits). subscription_config:
+    last commits).
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -1045,6 +1126,31 @@ class DataRecurringCreditProduct(BaseModel):
 
 class DataRecurringCreditContract(BaseModel):
     id: str
+
+
+class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataRecurringCreditHierarchyConfiguration(BaseModel):
+    child_access: DataRecurringCreditHierarchyConfigurationChildAccess
 
 
 class DataRecurringCreditSpecifier(BaseModel):
@@ -1098,6 +1204,9 @@ class DataRecurringCredit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
+    hierarchy_configuration: Optional[DataRecurringCreditHierarchyConfiguration] = None
+    """Optional configuration for recurring commit/credit hierarchy access control"""
+
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
 
@@ -1108,7 +1217,7 @@ class DataRecurringCredit(BaseModel):
     """Determines whether the first and last commit will be prorated.
 
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
-    last commits). subscription_config:
+    last commits).
     """
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -1344,6 +1453,12 @@ class Data(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     ending_before: Optional[datetime] = None
+
+    has_more: Optional[DataHasMore] = None
+    """Indicates whether there are more items than the limit for this endpoint.
+
+    Use the respective list endpoints to get the full lists.
+    """
 
     hierarchy_configuration: Optional[DataHierarchyConfiguration] = None
     """
