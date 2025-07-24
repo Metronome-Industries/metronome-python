@@ -17,7 +17,7 @@ The REST API documentation can be found on [docs.metronome.com](https://docs.met
 
 ```sh
 # install from PyPI
-pip install --pre metronome-sdk
+pip install metronome-sdk
 ```
 
 ## Usage
@@ -99,7 +99,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install --pre metronome-sdk[aiohttp]
+pip install metronome-sdk[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
