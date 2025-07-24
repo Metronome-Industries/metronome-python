@@ -1,8 +1,5 @@
 # Metronome Python API library
 
-> [!WARNING]
-> This is in beta so there may be breaking changes version to version.
-
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/metronome-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/metronome-sdk/)
 
