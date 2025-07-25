@@ -1097,7 +1097,7 @@ class AddRecurringCommit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCommitHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: AddRecurringCommitInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -1242,7 +1242,7 @@ class AddRecurringCredit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCreditHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: str
     """displayed on invoices. will be passed through to the individual commits"""
