@@ -48,6 +48,12 @@ class TestAlerts:
                 "key": "key",
                 "value": "value",
             },
+            group_values=[
+                {
+                    "key": "key",
+                    "value": "value",
+                }
+            ],
             invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
@@ -158,6 +164,12 @@ class TestAsyncAlerts:
                 "key": "key",
                 "value": "value",
             },
+            group_values=[
+                {
+                    "key": "key",
+                    "value": "value",
+                }
+            ],
             invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
