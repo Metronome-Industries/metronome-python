@@ -485,6 +485,8 @@ class AddCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -600,6 +602,8 @@ class AddCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -889,6 +893,8 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1140,6 +1146,8 @@ class AddRecurringCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -1282,6 +1290,8 @@ class AddRecurringCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -1825,6 +1835,8 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 

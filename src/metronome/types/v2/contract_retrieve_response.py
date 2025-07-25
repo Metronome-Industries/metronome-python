@@ -870,6 +870,8 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
