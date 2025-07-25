@@ -1062,7 +1062,7 @@ class DataRecurringCommit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[DataRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
@@ -1205,7 +1205,7 @@ class DataRecurringCredit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
