@@ -485,6 +485,8 @@ class AddCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -600,6 +602,8 @@ class AddCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -889,6 +893,8 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1097,7 +1103,7 @@ class AddRecurringCommit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCommitHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: AddRecurringCommitInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -1140,6 +1146,8 @@ class AddRecurringCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -1242,7 +1250,7 @@ class AddRecurringCredit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCreditHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: str
     """displayed on invoices. will be passed through to the individual commits"""
@@ -1282,6 +1290,8 @@ class AddRecurringCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -1507,9 +1517,10 @@ class AddSubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
     """Indicates how mid-period quantity adjustments are invoiced.
 
-    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
-    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
-    increase will be billed for in-arrears at the end of the period.
+    **BILL_IMMEDIATELY**: Only available when collection schedule is `ADVANCE`. The
+    quantity increase will be billed immediately on the scheduled date.
+    **BILL_ON_NEXT_COLLECTION_DATE**: The quantity increase will be billed for
+    in-arrears at the end of the period.
     """
 
     is_prorated: bool
@@ -1825,6 +1836,8 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 

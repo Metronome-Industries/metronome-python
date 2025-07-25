@@ -870,6 +870,8 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1062,7 +1064,7 @@ class DataRecurringCommit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[DataRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
@@ -1205,7 +1207,7 @@ class DataRecurringCredit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""

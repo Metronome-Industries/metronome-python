@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupKeyFilter"]
+__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupKeyFilter", "GroupValue"]
 
 
 class AlertCreateParams(TypedDict, total=False):
@@ -84,6 +84,12 @@ class AlertCreateParams(TypedDict, total=False):
     items. Only present for spend alerts.
     """
 
+    group_values: Iterable[GroupValue]
+    """Only present for `spend_threshold_reached` alerts.
+
+    Scope alert to a specific group key on individual line items.
+    """
+
     invoice_types_filter: List[str]
     """Only supported for invoice_total_reached alerts.
 
@@ -113,6 +119,12 @@ class CustomFieldFilter(TypedDict, total=False):
 
 
 class GroupKeyFilter(TypedDict, total=False):
+    key: Required[str]
+
+    value: Required[str]
+
+
+class GroupValue(TypedDict, total=False):
     key: Required[str]
 
     value: Required[str]
