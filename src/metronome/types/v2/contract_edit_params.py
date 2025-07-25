@@ -1517,9 +1517,10 @@ class AddSubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
     """Indicates how mid-period quantity adjustments are invoiced.
 
-    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
-    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
-    increase will be billed for in-arrears at the end of the period.
+    **BILL_IMMEDIATELY**: Only available when collection schedule is `ADVANCE`. The
+    quantity increase will be billed immediately on the scheduled date.
+    **BILL_ON_NEXT_COLLECTION_DATE**: The quantity increase will be billed for
+    in-arrears at the end of the period.
     """
 
     is_prorated: bool
