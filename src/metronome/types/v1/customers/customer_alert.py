@@ -7,7 +7,7 @@ from typing_extensions import Literal
 from ...._models import BaseModel
 from ...shared.credit_type_data import CreditTypeData
 
-__all__ = ["CustomerAlert", "Alert", "AlertCustomFieldFilter", "AlertGroupKeyFilter"]
+__all__ = ["CustomerAlert", "Alert", "AlertCustomFieldFilter", "AlertGroupKeyFilter", "AlertGroupValue"]
 
 
 class AlertCustomFieldFilter(BaseModel):
@@ -19,6 +19,12 @@ class AlertCustomFieldFilter(BaseModel):
 
 
 class AlertGroupKeyFilter(BaseModel):
+    key: str
+
+    value: str
+
+
+class AlertGroupValue(BaseModel):
     key: str
 
     value: str
@@ -74,6 +80,12 @@ class Alert(BaseModel):
     """
     Scopes alert evaluation to a specific presentation group key on individual line
     items. Only present for spend alerts.
+    """
+
+    group_values: Optional[List[AlertGroupValue]] = None
+    """Only present for `spend_threshold_reached` alerts.
+
+    Scope alert to a specific group key on individual line items.
     """
 
     invoice_types_filter: Optional[List[str]] = None
