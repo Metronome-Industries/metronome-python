@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Any, Dict, List, Union, Iterable, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -41,7 +41,8 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncCursorPage, AsyncCursorPage
+from ...._base_client import AsyncPaginator, make_request_options
 from .named_schedules import (
     NamedSchedulesResource,
     AsyncNamedSchedulesResource,
@@ -625,7 +626,7 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> SyncCursorPage[ContractListBalancesResponse]:
         """
         List balances (commits and credits).
 
@@ -658,8 +659,9 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
+            page=SyncCursorPage[ContractListBalancesResponse],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -679,7 +681,10 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     def retrieve_rate_schedule(
@@ -1481,7 +1486,7 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def list_balances(
+    def list_balances(
         self,
         *,
         customer_id: str,
@@ -1501,7 +1506,7 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> AsyncPaginator[ContractListBalancesResponse, AsyncCursorPage[ContractListBalancesResponse]]:
         """
         List balances (commits and credits).
 
@@ -1534,9 +1539,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
-            body=await async_maybe_transform(
+            page=AsyncCursorPage[ContractListBalancesResponse],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "id": id,
@@ -1555,7 +1561,10 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     async def retrieve_rate_schedule(

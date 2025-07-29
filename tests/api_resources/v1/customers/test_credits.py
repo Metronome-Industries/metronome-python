@@ -10,8 +10,9 @@ import pytest
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
+from metronome.pagination import SyncCursorPage, AsyncCursorPage
+from metronome.types.shared import Credit
 from metronome.types.v1.customers import (
-    CreditListResponse,
     CreditCreateResponse,
     CreditUpdateEndDateResponse,
 )
@@ -128,7 +129,7 @@ class TestCredits:
         credit = client.v1.customers.credits.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(SyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -145,7 +146,7 @@ class TestCredits:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(SyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -156,7 +157,7 @@ class TestCredits:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         credit = response.parse()
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(SyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -167,7 +168,7 @@ class TestCredits:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             credit = response.parse()
-            assert_matches_type(CreditListResponse, credit, path=["response"])
+            assert_matches_type(SyncCursorPage[Credit], credit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -320,7 +321,7 @@ class TestAsyncCredits:
         credit = await async_client.v1.customers.credits.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(AsyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -337,7 +338,7 @@ class TestAsyncCredits:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(AsyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -348,7 +349,7 @@ class TestAsyncCredits:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         credit = await response.parse()
-        assert_matches_type(CreditListResponse, credit, path=["response"])
+        assert_matches_type(AsyncCursorPage[Credit], credit, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -359,7 +360,7 @@ class TestAsyncCredits:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             credit = await response.parse()
-            assert_matches_type(CreditListResponse, credit, path=["response"])
+            assert_matches_type(AsyncCursorPage[Credit], credit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

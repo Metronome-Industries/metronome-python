@@ -17,9 +17,7 @@ from .plan_list_response import PlanListResponse as PlanListResponse
 from .alert_list_response import AlertListResponse as AlertListResponse
 from .invoice_list_params import InvoiceListParams as InvoiceListParams
 from .commit_create_params import CommitCreateParams as CommitCreateParams
-from .commit_list_response import CommitListResponse as CommitListResponse
 from .credit_create_params import CreditCreateParams as CreditCreateParams
-from .credit_list_response import CreditListResponse as CreditListResponse
 from .alert_retrieve_params import AlertRetrieveParams as AlertRetrieveParams
 from .commit_create_response import CommitCreateResponse as CommitCreateResponse
 from .credit_create_response import CreditCreateResponse as CreditCreateResponse
