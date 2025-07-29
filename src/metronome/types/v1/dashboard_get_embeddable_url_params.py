@@ -59,6 +59,8 @@ class ColorOverride(TypedDict, total=False):
         "UsageLine_9",
         "Primary_green",
         "Primary_red",
+        "Progress_bar",
+        "Progress_bar_background",
     ]
     """The color to override"""
 
