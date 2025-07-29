@@ -759,6 +759,9 @@ class DataCredit(BaseModel):
 
 
 class DataCustomerBillingProviderConfiguration(BaseModel):
+    id: str
+    """ID of Customer's billing provider configuration."""
+
     billing_provider: Literal[
         "aws_marketplace",
         "stripe",
