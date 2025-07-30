@@ -382,6 +382,11 @@ class TestContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "subscription_config": {
+                        "apply_seat_increase_config": {"is_prorated": True},
+                        "subscription_id": "subscription_id",
+                        "allocation": "POOLED",
+                    },
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -418,6 +423,11 @@ class TestContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "subscription_config": {
+                        "apply_seat_increase_config": {"is_prorated": True},
+                        "subscription_id": "subscription_id",
+                        "allocation": "POOLED",
+                    },
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -507,6 +517,7 @@ class TestContracts:
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "name": "name",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "temporary_id": "temporary_id",
                 }
             ],
             allow_contract_ending_before_finalized_invoice=True,
@@ -1299,6 +1310,11 @@ class TestAsyncContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "subscription_config": {
+                        "apply_seat_increase_config": {"is_prorated": True},
+                        "subscription_id": "subscription_id",
+                        "allocation": "POOLED",
+                    },
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1335,6 +1351,11 @@ class TestAsyncContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "subscription_config": {
+                        "apply_seat_increase_config": {"is_prorated": True},
+                        "subscription_id": "subscription_id",
+                        "allocation": "POOLED",
+                    },
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1424,6 +1445,7 @@ class TestAsyncContracts:
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "name": "name",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "temporary_id": "temporary_id",
                 }
             ],
             allow_contract_ending_before_finalized_invoice=True,

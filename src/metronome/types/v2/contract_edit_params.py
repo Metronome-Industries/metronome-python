@@ -60,6 +60,8 @@ __all__ = [
     "AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCommitInvoiceAmount",
     "AddRecurringCommitSpecifier",
+    "AddRecurringCommitSubscriptionConfig",
+    "AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "AddRecurringCredit",
     "AddRecurringCreditAccessAmount",
     "AddRecurringCreditCommitDuration",
@@ -69,6 +71,8 @@ __all__ = [
     "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCreditSpecifier",
+    "AddRecurringCreditSubscriptionConfig",
+    "AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
@@ -334,7 +338,7 @@ class AddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class AddCommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddCommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -668,7 +672,7 @@ class AddDiscountScheduleScheduleItem(TypedDict, total=False):
 
 class AddDiscountSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddDiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1071,6 +1075,21 @@ class AddRecurringCommitSpecifier(TypedDict, total=False):
     """
 
 
+class AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
+
+
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
     """The amount of commit to grant."""
@@ -1150,6 +1169,9 @@ class AddRecurringCommit(TypedDict, total=False):
     body of `specifiers`.
     """
 
+    subscription_config: AddRecurringCommitSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
+
     temporary_id: str
     """
     A temporary ID that can be used to reference the recurring commit for commit
@@ -1216,6 +1238,21 @@ class AddRecurringCreditSpecifier(TypedDict, total=False):
     If provided, the specifier will only apply to products with all the specified
     tags.
     """
+
+
+class AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
 
 
 class AddRecurringCredit(TypedDict, total=False):
@@ -1293,6 +1330,9 @@ class AddRecurringCredit(TypedDict, total=False):
     Instead, to target usage by product or product tag, pass those values in the
     body of `specifiers`.
     """
+
+    subscription_config: AddRecurringCreditSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
 
     temporary_id: str
     """
@@ -1401,7 +1441,7 @@ class AddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 class AddScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1563,6 +1603,12 @@ class AddSubscription(TypedDict, total=False):
     """Inclusive start time for the subscription.
 
     If not provided, defaults to contract start date
+    """
+
+    temporary_id: str
+    """
+    A temporary ID used to reference the subscription in recurring commit/credit
+    subscription configs created within the same payload.
     """
 
 
