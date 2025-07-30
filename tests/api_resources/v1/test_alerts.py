@@ -44,10 +44,6 @@ class TestAlerts:
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
-            group_key_filter={
-                "key": "key",
-                "value": "value",
-            },
             group_values=[
                 {
                     "key": "key",
@@ -160,10 +156,6 @@ class TestAsyncAlerts:
             ],
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             evaluate_on_create=True,
-            group_key_filter={
-                "key": "key",
-                "value": "value",
-            },
             group_values=[
                 {
                     "key": "key",

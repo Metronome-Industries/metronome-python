@@ -7,6 +7,8 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
 
 __all__ = [
     "ContractCreateParams",
@@ -16,8 +18,9 @@ __all__ = [
     "CommitAccessScheduleScheduleItem",
     "CommitHierarchyConfiguration",
     "CommitHierarchyConfigurationChildAccess",
-    "CommitHierarchyConfigurationChildAccessType",
-    "CommitHierarchyConfigurationChildAccessUnionMember2",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
@@ -30,8 +33,9 @@ __all__ = [
     "CreditAccessScheduleScheduleItem",
     "CreditHierarchyConfiguration",
     "CreditHierarchyConfigurationChildAccess",
-    "CreditHierarchyConfigurationChildAccessType",
-    "CreditHierarchyConfigurationChildAccessUnionMember2",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
@@ -42,7 +46,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateTier",
     "OverrideTier",
     "PrepaidBalanceThresholdConfiguration",
     "PrepaidBalanceThresholdConfigurationCommit",
@@ -56,8 +59,9 @@ __all__ = [
     "RecurringCommitCommitDuration",
     "RecurringCommitHierarchyConfiguration",
     "RecurringCommitHierarchyConfigurationChildAccess",
-    "RecurringCommitHierarchyConfigurationChildAccessType",
-    "RecurringCommitHierarchyConfigurationChildAccessUnionMember2",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
     "RecurringCommitSpecifier",
     "RecurringCommitSubscriptionConfig",
@@ -67,8 +71,9 @@ __all__ = [
     "RecurringCreditCommitDuration",
     "RecurringCreditHierarchyConfiguration",
     "RecurringCreditHierarchyConfigurationChildAccess",
-    "RecurringCreditHierarchyConfigurationChildAccessType",
-    "RecurringCreditHierarchyConfigurationChildAccessUnionMember2",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCreditSpecifier",
     "RecurringCreditSubscriptionConfig",
     "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
@@ -89,7 +94,6 @@ __all__ = [
     "SubscriptionSubscriptionRate",
     "Transition",
     "TransitionFutureInvoiceBehavior",
-    "UsageFilter",
     "UsageStatementSchedule",
 ]
 
@@ -195,7 +199,7 @@ class ContractCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-    usage_filter: UsageFilter
+    usage_filter: BaseUsageFilter
 
     usage_statement_schedule: UsageStatementSchedule
 
@@ -233,20 +237,24 @@ class CommitAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
-class CommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class CommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CommitHierarchyConfigurationChildAccessType,
-    CommitHierarchyConfigurationChildAccessType,
-    CommitHierarchyConfigurationChildAccessUnionMember2,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -492,20 +500,24 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
-class CreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class CreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CreditHierarchyConfigurationChildAccessType,
-    CreditHierarchyConfigurationChildAccessType,
-    CreditHierarchyConfigurationChildAccessUnionMember2,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -733,12 +745,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -766,7 +772,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[OverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -1019,20 +1025,24 @@ class RecurringCommitCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
-class RecurringCommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class RecurringCommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 RecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCommitHierarchyConfigurationChildAccessType,
-    RecurringCommitHierarchyConfigurationChildAccessType,
-    RecurringCommitHierarchyConfigurationChildAccessUnionMember2,
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -1186,20 +1196,24 @@ class RecurringCreditCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
-class RecurringCreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class RecurringCreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 RecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCreditHierarchyConfigurationChildAccessType,
-    RecurringCreditHierarchyConfigurationChildAccessType,
-    RecurringCreditHierarchyConfigurationChildAccessUnionMember2,
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -1609,14 +1623,6 @@ class Transition(TypedDict, total=False):
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
-
-
-class UsageFilter(TypedDict, total=False):
-    group_key: Required[str]
-
-    group_values: Required[List[str]]
-
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class UsageStatementSchedule(TypedDict, total=False):
