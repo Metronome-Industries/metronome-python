@@ -5,81 +5,94 @@ from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..shared.tier import Tier
-from ..shared.discount import Discount
-from ..shared.pro_service import ProService
-from ..shared.credit_type_data import CreditTypeData
-from ..shared.scheduled_charge import ScheduledCharge
-from ..shared.schedule_duration import ScheduleDuration
-from ..shared.schedule_point_in_time import SchedulePointInTime
 
 __all__ = [
     "ContractRetrieveResponse",
     "Data",
     "DataCommit",
     "DataCommitProduct",
+    "DataCommitAccessSchedule",
+    "DataCommitAccessScheduleScheduleItem",
+    "DataCommitAccessScheduleCreditType",
     "DataCommitContract",
     "DataCommitHierarchyConfiguration",
     "DataCommitHierarchyConfigurationChildAccess",
-    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataCommitHierarchyConfigurationChildAccessType",
+    "DataCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataCommitInvoiceContract",
+    "DataCommitInvoiceSchedule",
+    "DataCommitInvoiceScheduleCreditType",
+    "DataCommitInvoiceScheduleScheduleItem",
     "DataCommitLedger",
-    "DataCommitLedgerPrepaidCommitSegmentStartLedgerEntry",
-    "DataCommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "DataCommitLedgerPrepaidCommitRolloverLedgerEntry",
-    "DataCommitLedgerPrepaidCommitExpirationLedgerEntry",
-    "DataCommitLedgerPrepaidCommitCanceledLedgerEntry",
-    "DataCommitLedgerPrepaidCommitCreditedLedgerEntry",
-    "DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
-    "DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry",
-    "DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "DataCommitLedgerPostpaidCommitRolloverLedgerEntry",
-    "DataCommitLedgerPostpaidCommitTrueupLedgerEntry",
-    "DataCommitLedgerPrepaidCommitManualLedgerEntry",
-    "DataCommitLedgerPostpaidCommitManualLedgerEntry",
-    "DataCommitLedgerPostpaidCommitExpirationLedgerEntry",
+    "DataCommitLedgerUnionMember0",
+    "DataCommitLedgerUnionMember1",
+    "DataCommitLedgerUnionMember2",
+    "DataCommitLedgerUnionMember3",
+    "DataCommitLedgerUnionMember4",
+    "DataCommitLedgerUnionMember5",
+    "DataCommitLedgerUnionMember6",
+    "DataCommitLedgerUnionMember7",
+    "DataCommitLedgerUnionMember8",
+    "DataCommitLedgerUnionMember9",
+    "DataCommitLedgerUnionMember10",
+    "DataCommitLedgerUnionMember11",
+    "DataCommitLedgerUnionMember12",
+    "DataCommitLedgerUnionMember13",
     "DataCommitRolledOverFrom",
     "DataCommitSpecifier",
     "DataOverride",
     "DataOverrideOverrideSpecifier",
     "DataOverrideOverrideTier",
     "DataOverrideOverwriteRate",
+    "DataOverrideOverwriteRateCreditType",
+    "DataOverrideOverwriteRateTier",
     "DataOverrideProduct",
+    "DataScheduledCharge",
+    "DataScheduledChargeProduct",
+    "DataScheduledChargeSchedule",
+    "DataScheduledChargeScheduleCreditType",
+    "DataScheduledChargeScheduleScheduleItem",
     "DataTransition",
     "DataUsageFilter",
     "DataUsageStatementSchedule",
     "DataCredit",
     "DataCreditProduct",
+    "DataCreditAccessSchedule",
+    "DataCreditAccessScheduleScheduleItem",
+    "DataCreditAccessScheduleCreditType",
     "DataCreditContract",
     "DataCreditHierarchyConfiguration",
     "DataCreditHierarchyConfigurationChildAccess",
-    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataCreditHierarchyConfigurationChildAccessType",
+    "DataCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataCreditLedger",
-    "DataCreditLedgerCreditSegmentStartLedgerEntry",
-    "DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
-    "DataCreditLedgerCreditExpirationLedgerEntry",
-    "DataCreditLedgerCreditCanceledLedgerEntry",
-    "DataCreditLedgerCreditCreditedLedgerEntry",
-    "DataCreditLedgerCreditManualLedgerEntry",
-    "DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "DataCreditLedgerUnionMember0",
+    "DataCreditLedgerUnionMember1",
+    "DataCreditLedgerUnionMember2",
+    "DataCreditLedgerUnionMember3",
+    "DataCreditLedgerUnionMember4",
+    "DataCreditLedgerUnionMember5",
+    "DataCreditLedgerUnionMember6",
     "DataCreditSpecifier",
     "DataCustomerBillingProviderConfiguration",
+    "DataDiscount",
+    "DataDiscountProduct",
+    "DataDiscountSchedule",
+    "DataDiscountScheduleCreditType",
+    "DataDiscountScheduleScheduleItem",
     "DataHasMore",
     "DataHierarchyConfiguration",
-    "DataHierarchyConfigurationParentHierarchyConfiguration",
-    "DataHierarchyConfigurationParentHierarchyConfigurationChild",
-    "DataHierarchyConfigurationChildHierarchyConfiguration",
-    "DataHierarchyConfigurationChildHierarchyConfigurationParent",
+    "DataHierarchyConfigurationChildren",
+    "DataHierarchyConfigurationChildrenChild",
+    "DataHierarchyConfigurationParent",
+    "DataHierarchyConfigurationParentParent",
     "DataPrepaidBalanceThresholdConfiguration",
     "DataPrepaidBalanceThresholdConfigurationCommit",
     "DataPrepaidBalanceThresholdConfigurationCommitSpecifier",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "DataPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "DataProfessionalService",
     "DataRecurringCommit",
     "DataRecurringCommitAccessAmount",
     "DataRecurringCommitCommitDuration",
@@ -87,9 +100,8 @@ __all__ = [
     "DataRecurringCommitContract",
     "DataRecurringCommitHierarchyConfiguration",
     "DataRecurringCommitHierarchyConfigurationChildAccess",
-    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataRecurringCommitHierarchyConfigurationChildAccessType",
+    "DataRecurringCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataRecurringCommitInvoiceAmount",
     "DataRecurringCommitSpecifier",
     "DataRecurringCommitSubscriptionConfig",
@@ -101,9 +113,8 @@ __all__ = [
     "DataRecurringCreditContract",
     "DataRecurringCreditHierarchyConfiguration",
     "DataRecurringCreditHierarchyConfigurationChildAccess",
-    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataRecurringCreditHierarchyConfigurationChildAccessType",
+    "DataRecurringCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataRecurringCreditSpecifier",
     "DataRecurringCreditSubscriptionConfig",
     "DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
@@ -128,28 +139,46 @@ class DataCommitProduct(BaseModel):
     name: str
 
 
+class DataCommitAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataCommitAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataCommitAccessSchedule(BaseModel):
+    schedule_items: List[DataCommitAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataCommitAccessScheduleCreditType] = None
+
+
 class DataCommitContract(BaseModel):
     id: str
 
 
-class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataCommitHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataCommitHierarchyConfigurationChildAccessType,
+    DataCommitHierarchyConfigurationChildAccessType,
+    DataCommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -161,7 +190,33 @@ class DataCommitInvoiceContract(BaseModel):
     id: str
 
 
-class DataCommitLedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
+class DataCommitInvoiceScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataCommitInvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataCommitInvoiceSchedule(BaseModel):
+    credit_type: Optional[DataCommitInvoiceScheduleCreditType] = None
+
+    schedule_items: Optional[List[DataCommitInvoiceScheduleScheduleItem]] = None
+
+
+class DataCommitLedgerUnionMember0(BaseModel):
     amount: float
 
     segment_id: str
@@ -171,7 +226,7 @@ class DataCommitLedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_SEGMENT_START"]
 
 
-class DataCommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember1(BaseModel):
     amount: float
 
     invoice_id: str
@@ -182,8 +237,10 @@ class DataCommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseMode
 
     type: Literal["PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
 
-class DataCommitLedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
+
+class DataCommitLedgerUnionMember2(BaseModel):
     amount: float
 
     new_contract_id: str
@@ -195,7 +252,7 @@ class DataCommitLedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_ROLLOVER"]
 
 
-class DataCommitLedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember3(BaseModel):
     amount: float
 
     segment_id: str
@@ -205,7 +262,7 @@ class DataCommitLedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_EXPIRATION"]
 
 
-class DataCommitLedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember4(BaseModel):
     amount: float
 
     invoice_id: str
@@ -216,8 +273,10 @@ class DataCommitLedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CANCELED"]
 
+    contract_id: Optional[str] = None
 
-class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
+
+class DataCommitLedgerUnionMember5(BaseModel):
     amount: float
 
     invoice_id: str
@@ -228,8 +287,10 @@ class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CREDITED"]
 
+    contract_id: Optional[str] = None
 
-class DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
+
+class DataCommitLedgerUnionMember6(BaseModel):
     amount: float
 
     segment_id: str
@@ -239,7 +300,7 @@ class DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
 
 
-class DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember7(BaseModel):
     amount: float
 
     timestamp: datetime
@@ -247,7 +308,7 @@ class DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_INITIAL_BALANCE"]
 
 
-class DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember8(BaseModel):
     amount: float
 
     invoice_id: str
@@ -258,8 +319,10 @@ class DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseMod
 
     type: Literal["POSTPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
 
-class DataCommitLedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
+
+class DataCommitLedgerUnionMember9(BaseModel):
     amount: float
 
     new_contract_id: str
@@ -271,7 +334,7 @@ class DataCommitLedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
 
-class DataCommitLedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember10(BaseModel):
     amount: float
 
     invoice_id: str
@@ -280,8 +343,10 @@ class DataCommitLedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_TRUEUP"]
 
+    contract_id: Optional[str] = None
 
-class DataCommitLedgerPrepaidCommitManualLedgerEntry(BaseModel):
+
+class DataCommitLedgerUnionMember11(BaseModel):
     amount: float
 
     reason: str
@@ -291,7 +356,7 @@ class DataCommitLedgerPrepaidCommitManualLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_MANUAL"]
 
 
-class DataCommitLedgerPostpaidCommitManualLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember12(BaseModel):
     amount: float
 
     reason: str
@@ -301,7 +366,7 @@ class DataCommitLedgerPostpaidCommitManualLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_MANUAL"]
 
 
-class DataCommitLedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
+class DataCommitLedgerUnionMember13(BaseModel):
     amount: float
 
     timestamp: datetime
@@ -310,20 +375,20 @@ class DataCommitLedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
 
 
 DataCommitLedger: TypeAlias = Union[
-    DataCommitLedgerPrepaidCommitSegmentStartLedgerEntry,
-    DataCommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    DataCommitLedgerPrepaidCommitRolloverLedgerEntry,
-    DataCommitLedgerPrepaidCommitExpirationLedgerEntry,
-    DataCommitLedgerPrepaidCommitCanceledLedgerEntry,
-    DataCommitLedgerPrepaidCommitCreditedLedgerEntry,
-    DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
-    DataCommitLedgerPostpaidCommitInitialBalanceLedgerEntry,
-    DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    DataCommitLedgerPostpaidCommitRolloverLedgerEntry,
-    DataCommitLedgerPostpaidCommitTrueupLedgerEntry,
-    DataCommitLedgerPrepaidCommitManualLedgerEntry,
-    DataCommitLedgerPostpaidCommitManualLedgerEntry,
-    DataCommitLedgerPostpaidCommitExpirationLedgerEntry,
+    DataCommitLedgerUnionMember0,
+    DataCommitLedgerUnionMember1,
+    DataCommitLedgerUnionMember2,
+    DataCommitLedgerUnionMember3,
+    DataCommitLedgerUnionMember4,
+    DataCommitLedgerUnionMember5,
+    DataCommitLedgerUnionMember6,
+    DataCommitLedgerUnionMember7,
+    DataCommitLedgerUnionMember8,
+    DataCommitLedgerUnionMember9,
+    DataCommitLedgerUnionMember10,
+    DataCommitLedgerUnionMember11,
+    DataCommitLedgerUnionMember12,
+    DataCommitLedgerUnionMember13,
 ]
 
 
@@ -357,7 +422,7 @@ class DataCommit(BaseModel):
 
     type: Literal["PREPAID", "POSTPAID"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataCommitAccessSchedule] = None
     """
     The schedule that the customer will gain access to the credits purposed with
     this commit.
@@ -396,7 +461,7 @@ class DataCommit(BaseModel):
     invoice_contract: Optional[DataCommitInvoiceContract] = None
     """The contract that this commit will be billed on."""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[DataCommitInvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     ledger: Optional[List[DataCommitLedger]] = None
@@ -457,10 +522,22 @@ class DataOverrideOverrideTier(BaseModel):
     size: Optional[float] = None
 
 
+class DataOverrideOverwriteRateCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataOverrideOverwriteRateTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
+
+
 class DataOverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
-    credit_type: Optional[CreditTypeData] = None
+    credit_type: Optional[DataOverrideOverwriteRateCreditType] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -484,7 +561,7 @@ class DataOverrideOverwriteRate(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Optional[List[Tier]] = None
+    tiers: Optional[List[DataOverrideOverwriteRateTier]] = None
     """Only set for TIERED rate_type."""
 
 
@@ -522,6 +599,56 @@ class DataOverride(BaseModel):
     target: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
+
+
+class DataScheduledChargeProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataScheduledChargeScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataScheduledChargeScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataScheduledChargeSchedule(BaseModel):
+    credit_type: Optional[DataScheduledChargeScheduleCreditType] = None
+
+    schedule_items: Optional[List[DataScheduledChargeScheduleScheduleItem]] = None
+
+
+class DataScheduledCharge(BaseModel):
+    id: str
+
+    product: DataScheduledChargeProduct
+
+    schedule: DataScheduledChargeSchedule
+
+    archived_at: Optional[datetime] = None
+
+    custom_fields: Optional[Dict[str, str]] = None
+
+    name: Optional[str] = None
+    """displayed on invoices"""
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
 
 
 class DataTransition(BaseModel):
@@ -563,28 +690,46 @@ class DataCreditProduct(BaseModel):
     name: str
 
 
+class DataCreditAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataCreditAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataCreditAccessSchedule(BaseModel):
+    schedule_items: List[DataCreditAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataCreditAccessScheduleCreditType] = None
+
+
 class DataCreditContract(BaseModel):
     id: str
 
 
-class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataCreditHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataCreditHierarchyConfigurationChildAccessType,
+    DataCreditHierarchyConfigurationChildAccessType,
+    DataCreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -592,7 +737,7 @@ class DataCreditHierarchyConfiguration(BaseModel):
     child_access: DataCreditHierarchyConfigurationChildAccess
 
 
-class DataCreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
+class DataCreditLedgerUnionMember0(BaseModel):
     amount: float
 
     segment_id: str
@@ -602,7 +747,7 @@ class DataCreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEGMENT_START"]
 
 
-class DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class DataCreditLedgerUnionMember1(BaseModel):
     amount: float
 
     invoice_id: str
@@ -613,8 +758,10 @@ class DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
 
-class DataCreditLedgerCreditExpirationLedgerEntry(BaseModel):
+
+class DataCreditLedgerUnionMember2(BaseModel):
     amount: float
 
     segment_id: str
@@ -624,7 +771,7 @@ class DataCreditLedgerCreditExpirationLedgerEntry(BaseModel):
     type: Literal["CREDIT_EXPIRATION"]
 
 
-class DataCreditLedgerCreditCanceledLedgerEntry(BaseModel):
+class DataCreditLedgerUnionMember3(BaseModel):
     amount: float
 
     invoice_id: str
@@ -635,8 +782,10 @@ class DataCreditLedgerCreditCanceledLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CANCELED"]
 
+    contract_id: Optional[str] = None
 
-class DataCreditLedgerCreditCreditedLedgerEntry(BaseModel):
+
+class DataCreditLedgerUnionMember4(BaseModel):
     amount: float
 
     invoice_id: str
@@ -647,8 +796,10 @@ class DataCreditLedgerCreditCreditedLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CREDITED"]
 
+    contract_id: Optional[str] = None
 
-class DataCreditLedgerCreditManualLedgerEntry(BaseModel):
+
+class DataCreditLedgerUnionMember5(BaseModel):
     amount: float
 
     reason: str
@@ -658,7 +809,7 @@ class DataCreditLedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
-class DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+class DataCreditLedgerUnionMember6(BaseModel):
     amount: float
 
     segment_id: str
@@ -669,13 +820,13 @@ class DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
 
 
 DataCreditLedger: TypeAlias = Union[
-    DataCreditLedgerCreditSegmentStartLedgerEntry,
-    DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
-    DataCreditLedgerCreditExpirationLedgerEntry,
-    DataCreditLedgerCreditCanceledLedgerEntry,
-    DataCreditLedgerCreditCreditedLedgerEntry,
-    DataCreditLedgerCreditManualLedgerEntry,
-    DataCreditLedgerCreditSeatBasedAdjustmentLedgerEntry,
+    DataCreditLedgerUnionMember0,
+    DataCreditLedgerUnionMember1,
+    DataCreditLedgerUnionMember2,
+    DataCreditLedgerUnionMember3,
+    DataCreditLedgerUnionMember4,
+    DataCreditLedgerUnionMember5,
+    DataCreditLedgerUnionMember6,
 ]
 
 
@@ -703,7 +854,7 @@ class DataCredit(BaseModel):
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataCreditAccessSchedule] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_contract_ids: Optional[List[str]] = None
@@ -780,6 +931,53 @@ class DataCustomerBillingProviderConfiguration(BaseModel):
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
 
+class DataDiscountProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataDiscountScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataDiscountScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataDiscountSchedule(BaseModel):
+    credit_type: Optional[DataDiscountScheduleCreditType] = None
+
+    schedule_items: Optional[List[DataDiscountScheduleScheduleItem]] = None
+
+
+class DataDiscount(BaseModel):
+    id: str
+
+    product: DataDiscountProduct
+
+    schedule: DataDiscountSchedule
+
+    custom_fields: Optional[Dict[str, str]] = None
+
+    name: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
+
+
 class DataHasMore(BaseModel):
     commits: bool
     """Whether there are more commits on this contract than the limit for this
@@ -798,31 +996,29 @@ class DataHasMore(BaseModel):
     """
 
 
-class DataHierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
+class DataHierarchyConfigurationChildrenChild(BaseModel):
     contract_id: str
 
     customer_id: str
 
 
-class DataHierarchyConfigurationParentHierarchyConfiguration(BaseModel):
-    children: List[DataHierarchyConfigurationParentHierarchyConfigurationChild]
+class DataHierarchyConfigurationChildren(BaseModel):
+    children: List[DataHierarchyConfigurationChildrenChild]
     """List of contracts that belong to this parent."""
 
 
-class DataHierarchyConfigurationChildHierarchyConfigurationParent(BaseModel):
+class DataHierarchyConfigurationParentParent(BaseModel):
     contract_id: str
 
     customer_id: str
 
 
-class DataHierarchyConfigurationChildHierarchyConfiguration(BaseModel):
-    parent: DataHierarchyConfigurationChildHierarchyConfigurationParent
+class DataHierarchyConfigurationParent(BaseModel):
+    parent: DataHierarchyConfigurationParentParent
     """The single parent contract/customer for this child."""
 
 
-DataHierarchyConfiguration: TypeAlias = Union[
-    DataHierarchyConfigurationParentHierarchyConfiguration, DataHierarchyConfigurationChildHierarchyConfiguration
-]
+DataHierarchyConfiguration: TypeAlias = Union[DataHierarchyConfigurationChildren, DataHierarchyConfigurationParent]
 
 
 class DataPrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
@@ -962,6 +1158,34 @@ class DataPrepaidBalanceThresholdConfiguration(BaseModel):
     """
 
 
+class DataProfessionalService(BaseModel):
+    id: str
+
+    max_amount: float
+    """Maximum amount for the term."""
+
+    product_id: str
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified.
+    """
+
+    custom_fields: Optional[Dict[str, str]] = None
+
+    description: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
+
+
 class DataRecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
 
@@ -986,24 +1210,20 @@ class DataRecurringCommitContract(BaseModel):
     id: str
 
 
-class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataRecurringCommitHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataRecurringCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataRecurringCommitHierarchyConfigurationChildAccessType,
+    DataRecurringCommitHierarchyConfigurationChildAccessType,
+    DataRecurringCommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -1153,24 +1373,20 @@ class DataRecurringCreditContract(BaseModel):
     id: str
 
 
-class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataRecurringCreditHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataRecurringCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataRecurringCreditHierarchyConfigurationChildAccessType,
+    DataRecurringCreditHierarchyConfigurationChildAccessType,
+    DataRecurringCreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -1471,7 +1687,7 @@ class Data(BaseModel):
 
     overrides: List[DataOverride]
 
-    scheduled_charges: List[ScheduledCharge]
+    scheduled_charges: List[DataScheduledCharge]
 
     starting_at: datetime
 
@@ -1490,7 +1706,7 @@ class Data(BaseModel):
     customer_billing_provider_configuration: Optional[DataCustomerBillingProviderConfiguration] = None
     """This field's availability is dependent on your client's configuration."""
 
-    discounts: Optional[List[Discount]] = None
+    discounts: Optional[List[DataDiscount]] = None
     """This field's availability is dependent on your client's configuration."""
 
     ending_before: Optional[datetime] = None
@@ -1527,7 +1743,7 @@ class Data(BaseModel):
     priority: Optional[float] = None
     """Priority of the contract."""
 
-    professional_services: Optional[List[ProService]] = None
+    professional_services: Optional[List[DataProfessionalService]] = None
     """This field's availability is dependent on your client's configuration."""
 
     rate_card_id: Optional[str] = None

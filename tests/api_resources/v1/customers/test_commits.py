@@ -10,9 +10,8 @@ import pytest
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
-from metronome.pagination import SyncCursorPage, AsyncCursorPage
-from metronome.types.shared import Commit
 from metronome.types.v1.customers import (
+    CommitListResponse,
     CommitCreateResponse,
     CommitUpdateEndDateResponse,
 )
@@ -154,7 +153,7 @@ class TestCommits:
         commit = client.v1.customers.commits.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(SyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -171,7 +170,7 @@ class TestCommits:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(SyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -182,7 +181,7 @@ class TestCommits:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         commit = response.parse()
-        assert_matches_type(SyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -193,7 +192,7 @@ class TestCommits:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             commit = response.parse()
-            assert_matches_type(SyncCursorPage[Commit], commit, path=["response"])
+            assert_matches_type(CommitListResponse, commit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -378,7 +377,7 @@ class TestAsyncCommits:
         commit = await async_client.v1.customers.commits.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(AsyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -395,7 +394,7 @@ class TestAsyncCommits:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(AsyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -406,7 +405,7 @@ class TestAsyncCommits:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         commit = await response.parse()
-        assert_matches_type(AsyncCursorPage[Commit], commit, path=["response"])
+        assert_matches_type(CommitListResponse, commit, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -417,7 +416,7 @@ class TestAsyncCommits:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             commit = await response.parse()
-            assert_matches_type(AsyncCursorPage[Commit], commit, path=["response"])
+            assert_matches_type(CommitListResponse, commit, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
