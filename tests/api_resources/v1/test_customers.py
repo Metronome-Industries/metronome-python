@@ -11,7 +11,7 @@ from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
 from metronome.types.v1 import (
-    CustomerListResponse,
+    CustomerDetail,
     CustomerCreateResponse,
     CustomerArchiveResponse,
     CustomerSetNameResponse,
@@ -129,7 +129,7 @@ class TestCustomers:
     @parametrize
     def test_method_list(self, client: Metronome) -> None:
         customer = client.v1.customers.list()
-        assert_matches_type(SyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -141,7 +141,7 @@ class TestCustomers:
             only_archived=True,
             salesforce_account_ids=["string"],
         )
-        assert_matches_type(SyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -150,7 +150,7 @@ class TestCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert_matches_type(SyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -159,7 +159,7 @@ class TestCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert_matches_type(SyncCursorPage[CustomerListResponse], customer, path=["response"])
+            assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -601,7 +601,7 @@ class TestAsyncCustomers:
     @parametrize
     async def test_method_list(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.v1.customers.list()
-        assert_matches_type(AsyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -613,7 +613,7 @@ class TestAsyncCustomers:
             only_archived=True,
             salesforce_account_ids=["string"],
         )
-        assert_matches_type(AsyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -622,7 +622,7 @@ class TestAsyncCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert_matches_type(AsyncCursorPage[CustomerListResponse], customer, path=["response"])
+        assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -631,7 +631,7 @@ class TestAsyncCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert_matches_type(AsyncCursorPage[CustomerListResponse], customer, path=["response"])
+            assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

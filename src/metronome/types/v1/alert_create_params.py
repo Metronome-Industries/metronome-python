@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupKeyFilter", "GroupValue"]
+__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupValue"]
 
 
 class AlertCreateParams(TypedDict, total=False):
@@ -78,12 +78,6 @@ class AlertCreateParams(TypedDict, total=False):
     trigger the alert threshold. Defaults to true.
     """
 
-    group_key_filter: GroupKeyFilter
-    """
-    Scopes alert evaluation to a specific presentation group key on individual line
-    items. Only present for spend alerts.
-    """
-
     group_values: Iterable[GroupValue]
     """Only present for `spend_threshold_reached` alerts.
 
@@ -113,12 +107,6 @@ class AlertCreateParams(TypedDict, total=False):
 class CustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Contract", "Commit", "ContractCredit"]]
 
-    key: Required[str]
-
-    value: Required[str]
-
-
-class GroupKeyFilter(TypedDict, total=False):
     key: Required[str]
 
     value: Required[str]
