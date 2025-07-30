@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Union, Iterable, cast
+from typing import Dict, List, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -41,8 +41,7 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....pagination import SyncCursorPage, AsyncCursorPage
-from ...._base_client import AsyncPaginator, make_request_options
+from ...._base_client import make_request_options
 from .named_schedules import (
     NamedSchedulesResource,
     AsyncNamedSchedulesResource,
@@ -64,7 +63,6 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
-from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -143,7 +141,7 @@ class ContractsResource(SyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -626,7 +624,7 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[ContractListBalancesResponse]:
+    ) -> ContractListBalancesResponse:
         """
         List balances (commits and credits).
 
@@ -659,9 +657,8 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._post(
             "/v1/contracts/customerBalances/list",
-            page=SyncCursorPage[ContractListBalancesResponse],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -681,10 +678,7 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=cast(
-                Any, ContractListBalancesResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            method="post",
+            cast_to=ContractListBalancesResponse,
         )
 
     def retrieve_rate_schedule(
@@ -1023,7 +1017,7 @@ class AsyncContractsResource(AsyncAPIResource):
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1486,7 +1480,7 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    def list_balances(
+    async def list_balances(
         self,
         *,
         customer_id: str,
@@ -1506,7 +1500,7 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[ContractListBalancesResponse, AsyncCursorPage[ContractListBalancesResponse]]:
+    ) -> ContractListBalancesResponse:
         """
         List balances (commits and credits).
 
@@ -1539,10 +1533,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._post(
             "/v1/contracts/customerBalances/list",
-            page=AsyncCursorPage[ContractListBalancesResponse],
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
                     "id": id,
@@ -1561,10 +1554,7 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=cast(
-                Any, ContractListBalancesResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            method="post",
+            cast_to=ContractListBalancesResponse,
         )
 
     async def retrieve_rate_schedule(

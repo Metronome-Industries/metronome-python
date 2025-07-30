@@ -18,10 +18,9 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....pagination import SyncCursorPage, AsyncCursorPage
-from ...._base_client import AsyncPaginator, make_request_options
+from ...._base_client import make_request_options
 from ....types.v1.customers import commit_list_params, commit_create_params, commit_update_end_date_params
-from ....types.shared.commit import Commit
+from ....types.v1.customers.commit_list_response import CommitListResponse
 from ....types.v1.customers.commit_create_response import CommitCreateResponse
 from ....types.v1.customers.commit_update_end_date_response import CommitUpdateEndDateResponse
 
@@ -186,7 +185,7 @@ class CommitsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[Commit]:
+    ) -> CommitListResponse:
         """
         List commits.
 
@@ -219,9 +218,8 @@ class CommitsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._post(
             "/v1/contracts/customerCommits/list",
-            page=SyncCursorPage[Commit],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -241,8 +239,7 @@ class CommitsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Commit,
-            method="post",
+            cast_to=CommitListResponse,
         )
 
     def update_end_date(
@@ -441,7 +438,7 @@ class AsyncCommitsResource(AsyncAPIResource):
             cast_to=CommitCreateResponse,
         )
 
-    def list(
+    async def list(
         self,
         *,
         customer_id: str,
@@ -461,7 +458,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Commit, AsyncCursorPage[Commit]]:
+    ) -> CommitListResponse:
         """
         List commits.
 
@@ -494,10 +491,9 @@ class AsyncCommitsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._post(
             "/v1/contracts/customerCommits/list",
-            page=AsyncCursorPage[Commit],
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
                     "commit_id": commit_id,
@@ -516,8 +512,7 @@ class AsyncCommitsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=Commit,
-            method="post",
+            cast_to=CommitListResponse,
         )
 
     async def update_end_date(

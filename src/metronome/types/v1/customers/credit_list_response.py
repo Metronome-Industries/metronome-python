@@ -4,66 +4,86 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ..._models import BaseModel
-from .schedule_duration import ScheduleDuration
+from ...._models import BaseModel
 
 __all__ = [
-    "Credit",
-    "Product",
-    "Contract",
-    "HierarchyConfiguration",
-    "HierarchyConfigurationChildAccess",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
-    "Ledger",
-    "LedgerCreditSegmentStartLedgerEntry",
-    "LedgerCreditAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerCreditExpirationLedgerEntry",
-    "LedgerCreditCanceledLedgerEntry",
-    "LedgerCreditCreditedLedgerEntry",
-    "LedgerCreditManualLedgerEntry",
-    "LedgerCreditSeatBasedAdjustmentLedgerEntry",
-    "Specifier",
+    "CreditListResponse",
+    "Data",
+    "DataProduct",
+    "DataAccessSchedule",
+    "DataAccessScheduleScheduleItem",
+    "DataAccessScheduleCreditType",
+    "DataContract",
+    "DataHierarchyConfiguration",
+    "DataHierarchyConfigurationChildAccess",
+    "DataHierarchyConfigurationChildAccessType",
+    "DataHierarchyConfigurationChildAccessUnionMember2",
+    "DataLedger",
+    "DataLedgerUnionMember0",
+    "DataLedgerUnionMember1",
+    "DataLedgerUnionMember2",
+    "DataLedgerUnionMember3",
+    "DataLedgerUnionMember4",
+    "DataLedgerUnionMember5",
+    "DataLedgerUnionMember6",
+    "DataSpecifier",
 ]
 
 
-class Product(BaseModel):
+class DataProduct(BaseModel):
     id: str
 
     name: str
 
 
-class Contract(BaseModel):
+class DataAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAccessSchedule(BaseModel):
+    schedule_items: List[DataAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataAccessScheduleCreditType] = None
+
+
+class DataContract(BaseModel):
     id: str
 
 
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
-HierarchyConfigurationChildAccess: TypeAlias = Union[
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+DataHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataHierarchyConfigurationChildAccessType,
+    DataHierarchyConfigurationChildAccessType,
+    DataHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
-class HierarchyConfiguration(BaseModel):
-    child_access: HierarchyConfigurationChildAccess
+class DataHierarchyConfiguration(BaseModel):
+    child_access: DataHierarchyConfigurationChildAccess
 
 
-class LedgerCreditSegmentStartLedgerEntry(BaseModel):
+class DataLedgerUnionMember0(BaseModel):
     amount: float
 
     segment_id: str
@@ -73,7 +93,7 @@ class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEGMENT_START"]
 
 
-class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class DataLedgerUnionMember1(BaseModel):
     amount: float
 
     invoice_id: str
@@ -84,8 +104,10 @@ class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
 
-class LedgerCreditExpirationLedgerEntry(BaseModel):
+
+class DataLedgerUnionMember2(BaseModel):
     amount: float
 
     segment_id: str
@@ -95,7 +117,7 @@ class LedgerCreditExpirationLedgerEntry(BaseModel):
     type: Literal["CREDIT_EXPIRATION"]
 
 
-class LedgerCreditCanceledLedgerEntry(BaseModel):
+class DataLedgerUnionMember3(BaseModel):
     amount: float
 
     invoice_id: str
@@ -106,8 +128,10 @@ class LedgerCreditCanceledLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CANCELED"]
 
+    contract_id: Optional[str] = None
 
-class LedgerCreditCreditedLedgerEntry(BaseModel):
+
+class DataLedgerUnionMember4(BaseModel):
     amount: float
 
     invoice_id: str
@@ -118,8 +142,10 @@ class LedgerCreditCreditedLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CREDITED"]
 
+    contract_id: Optional[str] = None
 
-class LedgerCreditManualLedgerEntry(BaseModel):
+
+class DataLedgerUnionMember5(BaseModel):
     amount: float
 
     reason: str
@@ -129,7 +155,7 @@ class LedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
-class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+class DataLedgerUnionMember6(BaseModel):
     amount: float
 
     segment_id: str
@@ -139,18 +165,18 @@ class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
 
 
-Ledger: TypeAlias = Union[
-    LedgerCreditSegmentStartLedgerEntry,
-    LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
-    LedgerCreditExpirationLedgerEntry,
-    LedgerCreditCanceledLedgerEntry,
-    LedgerCreditCreditedLedgerEntry,
-    LedgerCreditManualLedgerEntry,
-    LedgerCreditSeatBasedAdjustmentLedgerEntry,
+DataLedger: TypeAlias = Union[
+    DataLedgerUnionMember0,
+    DataLedgerUnionMember1,
+    DataLedgerUnionMember2,
+    DataLedgerUnionMember3,
+    DataLedgerUnionMember4,
+    DataLedgerUnionMember5,
+    DataLedgerUnionMember6,
 ]
 
 
-class Specifier(BaseModel):
+class DataSpecifier(BaseModel):
     presentation_group_values: Optional[Dict[str, str]] = None
 
     pricing_group_values: Optional[Dict[str, str]] = None
@@ -167,14 +193,14 @@ class Specifier(BaseModel):
     """
 
 
-class Credit(BaseModel):
+class Data(BaseModel):
     id: str
 
-    product: Product
+    product: DataProduct
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataAccessSchedule] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_contract_ids: Optional[List[str]] = None
@@ -196,16 +222,16 @@ class Credit(BaseModel):
     future-dated manual ledger entries.
     """
 
-    contract: Optional[Contract] = None
+    contract: Optional[DataContract] = None
 
     custom_fields: Optional[Dict[str, str]] = None
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[HierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
-    ledger: Optional[List[Ledger]] = None
+    ledger: Optional[List[DataLedger]] = None
     """A list of ordered events that impact the balance of a credit.
 
     For example, an invoice deduction or an expiration.
@@ -227,7 +253,7 @@ class Credit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[Specifier]] = None
+    specifiers: Optional[List[DataSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -241,3 +267,9 @@ class Credit(BaseModel):
     previously used to create a commit or credit, a new record will not be created
     and the request will fail with a 409 error.
     """
+
+
+class CreditListResponse(BaseModel):
+    data: List[Data]
+
+    next_page: Optional[str] = None
