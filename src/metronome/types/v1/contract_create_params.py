@@ -64,6 +64,8 @@ __all__ = [
     "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
     "RecurringCommitSpecifier",
+    "RecurringCommitSubscriptionConfig",
+    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
@@ -73,6 +75,8 @@ __all__ = [
     "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCreditSpecifier",
+    "RecurringCreditSubscriptionConfig",
+    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
@@ -1071,6 +1075,21 @@ class RecurringCommitSpecifier(TypedDict, total=False):
     """
 
 
+class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class RecurringCommitSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[RecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
+
+
 class RecurringCommit(TypedDict, total=False):
     access_amount: Required[RecurringCommitAccessAmount]
     """The amount of commit to grant."""
@@ -1148,6 +1167,9 @@ class RecurringCommit(TypedDict, total=False):
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
+    subscription_config: RecurringCommitSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
+
     temporary_id: str
     """
     A temporary ID that can be used to reference the recurring commit for commit
@@ -1214,6 +1236,21 @@ class RecurringCreditSpecifier(TypedDict, total=False):
     If provided, the specifier will only apply to products with all the specified
     tags.
     """
+
+
+class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class RecurringCreditSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[RecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
 
 
 class RecurringCredit(TypedDict, total=False):
@@ -1289,6 +1326,9 @@ class RecurringCredit(TypedDict, total=False):
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
+
+    subscription_config: RecurringCreditSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
 
     temporary_id: str
     """
@@ -1559,6 +1599,12 @@ class Subscription(TypedDict, total=False):
     """Inclusive start time for the subscription.
 
     If not provided, defaults to contract start date
+    """
+
+    temporary_id: str
+    """
+    A temporary ID used to reference the subscription in recurring commit/credit
+    subscription configs created within the same payload.
     """
 
 

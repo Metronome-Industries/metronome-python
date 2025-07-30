@@ -54,6 +54,8 @@ __all__ = [
     "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCommitInvoiceAmount",
     "DataAddRecurringCommitSpecifier",
+    "DataAddRecurringCommitSubscriptionConfig",
+    "DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
@@ -65,6 +67,8 @@ __all__ = [
     "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCreditSpecifier",
+    "DataAddRecurringCreditSubscriptionConfig",
+    "DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
@@ -635,6 +639,19 @@ class DataAddRecurringCommitSpecifier(BaseModel):
     """
 
 
+class DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCommitSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class DataAddRecurringCommit(BaseModel):
     id: str
 
@@ -711,6 +728,9 @@ class DataAddRecurringCommit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+    subscription_config: Optional[DataAddRecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
+
 
 class DataAddRecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
@@ -776,6 +796,19 @@ class DataAddRecurringCreditSpecifier(BaseModel):
     If provided, the specifier will only apply to products with all the specified
     tags.
     """
+
+
+class DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCreditSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
 
 
 class DataAddRecurringCredit(BaseModel):
@@ -850,6 +883,9 @@ class DataAddRecurringCredit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[DataAddRecurringCreditSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class DataAddResellerRoyalty(BaseModel):
@@ -1361,7 +1397,7 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
 
 class DataUpdateDiscountSchedule(BaseModel):
     credit_type_id: Optional[str] = None
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: Optional[DataUpdateDiscountScheduleRecurringSchedule] = None
     """Enter the unit price and quantity for the charge or instead only send the
