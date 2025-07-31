@@ -40,6 +40,8 @@ __all__ = [
     "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
     "RecurringCommitSpecifier",
+    "RecurringCommitSubscriptionConfig",
+    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
@@ -51,6 +53,8 @@ __all__ = [
     "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCreditSpecifier",
+    "RecurringCreditSubscriptionConfig",
+    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
     "SpendThresholdConfiguration",
     "SpendThresholdConfigurationCommit",
@@ -313,6 +317,19 @@ class RecurringCommitSpecifier(BaseModel):
     """
 
 
+class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class RecurringCommitSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: RecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class RecurringCommit(BaseModel):
     id: str
 
@@ -389,6 +406,9 @@ class RecurringCommit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
+
 
 class RecurringCreditAccessAmount(BaseModel):
     credit_type_id: str
@@ -454,6 +474,19 @@ class RecurringCreditSpecifier(BaseModel):
     If provided, the specifier will only apply to products with all the specified
     tags.
     """
+
+
+class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class RecurringCreditSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: RecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
 
 
 class RecurringCredit(BaseModel):
@@ -528,6 +561,9 @@ class RecurringCredit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[RecurringCreditSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class ResellerRoyalty(BaseModel):

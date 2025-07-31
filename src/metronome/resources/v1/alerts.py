@@ -72,7 +72,7 @@ class AlertsResource(SyncAPIResource):
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
         evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_key_filter: alert_create_params.GroupKeyFilter | NotGiven = NOT_GIVEN,
+        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
         invoice_types_filter: List[str] | NotGiven = NOT_GIVEN,
         plan_id: str | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -115,8 +115,8 @@ class AlertsResource(SyncAPIResource):
               alert threshold. If false, it will only evaluate on future customers that
               trigger the alert threshold. Defaults to true.
 
-          group_key_filter: Scopes alert evaluation to a specific presentation group key on individual line
-              items. Only present for spend alerts.
+          group_values: Only present for `spend_threshold_reached` alerts. Scope alert to a specific
+              group key on individual line items.
 
           invoice_types_filter: Only supported for invoice_total_reached alerts. A list of invoice types to
               evaluate.
@@ -149,7 +149,7 @@ class AlertsResource(SyncAPIResource):
                     "custom_field_filters": custom_field_filters,
                     "customer_id": customer_id,
                     "evaluate_on_create": evaluate_on_create,
-                    "group_key_filter": group_key_filter,
+                    "group_values": group_values,
                     "invoice_types_filter": invoice_types_filter,
                     "plan_id": plan_id,
                     "uniqueness_key": uniqueness_key,
@@ -253,7 +253,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
         evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_key_filter: alert_create_params.GroupKeyFilter | NotGiven = NOT_GIVEN,
+        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
         invoice_types_filter: List[str] | NotGiven = NOT_GIVEN,
         plan_id: str | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -296,8 +296,8 @@ class AsyncAlertsResource(AsyncAPIResource):
               alert threshold. If false, it will only evaluate on future customers that
               trigger the alert threshold. Defaults to true.
 
-          group_key_filter: Scopes alert evaluation to a specific presentation group key on individual line
-              items. Only present for spend alerts.
+          group_values: Only present for `spend_threshold_reached` alerts. Scope alert to a specific
+              group key on individual line items.
 
           invoice_types_filter: Only supported for invoice_total_reached alerts. A list of invoice types to
               evaluate.
@@ -330,7 +330,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "custom_field_filters": custom_field_filters,
                     "customer_id": customer_id,
                     "evaluate_on_create": evaluate_on_create,
-                    "group_key_filter": group_key_filter,
+                    "group_values": group_values,
                     "invoice_types_filter": invoice_types_filter,
                     "plan_id": plan_id,
                     "uniqueness_key": uniqueness_key,

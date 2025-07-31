@@ -92,6 +92,8 @@ __all__ = [
     "DataRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataRecurringCommitInvoiceAmount",
     "DataRecurringCommitSpecifier",
+    "DataRecurringCommitSubscriptionConfig",
+    "DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataRecurringCredit",
     "DataRecurringCreditAccessAmount",
     "DataRecurringCreditCommitDuration",
@@ -103,6 +105,8 @@ __all__ = [
     "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "DataRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataRecurringCreditSpecifier",
+    "DataRecurringCreditSubscriptionConfig",
+    "DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataResellerRoyalty",
     "DataResellerRoyaltySegment",
     "DataSpendThresholdConfiguration",
@@ -178,6 +182,8 @@ class DataCommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseMode
 
     type: Literal["PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class DataCommitLedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
@@ -212,6 +218,8 @@ class DataCommitLedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CANCELED"]
 
+    contract_id: Optional[str] = None
+
 
 class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     amount: float
@@ -223,6 +231,8 @@ class DataCommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_CREDITED"]
+
+    contract_id: Optional[str] = None
 
 
 class DataCommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
@@ -254,6 +264,8 @@ class DataCommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseMod
 
     type: Literal["POSTPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class DataCommitLedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
@@ -275,6 +287,8 @@ class DataCommitLedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_TRUEUP"]
+
+    contract_id: Optional[str] = None
 
 
 class DataCommitLedgerPrepaidCommitManualLedgerEntry(BaseModel):
@@ -609,6 +623,8 @@ class DataCreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class DataCreditLedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
@@ -631,6 +647,8 @@ class DataCreditLedgerCreditCanceledLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CANCELED"]
 
+    contract_id: Optional[str] = None
+
 
 class DataCreditLedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
@@ -642,6 +660,8 @@ class DataCreditLedgerCreditCreditedLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_CREDITED"]
+
+    contract_id: Optional[str] = None
 
 
 class DataCreditLedgerCreditManualLedgerEntry(BaseModel):
@@ -759,6 +779,9 @@ class DataCredit(BaseModel):
 
 
 class DataCustomerBillingProviderConfiguration(BaseModel):
+    id: str
+    """ID of Customer's billing provider configuration."""
+
     billing_provider: Literal[
         "aws_marketplace",
         "stripe",
@@ -870,6 +893,8 @@ class DataPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1027,6 +1052,19 @@ class DataRecurringCommitSpecifier(BaseModel):
     """
 
 
+class DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataRecurringCommitSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class DataRecurringCommit(BaseModel):
     id: str
 
@@ -1062,7 +1100,7 @@ class DataRecurringCommit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[DataRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
@@ -1102,6 +1140,9 @@ class DataRecurringCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[DataRecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class DataRecurringCreditAccessAmount(BaseModel):
@@ -1170,6 +1211,19 @@ class DataRecurringCreditSpecifier(BaseModel):
     """
 
 
+class DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataRecurringCreditSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class DataRecurringCredit(BaseModel):
     id: str
 
@@ -1205,7 +1259,7 @@ class DataRecurringCredit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataRecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
@@ -1242,6 +1296,9 @@ class DataRecurringCredit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[DataRecurringCreditSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class DataResellerRoyaltySegment(BaseModel):

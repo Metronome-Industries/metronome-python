@@ -84,6 +84,8 @@ class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class LedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
@@ -106,6 +108,8 @@ class LedgerCreditCanceledLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_CANCELED"]
 
+    contract_id: Optional[str] = None
+
 
 class LedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
@@ -117,6 +121,8 @@ class LedgerCreditCreditedLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_CREDITED"]
+
+    contract_id: Optional[str] = None
 
 
 class LedgerCreditManualLedgerEntry(BaseModel):

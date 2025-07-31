@@ -17,9 +17,19 @@ __all__ = [
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitHierarchyConfiguration",
+    "DataAddCommitHierarchyConfigurationChildAccess",
+    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddCommitSpecifier",
     "DataAddCredit",
     "DataAddCreditProduct",
+    "DataAddCreditHierarchyConfiguration",
+    "DataAddCreditHierarchyConfigurationChildAccess",
+    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddCreditSpecifier",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
@@ -44,6 +54,8 @@ __all__ = [
     "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCommitInvoiceAmount",
     "DataAddRecurringCommitSpecifier",
+    "DataAddRecurringCommitSubscriptionConfig",
+    "DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
@@ -55,6 +67,8 @@ __all__ = [
     "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataAddRecurringCreditSpecifier",
+    "DataAddRecurringCreditSubscriptionConfig",
+    "DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
@@ -78,6 +92,11 @@ __all__ = [
     "DataUpdateCommitAccessScheduleAddScheduleItem",
     "DataUpdateCommitAccessScheduleRemoveScheduleItem",
     "DataUpdateCommitAccessScheduleUpdateScheduleItem",
+    "DataUpdateCommitHierarchyConfiguration",
+    "DataUpdateCommitHierarchyConfigurationChildAccess",
+    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataUpdateCommitInvoiceSchedule",
     "DataUpdateCommitInvoiceScheduleAddScheduleItem",
     "DataUpdateCommitInvoiceScheduleRemoveScheduleItem",
@@ -88,6 +107,11 @@ __all__ = [
     "DataUpdateCreditAccessScheduleAddScheduleItem",
     "DataUpdateCreditAccessScheduleRemoveScheduleItem",
     "DataUpdateCreditAccessScheduleUpdateScheduleItem",
+    "DataUpdateCreditHierarchyConfiguration",
+    "DataUpdateCreditHierarchyConfigurationChildAccess",
+    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "DataUpdateDiscount",
     "DataUpdateDiscountSchedule",
     "DataUpdateDiscountScheduleRecurringSchedule",
@@ -123,6 +147,31 @@ class DataAddCommitProduct(BaseModel):
     id: str
 
     name: str
+
+
+class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataAddCommitHierarchyConfiguration(BaseModel):
+    child_access: DataAddCommitHierarchyConfigurationChildAccess
 
 
 class DataAddCommitSpecifier(BaseModel):
@@ -161,6 +210,9 @@ class DataAddCommit(BaseModel):
 
     description: Optional[str] = None
 
+    hierarchy_configuration: Optional[DataAddCommitHierarchyConfiguration] = None
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_schedule: Optional[SchedulePointInTime] = None
     """The schedule that the customer will be invoiced for this commit."""
 
@@ -188,6 +240,8 @@ class DataAddCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -195,6 +249,31 @@ class DataAddCreditProduct(BaseModel):
     id: str
 
     name: str
+
+
+class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataAddCreditHierarchyConfiguration(BaseModel):
+    child_access: DataAddCreditHierarchyConfigurationChildAccess
 
 
 class DataAddCreditSpecifier(BaseModel):
@@ -230,6 +309,9 @@ class DataAddCredit(BaseModel):
 
     description: Optional[str] = None
 
+    hierarchy_configuration: Optional[DataAddCreditHierarchyConfiguration] = None
+    """Optional configuration for recurring credit hierarchy access control"""
+
     name: Optional[str] = None
 
     netsuite_sales_order_id: Optional[str] = None
@@ -250,6 +332,8 @@ class DataAddCredit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -396,6 +480,8 @@ class DataAddPrepaidBalanceThresholdConfigurationCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -553,6 +639,19 @@ class DataAddRecurringCommitSpecifier(BaseModel):
     """
 
 
+class DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCommitSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class DataAddRecurringCommit(BaseModel):
     id: str
 
@@ -588,7 +687,7 @@ class DataAddRecurringCommit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataAddRecurringCommitHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[DataAddRecurringCommitInvoiceAmount] = None
     """The amount the customer should be billed for the commit. Not required."""
@@ -628,6 +727,9 @@ class DataAddRecurringCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[DataAddRecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class DataAddRecurringCreditAccessAmount(BaseModel):
@@ -696,6 +798,19 @@ class DataAddRecurringCreditSpecifier(BaseModel):
     """
 
 
+class DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCreditSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
+
+
 class DataAddRecurringCredit(BaseModel):
     id: str
 
@@ -731,7 +846,7 @@ class DataAddRecurringCredit(BaseModel):
     """Determines when the contract will stop creating recurring commits. Optional"""
 
     hierarchy_configuration: Optional[DataAddRecurringCreditHierarchyConfiguration] = None
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
     """Displayed on invoices. Will be passed through to the individual commits"""
@@ -768,6 +883,9 @@ class DataAddRecurringCredit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[DataAddRecurringCreditSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class DataAddResellerRoyalty(BaseModel):
@@ -1025,6 +1143,31 @@ class DataUpdateCommitAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCommitAccessScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataUpdateCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataUpdateCommitHierarchyConfiguration(BaseModel):
+    child_access: DataUpdateCommitHierarchyConfigurationChildAccess
+
+
 class DataUpdateCommitInvoiceScheduleAddScheduleItem(BaseModel):
     timestamp: datetime
 
@@ -1095,6 +1238,9 @@ class DataUpdateCommit(BaseModel):
     provided, the commit applies to all products.
     """
 
+    hierarchy_configuration: Optional[DataUpdateCommitHierarchyConfiguration] = None
+    """Optional configuration for commit hierarchy access control"""
+
     invoice_schedule: Optional[DataUpdateCommitInvoiceSchedule] = None
 
     name: Optional[str] = None
@@ -1111,6 +1257,8 @@ class DataUpdateCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1148,10 +1296,38 @@ class DataUpdateCreditAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCreditAccessScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
+    type: Literal["NONE"]
+
+
+class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataUpdateCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+]
+
+
+class DataUpdateCreditHierarchyConfiguration(BaseModel):
+    child_access: DataUpdateCreditHierarchyConfigurationChildAccess
+
+
 class DataUpdateCredit(BaseModel):
     id: str
 
     access_schedule: Optional[DataUpdateCreditAccessSchedule] = None
+
+    hierarchy_configuration: Optional[DataUpdateCreditHierarchyConfiguration] = None
+    """Optional configuration for credit hierarchy access control"""
 
     name: Optional[str] = None
 
@@ -1221,7 +1397,7 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
 
 class DataUpdateDiscountSchedule(BaseModel):
     credit_type_id: Optional[str] = None
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: Optional[DataUpdateDiscountScheduleRecurringSchedule] = None
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1300,6 +1476,8 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 

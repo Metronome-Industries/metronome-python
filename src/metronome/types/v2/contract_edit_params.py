@@ -60,6 +60,8 @@ __all__ = [
     "AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCommitInvoiceAmount",
     "AddRecurringCommitSpecifier",
+    "AddRecurringCommitSubscriptionConfig",
+    "AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "AddRecurringCredit",
     "AddRecurringCreditAccessAmount",
     "AddRecurringCreditCommitDuration",
@@ -69,6 +71,8 @@ __all__ = [
     "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
     "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCreditSpecifier",
+    "AddRecurringCreditSubscriptionConfig",
+    "AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
@@ -334,7 +338,7 @@ class AddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 class AddCommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddCommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -485,6 +489,8 @@ class AddCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
     temporary_id: str
@@ -600,6 +606,8 @@ class AddCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -664,7 +672,7 @@ class AddDiscountScheduleScheduleItem(TypedDict, total=False):
 
 class AddDiscountSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddDiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -889,6 +897,8 @@ class AddPrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 
@@ -1065,6 +1075,21 @@ class AddRecurringCommitSpecifier(TypedDict, total=False):
     """
 
 
+class AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
+
+
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
     """The amount of commit to grant."""
@@ -1097,7 +1122,7 @@ class AddRecurringCommit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCommitHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: AddRecurringCommitInvoiceAmount
     """The amount the customer should be billed for the commit. Not required."""
@@ -1140,7 +1165,12 @@ class AddRecurringCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
+
+    subscription_config: AddRecurringCommitSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
 
     temporary_id: str
     """
@@ -1210,6 +1240,21 @@ class AddRecurringCreditSpecifier(TypedDict, total=False):
     """
 
 
+class AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
+    apply_seat_increase_config: Required[AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
+
+    subscription_id: Required[str]
+    """ID of the subscription to configure on the recurring commit/credit."""
+
+    allocation: Literal["POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account."""
+
+
 class AddRecurringCredit(TypedDict, total=False):
     access_amount: Required[AddRecurringCreditAccessAmount]
     """The amount of commit to grant."""
@@ -1242,7 +1287,7 @@ class AddRecurringCredit(TypedDict, total=False):
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: AddRecurringCreditHierarchyConfiguration
-    """Optional configuration for recurring commit/credit hierarchy access control"""
+    """Optional configuration for recurring credit hierarchy access control"""
 
     name: str
     """displayed on invoices. will be passed through to the individual commits"""
@@ -1282,7 +1327,12 @@ class AddRecurringCredit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
+
+    subscription_config: AddRecurringCreditSubscriptionConfig
+    """Attach a subscription to the recurring commit/credit."""
 
     temporary_id: str
     """
@@ -1391,7 +1441,7 @@ class AddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 class AddScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
-    """Defaults to USD if not passed. Only USD is supported at this time."""
+    """Defaults to USD (cents) if not passed."""
 
     recurring_schedule: AddScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1507,9 +1557,10 @@ class AddSubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
     """Indicates how mid-period quantity adjustments are invoiced.
 
-    If BILL_IMMEDIATELY is selected, the quantity increase will be billed on the
-    scheduled date. If BILL_ON_NEXT_COLLECTION_DATE is selected, the quantity
-    increase will be billed for in-arrears at the end of the period.
+    **BILL_IMMEDIATELY**: Only available when collection schedule is `ADVANCE`. The
+    quantity increase will be billed immediately on the scheduled date.
+    **BILL_ON_NEXT_COLLECTION_DATE**: The quantity increase will be billed for
+    in-arrears at the end of the period.
     """
 
     is_prorated: bool
@@ -1552,6 +1603,12 @@ class AddSubscription(TypedDict, total=False):
     """Inclusive start time for the subscription.
 
     If not provided, defaults to contract start date
+    """
+
+    temporary_id: str
+    """
+    A temporary ID used to reference the subscription in recurring commit/credit
+    subscription configs created within the same payload.
     """
 
 
@@ -1825,6 +1882,8 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
     """
 
 

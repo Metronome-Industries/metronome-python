@@ -98,6 +98,8 @@ class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
@@ -132,6 +134,8 @@ class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_CANCELED"]
 
+    contract_id: Optional[str] = None
+
 
 class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     amount: float
@@ -143,6 +147,8 @@ class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_CREDITED"]
+
+    contract_id: Optional[str] = None
 
 
 class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
@@ -174,6 +180,8 @@ class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION"]
 
+    contract_id: Optional[str] = None
+
 
 class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
@@ -195,6 +203,8 @@ class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_TRUEUP"]
+
+    contract_id: Optional[str] = None
 
 
 class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
