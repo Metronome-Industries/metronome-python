@@ -26,4 +26,10 @@ class ScheduleItem(BaseModel):
 class SchedulePointInTime(BaseModel):
     credit_type: Optional[CreditTypeData] = None
 
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     schedule_items: Optional[List[ScheduleItem]] = None
