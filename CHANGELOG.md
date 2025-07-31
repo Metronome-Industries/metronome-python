@@ -5,18 +5,14 @@
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0...v0.2.0)
 
 ### Features
+* **api:** Add support for spend threshold alerts for specific group keys. See [updated alert documentation](https://docs.metronome.com/manage-product-access/create-manage-alerts/#spend-alerts).
+* **api:** Add support for recurring commits linked to subscriptions. See documentation for [hybrid billing models](https://docs.metronome.com/launch-guides/hybrid-business/#implement-a-hybrid-model-for-a-customer).
+* **api:** Add support for new styles in embeddable dashboards.
+* **api:** Add reference to contract on commit objects.
 
-* **api:** api update ([7961ac4](https://github.com/Metronome-Industries/metronome-python/commit/7961ac4a940f0db5ff5de6e596d17d2ffcd2e3ed))
-* **api:** api update ([f76a0d7](https://github.com/Metronome-Industries/metronome-python/commit/f76a0d79d20be4b1ffa0e1717e9ded91ec0beb34))
-* **api:** api update ([fe92b12](https://github.com/Metronome-Industries/metronome-python/commit/fe92b12a2943715784392411f1957f846852e257))
-* **api:** api update ([a30f8cc](https://github.com/Metronome-Industries/metronome-python/commit/a30f8cc5bde76f7ed052a9ddb8543d662cd1da62))
-* **api:** api update ([54a3606](https://github.com/Metronome-Industries/metronome-python/commit/54a3606c4037f6714e1dec19ad72c2c1bfaf34ea))
-* **api:** api update ([ec47c55](https://github.com/Metronome-Industries/metronome-python/commit/ec47c55d86774c8c910e18bd93fe39582de6e136))
-* **api:** api update ([f7b353a](https://github.com/Metronome-Industries/metronome-python/commit/f7b353aeabcb5afddbca3e267632c22203faf7bc))
-* **api:** api update ([f6113fd](https://github.com/Metronome-Industries/metronome-python/commit/f6113fddd0df96154a266c4a93924179979ccaba))
-* **api:** api update ([0796e2a](https://github.com/Metronome-Industries/metronome-python/commit/0796e2a8b6ae1a1ced16afe4d64d90abc7629b17))
-* **api:** api update ([5fad245](https://github.com/Metronome-Industries/metronome-python/commit/5fad245044aaa3fa474bb1b1645af991ab94c257))
-* **client:** support file upload requests ([5b1cc58](https://github.com/Metronome-Industries/metronome-python/commit/5b1cc5867032658ae6276853e1691b6394ad5f28))
+### Chores
+
+* **docs:** Improved documentation.
 
 ## 0.1.0 (2025-07-24)
 
