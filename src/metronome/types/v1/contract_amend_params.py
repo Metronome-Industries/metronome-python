@@ -198,6 +198,12 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: CommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -529,6 +535,12 @@ class DiscountSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: DiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -837,6 +849,12 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 class ScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: ScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
