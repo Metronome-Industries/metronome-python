@@ -1024,10 +1024,9 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
@@ -1197,10 +1196,9 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
