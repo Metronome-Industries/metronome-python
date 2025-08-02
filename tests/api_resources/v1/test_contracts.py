@@ -70,6 +70,7 @@ class TestContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -154,6 +155,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -395,6 +397,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -686,6 +689,7 @@ class TestContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -770,6 +774,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -878,6 +883,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1389,6 +1395,7 @@ class TestAsyncContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1473,6 +1480,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1714,6 +1722,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2005,6 +2014,7 @@ class TestAsyncContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2089,6 +2099,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2197,6 +2208,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),

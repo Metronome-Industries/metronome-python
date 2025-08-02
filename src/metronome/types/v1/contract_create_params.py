@@ -325,6 +325,12 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: CommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -655,6 +661,12 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
 class DiscountSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: DiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1012,10 +1024,9 @@ class RecurringCommitAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
@@ -1183,10 +1194,9 @@ class RecurringCreditAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
@@ -1437,6 +1447,12 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 class ScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: ScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
