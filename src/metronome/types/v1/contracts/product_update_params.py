@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
+from .quantity_rounding_param import QuantityRoundingParam
+from .quantity_conversion_param import QuantityConversionParam
 
-__all__ = ["ProductUpdateParams", "QuantityConversion", "QuantityRounding"]
+__all__ = ["ProductUpdateParams"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -85,7 +87,7 @@ class ProductUpdateParams(TypedDict, total=False):
     key on the billable metric.
     """
 
-    quantity_conversion: Optional[QuantityConversion]
+    quantity_conversion: Optional[QuantityConversionParam]
     """Optional.
 
     Only valid for USAGE products. If provided, the quantity will be converted using
@@ -97,7 +99,7 @@ class ProductUpdateParams(TypedDict, total=False):
     "divide".
     """
 
-    quantity_rounding: Optional[QuantityRounding]
+    quantity_rounding: Optional[QuantityRoundingParam]
     """Optional.
 
     Only valid for USAGE products. If provided, the quantity will be rounded using
@@ -108,20 +110,3 @@ class ProductUpdateParams(TypedDict, total=False):
 
     tags: List[str]
     """If not provided, defaults to product's current tags"""
-
-
-class QuantityConversion(TypedDict, total=False):
-    conversion_factor: Required[float]
-    """The factor to multiply or divide the quantity by."""
-
-    operation: Required[Literal["MULTIPLY", "DIVIDE"]]
-    """The operation to perform on the quantity"""
-
-    name: str
-    """Optional name for this conversion."""
-
-
-class QuantityRounding(TypedDict, total=False):
-    decimal_places: Required[float]
-
-    rounding_method: Required[Literal["ROUND_UP", "ROUND_DOWN", "ROUND_HALF_UP"]]
