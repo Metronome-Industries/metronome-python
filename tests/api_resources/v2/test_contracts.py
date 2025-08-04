@@ -573,6 +573,7 @@ class TestContracts:
                         ],
                     },
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "rollover_fraction": 0,
                 }
@@ -807,6 +808,7 @@ class TestContracts:
                     }
                 ],
             },
+            priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             specifiers=[
                 {
@@ -878,6 +880,7 @@ class TestContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             specifiers=[
                 {
@@ -1504,6 +1507,7 @@ class TestAsyncContracts:
                         ],
                     },
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
+                    "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "rollover_fraction": 0,
                 }
@@ -1738,6 +1742,7 @@ class TestAsyncContracts:
                     }
                 ],
             },
+            priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             specifiers=[
                 {
@@ -1809,6 +1814,7 @@ class TestAsyncContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             specifiers=[
                 {

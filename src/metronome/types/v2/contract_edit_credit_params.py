@@ -41,6 +41,12 @@ class ContractEditCreditParams(TypedDict, total=False):
     credit applies to all products.
     """
 
+    priority: Optional[float]
+    """
+    If multiple commits are applicable, the one with the lower priority will apply
+    first.
+    """
+
     product_id: str
 
     specifiers: Optional[Iterable[Specifier]]
