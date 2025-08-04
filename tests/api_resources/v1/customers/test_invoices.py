@@ -12,7 +12,7 @@ from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
 from metronome.types.v1.customers import (
-    InvoiceListResponse,
+    Invoice,
     InvoiceRetrieveResponse,
     InvoiceAddChargeResponse,
     InvoiceListBreakdownsResponse,
@@ -86,7 +86,7 @@ class TestInvoices:
         invoice = client.v1.customers.invoices.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(SyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -101,7 +101,7 @@ class TestInvoices:
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="status",
         )
-        assert_matches_type(SyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -112,7 +112,7 @@ class TestInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = response.parse()
-        assert_matches_type(SyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(SyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -123,7 +123,7 @@ class TestInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = response.parse()
-            assert_matches_type(SyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+            assert_matches_type(SyncCursorPage[Invoice], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -326,7 +326,7 @@ class TestAsyncInvoices:
         invoice = await async_client.v1.customers.invoices.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
-        assert_matches_type(AsyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -341,7 +341,7 @@ class TestAsyncInvoices:
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="status",
         )
-        assert_matches_type(AsyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -352,7 +352,7 @@ class TestAsyncInvoices:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         invoice = await response.parse()
-        assert_matches_type(AsyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+        assert_matches_type(AsyncCursorPage[Invoice], invoice, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -363,7 +363,7 @@ class TestAsyncInvoices:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             invoice = await response.parse()
-            assert_matches_type(AsyncCursorPage[InvoiceListResponse], invoice, path=["response"])
+            assert_matches_type(AsyncCursorPage[Invoice], invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

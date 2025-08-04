@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractEditParams",
@@ -15,8 +16,9 @@ __all__ = [
     "AddCommitAccessScheduleScheduleItem",
     "AddCommitHierarchyConfiguration",
     "AddCommitHierarchyConfigurationChildAccess",
-    "AddCommitHierarchyConfigurationChildAccessType",
-    "AddCommitHierarchyConfigurationChildAccessUnionMember2",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddCommitInvoiceSchedule",
     "AddCommitInvoiceScheduleRecurringSchedule",
     "AddCommitInvoiceScheduleScheduleItem",
@@ -29,8 +31,9 @@ __all__ = [
     "AddCreditAccessScheduleScheduleItem",
     "AddCreditHierarchyConfiguration",
     "AddCreditHierarchyConfigurationChildAccess",
-    "AddCreditHierarchyConfigurationChildAccessType",
-    "AddCreditHierarchyConfigurationChildAccessUnionMember2",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddCreditSpecifier",
     "AddDiscount",
     "AddDiscountSchedule",
@@ -39,7 +42,6 @@ __all__ = [
     "AddOverride",
     "AddOverrideOverrideSpecifier",
     "AddOverrideOverwriteRate",
-    "AddOverrideOverwriteRateTier",
     "AddOverrideTier",
     "AddPrepaidBalanceThresholdConfiguration",
     "AddPrepaidBalanceThresholdConfigurationCommit",
@@ -53,8 +55,9 @@ __all__ = [
     "AddRecurringCommitCommitDuration",
     "AddRecurringCommitHierarchyConfiguration",
     "AddRecurringCommitHierarchyConfigurationChildAccess",
-    "AddRecurringCommitHierarchyConfigurationChildAccessType",
-    "AddRecurringCommitHierarchyConfigurationChildAccessUnionMember2",
+    "AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCommitInvoiceAmount",
     "AddRecurringCommitSpecifier",
     "AddRecurringCommitSubscriptionConfig",
@@ -64,8 +67,9 @@ __all__ = [
     "AddRecurringCreditCommitDuration",
     "AddRecurringCreditHierarchyConfiguration",
     "AddRecurringCreditHierarchyConfigurationChildAccess",
-    "AddRecurringCreditHierarchyConfigurationChildAccessType",
-    "AddRecurringCreditHierarchyConfigurationChildAccessUnionMember2",
+    "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "AddRecurringCreditSpecifier",
     "AddRecurringCreditSubscriptionConfig",
     "AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
@@ -95,8 +99,9 @@ __all__ = [
     "UpdateCommitAccessScheduleUpdateScheduleItem",
     "UpdateCommitHierarchyConfiguration",
     "UpdateCommitHierarchyConfigurationChildAccess",
-    "UpdateCommitHierarchyConfigurationChildAccessType",
-    "UpdateCommitHierarchyConfigurationChildAccessUnionMember2",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "UpdateCommitInvoiceSchedule",
     "UpdateCommitInvoiceScheduleAddScheduleItem",
     "UpdateCommitInvoiceScheduleRemoveScheduleItem",
@@ -108,8 +113,9 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdateCreditHierarchyConfiguration",
     "UpdateCreditHierarchyConfigurationChildAccess",
-    "UpdateCreditHierarchyConfigurationChildAccessType",
-    "UpdateCreditHierarchyConfigurationChildAccessUnionMember2",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
+    "UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
     "UpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
@@ -246,20 +252,24 @@ class AddCommitAccessSchedule(TypedDict, total=False):
     credit_type_id: str
 
 
-class AddCommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class AddCommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 AddCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    AddCommitHierarchyConfigurationChildAccessType,
-    AddCommitHierarchyConfigurationChildAccessType,
-    AddCommitHierarchyConfigurationChildAccessUnionMember2,
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -512,20 +522,24 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     credit_type_id: str
 
 
-class AddCreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class AddCreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 AddCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    AddCreditHierarchyConfigurationChildAccessType,
-    AddCreditHierarchyConfigurationChildAccessType,
-    AddCreditHierarchyConfigurationChildAccessUnionMember2,
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -749,12 +763,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class AddOverrideOverwriteRateTier(TypedDict, total=False):
-    price: Required[float]
-
-    size: float
-
-
 class AddOverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -782,7 +790,7 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[AddOverrideOverwriteRateTier]
+    tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
 
@@ -1028,20 +1036,24 @@ class AddRecurringCommitCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
-class AddRecurringCommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class AddRecurringCommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 AddRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    AddRecurringCommitHierarchyConfigurationChildAccessType,
-    AddRecurringCommitHierarchyConfigurationChildAccessType,
-    AddRecurringCommitHierarchyConfigurationChildAccessUnionMember2,
+    AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -1196,20 +1208,24 @@ class AddRecurringCreditCommitDuration(TypedDict, total=False):
     unit: Literal["PERIODS"]
 
 
-class AddRecurringCreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class AddRecurringCreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 AddRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    AddRecurringCreditHierarchyConfigurationChildAccessType,
-    AddRecurringCreditHierarchyConfigurationChildAccessType,
-    AddRecurringCreditHierarchyConfigurationChildAccessUnionMember2,
+    AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    AddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -1658,20 +1674,24 @@ class UpdateCommitAccessSchedule(TypedDict, total=False):
     update_schedule_items: Iterable[UpdateCommitAccessScheduleUpdateScheduleItem]
 
 
-class UpdateCommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class UpdateCommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 UpdateCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    UpdateCommitHierarchyConfigurationChildAccessType,
-    UpdateCommitHierarchyConfigurationChildAccessType,
-    UpdateCommitHierarchyConfigurationChildAccessUnionMember2,
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    UpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
@@ -1776,20 +1796,24 @@ class UpdateCreditAccessSchedule(TypedDict, total=False):
     update_schedule_items: Iterable[UpdateCreditAccessScheduleUpdateScheduleItem]
 
 
-class UpdateCreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class UpdateCreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
+    type: Required[Literal["NONE"]]
+
+
+class UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 UpdateCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    UpdateCreditHierarchyConfigurationChildAccessType,
-    UpdateCreditHierarchyConfigurationChildAccessType,
-    UpdateCreditHierarchyConfigurationChildAccessUnionMember2,
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
+    UpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
 ]
 
 
