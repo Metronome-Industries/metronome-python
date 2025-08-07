@@ -1845,6 +1845,8 @@ class UpdateCredit(TypedDict, total=False):
 
     netsuite_sales_order_id: Optional[str]
 
+    priority: Optional[float]
+
     product_id: str
 
 
