@@ -178,6 +178,7 @@ class TestContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },
@@ -1113,6 +1114,7 @@ class TestAsyncContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },

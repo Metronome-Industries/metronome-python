@@ -383,6 +383,18 @@ class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     Only applicable if using INVOICE as your payment type.
     """
 
+    on_session_payment: bool
+    """If true, the payment will be made assuming the customer is present (i.e.
+
+    on session).
+
+    If false, the payment will be made assuming the customer is not present (i.e.
+    off session). For cardholders from a country with an e-mandate requirement (e.g.
+    India), the payment may be declined.
+
+    If left blank, will default to false.
+    """
+
 
 class AddCommitPaymentGateConfig(TypedDict, total=False):
     payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
