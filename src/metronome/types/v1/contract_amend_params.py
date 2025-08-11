@@ -7,7 +7,6 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
 
 __all__ = [
     "ContractAmendParams",
@@ -16,9 +15,8 @@ __all__ = [
     "CommitAccessScheduleScheduleItem",
     "CommitHierarchyConfiguration",
     "CommitHierarchyConfigurationChildAccess",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "CommitHierarchyConfigurationChildAccessType",
+    "CommitHierarchyConfigurationChildAccessUnionMember2",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
@@ -31,9 +29,8 @@ __all__ = [
     "CreditAccessScheduleScheduleItem",
     "CreditHierarchyConfiguration",
     "CreditHierarchyConfigurationChildAccess",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "CreditHierarchyConfigurationChildAccessType",
+    "CreditHierarchyConfigurationChildAccessUnionMember2",
     "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
@@ -42,6 +39,7 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
+    "OverrideOverwriteRateTier",
     "OverrideTier",
     "ProfessionalService",
     "ResellerRoyalty",
@@ -110,24 +108,20 @@ class CommitAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+class CommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
-    type: Required[Literal["NONE"]]
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+class CommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    CommitHierarchyConfigurationChildAccessType,
+    CommitHierarchyConfigurationChildAccessType,
+    CommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -391,24 +385,20 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
+class CreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
     type: Required[Literal["ALL"]]
 
 
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
-    type: Required[Literal["NONE"]]
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
+class CreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
     contract_ids: Required[List[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 
 
 CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    CreditHierarchyConfigurationChildAccessType,
+    CreditHierarchyConfigurationChildAccessType,
+    CreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -632,6 +622,12 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class OverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -659,7 +655,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[OverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 
