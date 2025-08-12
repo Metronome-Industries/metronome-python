@@ -1489,6 +1489,8 @@ class AddScheduledCharge(TypedDict, total=False):
     schedule: Required[AddScheduledChargeSchedule]
     """Must provide either schedule_items or recurring_schedule."""
 
+    custom_fields: Dict[str, str]
+
     name: str
     """displayed on invoices"""
 
