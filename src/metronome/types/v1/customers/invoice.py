@@ -100,6 +100,16 @@ class LineItem(BaseModel):
 
     total: float
 
+    type: str
+    """The type of line item.
+
+    Possible values are 'aws_royalty', 'applied_commit_or_credit', 'scheduled',
+    'commit_purchase', 'cpu_conversion', 'discount', 'gcp_royalty',
+    'postpaid_trueup', 'professional_services', 'subscription', 'usage', 'legacy',
+    'minimum', 'product_charge', 'trial_discount', 'rollover', 'seat',
+    'grouped_charge'.
+    """
+
     applied_commit_or_credit: Optional[LineItemAppliedCommitOrCredit] = None
     """Details about the credit or commit that was applied to this line item.
 
