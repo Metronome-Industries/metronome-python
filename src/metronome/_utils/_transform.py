@@ -230,10 +230,10 @@ def _transform_recursive(
 def _format_data(data: object, format_: PropertyFormat, format_template: str | None) -> object:
     if isinstance(data, (date, datetime)):
         if format_ == "iso8601":
-            if data.microsecond == 0:
-                return data.isoformat(sep="T", timespec="seconds").replace("+00:00", "Z")
-            else:
+            if (isinstance(data, datetime)):
                 return data.isoformat(sep="T", timespec="milliseconds").replace("+00:00", "Z")
+            else:
+                return data.isoformat().replace("+00:00", "Z") 
 
         if format_ == "custom" and format_template is not None:
             return data.strftime(format_template)
