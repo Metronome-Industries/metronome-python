@@ -190,11 +190,11 @@ class DateModel(BaseModel):
 async def test_iso8601_format(use_async: bool) -> None:
     dt = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
     assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
-    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
+    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337692Z"}  # type: ignore[comparison-overlap]
 
     dt = dt.replace(tzinfo=None)
-    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
-    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
+    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337"}  # type: ignore[comparison-overlap]
+    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337692"}  # type: ignore[comparison-overlap]
 
     assert await transform({"foo": None}, DateDict, use_async) == {"foo": None}  # type: ignore[comparison-overlap]
     assert await transform(DateModel(foo=None), Any, use_async) == {"foo": None}  # type: ignore
