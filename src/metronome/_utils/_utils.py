@@ -417,9 +417,6 @@ def json_safe(data: object) -> object:
         return [json_safe(item) for item in data]
 
     if isinstance(data, (datetime, date)):
-        if (isinstance(data, datetime)):
-            return data.isoformat(sep="T", timespec="milliseconds").replace("+00:00", "Z")
-        else:
-            return data.isoformat().replace("+00:00", "Z") 
+        return data.isoformat().replace("+00:00", "Z") 
 
     return data
