@@ -189,13 +189,12 @@ class DateModel(BaseModel):
 @pytest.mark.asyncio
 async def test_iso8601_format(use_async: bool) -> None:
     dt = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
-    tz = "Z" if PYDANTIC_V2 else "+00:00"
-    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337692+00:00"}  # type: ignore[comparison-overlap]
-    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337692" + tz}  # type: ignore[comparison-overlap]
+    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
+    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
 
     dt = dt.replace(tzinfo=None)
-    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337692"}  # type: ignore[comparison-overlap]
-    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337692"}  # type: ignore[comparison-overlap]
+    assert await transform({"foo": dt}, DatetimeDict, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
+    assert await transform(DatetimeModel(foo=dt), Any, use_async) == {"foo": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
 
     assert await transform({"foo": None}, DateDict, use_async) == {"foo": None}  # type: ignore[comparison-overlap]
     assert await transform(DateModel(foo=None), Any, use_async) == {"foo": None}  # type: ignore
@@ -209,7 +208,7 @@ async def test_iso8601_format(use_async: bool) -> None:
 @pytest.mark.asyncio
 async def test_optional_iso8601_format(use_async: bool) -> None:
     dt = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
-    assert await transform({"bar": dt}, DatetimeDict, use_async) == {"bar": "2023-02-23T14:16:36.337692+00:00"}  # type: ignore[comparison-overlap]
+    assert await transform({"bar": dt}, DatetimeDict, use_async) == {"bar": "2023-02-23T14:16:36.337Z"}  # type: ignore[comparison-overlap]
 
     assert await transform({"bar": None}, DatetimeDict, use_async) == {"bar": None}
 
@@ -219,7 +218,7 @@ async def test_optional_iso8601_format(use_async: bool) -> None:
 async def test_required_iso8601_format(use_async: bool) -> None:
     dt = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
     assert await transform({"required": dt}, DatetimeDict, use_async) == {
-        "required": "2023-02-23T14:16:36.337692+00:00"
+        "required": "2023-02-23T14:16:36.337Z"
     }  # type: ignore[comparison-overlap]
 
     assert await transform({"required": None}, DatetimeDict, use_async) == {"required": None}
@@ -230,7 +229,7 @@ async def test_required_iso8601_format(use_async: bool) -> None:
 async def test_union_datetime(use_async: bool) -> None:
     dt = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
     assert await transform({"union": dt}, DatetimeDict, use_async) == {  # type: ignore[comparison-overlap]
-        "union": "2023-02-23T14:16:36.337692+00:00"
+        "union": "2023-02-23T14:16:36.337Z"
     }
 
     assert await transform({"union": "foo"}, DatetimeDict, use_async) == {"union": "foo"}
@@ -242,7 +241,7 @@ async def test_nested_list_iso6801_format(use_async: bool) -> None:
     dt1 = datetime.fromisoformat("2023-02-23T14:16:36.337692+00:00")
     dt2 = parse_datetime("2022-01-15T06:34:23Z")
     assert await transform({"list_": [dt1, dt2]}, DatetimeDict, use_async) == {  # type: ignore[comparison-overlap]
-        "list_": ["2023-02-23T14:16:36.337692+00:00", "2022-01-15T06:34:23+00:00"]
+        "list_": ["2023-02-23T14:16:36.337Z", "2022-01-15T06:34:23.000Z"]
     }
 
 
