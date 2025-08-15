@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.3.0 (2025-08-15)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** api update ([000db75](https://github.com/Metronome-Industries/metronome-python/commit/000db75b4cbe7b76821fd298464de9ce31428d19))
+* **api:** api update ([d3928f1](https://github.com/Metronome-Industries/metronome-python/commit/d3928f186cf1ea71c2db49fa4bc2c6ed21983518))
+* **api:** api update ([adeb2a3](https://github.com/Metronome-Industries/metronome-python/commit/adeb2a33754c069bfac5a290fba749cb1f4220d1))
+* **api:** api update ([3882ef7](https://github.com/Metronome-Industries/metronome-python/commit/3882ef73128f7a7cef3cfe53e27387340eecb11f))
+* **api:** api update ([9f2846a](https://github.com/Metronome-Industries/metronome-python/commit/9f2846aff07a11ebb35418a0334256be839c3c2d))
+* **api:** api update ([059bfe4](https://github.com/Metronome-Industries/metronome-python/commit/059bfe43d5308a2542d07e3d699ea2c1897d634b))
+* **api:** api update ([7abb045](https://github.com/Metronome-Industries/metronome-python/commit/7abb0457942e3cd7a50f78109a7ef56be51938c3))
+* **api:** api update ([9cb1463](https://github.com/Metronome-Industries/metronome-python/commit/9cb1463be13df569e5139e1a5fb4f7156805c47b))
+* **api:** api update ([97c20fc](https://github.com/Metronome-Industries/metronome-python/commit/97c20fc49e86d7b17a8fe382923f4c0f7b17af29))
+* **api:** api update ([48549d0](https://github.com/Metronome-Industries/metronome-python/commit/48549d0c3f8a9609a9245862f9a42e9556a11a7c))
+* **api:** api update ([df90b39](https://github.com/Metronome-Industries/metronome-python/commit/df90b392fa589f812083f531048ce356dd53a9ee))
+
+
+### Chores
+
+* **internal:** fix ruff target version ([bd52fdd](https://github.com/Metronome-Industries/metronome-python/commit/bd52fddb684a7b10aff1d8b6c70ec12aa9ecebe2))
+* **internal:** update comment in script ([585d1a1](https://github.com/Metronome-Industries/metronome-python/commit/585d1a10491743753124ff7810a183128063b3d8))
+* update @stainless-api/prism-cli to v5.15.0 ([1d7e80f](https://github.com/Metronome-Industries/metronome-python/commit/1d7e80f4d3818a8a5e973a2a1847bd98257d98e4))
+
 ## 0.2.0 (2025-07-30)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.1.0...v0.2.0)
