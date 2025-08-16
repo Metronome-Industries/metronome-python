@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -66,6 +66,7 @@ class ProductsResource(SyncAPIResource):
         billable_metric_id: str | NotGiven = NOT_GIVEN,
         composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
         composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
@@ -143,6 +144,7 @@ class ProductsResource(SyncAPIResource):
                     "billable_metric_id": billable_metric_id,
                     "composite_product_ids": composite_product_ids,
                     "composite_tags": composite_tags,
+                    "custom_fields": custom_fields,
                     "exclude_free_usage": exclude_free_usage,
                     "is_refundable": is_refundable,
                     "netsuite_internal_item_id": netsuite_internal_item_id,
@@ -426,6 +428,7 @@ class AsyncProductsResource(AsyncAPIResource):
         billable_metric_id: str | NotGiven = NOT_GIVEN,
         composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
         composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
@@ -503,6 +506,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "billable_metric_id": billable_metric_id,
                     "composite_product_ids": composite_product_ids,
                     "composite_tags": composite_tags,
+                    "custom_fields": custom_fields,
                     "exclude_free_usage": exclude_free_usage,
                     "is_refundable": is_refundable,
                     "netsuite_internal_item_id": netsuite_internal_item_id,

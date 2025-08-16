@@ -340,6 +340,12 @@ class AddCommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: AddCommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -375,6 +381,18 @@ class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     """Metadata to be added to the Stripe invoice.
 
     Only applicable if using INVOICE as your payment type.
+    """
+
+    on_session_payment: bool
+    """If true, the payment will be made assuming the customer is present (i.e.
+
+    on session).
+
+    If false, the payment will be made assuming the customer is not present (i.e.
+    off session). For cardholders from a country with an e-mandate requirement (e.g.
+    India), the payment may be declined.
+
+    If left blank, will default to false.
     """
 
 
@@ -673,6 +691,12 @@ class AddDiscountScheduleScheduleItem(TypedDict, total=False):
 class AddDiscountSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: AddDiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -1012,10 +1036,9 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
@@ -1185,10 +1208,9 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
     unit_price: Required[float]
 
     quantity: float
-    """This field is currently required.
-
-    Upcoming recurring commit/credit configuration options will allow it to be
-    optional.
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
     """
 
 
@@ -1443,6 +1465,12 @@ class AddScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: AddScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -1460,6 +1488,8 @@ class AddScheduledCharge(TypedDict, total=False):
 
     schedule: Required[AddScheduledChargeSchedule]
     """Must provide either schedule_items or recurring_schedule."""
+
+    custom_fields: Dict[str, str]
 
     name: str
     """displayed on invoices"""
@@ -1743,6 +1773,8 @@ class UpdateCommit(TypedDict, total=False):
 
     netsuite_sales_order_id: Optional[str]
 
+    priority: Optional[float]
+
     product_id: str
 
     rollover_fraction: Optional[float]
@@ -1826,6 +1858,8 @@ class UpdateCredit(TypedDict, total=False):
     """Optional configuration for commit hierarchy access control"""
 
     netsuite_sales_order_id: Optional[str]
+
+    priority: Optional[float]
 
     product_id: str
 

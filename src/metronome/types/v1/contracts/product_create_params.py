@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .quantity_rounding_param import QuantityRoundingParam
@@ -25,6 +25,8 @@ class ProductCreateParams(TypedDict, total=False):
 
     composite_tags: List[str]
     """Required for COMPOSITE products"""
+
+    custom_fields: Dict[str, str]
 
     exclude_free_usage: bool
     """Beta feature only available for composite products.

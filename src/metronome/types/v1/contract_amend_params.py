@@ -198,6 +198,12 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: CommitInvoiceScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -233,6 +239,18 @@ class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     """Metadata to be added to the Stripe invoice.
 
     Only applicable if using INVOICE as your payment type.
+    """
+
+    on_session_payment: bool
+    """If true, the payment will be made assuming the customer is present (i.e.
+
+    on session).
+
+    If false, the payment will be made assuming the customer is not present (i.e.
+    off session). For cardholders from a country with an e-mandate requirement (e.g.
+    India), the payment may be declined.
+
+    If left blank, will default to false.
     """
 
 
@@ -528,6 +546,12 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
 class DiscountSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: DiscountScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
@@ -838,6 +862,12 @@ class ScheduledChargeSchedule(TypedDict, total=False):
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
     recurring_schedule: ScheduledChargeScheduleRecurringSchedule
     """Enter the unit price and quantity for the charge or instead only send the
     amount.
@@ -855,6 +885,8 @@ class ScheduledCharge(TypedDict, total=False):
 
     schedule: Required[ScheduledChargeSchedule]
     """Must provide either schedule_items or recurring_schedule."""
+
+    custom_fields: Dict[str, str]
 
     name: str
     """displayed on invoices"""

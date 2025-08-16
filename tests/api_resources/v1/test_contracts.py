@@ -70,6 +70,7 @@ class TestContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -99,6 +100,7 @@ class TestContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },
@@ -154,6 +156,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -395,6 +398,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -413,6 +417,7 @@ class TestContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -686,6 +691,7 @@ class TestContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -715,6 +721,7 @@ class TestContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },
@@ -770,6 +777,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -878,6 +886,7 @@ class TestContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -896,6 +905,7 @@ class TestContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -1389,6 +1399,7 @@ class TestAsyncContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1418,6 +1429,7 @@ class TestAsyncContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },
@@ -1473,6 +1485,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1714,6 +1727,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1732,6 +1746,7 @@ class TestAsyncContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }
@@ -2005,6 +2020,7 @@ class TestAsyncContracts:
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2034,6 +2050,7 @@ class TestAsyncContracts:
                         "stripe_config": {
                             "payment_type": "INVOICE",
                             "invoice_metadata": {"foo": "string"},
+                            "on_session_payment": True,
                         },
                         "tax_type": "NONE",
                     },
@@ -2089,6 +2106,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2197,6 +2215,7 @@ class TestAsyncContracts:
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "schedule": {
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "do_not_invoice": True,
                         "recurring_schedule": {
                             "amount_distribution": "DIVIDED",
                             "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -2215,6 +2234,7 @@ class TestAsyncContracts:
                             }
                         ],
                     },
+                    "custom_fields": {"foo": "string"},
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                 }

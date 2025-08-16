@@ -1247,6 +1247,12 @@ class DataUpdateCommit(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
 
+    priority: Optional[float] = None
+    """
+    If multiple commits are applicable, the one with the lower priority will apply
+    first.
+    """
+
     product_id: Optional[str] = None
 
     rollover_fraction: Optional[float] = None
@@ -1333,6 +1339,12 @@ class DataUpdateCredit(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
 
+    priority: Optional[float] = None
+    """
+    If multiple credits are applicable, the one with the lower priority will apply
+    first.
+    """
+
     rollover_fraction: Optional[float] = None
 
 
@@ -1398,6 +1410,12 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
 class DataUpdateDiscountSchedule(BaseModel):
     credit_type_id: Optional[str] = None
     """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
 
     recurring_schedule: Optional[DataUpdateDiscountScheduleRecurringSchedule] = None
     """Enter the unit price and quantity for the charge or instead only send the
