@@ -5,16 +5,13 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ...._models import BaseModel
+from ...shared.rate import Rate
+from ...shared.credit_type_data import CreditTypeData
 
 __all__ = [
-    "InvoiceListResponse",
-    "CreditType",
+    "Invoice",
     "LineItem",
-    "LineItemCreditType",
     "LineItemAppliedCommitOrCredit",
-    "LineItemListPrice",
-    "LineItemListPriceCreditType",
-    "LineItemListPriceTier",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
     "LineItemSubLineItemTierPeriod",
@@ -24,85 +21,16 @@ __all__ = [
     "CorrectionRecordCorrectedExternalInvoice",
     "ExternalInvoice",
     "InvoiceAdjustment",
-    "InvoiceAdjustmentCreditType",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
 ]
 
 
-class CreditType(BaseModel):
-    id: str
-
-    name: str
-
-
-class LineItemCreditType(BaseModel):
-    id: str
-
-    name: str
-
-
 class LineItemAppliedCommitOrCredit(BaseModel):
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
-
-
-class LineItemListPriceCreditType(BaseModel):
-    id: str
-
-    name: str
-
-
-class LineItemListPriceTier(BaseModel):
-    price: float
-
-    size: Optional[float] = None
-
-
-class LineItemListPrice(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
-
-    credit_type: Optional[LineItemListPriceCreditType] = None
-
-    custom_rate: Optional[Dict[str, object]] = None
-    """Only set for CUSTOM rate_type.
-
-    This field is interpreted by custom rate processors.
-    """
-
-    is_prorated: Optional[bool] = None
-    """Default proration configuration.
-
-    Only valid for SUBSCRIPTION rate_type. Must be set to true.
-    """
-
-    price: Optional[float] = None
-    """Default price.
-
-    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
-    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
-    """
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-    """
-    if pricing groups are used, this will contain the values used to calculate the
-    price
-    """
-
-    quantity: Optional[float] = None
-    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
-
-    tiers: Optional[List[LineItemListPriceTier]] = None
-    """Only set for TIERED rate_type."""
-
-    use_list_prices: Optional[bool] = None
-    """Only set for PERCENTAGE rate_type.
-
-    Defaults to false. If true, rate is computed using list prices rather than the
-    standard rates for this product on the contract.
-    """
 
 
 class LineItemPostpaidCommit(BaseModel):
@@ -166,7 +94,7 @@ class LineItemTier(BaseModel):
 
 
 class LineItem(BaseModel):
-    credit_type: LineItemCreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -175,27 +103,27 @@ class LineItem(BaseModel):
     type: str
     """The type of line item.
 
-    scheduled - Line item is associated with a scheduled charge. View the
-    scheduled_charge_id on the line item. commit_purchase - Line item is associated
-    with a payment for a prepaid commit. View the commit_id on the line item.
-    usage - Line item is associated with a usage product or composite product. View
-    the product_id on the line item to determine which product. subscription - Line
-    item is associated with a subscription. e.g. monthly recurring payment for an
-    in-advance subscription. applied_commit_or_credit - On metronome invoices,
-    applied commits and credits are associated with their own line items. These line
-    items have negative totals. Use the applied_commit_or_credit object on the line
-    item to understand the id of the applied commit or credit, and its type. Note
-    that the application of a postpaid commit is associated with a line item, but
-    the total on the line item is not included in the invoice's total as postpaid
-    commits are paid in-arrears. postpaid_trueup - Line item is associated with the
-    true up amount for a postpaid commit. This line item type will only appear on
-    invoices with type TRUEUP . cpu_conversion - Line item converting between a
-    custom pricing unit and fiat currency, using the conversion rate set on the rate
-    card. This line item will appear when there are products priced in custom
-    pricing units, and there is insufficient prepaid commit/credit in that custom
-    pricing unit to fully cover the spend. Then, the outstanding spend in custom
-    pricing units will be converted to fiat currency using a cpu_conversion line
-    item.
+    - `scheduled`: Line item is associated with a scheduled charge. View the
+      scheduled_charge_id on the line item.
+    - `commit_purchase`: Line item is associated with a payment for a prepaid
+      commit. View the commit_id on the line item.
+    - `usage`: Line item is associated with a usage product or composite product.
+      View the product_id on the line item to determine which product.
+    - `subscription`: Line item is associated with a subscription. e.g. monthly
+      recurring payment for an in-advance subscription.
+    - `applied_commit_or_credit`: On metronome invoices, applied commits and credits
+      are associated with their own line items. These line items have negative
+      totals. Use the applied_commit_or_credit object on the line item to understand
+      the id of the applied commit or credit, and its type. Note that the
+      application of a postpaid commit is associated with a line item, but the total
+      on the line item is not included in the invoice's total as postpaid commits
+      are paid in-arrears.
+    - `cpu_conversion`: Line item converting between a custom pricing unit and fiat
+      currency, using the conversion rate set on the rate card. This line item will
+      appear when there are products priced in custom pricing units, and there is
+      insufficient prepaid commit/credit in that custom pricing unit to fully cover
+      the spend. Then, the outstanding spend in custom pricing units will be
+      converted to fiat currency using a cpu_conversion line item.
     """
 
     applied_commit_or_credit: Optional[LineItemAppliedCommitOrCredit] = None
@@ -244,7 +172,7 @@ class LineItem(BaseModel):
     is_prorated: Optional[bool] = None
     """Indicates whether the line item is prorated for `SUBSCRIPTION` type product."""
 
-    list_price: Optional[LineItemListPrice] = None
+    list_price: Optional[Rate] = None
     """
     Only present for contract invoices and when the `include_list_prices` query
     parameter is set to true. This will include the list rate for the charge if
@@ -398,14 +326,8 @@ class ExternalInvoice(BaseModel):
     issued_at_timestamp: Optional[datetime] = None
 
 
-class InvoiceAdjustmentCreditType(BaseModel):
-    id: str
-
-    name: str
-
-
 class InvoiceAdjustment(BaseModel):
-    credit_type: InvoiceAdjustmentCreditType
+    credit_type: CreditTypeData
 
     name: str
 
@@ -442,10 +364,10 @@ class ResellerRoyalty(BaseModel):
     gcp_options: Optional[ResellerRoyaltyGcpOptions] = None
 
 
-class InvoiceListResponse(BaseModel):
+class Invoice(BaseModel):
     id: str
 
-    credit_type: CreditType
+    credit_type: CreditTypeData
 
     customer_id: str
 
