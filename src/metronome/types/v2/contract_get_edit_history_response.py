@@ -5,36 +5,44 @@ from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..shared.tier import Tier
-from ..shared.discount import Discount
-from ..shared.pro_service import ProService
-from ..shared.credit_type_data import CreditTypeData
-from ..shared.schedule_duration import ScheduleDuration
-from ..shared.schedule_point_in_time import SchedulePointInTime
 
 __all__ = [
     "ContractGetEditHistoryResponse",
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitAccessSchedule",
+    "DataAddCommitAccessScheduleScheduleItem",
+    "DataAddCommitAccessScheduleCreditType",
     "DataAddCommitHierarchyConfiguration",
     "DataAddCommitHierarchyConfigurationChildAccess",
-    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataAddCommitHierarchyConfigurationChildAccessType",
+    "DataAddCommitHierarchyConfigurationChildAccessUnionMember2",
+    "DataAddCommitInvoiceSchedule",
+    "DataAddCommitInvoiceScheduleCreditType",
+    "DataAddCommitInvoiceScheduleScheduleItem",
     "DataAddCommitSpecifier",
     "DataAddCredit",
     "DataAddCreditProduct",
+    "DataAddCreditAccessSchedule",
+    "DataAddCreditAccessScheduleScheduleItem",
+    "DataAddCreditAccessScheduleCreditType",
     "DataAddCreditHierarchyConfiguration",
     "DataAddCreditHierarchyConfigurationChildAccess",
-    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataAddCreditHierarchyConfigurationChildAccessType",
+    "DataAddCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataAddCreditSpecifier",
+    "DataAddDiscount",
+    "DataAddDiscountProduct",
+    "DataAddDiscountSchedule",
+    "DataAddDiscountScheduleCreditType",
+    "DataAddDiscountScheduleScheduleItem",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
     "DataAddOverrideOverrideTier",
     "DataAddOverrideOverwriteRate",
+    "DataAddOverrideOverwriteRateCreditType",
+    "DataAddOverrideOverwriteRateTier",
     "DataAddOverrideProduct",
     "DataAddPrepaidBalanceThresholdConfiguration",
     "DataAddPrepaidBalanceThresholdConfigurationCommit",
@@ -42,6 +50,7 @@ __all__ = [
     "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
     "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
     "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "DataAddProService",
     "DataAddRecurringCommit",
     "DataAddRecurringCommitAccessAmount",
     "DataAddRecurringCommitCommitDuration",
@@ -49,9 +58,8 @@ __all__ = [
     "DataAddRecurringCommitContract",
     "DataAddRecurringCommitHierarchyConfiguration",
     "DataAddRecurringCommitHierarchyConfigurationChildAccess",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataAddRecurringCommitHierarchyConfigurationChildAccessType",
+    "DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataAddRecurringCommitInvoiceAmount",
     "DataAddRecurringCommitSpecifier",
     "DataAddRecurringCommitSubscriptionConfig",
@@ -63,15 +71,17 @@ __all__ = [
     "DataAddRecurringCreditContract",
     "DataAddRecurringCreditHierarchyConfiguration",
     "DataAddRecurringCreditHierarchyConfigurationChildAccess",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataAddRecurringCreditHierarchyConfigurationChildAccessType",
+    "DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataAddRecurringCreditSpecifier",
     "DataAddRecurringCreditSubscriptionConfig",
     "DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
+    "DataAddScheduledChargeSchedule",
+    "DataAddScheduledChargeScheduleCreditType",
+    "DataAddScheduledChargeScheduleScheduleItem",
     "DataAddSpendThresholdConfiguration",
     "DataAddSpendThresholdConfigurationCommit",
     "DataAddSpendThresholdConfigurationPaymentGateConfig",
@@ -94,9 +104,8 @@ __all__ = [
     "DataUpdateCommitAccessScheduleUpdateScheduleItem",
     "DataUpdateCommitHierarchyConfiguration",
     "DataUpdateCommitHierarchyConfigurationChildAccess",
-    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataUpdateCommitHierarchyConfigurationChildAccessType",
+    "DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataUpdateCommitInvoiceSchedule",
     "DataUpdateCommitInvoiceScheduleAddScheduleItem",
     "DataUpdateCommitInvoiceScheduleRemoveScheduleItem",
@@ -109,9 +118,8 @@ __all__ = [
     "DataUpdateCreditAccessScheduleUpdateScheduleItem",
     "DataUpdateCreditHierarchyConfiguration",
     "DataUpdateCreditHierarchyConfigurationChildAccess",
-    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
+    "DataUpdateCreditHierarchyConfigurationChildAccessType",
+    "DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataUpdateDiscount",
     "DataUpdateDiscountSchedule",
     "DataUpdateDiscountScheduleRecurringSchedule",
@@ -149,29 +157,79 @@ class DataAddCommitProduct(BaseModel):
     name: str
 
 
-class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataAddCommitAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddCommitAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCommitAccessSchedule(BaseModel):
+    schedule_items: List[DataAddCommitAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataAddCommitAccessScheduleCreditType] = None
+
+
+class DataAddCommitHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataAddCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataAddCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataAddCommitHierarchyConfigurationChildAccessType,
+    DataAddCommitHierarchyConfigurationChildAccessType,
+    DataAddCommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
 class DataAddCommitHierarchyConfiguration(BaseModel):
     child_access: DataAddCommitHierarchyConfigurationChildAccess
+
+
+class DataAddCommitInvoiceScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddCommitInvoiceSchedule(BaseModel):
+    credit_type: Optional[DataAddCommitInvoiceScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddCommitInvoiceScheduleScheduleItem]] = None
 
 
 class DataAddCommitSpecifier(BaseModel):
@@ -198,7 +256,7 @@ class DataAddCommit(BaseModel):
 
     type: Literal["PREPAID", "POSTPAID"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataAddCommitAccessSchedule] = None
     """
     The schedule that the customer will gain access to the credits purposed with
     this commit.
@@ -213,7 +271,7 @@ class DataAddCommit(BaseModel):
     hierarchy_configuration: Optional[DataAddCommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[DataAddCommitInvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     name: Optional[str] = None
@@ -251,24 +309,42 @@ class DataAddCreditProduct(BaseModel):
     name: str
 
 
-class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataAddCreditAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddCreditAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCreditAccessSchedule(BaseModel):
+    schedule_items: List[DataAddCreditAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataAddCreditAccessScheduleCreditType] = None
+
+
+class DataAddCreditHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataAddCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataAddCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataAddCreditHierarchyConfigurationChildAccessType,
+    DataAddCreditHierarchyConfigurationChildAccessType,
+    DataAddCreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -300,7 +376,7 @@ class DataAddCredit(BaseModel):
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataAddCreditAccessSchedule] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_product_ids: Optional[List[str]] = None
@@ -337,6 +413,59 @@ class DataAddCredit(BaseModel):
     """
 
 
+class DataAddDiscountProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddDiscountScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddDiscountScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddDiscountSchedule(BaseModel):
+    credit_type: Optional[DataAddDiscountScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddDiscountScheduleScheduleItem]] = None
+
+
+class DataAddDiscount(BaseModel):
+    id: str
+
+    product: DataAddDiscountProduct
+
+    schedule: DataAddDiscountSchedule
+
+    custom_fields: Optional[Dict[str, str]] = None
+
+    name: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
+
+
 class DataAddOverrideOverrideSpecifier(BaseModel):
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
@@ -361,10 +490,22 @@ class DataAddOverrideOverrideTier(BaseModel):
     size: Optional[float] = None
 
 
+class DataAddOverrideOverwriteRateCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddOverrideOverwriteRateTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
+
+
 class DataAddOverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
-    credit_type: Optional[CreditTypeData] = None
+    credit_type: Optional[DataAddOverrideOverwriteRateCreditType] = None
 
     custom_rate: Optional[Dict[str, object]] = None
     """Only set for CUSTOM rate_type.
@@ -388,7 +529,7 @@ class DataAddOverrideOverwriteRate(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Optional[List[Tier]] = None
+    tiers: Optional[List[DataAddOverrideOverwriteRateTier]] = None
     """Only set for TIERED rate_type."""
 
 
@@ -565,6 +706,34 @@ class DataAddPrepaidBalanceThresholdConfiguration(BaseModel):
     """
 
 
+class DataAddProService(BaseModel):
+    id: str
+
+    max_amount: float
+    """Maximum amount for the term."""
+
+    product_id: str
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified.
+    """
+
+    custom_fields: Optional[Dict[str, str]] = None
+
+    description: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
+
+
 class DataAddRecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
 
@@ -589,24 +758,20 @@ class DataAddRecurringCommitContract(BaseModel):
     id: str
 
 
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataAddRecurringCommitHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataAddRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddRecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataAddRecurringCommitHierarchyConfigurationChildAccessType,
+    DataAddRecurringCommitHierarchyConfigurationChildAccessType,
+    DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -756,24 +921,20 @@ class DataAddRecurringCreditContract(BaseModel):
     id: str
 
 
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataAddRecurringCreditHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataAddRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataAddRecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataAddRecurringCreditHierarchyConfigurationChildAccessType,
+    DataAddRecurringCreditHierarchyConfigurationChildAccessType,
+    DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -922,12 +1083,44 @@ class DataAddScheduledChargeProduct(BaseModel):
     name: str
 
 
+class DataAddScheduledChargeScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddScheduledChargeScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddScheduledChargeSchedule(BaseModel):
+    credit_type: Optional[DataAddScheduledChargeScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddScheduledChargeScheduleScheduleItem]] = None
+
+
 class DataAddScheduledCharge(BaseModel):
     id: str
 
     product: DataAddScheduledChargeProduct
 
-    schedule: SchedulePointInTime
+    schedule: DataAddScheduledChargeSchedule
 
     name: Optional[str] = None
     """displayed on invoices"""
@@ -1143,24 +1336,20 @@ class DataUpdateCommitAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCommitAccessScheduleUpdateScheduleItem]] = None
 
 
-class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataUpdateCommitHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataUpdateCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataUpdateCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataUpdateCommitHierarchyConfigurationChildAccessType,
+    DataUpdateCommitHierarchyConfigurationChildAccessType,
+    DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -1302,24 +1491,20 @@ class DataUpdateCreditAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCreditAccessScheduleUpdateScheduleItem]] = None
 
 
-class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
+class DataUpdateCreditHierarchyConfigurationChildAccessType(BaseModel):
     type: Literal["ALL"]
 
 
-class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
+class DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
     contract_ids: List[str]
 
     type: Literal["CONTRACT_IDS"]
 
 
 DataUpdateCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    DataUpdateCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
+    DataUpdateCreditHierarchyConfigurationChildAccessType,
+    DataUpdateCreditHierarchyConfigurationChildAccessType,
+    DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2,
 ]
 
 
@@ -1775,13 +1960,13 @@ class Data(BaseModel):
 
     add_credits: Optional[List[DataAddCredit]] = None
 
-    add_discounts: Optional[List[Discount]] = None
+    add_discounts: Optional[List[DataAddDiscount]] = None
 
     add_overrides: Optional[List[DataAddOverride]] = None
 
     add_prepaid_balance_threshold_configuration: Optional[DataAddPrepaidBalanceThresholdConfiguration] = None
 
-    add_pro_services: Optional[List[ProService]] = None
+    add_pro_services: Optional[List[DataAddProService]] = None
 
     add_recurring_commits: Optional[List[DataAddRecurringCommit]] = None
 
