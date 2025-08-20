@@ -87,7 +87,7 @@ from .named_schedules import (
     NamedSchedulesResourceWithStreamingResponse,
     AsyncNamedSchedulesResourceWithStreamingResponse,
 )
-from ....types.v1.customer_list_response import CustomerListResponse
+from ....types.v1.customer_detail import CustomerDetail
 from ....types.v1.customer_create_response import CustomerCreateResponse
 from ....types.v1.customer_archive_response import CustomerArchiveResponse
 from ....types.v1.customer_retrieve_response import CustomerRetrieveResponse
@@ -250,7 +250,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPage[CustomerListResponse]:
+    ) -> SyncCursorPage[CustomerDetail]:
         """
         List all customers.
 
@@ -279,7 +279,7 @@ class CustomersResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customers",
-            page=SyncCursorPage[CustomerListResponse],
+            page=SyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -297,7 +297,7 @@ class CustomersResource(SyncAPIResource):
                     customer_list_params.CustomerListParams,
                 ),
             ),
-            model=CustomerListResponse,
+            model=CustomerDetail,
         )
 
     def archive(
@@ -785,7 +785,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CustomerListResponse, AsyncCursorPage[CustomerListResponse]]:
+    ) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
         """
         List all customers.
 
@@ -814,7 +814,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customers",
-            page=AsyncCursorPage[CustomerListResponse],
+            page=AsyncCursorPage[CustomerDetail],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -832,7 +832,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     customer_list_params.CustomerListParams,
                 ),
             ),
-            model=CustomerListResponse,
+            model=CustomerDetail,
         )
 
     async def archive(

@@ -30,8 +30,10 @@ from ....types.v1.contracts import (
 from ....types.v1.contracts.product_list_response import ProductListResponse
 from ....types.v1.contracts.product_create_response import ProductCreateResponse
 from ....types.v1.contracts.product_update_response import ProductUpdateResponse
+from ....types.v1.contracts.quantity_rounding_param import QuantityRoundingParam
 from ....types.v1.contracts.product_archive_response import ProductArchiveResponse
 from ....types.v1.contracts.product_retrieve_response import ProductRetrieveResponse
+from ....types.v1.contracts.quantity_conversion_param import QuantityConversionParam
 
 __all__ = ["ProductsResource", "AsyncProductsResource"]
 
@@ -71,8 +73,8 @@ class ProductsResource(SyncAPIResource):
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
         presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
         pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[product_create_params.QuantityConversion] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[product_create_params.QuantityRounding] | NotGiven = NOT_GIVEN,
+        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
+        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -208,8 +210,8 @@ class ProductsResource(SyncAPIResource):
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
         presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
         pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[product_update_params.QuantityConversion] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[product_update_params.QuantityRounding] | NotGiven = NOT_GIVEN,
+        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
+        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -433,8 +435,8 @@ class AsyncProductsResource(AsyncAPIResource):
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
         presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
         pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[product_create_params.QuantityConversion] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[product_create_params.QuantityRounding] | NotGiven = NOT_GIVEN,
+        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
+        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -570,8 +572,8 @@ class AsyncProductsResource(AsyncAPIResource):
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
         presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
         pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[product_update_params.QuantityConversion] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[product_update_params.QuantityRounding] | NotGiven = NOT_GIVEN,
+        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
+        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
