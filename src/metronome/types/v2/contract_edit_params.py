@@ -199,6 +199,9 @@ class ContractEditParams(TypedDict, total=False):
     remove_overrides: Iterable[RemoveOverride]
     """IDs of overrides to remove"""
 
+    uniqueness_key: str
+    """Optional uniqueness key to prevent duplicate contract edits."""
+
     update_commits: Iterable[UpdateCommit]
 
     update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]

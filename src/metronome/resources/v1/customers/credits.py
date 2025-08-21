@@ -18,9 +18,10 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import credit_list_params, credit_create_params, credit_update_end_date_params
-from ....types.v1.customers.credit_list_response import CreditListResponse
+from ....types.shared.credit import Credit
 from ....types.v1.customers.credit_create_response import CreditCreateResponse
 from ....types.v1.customers.credit_update_end_date_response import CreditUpdateEndDateResponse
 
@@ -164,7 +165,7 @@ class CreditsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    ) -> SyncBodyCursorPage[Credit]:
         """
         List credits.
 
@@ -197,8 +198,9 @@ class CreditsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/customerCredits/list",
+            page=SyncBodyCursorPage[Credit],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -218,7 +220,8 @@ class CreditsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreditListResponse,
+            model=Credit,
+            method="post",
         )
 
     def update_end_date(
@@ -389,7 +392,7 @@ class AsyncCreditsResource(AsyncAPIResource):
             cast_to=CreditCreateResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_id: str,
@@ -409,7 +412,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    ) -> AsyncPaginator[Credit, AsyncBodyCursorPage[Credit]]:
         """
         List credits.
 
@@ -442,9 +445,10 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/customerCredits/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPage[Credit],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
@@ -463,7 +467,8 @@ class AsyncCreditsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreditListResponse,
+            model=Credit,
+            method="post",
         )
 
     async def update_end_date(
