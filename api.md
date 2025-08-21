@@ -4,6 +4,8 @@
 from metronome.types import (
     BaseUsageFilter,
     Commit,
+    Contract,
+    ContractV2,
     ContractWithoutAmendments,
     Credit,
     CreditTypeData,

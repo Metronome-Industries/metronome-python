@@ -5,8 +5,10 @@ from .rate import Rate as Rate
 from .tier import Tier as Tier
 from .commit import Commit as Commit
 from .credit import Credit as Credit
+from .contract import Contract as Contract
 from .discount import Discount as Discount
 from .override import Override as Override
+from .contract_v2 import ContractV2 as ContractV2
 from .pro_service import ProService as ProService
 from .property_filter import PropertyFilter as PropertyFilter
 from .credit_type_data import CreditTypeData as CreditTypeData
