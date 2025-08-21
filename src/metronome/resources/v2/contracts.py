@@ -198,6 +198,7 @@ class ContractsResource(SyncAPIResource):
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -245,6 +246,8 @@ class ContractsResource(SyncAPIResource):
 
           remove_overrides: IDs of overrides to remove
 
+          uniqueness_key: Optional uniqueness key to prevent duplicate contract edits.
+
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
@@ -291,6 +294,7 @@ class ContractsResource(SyncAPIResource):
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
+                    "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
@@ -668,6 +672,7 @@ class AsyncContractsResource(AsyncAPIResource):
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -715,6 +720,8 @@ class AsyncContractsResource(AsyncAPIResource):
 
           remove_overrides: IDs of overrides to remove
 
+          uniqueness_key: Optional uniqueness key to prevent duplicate contract edits.
+
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
@@ -761,6 +768,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
+                    "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,

@@ -1575,11 +1575,7 @@ class Data(BaseModel):
     total_contract_value: Optional[float] = None
 
     uniqueness_key: Optional[str] = None
-    """Prevents the creation of duplicates.
-
-    If a request to create a record is made with a previously used uniqueness key, a
-    new record will not be created and the request will fail with a 409 error.
-    """
+    """Optional uniqueness key to prevent duplicate contract creations."""
 
 
 class ContractRetrieveResponse(BaseModel):
