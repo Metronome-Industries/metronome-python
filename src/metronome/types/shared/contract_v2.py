@@ -8,21 +8,23 @@ from .tier import Tier
 from .discount import Discount
 from ..._models import BaseModel
 from .pro_service import ProService
+from .subscription import Subscription
+from .override_tier import OverrideTier
+from .commit_specifier import CommitSpecifier
 from .credit_type_data import CreditTypeData
 from .scheduled_charge import ScheduledCharge
 from .schedule_duration import ScheduleDuration
 from .schedule_point_in_time import SchedulePointInTime
+from .hierarchy_configuration import HierarchyConfiguration
+from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from .spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from .prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
 __all__ = [
     "ContractV2",
     "Commit",
     "CommitProduct",
     "CommitContract",
-    "CommitHierarchyConfiguration",
-    "CommitHierarchyConfigurationChildAccess",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceContract",
     "CommitLedger",
     "CommitLedgerPrepaidCommitSegmentStartLedgerEntry",
@@ -40,10 +42,8 @@ __all__ = [
     "CommitLedgerPostpaidCommitManualLedgerEntry",
     "CommitLedgerPostpaidCommitExpirationLedgerEntry",
     "CommitRolledOverFrom",
-    "CommitSpecifier",
     "Override",
     "OverrideOverrideSpecifier",
-    "OverrideOverrideTier",
     "OverrideOverwriteRate",
     "OverrideProduct",
     "Transition",
@@ -52,11 +52,6 @@ __all__ = [
     "Credit",
     "CreditProduct",
     "CreditContract",
-    "CreditHierarchyConfiguration",
-    "CreditHierarchyConfigurationChildAccess",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CreditLedger",
     "CreditLedgerCreditSegmentStartLedgerEntry",
     "CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
@@ -65,32 +60,14 @@ __all__ = [
     "CreditLedgerCreditCreditedLedgerEntry",
     "CreditLedgerCreditManualLedgerEntry",
     "CreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
-    "CreditSpecifier",
     "CustomerBillingProviderConfiguration",
     "HasMore",
-    "HierarchyConfiguration",
-    "HierarchyConfigurationParentHierarchyConfiguration",
-    "HierarchyConfigurationParentHierarchyConfigurationChild",
-    "HierarchyConfigurationChildHierarchyConfiguration",
-    "HierarchyConfigurationChildHierarchyConfigurationParent",
-    "PrepaidBalanceThresholdConfiguration",
-    "PrepaidBalanceThresholdConfigurationCommit",
-    "PrepaidBalanceThresholdConfigurationCommitSpecifier",
-    "PrepaidBalanceThresholdConfigurationPaymentGateConfig",
-    "PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
-    "PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
     "RecurringCommitCommitDuration",
     "RecurringCommitProduct",
     "RecurringCommitContract",
-    "RecurringCommitHierarchyConfiguration",
-    "RecurringCommitHierarchyConfigurationChildAccess",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "RecurringCommitInvoiceAmount",
-    "RecurringCommitSpecifier",
     "RecurringCommitSubscriptionConfig",
     "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
@@ -98,26 +75,10 @@ __all__ = [
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditHierarchyConfiguration",
-    "RecurringCreditHierarchyConfigurationChildAccess",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
-    "RecurringCreditSpecifier",
     "RecurringCreditSubscriptionConfig",
     "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
     "ResellerRoyaltySegment",
-    "SpendThresholdConfiguration",
-    "SpendThresholdConfigurationCommit",
-    "SpendThresholdConfigurationPaymentGateConfig",
-    "SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
-    "SpendThresholdConfigurationPaymentGateConfigStripeConfig",
-    "Subscription",
-    "SubscriptionProration",
-    "SubscriptionQuantitySchedule",
-    "SubscriptionSubscriptionRate",
-    "SubscriptionSubscriptionRateProduct",
 ]
 
 
@@ -129,31 +90,6 @@ class CommitProduct(BaseModel):
 
 class CommitContract(BaseModel):
     id: str
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class CommitHierarchyConfiguration(BaseModel):
-    child_access: CommitHierarchyConfigurationChildAccess
 
 
 class CommitInvoiceContract(BaseModel):
@@ -342,23 +278,6 @@ class CommitRolledOverFrom(BaseModel):
     contract_id: str
 
 
-class CommitSpecifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
 class Commit(BaseModel):
     id: str
 
@@ -460,12 +379,6 @@ class OverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
-class OverrideOverrideTier(BaseModel):
-    multiplier: float
-
-    size: Optional[float] = None
-
-
 class OverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
@@ -520,7 +433,7 @@ class Override(BaseModel):
 
     override_specifiers: Optional[List[OverrideOverrideSpecifier]] = None
 
-    override_tiers: Optional[List[OverrideOverrideTier]] = None
+    override_tiers: Optional[List[OverrideTier]] = None
 
     overwrite_rate: Optional[OverrideOverwriteRate] = None
 
@@ -574,31 +487,6 @@ class CreditProduct(BaseModel):
 
 class CreditContract(BaseModel):
     id: str
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class CreditHierarchyConfiguration(BaseModel):
-    child_access: CreditHierarchyConfigurationChildAccess
 
 
 class CreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
@@ -694,23 +582,6 @@ CreditLedger: TypeAlias = Union[
 ]
 
 
-class CreditSpecifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
 class Credit(BaseModel):
     id: str
 
@@ -746,7 +617,7 @@ class Credit(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[CreditHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
     ledger: Optional[List[CreditLedger]] = None
@@ -769,7 +640,7 @@ class Credit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[CreditSpecifier]] = None
+    specifiers: Optional[List[CommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -813,170 +684,6 @@ class HasMore(BaseModel):
     """
 
 
-class HierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
-    contract_id: str
-
-    customer_id: str
-
-
-class HierarchyConfigurationParentHierarchyConfiguration(BaseModel):
-    children: List[HierarchyConfigurationParentHierarchyConfigurationChild]
-    """List of contracts that belong to this parent."""
-
-
-class HierarchyConfigurationChildHierarchyConfigurationParent(BaseModel):
-    contract_id: str
-
-    customer_id: str
-
-
-class HierarchyConfigurationChildHierarchyConfiguration(BaseModel):
-    parent: HierarchyConfigurationChildHierarchyConfigurationParent
-    """The single parent contract/customer for this child."""
-
-
-HierarchyConfiguration: TypeAlias = Union[
-    HierarchyConfigurationParentHierarchyConfiguration, HierarchyConfigurationChildHierarchyConfiguration
-]
-
-
-class PrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
-class PrepaidBalanceThresholdConfigurationCommit(BaseModel):
-    product_id: str
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-    applicable_product_ids: Optional[List[str]] = None
-    """Which products the threshold commit applies to.
-
-    If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
-    """
-
-    applicable_product_tags: Optional[List[str]] = None
-    """Which tags the threshold commit applies to.
-
-    If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
-    """
-
-    description: Optional[str] = None
-
-    name: Optional[str] = None
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-    specifiers: Optional[List[PrepaidBalanceThresholdConfigurationCommitSpecifier]] = None
-    """
-    List of filters that determine what kind of customer usage draws down a commit
-    or credit. A customer's usage needs to meet the condition of at least one of the
-    specifiers to contribute to a commit's or credit's drawdown. This field cannot
-    be used together with `applicable_product_ids` or `applicable_product_tags`.
-    Instead, to target usage by product or product tag, pass those values in the
-    body of `specifiers`.
-    """
-
-
-class PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
-    tax_amount: float
-    """Amount of tax to be applied.
-
-    This should be in the same currency and denomination as the commit's invoice
-    schedule
-    """
-
-    tax_name: Optional[str] = None
-    """Name of the tax to be applied.
-
-    This may be used in an invoice line item description.
-    """
-
-
-class PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
-    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
-    """If left blank, will default to INVOICE"""
-
-    invoice_metadata: Optional[Dict[str, str]] = None
-    """Metadata to be added to the Stripe invoice.
-
-    Only applicable if using INVOICE as your payment type.
-    """
-
-
-class PrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
-    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
-    """Gate access to the commit balance based on successful collection of payment.
-
-    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
-    facilitate payment using your own payment integration. Select NONE if you do not
-    wish to payment gate the commit balance.
-    """
-
-    precalculated_tax_config: Optional[PrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig] = (
-        None
-    )
-    """Only applicable if using PRECALCULATED as your tax type."""
-
-    stripe_config: Optional[PrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
-    """Only applicable if using STRIPE as your payment gateway type."""
-
-    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
-    """Stripe tax is only supported for Stripe payment gateway.
-
-    Select NONE if you do not wish Metronome to calculate tax on your behalf.
-    Leaving this field blank will default to NONE.
-    """
-
-
-class PrepaidBalanceThresholdConfiguration(BaseModel):
-    commit: PrepaidBalanceThresholdConfigurationCommit
-
-    is_enabled: bool
-    """
-    When set to false, the contract will not be evaluated against the
-    threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state.
-    """
-
-    payment_gate_config: PrepaidBalanceThresholdConfigurationPaymentGateConfig
-
-    recharge_to_amount: float
-    """Specify the amount the balance should be recharged to."""
-
-    threshold_amount: float
-    """Specify the threshold amount for the contract.
-
-    Each time the contract's balance lowers to this amount, a threshold charge will
-    be initiated.
-    """
-
-    custom_credit_type_id: Optional[str] = None
-    """
-    If provided, the threshold, recharge-to amount, and the resulting threshold
-    commit amount will be in terms of this credit type instead of the fiat currency.
-    """
-
-
 class RecurringCommitAccessAmount(BaseModel):
     credit_type_id: str
 
@@ -1001,54 +708,12 @@ class RecurringCommitContract(BaseModel):
     id: str
 
 
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-RecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    RecurringCommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class RecurringCommitHierarchyConfiguration(BaseModel):
-    child_access: RecurringCommitHierarchyConfigurationChildAccess
-
-
 class RecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
-
-
-class RecurringCommitSpecifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
 
 
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
@@ -1098,7 +763,7 @@ class RecurringCommit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[RecurringCommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[RecurringCommitInvoiceAmount] = None
@@ -1133,7 +798,7 @@ class RecurringCommit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-    specifiers: Optional[List[RecurringCommitSpecifier]] = None
+    specifiers: Optional[List[CommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -1166,48 +831,6 @@ class RecurringCreditProduct(BaseModel):
 
 class RecurringCreditContract(BaseModel):
     id: str
-
-
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-RecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    RecurringCreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class RecurringCreditHierarchyConfiguration(BaseModel):
-    child_access: RecurringCreditHierarchyConfigurationChildAccess
-
-
-class RecurringCreditSpecifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
 
 
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
@@ -1257,7 +880,7 @@ class RecurringCredit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[RecurringCreditHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
@@ -1289,7 +912,7 @@ class RecurringCredit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-    specifiers: Optional[List[RecurringCreditSpecifier]] = None
+    specifiers: Optional[List[CommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -1332,145 +955,6 @@ class ResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
 
     segments: List[ResellerRoyaltySegment]
-
-
-class SpendThresholdConfigurationCommit(BaseModel):
-    product_id: str
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-    description: Optional[str] = None
-
-    name: Optional[str] = None
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-
-class SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
-    tax_amount: float
-    """Amount of tax to be applied.
-
-    This should be in the same currency and denomination as the commit's invoice
-    schedule
-    """
-
-    tax_name: Optional[str] = None
-    """Name of the tax to be applied.
-
-    This may be used in an invoice line item description.
-    """
-
-
-class SpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
-    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
-    """If left blank, will default to INVOICE"""
-
-    invoice_metadata: Optional[Dict[str, str]] = None
-    """Metadata to be added to the Stripe invoice.
-
-    Only applicable if using INVOICE as your payment type.
-    """
-
-
-class SpendThresholdConfigurationPaymentGateConfig(BaseModel):
-    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
-    """Gate access to the commit balance based on successful collection of payment.
-
-    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
-    facilitate payment using your own payment integration. Select NONE if you do not
-    wish to payment gate the commit balance.
-    """
-
-    precalculated_tax_config: Optional[SpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig] = None
-    """Only applicable if using PRECALCULATED as your tax type."""
-
-    stripe_config: Optional[SpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
-    """Only applicable if using STRIPE as your payment gateway type."""
-
-    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
-    """Stripe tax is only supported for Stripe payment gateway.
-
-    Select NONE if you do not wish Metronome to calculate tax on your behalf.
-    Leaving this field blank will default to NONE.
-    """
-
-
-class SpendThresholdConfiguration(BaseModel):
-    commit: SpendThresholdConfigurationCommit
-
-    is_enabled: bool
-    """
-    When set to false, the contract will not be evaluated against the
-    threshold_amount. Toggling to true will result an immediate evaluation,
-    regardless of prior state.
-    """
-
-    payment_gate_config: SpendThresholdConfigurationPaymentGateConfig
-
-    threshold_amount: float
-    """Specify the threshold amount for the contract.
-
-    Each time the contract's usage hits this amount, a threshold charge will be
-    initiated.
-    """
-
-
-class SubscriptionProration(BaseModel):
-    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-
-    is_prorated: bool
-
-
-class SubscriptionQuantitySchedule(BaseModel):
-    quantity: float
-
-    starting_at: datetime
-
-    ending_before: Optional[datetime] = None
-
-
-class SubscriptionSubscriptionRateProduct(BaseModel):
-    id: str
-
-    name: str
-
-
-class SubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
-
-    product: SubscriptionSubscriptionRateProduct
-
-
-class Subscription(BaseModel):
-    collection_schedule: Literal["ADVANCE", "ARREARS"]
-
-    proration: SubscriptionProration
-
-    quantity_schedule: List[SubscriptionQuantitySchedule]
-    """List of quantity schedule items for the subscription.
-
-    Only includes the current quantity and future quantity changes.
-    """
-
-    starting_at: datetime
-
-    subscription_rate: SubscriptionSubscriptionRate
-
-    id: Optional[str] = None
-
-    custom_fields: Optional[Dict[str, str]] = None
-
-    description: Optional[str] = None
-
-    ending_before: Optional[datetime] = None
-
-    fiat_credit_type_id: Optional[str] = None
-
-    name: Optional[str] = None
 
 
 class ContractV2(BaseModel):
@@ -1537,7 +1021,7 @@ class ContractV2(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfiguration] = None
+    prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfigurationV2] = None
 
     priority: Optional[float] = None
     """Priority of the contract."""
@@ -1566,7 +1050,7 @@ class ContractV2(BaseModel):
     on a separate invoice from usage charges.
     """
 
-    spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None
+    spend_threshold_configuration: Optional[SpendThresholdConfigurationV2] = None
 
     subscriptions: Optional[List[Subscription]] = None
     """List of subscriptions on the contract."""

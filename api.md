@@ -2,8 +2,13 @@
 
 ```python
 from metronome.types import (
+    BaseThresholdCommit,
     BaseUsageFilter,
     Commit,
+    CommitHierarchyConfiguration,
+    CommitRate,
+    CommitSpecifier,
+    CommitSpecifierInput,
     Contract,
     ContractV2,
     ContractWithoutAmendments,
@@ -11,14 +16,23 @@ from metronome.types import (
     CreditTypeData,
     Discount,
     EventTypeFilter,
+    HierarchyConfiguration,
     ID,
     Override,
+    OverrideTier,
+    PaymentGateConfig,
+    PaymentGateConfigV2,
+    PrepaidBalanceThresholdConfiguration,
+    PrepaidBalanceThresholdConfigurationV2,
     PropertyFilter,
     ProService,
     Rate,
     ScheduledCharge,
     ScheduleDuration,
     SchedulePointInTime,
+    SpendThresholdConfiguration,
+    SpendThresholdConfigurationV2,
+    Subscription,
     Tier,
 )
 ```
