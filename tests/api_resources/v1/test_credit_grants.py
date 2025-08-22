@@ -17,7 +17,12 @@ from metronome.types.v1 import (
     CreditGrantCreateResponse,
     CreditGrantListEntriesResponse,
 )
-from metronome.pagination import SyncCursorPage, AsyncCursorPage
+from metronome.pagination import (
+    SyncCursorPage,
+    AsyncCursorPage,
+    SyncCursorPageWithoutLimit,
+    AsyncCursorPageWithoutLimit,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -204,7 +209,7 @@ class TestCreditGrants:
     @parametrize
     def test_method_list_entries(self, client: Metronome) -> None:
         credit_grant = client.v1.credit_grants.list_entries()
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"])
 
     @parametrize
     def test_method_list_entries_with_all_params(self, client: Metronome) -> None:
@@ -216,7 +221,7 @@ class TestCreditGrants:
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
         )
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"])
 
     @parametrize
     def test_raw_response_list_entries(self, client: Metronome) -> None:
@@ -225,7 +230,7 @@ class TestCreditGrants:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         credit_grant = response.parse()
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"])
 
     @parametrize
     def test_streaming_response_list_entries(self, client: Metronome) -> None:
@@ -234,7 +239,9 @@ class TestCreditGrants:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             credit_grant = response.parse()
-            assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+            assert_matches_type(
+                SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"]
+            )
 
         assert cast(Any, response.is_closed) is True
 
@@ -463,7 +470,9 @@ class TestAsyncCreditGrants:
     @parametrize
     async def test_method_list_entries(self, async_client: AsyncMetronome) -> None:
         credit_grant = await async_client.v1.credit_grants.list_entries()
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(
+            AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"]
+        )
 
     @parametrize
     async def test_method_list_entries_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -475,7 +484,9 @@ class TestAsyncCreditGrants:
             ending_before=parse_datetime("2021-02-01T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
         )
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(
+            AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"]
+        )
 
     @parametrize
     async def test_raw_response_list_entries(self, async_client: AsyncMetronome) -> None:
@@ -484,7 +495,9 @@ class TestAsyncCreditGrants:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         credit_grant = await response.parse()
-        assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+        assert_matches_type(
+            AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"]
+        )
 
     @parametrize
     async def test_streaming_response_list_entries(self, async_client: AsyncMetronome) -> None:
@@ -493,7 +506,9 @@ class TestAsyncCreditGrants:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             credit_grant = await response.parse()
-            assert_matches_type(CreditGrantListEntriesResponse, credit_grant, path=["response"])
+            assert_matches_type(
+                AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse], credit_grant, path=["response"]
+            )
 
         assert cast(Any, response.is_closed) is True
 

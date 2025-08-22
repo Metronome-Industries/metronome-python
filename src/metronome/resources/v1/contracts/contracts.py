@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Any, Dict, List, Union, Iterable, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -41,7 +41,8 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ...._base_client import AsyncPaginator, make_request_options
 from .named_schedules import (
     NamedSchedulesResource,
     AsyncNamedSchedulesResource,
@@ -66,9 +67,11 @@ from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
 from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
+from ....types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
+from ....types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
@@ -125,8 +128,7 @@ class ContractsResource(SyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -137,7 +139,7 @@ class ContractsResource(SyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
@@ -625,7 +627,7 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> SyncBodyCursorPage[ContractListBalancesResponse]:
         """
         List balances (commits and credits).
 
@@ -658,8 +660,9 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
+            page=SyncBodyCursorPage[ContractListBalancesResponse],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -679,7 +682,10 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     def retrieve_rate_schedule(
@@ -1001,8 +1007,7 @@ class AsyncContractsResource(AsyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -1013,7 +1018,7 @@ class AsyncContractsResource(AsyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
@@ -1481,7 +1486,7 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def list_balances(
+    def list_balances(
         self,
         *,
         customer_id: str,
@@ -1501,7 +1506,7 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> AsyncPaginator[ContractListBalancesResponse, AsyncBodyCursorPage[ContractListBalancesResponse]]:
         """
         List balances (commits and credits).
 
@@ -1534,9 +1539,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPage[ContractListBalancesResponse],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "id": id,
@@ -1555,7 +1561,10 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     async def retrieve_rate_schedule(

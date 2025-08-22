@@ -8,24 +8,15 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ....._utils import PropertyInfo
 from ....shared_params.tier import Tier
+from ....shared_params.commit_rate import CommitRate
 
-__all__ = ["RateAddManyParams", "Rate", "RateCommitRate"]
+__all__ = ["RateAddManyParams", "Rate"]
 
 
 class RateAddManyParams(TypedDict, total=False):
     rate_card_id: Required[str]
 
     rates: Required[Iterable[Rate]]
-
-
-class RateCommitRate(TypedDict, total=False):
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
-
-    price: float
-    """Commit rate price. For FLAT rate_type, this must be >=0."""
-
-    tiers: Iterable[Tier]
-    """Only set for TIERED rate_type."""
 
 
 class Rate(TypedDict, total=False):
@@ -46,7 +37,7 @@ class Rate(TypedDict, total=False):
     with Flat rate.
     """
 
-    commit_rate: RateCommitRate
+    commit_rate: CommitRate
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or

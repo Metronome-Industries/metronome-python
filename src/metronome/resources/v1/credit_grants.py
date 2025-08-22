@@ -25,7 +25,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...pagination import SyncCursorPage, AsyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.v1.credit_grant_edit_response import CreditGrantEditResponse
 from ...types.v1.credit_grant_list_response import CreditGrantListResponse
@@ -292,7 +292,7 @@ class CreditGrantsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListEntriesResponse:
+    ) -> SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -326,8 +326,9 @@ class CreditGrantsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/credits/listEntries",
+            page=SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
             body=maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
@@ -350,7 +351,8 @@ class CreditGrantsResource(SyncAPIResource):
                     credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
-            cast_to=CreditGrantListEntriesResponse,
+            model=CreditGrantListEntriesResponse,
+            method="post",
         )
 
     def void(
@@ -640,7 +642,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             cast_to=CreditGrantEditResponse,
         )
 
-    async def list_entries(
+    def list_entries(
         self,
         *,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -655,7 +657,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListEntriesResponse:
+    ) -> AsyncPaginator[CreditGrantListEntriesResponse, AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -689,9 +691,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/credits/listEntries",
-            body=await async_maybe_transform(
+            page=AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
+            body=maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
                     "customer_ids": customer_ids,
@@ -705,7 +708,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "next_page": next_page,
                         "sort": sort,
@@ -713,7 +716,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                     credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
-            cast_to=CreditGrantListEntriesResponse,
+            model=CreditGrantListEntriesResponse,
+            method="post",
         )
 
     async def void(

@@ -5,25 +5,16 @@ from typing_extensions import Literal
 
 from ....._models import BaseModel
 from ....shared.tier import Tier
+from ....shared.commit_rate import CommitRate
 from ....shared.credit_type_data import CreditTypeData
 
-__all__ = ["RateAddResponse", "Data", "DataCommitRate"]
-
-
-class DataCommitRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
-
-    price: Optional[float] = None
-    """Commit rate price. For FLAT rate_type, this must be >=0."""
-
-    tiers: Optional[List[Tier]] = None
-    """Only set for TIERED rate_type."""
+__all__ = ["RateAddResponse", "Data"]
 
 
 class Data(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
 
-    commit_rate: Optional[DataCommitRate] = None
+    commit_rate: Optional[CommitRate] = None
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or

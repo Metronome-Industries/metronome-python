@@ -8,8 +8,9 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ....._utils import PropertyInfo
 from ....shared_params.tier import Tier
+from ....shared_params.commit_rate import CommitRate
 
-__all__ = ["RateAddParams", "CommitRate"]
+__all__ = ["RateAddParams"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -87,13 +88,3 @@ class RateAddParams(TypedDict, total=False):
     Defaults to false. If true, rate is computed using list prices rather than the
     standard rates for this product on the contract.
     """
-
-
-class CommitRate(TypedDict, total=False):
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
-
-    price: float
-    """Commit rate price. For FLAT rate_type, this must be >=0."""
-
-    tiers: Iterable[Tier]
-    """Only set for TIERED rate_type."""

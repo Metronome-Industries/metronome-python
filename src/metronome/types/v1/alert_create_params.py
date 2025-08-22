@@ -115,4 +115,4 @@ class CustomFieldFilter(TypedDict, total=False):
 class GroupValue(TypedDict, total=False):
     key: Required[str]
 
-    value: Required[str]
+    value: str

@@ -6,9 +6,10 @@ from typing_extensions import Literal
 
 from .tier import Tier
 from ..._models import BaseModel
+from .override_tier import OverrideTier
 from .credit_type_data import CreditTypeData
 
-__all__ = ["Override", "OverrideSpecifier", "OverrideTier", "OverwriteRate", "Product"]
+__all__ = ["Override", "OverrideSpecifier", "OverwriteRate", "Product"]
 
 
 class OverrideSpecifier(BaseModel):
@@ -27,12 +28,6 @@ class OverrideSpecifier(BaseModel):
     recurring_commit_ids: Optional[List[str]] = None
 
     recurring_credit_ids: Optional[List[str]] = None
-
-
-class OverrideTier(BaseModel):
-    multiplier: float
-
-    size: Optional[float] = None
 
 
 class OverwriteRate(BaseModel):

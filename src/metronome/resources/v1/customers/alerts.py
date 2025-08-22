@@ -17,9 +17,10 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
+from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import alert_list_params, alert_reset_params, alert_retrieve_params
-from ....types.v1.customers.alert_list_response import AlertListResponse
+from ....types.v1.customers.customer_alert import CustomerAlert
 from ....types.v1.customers.alert_retrieve_response import AlertRetrieveResponse
 
 __all__ = ["AlertsResource", "AsyncAlertsResource"]
@@ -106,7 +107,7 @@ class AlertsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AlertListResponse:
+    ) -> SyncCursorPageWithoutLimit[CustomerAlert]:
         """
         Fetch all customer alert statuses and alert information for a customer
 
@@ -126,8 +127,9 @@ class AlertsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/customer-alerts/list",
+            page=SyncCursorPageWithoutLimit[CustomerAlert],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -142,7 +144,8 @@ class AlertsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
             ),
-            cast_to=AlertListResponse,
+            model=CustomerAlert,
+            method="post",
         )
 
     def reset(
@@ -259,7 +262,7 @@ class AsyncAlertsResource(AsyncAPIResource):
             cast_to=AlertRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_id: str,
@@ -271,7 +274,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AlertListResponse:
+    ) -> AsyncPaginator[CustomerAlert, AsyncCursorPageWithoutLimit[CustomerAlert]]:
         """
         Fetch all customer alert statuses and alert information for a customer
 
@@ -291,9 +294,10 @@ class AsyncAlertsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/customer-alerts/list",
-            body=await async_maybe_transform(
+            page=AsyncCursorPageWithoutLimit[CustomerAlert],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "alert_statuses": alert_statuses,
@@ -305,9 +309,10 @@ class AsyncAlertsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
+                query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
             ),
-            cast_to=AlertListResponse,
+            model=CustomerAlert,
+            method="post",
         )
 
     async def reset(

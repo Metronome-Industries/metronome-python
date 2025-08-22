@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
 
 __all__ = [
     "ContractEditCommitParams",
@@ -18,7 +19,6 @@ __all__ = [
     "InvoiceScheduleAddScheduleItem",
     "InvoiceScheduleRemoveScheduleItem",
     "InvoiceScheduleUpdateScheduleItem",
-    "Specifier",
 ]
 
 
@@ -58,7 +58,7 @@ class ContractEditCommitParams(TypedDict, total=False):
 
     product_id: str
 
-    specifiers: Optional[Iterable[Specifier]]
+    specifiers: Optional[Iterable[CommitSpecifierInput]]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -131,20 +131,3 @@ class InvoiceSchedule(TypedDict, total=False):
     remove_schedule_items: Iterable[InvoiceScheduleRemoveScheduleItem]
 
     update_schedule_items: Iterable[InvoiceScheduleUpdateScheduleItem]
-
-
-class Specifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """

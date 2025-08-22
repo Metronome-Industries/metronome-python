@@ -19,7 +19,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...pagination import SyncCursorPage, AsyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.v1.usage_list_response import UsageListResponse
 from ...types.v1.usage_search_response import UsageSearchResponse
@@ -63,7 +63,7 @@ class UsageResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UsageListResponse:
+    ) -> SyncCursorPageWithoutLimit[UsageListResponse]:
         """
         Fetch aggregated usage data for multiple customers and billable-metrics, broken
         into intervals of the specified length.
@@ -89,8 +89,9 @@ class UsageResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/usage",
+            page=SyncCursorPageWithoutLimit[UsageListResponse],
             body=maybe_transform(
                 {
                     "ending_before": ending_before,
@@ -108,7 +109,8 @@ class UsageResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"next_page": next_page}, usage_list_params.UsageListParams),
             ),
-            cast_to=UsageListResponse,
+            model=UsageListResponse,
+            method="post",
         )
 
     def ingest(
@@ -283,7 +285,7 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         return AsyncUsageResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         *,
         ending_before: Union[str, datetime],
@@ -298,7 +300,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> UsageListResponse:
+    ) -> AsyncPaginator[UsageListResponse, AsyncCursorPageWithoutLimit[UsageListResponse]]:
         """
         Fetch aggregated usage data for multiple customers and billable-metrics, broken
         into intervals of the specified length.
@@ -324,9 +326,10 @@ class AsyncUsageResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/usage",
-            body=await async_maybe_transform(
+            page=AsyncCursorPageWithoutLimit[UsageListResponse],
+            body=maybe_transform(
                 {
                     "ending_before": ending_before,
                     "starting_on": starting_on,
@@ -341,9 +344,10 @@ class AsyncUsageResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"next_page": next_page}, usage_list_params.UsageListParams),
+                query=maybe_transform({"next_page": next_page}, usage_list_params.UsageListParams),
             ),
-            cast_to=UsageListResponse,
+            model=UsageListResponse,
+            method="post",
         )
 
     async def ingest(

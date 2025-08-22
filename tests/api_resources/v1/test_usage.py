@@ -15,7 +15,12 @@ from metronome.types.v1 import (
     UsageSearchResponse,
     UsageListWithGroupsResponse,
 )
-from metronome.pagination import SyncCursorPage, AsyncCursorPage
+from metronome.pagination import (
+    SyncCursorPage,
+    AsyncCursorPage,
+    SyncCursorPageWithoutLimit,
+    AsyncCursorPageWithoutLimit,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -30,7 +35,7 @@ class TestUsage:
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
             window_size="HOUR",
         )
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -50,7 +55,7 @@ class TestUsage:
             ],
             customer_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -63,7 +68,7 @@ class TestUsage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         usage = response.parse()
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -76,7 +81,7 @@ class TestUsage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             usage = response.parse()
-            assert_matches_type(UsageListResponse, usage, path=["response"])
+            assert_matches_type(SyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -223,7 +228,7 @@ class TestAsyncUsage:
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
             window_size="HOUR",
         )
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -243,7 +248,7 @@ class TestAsyncUsage:
             ],
             customer_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -256,7 +261,7 @@ class TestAsyncUsage:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         usage = await response.parse()
-        assert_matches_type(UsageListResponse, usage, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -269,7 +274,7 @@ class TestAsyncUsage:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             usage = await response.parse()
-            assert_matches_type(UsageListResponse, usage, path=["response"])
+            assert_matches_type(AsyncCursorPageWithoutLimit[UsageListResponse], usage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

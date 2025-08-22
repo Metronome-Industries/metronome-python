@@ -1,22 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 
 from ..._models import BaseModel
 from .credit_ledger_entry import CreditLedgerEntry
 from ..shared.credit_type_data import CreditTypeData
 
-__all__ = [
-    "CreditGrantListEntriesResponse",
-    "Data",
-    "DataLedger",
-    "DataLedgerEndingBalance",
-    "DataLedgerStartingBalance",
-]
+__all__ = ["CreditGrantListEntriesResponse", "Ledger", "LedgerEndingBalance", "LedgerStartingBalance"]
 
 
-class DataLedgerEndingBalance(BaseModel):
+class LedgerEndingBalance(BaseModel):
     effective_at: datetime
     """
     the ending_before request parameter (if supplied) or the current billing
@@ -37,7 +31,7 @@ class DataLedgerEndingBalance(BaseModel):
     """
 
 
-class DataLedgerStartingBalance(BaseModel):
+class LedgerStartingBalance(BaseModel):
     effective_at: datetime
     """
     the starting_on request parameter (if supplied) or the first credit grant's
@@ -57,26 +51,20 @@ class DataLedgerStartingBalance(BaseModel):
     """
 
 
-class DataLedger(BaseModel):
+class Ledger(BaseModel):
     credit_type: CreditTypeData
 
-    ending_balance: DataLedgerEndingBalance
+    ending_balance: LedgerEndingBalance
     """the effective balances at the end of the specified time window"""
 
     entries: List[CreditLedgerEntry]
 
     pending_entries: List[CreditLedgerEntry]
 
-    starting_balance: DataLedgerStartingBalance
-
-
-class Data(BaseModel):
-    customer_id: str
-
-    ledgers: List[DataLedger]
+    starting_balance: LedgerStartingBalance
 
 
 class CreditGrantListEntriesResponse(BaseModel):
-    data: List[Data]
+    customer_id: str
 
-    next_page: Optional[str] = None
+    ledgers: List[Ledger]

@@ -24,7 +24,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.v1.custom_field_list_keys_response import CustomFieldListKeysResponse
 
 __all__ = ["CustomFieldsResource", "AsyncCustomFieldsResource"]
@@ -207,7 +208,7 @@ class CustomFieldsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomFieldListKeysResponse:
+    ) -> SyncCursorPageWithoutLimit[CustomFieldListKeysResponse]:
         """
         List all active custom field keys, optionally filtered by entity type.
 
@@ -224,8 +225,9 @@ class CustomFieldsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/customFields/listKeys",
+            page=SyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
             body=maybe_transform({"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -236,7 +238,8 @@ class CustomFieldsResource(SyncAPIResource):
                     {"next_page": next_page}, custom_field_list_keys_params.CustomFieldListKeysParams
                 ),
             ),
-            cast_to=CustomFieldListKeysResponse,
+            model=CustomFieldListKeysResponse,
+            method="post",
         )
 
     def remove_key(
@@ -511,7 +514,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def list_keys(
+    def list_keys(
         self,
         *,
         next_page: str | NotGiven = NOT_GIVEN,
@@ -544,7 +547,7 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomFieldListKeysResponse:
+    ) -> AsyncPaginator[CustomFieldListKeysResponse, AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse]]:
         """
         List all active custom field keys, optionally filtered by entity type.
 
@@ -561,21 +564,21 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/customFields/listKeys",
-            body=await async_maybe_transform(
-                {"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams
-            ),
+            page=AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
+            body=maybe_transform({"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {"next_page": next_page}, custom_field_list_keys_params.CustomFieldListKeysParams
                 ),
             ),
-            cast_to=CustomFieldListKeysResponse,
+            model=CustomFieldListKeysResponse,
+            method="post",
         )
 
     async def remove_key(

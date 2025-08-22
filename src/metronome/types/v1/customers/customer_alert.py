@@ -27,7 +27,7 @@ class AlertGroupKeyFilter(BaseModel):
 class AlertGroupValue(BaseModel):
     key: str
 
-    value: str
+    value: Optional[str] = None
 
 
 class Alert(BaseModel):
