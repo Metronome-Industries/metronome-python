@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from metronome.types.v1 import (
     CustomFieldListKeysResponse,
 )
+from metronome.pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -96,7 +97,7 @@ class TestCustomFields:
     @parametrize
     def test_method_list_keys(self, client: Metronome) -> None:
         custom_field = client.v1.custom_fields.list_keys()
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     def test_method_list_keys_with_all_params(self, client: Metronome) -> None:
@@ -104,7 +105,7 @@ class TestCustomFields:
             next_page="next_page",
             entities=["customer"],
         )
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     def test_raw_response_list_keys(self, client: Metronome) -> None:
@@ -113,7 +114,7 @@ class TestCustomFields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         custom_field = response.parse()
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     def test_streaming_response_list_keys(self, client: Metronome) -> None:
@@ -122,7 +123,9 @@ class TestCustomFields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             custom_field = response.parse()
-            assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+            assert_matches_type(
+                SyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"]
+            )
 
         assert cast(Any, response.is_closed) is True
 
@@ -280,7 +283,7 @@ class TestAsyncCustomFields:
     @parametrize
     async def test_method_list_keys(self, async_client: AsyncMetronome) -> None:
         custom_field = await async_client.v1.custom_fields.list_keys()
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     async def test_method_list_keys_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -288,7 +291,7 @@ class TestAsyncCustomFields:
             next_page="next_page",
             entities=["customer"],
         )
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     async def test_raw_response_list_keys(self, async_client: AsyncMetronome) -> None:
@@ -297,7 +300,7 @@ class TestAsyncCustomFields:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         custom_field = await response.parse()
-        assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_keys(self, async_client: AsyncMetronome) -> None:
@@ -306,7 +309,9 @@ class TestAsyncCustomFields:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             custom_field = await response.parse()
-            assert_matches_type(CustomFieldListKeysResponse, custom_field, path=["response"])
+            assert_matches_type(
+                AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse], custom_field, path=["response"]
+            )
 
         assert cast(Any, response.is_closed) is True
 
