@@ -6,19 +6,9 @@ from typing_extensions import Literal
 
 from ....._models import BaseModel
 from ....shared.rate import Rate
-from ....shared.tier import Tier
+from ....shared.commit_rate import CommitRate
 
-__all__ = ["RateListResponse", "CommitRate"]
-
-
-class CommitRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
-
-    price: Optional[float] = None
-    """Commit rate price. For FLAT rate_type, this must be >=0."""
-
-    tiers: Optional[List[Tier]] = None
-    """Only set for TIERED rate_type."""
+__all__ = ["RateListResponse"]
 
 
 class RateListResponse(BaseModel):

@@ -23,6 +23,7 @@ from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import commit_list_params, commit_create_params, commit_update_end_date_params
 from ....types.shared.commit import Commit
 from ....types.v1.customers.commit_create_response import CommitCreateResponse
+from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ....types.v1.customers.commit_update_end_date_response import CommitUpdateEndDateResponse
 
 __all__ = ["CommitsResource", "AsyncCommitsResource"]
@@ -67,7 +68,7 @@ class CommitsResource(SyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[commit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -342,7 +343,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[commit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
