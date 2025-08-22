@@ -107,7 +107,7 @@ Methods:
 - <code title="post /v1/credits/createGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">create</a>(\*\*<a href="src/metronome/types/v1/credit_grant_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_create_response.py">CreditGrantCreateResponse</a></code>
 - <code title="post /v1/credits/listGrants">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_response.py">SyncCursorPage[CreditGrantListResponse]</a></code>
 - <code title="post /v1/credits/editGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">edit</a>(\*\*<a href="src/metronome/types/v1/credit_grant_edit_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_edit_response.py">CreditGrantEditResponse</a></code>
-- <code title="post /v1/credits/listEntries">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list_entries</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_entries_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_entries_response.py">CreditGrantListEntriesResponse</a></code>
+- <code title="post /v1/credits/listEntries">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list_entries</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_entries_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_entries_response.py">SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]</a></code>
 - <code title="post /v1/credits/voidGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">void</a>(\*\*<a href="src/metronome/types/v1/credit_grant_void_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_void_response.py">CreditGrantVoidResponse</a></code>
 
 ## PricingUnits
@@ -158,13 +158,13 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import CustomerAlert, AlertRetrieveResponse, AlertListResponse
+from metronome.types.v1.customers import CustomerAlert, AlertRetrieveResponse
 ```
 
 Methods:
 
 - <code title="post /v1/customer-alerts/get">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/customers/alert_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/alert_retrieve_response.py">AlertRetrieveResponse</a></code>
-- <code title="post /v1/customer-alerts/list">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/alert_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/alert_list_response.py">AlertListResponse</a></code>
+- <code title="post /v1/customer-alerts/list">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/alert_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/customer_alert.py">SyncCursorPageWithoutLimit[CustomerAlert]</a></code>
 - <code title="post /v1/customer-alerts/reset">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">reset</a>(\*\*<a href="src/metronome/types/v1/customers/alert_reset_params.py">params</a>) -> None</code>
 
 ### Plans
@@ -284,7 +284,7 @@ from metronome.types.v1 import UsageListResponse, UsageListWithGroupsResponse, U
 
 Methods:
 
-- <code title="post /v1/usage">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list</a>(\*\*<a href="src/metronome/types/v1/usage_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_response.py">UsageListResponse</a></code>
+- <code title="post /v1/usage">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list</a>(\*\*<a href="src/metronome/types/v1/usage_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_response.py">SyncCursorPageWithoutLimit[UsageListResponse]</a></code>
 - <code title="post /v1/ingest">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">ingest</a>(\*\*<a href="src/metronome/types/v1/usage_ingest_params.py">params</a>) -> None</code>
 - <code title="post /v1/usage/groups">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list_with_groups</a>(\*\*<a href="src/metronome/types/v1/usage_list_with_groups_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_with_groups_response.py">SyncCursorPage[UsageListWithGroupsResponse]</a></code>
 - <code title="post /v1/events/search">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">search</a>(\*\*<a href="src/metronome/types/v1/usage_search_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_search_response.py">UsageSearchResponse</a></code>
@@ -313,7 +313,7 @@ Methods:
 
 - <code title="post /v1/customFields/addKey">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">add_key</a>(\*\*<a href="src/metronome/types/v1/custom_field_add_key_params.py">params</a>) -> None</code>
 - <code title="post /v1/customFields/deleteValues">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">delete_values</a>(\*\*<a href="src/metronome/types/v1/custom_field_delete_values_params.py">params</a>) -> None</code>
-- <code title="post /v1/customFields/listKeys">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">list_keys</a>(\*\*<a href="src/metronome/types/v1/custom_field_list_keys_params.py">params</a>) -> <a href="./src/metronome/types/v1/custom_field_list_keys_response.py">CustomFieldListKeysResponse</a></code>
+- <code title="post /v1/customFields/listKeys">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">list_keys</a>(\*\*<a href="src/metronome/types/v1/custom_field_list_keys_params.py">params</a>) -> <a href="./src/metronome/types/v1/custom_field_list_keys_response.py">SyncCursorPageWithoutLimit[CustomFieldListKeysResponse]</a></code>
 - <code title="post /v1/customFields/removeKey">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">remove_key</a>(\*\*<a href="src/metronome/types/v1/custom_field_remove_key_params.py">params</a>) -> None</code>
 - <code title="post /v1/customFields/setValues">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">set_values</a>(\*\*<a href="src/metronome/types/v1/custom_field_set_values_params.py">params</a>) -> None</code>
 

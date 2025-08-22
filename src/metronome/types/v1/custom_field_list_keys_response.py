@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["CustomFieldListKeysResponse", "Data"]
+__all__ = ["CustomFieldListKeysResponse"]
 
 
-class Data(BaseModel):
+class CustomFieldListKeysResponse(BaseModel):
     enforce_uniqueness: bool
 
     entity: Literal[
@@ -33,9 +32,3 @@ class Data(BaseModel):
     ]
 
     key: str
-
-
-class CustomFieldListKeysResponse(BaseModel):
-    data: List[Data]
-
-    next_page: Optional[str] = None
