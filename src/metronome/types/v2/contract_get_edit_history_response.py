@@ -5,19 +5,20 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from ..shared.tier import Tier
 from ..shared.discount import Discount
 from ..shared.pro_service import ProService
 from ..shared.subscription import Subscription
 from ..shared.override_tier import OverrideTier
+from ..shared.overwrite_rate import OverwriteRate
 from ..shared.commit_specifier import CommitSpecifier
-from ..shared.credit_type_data import CreditTypeData
 from ..shared.schedule_duration import ScheduleDuration
 from ..shared.commit_specifier_input import CommitSpecifierInput
 from ..shared.payment_gate_config_v2 import PaymentGateConfigV2
 from ..shared.schedule_point_in_time import SchedulePointInTime
+from ..shared.update_base_threshold_commit import UpdateBaseThresholdCommit
 from ..shared.commit_hierarchy_configuration import CommitHierarchyConfiguration
 from ..shared.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from ..shared.recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
 from ..shared.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
 __all__ = [
@@ -29,7 +30,6 @@ __all__ = [
     "DataAddCreditProduct",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
-    "DataAddOverrideOverwriteRate",
     "DataAddOverrideProduct",
     "DataAddRecurringCommit",
     "DataAddRecurringCommitAccessAmount",
@@ -37,15 +37,11 @@ __all__ = [
     "DataAddRecurringCommitProduct",
     "DataAddRecurringCommitContract",
     "DataAddRecurringCommitInvoiceAmount",
-    "DataAddRecurringCommitSubscriptionConfig",
-    "DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
     "DataAddRecurringCreditProduct",
     "DataAddRecurringCreditContract",
-    "DataAddRecurringCreditSubscriptionConfig",
-    "DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
@@ -86,7 +82,6 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "DataUpdateSpendThresholdConfiguration",
-    "DataUpdateSpendThresholdConfigurationCommit",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
 ]
@@ -220,37 +215,6 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
-class DataAddOverrideOverwriteRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
-
-    credit_type: Optional[CreditTypeData] = None
-
-    custom_rate: Optional[Dict[str, object]] = None
-    """Only set for CUSTOM rate_type.
-
-    This field is interpreted by custom rate processors.
-    """
-
-    is_prorated: Optional[bool] = None
-    """Default proration configuration.
-
-    Only valid for SUBSCRIPTION rate_type. Must be set to true.
-    """
-
-    price: Optional[float] = None
-    """Default price.
-
-    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
-    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
-    """
-
-    quantity: Optional[float] = None
-    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
-
-    tiers: Optional[List[Tier]] = None
-    """Only set for TIERED rate_type."""
-
-
 class DataAddOverrideProduct(BaseModel):
     id: str
 
@@ -276,7 +240,7 @@ class DataAddOverride(BaseModel):
 
     override_tiers: Optional[List[OverrideTier]] = None
 
-    overwrite_rate: Optional[DataAddOverrideOverwriteRate] = None
+    overwrite_rate: Optional[OverwriteRate] = None
 
     priority: Optional[float] = None
 
@@ -317,19 +281,6 @@ class DataAddRecurringCommitInvoiceAmount(BaseModel):
     quantity: float
 
     unit_price: float
-
-
-class DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class DataAddRecurringCommitSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
 
 
 class DataAddRecurringCommit(BaseModel):
@@ -408,7 +359,7 @@ class DataAddRecurringCommit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[DataAddRecurringCommitSubscriptionConfig] = None
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 
@@ -434,19 +385,6 @@ class DataAddRecurringCreditProduct(BaseModel):
 
 class DataAddRecurringCreditContract(BaseModel):
     id: str
-
-
-class DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class DataAddRecurringCreditSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
 
 
 class DataAddRecurringCredit(BaseModel):
@@ -522,7 +460,7 @@ class DataAddRecurringCredit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[DataAddRecurringCreditSubscriptionConfig] = None
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 
@@ -874,7 +812,7 @@ class DataUpdateDiscount(BaseModel):
     """Must provide either schedule_items or recurring_schedule."""
 
 
-class DataUpdatePrepaidBalanceThresholdConfigurationCommit(BaseModel):
+class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
 
@@ -887,20 +825,6 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(BaseModel):
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
-    """
-
-    description: Optional[str] = None
-
-    name: Optional[str] = None
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-    product_id: Optional[str] = None
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
     """
 
     specifiers: Optional[List[CommitSpecifierInput]] = None
@@ -1029,24 +953,8 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
-class DataUpdateSpendThresholdConfigurationCommit(BaseModel):
-    description: Optional[str] = None
-
-    name: Optional[str] = None
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-    product_id: Optional[str] = None
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-
 class DataUpdateSpendThresholdConfiguration(BaseModel):
-    commit: Optional[DataUpdateSpendThresholdConfigurationCommit] = None
+    commit: Optional[UpdateBaseThresholdCommit] = None
 
     is_enabled: Optional[bool] = None
     """

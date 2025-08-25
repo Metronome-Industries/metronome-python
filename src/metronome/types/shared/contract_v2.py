@@ -4,20 +4,20 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from .tier import Tier
 from .discount import Discount
 from ..._models import BaseModel
 from .pro_service import ProService
 from .subscription import Subscription
 from .override_tier import OverrideTier
+from .overwrite_rate import OverwriteRate
 from .commit_specifier import CommitSpecifier
-from .credit_type_data import CreditTypeData
 from .scheduled_charge import ScheduledCharge
 from .schedule_duration import ScheduleDuration
 from .schedule_point_in_time import SchedulePointInTime
 from .hierarchy_configuration import HierarchyConfiguration
 from .commit_hierarchy_configuration import CommitHierarchyConfiguration
 from .spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
 from .prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
 __all__ = [
@@ -44,7 +44,6 @@ __all__ = [
     "CommitRolledOverFrom",
     "Override",
     "OverrideOverrideSpecifier",
-    "OverrideOverwriteRate",
     "OverrideProduct",
     "Transition",
     "UsageFilter",
@@ -68,15 +67,11 @@ __all__ = [
     "RecurringCommitProduct",
     "RecurringCommitContract",
     "RecurringCommitInvoiceAmount",
-    "RecurringCommitSubscriptionConfig",
-    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditSubscriptionConfig",
-    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
     "ResellerRoyaltySegment",
 ]
@@ -379,37 +374,6 @@ class OverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
-class OverrideOverwriteRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
-
-    credit_type: Optional[CreditTypeData] = None
-
-    custom_rate: Optional[Dict[str, object]] = None
-    """Only set for CUSTOM rate_type.
-
-    This field is interpreted by custom rate processors.
-    """
-
-    is_prorated: Optional[bool] = None
-    """Default proration configuration.
-
-    Only valid for SUBSCRIPTION rate_type. Must be set to true.
-    """
-
-    price: Optional[float] = None
-    """Default price.
-
-    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
-    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
-    """
-
-    quantity: Optional[float] = None
-    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
-
-    tiers: Optional[List[Tier]] = None
-    """Only set for TIERED rate_type."""
-
-
 class OverrideProduct(BaseModel):
     id: str
 
@@ -435,7 +399,7 @@ class Override(BaseModel):
 
     override_tiers: Optional[List[OverrideTier]] = None
 
-    overwrite_rate: Optional[OverrideOverwriteRate] = None
+    overwrite_rate: Optional[OverwriteRate] = None
 
     priority: Optional[float] = None
 
@@ -716,19 +680,6 @@ class RecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
-class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class RecurringCommitSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: RecurringCommitSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
-
-
 class RecurringCommit(BaseModel):
     id: str
 
@@ -833,19 +784,6 @@ class RecurringCreditContract(BaseModel):
     id: str
 
 
-class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class RecurringCreditSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: RecurringCreditSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
-
-
 class RecurringCredit(BaseModel):
     id: str
 
@@ -919,7 +857,7 @@ class RecurringCredit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[RecurringCreditSubscriptionConfig] = None
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 

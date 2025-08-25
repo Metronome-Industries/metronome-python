@@ -10,6 +10,7 @@ from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
 from ..shared_params.payment_gate_config_v2 import PaymentGateConfigV2
+from ..shared_params.update_base_threshold_commit import UpdateBaseThresholdCommit
 from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 from ..shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
 from ..shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
@@ -89,7 +90,6 @@ __all__ = [
     "UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "UpdateSpendThresholdConfiguration",
-    "UpdateSpendThresholdConfigurationCommit",
     "UpdateSubscription",
     "UpdateSubscriptionQuantityUpdate",
 ]
@@ -1382,7 +1382,7 @@ class UpdateCredit(TypedDict, total=False):
     product_id: str
 
 
-class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
+class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit, total=False):
     applicable_product_ids: Optional[List[str]]
     """Which products the threshold commit applies to.
 
@@ -1395,20 +1395,6 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(TypedDict, total=False):
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
-    """
-
-    description: str
-
-    name: str
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-    product_id: str
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
     """
 
     specifiers: Optional[Iterable[CommitSpecifierInput]]
@@ -1529,24 +1515,8 @@ class UpdateScheduledCharge(TypedDict, total=False):
     netsuite_sales_order_id: Optional[str]
 
 
-class UpdateSpendThresholdConfigurationCommit(TypedDict, total=False):
-    description: str
-
-    name: str
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
-
-    product_id: str
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-
 class UpdateSpendThresholdConfiguration(TypedDict, total=False):
-    commit: UpdateSpendThresholdConfigurationCommit
+    commit: UpdateBaseThresholdCommit
 
     is_enabled: bool
     """
