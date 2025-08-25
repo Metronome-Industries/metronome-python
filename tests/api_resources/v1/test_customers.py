@@ -19,6 +19,7 @@ from metronome.types.v1 import (
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
     CustomerListBillableMetricsResponse,
+    CustomerRetrieveCustomerBillingConfigurationsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -362,6 +363,119 @@ class TestCustomers:
                 customer_id="",
                 events=[{"event_type": "heartbeat"}],
             )
+
+    @parametrize
+    def test_method_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
+        customer = client.v1.customers.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    def test_raw_response_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
+        response = client.v1.customers.with_raw_response.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = response.parse()
+        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    def test_streaming_response_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
+        with client.v1.customers.with_streaming_response.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = response.parse()
+            assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_set_customer_billing_configurations(self, client: Metronome) -> None:
+        customer = client.v1.customers.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        )
+        assert customer is None
+
+    @parametrize
+    def test_raw_response_set_customer_billing_configurations(self, client: Metronome) -> None:
+        response = client.v1.customers.with_raw_response.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = response.parse()
+        assert customer is None
+
+    @parametrize
+    def test_streaming_response_set_customer_billing_configurations(self, client: Metronome) -> None:
+        with client.v1.customers.with_streaming_response.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = response.parse()
+            assert customer is None
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_set_ingest_aliases(self, client: Metronome) -> None:
@@ -834,6 +948,121 @@ class TestAsyncCustomers:
                 customer_id="",
                 events=[{"event_type": "heartbeat"}],
             )
+
+    @parametrize
+    async def test_method_retrieve_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    async def test_raw_response_retrieve_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.customers.with_raw_response.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = await response.parse()
+        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_retrieve_customer_billing_configurations(
+        self, async_client: AsyncMetronome
+    ) -> None:
+        async with async_client.v1.customers.with_streaming_response.retrieve_customer_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = await response.parse()
+            assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        )
+        assert customer is None
+
+    @parametrize
+    async def test_raw_response_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.customers.with_raw_response.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = await response.parse()
+        assert customer is None
+
+    @parametrize
+    async def test_streaming_response_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.customers.with_streaming_response.set_customer_billing_configurations(
+            data=[
+                {
+                    "billing_provider": "stripe",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "azure_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = await response.parse()
+            assert customer is None
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_set_ingest_aliases(self, async_client: AsyncMetronome) -> None:

@@ -159,6 +159,7 @@ class Credit(BaseModel):
     contract: Optional[Contract] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: Optional[str] = None
 

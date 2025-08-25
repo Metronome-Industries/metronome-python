@@ -15,6 +15,7 @@ class CustomerCreateParams(TypedDict, total=False):
     billing_config: BillingConfig
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configurations: Iterable[CustomerBillingProviderConfiguration]
 

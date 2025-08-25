@@ -27,6 +27,7 @@ class ProductCreateParams(TypedDict, total=False):
     """Required for COMPOSITE products"""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     exclude_free_usage: bool
     """Beta feature only available for composite products.

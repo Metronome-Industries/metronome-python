@@ -310,6 +310,7 @@ class Commit(BaseModel):
     contract: Optional[CommitContract] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: Optional[str] = None
 
@@ -578,6 +579,7 @@ class Credit(BaseModel):
     contract: Optional[CreditContract] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: Optional[str] = None
 
@@ -923,6 +925,7 @@ class ContractV2(BaseModel):
     credits: Optional[List[Credit]] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configuration: Optional[CustomerBillingProviderConfiguration] = None
     """This field's availability is dependent on your client's configuration."""

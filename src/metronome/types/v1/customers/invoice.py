@@ -56,6 +56,7 @@ class LineItemSubLineItemTier(BaseModel):
 
 class LineItemSubLineItem(BaseModel):
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
 
@@ -134,6 +135,7 @@ class LineItem(BaseModel):
     """
 
     commit_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     commit_id: Optional[str] = None
     """
@@ -156,8 +158,10 @@ class LineItem(BaseModel):
     """
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     discount_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     discount_id: Optional[str] = None
     """ID of the discount applied to this line item."""
@@ -205,6 +209,7 @@ class LineItem(BaseModel):
     """
 
     product_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     product_id: Optional[str] = None
     """ID of the product associated with the line item."""
@@ -223,6 +228,7 @@ class LineItem(BaseModel):
     """
 
     professional_service_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     professional_service_id: Optional[str] = None
 
@@ -232,6 +238,7 @@ class LineItem(BaseModel):
     reseller_type: Optional[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]] = None
 
     scheduled_charge_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     scheduled_charge_id: Optional[str] = None
     """ID of scheduled charge."""
@@ -242,6 +249,7 @@ class LineItem(BaseModel):
     sub_line_items: Optional[List[LineItemSubLineItem]] = None
 
     subscription_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     tier: Optional[LineItemTier] = None
     """Populated if the line item has a tiered price."""
@@ -334,6 +342,7 @@ class InvoiceAdjustment(BaseModel):
     total: float
 
     credit_grant_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     credit_grant_id: Optional[str] = None
 
@@ -385,6 +394,7 @@ class Invoice(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     contract_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     contract_id: Optional[str] = None
 
@@ -399,6 +409,7 @@ class Invoice(BaseModel):
     custom_fields: Optional[Dict[str, object]] = None
 
     customer_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     end_timestamp: Optional[datetime] = None
     """End of the usage period this invoice covers (UTC)"""
@@ -416,6 +427,7 @@ class Invoice(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     plan_custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     plan_id: Optional[str] = None
 
