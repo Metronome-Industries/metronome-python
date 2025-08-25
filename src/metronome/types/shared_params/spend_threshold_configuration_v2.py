@@ -5,28 +5,13 @@ from __future__ import annotations
 from typing_extensions import Required, TypedDict
 
 from .payment_gate_config_v2 import PaymentGateConfigV2
+from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
-__all__ = ["SpendThresholdConfigurationV2", "Commit"]
-
-
-class Commit(TypedDict, total=False):
-    product_id: Required[str]
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
-    description: str
-
-    name: str
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
-    """
+__all__ = ["SpendThresholdConfigurationV2"]
 
 
 class SpendThresholdConfigurationV2(TypedDict, total=False):
-    commit: Required[Commit]
+    commit: Required[UpdateBaseThresholdCommit]
 
     is_enabled: Required[bool]
     """

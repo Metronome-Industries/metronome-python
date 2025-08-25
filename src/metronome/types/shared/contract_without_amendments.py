@@ -16,6 +16,7 @@ from .base_usage_filter import BaseUsageFilter
 from .hierarchy_configuration import HierarchyConfiguration
 from .spend_threshold_configuration import SpendThresholdConfiguration
 from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
 from .prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
 __all__ = [
@@ -28,15 +29,11 @@ __all__ = [
     "RecurringCommitProduct",
     "RecurringCommitContract",
     "RecurringCommitInvoiceAmount",
-    "RecurringCommitSubscriptionConfig",
-    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
-    "RecurringCreditSubscriptionConfig",
-    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
     "UsageFilter",
     "UsageFilterUpdate",
@@ -88,19 +85,6 @@ class RecurringCommitInvoiceAmount(BaseModel):
     quantity: float
 
     unit_price: float
-
-
-class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class RecurringCommitSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: RecurringCommitSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
 
 
 class RecurringCommit(BaseModel):
@@ -207,19 +191,6 @@ class RecurringCreditContract(BaseModel):
     id: str
 
 
-class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
-    is_prorated: bool
-    """Indicates whether a mid-period seat increase should be prorated."""
-
-
-class RecurringCreditSubscriptionConfig(BaseModel):
-    allocation: Literal["INDIVIDUAL", "POOLED"]
-
-    apply_seat_increase_config: RecurringCreditSubscriptionConfigApplySeatIncreaseConfig
-
-    subscription_id: str
-
-
 class RecurringCredit(BaseModel):
     id: str
 
@@ -293,7 +264,7 @@ class RecurringCredit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[RecurringCreditSubscriptionConfig] = None
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 

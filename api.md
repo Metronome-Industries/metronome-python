@@ -20,6 +20,7 @@ from metronome.types import (
     ID,
     Override,
     OverrideTier,
+    OverwriteRate,
     PaymentGateConfig,
     PaymentGateConfigV2,
     PrepaidBalanceThresholdConfiguration,
@@ -27,6 +28,7 @@ from metronome.types import (
     PropertyFilter,
     ProService,
     Rate,
+    RecurringCommitSubscriptionConfig,
     ScheduledCharge,
     ScheduleDuration,
     SchedulePointInTime,
@@ -34,6 +36,7 @@ from metronome.types import (
     SpendThresholdConfigurationV2,
     Subscription,
     Tier,
+    UpdateBaseThresholdCommit,
 )
 ```
 

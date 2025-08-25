@@ -7,17 +7,12 @@ from typing_extensions import Required, TypedDict
 
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
+from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
 __all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit"]
 
 
-class Commit(TypedDict, total=False):
-    product_id: Required[str]
-    """
-    The commit product that will be used to generate the line item for commit
-    payment.
-    """
-
+class Commit(UpdateBaseThresholdCommit, total=False):
     applicable_product_ids: List[str]
     """Which products the threshold commit applies to.
 
@@ -30,14 +25,6 @@ class Commit(TypedDict, total=False):
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
-    """
-
-    description: str
-
-    name: str
-    """Specify the name of the line item for the threshold charge.
-
-    If left blank, it will default to the commit product name.
     """
 
     specifiers: Iterable[CommitSpecifierInput]
