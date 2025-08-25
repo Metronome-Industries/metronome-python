@@ -28,6 +28,7 @@ class PlanListResponse(BaseModel):
     """the ID of the customer plan"""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     plan_description: str
 

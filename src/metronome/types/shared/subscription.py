@@ -40,6 +40,15 @@ class Subscription(BaseModel):
 
     proration: Proration
 
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation.
+    """
+
     quantity_schedule: List[QuantitySchedule]
     """List of quantity schedule items for the subscription.
 
@@ -53,6 +62,7 @@ class Subscription(BaseModel):
     id: Optional[str] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: Optional[str] = None
 

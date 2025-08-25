@@ -84,6 +84,7 @@ class ContractCreateParams(TypedDict, total=False):
     credits: Iterable[Credit]
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     discounts: Iterable[Discount]
     """This field's availability is dependent on your client's configuration."""
@@ -378,6 +379,7 @@ class Commit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -466,6 +468,7 @@ class Credit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -584,6 +587,7 @@ class Discount(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""
@@ -775,6 +779,7 @@ class ProfessionalService(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
 
@@ -1153,6 +1158,7 @@ class ScheduledCharge(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""
@@ -1189,14 +1195,12 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
 class Subscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
 
-    initial_quantity: Required[float]
-    """The initial quantity for the subscription. It must be non-negative value."""
-
     proration: Required[SubscriptionProration]
 
     subscription_rate: Required[SubscriptionSubscriptionRate]
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
 
@@ -1206,7 +1210,23 @@ class Subscription(TypedDict, total=False):
     If not provided, subscription inherits contract end date.
     """
 
+    initial_quantity: float
+    """The initial quantity for the subscription.
+
+    It must be non-negative value. Required if quantity_management_mode is
+    QUANTITY_ONLY.
+    """
+
     name: str
+
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation.
+    """
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Inclusive start time for the subscription.

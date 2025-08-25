@@ -57,7 +57,10 @@ class ProductOrdersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderUpdateResponse:
         """
-        Updates ordering of specified products
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of specific products on the rate card by moving them relative to their current
+        location.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -98,7 +101,9 @@ class ProductOrdersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderSetResponse:
         """
-        Sets the ordering of products within a rate card
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of products on the rate card.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -160,7 +165,10 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderUpdateResponse:
         """
-        Updates ordering of specified products
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of specific products on the rate card by moving them relative to their current
+        location.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -201,7 +209,9 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderSetResponse:
         """
-        Sets the ordering of products within a rate card
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of products on the rate card.
 
         Args:
           rate_card_id: ID of the rate card to update

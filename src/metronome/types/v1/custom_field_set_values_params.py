@@ -10,6 +10,7 @@ __all__ = ["CustomFieldSetValuesParams"]
 
 class CustomFieldSetValuesParams(TypedDict, total=False):
     custom_fields: Required[Dict[str, str]]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     entity: Required[
         Literal[

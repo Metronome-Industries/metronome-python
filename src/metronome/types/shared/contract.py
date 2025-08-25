@@ -117,6 +117,7 @@ class Contract(BaseModel):
     """
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configuration: Optional[CustomerBillingProviderConfiguration] = None
     """The billing provider configuration associated with a contract."""

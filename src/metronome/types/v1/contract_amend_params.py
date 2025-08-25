@@ -59,6 +59,7 @@ class ContractAmendParams(TypedDict, total=False):
     credits: Iterable[Credit]
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     discounts: Iterable[Discount]
     """This field's availability is dependent on your client's configuration."""
@@ -272,6 +273,7 @@ class Commit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -360,6 +362,7 @@ class Credit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -478,6 +481,7 @@ class Discount(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""
@@ -659,6 +663,7 @@ class ProfessionalService(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
 
@@ -793,6 +798,7 @@ class ScheduledCharge(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""

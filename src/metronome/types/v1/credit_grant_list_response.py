@@ -60,6 +60,7 @@ class CreditGrantListResponse(BaseModel):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_id: str
     """the Metronome ID of the customer"""

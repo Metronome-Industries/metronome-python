@@ -61,6 +61,8 @@ from ....types.v1 import (
     customer_preview_events_params,
     customer_set_ingest_aliases_params,
     customer_list_billable_metrics_params,
+    customer_set_customer_billing_configurations_params,
+    customer_retrieve_customer_billing_configurations_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -95,6 +97,9 @@ from ....types.v1.customer_set_name_response import CustomerSetNameResponse
 from ....types.v1.customer_list_costs_response import CustomerListCostsResponse
 from ....types.v1.customer_preview_events_response import CustomerPreviewEventsResponse
 from ....types.v1.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
+from ....types.v1.customer_retrieve_customer_billing_configurations_response import (
+    CustomerRetrieveCustomerBillingConfigurationsResponse,
+)
 
 __all__ = ["CustomersResource", "AsyncCustomersResource"]
 
@@ -165,10 +170,42 @@ class CustomersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerCreateResponse:
         """
-        Create a new customer
+        Create a new customer in Metronome and optionally the billing configuration
+        (recommended) which dictates where invoices for the customer will be sent or
+        where payment will be collected.
+
+        Use this endpoint to:\\
+        Execute your customer provisioning workflows for either PLG motions, where customers
+        originate in your platform, or SLG motions, where customers originate in your sales
+        system.
+
+        - Key response fields: This end-point returns the customer_id created by the
+          request. This id can be used to fetch relevant billing configurations and
+          create contracts.
+
+        Example workflow:
+
+        - Generally, Metronome recommends first creating the customer in the downstream
+          payment / ERP system when payment method is collected and then creating the
+          customer in Metronome using the response (i.e. customer_id) from the
+          downstream system. If you do not create a billing configuration on customer
+          creation, you can add it later.
+        - Once a customer is created, you can then create a contract for the customer.
+          In the contract creation process, you will need to add the customer billing
+          configuration to the contract to ensure Metronome invoices the customer
+          correctly. This is because a customer can have multiple configurations.
+        - As part of the customer creation process, set the ingest alias for the
+          customer which will ensure usage is accurately mapped to the customer. Ingest
+          aliases can be added or changed after the creation process as well.
+
+        Usage guidelines:\\
+        For details on different billing configurations for different systems, review the
+        /setCustomerBillingConfiguration end-point.
 
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
               this customer in usage events
@@ -213,8 +250,15 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerRetrieveResponse:
-        """
-        Get a customer by Metronome ID.
+        """Get detailed information for a specific customer by their Metronome ID.
+
+        Returns
+        customer profile data including name, creation date, ingest aliases,
+        configuration settings, and custom fields. Use this endpoint to fetch complete
+        customer details for billing operations or account management.
+
+        Note: If searching for a customer billing configuration, use the
+        /getCustomerBillingConfigurations end-point.
 
         Args:
           extra_headers: Send extra headers
@@ -251,8 +295,13 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[CustomerDetail]:
-        """
-        List all customers.
+        """Gets a paginated list of all customers in your Metronome account.
+
+        Use this
+        endpoint to browse your customer base, implement customer search functionality,
+        or sync customer data with external systems. Returns customer details including
+        IDs, names, and configuration settings. Supports filtering and pagination
+        parameters for efficient data retrieval.
 
         Args:
           customer_ids: Filter the customer list by customer_id. Up to 100 ids can be provided.
@@ -311,9 +360,22 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerArchiveResponse:
-        """
-        Archive a customer Note: any alerts associated with the customer will not be
-        triggered.
+        """Use this endpoint to archive a customer while preserving auditability.
+
+        Archiving
+        a customer will automatically archive all contracts as of the current date and
+        void all corresponding invoices. Use this endpoint if a customer is onboarded by
+        mistake.
+
+        Usage guidelines:
+
+        - Once a customer is archived, it cannot be unarchived.
+        - Archived customers can still be viewed through the API or the UI for audit
+          purposes.
+        - Ingest aliases remain idempotent for archived customers. In order to reuse an
+          ingest alias, first remove the ingest alias from the customer prior to
+          archiving.
+        - Any alerts associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
@@ -348,8 +410,12 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
-        """
-        Get all billable metrics for a given customer.
+        """Get all billable metrics available for a specific customer.
+
+        Supports pagination
+        and filtering by current plan status or archived metrics. Use this endpoint to
+        see which metrics are being tracked for billing calculations for a given
+        customer.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics
@@ -506,6 +572,115 @@ class CustomersResource(SyncAPIResource):
             cast_to=CustomerPreviewEventsResponse,
         )
 
+    def retrieve_customer_billing_configurations(
+        self,
+        *,
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CustomerRetrieveCustomerBillingConfigurationsResponse:
+        """Returns all billing configurations previously set for the customer.
+
+        Use during
+        the contract provisioning process to fetch the
+        `billing_provider_configuration_id` needed to set the contract billing
+        configuration.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/getCustomerBillingProviderConfigurations",
+            body=maybe_transform(
+                {"customer_id": customer_id},
+                customer_retrieve_customer_billing_configurations_params.CustomerRetrieveCustomerBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CustomerRetrieveCustomerBillingConfigurationsResponse,
+        )
+
+    def set_customer_billing_configurations(
+        self,
+        *,
+        data: Iterable[customer_set_customer_billing_configurations_params.Data],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """Create a billing configuration for a customer.
+
+        Once created, these
+        configurations are available to associate to a contract and dictates which
+        downstream system to collect payment in or send the invoice to. You can create
+        multiple configurations per customer. The configuration formats are distinct for
+        each downstream provider.
+
+        Use this endpoint to:
+
+        - Add the initial configuration to an existing customer. Once created, the
+          billing configuration can then be associated to the customer's contract.
+        - Add a new configuration to an existing customer. This might be used as part of
+          an upgrade or downgrade workflow where the customer was previously billed
+          through system A (e.g. Stripe) but will now be billed through system B (e.g.
+          AWS). Once created, the new configuration can then be associated to the
+          customer's contract.
+
+        Delivery Method Options:
+
+        - direct_to_billing_provider: Use when Metronome should send invoices directly
+          to the billing provider's API (e.g., Stripe, NetSuite). This is the most
+          common method for automated billing workflows.
+        - tackle: Use specifically for AWS Marketplace transactions that require
+          Tackle's co-selling platform for partner attribution and commission tracking.
+        - aws_sqs: Use when you want invoice data delivered to an AWS SQS queue for
+          custom processing before sending to your billing system.
+        - aws_sns: Use when you want invoice notifications published to an AWS SNS topic
+          for event-driven billing workflows.
+
+        Key response fields: The id for the customer billing configuration. This id can
+        be used to associate the billing configuration to a contract.
+
+        Usage guidelines:\\
+        Must use the delivery_method_id if you have multiple Stripe accounts connected to
+        Metronome.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            "/v1/setCustomerBillingProviderConfigurations",
+            body=maybe_transform(
+                {"data": data},
+                customer_set_customer_billing_configurations_params.CustomerSetCustomerBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def set_ingest_aliases(
         self,
         *,
@@ -520,9 +695,19 @@ class CustomersResource(SyncAPIResource):
     ) -> None:
         """Sets the ingest aliases for a customer.
 
-        Ingest aliases can be used in the
-        `customer_id` field when sending usage events to Metronome. This call is
-        idempotent. It fully replaces the set of ingest aliases for the given customer.
+        Use this endpoint to associate a
+        Metronome customer with an internal ID for easier tracking between systems.
+        Ingest aliases can be used in the customer_id field when sending usage events to
+        Metronome.
+
+        Usage guidelines:
+
+        - This call is idempotent and fully replaces the set of ingest aliases for the
+          given customer.
+        - Switching an ingest alias from one customer to another will associate all
+          corresponding usage to the new customer.
+        - Use multiple ingest aliases to model child organizations within a single
+          Metronome customer.
 
         Args:
           extra_headers: Send extra headers
@@ -559,8 +744,13 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerSetNameResponse:
-        """
-        Updates the specified customer's name.
+        """Updates the display name for a customer record.
+
+        Use this to correct customer
+        names, update business names after rebranding, or maintain accurate customer
+        information for invoicing and reporting. Returns the updated customer object
+        with the new name applied immediately across all billing documents and
+        interfaces.
 
         Args:
           name: The new name for the customer. This will be truncated to 160 characters if the
@@ -599,7 +789,10 @@ class CustomersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Updates the specified customer's config.
+        Update configuration settings for a specific customer, such as external system
+        integrations (e.g., Salesforce account ID) and other customer-specific billing
+        parameters. Use this endpoint to modify customer configurations without
+        affecting core customer data like name or ingest aliases.
 
         Args:
           leave_stripe_invoices_in_draft: Leave in draft or set to auto-advance on invoices sent to Stripe. Falls back to
@@ -700,10 +893,42 @@ class AsyncCustomersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerCreateResponse:
         """
-        Create a new customer
+        Create a new customer in Metronome and optionally the billing configuration
+        (recommended) which dictates where invoices for the customer will be sent or
+        where payment will be collected.
+
+        Use this endpoint to:\\
+        Execute your customer provisioning workflows for either PLG motions, where customers
+        originate in your platform, or SLG motions, where customers originate in your sales
+        system.
+
+        - Key response fields: This end-point returns the customer_id created by the
+          request. This id can be used to fetch relevant billing configurations and
+          create contracts.
+
+        Example workflow:
+
+        - Generally, Metronome recommends first creating the customer in the downstream
+          payment / ERP system when payment method is collected and then creating the
+          customer in Metronome using the response (i.e. customer_id) from the
+          downstream system. If you do not create a billing configuration on customer
+          creation, you can add it later.
+        - Once a customer is created, you can then create a contract for the customer.
+          In the contract creation process, you will need to add the customer billing
+          configuration to the contract to ensure Metronome invoices the customer
+          correctly. This is because a customer can have multiple configurations.
+        - As part of the customer creation process, set the ingest alias for the
+          customer which will ensure usage is accurately mapped to the customer. Ingest
+          aliases can be added or changed after the creation process as well.
+
+        Usage guidelines:\\
+        For details on different billing configurations for different systems, review the
+        /setCustomerBillingConfiguration end-point.
 
         Args:
           name: This will be truncated to 160 characters if the provided name is longer.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           external_id: (deprecated, use ingest_aliases instead) an alias that can be used to refer to
               this customer in usage events
@@ -748,8 +973,15 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerRetrieveResponse:
-        """
-        Get a customer by Metronome ID.
+        """Get detailed information for a specific customer by their Metronome ID.
+
+        Returns
+        customer profile data including name, creation date, ingest aliases,
+        configuration settings, and custom fields. Use this endpoint to fetch complete
+        customer details for billing operations or account management.
+
+        Note: If searching for a customer billing configuration, use the
+        /getCustomerBillingConfigurations end-point.
 
         Args:
           extra_headers: Send extra headers
@@ -786,8 +1018,13 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
-        """
-        List all customers.
+        """Gets a paginated list of all customers in your Metronome account.
+
+        Use this
+        endpoint to browse your customer base, implement customer search functionality,
+        or sync customer data with external systems. Returns customer details including
+        IDs, names, and configuration settings. Supports filtering and pagination
+        parameters for efficient data retrieval.
 
         Args:
           customer_ids: Filter the customer list by customer_id. Up to 100 ids can be provided.
@@ -846,9 +1083,22 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerArchiveResponse:
-        """
-        Archive a customer Note: any alerts associated with the customer will not be
-        triggered.
+        """Use this endpoint to archive a customer while preserving auditability.
+
+        Archiving
+        a customer will automatically archive all contracts as of the current date and
+        void all corresponding invoices. Use this endpoint if a customer is onboarded by
+        mistake.
+
+        Usage guidelines:
+
+        - Once a customer is archived, it cannot be unarchived.
+        - Archived customers can still be viewed through the API or the UI for audit
+          purposes.
+        - Ingest aliases remain idempotent for archived customers. In order to reuse an
+          ingest alias, first remove the ingest alias from the customer prior to
+          archiving.
+        - Any alerts associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
@@ -883,8 +1133,12 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
-        """
-        Get all billable metrics for a given customer.
+        """Get all billable metrics available for a specific customer.
+
+        Supports pagination
+        and filtering by current plan status or archived metrics. Use this endpoint to
+        see which metrics are being tracked for billing calculations for a given
+        customer.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics
@@ -1041,6 +1295,115 @@ class AsyncCustomersResource(AsyncAPIResource):
             cast_to=CustomerPreviewEventsResponse,
         )
 
+    async def retrieve_customer_billing_configurations(
+        self,
+        *,
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CustomerRetrieveCustomerBillingConfigurationsResponse:
+        """Returns all billing configurations previously set for the customer.
+
+        Use during
+        the contract provisioning process to fetch the
+        `billing_provider_configuration_id` needed to set the contract billing
+        configuration.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/getCustomerBillingProviderConfigurations",
+            body=await async_maybe_transform(
+                {"customer_id": customer_id},
+                customer_retrieve_customer_billing_configurations_params.CustomerRetrieveCustomerBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CustomerRetrieveCustomerBillingConfigurationsResponse,
+        )
+
+    async def set_customer_billing_configurations(
+        self,
+        *,
+        data: Iterable[customer_set_customer_billing_configurations_params.Data],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> None:
+        """Create a billing configuration for a customer.
+
+        Once created, these
+        configurations are available to associate to a contract and dictates which
+        downstream system to collect payment in or send the invoice to. You can create
+        multiple configurations per customer. The configuration formats are distinct for
+        each downstream provider.
+
+        Use this endpoint to:
+
+        - Add the initial configuration to an existing customer. Once created, the
+          billing configuration can then be associated to the customer's contract.
+        - Add a new configuration to an existing customer. This might be used as part of
+          an upgrade or downgrade workflow where the customer was previously billed
+          through system A (e.g. Stripe) but will now be billed through system B (e.g.
+          AWS). Once created, the new configuration can then be associated to the
+          customer's contract.
+
+        Delivery Method Options:
+
+        - direct_to_billing_provider: Use when Metronome should send invoices directly
+          to the billing provider's API (e.g., Stripe, NetSuite). This is the most
+          common method for automated billing workflows.
+        - tackle: Use specifically for AWS Marketplace transactions that require
+          Tackle's co-selling platform for partner attribution and commission tracking.
+        - aws_sqs: Use when you want invoice data delivered to an AWS SQS queue for
+          custom processing before sending to your billing system.
+        - aws_sns: Use when you want invoice notifications published to an AWS SNS topic
+          for event-driven billing workflows.
+
+        Key response fields: The id for the customer billing configuration. This id can
+        be used to associate the billing configuration to a contract.
+
+        Usage guidelines:\\
+        Must use the delivery_method_id if you have multiple Stripe accounts connected to
+        Metronome.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            "/v1/setCustomerBillingProviderConfigurations",
+            body=await async_maybe_transform(
+                {"data": data},
+                customer_set_customer_billing_configurations_params.CustomerSetCustomerBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def set_ingest_aliases(
         self,
         *,
@@ -1055,9 +1418,19 @@ class AsyncCustomersResource(AsyncAPIResource):
     ) -> None:
         """Sets the ingest aliases for a customer.
 
-        Ingest aliases can be used in the
-        `customer_id` field when sending usage events to Metronome. This call is
-        idempotent. It fully replaces the set of ingest aliases for the given customer.
+        Use this endpoint to associate a
+        Metronome customer with an internal ID for easier tracking between systems.
+        Ingest aliases can be used in the customer_id field when sending usage events to
+        Metronome.
+
+        Usage guidelines:
+
+        - This call is idempotent and fully replaces the set of ingest aliases for the
+          given customer.
+        - Switching an ingest alias from one customer to another will associate all
+          corresponding usage to the new customer.
+        - Use multiple ingest aliases to model child organizations within a single
+          Metronome customer.
 
         Args:
           extra_headers: Send extra headers
@@ -1094,8 +1467,13 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CustomerSetNameResponse:
-        """
-        Updates the specified customer's name.
+        """Updates the display name for a customer record.
+
+        Use this to correct customer
+        names, update business names after rebranding, or maintain accurate customer
+        information for invoicing and reporting. Returns the updated customer object
+        with the new name applied immediately across all billing documents and
+        interfaces.
 
         Args:
           name: The new name for the customer. This will be truncated to 160 characters if the
@@ -1134,7 +1512,10 @@ class AsyncCustomersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Updates the specified customer's config.
+        Update configuration settings for a specific customer, such as external system
+        integrations (e.g., Salesforce account ID) and other customer-specific billing
+        parameters. Use this endpoint to modify customer configurations without
+        affecting core customer data like name or ingest aliases.
 
         Args:
           leave_stripe_invoices_in_draft: Leave in draft or set to auto-advance on invoices sent to Stripe. Falls back to
@@ -1193,6 +1574,12 @@ class CustomersResourceWithRawResponse:
         )
         self.preview_events = to_raw_response_wrapper(
             customers.preview_events,
+        )
+        self.retrieve_customer_billing_configurations = to_raw_response_wrapper(
+            customers.retrieve_customer_billing_configurations,
+        )
+        self.set_customer_billing_configurations = to_raw_response_wrapper(
+            customers.set_customer_billing_configurations,
         )
         self.set_ingest_aliases = to_raw_response_wrapper(
             customers.set_ingest_aliases,
@@ -1258,6 +1645,12 @@ class AsyncCustomersResourceWithRawResponse:
         self.preview_events = async_to_raw_response_wrapper(
             customers.preview_events,
         )
+        self.retrieve_customer_billing_configurations = async_to_raw_response_wrapper(
+            customers.retrieve_customer_billing_configurations,
+        )
+        self.set_customer_billing_configurations = async_to_raw_response_wrapper(
+            customers.set_customer_billing_configurations,
+        )
         self.set_ingest_aliases = async_to_raw_response_wrapper(
             customers.set_ingest_aliases,
         )
@@ -1322,6 +1715,12 @@ class CustomersResourceWithStreamingResponse:
         self.preview_events = to_streamed_response_wrapper(
             customers.preview_events,
         )
+        self.retrieve_customer_billing_configurations = to_streamed_response_wrapper(
+            customers.retrieve_customer_billing_configurations,
+        )
+        self.set_customer_billing_configurations = to_streamed_response_wrapper(
+            customers.set_customer_billing_configurations,
+        )
         self.set_ingest_aliases = to_streamed_response_wrapper(
             customers.set_ingest_aliases,
         )
@@ -1385,6 +1784,12 @@ class AsyncCustomersResourceWithStreamingResponse:
         )
         self.preview_events = async_to_streamed_response_wrapper(
             customers.preview_events,
+        )
+        self.retrieve_customer_billing_configurations = async_to_streamed_response_wrapper(
+            customers.retrieve_customer_billing_configurations,
+        )
+        self.set_customer_billing_configurations = async_to_streamed_response_wrapper(
+            customers.set_customer_billing_configurations,
         )
         self.set_ingest_aliases = async_to_streamed_response_wrapper(
             customers.set_ingest_aliases,

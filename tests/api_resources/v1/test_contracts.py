@@ -448,7 +448,6 @@ class TestContracts:
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -460,7 +459,9 @@ class TestContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -1777,7 +1778,6 @@ class TestAsyncContracts:
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -1789,7 +1789,9 @@ class TestAsyncContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }

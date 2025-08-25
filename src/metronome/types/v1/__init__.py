@@ -118,9 +118,18 @@ from .contract_schedule_pro_services_invoice_params import (
 from .contract_schedule_pro_services_invoice_response import (
     ContractScheduleProServicesInvoiceResponse as ContractScheduleProServicesInvoiceResponse,
 )
+from .customer_set_customer_billing_configurations_params import (
+    CustomerSetCustomerBillingConfigurationsParams as CustomerSetCustomerBillingConfigurationsParams,
+)
 from .contract_retrieve_subscription_quantity_history_params import (
     ContractRetrieveSubscriptionQuantityHistoryParams as ContractRetrieveSubscriptionQuantityHistoryParams,
 )
 from .contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse as ContractRetrieveSubscriptionQuantityHistoryResponse,
+)
+from .customer_retrieve_customer_billing_configurations_params import (
+    CustomerRetrieveCustomerBillingConfigurationsParams as CustomerRetrieveCustomerBillingConfigurationsParams,
+)
+from .customer_retrieve_customer_billing_configurations_response import (
+    CustomerRetrieveCustomerBillingConfigurationsResponse as CustomerRetrieveCustomerBillingConfigurationsResponse,
 )
