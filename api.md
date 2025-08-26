@@ -153,7 +153,7 @@ from metronome.types.v1 import (
     CustomerListBillableMetricsResponse,
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
-    CustomerRetrieveCustomerBillingConfigurationsResponse,
+    CustomerRetrieveBillingConfigurationsResponse,
     CustomerSetNameResponse,
 )
 ```
@@ -167,8 +167,8 @@ Methods:
 - <code title="get /v1/customers/{customer_id}/billable-metrics">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_billable_metrics</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
 - <code title="get /v1/customers/{customer_id}/costs">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_costs</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
 - <code title="post /v1/customers/{customer_id}/previewEvents">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">preview_events</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_preview_events_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_preview_events_response.py">CustomerPreviewEventsResponse</a></code>
-- <code title="post /v1/getCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">retrieve_customer_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_retrieve_customer_billing_configurations_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_retrieve_customer_billing_configurations_response.py">CustomerRetrieveCustomerBillingConfigurationsResponse</a></code>
-- <code title="post /v1/setCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_customer_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_set_customer_billing_configurations_params.py">params</a>) -> None</code>
+- <code title="post /v1/getCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">retrieve_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_retrieve_billing_configurations_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_retrieve_billing_configurations_response.py">CustomerRetrieveBillingConfigurationsResponse</a></code>
+- <code title="post /v1/setCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_set_billing_configurations_params.py">params</a>) -> None</code>
 - <code title="post /v1/customers/{customer_id}/setIngestAliases">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_ingest_aliases</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_ingest_aliases_params.py">params</a>) -> None</code>
 - <code title="post /v1/customers/{customer_id}/setName">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_name</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_name_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_set_name_response.py">CustomerSetNameResponse</a></code>
 - <code title="post /v1/customers/{customer_id}/updateConfig">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">update_config</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_update_config_params.py">params</a>) -> None</code>

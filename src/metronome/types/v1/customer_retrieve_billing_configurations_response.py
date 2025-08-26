@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["CustomerRetrieveCustomerBillingConfigurationsResponse", "Data"]
+__all__ = ["CustomerRetrieveBillingConfigurationsResponse", "Data"]
 
 
 class Data(BaseModel):
@@ -48,5 +48,5 @@ class Data(BaseModel):
     """ID of the delivery method to use for this customer."""
 
 
-class CustomerRetrieveCustomerBillingConfigurationsResponse(BaseModel):
+class CustomerRetrieveBillingConfigurationsResponse(BaseModel):
     data: List[Data]

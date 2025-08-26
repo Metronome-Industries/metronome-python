@@ -61,8 +61,8 @@ from ....types.v1 import (
     customer_preview_events_params,
     customer_set_ingest_aliases_params,
     customer_list_billable_metrics_params,
-    customer_set_customer_billing_configurations_params,
-    customer_retrieve_customer_billing_configurations_params,
+    customer_set_billing_configurations_params,
+    customer_retrieve_billing_configurations_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -97,9 +97,7 @@ from ....types.v1.customer_set_name_response import CustomerSetNameResponse
 from ....types.v1.customer_list_costs_response import CustomerListCostsResponse
 from ....types.v1.customer_preview_events_response import CustomerPreviewEventsResponse
 from ....types.v1.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
-from ....types.v1.customer_retrieve_customer_billing_configurations_response import (
-    CustomerRetrieveCustomerBillingConfigurationsResponse,
-)
+from ....types.v1.customer_retrieve_billing_configurations_response import CustomerRetrieveBillingConfigurationsResponse
 
 __all__ = ["CustomersResource", "AsyncCustomersResource"]
 
@@ -572,7 +570,7 @@ class CustomersResource(SyncAPIResource):
             cast_to=CustomerPreviewEventsResponse,
         )
 
-    def retrieve_customer_billing_configurations(
+    def retrieve_billing_configurations(
         self,
         *,
         customer_id: str,
@@ -582,7 +580,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerRetrieveCustomerBillingConfigurationsResponse:
+    ) -> CustomerRetrieveBillingConfigurationsResponse:
         """Returns all billing configurations previously set for the customer.
 
         Use during
@@ -603,18 +601,18 @@ class CustomersResource(SyncAPIResource):
             "/v1/getCustomerBillingProviderConfigurations",
             body=maybe_transform(
                 {"customer_id": customer_id},
-                customer_retrieve_customer_billing_configurations_params.CustomerRetrieveCustomerBillingConfigurationsParams,
+                customer_retrieve_billing_configurations_params.CustomerRetrieveBillingConfigurationsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CustomerRetrieveCustomerBillingConfigurationsResponse,
+            cast_to=CustomerRetrieveBillingConfigurationsResponse,
         )
 
-    def set_customer_billing_configurations(
+    def set_billing_configurations(
         self,
         *,
-        data: Iterable[customer_set_customer_billing_configurations_params.Data],
+        data: Iterable[customer_set_billing_configurations_params.Data],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -672,8 +670,7 @@ class CustomersResource(SyncAPIResource):
         return self._post(
             "/v1/setCustomerBillingProviderConfigurations",
             body=maybe_transform(
-                {"data": data},
-                customer_set_customer_billing_configurations_params.CustomerSetCustomerBillingConfigurationsParams,
+                {"data": data}, customer_set_billing_configurations_params.CustomerSetBillingConfigurationsParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1295,7 +1292,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             cast_to=CustomerPreviewEventsResponse,
         )
 
-    async def retrieve_customer_billing_configurations(
+    async def retrieve_billing_configurations(
         self,
         *,
         customer_id: str,
@@ -1305,7 +1302,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CustomerRetrieveCustomerBillingConfigurationsResponse:
+    ) -> CustomerRetrieveBillingConfigurationsResponse:
         """Returns all billing configurations previously set for the customer.
 
         Use during
@@ -1326,18 +1323,18 @@ class AsyncCustomersResource(AsyncAPIResource):
             "/v1/getCustomerBillingProviderConfigurations",
             body=await async_maybe_transform(
                 {"customer_id": customer_id},
-                customer_retrieve_customer_billing_configurations_params.CustomerRetrieveCustomerBillingConfigurationsParams,
+                customer_retrieve_billing_configurations_params.CustomerRetrieveBillingConfigurationsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CustomerRetrieveCustomerBillingConfigurationsResponse,
+            cast_to=CustomerRetrieveBillingConfigurationsResponse,
         )
 
-    async def set_customer_billing_configurations(
+    async def set_billing_configurations(
         self,
         *,
-        data: Iterable[customer_set_customer_billing_configurations_params.Data],
+        data: Iterable[customer_set_billing_configurations_params.Data],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1395,8 +1392,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         return await self._post(
             "/v1/setCustomerBillingProviderConfigurations",
             body=await async_maybe_transform(
-                {"data": data},
-                customer_set_customer_billing_configurations_params.CustomerSetCustomerBillingConfigurationsParams,
+                {"data": data}, customer_set_billing_configurations_params.CustomerSetBillingConfigurationsParams
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1575,11 +1571,11 @@ class CustomersResourceWithRawResponse:
         self.preview_events = to_raw_response_wrapper(
             customers.preview_events,
         )
-        self.retrieve_customer_billing_configurations = to_raw_response_wrapper(
-            customers.retrieve_customer_billing_configurations,
+        self.retrieve_billing_configurations = to_raw_response_wrapper(
+            customers.retrieve_billing_configurations,
         )
-        self.set_customer_billing_configurations = to_raw_response_wrapper(
-            customers.set_customer_billing_configurations,
+        self.set_billing_configurations = to_raw_response_wrapper(
+            customers.set_billing_configurations,
         )
         self.set_ingest_aliases = to_raw_response_wrapper(
             customers.set_ingest_aliases,
@@ -1645,11 +1641,11 @@ class AsyncCustomersResourceWithRawResponse:
         self.preview_events = async_to_raw_response_wrapper(
             customers.preview_events,
         )
-        self.retrieve_customer_billing_configurations = async_to_raw_response_wrapper(
-            customers.retrieve_customer_billing_configurations,
+        self.retrieve_billing_configurations = async_to_raw_response_wrapper(
+            customers.retrieve_billing_configurations,
         )
-        self.set_customer_billing_configurations = async_to_raw_response_wrapper(
-            customers.set_customer_billing_configurations,
+        self.set_billing_configurations = async_to_raw_response_wrapper(
+            customers.set_billing_configurations,
         )
         self.set_ingest_aliases = async_to_raw_response_wrapper(
             customers.set_ingest_aliases,
@@ -1715,11 +1711,11 @@ class CustomersResourceWithStreamingResponse:
         self.preview_events = to_streamed_response_wrapper(
             customers.preview_events,
         )
-        self.retrieve_customer_billing_configurations = to_streamed_response_wrapper(
-            customers.retrieve_customer_billing_configurations,
+        self.retrieve_billing_configurations = to_streamed_response_wrapper(
+            customers.retrieve_billing_configurations,
         )
-        self.set_customer_billing_configurations = to_streamed_response_wrapper(
-            customers.set_customer_billing_configurations,
+        self.set_billing_configurations = to_streamed_response_wrapper(
+            customers.set_billing_configurations,
         )
         self.set_ingest_aliases = to_streamed_response_wrapper(
             customers.set_ingest_aliases,
@@ -1785,11 +1781,11 @@ class AsyncCustomersResourceWithStreamingResponse:
         self.preview_events = async_to_streamed_response_wrapper(
             customers.preview_events,
         )
-        self.retrieve_customer_billing_configurations = async_to_streamed_response_wrapper(
-            customers.retrieve_customer_billing_configurations,
+        self.retrieve_billing_configurations = async_to_streamed_response_wrapper(
+            customers.retrieve_billing_configurations,
         )
-        self.set_customer_billing_configurations = async_to_streamed_response_wrapper(
-            customers.set_customer_billing_configurations,
+        self.set_billing_configurations = async_to_streamed_response_wrapper(
+            customers.set_billing_configurations,
         )
         self.set_ingest_aliases = async_to_streamed_response_wrapper(
             customers.set_ingest_aliases,

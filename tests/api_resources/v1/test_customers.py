@@ -19,7 +19,7 @@ from metronome.types.v1 import (
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
     CustomerListBillableMetricsResponse,
-    CustomerRetrieveCustomerBillingConfigurationsResponse,
+    CustomerRetrieveBillingConfigurationsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
 
@@ -365,39 +365,39 @@ class TestCustomers:
             )
 
     @parametrize
-    def test_method_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
-        customer = client.v1.customers.retrieve_customer_billing_configurations(
+    def test_method_retrieve_billing_configurations(self, client: Metronome) -> None:
+        customer = client.v1.customers.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
-        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
-        response = client.v1.customers.with_raw_response.retrieve_customer_billing_configurations(
+    def test_raw_response_retrieve_billing_configurations(self, client: Metronome) -> None:
+        response = client.v1.customers.with_raw_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve_customer_billing_configurations(self, client: Metronome) -> None:
-        with client.v1.customers.with_streaming_response.retrieve_customer_billing_configurations(
+    def test_streaming_response_retrieve_billing_configurations(self, client: Metronome) -> None:
+        with client.v1.customers.with_streaming_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+            assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_set_customer_billing_configurations(self, client: Metronome) -> None:
-        customer = client.v1.customers.set_customer_billing_configurations(
+    def test_method_set_billing_configurations(self, client: Metronome) -> None:
+        customer = client.v1.customers.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",
@@ -420,8 +420,8 @@ class TestCustomers:
         assert customer is None
 
     @parametrize
-    def test_raw_response_set_customer_billing_configurations(self, client: Metronome) -> None:
-        response = client.v1.customers.with_raw_response.set_customer_billing_configurations(
+    def test_raw_response_set_billing_configurations(self, client: Metronome) -> None:
+        response = client.v1.customers.with_raw_response.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",
@@ -448,8 +448,8 @@ class TestCustomers:
         assert customer is None
 
     @parametrize
-    def test_streaming_response_set_customer_billing_configurations(self, client: Metronome) -> None:
-        with client.v1.customers.with_streaming_response.set_customer_billing_configurations(
+    def test_streaming_response_set_billing_configurations(self, client: Metronome) -> None:
+        with client.v1.customers.with_streaming_response.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",
@@ -950,41 +950,39 @@ class TestAsyncCustomers:
             )
 
     @parametrize
-    async def test_method_retrieve_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
-        customer = await async_client.v1.customers.retrieve_customer_billing_configurations(
+    async def test_method_retrieve_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
-        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.customers.with_raw_response.retrieve_customer_billing_configurations(
+    async def test_raw_response_retrieve_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.customers.with_raw_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve_customer_billing_configurations(
-        self, async_client: AsyncMetronome
-    ) -> None:
-        async with async_client.v1.customers.with_streaming_response.retrieve_customer_billing_configurations(
+    async def test_streaming_response_retrieve_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.customers.with_streaming_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert_matches_type(CustomerRetrieveCustomerBillingConfigurationsResponse, customer, path=["response"])
+            assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
-        customer = await async_client.v1.customers.set_customer_billing_configurations(
+    async def test_method_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",
@@ -1007,8 +1005,8 @@ class TestAsyncCustomers:
         assert customer is None
 
     @parametrize
-    async def test_raw_response_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.customers.with_raw_response.set_customer_billing_configurations(
+    async def test_raw_response_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.customers.with_raw_response.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",
@@ -1035,8 +1033,8 @@ class TestAsyncCustomers:
         assert customer is None
 
     @parametrize
-    async def test_streaming_response_set_customer_billing_configurations(self, async_client: AsyncMetronome) -> None:
-        async with async_client.v1.customers.with_streaming_response.set_customer_billing_configurations(
+    async def test_streaming_response_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.customers.with_streaming_response.set_billing_configurations(
             data=[
                 {
                     "billing_provider": "stripe",

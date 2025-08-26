@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Dict, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["CustomerSetCustomerBillingConfigurationsParams", "Data"]
+__all__ = ["CustomerSetBillingConfigurationsParams", "Data"]
 
 
-class CustomerSetCustomerBillingConfigurationsParams(TypedDict, total=False):
+class CustomerSetBillingConfigurationsParams(TypedDict, total=False):
     data: Required[Iterable[Data]]
 
 
