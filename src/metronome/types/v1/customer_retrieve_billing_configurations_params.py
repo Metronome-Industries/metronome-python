@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["CustomerRetrieveCustomerBillingConfigurationsParams"]
+__all__ = ["CustomerRetrieveBillingConfigurationsParams"]
 
 
-class CustomerRetrieveCustomerBillingConfigurationsParams(TypedDict, total=False):
+class CustomerRetrieveBillingConfigurationsParams(TypedDict, total=False):
     customer_id: Required[str]
