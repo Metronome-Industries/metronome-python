@@ -4,10 +4,18 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
-from .credit_ledger_entry import CreditLedgerEntry
-from ..shared.credit_type_data import CreditTypeData
 
-__all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
+__all__ = [
+    "CreditGrantListResponse",
+    "Balance",
+    "Deduction",
+    "GrantAmount",
+    "GrantAmountCreditType",
+    "PaidAmount",
+    "PaidAmountCreditType",
+    "PendingDeduction",
+    "Product",
+]
 
 
 class Balance(BaseModel):
@@ -28,18 +36,84 @@ class Balance(BaseModel):
     """
 
 
+class Deduction(BaseModel):
+    amount: float
+    """an amount representing the change to the customer's credit balance"""
+
+    created_by: str
+
+    credit_grant_id: str
+    """the credit grant this entry is related to"""
+
+    effective_at: datetime
+
+    reason: str
+
+    running_balance: float
+    """
+    the running balance for this credit type at the time of the ledger entry,
+    including all preceding charges
+    """
+
+    invoice_id: Optional[str] = None
+    """
+    if this entry is a deduction, the Metronome ID of the invoice where the credit
+    deduction was consumed; if this entry is a grant, the Metronome ID of the
+    invoice where the grant's paid_amount was charged
+    """
+
+
+class GrantAmountCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
 class GrantAmount(BaseModel):
     amount: float
 
-    credit_type: CreditTypeData
+    credit_type: GrantAmountCreditType
     """the credit type for the amount granted"""
+
+
+class PaidAmountCreditType(BaseModel):
+    id: str
+
+    name: str
 
 
 class PaidAmount(BaseModel):
     amount: float
 
-    credit_type: CreditTypeData
+    credit_type: PaidAmountCreditType
     """the credit type for the amount paid"""
+
+
+class PendingDeduction(BaseModel):
+    amount: float
+    """an amount representing the change to the customer's credit balance"""
+
+    created_by: str
+
+    credit_grant_id: str
+    """the credit grant this entry is related to"""
+
+    effective_at: datetime
+
+    reason: str
+
+    running_balance: float
+    """
+    the running balance for this credit type at the time of the ledger entry,
+    including all preceding charges
+    """
+
+    invoice_id: Optional[str] = None
+    """
+    if this entry is a deduction, the Metronome ID of the invoice where the credit
+    deduction was consumed; if this entry is a grant, the Metronome ID of the
+    invoice where the grant's paid_amount was charged
+    """
 
 
 class Product(BaseModel):
@@ -65,7 +139,7 @@ class CreditGrantListResponse(BaseModel):
     customer_id: str
     """the Metronome ID of the customer"""
 
-    deductions: List[CreditLedgerEntry]
+    deductions: List[Deduction]
 
     effective_at: datetime
 
@@ -79,7 +153,7 @@ class CreditGrantListResponse(BaseModel):
     paid_amount: PaidAmount
     """the amount paid for this credit grant"""
 
-    pending_deductions: List[CreditLedgerEntry]
+    pending_deductions: List[PendingDeduction]
 
     priority: float
 

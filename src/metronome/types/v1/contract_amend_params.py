@@ -4,27 +4,34 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
-from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 
 __all__ = [
     "ContractAmendParams",
     "Commit",
     "CommitAccessSchedule",
     "CommitAccessScheduleScheduleItem",
+    "CommitHierarchyConfiguration",
+    "CommitHierarchyConfigurationChildAccess",
+    "CommitHierarchyConfigurationChildAccessType",
+    "CommitHierarchyConfigurationChildAccessUnionMember2",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
     "CommitPaymentGateConfigPrecalculatedTaxConfig",
     "CommitPaymentGateConfigStripeConfig",
+    "CommitSpecifier",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
+    "CreditHierarchyConfiguration",
+    "CreditHierarchyConfigurationChildAccess",
+    "CreditHierarchyConfigurationChildAccessType",
+    "CreditHierarchyConfigurationChildAccessUnionMember2",
+    "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
@@ -32,6 +39,7 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
+    "OverrideOverwriteRateTier",
     "OverrideTier",
     "ProfessionalService",
     "ResellerRoyalty",
@@ -99,6 +107,27 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
+
+class CommitHierarchyConfigurationChildAccessType(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CommitHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CommitHierarchyConfigurationChildAccessType,
+    CommitHierarchyConfigurationChildAccessType,
+    CommitHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class CommitHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CommitHierarchyConfigurationChildAccess]
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -243,6 +272,23 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class CommitSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -309,7 +355,7 @@ class Commit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
-    specifiers: Iterable[CommitSpecifierInput]
+    specifiers: Iterable[CommitSpecifier]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -341,6 +387,44 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
+class CreditHierarchyConfigurationChildAccessType(TypedDict, total=False):
+    type: Required[Literal["ALL"]]
+
+
+class CreditHierarchyConfigurationChildAccessUnionMember2(TypedDict, total=False):
+    contract_ids: Required[List[str]]
+
+    type: Required[Literal["CONTRACT_IDS"]]
+
+
+CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    CreditHierarchyConfigurationChildAccessType,
+    CreditHierarchyConfigurationChildAccessType,
+    CreditHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class CreditHierarchyConfiguration(TypedDict, total=False):
+    child_access: Required[CreditHierarchyConfigurationChildAccess]
+
+
+class CreditSpecifier(TypedDict, total=False):
+    presentation_group_values: Dict[str, str]
+
+    pricing_group_values: Dict[str, str]
+
+    product_id: str
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: List[str]
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class Credit(TypedDict, total=False):
     access_schedule: Required[CreditAccessSchedule]
     """Schedule for distributing the credit to the customer."""
@@ -367,7 +451,7 @@ class Credit(TypedDict, total=False):
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
 
-    hierarchy_configuration: CommitHierarchyConfiguration
+    hierarchy_configuration: CreditHierarchyConfiguration
     """Optional configuration for credit hierarchy access control"""
 
     name: str
@@ -384,7 +468,7 @@ class Credit(TypedDict, total=False):
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
-    specifiers: Iterable[CommitSpecifierInput]
+    specifiers: Iterable[CreditSpecifier]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -542,6 +626,12 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
+class OverrideOverwriteRateTier(TypedDict, total=False):
+    price: Required[float]
+
+    size: float
+
+
 class OverrideOverwriteRate(TypedDict, total=False):
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
@@ -569,7 +659,7 @@ class OverrideOverwriteRate(TypedDict, total=False):
     quantity: float
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    tiers: Iterable[Tier]
+    tiers: Iterable[OverrideOverwriteRateTier]
     """Only set for TIERED rate_type."""
 
 

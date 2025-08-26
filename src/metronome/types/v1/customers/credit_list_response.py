@@ -4,23 +4,28 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ..._models import BaseModel
-from .commit_specifier import CommitSpecifier
-from .schedule_duration import ScheduleDuration
-from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from ...._models import BaseModel
 
 __all__ = [
-    "Credit",
+    "CreditListResponse",
     "Product",
+    "AccessSchedule",
+    "AccessScheduleScheduleItem",
+    "AccessScheduleCreditType",
     "Contract",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationChildAccess",
+    "HierarchyConfigurationChildAccessType",
+    "HierarchyConfigurationChildAccessUnionMember2",
     "Ledger",
-    "LedgerCreditSegmentStartLedgerEntry",
-    "LedgerCreditAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerCreditExpirationLedgerEntry",
-    "LedgerCreditCanceledLedgerEntry",
-    "LedgerCreditCreditedLedgerEntry",
-    "LedgerCreditManualLedgerEntry",
-    "LedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "LedgerUnionMember0",
+    "LedgerUnionMember1",
+    "LedgerUnionMember2",
+    "LedgerUnionMember3",
+    "LedgerUnionMember4",
+    "LedgerUnionMember5",
+    "LedgerUnionMember6",
+    "Specifier",
 ]
 
 
@@ -30,11 +35,54 @@ class Product(BaseModel):
     name: str
 
 
+class AccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class AccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class AccessSchedule(BaseModel):
+    schedule_items: List[AccessScheduleScheduleItem]
+
+    credit_type: Optional[AccessScheduleCreditType] = None
+
+
 class Contract(BaseModel):
     id: str
 
 
-class LedgerCreditSegmentStartLedgerEntry(BaseModel):
+class HierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class HierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+HierarchyConfigurationChildAccess: TypeAlias = Union[
+    HierarchyConfigurationChildAccessType,
+    HierarchyConfigurationChildAccessType,
+    HierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class HierarchyConfiguration(BaseModel):
+    child_access: HierarchyConfigurationChildAccess
+
+
+class LedgerUnionMember0(BaseModel):
     amount: float
 
     segment_id: str
@@ -44,7 +92,7 @@ class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEGMENT_START"]
 
 
-class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class LedgerUnionMember1(BaseModel):
     amount: float
 
     invoice_id: str
@@ -58,7 +106,7 @@ class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerCreditExpirationLedgerEntry(BaseModel):
+class LedgerUnionMember2(BaseModel):
     amount: float
 
     segment_id: str
@@ -68,7 +116,7 @@ class LedgerCreditExpirationLedgerEntry(BaseModel):
     type: Literal["CREDIT_EXPIRATION"]
 
 
-class LedgerCreditCanceledLedgerEntry(BaseModel):
+class LedgerUnionMember3(BaseModel):
     amount: float
 
     invoice_id: str
@@ -82,7 +130,7 @@ class LedgerCreditCanceledLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerCreditCreditedLedgerEntry(BaseModel):
+class LedgerUnionMember4(BaseModel):
     amount: float
 
     invoice_id: str
@@ -96,7 +144,7 @@ class LedgerCreditCreditedLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerCreditManualLedgerEntry(BaseModel):
+class LedgerUnionMember5(BaseModel):
     amount: float
 
     reason: str
@@ -106,7 +154,7 @@ class LedgerCreditManualLedgerEntry(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
-class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
+class LedgerUnionMember6(BaseModel):
     amount: float
 
     segment_id: str
@@ -117,24 +165,41 @@ class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
 
 
 Ledger: TypeAlias = Union[
-    LedgerCreditSegmentStartLedgerEntry,
-    LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
-    LedgerCreditExpirationLedgerEntry,
-    LedgerCreditCanceledLedgerEntry,
-    LedgerCreditCreditedLedgerEntry,
-    LedgerCreditManualLedgerEntry,
-    LedgerCreditSeatBasedAdjustmentLedgerEntry,
+    LedgerUnionMember0,
+    LedgerUnionMember1,
+    LedgerUnionMember2,
+    LedgerUnionMember3,
+    LedgerUnionMember4,
+    LedgerUnionMember5,
+    LedgerUnionMember6,
 ]
 
 
-class Credit(BaseModel):
+class Specifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class CreditListResponse(BaseModel):
     id: str
 
     product: Product
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[AccessSchedule] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_contract_ids: Optional[List[str]] = None
@@ -163,7 +228,7 @@ class Credit(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[HierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
     ledger: Optional[List[Ledger]] = None
@@ -188,7 +253,7 @@ class Credit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[CommitSpecifier]] = None
+    specifiers: Optional[List[Specifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the

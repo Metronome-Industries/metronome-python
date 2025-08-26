@@ -5,13 +5,16 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ...._models import BaseModel
-from ...shared.rate import Rate
-from ...shared.credit_type_data import CreditTypeData
 
 __all__ = [
-    "Invoice",
+    "InvoiceListResponse",
+    "CreditType",
     "LineItem",
+    "LineItemCreditType",
     "LineItemAppliedCommitOrCredit",
+    "LineItemListPrice",
+    "LineItemListPriceCreditType",
+    "LineItemListPriceTier",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
     "LineItemSubLineItemTierPeriod",
@@ -21,16 +24,85 @@ __all__ = [
     "CorrectionRecordCorrectedExternalInvoice",
     "ExternalInvoice",
     "InvoiceAdjustment",
+    "InvoiceAdjustmentCreditType",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
 ]
 
 
+class CreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class LineItemCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
 class LineItemAppliedCommitOrCredit(BaseModel):
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
+
+
+class LineItemListPriceCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class LineItemListPriceTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
+
+
+class LineItemListPrice(BaseModel):
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
+
+    credit_type: Optional[LineItemListPriceCreditType] = None
+
+    custom_rate: Optional[Dict[str, object]] = None
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """
+
+    is_prorated: Optional[bool] = None
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
+
+    price: Optional[float] = None
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+    """
+    if pricing groups are used, this will contain the values used to calculate the
+    price
+    """
+
+    quantity: Optional[float] = None
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    tiers: Optional[List[LineItemListPriceTier]] = None
+    """Only set for TIERED rate_type."""
+
+    use_list_prices: Optional[bool] = None
+    """Only set for PERCENTAGE rate_type.
+
+    Defaults to false. If true, rate is computed using list prices rather than the
+    standard rates for this product on the contract.
+    """
 
 
 class LineItemPostpaidCommit(BaseModel):
@@ -95,7 +167,7 @@ class LineItemTier(BaseModel):
 
 
 class LineItem(BaseModel):
-    credit_type: CreditTypeData
+    credit_type: LineItemCreditType
 
     name: str
 
@@ -176,7 +248,7 @@ class LineItem(BaseModel):
     is_prorated: Optional[bool] = None
     """Indicates whether the line item is prorated for `SUBSCRIPTION` type product."""
 
-    list_price: Optional[Rate] = None
+    list_price: Optional[LineItemListPrice] = None
     """
     Only present for contract invoices and when the `include_list_prices` query
     parameter is set to true. This will include the list rate for the charge if
@@ -334,8 +406,14 @@ class ExternalInvoice(BaseModel):
     issued_at_timestamp: Optional[datetime] = None
 
 
+class InvoiceAdjustmentCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
 class InvoiceAdjustment(BaseModel):
-    credit_type: CreditTypeData
+    credit_type: InvoiceAdjustmentCreditType
 
     name: str
 
@@ -373,10 +451,10 @@ class ResellerRoyalty(BaseModel):
     gcp_options: Optional[ResellerRoyaltyGcpOptions] = None
 
 
-class Invoice(BaseModel):
+class InvoiceListResponse(BaseModel):
     id: str
 
-    credit_type: CreditTypeData
+    credit_type: CreditType
 
     customer_id: str
 

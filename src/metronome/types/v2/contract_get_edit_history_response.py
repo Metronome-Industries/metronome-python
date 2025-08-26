@@ -1,50 +1,97 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..shared.discount import Discount
-from ..shared.pro_service import ProService
-from ..shared.subscription import Subscription
-from ..shared.override_tier import OverrideTier
-from ..shared.overwrite_rate import OverwriteRate
-from ..shared.commit_specifier import CommitSpecifier
-from ..shared.schedule_duration import ScheduleDuration
-from ..shared.commit_specifier_input import CommitSpecifierInput
-from ..shared.payment_gate_config_v2 import PaymentGateConfigV2
-from ..shared.schedule_point_in_time import SchedulePointInTime
-from ..shared.update_base_threshold_commit import UpdateBaseThresholdCommit
-from ..shared.commit_hierarchy_configuration import CommitHierarchyConfiguration
-from ..shared.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
-from ..shared.recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
-from ..shared.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
 __all__ = [
     "ContractGetEditHistoryResponse",
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitAccessSchedule",
+    "DataAddCommitAccessScheduleScheduleItem",
+    "DataAddCommitAccessScheduleCreditType",
+    "DataAddCommitHierarchyConfiguration",
+    "DataAddCommitHierarchyConfigurationChildAccess",
+    "DataAddCommitHierarchyConfigurationChildAccessType",
+    "DataAddCommitHierarchyConfigurationChildAccessUnionMember2",
+    "DataAddCommitInvoiceSchedule",
+    "DataAddCommitInvoiceScheduleCreditType",
+    "DataAddCommitInvoiceScheduleScheduleItem",
+    "DataAddCommitSpecifier",
     "DataAddCredit",
     "DataAddCreditProduct",
+    "DataAddCreditAccessSchedule",
+    "DataAddCreditAccessScheduleScheduleItem",
+    "DataAddCreditAccessScheduleCreditType",
+    "DataAddCreditHierarchyConfiguration",
+    "DataAddCreditHierarchyConfigurationChildAccess",
+    "DataAddCreditHierarchyConfigurationChildAccessType",
+    "DataAddCreditHierarchyConfigurationChildAccessUnionMember2",
+    "DataAddCreditSpecifier",
+    "DataAddDiscount",
+    "DataAddDiscountProduct",
+    "DataAddDiscountSchedule",
+    "DataAddDiscountScheduleCreditType",
+    "DataAddDiscountScheduleScheduleItem",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
+    "DataAddOverrideOverrideTier",
+    "DataAddOverrideOverwriteRate",
+    "DataAddOverrideOverwriteRateCreditType",
+    "DataAddOverrideOverwriteRateTier",
     "DataAddOverrideProduct",
+    "DataAddPrepaidBalanceThresholdConfiguration",
+    "DataAddPrepaidBalanceThresholdConfigurationCommit",
+    "DataAddPrepaidBalanceThresholdConfigurationCommitSpecifier",
+    "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
+    "DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
+    "DataAddProService",
     "DataAddRecurringCommit",
     "DataAddRecurringCommitAccessAmount",
     "DataAddRecurringCommitCommitDuration",
     "DataAddRecurringCommitProduct",
     "DataAddRecurringCommitContract",
+    "DataAddRecurringCommitHierarchyConfiguration",
+    "DataAddRecurringCommitHierarchyConfigurationChildAccess",
+    "DataAddRecurringCommitHierarchyConfigurationChildAccessType",
+    "DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataAddRecurringCommitInvoiceAmount",
+    "DataAddRecurringCommitSpecifier",
+    "DataAddRecurringCommitSubscriptionConfig",
+    "DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
     "DataAddRecurringCreditProduct",
     "DataAddRecurringCreditContract",
+    "DataAddRecurringCreditHierarchyConfiguration",
+    "DataAddRecurringCreditHierarchyConfigurationChildAccess",
+    "DataAddRecurringCreditHierarchyConfigurationChildAccessType",
+    "DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2",
+    "DataAddRecurringCreditSpecifier",
+    "DataAddRecurringCreditSubscriptionConfig",
+    "DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
+    "DataAddScheduledChargeSchedule",
+    "DataAddScheduledChargeScheduleCreditType",
+    "DataAddScheduledChargeScheduleScheduleItem",
+    "DataAddSpendThresholdConfiguration",
+    "DataAddSpendThresholdConfigurationCommit",
+    "DataAddSpendThresholdConfigurationPaymentGateConfig",
+    "DataAddSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
+    "DataAddSpendThresholdConfigurationPaymentGateConfigStripeConfig",
+    "DataAddSubscription",
+    "DataAddSubscriptionProration",
+    "DataAddSubscriptionQuantitySchedule",
+    "DataAddSubscriptionSubscriptionRate",
+    "DataAddSubscriptionSubscriptionRateProduct",
     "DataAddUsageFilter",
     "DataArchiveCommit",
     "DataArchiveCredit",
@@ -55,21 +102,34 @@ __all__ = [
     "DataUpdateCommitAccessScheduleAddScheduleItem",
     "DataUpdateCommitAccessScheduleRemoveScheduleItem",
     "DataUpdateCommitAccessScheduleUpdateScheduleItem",
+    "DataUpdateCommitHierarchyConfiguration",
+    "DataUpdateCommitHierarchyConfigurationChildAccess",
+    "DataUpdateCommitHierarchyConfigurationChildAccessType",
+    "DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2",
     "DataUpdateCommitInvoiceSchedule",
     "DataUpdateCommitInvoiceScheduleAddScheduleItem",
     "DataUpdateCommitInvoiceScheduleRemoveScheduleItem",
     "DataUpdateCommitInvoiceScheduleUpdateScheduleItem",
+    "DataUpdateCommitSpecifier",
     "DataUpdateCredit",
     "DataUpdateCreditAccessSchedule",
     "DataUpdateCreditAccessScheduleAddScheduleItem",
     "DataUpdateCreditAccessScheduleRemoveScheduleItem",
     "DataUpdateCreditAccessScheduleUpdateScheduleItem",
+    "DataUpdateCreditHierarchyConfiguration",
+    "DataUpdateCreditHierarchyConfigurationChildAccess",
+    "DataUpdateCreditHierarchyConfigurationChildAccessType",
+    "DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2",
     "DataUpdateDiscount",
     "DataUpdateDiscountSchedule",
     "DataUpdateDiscountScheduleRecurringSchedule",
     "DataUpdateDiscountScheduleScheduleItem",
     "DataUpdatePrepaidBalanceThresholdConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
+    "DataUpdatePrepaidBalanceThresholdConfigurationCommitSpecifier",
+    "DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig",
+    "DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
+    "DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
@@ -82,6 +142,10 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "DataUpdateSpendThresholdConfiguration",
+    "DataUpdateSpendThresholdConfigurationCommit",
+    "DataUpdateSpendThresholdConfigurationPaymentGateConfig",
+    "DataUpdateSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig",
+    "DataUpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
 ]
@@ -93,6 +157,98 @@ class DataAddCommitProduct(BaseModel):
     name: str
 
 
+class DataAddCommitAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddCommitAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCommitAccessSchedule(BaseModel):
+    schedule_items: List[DataAddCommitAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataAddCommitAccessScheduleCreditType] = None
+
+
+class DataAddCommitHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddCommitHierarchyConfigurationChildAccessType,
+    DataAddCommitHierarchyConfigurationChildAccessType,
+    DataAddCommitHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataAddCommitHierarchyConfiguration(BaseModel):
+    child_access: DataAddCommitHierarchyConfigurationChildAccess
+
+
+class DataAddCommitInvoiceScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddCommitInvoiceSchedule(BaseModel):
+    credit_type: Optional[DataAddCommitInvoiceScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddCommitInvoiceScheduleScheduleItem]] = None
+
+
+class DataAddCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataAddCommit(BaseModel):
     id: str
 
@@ -100,7 +256,7 @@ class DataAddCommit(BaseModel):
 
     type: Literal["PREPAID", "POSTPAID"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataAddCommitAccessSchedule] = None
     """
     The schedule that the customer will gain access to the credits purposed with
     this commit.
@@ -112,10 +268,10 @@ class DataAddCommit(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataAddCommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[DataAddCommitInvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     name: Optional[str] = None
@@ -136,7 +292,7 @@ class DataAddCommit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[CommitSpecifierInput]] = None
+    specifiers: Optional[List[DataAddCommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -153,6 +309,66 @@ class DataAddCreditProduct(BaseModel):
     name: str
 
 
+class DataAddCreditAccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddCreditAccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddCreditAccessSchedule(BaseModel):
+    schedule_items: List[DataAddCreditAccessScheduleScheduleItem]
+
+    credit_type: Optional[DataAddCreditAccessScheduleCreditType] = None
+
+
+class DataAddCreditHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddCreditHierarchyConfigurationChildAccessType,
+    DataAddCreditHierarchyConfigurationChildAccessType,
+    DataAddCreditHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataAddCreditHierarchyConfiguration(BaseModel):
+    child_access: DataAddCreditHierarchyConfigurationChildAccess
+
+
+class DataAddCreditSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataAddCredit(BaseModel):
     id: str
 
@@ -160,7 +376,7 @@ class DataAddCredit(BaseModel):
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[DataAddCreditAccessSchedule] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_product_ids: Optional[List[str]] = None
@@ -169,7 +385,7 @@ class DataAddCredit(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataAddCreditHierarchyConfiguration] = None
     """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
@@ -186,7 +402,7 @@ class DataAddCredit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[CommitSpecifierInput]] = None
+    specifiers: Optional[List[DataAddCreditSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -195,6 +411,60 @@ class DataAddCredit(BaseModel):
     Instead, to target usage by product or product tag, pass those values in the
     body of `specifiers`.
     """
+
+
+class DataAddDiscountProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddDiscountScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddDiscountScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddDiscountSchedule(BaseModel):
+    credit_type: Optional[DataAddDiscountScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddDiscountScheduleScheduleItem]] = None
+
+
+class DataAddDiscount(BaseModel):
+    id: str
+
+    product: DataAddDiscountProduct
+
+    schedule: DataAddDiscountSchedule
+
+    custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    name: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
 
 
 class DataAddOverrideOverrideSpecifier(BaseModel):
@@ -213,6 +483,55 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     recurring_commit_ids: Optional[List[str]] = None
 
     recurring_credit_ids: Optional[List[str]] = None
+
+
+class DataAddOverrideOverrideTier(BaseModel):
+    multiplier: float
+
+    size: Optional[float] = None
+
+
+class DataAddOverrideOverwriteRateCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddOverrideOverwriteRateTier(BaseModel):
+    price: float
+
+    size: Optional[float] = None
+
+
+class DataAddOverrideOverwriteRate(BaseModel):
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
+
+    credit_type: Optional[DataAddOverrideOverwriteRateCreditType] = None
+
+    custom_rate: Optional[Dict[str, object]] = None
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """
+
+    is_prorated: Optional[bool] = None
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
+
+    price: Optional[float] = None
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    quantity: Optional[float] = None
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    tiers: Optional[List[DataAddOverrideOverwriteRateTier]] = None
+    """Only set for TIERED rate_type."""
 
 
 class DataAddOverrideProduct(BaseModel):
@@ -238,9 +557,9 @@ class DataAddOverride(BaseModel):
 
     override_specifiers: Optional[List[DataAddOverrideOverrideSpecifier]] = None
 
-    override_tiers: Optional[List[OverrideTier]] = None
+    override_tiers: Optional[List[DataAddOverrideOverrideTier]] = None
 
-    overwrite_rate: Optional[OverwriteRate] = None
+    overwrite_rate: Optional[DataAddOverrideOverwriteRate] = None
 
     priority: Optional[float] = None
 
@@ -249,6 +568,172 @@ class DataAddOverride(BaseModel):
     target: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
+
+
+class DataAddPrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class DataAddPrepaidBalanceThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the threshold commit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the threshold commit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+    specifiers: Optional[List[DataAddPrepaidBalanceThresholdConfigurationCommitSpecifier]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
+    """
+
+
+class DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
+class DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
+
+
+class DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    precalculated_tax_config: Optional[
+        DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig
+    ] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    stripe_config: Optional[DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataAddPrepaidBalanceThresholdConfiguration(BaseModel):
+    commit: DataAddPrepaidBalanceThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataAddPrepaidBalanceThresholdConfigurationPaymentGateConfig
+
+    recharge_to_amount: float
+    """Specify the amount the balance should be recharged to."""
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's balance lowers to this amount, a threshold charge will
+    be initiated.
+    """
+
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the threshold, recharge-to amount, and the resulting threshold
+    commit amount will be in terms of this credit type instead of the fiat currency.
+    """
+
+
+class DataAddProService(BaseModel):
+    id: str
+
+    max_amount: float
+    """Maximum amount for the term."""
+
+    product_id: str
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified.
+    """
+
+    custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: Optional[str] = None
+
+    netsuite_sales_order_id: Optional[str] = None
+    """This field's availability is dependent on your client's configuration."""
 
 
 class DataAddRecurringCommitAccessAmount(BaseModel):
@@ -275,12 +760,63 @@ class DataAddRecurringCommitContract(BaseModel):
     id: str
 
 
+class DataAddRecurringCommitHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddRecurringCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddRecurringCommitHierarchyConfigurationChildAccessType,
+    DataAddRecurringCommitHierarchyConfigurationChildAccessType,
+    DataAddRecurringCommitHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataAddRecurringCommitHierarchyConfiguration(BaseModel):
+    child_access: DataAddRecurringCommitHierarchyConfigurationChildAccess
+
+
 class DataAddRecurringCommitInvoiceAmount(BaseModel):
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
+
+
+class DataAddRecurringCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCommitSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
 
 
 class DataAddRecurringCommit(BaseModel):
@@ -317,7 +853,7 @@ class DataAddRecurringCommit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataAddRecurringCommitHierarchyConfiguration] = None
     """Optional configuration for recurring credit hierarchy access control"""
 
     invoice_amount: Optional[DataAddRecurringCommitInvoiceAmount] = None
@@ -352,14 +888,14 @@ class DataAddRecurringCommit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-    specifiers: Optional[List[CommitSpecifier]] = None
+    specifiers: Optional[List[DataAddRecurringCommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    subscription_config: Optional[DataAddRecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 
@@ -385,6 +921,57 @@ class DataAddRecurringCreditProduct(BaseModel):
 
 class DataAddRecurringCreditContract(BaseModel):
     id: str
+
+
+class DataAddRecurringCreditHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataAddRecurringCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataAddRecurringCreditHierarchyConfigurationChildAccessType,
+    DataAddRecurringCreditHierarchyConfigurationChildAccessType,
+    DataAddRecurringCreditHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataAddRecurringCreditHierarchyConfiguration(BaseModel):
+    child_access: DataAddRecurringCreditHierarchyConfigurationChildAccess
+
+
+class DataAddRecurringCreditSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class DataAddRecurringCreditSubscriptionConfig(BaseModel):
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+
+    apply_seat_increase_config: DataAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+
+    subscription_id: str
 
 
 class DataAddRecurringCredit(BaseModel):
@@ -421,7 +1008,7 @@ class DataAddRecurringCredit(BaseModel):
     ending_before: Optional[datetime] = None
     """Determines when the contract will stop creating recurring commits. Optional"""
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataAddRecurringCreditHierarchyConfiguration] = None
     """Optional configuration for recurring credit hierarchy access control"""
 
     name: Optional[str] = None
@@ -453,14 +1040,14 @@ class DataAddRecurringCredit(BaseModel):
     contract transition. Must be between 0 and 1.
     """
 
-    specifiers: Optional[List[CommitSpecifier]] = None
+    specifiers: Optional[List[DataAddRecurringCreditSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    subscription_config: Optional[DataAddRecurringCreditSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
 
@@ -498,18 +1085,199 @@ class DataAddScheduledChargeProduct(BaseModel):
     name: str
 
 
+class DataAddScheduledChargeScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddScheduledChargeScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class DataAddScheduledChargeSchedule(BaseModel):
+    credit_type: Optional[DataAddScheduledChargeScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[DataAddScheduledChargeScheduleScheduleItem]] = None
+
+
 class DataAddScheduledCharge(BaseModel):
     id: str
 
     product: DataAddScheduledChargeProduct
 
-    schedule: SchedulePointInTime
+    schedule: DataAddScheduledChargeSchedule
 
     name: Optional[str] = None
     """displayed on invoices"""
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+
+class DataAddSpendThresholdConfigurationCommit(BaseModel):
+    product_id: str
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+
+class DataAddSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
+class DataAddSpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
+
+
+class DataAddSpendThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    precalculated_tax_config: Optional[DataAddSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    stripe_config: Optional[DataAddSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
+class DataAddSpendThresholdConfiguration(BaseModel):
+    commit: DataAddSpendThresholdConfigurationCommit
+
+    is_enabled: bool
+    """
+    When set to false, the contract will not be evaluated against the
+    threshold_amount. Toggling to true will result an immediate evaluation,
+    regardless of prior state.
+    """
+
+    payment_gate_config: DataAddSpendThresholdConfigurationPaymentGateConfig
+
+    threshold_amount: float
+    """Specify the threshold amount for the contract.
+
+    Each time the contract's usage hits this amount, a threshold charge will be
+    initiated.
+    """
+
+
+class DataAddSubscriptionProration(BaseModel):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+
+    is_prorated: bool
+
+
+class DataAddSubscriptionQuantitySchedule(BaseModel):
+    quantity: float
+
+    starting_at: datetime
+
+    ending_before: Optional[datetime] = None
+
+
+class DataAddSubscriptionSubscriptionRateProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddSubscriptionSubscriptionRate(BaseModel):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+    product: DataAddSubscriptionSubscriptionRateProduct
+
+
+class DataAddSubscription(BaseModel):
+    collection_schedule: Literal["ADVANCE", "ARREARS"]
+
+    proration: DataAddSubscriptionProration
+
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation.
+    """
+
+    quantity_schedule: List[DataAddSubscriptionQuantitySchedule]
+    """List of quantity schedule items for the subscription.
+
+    Only includes the current quantity and future quantity changes.
+    """
+
+    starting_at: datetime
+
+    subscription_rate: DataAddSubscriptionSubscriptionRate
+
+    id: Optional[str] = None
+
+    custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: Optional[str] = None
+
+    ending_before: Optional[datetime] = None
+
+    fiat_credit_type_id: Optional[str] = None
+
+    name: Optional[str] = None
 
 
 class DataAddUsageFilter(BaseModel):
@@ -580,6 +1348,27 @@ class DataUpdateCommitAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCommitAccessScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCommitHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataUpdateCommitHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataUpdateCommitHierarchyConfigurationChildAccessType,
+    DataUpdateCommitHierarchyConfigurationChildAccessType,
+    DataUpdateCommitHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataUpdateCommitHierarchyConfiguration(BaseModel):
+    child_access: DataUpdateCommitHierarchyConfigurationChildAccess
+
+
 class DataUpdateCommitInvoiceScheduleAddScheduleItem(BaseModel):
     timestamp: datetime
 
@@ -614,6 +1403,23 @@ class DataUpdateCommitInvoiceSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCommitInvoiceScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
 class DataUpdateCommit(BaseModel):
     id: str
 
@@ -633,7 +1439,7 @@ class DataUpdateCommit(BaseModel):
     provided, the commit applies to all products.
     """
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataUpdateCommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
     invoice_schedule: Optional[DataUpdateCommitInvoiceSchedule] = None
@@ -652,7 +1458,7 @@ class DataUpdateCommit(BaseModel):
 
     rollover_fraction: Optional[float] = None
 
-    specifiers: Optional[List[CommitSpecifierInput]] = None
+    specifiers: Optional[List[DataUpdateCommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -697,12 +1503,33 @@ class DataUpdateCreditAccessSchedule(BaseModel):
     update_schedule_items: Optional[List[DataUpdateCreditAccessScheduleUpdateScheduleItem]] = None
 
 
+class DataUpdateCreditHierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+DataUpdateCreditHierarchyConfigurationChildAccess: TypeAlias = Union[
+    DataUpdateCreditHierarchyConfigurationChildAccessType,
+    DataUpdateCreditHierarchyConfigurationChildAccessType,
+    DataUpdateCreditHierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class DataUpdateCreditHierarchyConfiguration(BaseModel):
+    child_access: DataUpdateCreditHierarchyConfigurationChildAccess
+
+
 class DataUpdateCredit(BaseModel):
     id: str
 
     access_schedule: Optional[DataUpdateCreditAccessSchedule] = None
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[DataUpdateCreditHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
     name: Optional[str] = None
@@ -813,7 +1640,24 @@ class DataUpdateDiscount(BaseModel):
     """Must provide either schedule_items or recurring_schedule."""
 
 
-class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit):
+class DataUpdatePrepaidBalanceThresholdConfigurationCommitSpecifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationCommit(BaseModel):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
 
@@ -828,7 +1672,21 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     commit applies to all products.
     """
 
-    specifiers: Optional[List[CommitSpecifierInput]] = None
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+    product_id: Optional[str] = None
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+    specifiers: Optional[List[DataUpdatePrepaidBalanceThresholdConfigurationCommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -836,6 +1694,57 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     Instead, to target usage by product or product tag, pass those values in the
     body of `specifiers`.
+    """
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    precalculated_tax_config: Optional[
+        DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig
+    ] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    stripe_config: Optional[DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
     """
 
 
@@ -855,7 +1764,7 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     regardless of prior state.
     """
 
-    payment_gate_config: Optional[PaymentGateConfigV2] = None
+    payment_gate_config: Optional[DataUpdatePrepaidBalanceThresholdConfigurationPaymentGateConfig] = None
 
     recharge_to_amount: Optional[float] = None
     """Specify the amount the balance should be recharged to."""
@@ -954,8 +1863,75 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
+class DataUpdateSpendThresholdConfigurationCommit(BaseModel):
+    description: Optional[str] = None
+
+    name: Optional[str] = None
+    """Specify the name of the line item for the threshold charge.
+
+    If left blank, it will default to the commit product name.
+    """
+
+    product_id: Optional[str] = None
+    """
+    The commit product that will be used to generate the line item for commit
+    payment.
+    """
+
+
+class DataUpdateSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
+class DataUpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig(BaseModel):
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
+
+
+class DataUpdateSpendThresholdConfigurationPaymentGateConfig(BaseModel):
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    precalculated_tax_config: Optional[DataUpdateSpendThresholdConfigurationPaymentGateConfigPrecalculatedTaxConfig] = (
+        None
+    )
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    stripe_config: Optional[DataUpdateSpendThresholdConfigurationPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
 class DataUpdateSpendThresholdConfiguration(BaseModel):
-    commit: Optional[UpdateBaseThresholdCommit] = None
+    commit: Optional[DataUpdateSpendThresholdConfigurationCommit] = None
 
     is_enabled: Optional[bool] = None
     """
@@ -964,7 +1940,7 @@ class DataUpdateSpendThresholdConfiguration(BaseModel):
     regardless of prior state.
     """
 
-    payment_gate_config: Optional[PaymentGateConfigV2] = None
+    payment_gate_config: Optional[DataUpdateSpendThresholdConfigurationPaymentGateConfig] = None
 
     threshold_amount: Optional[float] = None
     """Specify the threshold amount for the contract.
@@ -997,13 +1973,13 @@ class Data(BaseModel):
 
     add_credits: Optional[List[DataAddCredit]] = None
 
-    add_discounts: Optional[List[Discount]] = None
+    add_discounts: Optional[List[DataAddDiscount]] = None
 
     add_overrides: Optional[List[DataAddOverride]] = None
 
-    add_prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfigurationV2] = None
+    add_prepaid_balance_threshold_configuration: Optional[DataAddPrepaidBalanceThresholdConfiguration] = None
 
-    add_pro_services: Optional[List[ProService]] = None
+    add_pro_services: Optional[List[DataAddProService]] = None
 
     add_recurring_commits: Optional[List[DataAddRecurringCommit]] = None
 
@@ -1013,9 +1989,9 @@ class Data(BaseModel):
 
     add_scheduled_charges: Optional[List[DataAddScheduledCharge]] = None
 
-    add_spend_threshold_configuration: Optional[SpendThresholdConfigurationV2] = None
+    add_spend_threshold_configuration: Optional[DataAddSpendThresholdConfiguration] = None
 
-    add_subscriptions: Optional[List[Subscription]] = None
+    add_subscriptions: Optional[List[DataAddSubscription]] = None
     """List of subscriptions on the contract."""
 
     add_usage_filters: Optional[List[DataAddUsageFilter]] = None
