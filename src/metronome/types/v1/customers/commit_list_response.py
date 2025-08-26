@@ -4,33 +4,40 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ..._models import BaseModel
-from .commit_specifier import CommitSpecifier
-from .schedule_duration import ScheduleDuration
-from .schedule_point_in_time import SchedulePointInTime
-from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from ...._models import BaseModel
 
 __all__ = [
-    "Commit",
+    "CommitListResponse",
     "Product",
+    "AccessSchedule",
+    "AccessScheduleScheduleItem",
+    "AccessScheduleCreditType",
     "Contract",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationChildAccess",
+    "HierarchyConfigurationChildAccessType",
+    "HierarchyConfigurationChildAccessUnionMember2",
     "InvoiceContract",
+    "InvoiceSchedule",
+    "InvoiceScheduleCreditType",
+    "InvoiceScheduleScheduleItem",
     "Ledger",
-    "LedgerPrepaidCommitSegmentStartLedgerEntry",
-    "LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerPrepaidCommitRolloverLedgerEntry",
-    "LedgerPrepaidCommitExpirationLedgerEntry",
-    "LedgerPrepaidCommitCanceledLedgerEntry",
-    "LedgerPrepaidCommitCreditedLedgerEntry",
-    "LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
-    "LedgerPostpaidCommitInitialBalanceLedgerEntry",
-    "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerPostpaidCommitRolloverLedgerEntry",
-    "LedgerPostpaidCommitTrueupLedgerEntry",
-    "LedgerPrepaidCommitManualLedgerEntry",
-    "LedgerPostpaidCommitManualLedgerEntry",
-    "LedgerPostpaidCommitExpirationLedgerEntry",
+    "LedgerUnionMember0",
+    "LedgerUnionMember1",
+    "LedgerUnionMember2",
+    "LedgerUnionMember3",
+    "LedgerUnionMember4",
+    "LedgerUnionMember5",
+    "LedgerUnionMember6",
+    "LedgerUnionMember7",
+    "LedgerUnionMember8",
+    "LedgerUnionMember9",
+    "LedgerUnionMember10",
+    "LedgerUnionMember11",
+    "LedgerUnionMember12",
+    "LedgerUnionMember13",
     "RolledOverFrom",
+    "Specifier",
 ]
 
 
@@ -40,15 +47,90 @@ class Product(BaseModel):
     name: str
 
 
+class AccessScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class AccessScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class AccessSchedule(BaseModel):
+    schedule_items: List[AccessScheduleScheduleItem]
+
+    credit_type: Optional[AccessScheduleCreditType] = None
+
+
 class Contract(BaseModel):
     id: str
+
+
+class HierarchyConfigurationChildAccessType(BaseModel):
+    type: Literal["ALL"]
+
+
+class HierarchyConfigurationChildAccessUnionMember2(BaseModel):
+    contract_ids: List[str]
+
+    type: Literal["CONTRACT_IDS"]
+
+
+HierarchyConfigurationChildAccess: TypeAlias = Union[
+    HierarchyConfigurationChildAccessType,
+    HierarchyConfigurationChildAccessType,
+    HierarchyConfigurationChildAccessUnionMember2,
+]
+
+
+class HierarchyConfiguration(BaseModel):
+    child_access: HierarchyConfigurationChildAccess
 
 
 class InvoiceContract(BaseModel):
     id: str
 
 
-class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
+class InvoiceScheduleCreditType(BaseModel):
+    id: str
+
+    name: str
+
+
+class InvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    amount: float
+
+    quantity: float
+
+    timestamp: datetime
+
+    unit_price: float
+
+    invoice_id: Optional[str] = None
+
+
+class InvoiceSchedule(BaseModel):
+    credit_type: Optional[InvoiceScheduleCreditType] = None
+
+    do_not_invoice: Optional[bool] = None
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    schedule_items: Optional[List[InvoiceScheduleScheduleItem]] = None
+
+
+class LedgerUnionMember0(BaseModel):
     amount: float
 
     segment_id: str
@@ -58,7 +140,7 @@ class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_SEGMENT_START"]
 
 
-class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class LedgerUnionMember1(BaseModel):
     amount: float
 
     invoice_id: str
@@ -72,7 +154,7 @@ class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
+class LedgerUnionMember2(BaseModel):
     amount: float
 
     new_contract_id: str
@@ -84,7 +166,7 @@ class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_ROLLOVER"]
 
 
-class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
+class LedgerUnionMember3(BaseModel):
     amount: float
 
     segment_id: str
@@ -94,7 +176,7 @@ class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_EXPIRATION"]
 
 
-class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
+class LedgerUnionMember4(BaseModel):
     amount: float
 
     invoice_id: str
@@ -108,7 +190,7 @@ class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
+class LedgerUnionMember5(BaseModel):
     amount: float
 
     invoice_id: str
@@ -122,7 +204,7 @@ class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
+class LedgerUnionMember6(BaseModel):
     amount: float
 
     segment_id: str
@@ -132,7 +214,7 @@ class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
 
 
-class LedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
+class LedgerUnionMember7(BaseModel):
     amount: float
 
     timestamp: datetime
@@ -140,7 +222,7 @@ class LedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_INITIAL_BALANCE"]
 
 
-class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
+class LedgerUnionMember8(BaseModel):
     amount: float
 
     invoice_id: str
@@ -154,7 +236,7 @@ class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
+class LedgerUnionMember9(BaseModel):
     amount: float
 
     new_contract_id: str
@@ -166,7 +248,7 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
 
 
-class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
+class LedgerUnionMember10(BaseModel):
     amount: float
 
     invoice_id: str
@@ -178,7 +260,7 @@ class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
+class LedgerUnionMember11(BaseModel):
     amount: float
 
     reason: str
@@ -188,7 +270,7 @@ class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
     type: Literal["PREPAID_COMMIT_MANUAL"]
 
 
-class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
+class LedgerUnionMember12(BaseModel):
     amount: float
 
     reason: str
@@ -198,7 +280,7 @@ class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
     type: Literal["POSTPAID_COMMIT_MANUAL"]
 
 
-class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
+class LedgerUnionMember13(BaseModel):
     amount: float
 
     timestamp: datetime
@@ -207,20 +289,20 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
 
 
 Ledger: TypeAlias = Union[
-    LedgerPrepaidCommitSegmentStartLedgerEntry,
-    LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    LedgerPrepaidCommitRolloverLedgerEntry,
-    LedgerPrepaidCommitExpirationLedgerEntry,
-    LedgerPrepaidCommitCanceledLedgerEntry,
-    LedgerPrepaidCommitCreditedLedgerEntry,
-    LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
-    LedgerPostpaidCommitInitialBalanceLedgerEntry,
-    LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    LedgerPostpaidCommitRolloverLedgerEntry,
-    LedgerPostpaidCommitTrueupLedgerEntry,
-    LedgerPrepaidCommitManualLedgerEntry,
-    LedgerPostpaidCommitManualLedgerEntry,
-    LedgerPostpaidCommitExpirationLedgerEntry,
+    LedgerUnionMember0,
+    LedgerUnionMember1,
+    LedgerUnionMember2,
+    LedgerUnionMember3,
+    LedgerUnionMember4,
+    LedgerUnionMember5,
+    LedgerUnionMember6,
+    LedgerUnionMember7,
+    LedgerUnionMember8,
+    LedgerUnionMember9,
+    LedgerUnionMember10,
+    LedgerUnionMember11,
+    LedgerUnionMember12,
+    LedgerUnionMember13,
 ]
 
 
@@ -230,14 +312,31 @@ class RolledOverFrom(BaseModel):
     contract_id: str
 
 
-class Commit(BaseModel):
+class Specifier(BaseModel):
+    presentation_group_values: Optional[Dict[str, str]] = None
+
+    pricing_group_values: Optional[Dict[str, str]] = None
+
+    product_id: Optional[str] = None
+    """
+    If provided, the specifier will only apply to the product with the specified ID.
+    """
+
+    product_tags: Optional[List[str]] = None
+    """
+    If provided, the specifier will only apply to products with all the specified
+    tags.
+    """
+
+
+class CommitListResponse(BaseModel):
     id: str
 
     product: Product
 
     type: Literal["PREPAID", "POSTPAID"]
 
-    access_schedule: Optional[ScheduleDuration] = None
+    access_schedule: Optional[AccessSchedule] = None
     """
     The schedule that the customer will gain access to the credits purposed with
     this commit.
@@ -278,13 +377,13 @@ class Commit(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
+    hierarchy_configuration: Optional[HierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
     invoice_contract: Optional[InvoiceContract] = None
     """The contract that this commit will be billed on."""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[InvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     ledger: Optional[List[Ledger]] = None
@@ -313,7 +412,7 @@ class Commit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[CommitSpecifier]] = None
+    specifiers: Optional[List[Specifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the

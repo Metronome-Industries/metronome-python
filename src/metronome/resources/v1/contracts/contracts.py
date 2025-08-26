@@ -64,14 +64,11 @@ from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
-from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
-from ....types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
-from ....types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
@@ -128,7 +125,8 @@ class ContractsResource(SyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -139,12 +137,12 @@ class ContractsResource(SyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1234,7 +1232,8 @@ class AsyncContractsResource(AsyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
+        | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -1245,12 +1244,12 @@ class AsyncContractsResource(AsyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
-        usage_filter: BaseUsageFilter | NotGiven = NOT_GIVEN,
+        usage_filter: contract_create_params.UsageFilter | NotGiven = NOT_GIVEN,
         usage_statement_schedule: contract_create_params.UsageStatementSchedule | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
