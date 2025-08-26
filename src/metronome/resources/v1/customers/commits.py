@@ -21,8 +21,9 @@ from ...._response import (
 from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import commit_list_params, commit_create_params, commit_update_end_date_params
-from ....types.v1.customers.commit_list_response import CommitListResponse
+from ....types.shared.commit import Commit
 from ....types.v1.customers.commit_create_response import CommitCreateResponse
+from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ....types.v1.customers.commit_update_end_date_response import CommitUpdateEndDateResponse
 
 __all__ = ["CommitsResource", "AsyncCommitsResource"]
@@ -67,7 +68,7 @@ class CommitsResource(SyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[commit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -242,7 +243,7 @@ class CommitsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncBodyCursorPage[CommitListResponse]:
+    ) -> SyncBodyCursorPage[Commit]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
         postpaid commitments. This endpoint provides comprehensive visibility into
@@ -317,7 +318,7 @@ class CommitsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCommits/list",
-            page=SyncBodyCursorPage[CommitListResponse],
+            page=SyncBodyCursorPage[Commit],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -337,7 +338,7 @@ class CommitsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=CommitListResponse,
+            model=Commit,
             method="post",
         )
 
@@ -441,7 +442,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[commit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -616,7 +617,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[CommitListResponse, AsyncBodyCursorPage[CommitListResponse]]:
+    ) -> AsyncPaginator[Commit, AsyncBodyCursorPage[Commit]]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
         postpaid commitments. This endpoint provides comprehensive visibility into
@@ -691,7 +692,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCommits/list",
-            page=AsyncBodyCursorPage[CommitListResponse],
+            page=AsyncBodyCursorPage[Commit],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -711,7 +712,7 @@ class AsyncCommitsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            model=CommitListResponse,
+            model=Commit,
             method="post",
         )
 

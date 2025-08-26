@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["CustomerListResponse", "CustomerConfig", "CurrentBillableStatus"]
+__all__ = ["CustomerDetail", "CustomerConfig", "CurrentBillableStatus"]
 
 
 class CustomerConfig(BaseModel):
@@ -20,7 +20,7 @@ class CurrentBillableStatus(BaseModel):
     effective_at: Optional[datetime] = None
 
 
-class CustomerListResponse(BaseModel):
+class CustomerDetail(BaseModel):
     id: str
     """the Metronome ID of the customer"""
 

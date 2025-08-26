@@ -305,11 +305,11 @@ class TestContracts:
             ],
             add_prepaid_balance_threshold_configuration={
                 "commit": {
+                    "description": "description",
+                    "name": "name",
                     "product_id": "product_id",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
-                    "description": "description",
-                    "name": "name",
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -486,9 +486,9 @@ class TestContracts:
             ],
             add_spend_threshold_configuration={
                 "commit": {
-                    "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "product_id": "product_id",
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -615,11 +615,11 @@ class TestContracts:
             ],
             update_prepaid_balance_threshold_configuration={
                 "commit": {
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                     "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1244,11 +1244,11 @@ class TestAsyncContracts:
             ],
             add_prepaid_balance_threshold_configuration={
                 "commit": {
+                    "description": "description",
+                    "name": "name",
                     "product_id": "product_id",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
-                    "description": "description",
-                    "name": "name",
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1425,9 +1425,9 @@ class TestAsyncContracts:
             ],
             add_spend_threshold_configuration={
                 "commit": {
-                    "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "product_id": "product_id",
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -1554,11 +1554,11 @@ class TestAsyncContracts:
             ],
             update_prepaid_balance_threshold_configuration={
                 "commit": {
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                     "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},

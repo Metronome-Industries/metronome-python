@@ -20,7 +20,7 @@ from ...._response import (
 from ....pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import alert_list_params, alert_reset_params, alert_retrieve_params
-from ....types.v1.customers.alert_list_response import AlertListResponse
+from ....types.v1.customers.customer_alert import CustomerAlert
 from ....types.v1.customers.alert_retrieve_response import AlertRetrieveResponse
 
 __all__ = ["AlertsResource", "AsyncAlertsResource"]
@@ -146,7 +146,7 @@ class AlertsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncCursorPageWithoutLimit[AlertListResponse]:
+    ) -> SyncCursorPageWithoutLimit[CustomerAlert]:
         """
         Retrieve all alert configurations and their current statuses for a specific
         customer in a single API call. This endpoint provides a comprehensive view of
@@ -192,7 +192,7 @@ class AlertsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customer-alerts/list",
-            page=SyncCursorPageWithoutLimit[AlertListResponse],
+            page=SyncCursorPageWithoutLimit[CustomerAlert],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -207,7 +207,7 @@ class AlertsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
             ),
-            model=AlertListResponse,
+            model=CustomerAlert,
             method="post",
         )
 
@@ -403,7 +403,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[AlertListResponse, AsyncCursorPageWithoutLimit[AlertListResponse]]:
+    ) -> AsyncPaginator[CustomerAlert, AsyncCursorPageWithoutLimit[CustomerAlert]]:
         """
         Retrieve all alert configurations and their current statuses for a specific
         customer in a single API call. This endpoint provides a comprehensive view of
@@ -449,7 +449,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customer-alerts/list",
-            page=AsyncCursorPageWithoutLimit[AlertListResponse],
+            page=AsyncCursorPageWithoutLimit[CustomerAlert],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -464,7 +464,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
             ),
-            model=AlertListResponse,
+            model=CustomerAlert,
             method="post",
         )
 
