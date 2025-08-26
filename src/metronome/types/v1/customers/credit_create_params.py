@@ -7,8 +7,9 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
+from ...shared_params.commit_specifier_input import CommitSpecifierInput
 
-__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem", "Specifier"]
+__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem"]
 
 
 class CreditCreateParams(TypedDict, total=False):
@@ -62,7 +63,7 @@ class CreditCreateParams(TypedDict, total=False):
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Iterable[Specifier]
+    specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -94,20 +95,3 @@ class AccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
-
-
-class Specifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """

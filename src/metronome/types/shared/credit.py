@@ -4,28 +4,23 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from ...._models import BaseModel
+from ..._models import BaseModel
+from .commit_specifier import CommitSpecifier
+from .schedule_duration import ScheduleDuration
+from .commit_hierarchy_configuration import CommitHierarchyConfiguration
 
 __all__ = [
-    "CreditListResponse",
+    "Credit",
     "Product",
-    "AccessSchedule",
-    "AccessScheduleScheduleItem",
-    "AccessScheduleCreditType",
     "Contract",
-    "HierarchyConfiguration",
-    "HierarchyConfigurationChildAccess",
-    "HierarchyConfigurationChildAccessType",
-    "HierarchyConfigurationChildAccessUnionMember2",
     "Ledger",
-    "LedgerUnionMember0",
-    "LedgerUnionMember1",
-    "LedgerUnionMember2",
-    "LedgerUnionMember3",
-    "LedgerUnionMember4",
-    "LedgerUnionMember5",
-    "LedgerUnionMember6",
-    "Specifier",
+    "LedgerCreditSegmentStartLedgerEntry",
+    "LedgerCreditAutomatedInvoiceDeductionLedgerEntry",
+    "LedgerCreditExpirationLedgerEntry",
+    "LedgerCreditCanceledLedgerEntry",
+    "LedgerCreditCreditedLedgerEntry",
+    "LedgerCreditManualLedgerEntry",
+    "LedgerCreditSeatBasedAdjustmentLedgerEntry",
 ]
 
 
@@ -35,54 +30,11 @@ class Product(BaseModel):
     name: str
 
 
-class AccessScheduleScheduleItem(BaseModel):
-    id: str
-
-    amount: float
-
-    ending_before: datetime
-
-    starting_at: datetime
-
-
-class AccessScheduleCreditType(BaseModel):
-    id: str
-
-    name: str
-
-
-class AccessSchedule(BaseModel):
-    schedule_items: List[AccessScheduleScheduleItem]
-
-    credit_type: Optional[AccessScheduleCreditType] = None
-
-
 class Contract(BaseModel):
     id: str
 
 
-class HierarchyConfigurationChildAccessType(BaseModel):
-    type: Literal["ALL"]
-
-
-class HierarchyConfigurationChildAccessUnionMember2(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-HierarchyConfigurationChildAccess: TypeAlias = Union[
-    HierarchyConfigurationChildAccessType,
-    HierarchyConfigurationChildAccessType,
-    HierarchyConfigurationChildAccessUnionMember2,
-]
-
-
-class HierarchyConfiguration(BaseModel):
-    child_access: HierarchyConfigurationChildAccess
-
-
-class LedgerUnionMember0(BaseModel):
+class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     amount: float
 
     segment_id: str
@@ -92,7 +44,7 @@ class LedgerUnionMember0(BaseModel):
     type: Literal["CREDIT_SEGMENT_START"]
 
 
-class LedgerUnionMember1(BaseModel):
+class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
 
     invoice_id: str
@@ -106,7 +58,7 @@ class LedgerUnionMember1(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerUnionMember2(BaseModel):
+class LedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
 
     segment_id: str
@@ -116,7 +68,7 @@ class LedgerUnionMember2(BaseModel):
     type: Literal["CREDIT_EXPIRATION"]
 
 
-class LedgerUnionMember3(BaseModel):
+class LedgerCreditCanceledLedgerEntry(BaseModel):
     amount: float
 
     invoice_id: str
@@ -130,7 +82,7 @@ class LedgerUnionMember3(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerUnionMember4(BaseModel):
+class LedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
 
     invoice_id: str
@@ -144,7 +96,7 @@ class LedgerUnionMember4(BaseModel):
     contract_id: Optional[str] = None
 
 
-class LedgerUnionMember5(BaseModel):
+class LedgerCreditManualLedgerEntry(BaseModel):
     amount: float
 
     reason: str
@@ -154,7 +106,7 @@ class LedgerUnionMember5(BaseModel):
     type: Literal["CREDIT_MANUAL"]
 
 
-class LedgerUnionMember6(BaseModel):
+class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     amount: float
 
     segment_id: str
@@ -165,41 +117,24 @@ class LedgerUnionMember6(BaseModel):
 
 
 Ledger: TypeAlias = Union[
-    LedgerUnionMember0,
-    LedgerUnionMember1,
-    LedgerUnionMember2,
-    LedgerUnionMember3,
-    LedgerUnionMember4,
-    LedgerUnionMember5,
-    LedgerUnionMember6,
+    LedgerCreditSegmentStartLedgerEntry,
+    LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
+    LedgerCreditExpirationLedgerEntry,
+    LedgerCreditCanceledLedgerEntry,
+    LedgerCreditCreditedLedgerEntry,
+    LedgerCreditManualLedgerEntry,
+    LedgerCreditSeatBasedAdjustmentLedgerEntry,
 ]
 
 
-class Specifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
-class CreditListResponse(BaseModel):
+class Credit(BaseModel):
     id: str
 
     product: Product
 
     type: Literal["CREDIT"]
 
-    access_schedule: Optional[AccessSchedule] = None
+    access_schedule: Optional[ScheduleDuration] = None
     """The schedule that the customer will gain access to the credits."""
 
     applicable_contract_ids: Optional[List[str]] = None
@@ -228,7 +163,7 @@ class CreditListResponse(BaseModel):
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[HierarchyConfiguration] = None
+    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
     ledger: Optional[List[Ledger]] = None
@@ -253,7 +188,7 @@ class CreditListResponse(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[Specifier]] = None
+    specifiers: Optional[List[CommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the

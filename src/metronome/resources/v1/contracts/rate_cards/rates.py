@@ -20,7 +20,9 @@ from ....._response import (
 )
 from .....pagination import SyncCursorPage, AsyncCursorPage
 from ....._base_client import AsyncPaginator, make_request_options
+from .....types.shared_params.tier import Tier
 from .....types.v1.contracts.rate_cards import rate_add_params, rate_list_params, rate_add_many_params
+from .....types.shared_params.commit_rate import CommitRate
 from .....types.v1.contracts.rate_cards.rate_add_response import RateAddResponse
 from .....types.v1.contracts.rate_cards.rate_list_response import RateListResponse
 from .....types.v1.contracts.rate_cards.rate_add_many_response import RateAddManyResponse
@@ -130,7 +132,7 @@ class RatesResource(SyncAPIResource):
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
         billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+        commit_rate: CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -138,7 +140,7 @@ class RatesResource(SyncAPIResource):
         price: float | NotGiven = NOT_GIVEN,
         pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
         quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[rate_add_params.Tier] | NotGiven = NOT_GIVEN,
+        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
         use_list_prices: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -369,7 +371,7 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
         billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+        commit_rate: CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -377,7 +379,7 @@ class AsyncRatesResource(AsyncAPIResource):
         price: float | NotGiven = NOT_GIVEN,
         pricing_group_values: Dict[str, str] | NotGiven = NOT_GIVEN,
         quantity: float | NotGiven = NOT_GIVEN,
-        tiers: Iterable[rate_add_params.Tier] | NotGiven = NOT_GIVEN,
+        tiers: Iterable[Tier] | NotGiven = NOT_GIVEN,
         use_list_prices: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
