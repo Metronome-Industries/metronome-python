@@ -233,6 +233,14 @@ class RolledOverFrom(BaseModel):
 class Commit(BaseModel):
     id: str
 
+    created_at: datetime
+    """Timestamp of when the commit was created.
+
+    - Recurring commits: latter of commit service period date and parent commit
+      start date
+    - Rollover commits: when the new contract started
+    """
+
     product: Product
 
     type: Literal["PREPAID", "POSTPAID"]
