@@ -326,7 +326,7 @@ class TestContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -367,7 +367,7 @@ class TestContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -1656,7 +1656,7 @@ class TestAsyncContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -1697,7 +1697,7 @@ class TestAsyncContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }

@@ -650,6 +650,9 @@ class DataUpdateCommit(BaseModel):
 
     product_id: Optional[str] = None
 
+    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
+    """If set, the commit's rate type was updated to the specified value."""
+
     rollover_fraction: Optional[float] = None
 
     specifiers: Optional[List[CommitSpecifierInput]] = None
@@ -714,6 +717,9 @@ class DataUpdateCredit(BaseModel):
     If multiple credits are applicable, the one with the lower priority will apply
     first.
     """
+
+    rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
+    """If set, the credit's rate type was updated to the specified value."""
 
     rollover_fraction: Optional[float] = None
 

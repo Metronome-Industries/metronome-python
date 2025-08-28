@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -374,6 +375,7 @@ class ContractsResource(SyncAPIResource):
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
         specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -419,6 +421,10 @@ class ContractsResource(SyncAPIResource):
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
+          rate_type: If provided, updates the commit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
+
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
               specifiers to contribute to a commit's or credit's drawdown. This field cannot
@@ -447,6 +453,7 @@ class ContractsResource(SyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
@@ -467,6 +474,7 @@ class ContractsResource(SyncAPIResource):
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
         specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -507,6 +515,10 @@ class ContractsResource(SyncAPIResource):
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
+          rate_type: If provided, updates the credit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
+
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
               specifiers to contribute to a commit's or credit's drawdown. This field cannot
@@ -533,6 +545,7 @@ class ContractsResource(SyncAPIResource):
                     "applicable_product_tags": applicable_product_tags,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,
@@ -933,6 +946,7 @@ class AsyncContractsResource(AsyncAPIResource):
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
         specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -978,6 +992,10 @@ class AsyncContractsResource(AsyncAPIResource):
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
+          rate_type: If provided, updates the commit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
+
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
               specifiers to contribute to a commit's or credit's drawdown. This field cannot
@@ -1006,6 +1024,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
@@ -1026,6 +1045,7 @@ class AsyncContractsResource(AsyncAPIResource):
         applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
         specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1066,6 +1086,10 @@ class AsyncContractsResource(AsyncAPIResource):
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
+          rate_type: If provided, updates the credit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
+
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
               specifiers to contribute to a commit's or credit's drawdown. This field cannot
@@ -1092,6 +1116,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "applicable_product_tags": applicable_product_tags,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,

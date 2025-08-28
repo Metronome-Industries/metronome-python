@@ -808,7 +808,7 @@ class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
     subscription_id: Required[str]
     """ID of the subscription to configure on the recurring commit/credit."""
 
-    allocation: Literal["POOLED"]
+    allocation: Literal["POOLED", "INDIVIDUAL"]
     """If set to POOLED, allocation added per seat is pooled across the account."""
 
 
@@ -930,7 +930,7 @@ class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
     subscription_id: Required[str]
     """ID of the subscription to configure on the recurring commit/credit."""
 
-    allocation: Literal["POOLED"]
+    allocation: Literal["POOLED", "INDIVIDUAL"]
     """If set to POOLED, allocation added per seat is pooled across the account."""
 
 
@@ -1340,6 +1340,13 @@ class UpdateCommit(TypedDict, total=False):
 
     product_id: str
 
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the commit to use the specified rate type for current and
+    future invoices. Previously finalized invoices will need to be voided and
+    regenerated to reflect the rate type change.
+    """
+
     rollover_fraction: Optional[float]
 
 
@@ -1400,6 +1407,13 @@ class UpdateCredit(TypedDict, total=False):
     priority: Optional[float]
 
     product_id: str
+
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the credit to use the specified rate type for current and
+    future invoices. Previously finalized invoices will need to be voided and
+    regenerated to reflect the rate type change.
+    """
 
 
 class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit, total=False):
