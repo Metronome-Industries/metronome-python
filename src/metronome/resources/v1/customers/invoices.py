@@ -73,7 +73,7 @@ class InvoicesResource(SyncAPIResource):
         credits, totals, and billing period details for both finalized and draft
         invoices.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Display historical invoice details in customer-facing dashboards or billing
           portals.
@@ -84,9 +84,10 @@ class InvoicesResource(SyncAPIResource):
         - Validate customer pricing and credit applications for customer support
           queries.
 
-        Key response fields: Invoice status (DRAFT, FINALIZED, VOID) Billing period
-        start and end dates Total amount and amount due after credits Detailed line
-        items broken down by:
+        ### Key response fields:
+
+        Invoice status (DRAFT, FINALIZED, VOID) Billing period start and end dates Total
+        amount and amount due after credits Detailed line items broken down by:
 
         - Customer and contract information
         - Invoice line item type
@@ -96,7 +97,7 @@ class InvoicesResource(SyncAPIResource):
         - Time period for usage-based charges
         - Applied credits or prepaid commitments
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - Draft invoices update in real-time as usage is reported and may change before
           finalization
@@ -164,7 +165,7 @@ class InvoicesResource(SyncAPIResource):
         history and current charges, supporting both real-time billing dashboards and
         historical reporting needs.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Display historical invoice details in customer-facing dashboards or billing
           portals.
@@ -176,7 +177,9 @@ class InvoicesResource(SyncAPIResource):
           queries.
         - Generate financial reports by filtering invoices within specific date ranges
 
-        Key response fields: Array of invoice objects containing:
+        ### Key response fields:
+
+        Array of invoice objects containing:
 
         - Invoice ID and status (DRAFT, FINALIZED, VOID)
         - Invoice type (USAGE, SCHEDULED)
@@ -188,7 +191,7 @@ class InvoicesResource(SyncAPIResource):
         - External billing provider status (if integrated with Stripe, etc.)
         - Pagination metadata next_page cursor
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - The endpoint returns invoice summaries; use the Get Invoice endpoint for
           detailed line items
@@ -346,7 +349,7 @@ class InvoicesResource(SyncAPIResource):
         customers with transparency into their billing details throughout the billing
         period.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Build usage analytics dashboards showing daily or hourly consumption trends
         - Identify peak usage periods for capacity planning and cost optimization
@@ -354,7 +357,9 @@ class InvoicesResource(SyncAPIResource):
         - Troubleshoot billing disputes by examining usage patterns at specific times
         - Power real-time cost monitoring and alerting systems
 
-        Key response fields: An array of BreakdownInvoice objects, each containing:
+        ### Key response fields:
+
+        An array of BreakdownInvoice objects, each containing:
 
         - All standard invoice fields (ID, customer, commit, line items, totals, status)
         - Line items with quantities and costs for that specific period
@@ -362,18 +367,20 @@ class InvoicesResource(SyncAPIResource):
         - breakdown_end_timestamp: End of the specific time window
         - next_page: Pagination cursor for large result sets
 
-        Usage guidelines:
+        ### Usage guidelines:
 
-        - Time granularity: Set window_size to hour or day based on your analysis needs
+        - Time granularity: Set `window_size` to hour or day based on your analysis
+          needs
         - Response limits: Daily breakdowns return up to 35 days; hourly breakdowns
           return up to 24 hours per request
-        - Date filtering: Use starting_on and ending_before to focus on specific periods
+        - Date filtering: Use `starting_on` and `ending_before` to focus on specific
+          periods
         - Performance: For large date ranges, use pagination to retrieve all data
           efficiently
         - Backdated usage: If usage events arrive after invoice finalization, breakdowns
           will reflect the updated usage
-        - Zero quantity filtering: Use skip_zero_qty_line_items=true to exclude periods
-          with no usage
+        - Zero quantity filtering: Use `skip_zero_qty_line_items=true` to exclude
+          periods with no usage
 
         Args:
           ending_before: RFC 3339 timestamp. Breakdowns will only be returned for time windows that end
@@ -476,7 +483,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         credits, totals, and billing period details for both finalized and draft
         invoices.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Display historical invoice details in customer-facing dashboards or billing
           portals.
@@ -487,9 +494,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - Validate customer pricing and credit applications for customer support
           queries.
 
-        Key response fields: Invoice status (DRAFT, FINALIZED, VOID) Billing period
-        start and end dates Total amount and amount due after credits Detailed line
-        items broken down by:
+        ### Key response fields:
+
+        Invoice status (DRAFT, FINALIZED, VOID) Billing period start and end dates Total
+        amount and amount due after credits Detailed line items broken down by:
 
         - Customer and contract information
         - Invoice line item type
@@ -499,7 +507,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - Time period for usage-based charges
         - Applied credits or prepaid commitments
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - Draft invoices update in real-time as usage is reported and may change before
           finalization
@@ -567,7 +575,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         history and current charges, supporting both real-time billing dashboards and
         historical reporting needs.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Display historical invoice details in customer-facing dashboards or billing
           portals.
@@ -579,7 +587,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
           queries.
         - Generate financial reports by filtering invoices within specific date ranges
 
-        Key response fields: Array of invoice objects containing:
+        ### Key response fields:
+
+        Array of invoice objects containing:
 
         - Invoice ID and status (DRAFT, FINALIZED, VOID)
         - Invoice type (USAGE, SCHEDULED)
@@ -591,7 +601,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - External billing provider status (if integrated with Stripe, etc.)
         - Pagination metadata next_page cursor
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - The endpoint returns invoice summaries; use the Get Invoice endpoint for
           detailed line items
@@ -749,7 +759,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         customers with transparency into their billing details throughout the billing
         period.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Build usage analytics dashboards showing daily or hourly consumption trends
         - Identify peak usage periods for capacity planning and cost optimization
@@ -757,7 +767,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - Troubleshoot billing disputes by examining usage patterns at specific times
         - Power real-time cost monitoring and alerting systems
 
-        Key response fields: An array of BreakdownInvoice objects, each containing:
+        ### Key response fields:
+
+        An array of BreakdownInvoice objects, each containing:
 
         - All standard invoice fields (ID, customer, commit, line items, totals, status)
         - Line items with quantities and costs for that specific period
@@ -765,18 +777,20 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - breakdown_end_timestamp: End of the specific time window
         - next_page: Pagination cursor for large result sets
 
-        Usage guidelines:
+        ### Usage guidelines:
 
-        - Time granularity: Set window_size to hour or day based on your analysis needs
+        - Time granularity: Set `window_size` to hour or day based on your analysis
+          needs
         - Response limits: Daily breakdowns return up to 35 days; hourly breakdowns
           return up to 24 hours per request
-        - Date filtering: Use starting_on and ending_before to focus on specific periods
+        - Date filtering: Use `starting_on` and `ending_before` to focus on specific
+          periods
         - Performance: For large date ranges, use pagination to retrieve all data
           efficiently
         - Backdated usage: If usage events arrive after invoice finalization, breakdowns
           will reflect the updated usage
-        - Zero quantity filtering: Use skip_zero_qty_line_items=true to exclude periods
-          with no usage
+        - Zero quantity filtering: Use `skip_zero_qty_line_items=true` to exclude
+          periods with no usage
 
         Args:
           ending_before: RFC 3339 timestamp. Breakdowns will only be returned for time windows that end

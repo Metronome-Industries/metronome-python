@@ -78,7 +78,7 @@ class BillableMetricsResource(SyncAPIResource):
         transforms raw usage data into actionable pricing metrics, enabling accurate
         metering and billing for your products.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Create individual or multiple billable metrics as part of a setup workflow.
         - Automate the entire pricing configuration process, from metric creation to
@@ -86,13 +86,13 @@ class BillableMetricsResource(SyncAPIResource):
         - Define metrics using either standard filtering/aggregation or a custom SQL
           query.
 
-        Key response fields:
+        ### Key response fields:
 
         - The ID of the billable metric that was created
         - The created billable metric will be available to be used in Products, usage
           endpoints, and alerts.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - Metrics defined using standard filtering and aggregation are Streaming
           billable metrics, which have been optimized for ultra low latency and high
@@ -209,8 +209,8 @@ class BillableMetricsResource(SyncAPIResource):
         Use this for
         programmatic discovery and management of billable metrics, such as associating
         metrics to products and auditing for orphaned or archived metrics. Important:
-        Archived metrics are excluded by default; use include_archived=true parameter to
-        include them.
+        Archived metrics are excluded by default; use `include_archived=true` parameter
+        to include them.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics
@@ -336,7 +336,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         transforms raw usage data into actionable pricing metrics, enabling accurate
         metering and billing for your products.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Create individual or multiple billable metrics as part of a setup workflow.
         - Automate the entire pricing configuration process, from metric creation to
@@ -344,13 +344,13 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         - Define metrics using either standard filtering/aggregation or a custom SQL
           query.
 
-        Key response fields:
+        ### Key response fields:
 
         - The ID of the billable metric that was created
         - The created billable metric will be available to be used in Products, usage
           endpoints, and alerts.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - Metrics defined using standard filtering and aggregation are Streaming
           billable metrics, which have been optimized for ultra low latency and high
@@ -467,8 +467,8 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         Use this for
         programmatic discovery and management of billable metrics, such as associating
         metrics to products and auditing for orphaned or archived metrics. Important:
-        Archived metrics are excluded by default; use include_archived=true parameter to
-        include them.
+        Archived metrics are excluded by default; use `include_archived=true` parameter
+        to include them.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics

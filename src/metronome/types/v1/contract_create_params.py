@@ -612,10 +612,10 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     commit_ids: List[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to the specified commits. If not provided, the override will
-    apply to all commits.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to the specified commits. If not provided, the override
+    will apply to all commits.
     """
 
     presentation_group_values: Dict[str, str]
@@ -644,17 +644,19 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     recurring_commit_ids: List[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to commits created by the specified recurring commit ids.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to commits created by the specified recurring commit
+    ids.
     """
 
     recurring_credit_ids: List[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to credits created by the specified recurring credit ids.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to credits created by the specified recurring credit
+    ids.
     """
 
 
