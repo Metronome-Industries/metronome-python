@@ -78,18 +78,18 @@ class ContractsResource(SyncAPIResource):
         Gets the details for a specific contract, including contract term, rate card
         information, credits and commits, and more.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Check the duration of a customer's current contract
         - Get details on contract terms, including access schedule amounts for
           commitments and credits
         - Understand the state of a contract at a past time. As you can evolve the terms
-          of a contract over time through editing, use the as_of_date parameter to view
-          the full contract configuration as of that point in time.
+          of a contract over time through editing, use the `as_of_date` parameter to
+          view the full contract configuration as of that point in time.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
-        - Optionally, use the include_balance and include_ledger fields to include
+        - Optionally, use the `include_balance` and `include_ledger` fields to include
           balances and ledgers in the credit and commit responses. Using these fields
           will cause the query to be slower.
 
@@ -148,7 +148,7 @@ class ContractsResource(SyncAPIResource):
         """
         For a given customer, lists all of their contracts in chronological order.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Check if a customer is provisioned with any contract, and at which tier
         - Check the duration and terms of a customer's current contract
@@ -156,10 +156,11 @@ class ContractsResource(SyncAPIResource):
           of tiers (e.g. this customer started out on the Pro Plan, then downgraded to
           the Starter plan).
 
-        Usage guidelines:\\
-        Use the starting_at, covering_date, and include_archived parameters to filter the
-        list of returned contracts. For example, to list only currently active contracts,
-        pass covering_date equal to the current time.
+        ### Usage guidelines:
+
+        Use the `starting_at`, `covering_date`, and `include_archived` parameters to
+        filter the list of returned contracts. For example, to list only currently
+        active contracts, pass `covering_date` equal to the current time.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -249,19 +250,19 @@ class ContractsResource(SyncAPIResource):
         The ability to edit a contract helps you react quickly to the needs of your
         customers and your business.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Encode mid-term commitment and discount changes
         - Fix configuration mistakes and easily roll back packaging changes
 
-        Key response fields:
+        ### Key response fields:
 
-        - The id of the edit
+        - The `id` of the edit
         - Complete edit details. For example, if you edited the contract to add new
           overrides and credits, you will receive the IDs of those overrides and credits
           in the response.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - When you edit a contract, any draft invoices update immediately to reflect
           that edit. Finalized invoices remain unchanged - you must void and regenerate
@@ -387,7 +388,7 @@ class ContractsResource(SyncAPIResource):
         endpoint to modify individual commit access schedules, invoice schedules,
         applicable products, invoicing contracts, or other fields.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - As with all edits in Metronome, draft invoices will reflect the edit
           immediately, while finalized invoices are untouched unless voided and
@@ -477,13 +478,13 @@ class ContractsResource(SyncAPIResource):
         """
         Edit details for a contract-level or customer-level credit.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Extend the duration or the amount of an existing free credit like a trial
         - Modify individual credit access schedules, applicable products, priority, or
           other fields.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - As with all edits in Metronome, draft invoices will reflect the edit
           immediately, while finalized invoices are untouched unless voided and
@@ -559,14 +560,14 @@ class ContractsResource(SyncAPIResource):
         In Metronome, you can edit a
         contract at any point after it's created to fix mistakes or reflect changes in
         terms. Metronome stores a full history of all edits that were ever made to a
-        contract, whether through the UI, editContract endpoint, or other endpoints like
-        updateContractEndDate.
+        contract, whether through the UI, `editContract` endpoint, or other endpoints
+        like `updateContractEndDate`.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Understand what changes were made to a contract, when, and by who
 
-        Key response fields:
+        ### Key response fields:
 
         - An array of every edit ever made to the contract
         - Details on each individual edit - for example showing that in one edit, a user
@@ -636,18 +637,18 @@ class AsyncContractsResource(AsyncAPIResource):
         Gets the details for a specific contract, including contract term, rate card
         information, credits and commits, and more.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Check the duration of a customer's current contract
         - Get details on contract terms, including access schedule amounts for
           commitments and credits
         - Understand the state of a contract at a past time. As you can evolve the terms
-          of a contract over time through editing, use the as_of_date parameter to view
-          the full contract configuration as of that point in time.
+          of a contract over time through editing, use the `as_of_date` parameter to
+          view the full contract configuration as of that point in time.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
-        - Optionally, use the include_balance and include_ledger fields to include
+        - Optionally, use the `include_balance` and `include_ledger` fields to include
           balances and ledgers in the credit and commit responses. Using these fields
           will cause the query to be slower.
 
@@ -706,7 +707,7 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         For a given customer, lists all of their contracts in chronological order.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Check if a customer is provisioned with any contract, and at which tier
         - Check the duration and terms of a customer's current contract
@@ -714,10 +715,11 @@ class AsyncContractsResource(AsyncAPIResource):
           of tiers (e.g. this customer started out on the Pro Plan, then downgraded to
           the Starter plan).
 
-        Usage guidelines:\\
-        Use the starting_at, covering_date, and include_archived parameters to filter the
-        list of returned contracts. For example, to list only currently active contracts,
-        pass covering_date equal to the current time.
+        ### Usage guidelines:
+
+        Use the `starting_at`, `covering_date`, and `include_archived` parameters to
+        filter the list of returned contracts. For example, to list only currently
+        active contracts, pass `covering_date` equal to the current time.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -807,19 +809,19 @@ class AsyncContractsResource(AsyncAPIResource):
         The ability to edit a contract helps you react quickly to the needs of your
         customers and your business.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Encode mid-term commitment and discount changes
         - Fix configuration mistakes and easily roll back packaging changes
 
-        Key response fields:
+        ### Key response fields:
 
-        - The id of the edit
+        - The `id` of the edit
         - Complete edit details. For example, if you edited the contract to add new
           overrides and credits, you will receive the IDs of those overrides and credits
           in the response.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - When you edit a contract, any draft invoices update immediately to reflect
           that edit. Finalized invoices remain unchanged - you must void and regenerate
@@ -945,7 +947,7 @@ class AsyncContractsResource(AsyncAPIResource):
         endpoint to modify individual commit access schedules, invoice schedules,
         applicable products, invoicing contracts, or other fields.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - As with all edits in Metronome, draft invoices will reflect the edit
           immediately, while finalized invoices are untouched unless voided and
@@ -1035,13 +1037,13 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         Edit details for a contract-level or customer-level credit.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Extend the duration or the amount of an existing free credit like a trial
         - Modify individual credit access schedules, applicable products, priority, or
           other fields.
 
-        Usage guidelines:
+        ### Usage guidelines:
 
         - As with all edits in Metronome, draft invoices will reflect the edit
           immediately, while finalized invoices are untouched unless voided and
@@ -1117,14 +1119,14 @@ class AsyncContractsResource(AsyncAPIResource):
         In Metronome, you can edit a
         contract at any point after it's created to fix mistakes or reflect changes in
         terms. Metronome stores a full history of all edits that were ever made to a
-        contract, whether through the UI, editContract endpoint, or other endpoints like
-        updateContractEndDate.
+        contract, whether through the UI, `editContract` endpoint, or other endpoints
+        like `updateContractEndDate`.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Understand what changes were made to a contract, when, and by who
 
-        Key response fields:
+        ### Key response fields:
 
         - An array of every edit ever made to the contract
         - Details on each individual edit - for example showing that in one edit, a user

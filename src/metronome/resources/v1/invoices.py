@@ -58,17 +58,20 @@ class InvoicesResource(SyncAPIResource):
         up-to-date rates, available balances, and other fees regardless of the billing
         period.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Recalculate an invoice with updated rate terms, available balance, and fees to
           correct billing disputes or discrepancies
 
-        Key response fields: The regenerated invoice id, which is distinct from the
-        previously voided invoice.
+        ### Key response fields:
 
-        Usage guidelines:\\
-        If an invoice is attached to a contract with a billing provider on it, the regenerated
-        invoice will be distributed based on the configuration.
+        The regenerated invoice id, which is distinct from the previously voided
+        invoice.
+
+        ### Usage guidelines:
+
+        If an invoice is attached to a contract with a billing provider on it, the
+        regenerated invoice will be distributed based on the configuration.
 
         Args:
           id: The invoice id to regenerate
@@ -165,17 +168,20 @@ class AsyncInvoicesResource(AsyncAPIResource):
         up-to-date rates, available balances, and other fees regardless of the billing
         period.
 
-        Use this endpoint to:
+        ### Use this endpoint to:
 
         - Recalculate an invoice with updated rate terms, available balance, and fees to
           correct billing disputes or discrepancies
 
-        Key response fields: The regenerated invoice id, which is distinct from the
-        previously voided invoice.
+        ### Key response fields:
 
-        Usage guidelines:\\
-        If an invoice is attached to a contract with a billing provider on it, the regenerated
-        invoice will be distributed based on the configuration.
+        The regenerated invoice id, which is distinct from the previously voided
+        invoice.
+
+        ### Usage guidelines:
+
+        If an invoice is attached to a contract with a billing provider on it, the
+        regenerated invoice will be distributed based on the configuration.
 
         Args:
           id: The invoice id to regenerate
