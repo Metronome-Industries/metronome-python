@@ -579,6 +579,7 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                     "rollover_fraction": 0,
                 }
             ],
@@ -611,6 +612,7 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_prepaid_balance_threshold_configuration={
@@ -815,6 +817,7 @@ class TestContracts:
             },
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -887,6 +890,7 @@ class TestContracts:
             applicable_product_tags=["string"],
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -1518,6 +1522,7 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                     "rollover_fraction": 0,
                 }
             ],
@@ -1550,6 +1555,7 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_prepaid_balance_threshold_configuration={
@@ -1754,6 +1760,7 @@ class TestAsyncContracts:
             },
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -1826,6 +1833,7 @@ class TestAsyncContracts:
             applicable_product_tags=["string"],
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},

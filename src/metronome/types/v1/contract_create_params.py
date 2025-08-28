@@ -826,7 +826,7 @@ class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     subscription_id: Required[str]
     """ID of the subscription to configure on the recurring commit/credit."""
 
-    allocation: Literal["POOLED"]
+    allocation: Literal["INDIVIDUAL", "POOLED"]
     """If set to POOLED, allocation added per seat is pooled across the account."""
 
 
@@ -946,7 +946,7 @@ class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     subscription_id: Required[str]
     """ID of the subscription to configure on the recurring commit/credit."""
 
-    allocation: Literal["POOLED"]
+    allocation: Literal["INDIVIDUAL", "POOLED"]
     """If set to POOLED, allocation added per seat is pooled across the account."""
 
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
@@ -48,6 +48,13 @@ class ContractEditCreditParams(TypedDict, total=False):
     """
 
     product_id: str
+
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the credit to use the specified rate type for current and
+    future invoices. Previously finalized invoices will need to be voided and
+    regenerated to reflect the rate type change.
+    """
 
     specifiers: Optional[Iterable[CommitSpecifierInput]]
     """
