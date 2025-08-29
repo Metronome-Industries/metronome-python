@@ -95,7 +95,7 @@ class CommitsResource(SyncAPIResource):
         - Multi-contract volume commitments with shared spending pools
         - Cross-contract discount tiers based on aggregate usage
 
-        ####Commit type Requirements:
+        #### Commit type Requirements:
 
         - You must specify either "prepaid" or "postpaid" as the commit type:
         - Prepaid commits: Customer pays upfront; invoice_schedule is optional (if
@@ -104,7 +104,7 @@ class CommitsResource(SyncAPIResource):
           access_schedule); invoice_schedule is required and must match access_schedule
           totals.
 
-        ####Billing configuration:
+        #### Billing configuration:
 
         - invoice_contract_id is required for postpaid commits and for prepaid commits
           with billing (only optional for free prepaid commits)
@@ -112,22 +112,27 @@ class CommitsResource(SyncAPIResource):
           amounts
         - For postpaid commits: only one schedule item is allowed in both schedules.
 
-        ####Scoping flexibility: Customer-level commits can be configured in a few ways:
+        #### Scoping flexibility:
+
+        Customer-level commits can be configured in a few ways:
 
         - Contract-specific: Use the `applicable_contract_ids` field to limit the commit
           to specific contracts
         - Cross-contract: Leave `applicable_contract_ids` empty to allow the commit to
           be used across all of the customer's contracts
 
-        ####Product targeting: Commits can be scoped to specific products using
-        applicable_product_ids, applicable_product_tags, or specifiers, or left
-        unrestricted to apply to all products.
+        #### Product targeting:
 
-        ####Priority considerations: When multiple commits are applicable, the one with
-        the lower priority value will be consumed first. If there is a tie, contract
-        level commits and credits will be applied before customer level commits and
-        credits. Plan your priority scheme carefully to ensure commits are applied in
-        the desired order.
+        Commits can be scoped to specific products using applicable_product_ids,
+        applicable_product_tags, or specifiers, or left unrestricted to apply to all
+        products.
+
+        #### Priority considerations:
+
+        When multiple commits are applicable, the one with the lower priority value will
+        be consumed first. If there is a tie, contract level commits and credits will be
+        applied before customer level commits and credits. Plan your priority scheme
+        carefully to ensure commits are applied in the desired order.
 
         ### Usage guidelines:
 
@@ -475,7 +480,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         - Multi-contract volume commitments with shared spending pools
         - Cross-contract discount tiers based on aggregate usage
 
-        ####Commit type Requirements:
+        #### Commit type Requirements:
 
         - You must specify either "prepaid" or "postpaid" as the commit type:
         - Prepaid commits: Customer pays upfront; invoice_schedule is optional (if
@@ -484,7 +489,7 @@ class AsyncCommitsResource(AsyncAPIResource):
           access_schedule); invoice_schedule is required and must match access_schedule
           totals.
 
-        ####Billing configuration:
+        #### Billing configuration:
 
         - invoice_contract_id is required for postpaid commits and for prepaid commits
           with billing (only optional for free prepaid commits)
@@ -492,22 +497,27 @@ class AsyncCommitsResource(AsyncAPIResource):
           amounts
         - For postpaid commits: only one schedule item is allowed in both schedules.
 
-        ####Scoping flexibility: Customer-level commits can be configured in a few ways:
+        #### Scoping flexibility:
+
+        Customer-level commits can be configured in a few ways:
 
         - Contract-specific: Use the `applicable_contract_ids` field to limit the commit
           to specific contracts
         - Cross-contract: Leave `applicable_contract_ids` empty to allow the commit to
           be used across all of the customer's contracts
 
-        ####Product targeting: Commits can be scoped to specific products using
-        applicable_product_ids, applicable_product_tags, or specifiers, or left
-        unrestricted to apply to all products.
+        #### Product targeting:
 
-        ####Priority considerations: When multiple commits are applicable, the one with
-        the lower priority value will be consumed first. If there is a tie, contract
-        level commits and credits will be applied before customer level commits and
-        credits. Plan your priority scheme carefully to ensure commits are applied in
-        the desired order.
+        Commits can be scoped to specific products using applicable_product_ids,
+        applicable_product_tags, or specifiers, or left unrestricted to apply to all
+        products.
+
+        #### Priority considerations:
+
+        When multiple commits are applicable, the one with the lower priority value will
+        be consumed first. If there is a tie, contract level commits and credits will be
+        applied before customer level commits and credits. Plan your priority scheme
+        carefully to ensure commits are applied in the desired order.
 
         ### Usage guidelines:
 
