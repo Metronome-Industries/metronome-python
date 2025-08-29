@@ -80,9 +80,10 @@ class CommitsResource(SyncAPIResource):
         """
         Creates customer-level commits that establish spending commitments for customers
         across their Metronome usage. Commits represent contracted spending obligations
-        that can be either prepaid (paid upfront) or postpaid (billed later). Note: In
-        most cases, you should add commitments directly to customer contracts using the
-        contract/create or contract/edit APIs.
+        that can be either prepaid (paid upfront) or postpaid (billed later).
+
+        Note: In most cases, you should add commitments directly to customer contracts
+        using the contract/create or contract/edit APIs.
 
         ### Use this endpoint to:
 
@@ -94,16 +95,16 @@ class CommitsResource(SyncAPIResource):
         - Multi-contract volume commitments with shared spending pools
         - Cross-contract discount tiers based on aggregate usage
 
-        Commit type Requirements: You must specify either "prepaid" or "postpaid" as the
-        commit type:
+        ####Commit type Requirements:
 
+        - You must specify either "prepaid" or "postpaid" as the commit type:
         - Prepaid commits: Customer pays upfront; invoice_schedule is optional (if
           omitted, creates a commit without an invoice)
         - Postpaid commits: Customer pays when the commitment expires (the end of the
           access_schedule); invoice_schedule is required and must match access_schedule
           totals.
 
-        Billing configuration:
+        ####Billing configuration:
 
         - invoice_contract_id is required for postpaid commits and for prepaid commits
           with billing (only optional for free prepaid commits)
@@ -111,22 +112,22 @@ class CommitsResource(SyncAPIResource):
           amounts
         - For postpaid commits: only one schedule item is allowed in both schedules.
 
-        Scoping flexibility: Customer-level commits can be configured in a few ways:
+        ####Scoping flexibility: Customer-level commits can be configured in a few ways:
 
-        - Contract-specific: Use the applicable_contract_ids field to limit the commit
+        - Contract-specific: Use the `applicable_contract_ids` field to limit the commit
           to specific contracts
-        - Cross-contract: Leave applicable_contract_ids empty to allow the commit to be
-          used across all of the customer's contracts
+        - Cross-contract: Leave `applicable_contract_ids` empty to allow the commit to
+          be used across all of the customer's contracts
 
-        Product targeting: Commits can be scoped to specific products using
+        ####Product targeting: Commits can be scoped to specific products using
         applicable_product_ids, applicable_product_tags, or specifiers, or left
         unrestricted to apply to all products.
 
-        Priority considerations: When multiple commits are applicable, the one with the
-        lower priority value will be consumed first. If there is a tie, contract level
-        commits and credits will be applied before customer level commits and credits.
-        Plan your priority scheme carefully to ensure commits are applied in the desired
-        order.
+        ####Priority considerations: When multiple commits are applicable, the one with
+        the lower priority value will be consumed first. If there is a tie, contract
+        level commits and credits will be applied before customer level commits and
+        credits. Plan your priority scheme carefully to ensure commits are applied in
+        the desired order.
 
         ### Usage guidelines:
 
@@ -277,9 +278,9 @@ class CommitsResource(SyncAPIResource):
 
         - Pagination: Results limited to 25 commits per page; use 'next_page' for more
         - Date filtering options:
-          - covering_date: Commits active on a specific date
-          - starting_at: Commits with access on/after a date
-          - effective_before: Commits with access before a date (exclusive)
+          - `covering_date`: Commits active on a specific date
+          - `starting_at`: Commits with access on/after a date
+          - `effective_before`: Commits with access before a date (exclusive)
         - Scope options:
           - `include_contract_commits`: Include contract-level commits (not just
             customer-level)
@@ -459,9 +460,10 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         Creates customer-level commits that establish spending commitments for customers
         across their Metronome usage. Commits represent contracted spending obligations
-        that can be either prepaid (paid upfront) or postpaid (billed later). Note: In
-        most cases, you should add commitments directly to customer contracts using the
-        contract/create or contract/edit APIs.
+        that can be either prepaid (paid upfront) or postpaid (billed later).
+
+        Note: In most cases, you should add commitments directly to customer contracts
+        using the contract/create or contract/edit APIs.
 
         ### Use this endpoint to:
 
@@ -473,16 +475,16 @@ class AsyncCommitsResource(AsyncAPIResource):
         - Multi-contract volume commitments with shared spending pools
         - Cross-contract discount tiers based on aggregate usage
 
-        Commit type Requirements: You must specify either "prepaid" or "postpaid" as the
-        commit type:
+        ####Commit type Requirements:
 
+        - You must specify either "prepaid" or "postpaid" as the commit type:
         - Prepaid commits: Customer pays upfront; invoice_schedule is optional (if
           omitted, creates a commit without an invoice)
         - Postpaid commits: Customer pays when the commitment expires (the end of the
           access_schedule); invoice_schedule is required and must match access_schedule
           totals.
 
-        Billing configuration:
+        ####Billing configuration:
 
         - invoice_contract_id is required for postpaid commits and for prepaid commits
           with billing (only optional for free prepaid commits)
@@ -490,22 +492,22 @@ class AsyncCommitsResource(AsyncAPIResource):
           amounts
         - For postpaid commits: only one schedule item is allowed in both schedules.
 
-        Scoping flexibility: Customer-level commits can be configured in a few ways:
+        ####Scoping flexibility: Customer-level commits can be configured in a few ways:
 
-        - Contract-specific: Use the applicable_contract_ids field to limit the commit
+        - Contract-specific: Use the `applicable_contract_ids` field to limit the commit
           to specific contracts
-        - Cross-contract: Leave applicable_contract_ids empty to allow the commit to be
-          used across all of the customer's contracts
+        - Cross-contract: Leave `applicable_contract_ids` empty to allow the commit to
+          be used across all of the customer's contracts
 
-        Product targeting: Commits can be scoped to specific products using
+        ####Product targeting: Commits can be scoped to specific products using
         applicable_product_ids, applicable_product_tags, or specifiers, or left
         unrestricted to apply to all products.
 
-        Priority considerations: When multiple commits are applicable, the one with the
-        lower priority value will be consumed first. If there is a tie, contract level
-        commits and credits will be applied before customer level commits and credits.
-        Plan your priority scheme carefully to ensure commits are applied in the desired
-        order.
+        ####Priority considerations: When multiple commits are applicable, the one with
+        the lower priority value will be consumed first. If there is a tie, contract
+        level commits and credits will be applied before customer level commits and
+        credits. Plan your priority scheme carefully to ensure commits are applied in
+        the desired order.
 
         ### Usage guidelines:
 
@@ -656,9 +658,9 @@ class AsyncCommitsResource(AsyncAPIResource):
 
         - Pagination: Results limited to 25 commits per page; use 'next_page' for more
         - Date filtering options:
-          - covering_date: Commits active on a specific date
-          - starting_at: Commits with access on/after a date
-          - effective_before: Commits with access before a date (exclusive)
+          - `covering_date`: Commits active on a specific date
+          - `starting_at`: Commits with access on/after a date
+          - `effective_before`: Commits with access before a date (exclusive)
         - Scope options:
           - `include_contract_commits`: Include contract-level commits (not just
             customer-level)
