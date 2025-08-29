@@ -189,7 +189,7 @@ class InvoicesResource(SyncAPIResource):
         - Applied credits summary
         - Contract ID reference
         - External billing provider status (if integrated with Stripe, etc.)
-        - Pagination metadata next_page cursor
+        - Pagination metadata `next_page` cursor
 
         ### Usage guidelines:
 
@@ -363,9 +363,9 @@ class InvoicesResource(SyncAPIResource):
 
         - All standard invoice fields (ID, customer, commit, line items, totals, status)
         - Line items with quantities and costs for that specific period
-        - breakdown_start_timestamp: Start of the specific time window
-        - breakdown_end_timestamp: End of the specific time window
-        - next_page: Pagination cursor for large result sets
+        - `breakdown_start_timestamp`: Start of the specific time window
+        - `breakdown_end_timestamp`: End of the specific time window
+        - `next_page`: Pagination cursor for large result sets
 
         ### Usage guidelines:
 
@@ -599,7 +599,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - Applied credits summary
         - Contract ID reference
         - External billing provider status (if integrated with Stripe, etc.)
-        - Pagination metadata next_page cursor
+        - Pagination metadata `next_page` cursor
 
         ### Usage guidelines:
 
@@ -773,9 +773,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
         - All standard invoice fields (ID, customer, commit, line items, totals, status)
         - Line items with quantities and costs for that specific period
-        - breakdown_start_timestamp: Start of the specific time window
-        - breakdown_end_timestamp: End of the specific time window
-        - next_page: Pagination cursor for large result sets
+        - `breakdown_start_timestamp`: Start of the specific time window
+        - `breakdown_end_timestamp`: End of the specific time window
+        - `next_page`: Pagination cursor for large result sets
 
         ### Usage guidelines:
 
