@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -64,18 +64,18 @@ class ProductsResource(SyncAPIResource):
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,18 +208,18 @@ class ProductsResource(SyncAPIResource):
         product_id: str,
         starting_at: Union[str, datetime],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -449,18 +449,18 @@ class AsyncProductsResource(AsyncAPIResource):
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -593,18 +593,18 @@ class AsyncProductsResource(AsyncAPIResource):
         product_id: str,
         starting_at: Union[str, datetime],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

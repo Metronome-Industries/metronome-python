@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
 
@@ -27,14 +28,14 @@ class ContractEditCreditParams(TypedDict, total=False):
 
     access_schedule: AccessSchedule
 
-    applicable_product_ids: Optional[List[str]]
+    applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: Optional[List[str]]
+    applicable_product_tags: Optional[SequenceNotStr[str]]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the

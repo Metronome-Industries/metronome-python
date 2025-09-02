@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 from typing_extensions import Required, TypedDict
 
+from ..._types import SequenceNotStr
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
 from .update_base_threshold_commit import UpdateBaseThresholdCommit
@@ -13,14 +14,14 @@ __all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit"]
 
 
 class Commit(UpdateBaseThresholdCommit, total=False):
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the threshold commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the threshold commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not

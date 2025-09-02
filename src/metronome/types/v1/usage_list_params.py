@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["UsageListParams", "BillableMetric", "BillableMetricGroupBy"]
@@ -32,7 +33,7 @@ class UsageListParams(TypedDict, total=False):
     If absent, all billable metrics will be returned.
     """
 
-    customer_ids: List[str]
+    customer_ids: SequenceNotStr[str]
     """A list of Metronome customer IDs to fetch usage for.
 
     If absent, usage for all customers will be returned.
@@ -43,7 +44,7 @@ class BillableMetricGroupBy(TypedDict, total=False):
     key: Required[str]
     """The name of the group_by key to use"""
 
-    values: List[str]
+    values: SequenceNotStr[str]
     """Values of the group_by key to return in the query.
 
     If this field is omitted, all available values will be returned, up to a maximum

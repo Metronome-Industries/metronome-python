@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -57,9 +57,9 @@ class CommitsResource(SyncAPIResource):
         priority: float,
         product_id: str,
         type: Literal["PREPAID", "POSTPAID"],
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
@@ -442,9 +442,9 @@ class AsyncCommitsResource(AsyncAPIResource):
         priority: float,
         product_id: str,
         type: Literal["PREPAID", "POSTPAID"],
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = [
     "CommitHierarchyConfiguration",
@@ -23,7 +25,7 @@ class ChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
 
 
 class ChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
-    contract_ids: Required[List[str]]
+    contract_ids: Required[SequenceNotStr[str]]
 
     type: Required[Literal["CONTRACT_IDS"]]
 

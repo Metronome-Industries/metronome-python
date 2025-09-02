@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
 from .quantity_rounding_param import QuantityRoundingParam
 from .quantity_conversion_param import QuantityConversionParam
@@ -29,13 +30,13 @@ class ProductUpdateParams(TypedDict, total=False):
     If not provided, defaults to product's current billable metric.
     """
 
-    composite_product_ids: List[str]
+    composite_product_ids: SequenceNotStr[str]
     """Available for COMPOSITE products only.
 
     If not provided, defaults to product's current composite_product_ids.
     """
 
-    composite_tags: List[str]
+    composite_tags: SequenceNotStr[str]
     """Available for COMPOSITE products only.
 
     If not provided, defaults to product's current composite_tags.
@@ -70,7 +71,7 @@ class ProductUpdateParams(TypedDict, total=False):
     field's availability is dependent on your client's configuration.
     """
 
-    presentation_group_key: List[str]
+    presentation_group_key: SequenceNotStr[str]
     """For USAGE products only.
 
     Groups usage line items on invoices. The superset of values in the pricing group
@@ -78,7 +79,7 @@ class ProductUpdateParams(TypedDict, total=False):
     billable metric.
     """
 
-    pricing_group_key: List[str]
+    pricing_group_key: SequenceNotStr[str]
     """For USAGE products only.
 
     If set, pricing for this product will be determined for each pricing_group_key
@@ -108,5 +109,5 @@ class ProductUpdateParams(TypedDict, total=False):
     the nearest integer.
     """
 
-    tags: List[str]
+    tags: SequenceNotStr[str]
     """If not provided, defaults to product's current tags"""

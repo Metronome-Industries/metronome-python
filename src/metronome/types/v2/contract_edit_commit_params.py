@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
 
@@ -31,14 +32,14 @@ class ContractEditCommitParams(TypedDict, total=False):
 
     access_schedule: AccessSchedule
 
-    applicable_product_ids: Optional[List[str]]
+    applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
 
-    applicable_product_tags: Optional[List[str]]
+    applicable_product_tags: Optional[SequenceNotStr[str]]
     """Which tags the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not

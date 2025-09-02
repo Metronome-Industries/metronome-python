@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["CustomerCreateParams", "BillingConfig", "CustomerBillingProviderConfiguration"]
 
@@ -25,7 +27,7 @@ class CustomerCreateParams(TypedDict, total=False):
     this customer in usage events
     """
 
-    ingest_aliases: List[str]
+    ingest_aliases: SequenceNotStr[str]
     """Aliases that can be used to refer to this customer in usage events"""
 
 

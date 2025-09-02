@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Union, Iterable, cast
+from typing import Any, Dict, Union, Iterable, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -16,7 +16,7 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ....types.v1 import (
@@ -1079,7 +1079,7 @@ class ContractsResource(SyncAPIResource):
         contract_id: str,
         customer_id: str,
         group_key: str,
-        group_values: List[str],
+        group_values: SequenceNotStr[str],
         starting_at: Union[str, datetime],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -2197,7 +2197,7 @@ class AsyncContractsResource(AsyncAPIResource):
         contract_id: str,
         customer_id: str,
         group_key: str,
-        group_values: List[str],
+        group_values: SequenceNotStr[str],
         starting_at: Union[str, datetime],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
