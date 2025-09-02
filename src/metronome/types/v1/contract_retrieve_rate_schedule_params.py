@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["ContractRetrieveRateScheduleParams", "Selector"]
@@ -59,7 +60,7 @@ class Selector(TypedDict, total=False):
     product_id: str
     """Rates matching the product id will be included in the response."""
 
-    product_tags: List[str]
+    product_tags: SequenceNotStr[str]
     """
     List of product tags, rates matching any of the tags will be included in the
     response.

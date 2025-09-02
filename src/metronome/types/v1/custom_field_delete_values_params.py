@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["CustomFieldDeleteValuesParams"]
 
@@ -34,4 +35,4 @@ class CustomFieldDeleteValuesParams(TypedDict, total=False):
 
     entity_id: Required[str]
 
-    keys: Required[List[str]]
+    keys: Required[SequenceNotStr[str]]

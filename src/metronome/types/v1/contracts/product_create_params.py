@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from ...._types import SequenceNotStr
 from .quantity_rounding_param import QuantityRoundingParam
 from .quantity_conversion_param import QuantityConversionParam
 
@@ -20,10 +21,10 @@ class ProductCreateParams(TypedDict, total=False):
     billable_metric_id: str
     """Required for USAGE products"""
 
-    composite_product_ids: List[str]
+    composite_product_ids: SequenceNotStr[str]
     """Required for COMPOSITE products"""
 
-    composite_tags: List[str]
+    composite_tags: SequenceNotStr[str]
     """Required for COMPOSITE products"""
 
     custom_fields: Dict[str, str]
@@ -48,7 +49,7 @@ class ProductCreateParams(TypedDict, total=False):
     netsuite_overage_item_id: str
     """This field's availability is dependent on your client's configuration."""
 
-    presentation_group_key: List[str]
+    presentation_group_key: SequenceNotStr[str]
     """For USAGE products only.
 
     Groups usage line items on invoices. The superset of values in the pricing group
@@ -56,7 +57,7 @@ class ProductCreateParams(TypedDict, total=False):
     billable metric.
     """
 
-    pricing_group_key: List[str]
+    pricing_group_key: SequenceNotStr[str]
     """For USAGE products only.
 
     If set, pricing for this product will be determined for each pricing_group_key
@@ -86,4 +87,4 @@ class ProductCreateParams(TypedDict, total=False):
     the nearest integer.
     """
 
-    tags: List[str]
+    tags: SequenceNotStr[str]

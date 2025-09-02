@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["CreditGrantListEntriesParams"]
@@ -18,13 +19,13 @@ class CreditGrantListEntriesParams(TypedDict, total=False):
     sort: Literal["asc", "desc"]
     """Ledgers sort order by date, asc or desc. Defaults to asc."""
 
-    credit_type_ids: List[str]
+    credit_type_ids: SequenceNotStr[str]
     """A list of Metronome credit type IDs to fetch ledger entries for.
 
     If absent, ledger entries for all credit types will be returned.
     """
 
-    customer_ids: List[str]
+    customer_ids: SequenceNotStr[str]
     """A list of Metronome customer IDs to fetch ledger entries for.
 
     If absent, ledger entries for all customers will be returned.

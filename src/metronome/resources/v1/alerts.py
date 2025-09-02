@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import alert_create_params, alert_archive_params
@@ -67,13 +67,13 @@ class AlertsResource(SyncAPIResource):
         name: str,
         threshold: float,
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: List[str] | NotGiven = NOT_GIVEN,
+        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
         evaluate_on_create: bool | NotGiven = NOT_GIVEN,
         group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: List[str] | NotGiven = NOT_GIVEN,
+        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         plan_id: str | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -318,13 +318,13 @@ class AsyncAlertsResource(AsyncAPIResource):
         name: str,
         threshold: float,
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: List[str] | NotGiven = NOT_GIVEN,
+        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
         customer_id: str | NotGiven = NOT_GIVEN,
         evaluate_on_create: bool | NotGiven = NOT_GIVEN,
         group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: List[str] | NotGiven = NOT_GIVEN,
+        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         plan_id: str | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

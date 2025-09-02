@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v2 import (
@@ -369,8 +369,8 @@ class ContractsResource(SyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
@@ -470,8 +470,8 @@ class ContractsResource(SyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
@@ -940,8 +940,8 @@ class AsyncContractsResource(AsyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
@@ -1041,8 +1041,8 @@ class AsyncContractsResource(AsyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,

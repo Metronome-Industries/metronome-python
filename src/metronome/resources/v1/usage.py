@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable
+from typing import Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import usage_list_params, usage_ingest_params, usage_search_params, usage_list_with_groups_params
@@ -56,7 +56,7 @@ class UsageResource(SyncAPIResource):
         window_size: Literal["HOUR", "DAY", "NONE"],
         next_page: str | NotGiven = NOT_GIVEN,
         billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -371,7 +371,7 @@ class UsageResource(SyncAPIResource):
     def search(
         self,
         *,
-        transaction_ids: List[str],
+        transaction_ids: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -464,7 +464,7 @@ class AsyncUsageResource(AsyncAPIResource):
         window_size: Literal["HOUR", "DAY", "NONE"],
         next_page: str | NotGiven = NOT_GIVEN,
         billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -779,7 +779,7 @@ class AsyncUsageResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        transaction_ids: List[str],
+        transaction_ids: SequenceNotStr[str],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

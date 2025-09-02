@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from .rollover_amount_max_amount_param import RolloverAmountMaxAmountParam
 from .rollover_amount_max_percentage_param import RolloverAmountMaxPercentageParam
@@ -47,7 +48,7 @@ class CreditGrantCreateParams(TypedDict, total=False):
     invoice_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """The date to issue an invoice for the paid_amount."""
 
-    product_ids: List[str]
+    product_ids: SequenceNotStr[str]
     """The product(s) which these credits will be applied to.
 
     (If unspecified, the credits will be applied to charges for all products.). The

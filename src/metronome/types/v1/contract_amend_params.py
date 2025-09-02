@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
@@ -258,14 +259,14 @@ class Commit(TypedDict, total=False):
     amount: float
     """(DEPRECATED) Use access_schedule and invoice_schedule instead."""
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
@@ -347,14 +348,14 @@ class Credit(TypedDict, total=False):
 
     product_id: Required[str]
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -493,7 +494,7 @@ class Discount(TypedDict, total=False):
 class OverrideOverrideSpecifier(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
-    commit_ids: List[str]
+    commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
     Must be used in conjunction with one of `product_id`, `product_tags`,
@@ -519,13 +520,13 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     product_id: str
     """If provided, the override will only apply to the product with the specified ID."""
 
-    product_tags: List[str]
+    product_tags: SequenceNotStr[str]
     """
     If provided, the override will only apply to products with all the specified
     tags.
     """
 
-    recurring_commit_ids: List[str]
+    recurring_commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
     Must be used in conjunction with one of `product_id`, `product_tags`,
@@ -534,7 +535,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     ids.
     """
 
-    recurring_credit_ids: List[str]
+    recurring_credit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
     Must be used in conjunction with one of `product_id`, `product_tags`,
@@ -585,7 +586,7 @@ class Override(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """tags identifying products whose rates are being overridden.
 
     Cannot be used in conjunction with override_specifiers.
@@ -690,10 +691,10 @@ class ResellerRoyaltyGcpOptions(TypedDict, total=False):
 class ResellerRoyalty(TypedDict, total=False):
     reseller_type: Required[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]]
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Must provide at least one of applicable_product_ids or applicable_product_tags."""
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Must provide at least one of applicable_product_ids or applicable_product_tags."""
 
     aws_options: ResellerRoyaltyAwsOptions

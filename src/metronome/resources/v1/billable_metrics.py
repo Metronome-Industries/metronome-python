@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import billable_metric_list_params, billable_metric_create_params, billable_metric_archive_params
@@ -58,7 +58,7 @@ class BillableMetricsResource(SyncAPIResource):
         aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -321,7 +321,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

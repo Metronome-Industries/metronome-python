@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
 from ...shared_params.commit_specifier_input import CommitSpecifierInput
 
@@ -26,20 +27,20 @@ class CreditCreateParams(TypedDict, total=False):
 
     product_id: Required[str]
 
-    applicable_contract_ids: List[str]
+    applicable_contract_ids: SequenceNotStr[str]
     """Which contract the credit applies to.
 
     If not provided, the credit applies to all contracts.
     """
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["PropertyFilter"]
 
@@ -20,7 +21,7 @@ class PropertyFilter(TypedDict, total=False):
     existence of the property is optional.
     """
 
-    in_values: List[str]
+    in_values: SequenceNotStr[str]
     """Specifies the allowed values for the property to match an event.
 
     An event will pass the filter only if its property value is included in this
@@ -28,7 +29,7 @@ class PropertyFilter(TypedDict, total=False):
     if present.
     """
 
-    not_in_values: List[str]
+    not_in_values: SequenceNotStr[str]
     """Specifies the values that prevent an event from matching the filter.
 
     An event will not pass the filter if its property value is included in this
