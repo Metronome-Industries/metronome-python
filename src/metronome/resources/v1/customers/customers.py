@@ -577,6 +577,7 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -603,7 +604,10 @@ class CustomersResource(SyncAPIResource):
         return self._post(
             "/v1/getCustomerBillingProviderConfigurations",
             body=maybe_transform(
-                {"customer_id": customer_id},
+                {
+                    "customer_id": customer_id,
+                    "include_archived": include_archived,
+                },
                 customer_retrieve_billing_configurations_params.CustomerRetrieveBillingConfigurationsParams,
             ),
             options=make_request_options(
@@ -1305,6 +1309,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
+        include_archived: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1331,7 +1336,10 @@ class AsyncCustomersResource(AsyncAPIResource):
         return await self._post(
             "/v1/getCustomerBillingProviderConfigurations",
             body=await async_maybe_transform(
-                {"customer_id": customer_id},
+                {
+                    "customer_id": customer_id,
+                    "include_archived": include_archived,
+                },
                 customer_retrieve_billing_configurations_params.CustomerRetrieveBillingConfigurationsParams,
             ),
             options=make_request_options(

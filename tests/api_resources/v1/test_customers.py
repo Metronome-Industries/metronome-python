@@ -372,6 +372,14 @@ class TestCustomers:
         assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
+    def test_method_retrieve_billing_configurations_with_all_params(self, client: Metronome) -> None:
+        customer = client.v1.customers.retrieve_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+            include_archived=True,
+        )
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
     def test_raw_response_retrieve_billing_configurations(self, client: Metronome) -> None:
         response = client.v1.customers.with_raw_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
@@ -953,6 +961,14 @@ class TestAsyncCustomers:
     async def test_method_retrieve_billing_configurations(self, async_client: AsyncMetronome) -> None:
         customer = await async_client.v1.customers.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    async def test_method_retrieve_billing_configurations_with_all_params(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.retrieve_billing_configurations(
+            customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+            include_archived=True,
         )
         assert_matches_type(CustomerRetrieveBillingConfigurationsResponse, customer, path=["response"])
 

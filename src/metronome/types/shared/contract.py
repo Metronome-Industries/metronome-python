@@ -77,6 +77,8 @@ class Amendment(BaseModel):
 
 
 class CustomerBillingProviderConfiguration(BaseModel):
+    archived_at: Optional[datetime] = None
+
     billing_provider: Literal[
         "aws_marketplace",
         "stripe",
