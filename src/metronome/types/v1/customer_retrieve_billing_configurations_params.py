@@ -9,3 +9,5 @@ __all__ = ["CustomerRetrieveBillingConfigurationsParams"]
 
 class CustomerRetrieveBillingConfigurationsParams(TypedDict, total=False):
     customer_id: Required[str]
+
+    include_archived: bool

@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
@@ -14,6 +15,8 @@ class Data(BaseModel):
     ID of this configuration; can be provided as the
     billing_provider_configuration_id when creating a contract.
     """
+
+    archived_at: Optional[datetime] = None
 
     billing_provider: Literal[
         "aws_marketplace",
