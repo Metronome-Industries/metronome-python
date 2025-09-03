@@ -15,7 +15,7 @@ from metronome._utils import (
     parse_datetime,
     async_transform as _async_transform,
 )
-from metronome._compat import PYDANTIC_V2
+from metronome._compat import PYDANTIC_V1
 from metronome._models import BaseModel
 
 _T = TypeVar("_T")
@@ -296,11 +296,11 @@ async def test_pydantic_unknown_field(use_async: bool) -> None:
 @pytest.mark.asyncio
 async def test_pydantic_mismatched_types(use_async: bool) -> None:
     model = MyModel.construct(foo=True)
-    if PYDANTIC_V2:
+    if PYDANTIC_V1:
+        params = await transform(model, Any, use_async)
+    else:
         with pytest.warns(UserWarning):
             params = await transform(model, Any, use_async)
-    else:
-        params = await transform(model, Any, use_async)
     assert cast(Any, params) == {"foo": True}
 
 
@@ -308,11 +308,11 @@ async def test_pydantic_mismatched_types(use_async: bool) -> None:
 @pytest.mark.asyncio
 async def test_pydantic_mismatched_object_type(use_async: bool) -> None:
     model = MyModel.construct(foo=MyModel.construct(hello="world"))
-    if PYDANTIC_V2:
+    if PYDANTIC_V1:
+        params = await transform(model, Any, use_async)
+    else:
         with pytest.warns(UserWarning):
             params = await transform(model, Any, use_async)
-    else:
-        params = await transform(model, Any, use_async)
     assert cast(Any, params) == {"foo": {"hello": "world"}}
 
 
