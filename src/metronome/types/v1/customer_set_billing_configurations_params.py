@@ -52,3 +52,11 @@ class Data(TypedDict, total=False):
 
     If not provided, the `delivery_method` must be provided.
     """
+
+    tax_provider: Literal["anrok", "avalara", "stripe"]
+    """
+    Specifies which tax provider Metronome should use for tax calculation when
+    billing through Stripe. This is only supported for Stripe billing provider
+    configurations with auto_charge_payment_intent or manual_charge_payment_intent
+    collection methods.
+    """
