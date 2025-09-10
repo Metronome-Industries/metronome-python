@@ -58,6 +58,7 @@ class TestCustomers:
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tax_provider": "anrok",
                 }
             ],
             external_id="x",
@@ -651,6 +652,7 @@ class TestAsyncCustomers:
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "tax_provider": "anrok",
                 }
             ],
             external_id="x",

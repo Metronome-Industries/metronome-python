@@ -59,4 +59,6 @@ class BillingConfigCreateParams(TypedDict, total=False):
         "us-west-2",
     ]
 
-    stripe_collection_method: Literal["charge_automatically", "send_invoice"]
+    stripe_collection_method: Literal[
+        "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
+    ]
