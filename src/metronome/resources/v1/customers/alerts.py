@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Iterable
 from typing_extensions import Literal
 
 import httpx
@@ -51,6 +51,7 @@ class AlertsResource(SyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | NotGiven = NOT_GIVEN,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,6 +110,9 @@ class AlertsResource(SyncAPIResource):
 
           customer_id: The Metronome ID of the customer
 
+          group_values: Only present for `spend_threshold_reached` alerts. Retrieve the alert for a
+              specific group key-value pair.
+
           plans_or_contracts: When parallel alerts are enabled during migration, this flag denotes whether to
               fetch alerts for plans or contracts.
 
@@ -126,6 +130,7 @@ class AlertsResource(SyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
@@ -310,6 +315,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | NotGiven = NOT_GIVEN,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -368,6 +374,9 @@ class AsyncAlertsResource(AsyncAPIResource):
 
           customer_id: The Metronome ID of the customer
 
+          group_values: Only present for `spend_threshold_reached` alerts. Retrieve the alert for a
+              specific group key-value pair.
+
           plans_or_contracts: When parallel alerts are enabled during migration, this flag denotes whether to
               fetch alerts for plans or contracts.
 
@@ -385,6 +394,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
