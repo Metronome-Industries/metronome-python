@@ -2,22 +2,41 @@
 
 ```python
 from metronome.types import (
+    BaseThresholdCommit,
     BaseUsageFilter,
     Commit,
+    CommitHierarchyConfiguration,
+    CommitRate,
+    CommitSpecifier,
+    CommitSpecifierInput,
+    Contract,
+    ContractV2,
     ContractWithoutAmendments,
     Credit,
     CreditTypeData,
     Discount,
     EventTypeFilter,
+    HierarchyConfiguration,
     ID,
     Override,
+    OverrideTier,
+    OverwriteRate,
+    PaymentGateConfig,
+    PaymentGateConfigV2,
+    PrepaidBalanceThresholdConfiguration,
+    PrepaidBalanceThresholdConfigurationV2,
     PropertyFilter,
     ProService,
     Rate,
+    RecurringCommitSubscriptionConfig,
     ScheduledCharge,
     ScheduleDuration,
     SchedulePointInTime,
+    SpendThresholdConfiguration,
+    SpendThresholdConfigurationV2,
+    Subscription,
     Tier,
+    UpdateBaseThresholdCommit,
 )
 ```
 
@@ -105,7 +124,7 @@ Methods:
 - <code title="post /v1/credits/createGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">create</a>(\*\*<a href="src/metronome/types/v1/credit_grant_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_create_response.py">CreditGrantCreateResponse</a></code>
 - <code title="post /v1/credits/listGrants">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_response.py">SyncCursorPage[CreditGrantListResponse]</a></code>
 - <code title="post /v1/credits/editGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">edit</a>(\*\*<a href="src/metronome/types/v1/credit_grant_edit_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_edit_response.py">CreditGrantEditResponse</a></code>
-- <code title="post /v1/credits/listEntries">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list_entries</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_entries_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_entries_response.py">CreditGrantListEntriesResponse</a></code>
+- <code title="post /v1/credits/listEntries">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">list_entries</a>(\*\*<a href="src/metronome/types/v1/credit_grant_list_entries_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_list_entries_response.py">SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]</a></code>
 - <code title="post /v1/credits/voidGrant">client.v1.credit_grants.<a href="./src/metronome/resources/v1/credit_grants.py">void</a>(\*\*<a href="src/metronome/types/v1/credit_grant_void_params.py">params</a>) -> <a href="./src/metronome/types/v1/credit_grant_void_response.py">CreditGrantVoidResponse</a></code>
 
 ## PricingUnits
@@ -134,6 +153,7 @@ from metronome.types.v1 import (
     CustomerListBillableMetricsResponse,
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
+    CustomerRetrieveBillingConfigurationsResponse,
     CustomerSetNameResponse,
 )
 ```
@@ -147,6 +167,8 @@ Methods:
 - <code title="get /v1/customers/{customer_id}/billable-metrics">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_billable_metrics</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
 - <code title="get /v1/customers/{customer_id}/costs">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_costs</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
 - <code title="post /v1/customers/{customer_id}/previewEvents">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">preview_events</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_preview_events_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_preview_events_response.py">CustomerPreviewEventsResponse</a></code>
+- <code title="post /v1/getCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">retrieve_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_retrieve_billing_configurations_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_retrieve_billing_configurations_response.py">CustomerRetrieveBillingConfigurationsResponse</a></code>
+- <code title="post /v1/setCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_set_billing_configurations_params.py">params</a>) -> None</code>
 - <code title="post /v1/customers/{customer_id}/setIngestAliases">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_ingest_aliases</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_ingest_aliases_params.py">params</a>) -> None</code>
 - <code title="post /v1/customers/{customer_id}/setName">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">set_name</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_set_name_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_set_name_response.py">CustomerSetNameResponse</a></code>
 - <code title="post /v1/customers/{customer_id}/updateConfig">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">update_config</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_update_config_params.py">params</a>) -> None</code>
@@ -156,13 +178,13 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import CustomerAlert, AlertRetrieveResponse, AlertListResponse
+from metronome.types.v1.customers import CustomerAlert, AlertRetrieveResponse
 ```
 
 Methods:
 
 - <code title="post /v1/customer-alerts/get">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/customers/alert_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/alert_retrieve_response.py">AlertRetrieveResponse</a></code>
-- <code title="post /v1/customer-alerts/list">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/alert_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/alert_list_response.py">AlertListResponse</a></code>
+- <code title="post /v1/customer-alerts/list">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/alert_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/customer_alert.py">SyncCursorPageWithoutLimit[CustomerAlert]</a></code>
 - <code title="post /v1/customer-alerts/reset">client.v1.customers.alerts.<a href="./src/metronome/resources/v1/customers/alerts.py">reset</a>(\*\*<a href="src/metronome/types/v1/customers/alert_reset_params.py">params</a>) -> None</code>
 
 ### Plans
@@ -224,17 +246,13 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import (
-    CommitCreateResponse,
-    CommitListResponse,
-    CommitUpdateEndDateResponse,
-)
+from metronome.types.v1.customers import CommitCreateResponse, CommitUpdateEndDateResponse
 ```
 
 Methods:
 
 - <code title="post /v1/contracts/customerCommits/create">client.v1.customers.commits.<a href="./src/metronome/resources/v1/customers/commits.py">create</a>(\*\*<a href="src/metronome/types/v1/customers/commit_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/commit_create_response.py">CommitCreateResponse</a></code>
-- <code title="post /v1/contracts/customerCommits/list">client.v1.customers.commits.<a href="./src/metronome/resources/v1/customers/commits.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/commit_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/commit_list_response.py">CommitListResponse</a></code>
+- <code title="post /v1/contracts/customerCommits/list">client.v1.customers.commits.<a href="./src/metronome/resources/v1/customers/commits.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/commit_list_params.py">params</a>) -> <a href="./src/metronome/types/shared/commit.py">SyncBodyCursorPage[Commit]</a></code>
 - <code title="post /v1/contracts/customerCommits/updateEndDate">client.v1.customers.commits.<a href="./src/metronome/resources/v1/customers/commits.py">update_end_date</a>(\*\*<a href="src/metronome/types/v1/customers/commit_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/commit_update_end_date_response.py">CommitUpdateEndDateResponse</a></code>
 
 ### Credits
@@ -242,17 +260,13 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import (
-    CreditCreateResponse,
-    CreditListResponse,
-    CreditUpdateEndDateResponse,
-)
+from metronome.types.v1.customers import CreditCreateResponse, CreditUpdateEndDateResponse
 ```
 
 Methods:
 
 - <code title="post /v1/contracts/customerCredits/create">client.v1.customers.credits.<a href="./src/metronome/resources/v1/customers/credits.py">create</a>(\*\*<a href="src/metronome/types/v1/customers/credit_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/credit_create_response.py">CreditCreateResponse</a></code>
-- <code title="post /v1/contracts/customerCredits/list">client.v1.customers.credits.<a href="./src/metronome/resources/v1/customers/credits.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/credit_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/credit_list_response.py">CreditListResponse</a></code>
+- <code title="post /v1/contracts/customerCredits/list">client.v1.customers.credits.<a href="./src/metronome/resources/v1/customers/credits.py">list</a>(\*\*<a href="src/metronome/types/v1/customers/credit_list_params.py">params</a>) -> <a href="./src/metronome/types/shared/credit.py">SyncBodyCursorPage[Credit]</a></code>
 - <code title="post /v1/contracts/customerCredits/updateEndDate">client.v1.customers.credits.<a href="./src/metronome/resources/v1/customers/credits.py">update_end_date</a>(\*\*<a href="src/metronome/types/v1/customers/credit_update_end_date_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/credit_update_end_date_response.py">CreditUpdateEndDateResponse</a></code>
 
 ### NamedSchedules
@@ -290,7 +304,7 @@ from metronome.types.v1 import UsageListResponse, UsageListWithGroupsResponse, U
 
 Methods:
 
-- <code title="post /v1/usage">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list</a>(\*\*<a href="src/metronome/types/v1/usage_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_response.py">UsageListResponse</a></code>
+- <code title="post /v1/usage">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list</a>(\*\*<a href="src/metronome/types/v1/usage_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_response.py">SyncCursorPageWithoutLimit[UsageListResponse]</a></code>
 - <code title="post /v1/ingest">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">ingest</a>(\*\*<a href="src/metronome/types/v1/usage_ingest_params.py">params</a>) -> None</code>
 - <code title="post /v1/usage/groups">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">list_with_groups</a>(\*\*<a href="src/metronome/types/v1/usage_list_with_groups_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_list_with_groups_response.py">SyncCursorPage[UsageListWithGroupsResponse]</a></code>
 - <code title="post /v1/events/search">client.v1.usage.<a href="./src/metronome/resources/v1/usage.py">search</a>(\*\*<a href="src/metronome/types/v1/usage_search_params.py">params</a>) -> <a href="./src/metronome/types/v1/usage_search_response.py">UsageSearchResponse</a></code>
@@ -319,7 +333,7 @@ Methods:
 
 - <code title="post /v1/customFields/addKey">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">add_key</a>(\*\*<a href="src/metronome/types/v1/custom_field_add_key_params.py">params</a>) -> None</code>
 - <code title="post /v1/customFields/deleteValues">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">delete_values</a>(\*\*<a href="src/metronome/types/v1/custom_field_delete_values_params.py">params</a>) -> None</code>
-- <code title="post /v1/customFields/listKeys">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">list_keys</a>(\*\*<a href="src/metronome/types/v1/custom_field_list_keys_params.py">params</a>) -> <a href="./src/metronome/types/v1/custom_field_list_keys_response.py">CustomFieldListKeysResponse</a></code>
+- <code title="post /v1/customFields/listKeys">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">list_keys</a>(\*\*<a href="src/metronome/types/v1/custom_field_list_keys_params.py">params</a>) -> <a href="./src/metronome/types/v1/custom_field_list_keys_response.py">SyncCursorPageWithoutLimit[CustomFieldListKeysResponse]</a></code>
 - <code title="post /v1/customFields/removeKey">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">remove_key</a>(\*\*<a href="src/metronome/types/v1/custom_field_remove_key_params.py">params</a>) -> None</code>
 - <code title="post /v1/customFields/setValues">client.v1.custom_fields.<a href="./src/metronome/resources/v1/custom_fields.py">set_values</a>(\*\*<a href="src/metronome/types/v1/custom_field_set_values_params.py">params</a>) -> None</code>
 
@@ -397,7 +411,7 @@ Methods:
 - <code title="post /v1/contracts/amend">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/v1/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_amend_response.py">ContractAmendResponse</a></code>
 - <code title="post /v1/contracts/archive">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/v1/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_archive_response.py">ContractArchiveResponse</a></code>
 - <code title="post /v1/contracts/createHistoricalInvoices">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">create_historical_invoices</a>(\*\*<a href="src/metronome/types/v1/contract_create_historical_invoices_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_create_historical_invoices_response.py">ContractCreateHistoricalInvoicesResponse</a></code>
-- <code title="post /v1/contracts/customerBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_balances_response.py">ContractListBalancesResponse</a></code>
+- <code title="post /v1/contracts/customerBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_balances_response.py">SyncBodyCursorPage[ContractListBalancesResponse]</a></code>
 - <code title="post /v1/contracts/getContractRateSchedule">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
 - <code title="post /v1/contracts/getSubscriptionQuantityHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_subscription_quantity_history</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_subscription_quantity_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_subscription_quantity_history_response.py">ContractRetrieveSubscriptionQuantityHistoryResponse</a></code>
 - <code title="post /v1/contracts/scheduleProServicesInvoice">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">schedule_pro_services_invoice</a>(\*\*<a href="src/metronome/types/v1/contract_schedule_pro_services_invoice_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_schedule_pro_services_invoice_response.py">ContractScheduleProServicesInvoiceResponse</a></code>

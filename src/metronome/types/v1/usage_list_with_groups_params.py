@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Union
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = ["UsageListWithGroupsParams", "GroupBy"]
@@ -47,7 +48,7 @@ class GroupBy(TypedDict, total=False):
     key: Required[str]
     """The name of the group_by key to use"""
 
-    values: List[str]
+    values: SequenceNotStr[str]
     """Values of the group_by key to return in the query.
 
     Omit this if you'd like all values for the key returned.

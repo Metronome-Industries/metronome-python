@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["CustomerListParams"]
 
 
 class CustomerListParams(TypedDict, total=False):
-    customer_ids: List[str]
+    customer_ids: SequenceNotStr[str]
     """Filter the customer list by customer_id. Up to 100 ids can be provided."""
 
     ingest_alias: str
@@ -27,7 +28,7 @@ class CustomerListParams(TypedDict, total=False):
     By default, only active customers are returned.
     """
 
-    salesforce_account_ids: List[str]
+    salesforce_account_ids: SequenceNotStr[str]
     """Filter the customer list by salesforce_account_id.
 
     Up to 100 ids can be provided.

@@ -109,6 +109,9 @@ from .contract_retrieve_rate_schedule_response import (
 from .contract_create_historical_invoices_params import (
     ContractCreateHistoricalInvoicesParams as ContractCreateHistoricalInvoicesParams,
 )
+from .customer_set_billing_configurations_params import (
+    CustomerSetBillingConfigurationsParams as CustomerSetBillingConfigurationsParams,
+)
 from .contract_create_historical_invoices_response import (
     ContractCreateHistoricalInvoicesResponse as ContractCreateHistoricalInvoicesResponse,
 )
@@ -117,6 +120,12 @@ from .contract_schedule_pro_services_invoice_params import (
 )
 from .contract_schedule_pro_services_invoice_response import (
     ContractScheduleProServicesInvoiceResponse as ContractScheduleProServicesInvoiceResponse,
+)
+from .customer_retrieve_billing_configurations_params import (
+    CustomerRetrieveBillingConfigurationsParams as CustomerRetrieveBillingConfigurationsParams,
+)
+from .customer_retrieve_billing_configurations_response import (
+    CustomerRetrieveBillingConfigurationsResponse as CustomerRetrieveBillingConfigurationsResponse,
 )
 from .contract_retrieve_subscription_quantity_history_params import (
     ContractRetrieveSubscriptionQuantityHistoryParams as ContractRetrieveSubscriptionQuantityHistoryParams,

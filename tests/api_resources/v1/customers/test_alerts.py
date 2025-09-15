@@ -9,8 +9,9 @@ import pytest
 
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
+from metronome.pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 from metronome.types.v1.customers import (
-    AlertListResponse,
+    CustomerAlert,
     AlertRetrieveResponse,
 )
 
@@ -33,6 +34,12 @@ class TestAlerts:
         alert = client.v1.customers.alerts.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            group_values=[
+                {
+                    "key": "key",
+                    "value": "value",
+                }
+            ],
             plans_or_contracts="PLANS",
         )
         assert_matches_type(AlertRetrieveResponse, alert, path=["response"])
@@ -68,7 +75,7 @@ class TestAlerts:
         alert = client.v1.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
@@ -77,7 +84,7 @@ class TestAlerts:
             next_page="next_page",
             alert_statuses=["ENABLED"],
         )
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -88,7 +95,7 @@ class TestAlerts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         alert = response.parse()
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(SyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -99,7 +106,7 @@ class TestAlerts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             alert = response.parse()
-            assert_matches_type(AlertListResponse, alert, path=["response"])
+            assert_matches_type(SyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -156,6 +163,12 @@ class TestAsyncAlerts:
         alert = await async_client.v1.customers.alerts.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            group_values=[
+                {
+                    "key": "key",
+                    "value": "value",
+                }
+            ],
             plans_or_contracts="PLANS",
         )
         assert_matches_type(AlertRetrieveResponse, alert, path=["response"])
@@ -191,7 +204,7 @@ class TestAsyncAlerts:
         alert = await async_client.v1.customers.alerts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -200,7 +213,7 @@ class TestAsyncAlerts:
             next_page="next_page",
             alert_statuses=["ENABLED"],
         )
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -211,7 +224,7 @@ class TestAsyncAlerts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         alert = await response.parse()
-        assert_matches_type(AlertListResponse, alert, path=["response"])
+        assert_matches_type(AsyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -222,7 +235,7 @@ class TestAsyncAlerts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             alert = await response.parse()
-            assert_matches_type(AlertListResponse, alert, path=["response"])
+            assert_matches_type(AsyncCursorPageWithoutLimit[CustomerAlert], alert, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

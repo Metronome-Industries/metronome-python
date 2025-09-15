@@ -305,11 +305,11 @@ class TestContracts:
             ],
             add_prepaid_balance_threshold_configuration={
                 "commit": {
+                    "description": "description",
+                    "name": "name",
                     "product_id": "product_id",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
-                    "description": "description",
-                    "name": "name",
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -486,9 +486,9 @@ class TestContracts:
             ],
             add_spend_threshold_configuration={
                 "commit": {
-                    "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "product_id": "product_id",
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -508,7 +508,6 @@ class TestContracts:
             add_subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -520,7 +519,9 @@ class TestContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -530,6 +531,7 @@ class TestContracts:
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_scheduled_charges=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             remove_overrides=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            uniqueness_key="x",
             update_commits=[
                 {
                     "commit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -577,6 +579,7 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                     "rollover_fraction": 0,
                 }
             ],
@@ -609,15 +612,16 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_prepaid_balance_threshold_configuration={
                 "commit": {
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                     "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -813,6 +817,7 @@ class TestContracts:
             },
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -885,6 +890,7 @@ class TestContracts:
             applicable_product_tags=["string"],
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -1242,11 +1248,11 @@ class TestAsyncContracts:
             ],
             add_prepaid_balance_threshold_configuration={
                 "commit": {
+                    "description": "description",
+                    "name": "name",
                     "product_id": "product_id",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
-                    "description": "description",
-                    "name": "name",
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1423,9 +1429,9 @@ class TestAsyncContracts:
             ],
             add_spend_threshold_configuration={
                 "commit": {
-                    "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "product_id": "product_id",
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -1445,7 +1451,6 @@ class TestAsyncContracts:
             add_subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -1457,7 +1462,9 @@ class TestAsyncContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -1467,6 +1474,7 @@ class TestAsyncContracts:
             archive_credits=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             archive_scheduled_charges=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
             remove_overrides=[{"id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            uniqueness_key="x",
             update_commits=[
                 {
                     "commit_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1514,6 +1522,7 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                     "rollover_fraction": 0,
                 }
             ],
@@ -1546,15 +1555,16 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_prepaid_balance_threshold_configuration={
                 "commit": {
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
                     "product_id": "product_id",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1750,6 +1760,7 @@ class TestAsyncContracts:
             },
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},
@@ -1822,6 +1833,7 @@ class TestAsyncContracts:
             applicable_product_tags=["string"],
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            rate_type="LIST_RATE",
             specifiers=[
                 {
                     "presentation_group_values": {"foo": "string"},

@@ -22,6 +22,7 @@ from .....pagination import SyncCursorPage, AsyncCursorPage
 from ....._base_client import AsyncPaginator, make_request_options
 from .....types.shared_params.tier import Tier
 from .....types.v1.contracts.rate_cards import rate_add_params, rate_list_params, rate_add_many_params
+from .....types.shared_params.commit_rate import CommitRate
 from .....types.v1.contracts.rate_cards.rate_add_response import RateAddResponse
 from .....types.v1.contracts.rate_cards.rate_list_response import RateListResponse
 from .....types.v1.contracts.rate_cards.rate_add_many_response import RateAddManyResponse
@@ -65,7 +66,15 @@ class RatesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[RateListResponse]:
         """
-        Get all rates for a rate card at a point in time
+        Understand the rate schedule at a given timestamp, optionally filtering the list
+        of rates returned based on properties such as `product_id` and
+        `pricing_group_values`. For example, you may want to display the current price
+        for a given product in your product experience - use this endpoint to fetch that
+        information from its source of truth in Metronome.
+
+        If you want to understand the rates for a specific customer's contract,
+        inclusive of contract-level overrides, use the `getContractRateSchedule`
+        endpoint.
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -124,7 +133,7 @@ class RatesResource(SyncAPIResource):
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
         billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+        commit_rate: CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
@@ -297,7 +306,15 @@ class AsyncRatesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[RateListResponse, AsyncCursorPage[RateListResponse]]:
         """
-        Get all rates for a rate card at a point in time
+        Understand the rate schedule at a given timestamp, optionally filtering the list
+        of rates returned based on properties such as `product_id` and
+        `pricing_group_values`. For example, you may want to display the current price
+        for a given product in your product experience - use this endpoint to fetch that
+        information from its source of truth in Metronome.
+
+        If you want to understand the rates for a specific customer's contract,
+        inclusive of contract-level overrides, use the `getContractRateSchedule`
+        endpoint.
 
         Args:
           at: inclusive starting point for the rates schedule
@@ -356,7 +373,7 @@ class AsyncRatesResource(AsyncAPIResource):
         rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"],
         starting_at: Union[str, datetime],
         billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"] | NotGiven = NOT_GIVEN,
-        commit_rate: rate_add_params.CommitRate | NotGiven = NOT_GIVEN,
+        commit_rate: CommitRate | NotGiven = NOT_GIVEN,
         credit_type_id: str | NotGiven = NOT_GIVEN,
         custom_rate: Dict[str, object] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,

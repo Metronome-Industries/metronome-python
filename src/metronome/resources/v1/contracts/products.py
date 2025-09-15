@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -64,18 +64,18 @@ class ProductsResource(SyncAPIResource):
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,8 +83,13 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductCreateResponse:
-        """
-        Create a new product
+        """Create a new product object.
+
+        Products in Metronome represent your company's
+        individual product or service offerings. A Product can be thought of as the
+        basic unit of a line item on the invoice. This is analogous to SKUs or items in
+        an ERP system. Give the product a meaningful name as they will appear on
+        customer invoices.
 
         Args:
           name: displayed on invoices
@@ -94,6 +99,8 @@ class ProductsResource(SyncAPIResource):
           composite_product_ids: Required for COMPOSITE products
 
           composite_tags: Required for COMPOSITE products
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
@@ -175,7 +182,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductRetrieveResponse:
         """
-        Get a specific product
+        Retrieve a product by its ID, including all metadata and historical changes.
 
         Args:
           extra_headers: Send extra headers
@@ -201,18 +208,18 @@ class ProductsResource(SyncAPIResource):
         product_id: str,
         starting_at: Union[str, datetime],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -221,7 +228,17 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductUpdateResponse:
         """
-        Update a product
+        Updates a product's configuration while maintaining billing continuity for
+        active customers. Use this endpoint to modify product names, metrics, pricing
+        rules, and composite settings without disrupting ongoing billing cycles. Changes
+        are scheduled using the starting_at timestamp, which must be on an hour
+        boundary—set future dates to schedule updates ahead of time, or past dates for
+        retroactive changes. Returns the updated product ID upon success.
+
+        ### Usage guidance:
+
+        - Product type cannot be changed after creation. For incorrect product types,
+          create a new product and archive the original instead.
 
         Args:
           product_id: ID of the product to update
@@ -327,7 +344,9 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[ProductListResponse]:
         """
-        List products
+        Get a paginated list of all products in your organization with their complete
+        configuration, version history, and metadata. By default excludes archived
+        products unless explicitly requested via the `archive_filter` parameter.
 
         Args:
           limit: Max number of results that should be returned
@@ -376,8 +395,12 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductArchiveResponse:
-        """
-        Archive a product
+        """Archive a product.
+
+        Any current rate cards associated with this product will
+        continue to function as normal. However, it will no longer be available as an
+        option for newly created rates. Once you archive a product, you can still
+        retrieve it in the UI and API, but you cannot unarchive it.
 
         Args:
           product_id: ID of the product to be archived
@@ -426,18 +449,18 @@ class AsyncProductsResource(AsyncAPIResource):
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -445,8 +468,13 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductCreateResponse:
-        """
-        Create a new product
+        """Create a new product object.
+
+        Products in Metronome represent your company's
+        individual product or service offerings. A Product can be thought of as the
+        basic unit of a line item on the invoice. This is analogous to SKUs or items in
+        an ERP system. Give the product a meaningful name as they will appear on
+        customer invoices.
 
         Args:
           name: displayed on invoices
@@ -456,6 +484,8 @@ class AsyncProductsResource(AsyncAPIResource):
           composite_product_ids: Required for COMPOSITE products
 
           composite_tags: Required for COMPOSITE products
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
@@ -537,7 +567,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductRetrieveResponse:
         """
-        Get a specific product
+        Retrieve a product by its ID, including all metadata and historical changes.
 
         Args:
           extra_headers: Send extra headers
@@ -563,18 +593,18 @@ class AsyncProductsResource(AsyncAPIResource):
         product_id: str,
         starting_at: Union[str, datetime],
         billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        composite_tags: List[str] | NotGiven = NOT_GIVEN,
+        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         exclude_free_usage: bool | NotGiven = NOT_GIVEN,
         is_refundable: bool | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
         netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: List[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: List[str] | NotGiven = NOT_GIVEN,
+        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
         quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: List[str] | NotGiven = NOT_GIVEN,
+        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -583,7 +613,17 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductUpdateResponse:
         """
-        Update a product
+        Updates a product's configuration while maintaining billing continuity for
+        active customers. Use this endpoint to modify product names, metrics, pricing
+        rules, and composite settings without disrupting ongoing billing cycles. Changes
+        are scheduled using the starting_at timestamp, which must be on an hour
+        boundary—set future dates to schedule updates ahead of time, or past dates for
+        retroactive changes. Returns the updated product ID upon success.
+
+        ### Usage guidance:
+
+        - Product type cannot be changed after creation. For incorrect product types,
+          create a new product and archive the original instead.
 
         Args:
           product_id: ID of the product to update
@@ -689,7 +729,9 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[ProductListResponse, AsyncCursorPage[ProductListResponse]]:
         """
-        List products
+        Get a paginated list of all products in your organization with their complete
+        configuration, version history, and metadata. By default excludes archived
+        products unless explicitly requested via the `archive_filter` parameter.
 
         Args:
           limit: Max number of results that should be returned
@@ -738,8 +780,12 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductArchiveResponse:
-        """
-        Archive a product
+        """Archive a product.
+
+        Any current rate cards associated with this product will
+        continue to function as normal. However, it will no longer be available as an
+        option for newly created rates. Once you archive a product, you can still
+        retrieve it in the UI and API, but you cannot unarchive it.
 
         Args:
           product_id: ID of the product to be archived

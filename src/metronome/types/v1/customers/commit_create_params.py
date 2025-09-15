@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
+from ...shared_params.commit_specifier_input import CommitSpecifierInput
 
 __all__ = [
     "CommitCreateParams",
@@ -15,7 +17,6 @@ __all__ = [
     "InvoiceSchedule",
     "InvoiceScheduleRecurringSchedule",
     "InvoiceScheduleScheduleItem",
-    "Specifier",
 ]
 
 
@@ -43,20 +44,20 @@ class CommitCreateParams(TypedDict, total=False):
 
     type: Required[Literal["PREPAID", "POSTPAID"]]
 
-    applicable_contract_ids: List[str]
+    applicable_contract_ids: SequenceNotStr[str]
     """Which contract the commit applies to.
 
     If not provided, the commit applies to all contracts.
     """
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
@@ -64,6 +65,7 @@ class CommitCreateParams(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -94,7 +96,7 @@ class CommitCreateParams(TypedDict, total=False):
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Iterable[Specifier]
+    specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -207,20 +209,3 @@ class InvoiceSchedule(TypedDict, total=False):
 
     schedule_items: Iterable[InvoiceScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
-
-
-class Specifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """

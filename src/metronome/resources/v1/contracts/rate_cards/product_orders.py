@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 
 import httpx
 
-from ....._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ....._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ....._utils import maybe_transform, async_maybe_transform
 from ....._compat import cached_property
 from ....._resource import SyncAPIResource, AsyncAPIResource
@@ -57,7 +57,10 @@ class ProductOrdersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderUpdateResponse:
         """
-        Updates ordering of specified products
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of specific products on the rate card by moving them relative to their current
+        location.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -88,7 +91,7 @@ class ProductOrdersResource(SyncAPIResource):
     def set(
         self,
         *,
-        product_order: List[str],
+        product_order: SequenceNotStr[str],
         rate_card_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -98,7 +101,9 @@ class ProductOrdersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderSetResponse:
         """
-        Sets the ordering of products within a rate card
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of products on the rate card.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -160,7 +165,10 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderUpdateResponse:
         """
-        Updates ordering of specified products
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of specific products on the rate card by moving them relative to their current
+        location.
 
         Args:
           rate_card_id: ID of the rate card to update
@@ -191,7 +199,7 @@ class AsyncProductOrdersResource(AsyncAPIResource):
     async def set(
         self,
         *,
-        product_order: List[str],
+        product_order: SequenceNotStr[str],
         rate_card_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -201,7 +209,9 @@ class AsyncProductOrdersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ProductOrderSetResponse:
         """
-        Sets the ordering of products within a rate card
+        The ordering of products on a rate card determines the order in which the
+        products will appear on customers' invoices. Use this endpoint to set the order
+        of products on the rate card.
 
         Args:
           rate_card_id: ID of the rate card to update

@@ -23,6 +23,7 @@ from metronome.types.v1 import (
     ContractScheduleProServicesInvoiceResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
+from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -240,10 +241,10 @@ class TestContracts:
             prepaid_balance_threshold_configuration={
                 "commit": {
                     "product_id": "product_id",
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -325,7 +326,7 @@ class TestContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -366,7 +367,7 @@ class TestContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -447,7 +448,6 @@ class TestContracts:
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -459,7 +459,9 @@ class TestContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -1066,7 +1068,7 @@ class TestContracts:
         contract = client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     def test_method_list_balances_with_all_params(self, client: Metronome) -> None:
@@ -1083,7 +1085,7 @@ class TestContracts:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     def test_raw_response_list_balances(self, client: Metronome) -> None:
@@ -1094,7 +1096,7 @@ class TestContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = response.parse()
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     def test_streaming_response_list_balances(self, client: Metronome) -> None:
@@ -1105,7 +1107,7 @@ class TestContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = response.parse()
-            assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+            assert_matches_type(SyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1569,10 +1571,10 @@ class TestAsyncContracts:
             prepaid_balance_threshold_configuration={
                 "commit": {
                     "product_id": "product_id",
-                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                    "applicable_product_tags": ["string"],
                     "description": "description",
                     "name": "name",
+                    "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                    "applicable_product_tags": ["string"],
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1654,7 +1656,7 @@ class TestAsyncContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -1695,7 +1697,7 @@ class TestAsyncContracts:
                     "subscription_config": {
                         "apply_seat_increase_config": {"is_prorated": True},
                         "subscription_id": "subscription_id",
-                        "allocation": "POOLED",
+                        "allocation": "INDIVIDUAL",
                     },
                     "temporary_id": "temporary_id",
                 }
@@ -1776,7 +1778,6 @@ class TestAsyncContracts:
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
-                    "initial_quantity": 0,
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
@@ -1788,7 +1789,9 @@ class TestAsyncContracts:
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "initial_quantity": 0,
                     "name": "name",
+                    "quantity_management_mode": "SEAT_BASED",
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -2395,7 +2398,7 @@ class TestAsyncContracts:
         contract = await async_client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     async def test_method_list_balances_with_all_params(self, async_client: AsyncMetronome) -> None:
@@ -2412,7 +2415,7 @@ class TestAsyncContracts:
             next_page="next_page",
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     async def test_raw_response_list_balances(self, async_client: AsyncMetronome) -> None:
@@ -2423,7 +2426,7 @@ class TestAsyncContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = await response.parse()
-        assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
     @parametrize
     async def test_streaming_response_list_balances(self, async_client: AsyncMetronome) -> None:
@@ -2434,7 +2437,7 @@ class TestAsyncContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = await response.parse()
-            assert_matches_type(ContractListBalancesResponse, contract, path=["response"])
+            assert_matches_type(AsyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

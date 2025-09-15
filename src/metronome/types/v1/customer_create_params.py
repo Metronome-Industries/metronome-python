@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["CustomerCreateParams", "BillingConfig", "CustomerBillingProviderConfiguration"]
 
@@ -15,6 +17,7 @@ class CustomerCreateParams(TypedDict, total=False):
     billing_config: BillingConfig
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configurations: Iterable[CustomerBillingProviderConfiguration]
 
@@ -24,7 +27,7 @@ class CustomerCreateParams(TypedDict, total=False):
     this customer in usage events
     """
 
-    ingest_aliases: List[str]
+    ingest_aliases: SequenceNotStr[str]
     """Aliases that can be used to refer to this customer in usage events"""
 
 
@@ -77,7 +80,9 @@ class BillingConfig(TypedDict, total=False):
         "us-west-2",
     ]
 
-    stripe_collection_method: Literal["charge_automatically", "send_invoice"]
+    stripe_collection_method: Literal[
+        "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
+    ]
 
 
 class CustomerBillingProviderConfiguration(TypedDict, total=False):
@@ -102,4 +107,12 @@ class CustomerBillingProviderConfiguration(TypedDict, total=False):
     """ID of the delivery method to use for this customer.
 
     If not provided, the `delivery_method` must be provided.
+    """
+
+    tax_provider: Literal["anrok", "avalara", "stripe"]
+    """
+    Specifies which tax provider Metronome should use for tax calculation when
+    billing through Stripe. This is only supported for Stripe billing provider
+    configurations with auto_charge_payment_intent or manual_charge_payment_intent
+    collection methods.
     """

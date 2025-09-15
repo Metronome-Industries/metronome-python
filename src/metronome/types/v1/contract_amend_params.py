@@ -2,39 +2,30 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
+from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 
 __all__ = [
     "ContractAmendParams",
     "Commit",
     "CommitAccessSchedule",
     "CommitAccessScheduleScheduleItem",
-    "CommitHierarchyConfiguration",
-    "CommitHierarchyConfigurationChildAccess",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
     "CommitPaymentGateConfig",
     "CommitPaymentGateConfigPrecalculatedTaxConfig",
     "CommitPaymentGateConfigStripeConfig",
-    "CommitSpecifier",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
-    "CreditHierarchyConfiguration",
-    "CreditHierarchyConfigurationChildAccess",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
-    "CreditSpecifier",
     "Discount",
     "DiscountSchedule",
     "DiscountScheduleRecurringSchedule",
@@ -69,6 +60,7 @@ class ContractAmendParams(TypedDict, total=False):
     credits: Iterable[Credit]
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     discounts: Iterable[Discount]
     """This field's availability is dependent on your client's configuration."""
@@ -108,31 +100,6 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
-    type: Required[Literal["ALL"]]
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
-    type: Required[Literal["NONE"]]
-
-
-class CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
-    contract_ids: Required[List[str]]
-
-    type: Required[Literal["CONTRACT_IDS"]]
-
-
-CommitHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CommitHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class CommitHierarchyConfiguration(TypedDict, total=False):
-    child_access: Required[CommitHierarchyConfigurationChildAccess]
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
@@ -277,23 +244,6 @@ class CommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
-class CommitSpecifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -309,14 +259,14 @@ class Commit(TypedDict, total=False):
     amount: float
     """(DEPRECATED) Use access_schedule and invoice_schedule instead."""
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the commit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
@@ -324,6 +274,7 @@ class Commit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -359,7 +310,7 @@ class Commit(TypedDict, total=False):
     rollover_fraction: float
     """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
 
-    specifiers: Iterable[CommitSpecifier]
+    specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -391,62 +342,20 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Defaults to USD (cents) if not passed"""
 
 
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(TypedDict, total=False):
-    type: Required[Literal["ALL"]]
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(TypedDict, total=False):
-    type: Required[Literal["NONE"]]
-
-
-class CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(TypedDict, total=False):
-    contract_ids: Required[List[str]]
-
-    type: Required[Literal["CONTRACT_IDS"]]
-
-
-CreditHierarchyConfigurationChildAccess: TypeAlias = Union[
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    CreditHierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class CreditHierarchyConfiguration(TypedDict, total=False):
-    child_access: Required[CreditHierarchyConfigurationChildAccess]
-
-
-class CreditSpecifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
 class Credit(TypedDict, total=False):
     access_schedule: Required[CreditAccessSchedule]
     """Schedule for distributing the credit to the customer."""
 
     product_id: Required[str]
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -454,11 +363,12 @@ class Credit(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
 
-    hierarchy_configuration: CreditHierarchyConfiguration
+    hierarchy_configuration: CommitHierarchyConfiguration
     """Optional configuration for credit hierarchy access control"""
 
     name: str
@@ -475,7 +385,7 @@ class Credit(TypedDict, total=False):
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
-    specifiers: Iterable[CreditSpecifier]
+    specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -572,6 +482,7 @@ class Discount(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""
@@ -583,13 +494,13 @@ class Discount(TypedDict, total=False):
 class OverrideOverrideSpecifier(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
-    commit_ids: List[str]
+    commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to the specified commits. If not provided, the override will
-    apply to all commits.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to the specified commits. If not provided, the override
+    will apply to all commits.
     """
 
     presentation_group_values: Dict[str, str]
@@ -609,26 +520,28 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     product_id: str
     """If provided, the override will only apply to the product with the specified ID."""
 
-    product_tags: List[str]
+    product_tags: SequenceNotStr[str]
     """
     If provided, the override will only apply to products with all the specified
     tags.
     """
 
-    recurring_commit_ids: List[str]
+    recurring_commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to commits created by the specified recurring commit ids.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to commits created by the specified recurring commit
+    ids.
     """
 
-    recurring_credit_ids: List[str]
+    recurring_credit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
 
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to credits created by the specified recurring credit ids.
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to credits created by the specified recurring credit
+    ids.
     """
 
 
@@ -673,7 +586,7 @@ class Override(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """tags identifying products whose rates are being overridden.
 
     Cannot be used in conjunction with override_specifiers.
@@ -753,6 +666,7 @@ class ProfessionalService(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
 
@@ -777,10 +691,10 @@ class ResellerRoyaltyGcpOptions(TypedDict, total=False):
 class ResellerRoyalty(TypedDict, total=False):
     reseller_type: Required[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]]
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Must provide at least one of applicable_product_ids or applicable_product_tags."""
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Must provide at least one of applicable_product_ids or applicable_product_tags."""
 
     aws_options: ResellerRoyaltyAwsOptions
@@ -887,6 +801,7 @@ class ScheduledCharge(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     name: str
     """displayed on invoices"""

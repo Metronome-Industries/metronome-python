@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
 
 __all__ = [
     "ContractEditCreditParams",
@@ -14,7 +16,6 @@ __all__ = [
     "AccessScheduleAddScheduleItem",
     "AccessScheduleRemoveScheduleItem",
     "AccessScheduleUpdateScheduleItem",
-    "Specifier",
 ]
 
 
@@ -27,14 +28,14 @@ class ContractEditCreditParams(TypedDict, total=False):
 
     access_schedule: AccessSchedule
 
-    applicable_product_ids: Optional[List[str]]
+    applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: Optional[List[str]]
+    applicable_product_tags: Optional[SequenceNotStr[str]]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -49,7 +50,14 @@ class ContractEditCreditParams(TypedDict, total=False):
 
     product_id: str
 
-    specifiers: Optional[Iterable[Specifier]]
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the credit to use the specified rate type for current and
+    future invoices. Previously finalized invoices will need to be voided and
+    regenerated to reflect the rate type change.
+    """
+
+    specifiers: Optional[Iterable[CommitSpecifierInput]]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -88,20 +96,3 @@ class AccessSchedule(TypedDict, total=False):
     remove_schedule_items: Iterable[AccessScheduleRemoveScheduleItem]
 
     update_schedule_items: Iterable[AccessScheduleUpdateScheduleItem]
-
-
-class Specifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """

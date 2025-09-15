@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
+from ...shared_params.commit_specifier_input import CommitSpecifierInput
 
-__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem", "Specifier"]
+__all__ = ["CreditCreateParams", "AccessSchedule", "AccessScheduleScheduleItem"]
 
 
 class CreditCreateParams(TypedDict, total=False):
@@ -25,20 +27,20 @@ class CreditCreateParams(TypedDict, total=False):
 
     product_id: Required[str]
 
-    applicable_contract_ids: List[str]
+    applicable_contract_ids: SequenceNotStr[str]
     """Which contract the credit applies to.
 
     If not provided, the credit applies to all contracts.
     """
 
-    applicable_product_ids: List[str]
+    applicable_product_ids: SequenceNotStr[str]
     """Which products the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
 
-    applicable_product_tags: List[str]
+    applicable_product_tags: SequenceNotStr[str]
     """Which tags the credit applies to.
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
@@ -46,6 +48,7 @@ class CreditCreateParams(TypedDict, total=False):
     """
 
     custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: str
     """Used only in UI/API. It is not exposed to end customers."""
@@ -61,7 +64,7 @@ class CreditCreateParams(TypedDict, total=False):
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Iterable[Specifier]
+    specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
@@ -93,20 +96,3 @@ class AccessSchedule(TypedDict, total=False):
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
-
-
-class Specifier(TypedDict, total=False):
-    presentation_group_values: Dict[str, str]
-
-    pricing_group_values: Dict[str, str]
-
-    product_id: str
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: List[str]
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """

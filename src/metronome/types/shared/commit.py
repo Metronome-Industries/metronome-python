@@ -5,18 +5,15 @@ from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
+from .commit_specifier import CommitSpecifier
 from .schedule_duration import ScheduleDuration
 from .schedule_point_in_time import SchedulePointInTime
+from .commit_hierarchy_configuration import CommitHierarchyConfiguration
 
 __all__ = [
     "Commit",
     "Product",
     "Contract",
-    "HierarchyConfiguration",
-    "HierarchyConfigurationChildAccess",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone",
-    "HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs",
     "InvoiceContract",
     "Ledger",
     "LedgerPrepaidCommitSegmentStartLedgerEntry",
@@ -34,7 +31,6 @@ __all__ = [
     "LedgerPostpaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitExpirationLedgerEntry",
     "RolledOverFrom",
-    "Specifier",
 ]
 
 
@@ -46,31 +42,6 @@ class Product(BaseModel):
 
 class Contract(BaseModel):
     id: str
-
-
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll(BaseModel):
-    type: Literal["ALL"]
-
-
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone(BaseModel):
-    type: Literal["NONE"]
-
-
-class HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs(BaseModel):
-    contract_ids: List[str]
-
-    type: Literal["CONTRACT_IDS"]
-
-
-HierarchyConfigurationChildAccess: TypeAlias = Union[
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessAll,
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessNone,
-    HierarchyConfigurationChildAccessCommitHierarchyChildAccessContractIDs,
-]
-
-
-class HierarchyConfiguration(BaseModel):
-    child_access: HierarchyConfigurationChildAccess
 
 
 class InvoiceContract(BaseModel):
@@ -259,25 +230,16 @@ class RolledOverFrom(BaseModel):
     contract_id: str
 
 
-class Specifier(BaseModel):
-    presentation_group_values: Optional[Dict[str, str]] = None
-
-    pricing_group_values: Optional[Dict[str, str]] = None
-
-    product_id: Optional[str] = None
-    """
-    If provided, the specifier will only apply to the product with the specified ID.
-    """
-
-    product_tags: Optional[List[str]] = None
-    """
-    If provided, the specifier will only apply to products with all the specified
-    tags.
-    """
-
-
 class Commit(BaseModel):
     id: str
+
+    created_at: datetime
+    """Timestamp of when the commit was created.
+
+    - Recurring commits: latter of commit service period date and parent commit
+      start date
+    - Rollover commits: when the new contract started
+    """
 
     product: Product
 
@@ -320,10 +282,11 @@ class Commit(BaseModel):
     contract: Optional[Contract] = None
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     description: Optional[str] = None
 
-    hierarchy_configuration: Optional[HierarchyConfiguration] = None
+    hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
     invoice_contract: Optional[InvoiceContract] = None
@@ -358,7 +321,7 @@ class Commit(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-    specifiers: Optional[List[Specifier]] = None
+    specifiers: Optional[List[CommitSpecifier]] = None
     """
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the

@@ -35,6 +35,7 @@ class BillableMetricListResponse(BaseModel):
     """
 
     custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     event_type_filter: Optional[EventTypeFilter] = None
     """An optional filtering rule to match the 'event_type' property of an event."""

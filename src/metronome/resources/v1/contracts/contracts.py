@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Any, Dict, Union, Iterable, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -16,7 +16,7 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ....types.v1 import (
@@ -41,7 +41,8 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ...._base_client import AsyncPaginator, make_request_options
 from .named_schedules import (
     NamedSchedulesResource,
     AsyncNamedSchedulesResource,
@@ -66,9 +67,11 @@ from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
 from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
+from ....types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
+from ....types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
@@ -125,8 +128,7 @@ class ContractsResource(SyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -137,7 +139,7 @@ class ContractsResource(SyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
@@ -152,13 +154,137 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractCreateResponse:
         """
-        Create a new contract
+        Contracts define a customer's products, pricing, discounts, access duration, and
+        billing configuration. Contracts serve as the central billing agreement for both
+        PLG and Enterprise customers, you can automatically customers access to your
+        products and services directly from your product or CRM.
+
+        ### Use this endpoint to:
+
+        - PLG onboarding: Automatically provision new self-serve customers with
+          contracts when they sign up.
+        - Enterprise sales: Push negotiated contracts from Salesforce with custom
+          pricing and commitments
+        - Promotional pricing: Implement time-limited discounts and free trials through
+          overrides
+
+        ### Key components:
+
+        #### Contract Term and Billing Schedule
+
+        - Set contract duration using `starting_at` and `ending_before` fields. PLG
+          contracts typically use perpetual agreements (no end date), while Enterprise
+          contracts have fixed end dates which can be edited over time in the case of
+          co-term upsells.
+
+        #### Rate Card
+
+        If you are offering usage based pricing, you can set a rate card for the
+        contract to reference through `rate_card_id` or `rate_card_alias`. The rate card
+        is a store of all of your usage based products and their centralized pricing.
+        Any new products or price changes on the rate card can be set to automatically
+        propagate to all associated contracts - this ensures consistent pricing and
+        product launches flow to contracts without manual updates and migrations. The
+        `usage_statement_schedule` determines the cadence on which Metronome will
+        finalize a usage invoice for the customer. This defaults to monthly on the 1st,
+        with options for custom dates, quarterly, or annual cadences. Note: Most usage
+        based billing companies align usage statements to be evaluated aligned to the
+        first of the month. Read more about
+        [Rate Cards](https://docs.metronome.com/pricing-packaging/create-manage-rate-cards/).
+
+        #### Overrides and discounts
+
+        Customize pricing on the contract through time-bounded overrides that can target
+        specific products, product families, or complex usage scenarios. Overrides
+        enable two key capabilities:
+
+        - Discounts: Apply percentage discounts, fixed rate reductions, or
+          quantity-based pricing tiers
+        - Entitlements: Provide special pricing or access to specific products for
+          negotiated deals
+
+        Read more about
+        [Contract Overrides](https://docs.metronome.com/manage-product-access/add-contract-override/).
+
+        #### Commits and Credits
+
+        Using commits, configure prepaid or postpaid spending commitments where
+        customers promise to spend a certain amount over the contract period paid in
+        advance or in arrears. Use credits to provide free spending allowances. Under
+        the hood these are the same mechanisms, however, credits are typically offered
+        for free (SLA or promotional) or as a part of an allotment associated with a
+        Subscription.
+
+        In Metronome, you can set commits and credits to only be applicable for a subset
+        of usage. Use `applicable_product_ids` or `applicable_product_tags` to create
+        product or product-family specific commits or credits, or you can build complex
+        boolean logic specifiers to target usage based on pricing and presentation group
+        values using `override_specifiers`.
+
+        These objects can also also be configured to have a recurrence schedule to
+        easily model customer packaging which includes recurring monthly or quarterly
+        allotments.
+
+        Commits support rollover settings (`rollover_fraction`) to transfer unused
+        balances between contract periods, either entirely or as a percentage.
+
+        Read more about
+        [Credits and Commits](https://docs.metronome.com/pricing-packaging/apply-credits-commits/).
+
+        #### Subscriptions
+
+        You can add a fixed recurring charge to a contract, like monthly licenses or
+        seat-based fees, using the subscription charge. Subscription charges are defined
+        on your rate card and you can select which subscription is applicable to add to
+        each contract. When you add a subscription to a contract you need to:
+
+        - Define whether the subscription is paid for in-advance or in-arrears
+          (`collection_schedule`)
+        - Define the proration behavior (`proration`)
+        - Specify an initial quantity (`initial_quantity`)
+        - Define which subscription rate on the rate card should be used
+          (`subscription_rate`)
+
+        Read more about
+        [Subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/).
+
+        #### Scheduled Charges
+
+        Set up one-time, recurring, or entirely custom charges that occur on specific
+        dates, separate from usage-based billing or commitments. These can be used to
+        model non-recurring platform charges or professional services.
+
+        #### Threshold Billing
+
+        Metronome allows you to configure automatic billing triggers when customers
+        reach spending thresholds to prevent fraud and manage risk. You can use
+        `spend_threshold_configuration` to trigger an invoice to cover current charges
+        whenever the threshold is reached or you can ensure the customer maintains a
+        minimum prepaid balance using the `prepaid_balance_configuration`.
+
+        Read more about
+        [Spend Threshold](https://docs.metronome.com/manage-product-access/spend-thresholds/)
+        and
+        [Prepaid Balance Thresholds](https://docs.metronome.com/manage-product-access/prepaid-balance-thresholds/).
+
+        ### Usage guidelines:
+
+        - You can always
+          [Edit Contracts](https://docs.metronome.com/manage-product-access/edit-contract/)
+          after it has been created, using the `editContract` endpoint. Metronome keeps
+          track of all edits, both in the audit log and over the `getEditHistory`
+          endpoint.
+        - Customers in Metronome can have multiple concurrent contracts at one time. Use
+          `usage_filters` to route the correct usage to each contract.
+          [Read more about usage filters](https://docs.metronome.com/manage-product-access/provision-customer/#create-a-usage-filter).
 
         Args:
           starting_at: inclusive contract start time
 
           billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
               ID or the provider and delivery method.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -318,10 +444,14 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """This is the v1 endpoint to list all contracts for a customer.
+        """
+        Retrieves all contracts for a specific customer, including pricing, terms,
+        credits, and commitments. Use this to view a customer's contract history and
+        current agreements for billing management. Returns contract details with
+        optional ledgers and balance information.
 
-        New clients should
-        implement using the v2 endpoint.
+        ⚠️ Note: This is the legacy v1 endpoint - new integrations should use the v2
+        endpoint for enhanced features.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. If provided, the response will include only
@@ -384,8 +514,26 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
-        """
-        Add a manual balance entry
+        """Manually adjust the available balance on a commit or credit.
+
+        This entry is
+        appended to the commit ledger as a new event. Optionally include a description
+        that provides the reasoning for the entry.
+
+        ### Use this endpoint to:
+
+        - Address incorrect usage burn-down caused by malformed usage or invalid config
+        - Decrease available balance to account for outages where usage may have not
+          been tracked or sent to Metronome
+        - Issue credits to customers in the form of increased balance on existing commit
+          or credit
+
+        ### Usage guidelines:
+
+        Manual ledger entries can be extremely useful for resolving discrepancies in
+        Metronome. However, most corrections to inaccurate billings can be modified
+        upstream of the commit, whether that is via contract editing, rate editing, or
+        other actions that cause an invoice to be recalculated.
 
         Args:
           id: ID of the balance (commit or credit) to update.
@@ -459,7 +607,7 @@ class ContractsResource(SyncAPIResource):
         """Amendments will be replaced by Contract editing.
 
         New clients should implement
-        using the editContract endpoint. Read more about the migration to contract
+        using the `editContract` endpoint. Read more about the migration to contract
         editing [here](https://docs.metronome.com/migrate-amendments-to-edits/) and
         reach out to your Metronome representative for more details. Once contract
         editing is enabled, access to this endpoint will be removed.
@@ -470,6 +618,8 @@ class ContractsResource(SyncAPIResource):
           customer_id: ID of the customer whose contract is to be amended
 
           starting_at: inclusive start time for the amendment
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -531,8 +681,28 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractArchiveResponse:
-        """
-        Archive a contract
+        """Permanently end and archive a contract along with all its terms.
+
+        Any draft
+        invoices will be canceled, and all upcoming scheduled invoices will be
+        voided–also all finalized invoices can optionally be voided. Use this in the
+        event a contract was incorrectly created and needed to be removed from a
+        customer.
+
+        #### Impact on commits and credits:
+
+        When archiving a contract, all associated commits and credits are also archived.
+        For prepaid commits with active segments, Metronome automatically generates
+        expiration ledger entries to close out any remaining balances, ensuring accurate
+        accounting of unused prepaid amounts. These ledger entries will appear in the
+        commit's transaction history with type `PREPAID_COMMIT_EXPIRATION`.
+
+        #### Archived contract visibility:
+
+        Archived contracts remain accessible for historical reporting and audit
+        purposes. They can be retrieved using the `ListContracts` endpoint by setting
+        the `include_archived` parameter to `true` or in the Metronome UI when the "Show
+        archived" option is enabled.
 
         Args:
           contract_id: ID of the contract to archive
@@ -579,7 +749,11 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractCreateHistoricalInvoicesResponse:
         """
-        Creates historical usage invoices for a contract
+        Create historical usage invoices for past billing periods on specific contracts.
+        Use this endpoint to generate retroactive invoices with custom usage line items,
+        quantities, and date ranges. Supports preview mode to validate invoice data
+        before creation. Ideal for billing migrations or correcting past billing
+        periods.
 
         Args:
           extra_headers: Send extra headers
@@ -625,9 +799,42 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> SyncBodyCursorPage[ContractListBalancesResponse]:
         """
-        List balances (commits and credits).
+        Retrieve a comprehensive view of all available balances (commits and credits)
+        for a customer. This endpoint provides real-time visibility into prepaid funds,
+        postpaid commitments, promotional credits, and other balance types that can
+        offset usage charges, helping you build transparent billing experiences.
+
+        ### Use this endpoint to:
+
+        - Display current available balances in customer dashboards
+        - Verify available funds before approving high-usage operations
+        - Generate balance reports for finance teams
+        - Filter balances by contract or date ranges
+
+        ### Key response fields:
+
+        An array of balance objects (all credits and commits) containing:
+
+        - Balance details: Current available amount for each commit or credit
+        - Metadata: Product associations, priorities, applicable date ranges
+        - Optional ledger entries: Detailed transaction history (if
+          `include_ledgers=true`)
+        - Balance calculations: Including pending transactions and future-dated entries
+        - Custom fields: Any additional metadata attached to balances
+
+        ### Usage guidelines:
+
+        - Date filtering: Use `effective_before` to include only balances with access
+          before a specific date (exclusive)
+        - Set `include_balance=true` for calculated balance amounts on each commit or
+          credit
+        - Set `include_ledgers=true` for full transaction history
+        - Set `include_contract_balances = true` to see contract level balances
+        - Balance logic: Reflects currently accessible amounts, excluding expired/future
+          segments
+        - Manual adjustments: Includes all manual ledger entries, even future-dated ones
 
         Args:
           covering_date: Return only balances that have access schedules that "cover" the provided date
@@ -658,8 +865,9 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
+            page=SyncBodyCursorPage[ContractListBalancesResponse],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -679,7 +887,10 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     def retrieve_rate_schedule(
@@ -699,7 +910,13 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveRateScheduleResponse:
         """
-        Get the rate schedule for the rate card on a given contract.
+        For a specific customer and contract, get the rates at a specific point in time.
+        This endpoint takes the contract's rate card into consideration, including
+        scheduled changes. It also takes into account overrides on the contract.
+
+        For example, if you want to show your customer a summary of the prices they are
+        paying, inclusive of any negotiated discounts or promotions, use this endpoint.
+        This endpoint only returns rates that are entitled.
 
         Args:
           contract_id: ID of the contract to get the rate schedule for.
@@ -764,10 +981,17 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
-        """Fetch the quantity and price for a subscription over time.
+        """
+        Get the history of subscription quantities and prices over time for a given
+        `subscription_id`. This endpoint can be used to power an in-product experience
+        where you show a customer their historical changes to seat count. Future changes
+        are not included in this endpoint - use the `getContract` endpoint to view the
+        future scheduled changes to a subscription's quantity.
 
-        End-point does not
-        return future scheduled changes.
+        Subscriptions are used to model fixed recurring fees as well as seat-based
+        recurring fees. To model changes to the number of seats in Metronome, you can
+        increment or decrement the quantity on a subscription at any point in the past
+        or future.
 
         Args:
           extra_headers: Send extra headers
@@ -856,7 +1080,7 @@ class ContractsResource(SyncAPIResource):
         contract_id: str,
         customer_id: str,
         group_key: str,
-        group_values: List[str],
+        group_values: SequenceNotStr[str],
         starting_at: Union[str, datetime],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -866,7 +1090,24 @@ class ContractsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Set usage filter for a contract
+        If a customer has multiple contracts with overlapping rates, the usage filter
+        routes usage to the appropriate contract based on a predefined group key.
+
+        As an example, imagine you have a customer associated with two projects. Each
+        project is associated with its own contract. You can create a usage filter with
+        group key `project_id` on each contract, and route usage for `project_1` to the
+        first contract and `project_2` to the second contract.
+
+        ### Use this endpoint to:
+
+        - Support enterprise contracting scenarios where multiple contracts are
+          associated to the same customer with the same rates.
+        - Update the usage filter associated with the contract over time.
+
+        ### Usage guidelines:
+
+        To use usage filters, the `group_key` must be defined on the billable metrics
+        underlying the rate card on the contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -910,8 +1151,13 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractUpdateEndDateResponse:
-        """
-        Update the end date of a contract
+        """Update or and an end date to a contract.
+
+        Ending a contract early will impact
+        draft usage statements, truncate any terms, and remove upcoming scheduled
+        invoices. Moving the date into the future will only extend the contract length.
+        Terms and scheduled invoices are not extended. Use this if a contract's end date
+        has changed or if a perpetual contract ends.
 
         Args:
           contract_id: ID of the contract to update
@@ -1001,8 +1247,7 @@ class AsyncContractsResource(AsyncAPIResource):
         net_payment_terms_days: float | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         overrides: Iterable[contract_create_params.Override] | NotGiven = NOT_GIVEN,
-        prepaid_balance_threshold_configuration: contract_create_params.PrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | NotGiven = NOT_GIVEN,
         priority: float | NotGiven = NOT_GIVEN,
         professional_services: Iterable[contract_create_params.ProfessionalService] | NotGiven = NOT_GIVEN,
         rate_card_alias: str | NotGiven = NOT_GIVEN,
@@ -1013,7 +1258,7 @@ class AsyncContractsResource(AsyncAPIResource):
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | NotGiven = NOT_GIVEN,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | NotGiven = NOT_GIVEN,
-        spend_threshold_configuration: contract_create_params.SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        spend_threshold_configuration: SpendThresholdConfiguration | NotGiven = NOT_GIVEN,
         subscriptions: Iterable[contract_create_params.Subscription] | NotGiven = NOT_GIVEN,
         total_contract_value: float | NotGiven = NOT_GIVEN,
         transition: contract_create_params.Transition | NotGiven = NOT_GIVEN,
@@ -1028,13 +1273,137 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractCreateResponse:
         """
-        Create a new contract
+        Contracts define a customer's products, pricing, discounts, access duration, and
+        billing configuration. Contracts serve as the central billing agreement for both
+        PLG and Enterprise customers, you can automatically customers access to your
+        products and services directly from your product or CRM.
+
+        ### Use this endpoint to:
+
+        - PLG onboarding: Automatically provision new self-serve customers with
+          contracts when they sign up.
+        - Enterprise sales: Push negotiated contracts from Salesforce with custom
+          pricing and commitments
+        - Promotional pricing: Implement time-limited discounts and free trials through
+          overrides
+
+        ### Key components:
+
+        #### Contract Term and Billing Schedule
+
+        - Set contract duration using `starting_at` and `ending_before` fields. PLG
+          contracts typically use perpetual agreements (no end date), while Enterprise
+          contracts have fixed end dates which can be edited over time in the case of
+          co-term upsells.
+
+        #### Rate Card
+
+        If you are offering usage based pricing, you can set a rate card for the
+        contract to reference through `rate_card_id` or `rate_card_alias`. The rate card
+        is a store of all of your usage based products and their centralized pricing.
+        Any new products or price changes on the rate card can be set to automatically
+        propagate to all associated contracts - this ensures consistent pricing and
+        product launches flow to contracts without manual updates and migrations. The
+        `usage_statement_schedule` determines the cadence on which Metronome will
+        finalize a usage invoice for the customer. This defaults to monthly on the 1st,
+        with options for custom dates, quarterly, or annual cadences. Note: Most usage
+        based billing companies align usage statements to be evaluated aligned to the
+        first of the month. Read more about
+        [Rate Cards](https://docs.metronome.com/pricing-packaging/create-manage-rate-cards/).
+
+        #### Overrides and discounts
+
+        Customize pricing on the contract through time-bounded overrides that can target
+        specific products, product families, or complex usage scenarios. Overrides
+        enable two key capabilities:
+
+        - Discounts: Apply percentage discounts, fixed rate reductions, or
+          quantity-based pricing tiers
+        - Entitlements: Provide special pricing or access to specific products for
+          negotiated deals
+
+        Read more about
+        [Contract Overrides](https://docs.metronome.com/manage-product-access/add-contract-override/).
+
+        #### Commits and Credits
+
+        Using commits, configure prepaid or postpaid spending commitments where
+        customers promise to spend a certain amount over the contract period paid in
+        advance or in arrears. Use credits to provide free spending allowances. Under
+        the hood these are the same mechanisms, however, credits are typically offered
+        for free (SLA or promotional) or as a part of an allotment associated with a
+        Subscription.
+
+        In Metronome, you can set commits and credits to only be applicable for a subset
+        of usage. Use `applicable_product_ids` or `applicable_product_tags` to create
+        product or product-family specific commits or credits, or you can build complex
+        boolean logic specifiers to target usage based on pricing and presentation group
+        values using `override_specifiers`.
+
+        These objects can also also be configured to have a recurrence schedule to
+        easily model customer packaging which includes recurring monthly or quarterly
+        allotments.
+
+        Commits support rollover settings (`rollover_fraction`) to transfer unused
+        balances between contract periods, either entirely or as a percentage.
+
+        Read more about
+        [Credits and Commits](https://docs.metronome.com/pricing-packaging/apply-credits-commits/).
+
+        #### Subscriptions
+
+        You can add a fixed recurring charge to a contract, like monthly licenses or
+        seat-based fees, using the subscription charge. Subscription charges are defined
+        on your rate card and you can select which subscription is applicable to add to
+        each contract. When you add a subscription to a contract you need to:
+
+        - Define whether the subscription is paid for in-advance or in-arrears
+          (`collection_schedule`)
+        - Define the proration behavior (`proration`)
+        - Specify an initial quantity (`initial_quantity`)
+        - Define which subscription rate on the rate card should be used
+          (`subscription_rate`)
+
+        Read more about
+        [Subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/).
+
+        #### Scheduled Charges
+
+        Set up one-time, recurring, or entirely custom charges that occur on specific
+        dates, separate from usage-based billing or commitments. These can be used to
+        model non-recurring platform charges or professional services.
+
+        #### Threshold Billing
+
+        Metronome allows you to configure automatic billing triggers when customers
+        reach spending thresholds to prevent fraud and manage risk. You can use
+        `spend_threshold_configuration` to trigger an invoice to cover current charges
+        whenever the threshold is reached or you can ensure the customer maintains a
+        minimum prepaid balance using the `prepaid_balance_configuration`.
+
+        Read more about
+        [Spend Threshold](https://docs.metronome.com/manage-product-access/spend-thresholds/)
+        and
+        [Prepaid Balance Thresholds](https://docs.metronome.com/manage-product-access/prepaid-balance-thresholds/).
+
+        ### Usage guidelines:
+
+        - You can always
+          [Edit Contracts](https://docs.metronome.com/manage-product-access/edit-contract/)
+          after it has been created, using the `editContract` endpoint. Metronome keeps
+          track of all edits, both in the audit log and over the `getEditHistory`
+          endpoint.
+        - Customers in Metronome can have multiple concurrent contracts at one time. Use
+          `usage_filters` to route the correct usage to each contract.
+          [Read more about usage filters](https://docs.metronome.com/manage-product-access/provision-customer/#create-a-usage-filter).
 
         Args:
           starting_at: inclusive contract start time
 
           billing_provider_configuration: The billing provider configuration associated with a contract. Provide either an
               ID or the provider and delivery method.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -1194,10 +1563,14 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """This is the v1 endpoint to list all contracts for a customer.
+        """
+        Retrieves all contracts for a specific customer, including pricing, terms,
+        credits, and commitments. Use this to view a customer's contract history and
+        current agreements for billing management. Returns contract details with
+        optional ledgers and balance information.
 
-        New clients should
-        implement using the v2 endpoint.
+        ⚠️ Note: This is the legacy v1 endpoint - new integrations should use the v2
+        endpoint for enhanced features.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. If provided, the response will include only
@@ -1260,8 +1633,26 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
-        """
-        Add a manual balance entry
+        """Manually adjust the available balance on a commit or credit.
+
+        This entry is
+        appended to the commit ledger as a new event. Optionally include a description
+        that provides the reasoning for the entry.
+
+        ### Use this endpoint to:
+
+        - Address incorrect usage burn-down caused by malformed usage or invalid config
+        - Decrease available balance to account for outages where usage may have not
+          been tracked or sent to Metronome
+        - Issue credits to customers in the form of increased balance on existing commit
+          or credit
+
+        ### Usage guidelines:
+
+        Manual ledger entries can be extremely useful for resolving discrepancies in
+        Metronome. However, most corrections to inaccurate billings can be modified
+        upstream of the commit, whether that is via contract editing, rate editing, or
+        other actions that cause an invoice to be recalculated.
 
         Args:
           id: ID of the balance (commit or credit) to update.
@@ -1335,7 +1726,7 @@ class AsyncContractsResource(AsyncAPIResource):
         """Amendments will be replaced by Contract editing.
 
         New clients should implement
-        using the editContract endpoint. Read more about the migration to contract
+        using the `editContract` endpoint. Read more about the migration to contract
         editing [here](https://docs.metronome.com/migrate-amendments-to-edits/) and
         reach out to your Metronome representative for more details. Once contract
         editing is enabled, access to this endpoint will be removed.
@@ -1346,6 +1737,8 @@ class AsyncContractsResource(AsyncAPIResource):
           customer_id: ID of the customer whose contract is to be amended
 
           starting_at: inclusive start time for the amendment
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           discounts: This field's availability is dependent on your client's configuration.
 
@@ -1407,8 +1800,28 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractArchiveResponse:
-        """
-        Archive a contract
+        """Permanently end and archive a contract along with all its terms.
+
+        Any draft
+        invoices will be canceled, and all upcoming scheduled invoices will be
+        voided–also all finalized invoices can optionally be voided. Use this in the
+        event a contract was incorrectly created and needed to be removed from a
+        customer.
+
+        #### Impact on commits and credits:
+
+        When archiving a contract, all associated commits and credits are also archived.
+        For prepaid commits with active segments, Metronome automatically generates
+        expiration ledger entries to close out any remaining balances, ensuring accurate
+        accounting of unused prepaid amounts. These ledger entries will appear in the
+        commit's transaction history with type `PREPAID_COMMIT_EXPIRATION`.
+
+        #### Archived contract visibility:
+
+        Archived contracts remain accessible for historical reporting and audit
+        purposes. They can be retrieved using the `ListContracts` endpoint by setting
+        the `include_archived` parameter to `true` or in the Metronome UI when the "Show
+        archived" option is enabled.
 
         Args:
           contract_id: ID of the contract to archive
@@ -1455,7 +1868,11 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractCreateHistoricalInvoicesResponse:
         """
-        Creates historical usage invoices for a contract
+        Create historical usage invoices for past billing periods on specific contracts.
+        Use this endpoint to generate retroactive invoices with custom usage line items,
+        quantities, and date ranges. Supports preview mode to validate invoice data
+        before creation. Ideal for billing migrations or correcting past billing
+        periods.
 
         Args:
           extra_headers: Send extra headers
@@ -1481,7 +1898,7 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def list_balances(
+    def list_balances(
         self,
         *,
         customer_id: str,
@@ -1501,9 +1918,42 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ContractListBalancesResponse:
+    ) -> AsyncPaginator[ContractListBalancesResponse, AsyncBodyCursorPage[ContractListBalancesResponse]]:
         """
-        List balances (commits and credits).
+        Retrieve a comprehensive view of all available balances (commits and credits)
+        for a customer. This endpoint provides real-time visibility into prepaid funds,
+        postpaid commitments, promotional credits, and other balance types that can
+        offset usage charges, helping you build transparent billing experiences.
+
+        ### Use this endpoint to:
+
+        - Display current available balances in customer dashboards
+        - Verify available funds before approving high-usage operations
+        - Generate balance reports for finance teams
+        - Filter balances by contract or date ranges
+
+        ### Key response fields:
+
+        An array of balance objects (all credits and commits) containing:
+
+        - Balance details: Current available amount for each commit or credit
+        - Metadata: Product associations, priorities, applicable date ranges
+        - Optional ledger entries: Detailed transaction history (if
+          `include_ledgers=true`)
+        - Balance calculations: Including pending transactions and future-dated entries
+        - Custom fields: Any additional metadata attached to balances
+
+        ### Usage guidelines:
+
+        - Date filtering: Use `effective_before` to include only balances with access
+          before a specific date (exclusive)
+        - Set `include_balance=true` for calculated balance amounts on each commit or
+          credit
+        - Set `include_ledgers=true` for full transaction history
+        - Set `include_contract_balances = true` to see contract level balances
+        - Balance logic: Reflects currently accessible amounts, excluding expired/future
+          segments
+        - Manual adjustments: Includes all manual ledger entries, even future-dated ones
 
         Args:
           covering_date: Return only balances that have access schedules that "cover" the provided date
@@ -1534,9 +1984,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/customerBalances/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPage[ContractListBalancesResponse],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "id": id,
@@ -1555,7 +2006,10 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListBalancesResponse,
+            model=cast(
+                Any, ContractListBalancesResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            method="post",
         )
 
     async def retrieve_rate_schedule(
@@ -1575,7 +2029,13 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveRateScheduleResponse:
         """
-        Get the rate schedule for the rate card on a given contract.
+        For a specific customer and contract, get the rates at a specific point in time.
+        This endpoint takes the contract's rate card into consideration, including
+        scheduled changes. It also takes into account overrides on the contract.
+
+        For example, if you want to show your customer a summary of the prices they are
+        paying, inclusive of any negotiated discounts or promotions, use this endpoint.
+        This endpoint only returns rates that are entitled.
 
         Args:
           contract_id: ID of the contract to get the rate schedule for.
@@ -1640,10 +2100,17 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveSubscriptionQuantityHistoryResponse:
-        """Fetch the quantity and price for a subscription over time.
+        """
+        Get the history of subscription quantities and prices over time for a given
+        `subscription_id`. This endpoint can be used to power an in-product experience
+        where you show a customer their historical changes to seat count. Future changes
+        are not included in this endpoint - use the `getContract` endpoint to view the
+        future scheduled changes to a subscription's quantity.
 
-        End-point does not
-        return future scheduled changes.
+        Subscriptions are used to model fixed recurring fees as well as seat-based
+        recurring fees. To model changes to the number of seats in Metronome, you can
+        increment or decrement the quantity on a subscription at any point in the past
+        or future.
 
         Args:
           extra_headers: Send extra headers
@@ -1732,7 +2199,7 @@ class AsyncContractsResource(AsyncAPIResource):
         contract_id: str,
         customer_id: str,
         group_key: str,
-        group_values: List[str],
+        group_values: SequenceNotStr[str],
         starting_at: Union[str, datetime],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1742,7 +2209,24 @@ class AsyncContractsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> None:
         """
-        Set usage filter for a contract
+        If a customer has multiple contracts with overlapping rates, the usage filter
+        routes usage to the appropriate contract based on a predefined group key.
+
+        As an example, imagine you have a customer associated with two projects. Each
+        project is associated with its own contract. You can create a usage filter with
+        group key `project_id` on each contract, and route usage for `project_1` to the
+        first contract and `project_2` to the second contract.
+
+        ### Use this endpoint to:
+
+        - Support enterprise contracting scenarios where multiple contracts are
+          associated to the same customer with the same rates.
+        - Update the usage filter associated with the contract over time.
+
+        ### Usage guidelines:
+
+        To use usage filters, the `group_key` must be defined on the billable metrics
+        underlying the rate card on the contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -1786,8 +2270,13 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractUpdateEndDateResponse:
-        """
-        Update the end date of a contract
+        """Update or and an end date to a contract.
+
+        Ending a contract early will impact
+        draft usage statements, truncate any terms, and remove upcoming scheduled
+        invoices. Moving the date into the future will only extend the contract length.
+        Terms and scheduled invoices are not extended. Use this if a contract's end date
+        has changed or if a perpetual contract ends.
 
         Args:
           contract_id: ID of the contract to update

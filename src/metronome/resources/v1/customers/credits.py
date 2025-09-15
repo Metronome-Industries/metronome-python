@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -18,10 +18,12 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...._base_client import make_request_options
+from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ...._base_client import AsyncPaginator, make_request_options
 from ....types.v1.customers import credit_list_params, credit_create_params, credit_update_end_date_params
-from ....types.v1.customers.credit_list_response import CreditListResponse
+from ....types.shared.credit import Credit
 from ....types.v1.customers.credit_create_response import CreditCreateResponse
+from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ....types.v1.customers.credit_update_end_date_response import CreditUpdateEndDateResponse
 
 __all__ = ["CreditsResource", "AsyncCreditsResource"]
@@ -54,16 +56,16 @@ class CreditsResource(SyncAPIResource):
         customer_id: str,
         priority: float,
         product_id: str,
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[credit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -73,7 +75,55 @@ class CreditsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditCreateResponse:
         """
-        Create a new credit at the customer level.
+        Creates customer-level credits that provide spending allowances or free credit
+        balances for customers across their Metronome usage. Note: In most cases, you
+        should add credits directly to customer contracts using the contract/create or
+        contract/edit APIs.
+
+        ### Use this endpoint to:
+
+        Use this endpoint when you need to provision credits directly at the customer
+        level that can be applied across multiple contracts or scoped to specific
+        contracts. Customer-level credits are ideal for:
+
+        - Customer onboarding incentives that apply globally
+        - Flexible spending allowances that aren't tied to a single contract
+        - Migration scenarios where you need to preserve existing customer balances
+
+        #### Scoping flexibility:
+
+        Customer-level credits can be configured in two ways:
+
+        - Contract-specific: Use the applicable_contract_ids field to limit the credit
+          to specific contracts
+        - Cross-contract: Leave applicable_contract_ids empty to allow the credit to be
+          used across all of the customer's contracts
+
+        #### Product Targeting:
+
+        Credits can be scoped to specific products using `applicable_product_ids` or
+        `applicable_product_tags`, or left unrestricted to apply to all products.
+
+        #### Priority considerations:
+
+        When multiple credits are applicable, the one with the lower priority value will
+        be consumed first. If there is a tie, contract level commits and credits will be
+        applied before customer level commits and credits. Plan your priority scheme
+        carefully to ensure credits are applied in the desired order.
+
+        #### Access Schedule Required:
+
+        You must provide an `access_schedule` that defines when and how much credit
+        becomes available to the customer over time. This usually is aligned to the
+        contract schedule or starts immediately and is set to expire in the future.
+
+        ### Usage Guidelines:
+
+        ⚠️ Preferred Alternative: In most cases, you should add credits directly to
+        contracts using the contract/create or contract/edit APIs instead of creating
+        customer-level credits. Contract-level credits provide better organization, and
+        are easier for finance teams to recognize revenue, and are the recommended
+        approach for most use cases.
 
         Args:
           access_schedule: Schedule for distributing the credit to the customer.
@@ -89,6 +139,8 @@ class CreditsResource(SyncAPIResource):
 
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           description: Used only in UI/API. It is not exposed to end customers.
 
@@ -164,9 +216,52 @@ class CreditsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    ) -> SyncBodyCursorPage[Credit]:
         """
-        List credits.
+        Retrieve a detailed list of all credits available to a customer, including
+        promotional credits and contract-specific credits. This endpoint provides
+        comprehensive visibility into credit balances, access schedules, and usage
+        rules, enabling you to build credit management interfaces and track available
+        funding.
+
+        ### Use this endpoint to:
+
+        - Display all available credits in customer billing dashboards
+        - Show credit balances and expiration dates
+        - Track credit usage history with optional ledger details
+        - Build credit management and reporting tools
+        - Monitor promotional credit utilization • Support customer inquiries about
+          available credits
+
+        ### Key response fields:
+
+        An array of Credit objects containing:
+
+        - Credit details: Name, priority, and which applicable products/tags it applies
+          to
+        - Product ID: The `product_id` of the credit. This is for external mapping into
+          your quote-to-cash stack, not the product it applies to.
+        - Access schedule: When credits become available and expire
+        - Optional ledger entries: Transaction history (if `include_ledgers=true`)
+        - Balance information: Current available amount (if `include_balance=true`)
+        - Metadata: Custom fields and usage specifiers
+
+        ### Usage guidelines:
+
+        - Pagination: Results limited to 25 commits per page; use next_page for more
+        - Date filtering options:
+          - `covering_date`: Credits active on a specific date
+          - `starting_at`: Credits with access on/after a date
+          - `effective_before`: Credits with access before a date (exclusive)
+        - Scope options:
+          - `include_contract_credits`: Include contract-level credits (not just
+            customer-level)
+          - `include_archived`: Include archived credits and credits from archived
+            contracts
+        - Performance considerations:
+          - `include_ledgers`: Adds detailed transaction history (slower)
+          - `include_balance`: Adds current balance calculation (slower)
+        - Optional filtering: Use credit_id to retrieve a specific commit
 
         Args:
           covering_date: Return only credits that have access schedules that "cover" the provided date
@@ -197,8 +292,9 @@ class CreditsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/customerCredits/list",
+            page=SyncBodyCursorPage[Credit],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
@@ -218,7 +314,8 @@ class CreditsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreditListResponse,
+            model=Credit,
+            method="post",
         )
 
     def update_end_date(
@@ -234,10 +331,13 @@ class CreditsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """Pull forward the end date of a credit.
+        """
+        Shortens the end date of an existing customer credit to terminate it earlier
+        than originally scheduled. Only allows moving end dates forward (earlier), not
+        extending them.
 
-        Use the "edit a credit" endpoint to
-        extend the end date of a credit, or to make other edits to the credit.
+        Note: To extend credit end dates or make comprehensive edits, use the 'edit
+        credit' endpoint instead.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no
@@ -299,16 +399,16 @@ class AsyncCreditsResource(AsyncAPIResource):
         customer_id: str,
         priority: float,
         product_id: str,
-        applicable_contract_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: List[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: List[str] | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         description: str | NotGiven = NOT_GIVEN,
         name: str | NotGiven = NOT_GIVEN,
         netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
         rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
         salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[credit_create_params.Specifier] | NotGiven = NOT_GIVEN,
+        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -318,7 +418,55 @@ class AsyncCreditsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditCreateResponse:
         """
-        Create a new credit at the customer level.
+        Creates customer-level credits that provide spending allowances or free credit
+        balances for customers across their Metronome usage. Note: In most cases, you
+        should add credits directly to customer contracts using the contract/create or
+        contract/edit APIs.
+
+        ### Use this endpoint to:
+
+        Use this endpoint when you need to provision credits directly at the customer
+        level that can be applied across multiple contracts or scoped to specific
+        contracts. Customer-level credits are ideal for:
+
+        - Customer onboarding incentives that apply globally
+        - Flexible spending allowances that aren't tied to a single contract
+        - Migration scenarios where you need to preserve existing customer balances
+
+        #### Scoping flexibility:
+
+        Customer-level credits can be configured in two ways:
+
+        - Contract-specific: Use the applicable_contract_ids field to limit the credit
+          to specific contracts
+        - Cross-contract: Leave applicable_contract_ids empty to allow the credit to be
+          used across all of the customer's contracts
+
+        #### Product Targeting:
+
+        Credits can be scoped to specific products using `applicable_product_ids` or
+        `applicable_product_tags`, or left unrestricted to apply to all products.
+
+        #### Priority considerations:
+
+        When multiple credits are applicable, the one with the lower priority value will
+        be consumed first. If there is a tie, contract level commits and credits will be
+        applied before customer level commits and credits. Plan your priority scheme
+        carefully to ensure credits are applied in the desired order.
+
+        #### Access Schedule Required:
+
+        You must provide an `access_schedule` that defines when and how much credit
+        becomes available to the customer over time. This usually is aligned to the
+        contract schedule or starts immediately and is set to expire in the future.
+
+        ### Usage Guidelines:
+
+        ⚠️ Preferred Alternative: In most cases, you should add credits directly to
+        contracts using the contract/create or contract/edit APIs instead of creating
+        customer-level credits. Contract-level credits provide better organization, and
+        are easier for finance teams to recognize revenue, and are the recommended
+        approach for most use cases.
 
         Args:
           access_schedule: Schedule for distributing the credit to the customer.
@@ -334,6 +482,8 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
+
+          custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
           description: Used only in UI/API. It is not exposed to end customers.
 
@@ -389,7 +539,7 @@ class AsyncCreditsResource(AsyncAPIResource):
             cast_to=CreditCreateResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_id: str,
@@ -409,9 +559,52 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditListResponse:
+    ) -> AsyncPaginator[Credit, AsyncBodyCursorPage[Credit]]:
         """
-        List credits.
+        Retrieve a detailed list of all credits available to a customer, including
+        promotional credits and contract-specific credits. This endpoint provides
+        comprehensive visibility into credit balances, access schedules, and usage
+        rules, enabling you to build credit management interfaces and track available
+        funding.
+
+        ### Use this endpoint to:
+
+        - Display all available credits in customer billing dashboards
+        - Show credit balances and expiration dates
+        - Track credit usage history with optional ledger details
+        - Build credit management and reporting tools
+        - Monitor promotional credit utilization • Support customer inquiries about
+          available credits
+
+        ### Key response fields:
+
+        An array of Credit objects containing:
+
+        - Credit details: Name, priority, and which applicable products/tags it applies
+          to
+        - Product ID: The `product_id` of the credit. This is for external mapping into
+          your quote-to-cash stack, not the product it applies to.
+        - Access schedule: When credits become available and expire
+        - Optional ledger entries: Transaction history (if `include_ledgers=true`)
+        - Balance information: Current available amount (if `include_balance=true`)
+        - Metadata: Custom fields and usage specifiers
+
+        ### Usage guidelines:
+
+        - Pagination: Results limited to 25 commits per page; use next_page for more
+        - Date filtering options:
+          - `covering_date`: Credits active on a specific date
+          - `starting_at`: Credits with access on/after a date
+          - `effective_before`: Credits with access before a date (exclusive)
+        - Scope options:
+          - `include_contract_credits`: Include contract-level credits (not just
+            customer-level)
+          - `include_archived`: Include archived credits and credits from archived
+            contracts
+        - Performance considerations:
+          - `include_ledgers`: Adds detailed transaction history (slower)
+          - `include_balance`: Adds current balance calculation (slower)
+        - Optional filtering: Use credit_id to retrieve a specific commit
 
         Args:
           covering_date: Return only credits that have access schedules that "cover" the provided date
@@ -442,9 +635,10 @@ class AsyncCreditsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/customerCredits/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPage[Credit],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
@@ -463,7 +657,8 @@ class AsyncCreditsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CreditListResponse,
+            model=Credit,
+            method="post",
         )
 
     async def update_end_date(
@@ -479,10 +674,13 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreditUpdateEndDateResponse:
-        """Pull forward the end date of a credit.
+        """
+        Shortens the end date of an existing customer credit to terminate it earlier
+        than originally scheduled. Only allows moving end dates forward (earlier), not
+        extending them.
 
-        Use the "edit a credit" endpoint to
-        extend the end date of a credit, or to make other edits to the credit.
+        Note: To extend credit end dates or make comprehensive edits, use the 'edit
+        credit' endpoint instead.
 
         Args:
           access_ending_before: RFC 3339 timestamp indicating when access to the credit will end and it will no

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
+from ..._types import SequenceNotStr
 from ..shared_params.property_filter import PropertyFilter
 from ..shared_params.event_type_filter import EventTypeFilter
 
@@ -30,7 +31,7 @@ class BillableMetricCreateParams(TypedDict, total=False):
     event_type_filter: EventTypeFilter
     """An optional filtering rule to match the 'event_type' property of an event."""
 
-    group_keys: Iterable[List[str]]
+    group_keys: Iterable[SequenceNotStr[str]]
     """Property names that are used to group usage costs on an invoice.
 
     Each entry represents a set of properties used to slice events into distinct

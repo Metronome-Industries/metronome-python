@@ -6,19 +6,9 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..shared.rate import Rate
-from ..shared.tier import Tier
+from ..shared.commit_rate import CommitRate
 
-__all__ = ["ContractRetrieveRateScheduleResponse", "Data", "DataCommitRate"]
-
-
-class DataCommitRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
-
-    price: Optional[float] = None
-    """Commit rate price. For FLAT rate_type, this must be >=0."""
-
-    tiers: Optional[List[Tier]] = None
-    """Only set for TIERED rate_type."""
+__all__ = ["ContractRetrieveRateScheduleResponse", "Data"]
 
 
 class Data(BaseModel):
@@ -27,6 +17,7 @@ class Data(BaseModel):
     list_rate: Rate
 
     product_custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     product_id: str
 
@@ -40,7 +31,7 @@ class Data(BaseModel):
 
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
-    commit_rate: Optional[DataCommitRate] = None
+    commit_rate: Optional[CommitRate] = None
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or

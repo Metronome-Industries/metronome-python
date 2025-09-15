@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable
+from typing import Dict, Iterable
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import billable_metric_list_params, billable_metric_create_params, billable_metric_archive_params
@@ -58,7 +58,7 @@ class BillableMetricsResource(SyncAPIResource):
         aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -69,7 +69,35 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricCreateResponse:
         """
-        Creates a new Billable Metric.
+        Create billable metrics programmatically with this endpoint—an essential step in
+        configuring your pricing and packaging in Metronome.
+
+        A billable metric is a customizable query that filters and aggregates events
+        from your event stream. These metrics are continuously tracked as usage data
+        enters Metronome through the ingestion pipeline. The ingestion process
+        transforms raw usage data into actionable pricing metrics, enabling accurate
+        metering and billing for your products.
+
+        ### Use this endpoint to:
+
+        - Create individual or multiple billable metrics as part of a setup workflow.
+        - Automate the entire pricing configuration process, from metric creation to
+          customer contract setup.
+        - Define metrics using either standard filtering/aggregation or a custom SQL
+          query.
+
+        ### Key response fields:
+
+        - The ID of the billable metric that was created
+        - The created billable metric will be available to be used in Products, usage
+          endpoints, and alerts.
+
+        ### Usage guidelines:
+
+        - Metrics defined using standard filtering and aggregation are Streaming
+          billable metrics, which have been optimized for ultra low latency and high
+          throughput workflows.
+        - Use SQL billable metrics if you require more flexible aggregation options.
 
         Args:
           name: The display name of the billable metric.
@@ -136,7 +164,17 @@ class BillableMetricsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricRetrieveResponse:
         """
-        Get a billable metric.
+        Retrieves the complete configuration for a specific billable metric by its ID.
+        Use this to review billable metric setup before associating it with products.
+        Returns the metric's `name`, `event_type_filter`, `property_filters`,
+        `aggregation_type`, `aggregation_key`, `group_keys`, `custom fields`, and
+        `SQL query` (if it's a SQL billable metric).
+
+        Important:
+
+        - Archived billable metrics will include an `archived_at` timestamp; they no
+          longer process new usage events but remain accessible for historical
+          reference.
 
         Args:
           extra_headers: Send extra headers
@@ -170,8 +208,13 @@ class BillableMetricsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SyncCursorPage[BillableMetricListResponse]:
-        """
-        List all billable metrics.
+        """Retrieves all billable metrics with their complete configurations.
+
+        Use this for
+        programmatic discovery and management of billable metrics, such as associating
+        metrics to products and auditing for orphaned or archived metrics. Important:
+        Archived metrics are excluded by default; use `include_archived`=`true`
+        parameter to include them.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics
@@ -219,8 +262,17 @@ class BillableMetricsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricArchiveResponse:
-        """
-        Archive an existing billable metric.
+        """Use this endpoint to retire billable metrics that are no longer used.
+
+        After a
+        billable metric is archived, that billable metric can no longer be used in any
+        new Products to define how that product should be metered. If you archive a
+        billable metric that is already associated with a Product, the Product will
+        continue to function as usual, metering based on the definition of the archived
+        billable metric.
+
+        Archived billable metrics will be returned on the `getBillableMetric` and
+        `listBillableMetrics` endpoints with a populated `archived_at` field.
 
         Args:
           extra_headers: Send extra headers
@@ -269,7 +321,7 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         aggregation_type: Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"] | NotGiven = NOT_GIVEN,
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         event_type_filter: EventTypeFilter | NotGiven = NOT_GIVEN,
-        group_keys: Iterable[List[str]] | NotGiven = NOT_GIVEN,
+        group_keys: Iterable[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         property_filters: Iterable[PropertyFilter] | NotGiven = NOT_GIVEN,
         sql: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -280,7 +332,35 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricCreateResponse:
         """
-        Creates a new Billable Metric.
+        Create billable metrics programmatically with this endpoint—an essential step in
+        configuring your pricing and packaging in Metronome.
+
+        A billable metric is a customizable query that filters and aggregates events
+        from your event stream. These metrics are continuously tracked as usage data
+        enters Metronome through the ingestion pipeline. The ingestion process
+        transforms raw usage data into actionable pricing metrics, enabling accurate
+        metering and billing for your products.
+
+        ### Use this endpoint to:
+
+        - Create individual or multiple billable metrics as part of a setup workflow.
+        - Automate the entire pricing configuration process, from metric creation to
+          customer contract setup.
+        - Define metrics using either standard filtering/aggregation or a custom SQL
+          query.
+
+        ### Key response fields:
+
+        - The ID of the billable metric that was created
+        - The created billable metric will be available to be used in Products, usage
+          endpoints, and alerts.
+
+        ### Usage guidelines:
+
+        - Metrics defined using standard filtering and aggregation are Streaming
+          billable metrics, which have been optimized for ultra low latency and high
+          throughput workflows.
+        - Use SQL billable metrics if you require more flexible aggregation options.
 
         Args:
           name: The display name of the billable metric.
@@ -347,7 +427,17 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricRetrieveResponse:
         """
-        Get a billable metric.
+        Retrieves the complete configuration for a specific billable metric by its ID.
+        Use this to review billable metric setup before associating it with products.
+        Returns the metric's `name`, `event_type_filter`, `property_filters`,
+        `aggregation_type`, `aggregation_key`, `group_keys`, `custom fields`, and
+        `SQL query` (if it's a SQL billable metric).
+
+        Important:
+
+        - Archived billable metrics will include an `archived_at` timestamp; they no
+          longer process new usage events but remain accessible for historical
+          reference.
 
         Args:
           extra_headers: Send extra headers
@@ -381,8 +471,13 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AsyncPaginator[BillableMetricListResponse, AsyncCursorPage[BillableMetricListResponse]]:
-        """
-        List all billable metrics.
+        """Retrieves all billable metrics with their complete configurations.
+
+        Use this for
+        programmatic discovery and management of billable metrics, such as associating
+        metrics to products and auditing for orphaned or archived metrics. Important:
+        Archived metrics are excluded by default; use `include_archived`=`true`
+        parameter to include them.
 
         Args:
           include_archived: If true, the list of returned metrics will include archived metrics
@@ -430,8 +525,17 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> BillableMetricArchiveResponse:
-        """
-        Archive an existing billable metric.
+        """Use this endpoint to retire billable metrics that are no longer used.
+
+        After a
+        billable metric is archived, that billable metric can no longer be used in any
+        new Products to define how that product should be metered. If you archive a
+        billable metric that is already associated with a Product, the Product will
+        continue to function as usual, metering based on the definition of the archived
+        billable metric.
+
+        Archived billable metrics will be returned on the `getBillableMetric` and
+        `listBillableMetrics` endpoints with a populated `archived_at` field.
 
         Args:
           extra_headers: Send extra headers

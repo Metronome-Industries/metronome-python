@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import (
@@ -25,7 +25,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...pagination import SyncCursorPage, AsyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.v1.credit_grant_edit_response import CreditGrantEditResponse
 from ...types.v1.credit_grant_list_response import CreditGrantListResponse
@@ -69,7 +69,7 @@ class CreditGrantsResource(SyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         effective_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         invoice_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        product_ids: List[str] | NotGiven = NOT_GIVEN,
+        product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         reason: str | NotGiven = NOT_GIVEN,
         rollover_settings: credit_grant_create_params.RolloverSettings | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -154,9 +154,9 @@ class CreditGrantsResource(SyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
-        credit_grant_ids: List[str] | NotGiven = NOT_GIVEN,
-        credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        credit_grant_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        credit_type_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         not_expiring_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -282,8 +282,8 @@ class CreditGrantsResource(SyncAPIResource):
         *,
         next_page: str | NotGiven = NOT_GIVEN,
         sort: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        credit_type_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -292,7 +292,7 @@ class CreditGrantsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListEntriesResponse:
+    ) -> SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -326,8 +326,9 @@ class CreditGrantsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/credits/listEntries",
+            page=SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
             body=maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
@@ -350,7 +351,8 @@ class CreditGrantsResource(SyncAPIResource):
                     credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
-            cast_to=CreditGrantListEntriesResponse,
+            model=CreditGrantListEntriesResponse,
+            method="post",
         )
 
     def void(
@@ -432,7 +434,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
         effective_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
         invoice_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        product_ids: List[str] | NotGiven = NOT_GIVEN,
+        product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         reason: str | NotGiven = NOT_GIVEN,
         rollover_settings: credit_grant_create_params.RolloverSettings | NotGiven = NOT_GIVEN,
         uniqueness_key: str | NotGiven = NOT_GIVEN,
@@ -517,9 +519,9 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         next_page: str | NotGiven = NOT_GIVEN,
-        credit_grant_ids: List[str] | NotGiven = NOT_GIVEN,
-        credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        credit_grant_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        credit_type_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         not_expiring_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -640,13 +642,13 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
             cast_to=CreditGrantEditResponse,
         )
 
-    async def list_entries(
+    def list_entries(
         self,
         *,
         next_page: str | NotGiven = NOT_GIVEN,
         sort: Literal["asc", "desc"] | NotGiven = NOT_GIVEN,
-        credit_type_ids: List[str] | NotGiven = NOT_GIVEN,
-        customer_ids: List[str] | NotGiven = NOT_GIVEN,
+        credit_type_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
         ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
         starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -655,7 +657,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreditGrantListEntriesResponse:
+    ) -> AsyncPaginator[CreditGrantListEntriesResponse, AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -689,9 +691,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/credits/listEntries",
-            body=await async_maybe_transform(
+            page=AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
+            body=maybe_transform(
                 {
                     "credit_type_ids": credit_type_ids,
                     "customer_ids": customer_ids,
@@ -705,7 +708,7 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "next_page": next_page,
                         "sort": sort,
@@ -713,7 +716,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
                     credit_grant_list_entries_params.CreditGrantListEntriesParams,
                 ),
             ),
-            cast_to=CreditGrantListEntriesResponse,
+            model=CreditGrantListEntriesResponse,
+            method="post",
         )
 
     async def void(

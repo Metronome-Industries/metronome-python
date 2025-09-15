@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["CustomerSetIngestAliasesParams"]
 
@@ -11,4 +12,4 @@ __all__ = ["CustomerSetIngestAliasesParams"]
 class CustomerSetIngestAliasesParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    ingest_aliases: Required[List[str]]
+    ingest_aliases: Required[SequenceNotStr[str]]

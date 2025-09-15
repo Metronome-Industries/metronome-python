@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v2 import (
@@ -31,7 +32,10 @@ from ...types.v2.contract_list_response import ContractListResponse
 from ...types.v2.contract_retrieve_response import ContractRetrieveResponse
 from ...types.v2.contract_edit_commit_response import ContractEditCommitResponse
 from ...types.v2.contract_edit_credit_response import ContractEditCreditResponse
+from ...types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ...types.v2.contract_get_edit_history_response import ContractGetEditHistoryResponse
+from ...types.shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from ...types.shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
 __all__ = ["ContractsResource", "AsyncContractsResource"]
 
@@ -71,10 +75,24 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """Get a specific contract.
+        """
+        Gets the details for a specific contract, including contract term, rate card
+        information, credits and commits, and more.
 
-        New clients should use this endpoint rather than the v1
-        endpoint.
+        ### Use this endpoint to:
+
+        - Check the duration of a customer's current contract
+        - Get details on contract terms, including access schedule amounts for
+          commitments and credits
+        - Understand the state of a contract at a past time. As you can evolve the terms
+          of a contract over time through editing, use the `as_of_date` parameter to
+          view the full contract configuration as of that point in time.
+
+        ### Usage guidelines:
+
+        - Optionally, use the `include_balance` and `include_ledger` fields to include
+          balances and ledgers in the credit and commit responses. Using these fields
+          will cause the query to be slower.
 
         Args:
           as_of_date: Optional RFC 3339 timestamp. Return the contract as of this date. Cannot be used
@@ -128,10 +146,22 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer in chronological order.
+        """
+        For a given customer, lists all of their contracts in chronological order.
 
-        New clients should use
-        this endpoint rather than the v1 endpoint.
+        ### Use this endpoint to:
+
+        - Check if a customer is provisioned with any contract, and at which tier
+        - Check the duration and terms of a customer's current contract
+        - Power a page in your end customer experience that shows the customer's history
+          of tiers (e.g. this customer started out on the Pro Plan, then downgraded to
+          the Starter plan).
+
+        ### Usage guidelines:
+
+        Use the `starting_at`, `covering_date`, and `include_archived` parameters to
+        filter the list of returned contracts. For example, to list only currently
+        active contracts, pass `covering_date` equal to the current time.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -184,20 +214,20 @@ class ContractsResource(SyncAPIResource):
         add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
         add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
-        add_prepaid_balance_threshold_configuration: contract_edit_params.AddPrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
         add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
-        add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
         allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -217,9 +247,29 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditResponse:
-        """Edit a contract.
+        """
+        The ability to edit a contract helps you react quickly to the needs of your
+        customers and your business.
 
-        Contract editing must be enabled to use this endpoint.
+        ### Use this endpoint to:
+
+        - Encode mid-term commitment and discount changes
+        - Fix configuration mistakes and easily roll back packaging changes
+
+        ### Key response fields:
+
+        - The `id` of the edit
+        - Complete edit details. For example, if you edited the contract to add new
+          overrides and credits, you will receive the IDs of those overrides and credits
+          in the response.
+
+        ### Usage guidelines:
+
+        - When you edit a contract, any draft invoices update immediately to reflect
+          that edit. Finalized invoices remain unchanged - you must void and regenerate
+          them in the UI or API to reflect the edit.
+        - Contract editing must be enabled to use this endpoint. Reach out to your
+          Metronome representative to learn more.
 
         Args:
           contract_id: ID of the contract being edited
@@ -244,6 +294,8 @@ class ContractsResource(SyncAPIResource):
           archive_scheduled_charges: IDs of scheduled charges to archive
 
           remove_overrides: IDs of overrides to remove
+
+          uniqueness_key: Optional uniqueness key to prevent duplicate contract edits.
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
@@ -291,6 +343,7 @@ class ContractsResource(SyncAPIResource):
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
+                    "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
@@ -316,13 +369,14 @@ class ContractsResource(SyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -330,10 +384,24 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditCommitResponse:
-        """Edit a customer or contract commit.
+        """Edit specific details for a contract-level or customer-level commit.
 
-        Contract commits can only be edited using
-        this endpoint if contract editing is enabled.
+        Use this
+        endpoint to modify individual commit access schedules, invoice schedules,
+        applicable products, invoicing contracts, or other fields.
+
+        ### Usage guidelines:
+
+        - As with all edits in Metronome, draft invoices will reflect the edit
+          immediately, while finalized invoices are untouched unless voided and
+          regenerated.
+        - If a commit's invoice schedule item is associated with a finalized invoice,
+          you cannot remove or update the invoice schedule item.
+        - If a commit's invoice schedule item is associated with a voided invoice, you
+          cannot remove the invoice schedule item.
+        - You cannot remove an commit access schedule segment that was applied to a
+          finalized invoice. You can void the invoice beforehand and then remove the
+          access schedule segment.
 
         Args:
           commit_id: ID of the commit to edit
@@ -352,6 +420,10 @@ class ContractsResource(SyncAPIResource):
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
+
+          rate_type: If provided, updates the commit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
 
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
@@ -381,6 +453,7 @@ class ContractsResource(SyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
@@ -397,11 +470,12 @@ class ContractsResource(SyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -409,10 +483,23 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditCreditResponse:
-        """Edit a customer or contract credit.
+        """
+        Edit details for a contract-level or customer-level credit.
 
-        Contract credits can only be edited using
-        this endpoint if contract editing is enabled.
+        ### Use this endpoint to:
+
+        - Extend the duration or the amount of an existing free credit like a trial
+        - Modify individual credit access schedules, applicable products, priority, or
+          other fields.
+
+        ### Usage guidelines:
+
+        - As with all edits in Metronome, draft invoices will reflect the edit
+          immediately, while finalized invoices are untouched unless voided and
+          regenerated.
+        - You cannot remove an access schedule segment that was applied to a finalized
+          invoice. You can void the invoice beforehand and then remove the access
+          schedule segment.
 
         Args:
           credit_id: ID of the credit to edit
@@ -427,6 +514,10 @@ class ContractsResource(SyncAPIResource):
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
+
+          rate_type: If provided, updates the credit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
 
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
@@ -454,6 +545,7 @@ class ContractsResource(SyncAPIResource):
                     "applicable_product_tags": applicable_product_tags,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,
@@ -476,10 +568,23 @@ class ContractsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractGetEditHistoryResponse:
-        """Get the edit history of a specific contract.
+        """List all the edits made to a contract over time.
 
-        Contract editing must be enabled to
-        use this endpoint.
+        In Metronome, you can edit a
+        contract at any point after it's created to fix mistakes or reflect changes in
+        terms. Metronome stores a full history of all edits that were ever made to a
+        contract, whether through the UI, `editContract` endpoint, or other endpoints
+        like `updateContractEndDate`.
+
+        ### Use this endpoint to:
+
+        - Understand what changes were made to a contract, when, and by who
+
+        ### Key response fields:
+
+        - An array of every edit ever made to the contract
+        - Details on each individual edit - for example showing that in one edit, a user
+          added two discounts and incremented a subscription quantity.
 
         Args:
           extra_headers: Send extra headers
@@ -541,10 +646,24 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractRetrieveResponse:
-        """Get a specific contract.
+        """
+        Gets the details for a specific contract, including contract term, rate card
+        information, credits and commits, and more.
 
-        New clients should use this endpoint rather than the v1
-        endpoint.
+        ### Use this endpoint to:
+
+        - Check the duration of a customer's current contract
+        - Get details on contract terms, including access schedule amounts for
+          commitments and credits
+        - Understand the state of a contract at a past time. As you can evolve the terms
+          of a contract over time through editing, use the `as_of_date` parameter to
+          view the full contract configuration as of that point in time.
+
+        ### Usage guidelines:
+
+        - Optionally, use the `include_balance` and `include_ledger` fields to include
+          balances and ledgers in the credit and commit responses. Using these fields
+          will cause the query to be slower.
 
         Args:
           as_of_date: Optional RFC 3339 timestamp. Return the contract as of this date. Cannot be used
@@ -598,10 +717,22 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractListResponse:
-        """List all contracts for a customer in chronological order.
+        """
+        For a given customer, lists all of their contracts in chronological order.
 
-        New clients should use
-        this endpoint rather than the v1 endpoint.
+        ### Use this endpoint to:
+
+        - Check if a customer is provisioned with any contract, and at which tier
+        - Check the duration and terms of a customer's current contract
+        - Power a page in your end customer experience that shows the customer's history
+          of tiers (e.g. this customer started out on the Pro Plan, then downgraded to
+          the Starter plan).
+
+        ### Usage guidelines:
+
+        Use the `starting_at`, `covering_date`, and `include_archived` parameters to
+        filter the list of returned contracts. For example, to list only currently
+        active contracts, pass `covering_date` equal to the current time.
 
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
@@ -654,20 +785,20 @@ class AsyncContractsResource(AsyncAPIResource):
         add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
         add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
-        add_prepaid_balance_threshold_configuration: contract_edit_params.AddPrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
+        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
         add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
-        add_spend_threshold_configuration: contract_edit_params.AddSpendThresholdConfiguration | NotGiven = NOT_GIVEN,
+        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
         allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
+        uniqueness_key: str | NotGiven = NOT_GIVEN,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
         update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -687,9 +818,29 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditResponse:
-        """Edit a contract.
+        """
+        The ability to edit a contract helps you react quickly to the needs of your
+        customers and your business.
 
-        Contract editing must be enabled to use this endpoint.
+        ### Use this endpoint to:
+
+        - Encode mid-term commitment and discount changes
+        - Fix configuration mistakes and easily roll back packaging changes
+
+        ### Key response fields:
+
+        - The `id` of the edit
+        - Complete edit details. For example, if you edited the contract to add new
+          overrides and credits, you will receive the IDs of those overrides and credits
+          in the response.
+
+        ### Usage guidelines:
+
+        - When you edit a contract, any draft invoices update immediately to reflect
+          that edit. Finalized invoices remain unchanged - you must void and regenerate
+          them in the UI or API to reflect the edit.
+        - Contract editing must be enabled to use this endpoint. Reach out to your
+          Metronome representative to learn more.
 
         Args:
           contract_id: ID of the contract being edited
@@ -714,6 +865,8 @@ class AsyncContractsResource(AsyncAPIResource):
           archive_scheduled_charges: IDs of scheduled charges to archive
 
           remove_overrides: IDs of overrides to remove
+
+          uniqueness_key: Optional uniqueness key to prevent duplicate contract edits.
 
           update_contract_end_date: RFC 3339 timestamp indicating when the contract will end (exclusive).
 
@@ -761,6 +914,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
                     "remove_overrides": remove_overrides,
+                    "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
@@ -786,13 +940,14 @@ class AsyncContractsResource(AsyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         invoice_contract_id: str | NotGiven = NOT_GIVEN,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[contract_edit_commit_params.Specifier]] | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -800,10 +955,24 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditCommitResponse:
-        """Edit a customer or contract commit.
+        """Edit specific details for a contract-level or customer-level commit.
 
-        Contract commits can only be edited using
-        this endpoint if contract editing is enabled.
+        Use this
+        endpoint to modify individual commit access schedules, invoice schedules,
+        applicable products, invoicing contracts, or other fields.
+
+        ### Usage guidelines:
+
+        - As with all edits in Metronome, draft invoices will reflect the edit
+          immediately, while finalized invoices are untouched unless voided and
+          regenerated.
+        - If a commit's invoice schedule item is associated with a finalized invoice,
+          you cannot remove or update the invoice schedule item.
+        - If a commit's invoice schedule item is associated with a voided invoice, you
+          cannot remove the invoice schedule item.
+        - You cannot remove an commit access schedule segment that was applied to a
+          finalized invoice. You can void the invoice beforehand and then remove the
+          access schedule segment.
 
         Args:
           commit_id: ID of the commit to edit
@@ -822,6 +991,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
+
+          rate_type: If provided, updates the commit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
 
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
@@ -851,6 +1024,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_commit_params.ContractEditCommitParams,
@@ -867,11 +1041,12 @@ class AsyncContractsResource(AsyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         priority: Optional[float] | NotGiven = NOT_GIVEN,
         product_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[contract_edit_credit_params.Specifier]] | NotGiven = NOT_GIVEN,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -879,10 +1054,23 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractEditCreditResponse:
-        """Edit a customer or contract credit.
+        """
+        Edit details for a contract-level or customer-level credit.
 
-        Contract credits can only be edited using
-        this endpoint if contract editing is enabled.
+        ### Use this endpoint to:
+
+        - Extend the duration or the amount of an existing free credit like a trial
+        - Modify individual credit access schedules, applicable products, priority, or
+          other fields.
+
+        ### Usage guidelines:
+
+        - As with all edits in Metronome, draft invoices will reflect the edit
+          immediately, while finalized invoices are untouched unless voided and
+          regenerated.
+        - You cannot remove an access schedule segment that was applied to a finalized
+          invoice. You can void the invoice beforehand and then remove the access
+          schedule segment.
 
         Args:
           credit_id: ID of the credit to edit
@@ -897,6 +1085,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
+
+          rate_type: If provided, updates the credit to use the specified rate type for current and
+              future invoices. Previously finalized invoices will need to be voided and
+              regenerated to reflect the rate type change.
 
           specifiers: List of filters that determine what kind of customer usage draws down a commit
               or credit. A customer's usage needs to meet the condition of at least one of the
@@ -924,6 +1116,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "applicable_product_tags": applicable_product_tags,
                     "priority": priority,
                     "product_id": product_id,
+                    "rate_type": rate_type,
                     "specifiers": specifiers,
                 },
                 contract_edit_credit_params.ContractEditCreditParams,
@@ -946,10 +1139,23 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ContractGetEditHistoryResponse:
-        """Get the edit history of a specific contract.
+        """List all the edits made to a contract over time.
 
-        Contract editing must be enabled to
-        use this endpoint.
+        In Metronome, you can edit a
+        contract at any point after it's created to fix mistakes or reflect changes in
+        terms. Metronome stores a full history of all edits that were ever made to a
+        contract, whether through the UI, `editContract` endpoint, or other endpoints
+        like `updateContractEndDate`.
+
+        ### Use this endpoint to:
+
+        - Understand what changes were made to a contract, when, and by who
+
+        ### Key response fields:
+
+        - An array of every edit ever made to the contract
+        - Details on each individual edit - for example showing that in one edit, a user
+          added two discounts and incremented a subscription quantity.
 
         Args:
           extra_headers: Send extra headers

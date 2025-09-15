@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List
 from typing_extensions import Required, TypedDict
+
+from ....._types import SequenceNotStr
 
 __all__ = ["ProductOrderSetParams"]
 
 
 class ProductOrderSetParams(TypedDict, total=False):
-    product_order: Required[List[str]]
+    product_order: Required[SequenceNotStr[str]]
 
     rate_card_id: Required[str]
     """ID of the rate card to update"""

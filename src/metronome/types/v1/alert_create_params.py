@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupValue"]
 
@@ -45,7 +47,7 @@ class AlertCreateParams(TypedDict, total=False):
     track the usage for.
     """
 
-    credit_grant_type_filters: List[str]
+    credit_grant_type_filters: SequenceNotStr[str]
     """
     An array of strings, representing a way to filter the credit grant this alert
     applies to, by looking at the credit_grant_type field on the credit grant. This
@@ -84,7 +86,7 @@ class AlertCreateParams(TypedDict, total=False):
     Scope alert to a specific group key on individual line items.
     """
 
-    invoice_types_filter: List[str]
+    invoice_types_filter: SequenceNotStr[str]
     """Only supported for invoice_total_reached alerts.
 
     A list of invoice types to evaluate.
@@ -115,4 +117,4 @@ class CustomFieldFilter(TypedDict, total=False):
 class GroupValue(TypedDict, total=False):
     key: Required[str]
 
-    value: Required[str]
+    value: str
