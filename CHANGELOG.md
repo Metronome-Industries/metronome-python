@@ -1,5 +1,41 @@
 # Changelog
 
+## 1.0.0 (2025-09-15)
+
+Full Changelog: [v0.3.0...v1.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.3.0...v1.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add pagination support to multiple endpoints - Added pagination to CustomerList, AlertList, InvoiceList, CommitList, CreditList, CreditGrantList, CustomerAlerts, UsageList, CustomFields list, and ContractListBalances endpoints.
+* **api:** enhance subscriptions and commits/credits - Added Individual enum to SubscriptionConfig and rate_type enums to UpdateCredit/UpdateCommit.
+* **api:** add comprehensive shared types to SDK - Added 34 new shared types including BaseThresholdCommit, BaseUsageFilter, Commit, CommitHierarchyConfiguration, CommitRate, CommitSpecifier, CommitSpecifierInput, Contract, ContractV2, ContractWithoutAmendments, Credit, CreditTypeData, Discount, EventTypeFilter, HierarchyConfiguration, ID, Override, OverrideTier, OverwriteRate, PaymentGateConfig, PaymentGateConfigV2, PrepaidBalanceThresholdConfiguration, PrepaidBalanceThresholdConfigurationV2, PropertyFilter, ProService, Rate, RecurringCommitSubscriptionConfig, ScheduledCharge, ScheduleDuration, SchedulePointInTime, SpendThresholdConfiguration, SpendThresholdConfigurationV2, Subscription, Tier, and UpdateBaseThresholdCommit.
+
+### Features
+
+* **api:** add archived_at field to CustomerBillingConfiguration ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** add comprehensive shared types to SDK - Added 34 new shared types including BaseThresholdCommit, BaseUsageFilter, Commit, CommitHierarchyConfiguration, CommitRate, CommitSpecifier, CommitSpecifierInput, Contract, ContractV2, ContractWithoutAmendments, Credit, CreditTypeData, Discount, EventTypeFilter, HierarchyConfiguration, ID, Override, OverrideTier, OverwriteRate, PaymentGateConfig, PaymentGateConfigV2, PrepaidBalanceThresholdConfiguration, PrepaidBalanceThresholdConfigurationV2, PropertyFilter, ProService, Rate, RecurringCommitSubscriptionConfig, ScheduledCharge, ScheduleDuration, SchedulePointInTime, SpendThresholdConfiguration, SpendThresholdConfigurationV2, Subscription, Tier, and UpdateBaseThresholdCommit. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** add created_at field to Commit ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** add customer billing configuration endpoints - Added set and retrieve endpoints for customer billing configurations. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** add pagination support to multiple endpoints - Added pagination to CustomerList, AlertList, InvoiceList, CommitList, CreditList, CreditGrantList, CustomerAlerts, UsageList, CustomFields list, and ContractListBalances endpoints. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** Add support for granular spend threshold alerts with group key filters. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+* **api:** enhance subscriptions and commits/credits - Added Individual enum to SubscriptionConfig and rate_type enums to UpdateCredit/UpdateCommit. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+
+
+### Chores
+
+* revert changelog changes ([fb55732](https://github.com/Metronome-Industries/metronome-python/commit/fb55732fdf57c9cf900100a8457d4edb0f2661da))
+* revert version bump ([89ff28c](https://github.com/Metronome-Industries/metronome-python/commit/89ff28cc4e5ef3f5daa29ef3a92aeca7f2f5d9f9))
+
+
+### Documentation
+
+* enhance API documentation - Added more detailed descriptions and styling improvements, and enhanced usage filter documentation with additional context. ([7f5fbab](https://github.com/Metronome-Industries/metronome-python/commit/7f5fbab6c8e949c7904ae27665a8e6c35153016b))
+
 ## 0.3.0 (2025-08-15)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.2.0...v0.3.0)
