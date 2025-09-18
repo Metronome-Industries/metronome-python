@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -63,25 +63,25 @@ class ProductsResource(SyncAPIResource):
         *,
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        exclude_free_usage: bool | NotGiven = NOT_GIVEN,
-        is_refundable: bool | NotGiven = NOT_GIVEN,
-        netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
-        netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        composite_product_ids: SequenceNotStr[str] | Omit = omit,
+        composite_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        exclude_free_usage: bool | Omit = omit,
+        is_refundable: bool | Omit = omit,
+        netsuite_internal_item_id: str | Omit = omit,
+        netsuite_overage_item_id: str | Omit = omit,
+        presentation_group_key: SequenceNotStr[str] | Omit = omit,
+        pricing_group_key: SequenceNotStr[str] | Omit = omit,
+        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """Create a new product object.
 
@@ -179,7 +179,7 @@ class ProductsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
         """
         Retrieve a product by its ID, including all metadata and historical changes.
@@ -207,25 +207,25 @@ class ProductsResource(SyncAPIResource):
         *,
         product_id: str,
         starting_at: Union[str, datetime],
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        exclude_free_usage: bool | NotGiven = NOT_GIVEN,
-        is_refundable: bool | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
-        netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        composite_product_ids: SequenceNotStr[str] | Omit = omit,
+        composite_tags: SequenceNotStr[str] | Omit = omit,
+        exclude_free_usage: bool | Omit = omit,
+        is_refundable: bool | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_internal_item_id: str | Omit = omit,
+        netsuite_overage_item_id: str | Omit = omit,
+        presentation_group_key: SequenceNotStr[str] | Omit = omit,
+        pricing_group_key: SequenceNotStr[str] | Omit = omit,
+        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductUpdateResponse:
         """
         Updates a product's configuration while maintaining billing continuity for
@@ -333,15 +333,15 @@ class ProductsResource(SyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ProductListResponse]:
         """
         Get a paginated list of all products in your organization with their complete
@@ -393,7 +393,7 @@ class ProductsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductArchiveResponse:
         """Archive a product.
 
@@ -448,25 +448,25 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         name: str,
         type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        exclude_free_usage: bool | NotGiven = NOT_GIVEN,
-        is_refundable: bool | NotGiven = NOT_GIVEN,
-        netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
-        netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        composite_product_ids: SequenceNotStr[str] | Omit = omit,
+        composite_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        exclude_free_usage: bool | Omit = omit,
+        is_refundable: bool | Omit = omit,
+        netsuite_internal_item_id: str | Omit = omit,
+        netsuite_overage_item_id: str | Omit = omit,
+        presentation_group_key: SequenceNotStr[str] | Omit = omit,
+        pricing_group_key: SequenceNotStr[str] | Omit = omit,
+        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """Create a new product object.
 
@@ -564,7 +564,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
         """
         Retrieve a product by its ID, including all metadata and historical changes.
@@ -592,25 +592,25 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         product_id: str,
         starting_at: Union[str, datetime],
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        composite_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        composite_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        exclude_free_usage: bool | NotGiven = NOT_GIVEN,
-        is_refundable: bool | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_internal_item_id: str | NotGiven = NOT_GIVEN,
-        netsuite_overage_item_id: str | NotGiven = NOT_GIVEN,
-        presentation_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        pricing_group_key: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        quantity_conversion: Optional[QuantityConversionParam] | NotGiven = NOT_GIVEN,
-        quantity_rounding: Optional[QuantityRoundingParam] | NotGiven = NOT_GIVEN,
-        tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        composite_product_ids: SequenceNotStr[str] | Omit = omit,
+        composite_tags: SequenceNotStr[str] | Omit = omit,
+        exclude_free_usage: bool | Omit = omit,
+        is_refundable: bool | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_internal_item_id: str | Omit = omit,
+        netsuite_overage_item_id: str | Omit = omit,
+        presentation_group_key: SequenceNotStr[str] | Omit = omit,
+        pricing_group_key: SequenceNotStr[str] | Omit = omit,
+        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductUpdateResponse:
         """
         Updates a product's configuration while maintaining billing continuity for
@@ -718,15 +718,15 @@ class AsyncProductsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProductListResponse, AsyncCursorPage[ProductListResponse]]:
         """
         Get a paginated list of all products in your organization with their complete
@@ -778,7 +778,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductArchiveResponse:
         """Archive a product.
 

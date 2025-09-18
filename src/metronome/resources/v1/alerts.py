@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import alert_create_params, alert_archive_params
@@ -66,22 +66,22 @@ class AlertsResource(SyncAPIResource):
         ],
         name: str,
         threshold: float,
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
-        customer_id: str | NotGiven = NOT_GIVEN,
-        evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        plan_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+        credit_type_id: str | Omit = omit,
+        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+        customer_id: str | Omit = omit,
+        evaluate_on_create: bool | Omit = omit,
+        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertCreateResponse:
         """
         Create a new alert to monitor customer spending, balances, and billing metrics
@@ -210,13 +210,13 @@ class AlertsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
+        release_uniqueness_key: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertArchiveResponse:
         """
         Permanently disable an alert and remove it from active monitoring across all
@@ -317,22 +317,22 @@ class AsyncAlertsResource(AsyncAPIResource):
         ],
         name: str,
         threshold: float,
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
-        customer_id: str | NotGiven = NOT_GIVEN,
-        evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        plan_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+        credit_type_id: str | Omit = omit,
+        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+        customer_id: str | Omit = omit,
+        evaluate_on_create: bool | Omit = omit,
+        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertCreateResponse:
         """
         Create a new alert to monitor customer spending, balances, and billing metrics
@@ -461,13 +461,13 @@ class AsyncAlertsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
+        release_uniqueness_key: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertArchiveResponse:
         """
         Permanently disable an alert and remove it from active monitoring across all

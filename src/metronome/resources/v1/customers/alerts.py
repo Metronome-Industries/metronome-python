@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -51,14 +51,14 @@ class AlertsResource(SyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
-        group_values: Iterable[alert_retrieve_params.GroupValue] | NotGiven = NOT_GIVEN,
-        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertRetrieveResponse:
         """
         Retrieve the real-time evaluation status for a specific alert-customer pair.
@@ -145,14 +145,14 @@ class AlertsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        next_page: str | NotGiven = NOT_GIVEN,
-        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | NotGiven = NOT_GIVEN,
+        next_page: str | Omit = omit,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPageWithoutLimit[CustomerAlert]:
         """
         Retrieve all alert configurations and their current statuses for a specific
@@ -228,7 +228,7 @@ class AlertsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Force an immediate re-evaluation of a specific alert for a customer, clearing
@@ -315,14 +315,14 @@ class AsyncAlertsResource(AsyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
-        group_values: Iterable[alert_retrieve_params.GroupValue] | NotGiven = NOT_GIVEN,
-        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | NotGiven = NOT_GIVEN,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertRetrieveResponse:
         """
         Retrieve the real-time evaluation status for a specific alert-customer pair.
@@ -409,14 +409,14 @@ class AsyncAlertsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        next_page: str | NotGiven = NOT_GIVEN,
-        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | NotGiven = NOT_GIVEN,
+        next_page: str | Omit = omit,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CustomerAlert, AsyncCursorPageWithoutLimit[CustomerAlert]]:
         """
         Retrieve all alert configurations and their current statuses for a specific
@@ -492,7 +492,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Force an immediate re-evaluation of a specific alert for a customer, clearing

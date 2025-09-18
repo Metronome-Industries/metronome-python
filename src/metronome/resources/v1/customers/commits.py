@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -57,25 +57,25 @@ class CommitsResource(SyncAPIResource):
         priority: float,
         product_id: str,
         type: Literal["PREPAID", "POSTPAID"],
-        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        invoice_contract_id: str | NotGiven = NOT_GIVEN,
-        invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitCreateResponse:
         """
         Creates customer-level commits that establish spending commitments for customers
@@ -234,22 +234,22 @@ class CommitsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        commit_id: str | NotGiven = NOT_GIVEN,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_commits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        commit_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncBodyCursorPage[Commit]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
@@ -356,14 +356,14 @@ class CommitsResource(SyncAPIResource):
         *,
         commit_id: str,
         customer_id: str,
-        access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        access_ending_before: Union[str, datetime] | Omit = omit,
+        invoices_ending_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitUpdateEndDateResponse:
         """
         Shortens the end date of a prepaid commit to terminate it earlier than
@@ -442,25 +442,25 @@ class AsyncCommitsResource(AsyncAPIResource):
         priority: float,
         product_id: str,
         type: Literal["PREPAID", "POSTPAID"],
-        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        invoice_contract_id: str | NotGiven = NOT_GIVEN,
-        invoice_schedule: commit_create_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitCreateResponse:
         """
         Creates customer-level commits that establish spending commitments for customers
@@ -619,22 +619,22 @@ class AsyncCommitsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        commit_id: str | NotGiven = NOT_GIVEN,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_commits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        commit_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Commit, AsyncBodyCursorPage[Commit]]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
@@ -741,14 +741,14 @@ class AsyncCommitsResource(AsyncAPIResource):
         *,
         commit_id: str,
         customer_id: str,
-        access_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        invoices_ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        access_ending_before: Union[str, datetime] | Omit = omit,
+        invoices_ending_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitUpdateEndDateResponse:
         """
         Shortens the end date of a prepaid commit to terminate it earlier than

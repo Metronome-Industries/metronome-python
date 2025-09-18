@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -56,23 +56,23 @@ class CreditsResource(SyncAPIResource):
         customer_id: str,
         priority: float,
         product_id: str,
-        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditCreateResponse:
         """
         Creates customer-level credits that provide spending allowances or free credit
@@ -200,22 +200,22 @@ class CreditsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        credit_id: str | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_credits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
+        credit_id: str | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_credits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncBodyCursorPage[Credit]:
         """
         Retrieve a detailed list of all credits available to a customer, including
@@ -329,7 +329,7 @@ class CreditsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditUpdateEndDateResponse:
         """
         Shortens the end date of an existing customer credit to terminate it earlier
@@ -399,23 +399,23 @@ class AsyncCreditsResource(AsyncAPIResource):
         customer_id: str,
         priority: float,
         product_id: str,
-        applicable_contract_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
-        netsuite_sales_order_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | NotGiven = NOT_GIVEN,
-        salesforce_opportunity_id: str | NotGiven = NOT_GIVEN,
-        specifiers: Iterable[CommitSpecifierInput] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditCreateResponse:
         """
         Creates customer-level credits that provide spending allowances or free credit
@@ -543,22 +543,22 @@ class AsyncCreditsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        credit_id: str | NotGiven = NOT_GIVEN,
-        effective_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_contract_credits: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
+        credit_id: str | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_credits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Credit, AsyncBodyCursorPage[Credit]]:
         """
         Retrieve a detailed list of all credits available to a customer, including
@@ -672,7 +672,7 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditUpdateEndDateResponse:
         """
         Shortens the end date of an existing customer credit to terminate it earlier
