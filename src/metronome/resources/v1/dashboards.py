@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import dashboard_get_embeddable_url_params
@@ -49,15 +49,15 @@ class DashboardsResource(SyncAPIResource):
         *,
         customer_id: str,
         dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
-        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | NotGiven = NOT_GIVEN,
-        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | NotGiven = NOT_GIVEN,
-        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | NotGiven = NOT_GIVEN,
+        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
+        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
+        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DashboardGetEmbeddableURLResponse:
         """
         Generate secure, embeddable dashboard URLs that allow you to seamlessly
@@ -151,15 +151,15 @@ class AsyncDashboardsResource(AsyncAPIResource):
         *,
         customer_id: str,
         dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
-        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | NotGiven = NOT_GIVEN,
-        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | NotGiven = NOT_GIVEN,
-        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | NotGiven = NOT_GIVEN,
+        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
+        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
+        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DashboardGetEmbeddableURLResponse:
         """
         Generate secure, embeddable dashboard URLs that allow you to seamlessly

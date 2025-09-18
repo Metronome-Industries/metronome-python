@@ -15,7 +15,7 @@ from .rates import (
     RatesResourceWithStreamingResponse,
     AsyncRatesResourceWithStreamingResponse,
 )
-from ....._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ....._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ....._utils import maybe_transform, async_maybe_transform
 from ....._compat import cached_property
 from ....._resource import SyncAPIResource, AsyncAPIResource
@@ -97,17 +97,17 @@ class RateCardsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
-        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
+        aliases: Iterable[rate_card_create_params.Alias] | Omit = omit,
+        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        fiat_credit_type_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardCreateResponse:
         """In Metronome, the rate card is the central location for your pricing.
 
@@ -195,7 +195,7 @@ class RateCardsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardRetrieveResponse:
         """Return details for a specific rate card including name, description, and
         aliases.
@@ -225,15 +225,15 @@ class RateCardsResource(SyncAPIResource):
         self,
         *,
         rate_card_id: str,
-        aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
+        aliases: Iterable[rate_card_update_params.Alias] | Omit = omit,
+        description: str | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardUpdateResponse:
         """
         Update the metadata properties of an existing rate card, including its name,
@@ -326,15 +326,15 @@ class RateCardsResource(SyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        body: object | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        body: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[RateCardListResponse]:
         """List all rate cards.
 
@@ -385,7 +385,7 @@ class RateCardsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardArchiveResponse:
         """
         Permanently disable a rate card by archiving it, preventing use in new contracts
@@ -417,16 +417,16 @@ class RateCardsResource(SyncAPIResource):
         *,
         rate_card_id: str,
         starting_at: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardRetrieveRateScheduleResponse:
         """A rate card defines the prices that you charge for your products.
 
@@ -530,17 +530,17 @@ class AsyncRateCardsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        aliases: Iterable[rate_card_create_params.Alias] | NotGiven = NOT_GIVEN,
-        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        fiat_credit_type_id: str | NotGiven = NOT_GIVEN,
+        aliases: Iterable[rate_card_create_params.Alias] | Omit = omit,
+        credit_type_conversions: Iterable[rate_card_create_params.CreditTypeConversion] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        fiat_credit_type_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardCreateResponse:
         """In Metronome, the rate card is the central location for your pricing.
 
@@ -628,7 +628,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardRetrieveResponse:
         """Return details for a specific rate card including name, description, and
         aliases.
@@ -658,15 +658,15 @@ class AsyncRateCardsResource(AsyncAPIResource):
         self,
         *,
         rate_card_id: str,
-        aliases: Iterable[rate_card_update_params.Alias] | NotGiven = NOT_GIVEN,
-        description: str | NotGiven = NOT_GIVEN,
-        name: str | NotGiven = NOT_GIVEN,
+        aliases: Iterable[rate_card_update_params.Alias] | Omit = omit,
+        description: str | Omit = omit,
+        name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardUpdateResponse:
         """
         Update the metadata properties of an existing rate card, including its name,
@@ -759,15 +759,15 @@ class AsyncRateCardsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        body: object | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        body: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[RateCardListResponse, AsyncCursorPage[RateCardListResponse]]:
         """List all rate cards.
 
@@ -818,7 +818,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardArchiveResponse:
         """
         Permanently disable a rate card by archiving it, preventing use in new contracts
@@ -850,16 +850,16 @@ class AsyncRateCardsResource(AsyncAPIResource):
         *,
         rate_card_id: str,
         starting_at: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        selectors: Iterable[rate_card_retrieve_rate_schedule_params.Selector] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardRetrieveRateScheduleResponse:
         """A rate card defines the prices that you charge for your products.
 

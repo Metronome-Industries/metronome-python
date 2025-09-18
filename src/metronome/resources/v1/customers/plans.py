@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -57,14 +57,14 @@ class PlansResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
         """
         List the given customer's plans in reverse-chronological order.
@@ -109,17 +109,17 @@ class PlansResource(SyncAPIResource):
         customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
-        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
-        trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
+        net_payment_terms_days: float | Omit = omit,
+        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | Omit = omit,
+        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | Omit = omit,
+        trial_spec: plan_add_params.TrialSpec | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanAddResponse:
         """Associate an existing customer with a plan for a specified date range.
 
@@ -184,15 +184,15 @@ class PlansResource(SyncAPIResource):
         *,
         customer_id: str,
         customer_plan_id: str,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        void_invoices: bool | NotGiven = NOT_GIVEN,
-        void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
+        void_invoices: bool | Omit = omit,
+        void_stripe_invoices: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanEndResponse:
         """
         Change the end date of a customer's plan.
@@ -241,14 +241,14 @@ class PlansResource(SyncAPIResource):
         *,
         customer_id: str,
         customer_plan_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListPriceAdjustmentsResponse]:
         """Lists a customer plans adjustments.
 
@@ -317,14 +317,14 @@ class AsyncPlansResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
         """
         List the given customer's plans in reverse-chronological order.
@@ -369,17 +369,17 @@ class AsyncPlansResource(AsyncAPIResource):
         customer_id: str,
         plan_id: str,
         starting_on: Union[str, datetime],
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        net_payment_terms_days: float | NotGiven = NOT_GIVEN,
-        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | NotGiven = NOT_GIVEN,
-        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | NotGiven = NOT_GIVEN,
-        trial_spec: plan_add_params.TrialSpec | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
+        net_payment_terms_days: float | Omit = omit,
+        overage_rate_adjustments: Iterable[plan_add_params.OverageRateAdjustment] | Omit = omit,
+        price_adjustments: Iterable[plan_add_params.PriceAdjustment] | Omit = omit,
+        trial_spec: plan_add_params.TrialSpec | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanAddResponse:
         """Associate an existing customer with a plan for a specified date range.
 
@@ -444,15 +444,15 @@ class AsyncPlansResource(AsyncAPIResource):
         *,
         customer_id: str,
         customer_plan_id: str,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        void_invoices: bool | NotGiven = NOT_GIVEN,
-        void_stripe_invoices: bool | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
+        void_invoices: bool | Omit = omit,
+        void_stripe_invoices: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanEndResponse:
         """
         Change the end date of a customer's plan.
@@ -501,14 +501,14 @@ class AsyncPlansResource(AsyncAPIResource):
         *,
         customer_id: str,
         customer_plan_id: str,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListPriceAdjustmentsResponse, AsyncCursorPage[PlanListPriceAdjustmentsResponse]]:
         """Lists a customer plans adjustments.
 

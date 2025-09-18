@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -59,13 +59,13 @@ class InvoicesResource(SyncAPIResource):
         *,
         customer_id: str,
         invoice_id: str,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
         Retrieve detailed information for a specific invoice by its unique identifier.
@@ -143,20 +143,20 @@ class InvoicesResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        status: str | NotGiven = NOT_GIVEN,
+        credit_type_id: str | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
+        status: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[Invoice]:
         """
         Retrieves a paginated list of invoices for a specific customer, with flexible
@@ -276,7 +276,7 @@ class InvoicesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceAddChargeResponse:
         """
         Add a one time charge to the specified invoice
@@ -328,19 +328,19 @@ class InvoicesResource(SyncAPIResource):
         customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-        status: str | NotGiven = NOT_GIVEN,
-        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        credit_type_id: str | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        status: str | Omit = omit,
+        window_size: Literal["HOUR", "DAY"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[InvoiceListBreakdownsResponse]:
         """
         Retrieve granular time-series breakdowns of invoice data at hourly or daily
@@ -469,13 +469,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         *,
         customer_id: str,
         invoice_id: str,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        skip_zero_qty_line_items: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
         Retrieve detailed information for a specific invoice by its unique identifier.
@@ -553,20 +553,20 @@ class AsyncInvoicesResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        status: str | NotGiven = NOT_GIVEN,
+        credit_type_id: str | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
+        status: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Invoice, AsyncCursorPage[Invoice]]:
         """
         Retrieves a paginated list of invoices for a specific customer, with flexible
@@ -686,7 +686,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceAddChargeResponse:
         """
         Add a one time charge to the specified invoice
@@ -738,19 +738,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
         customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
-        sort: Literal["date_asc", "date_desc"] | NotGiven = NOT_GIVEN,
-        status: str | NotGiven = NOT_GIVEN,
-        window_size: Literal["HOUR", "DAY"] | NotGiven = NOT_GIVEN,
+        credit_type_id: str | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        status: str | Omit = omit,
+        window_size: Literal["HOUR", "DAY"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[InvoiceListBreakdownsResponse, AsyncCursorPage[InvoiceListBreakdownsResponse]]:
         """
         Retrieve granular time-series breakdowns of invoice data at hourly or daily
