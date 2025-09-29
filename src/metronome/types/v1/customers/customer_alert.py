@@ -32,16 +32,16 @@ class AlertGroupValue(BaseModel):
 
 class Alert(BaseModel):
     id: str
-    """the Metronome ID of the alert"""
+    """the Metronome ID of the threshold notification"""
 
     name: str
-    """Name of the alert"""
+    """Name of the threshold notification"""
 
     status: Literal["enabled", "archived", "disabled"]
-    """Status of the alert"""
+    """Status of the threshold notification"""
 
     threshold: float
-    """Threshold value of the alert policy"""
+    """Threshold value of the notification policy"""
 
     type: Literal[
         "low_credit_balance_reached",
@@ -59,37 +59,41 @@ class Alert(BaseModel):
         "low_remaining_contract_credit_and_commit_balance_reached",
         "invoice_total_reached",
     ]
-    """Type of the alert"""
+    """Type of the threshold notification"""
 
     updated_at: datetime
-    """Timestamp for when the alert was last updated"""
+    """Timestamp for when the threshold notification was last updated"""
 
     credit_grant_type_filters: Optional[List[str]] = None
     """
-    An array of strings, representing a way to filter the credit grant this alert
-    applies to, by looking at the credit_grant_type field on the credit grant. This
-    field is only defined for CreditPercentage and CreditBalance alerts
+    An array of strings, representing a way to filter the credit grant this
+    threshold notification applies to, by looking at the credit_grant_type field on
+    the credit grant. This field is only defined for CreditPercentage and
+    CreditBalance notifications
     """
 
     credit_type: Optional[CreditTypeData] = None
 
     custom_field_filters: Optional[List[AlertCustomFieldFilter]] = None
-    """A list of custom field filters for alert types that support advanced filtering"""
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
 
     group_key_filter: Optional[AlertGroupKeyFilter] = None
     """
-    Scopes alert evaluation to a specific presentation group key on individual line
-    items. Only present for spend alerts.
+    Scopes threshold notification evaluation to a specific presentation group key on
+    individual line items. Only present for spend notifications.
     """
 
     group_values: Optional[List[AlertGroupValue]] = None
-    """Only present for `spend_threshold_reached` alerts.
+    """Only present for `spend_threshold_reached` notifications.
 
-    Scope alert to a specific group key on individual line items.
+    Scope notification to a specific group key on individual line items.
     """
 
     invoice_types_filter: Optional[List[str]] = None
-    """Only supported for invoice_total_reached alerts.
+    """Only supported for invoice_total_reached threshold notifications.
 
     A list of invoice types to evaluate.
     """
@@ -106,10 +110,10 @@ class CustomerAlert(BaseModel):
     alert: Alert
 
     customer_status: Optional[Literal["ok", "in_alarm", "evaluating"]] = None
-    """The status of the customer alert.
+    """The status of the threshold notification.
 
-    If the alert is archived, null will be returned.
+    If the notification is archived, null will be returned.
     """
 
     triggered_by: Optional[str] = None
-    """If present, indicates the reason the alert was triggered."""
+    """If present, indicates the reason the threshold notification was triggered."""

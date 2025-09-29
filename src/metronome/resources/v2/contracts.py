@@ -34,6 +34,7 @@ from ...types.v2.contract_edit_commit_response import ContractEditCommitResponse
 from ...types.v2.contract_edit_credit_response import ContractEditCreditResponse
 from ...types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ...types.v2.contract_get_edit_history_response import ContractGetEditHistoryResponse
+from ...types.shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 from ...types.shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
 from ...types.shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
@@ -210,6 +211,8 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        add_billing_provider_configuration_update: contract_edit_params.AddBillingProviderConfigurationUpdate
+        | Omit = omit,
         add_commits: Iterable[contract_edit_params.AddCommit] | Omit = omit,
         add_credits: Iterable[contract_edit_params.AddCredit] | Omit = omit,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | Omit = omit,
@@ -275,6 +278,10 @@ class ContractsResource(SyncAPIResource):
 
           customer_id: ID of the customer whose contract is being edited
 
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
+              supports adding a billing provider configuration to a contract that does not
+              already have one.
+
           add_professional_services: This field's availability is dependent on your client's configuration.
 
           add_subscriptions: Optional list of
@@ -325,6 +332,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "add_billing_provider_configuration_update": add_billing_provider_configuration_update,
                     "add_commits": add_commits,
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
@@ -370,6 +378,7 @@ class ContractsResource(SyncAPIResource):
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         invoice_contract_id: str | Omit = omit,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
         priority: Optional[float] | Omit = omit,
@@ -415,6 +424,8 @@ class ContractsResource(SyncAPIResource):
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
 
+          hierarchy_configuration: Optional configuration for commit hierarchy access control
+
           invoice_contract_id: ID of contract to use for invoicing
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
@@ -448,6 +459,7 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
@@ -471,6 +483,7 @@ class ContractsResource(SyncAPIResource):
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -511,6 +524,8 @@ class ContractsResource(SyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          hierarchy_configuration: Optional configuration for credit hierarchy access control
+
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
@@ -542,6 +557,7 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -780,6 +796,8 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
+        add_billing_provider_configuration_update: contract_edit_params.AddBillingProviderConfigurationUpdate
+        | Omit = omit,
         add_commits: Iterable[contract_edit_params.AddCommit] | Omit = omit,
         add_credits: Iterable[contract_edit_params.AddCredit] | Omit = omit,
         add_discounts: Iterable[contract_edit_params.AddDiscount] | Omit = omit,
@@ -845,6 +863,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           customer_id: ID of the customer whose contract is being edited
 
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
+              supports adding a billing provider configuration to a contract that does not
+              already have one.
+
           add_professional_services: This field's availability is dependent on your client's configuration.
 
           add_subscriptions: Optional list of
@@ -895,6 +917,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "add_billing_provider_configuration_update": add_billing_provider_configuration_update,
                     "add_commits": add_commits,
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
@@ -940,6 +963,7 @@ class AsyncContractsResource(AsyncAPIResource):
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         invoice_contract_id: str | Omit = omit,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
         priority: Optional[float] | Omit = omit,
@@ -985,6 +1009,8 @@ class AsyncContractsResource(AsyncAPIResource):
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
 
+          hierarchy_configuration: Optional configuration for commit hierarchy access control
+
           invoice_contract_id: ID of contract to use for invoicing
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
@@ -1018,6 +1044,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
@@ -1041,6 +1068,7 @@ class AsyncContractsResource(AsyncAPIResource):
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -1081,6 +1109,8 @@ class AsyncContractsResource(AsyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          hierarchy_configuration: Optional configuration for credit hierarchy access control
+
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
 
@@ -1112,6 +1142,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,

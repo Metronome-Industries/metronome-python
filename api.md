@@ -526,3 +526,59 @@ Methods:
 
 - <code title="post /v1/contract-pricing/rate-cards/getNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/updateNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_update_params.py">params</a>) -> None</code>
+
+# Packages
+
+Types:
+
+```python
+from metronome.types import PackageCreateResponse
+```
+
+Methods:
+
+- <code title="post /v1/packages/create">client.packages.<a href="./src/metronome/resources/packages.py">create</a>(\*\*<a href="src/metronome/types/package_create_params.py">params</a>) -> <a href="./src/metronome/types/package_create_response.py">PackageCreateResponse</a></code>
+
+# Notifications
+
+Types:
+
+```python
+from metronome.types import (
+    NotificationCreateResponse,
+    NotificationRetrieveResponse,
+    NotificationUpdateResponse,
+    NotificationArchiveResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v2/notifications/create">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">create</a>(\*\*<a href="src/metronome/types/notification_create_params.py">params</a>) -> <a href="./src/metronome/types/notification_create_response.py">NotificationCreateResponse</a></code>
+- <code title="post /v2/notifications/get">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">retrieve</a>(\*\*<a href="src/metronome/types/notification_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/notification_retrieve_response.py">NotificationRetrieveResponse</a></code>
+- <code title="post /v2/notifications/edit">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">update</a>(\*\*<a href="src/metronome/types/notification_update_params.py">params</a>) -> <a href="./src/metronome/types/notification_update_response.py">NotificationUpdateResponse</a></code>
+- <code title="post /v2/notifications/archive">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">archive</a>(\*\*<a href="src/metronome/types/notification_archive_params.py">params</a>) -> <a href="./src/metronome/types/notification_archive_response.py">NotificationArchiveResponse</a></code>
+
+## Offset
+
+Types:
+
+```python
+from metronome.types.notifications import OffsetListResponse
+```
+
+Methods:
+
+- <code title="post /v2/notifications/offset/list">client.notifications.offset.<a href="./src/metronome/resources/notifications/offset.py">list</a>(\*\*<a href="src/metronome/types/notifications/offset_list_params.py">params</a>) -> <a href="./src/metronome/types/notifications/offset_list_response.py">OffsetListResponse</a></code>
+
+## System
+
+Types:
+
+```python
+from metronome.types.notifications import SystemListResponse
+```
+
+Methods:
+
+- <code title="post /v2/notifications/system/list">client.notifications.system.<a href="./src/metronome/resources/notifications/system.py">list</a>() -> <a href="./src/metronome/types/notifications/system_list_response.py">SystemListResponse</a></code>

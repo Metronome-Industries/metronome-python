@@ -9,7 +9,7 @@ __all__ = ["AlertResetParams"]
 
 class AlertResetParams(TypedDict, total=False):
     alert_id: Required[str]
-    """The Metronome ID of the alert"""
+    """The Metronome ID of the threshold notification"""
 
     customer_id: Required[str]
     """The Metronome ID of the customer"""

@@ -4,13 +4,14 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
+from .tier import Tier
 from .discount import Discount
 from ..._models import BaseModel
 from .pro_service import ProService
 from .subscription import Subscription
 from .override_tier import OverrideTier
-from .overwrite_rate import OverwriteRate
 from .commit_specifier import CommitSpecifier
+from .credit_type_data import CreditTypeData
 from .scheduled_charge import ScheduledCharge
 from .schedule_duration import ScheduleDuration
 from .schedule_point_in_time import SchedulePointInTime
@@ -44,6 +45,7 @@ __all__ = [
     "CommitRolledOverFrom",
     "Override",
     "OverrideOverrideSpecifier",
+    "OverrideOverwriteRate",
     "OverrideProduct",
     "Transition",
     "UsageFilter",
@@ -383,6 +385,37 @@ class OverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
+class OverrideOverwriteRate(BaseModel):
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
+
+    credit_type: Optional[CreditTypeData] = None
+
+    custom_rate: Optional[Dict[str, object]] = None
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """
+
+    is_prorated: Optional[bool] = None
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
+
+    price: Optional[float] = None
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    quantity: Optional[float] = None
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    tiers: Optional[List[Tier]] = None
+    """Only set for TIERED rate_type."""
+
+
 class OverrideProduct(BaseModel):
     id: str
 
@@ -408,7 +441,7 @@ class Override(BaseModel):
 
     override_tiers: Optional[List[OverrideTier]] = None
 
-    overwrite_rate: Optional[OverwriteRate] = None
+    overwrite_rate: Optional[OverrideOverwriteRate] = None
 
     priority: Optional[float] = None
 

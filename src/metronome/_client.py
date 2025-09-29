@@ -21,6 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
+from .resources import packages
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, MetronomeError
 from ._base_client import (
@@ -30,6 +31,7 @@ from ._base_client import (
 )
 from .resources.v1 import v1
 from .resources.v2 import v2
+from .resources.notifications import notifications
 
 __all__ = [
     "Timeout",
@@ -46,6 +48,8 @@ __all__ = [
 class Metronome(SyncAPIClient):
     v2: v2.V2Resource
     v1: v1.V1Resource
+    packages: packages.PackagesResource
+    notifications: notifications.NotificationsResource
     with_raw_response: MetronomeWithRawResponse
     with_streaming_response: MetronomeWithStreamedResponse
 
@@ -113,6 +117,8 @@ class Metronome(SyncAPIClient):
 
         self.v2 = v2.V2Resource(self)
         self.v1 = v1.V1Resource(self)
+        self.packages = packages.PackagesResource(self)
+        self.notifications = notifications.NotificationsResource(self)
         self.with_raw_response = MetronomeWithRawResponse(self)
         self.with_streaming_response = MetronomeWithStreamedResponse(self)
 
@@ -226,6 +232,8 @@ class Metronome(SyncAPIClient):
 class AsyncMetronome(AsyncAPIClient):
     v2: v2.AsyncV2Resource
     v1: v1.AsyncV1Resource
+    packages: packages.AsyncPackagesResource
+    notifications: notifications.AsyncNotificationsResource
     with_raw_response: AsyncMetronomeWithRawResponse
     with_streaming_response: AsyncMetronomeWithStreamedResponse
 
@@ -293,6 +301,8 @@ class AsyncMetronome(AsyncAPIClient):
 
         self.v2 = v2.AsyncV2Resource(self)
         self.v1 = v1.AsyncV1Resource(self)
+        self.packages = packages.AsyncPackagesResource(self)
+        self.notifications = notifications.AsyncNotificationsResource(self)
         self.with_raw_response = AsyncMetronomeWithRawResponse(self)
         self.with_streaming_response = AsyncMetronomeWithStreamedResponse(self)
 
@@ -407,24 +417,32 @@ class MetronomeWithRawResponse:
     def __init__(self, client: Metronome) -> None:
         self.v2 = v2.V2ResourceWithRawResponse(client.v2)
         self.v1 = v1.V1ResourceWithRawResponse(client.v1)
+        self.packages = packages.PackagesResourceWithRawResponse(client.packages)
+        self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
 
 
 class AsyncMetronomeWithRawResponse:
     def __init__(self, client: AsyncMetronome) -> None:
         self.v2 = v2.AsyncV2ResourceWithRawResponse(client.v2)
         self.v1 = v1.AsyncV1ResourceWithRawResponse(client.v1)
+        self.packages = packages.AsyncPackagesResourceWithRawResponse(client.packages)
+        self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
 
 
 class MetronomeWithStreamedResponse:
     def __init__(self, client: Metronome) -> None:
         self.v2 = v2.V2ResourceWithStreamingResponse(client.v2)
         self.v1 = v1.V1ResourceWithStreamingResponse(client.v1)
+        self.packages = packages.PackagesResourceWithStreamingResponse(client.packages)
+        self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
 
 
 class AsyncMetronomeWithStreamedResponse:
     def __init__(self, client: AsyncMetronome) -> None:
         self.v2 = v2.AsyncV2ResourceWithStreamingResponse(client.v2)
         self.v1 = v1.AsyncV1ResourceWithStreamingResponse(client.v1)
+        self.packages = packages.AsyncPackagesResourceWithStreamingResponse(client.packages)
+        self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
 
 
 Client = Metronome

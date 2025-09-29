@@ -46,6 +46,9 @@ class CustomerDetail(BaseModel):
 
     name: str
 
+    updated_at: datetime
+    """RFC 3339 timestamp indicating when the customer was last updated."""
+
     archived_at: Optional[datetime] = None
     """RFC 3339 timestamp indicating when the customer was archived.
 
