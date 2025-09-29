@@ -539,6 +539,18 @@ Methods:
 
 - <code title="post /v1/packages/create">client.packages.<a href="./src/metronome/resources/packages.py">create</a>(\*\*<a href="src/metronome/types/package_create_params.py">params</a>) -> <a href="./src/metronome/types/package_create_response.py">PackageCreateResponse</a></code>
 
+# Payments
+
+Types:
+
+```python
+from metronome.types import PaymentListResponse
+```
+
+Methods:
+
+- <code title="post /v1/payments/list">client.payments.<a href="./src/metronome/resources/payments.py">list</a>(\*\*<a href="src/metronome/types/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/payment_list_response.py">SyncBodyCursorPage[PaymentListResponse]</a></code>
+
 # Notifications
 
 Types:

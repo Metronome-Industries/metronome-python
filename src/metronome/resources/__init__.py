@@ -24,6 +24,14 @@ from .packages import (
     PackagesResourceWithStreamingResponse,
     AsyncPackagesResourceWithStreamingResponse,
 )
+from .payments import (
+    PaymentsResource,
+    AsyncPaymentsResource,
+    PaymentsResourceWithRawResponse,
+    AsyncPaymentsResourceWithRawResponse,
+    PaymentsResourceWithStreamingResponse,
+    AsyncPaymentsResourceWithStreamingResponse,
+)
 from .notifications import (
     NotificationsResource,
     AsyncNotificationsResource,
@@ -52,6 +60,12 @@ __all__ = [
     "AsyncPackagesResourceWithRawResponse",
     "PackagesResourceWithStreamingResponse",
     "AsyncPackagesResourceWithStreamingResponse",
+    "PaymentsResource",
+    "AsyncPaymentsResource",
+    "PaymentsResourceWithRawResponse",
+    "AsyncPaymentsResourceWithRawResponse",
+    "PaymentsResourceWithStreamingResponse",
+    "AsyncPaymentsResourceWithStreamingResponse",
     "NotificationsResource",
     "AsyncNotificationsResource",
     "NotificationsResourceWithRawResponse",
