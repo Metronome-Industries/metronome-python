@@ -50,7 +50,7 @@ class TestAlerts:
                     "value": "value",
                 }
             ],
-            invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
+            invoice_types_filter=["SCHEDULED or USAGE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
         )
@@ -162,7 +162,7 @@ class TestAsyncAlerts:
                     "value": "value",
                 }
             ],
-            invoice_types_filter=["PLAN_ARREARS, SCHEDULED, USAGE, CORRECTION, CREDIT_PURCHASE, or SEAT_PURCHASE"],
+            invoice_types_filter=["SCHEDULED or USAGE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             uniqueness_key="x",
         )

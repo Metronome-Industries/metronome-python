@@ -19,7 +19,9 @@ __all__ = [
     "LineItemTier",
     "CorrectionRecord",
     "CorrectionRecordCorrectedExternalInvoice",
+    "CorrectionRecordCorrectedExternalInvoiceTax",
     "ExternalInvoice",
+    "ExternalInvoiceTax",
     "InvoiceAdjustment",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
@@ -258,6 +260,17 @@ class LineItem(BaseModel):
     """The unit price associated with the line item."""
 
 
+class CorrectionRecordCorrectedExternalInvoiceTax(BaseModel):
+    total_tax_amount: Optional[float] = None
+    """The total tax amount applied to the invoice."""
+
+    total_taxable_amount: Optional[float] = None
+    """The total taxable amount of the invoice."""
+
+    transaction_id: Optional[str] = None
+    """The transaction ID associated with the tax calculation."""
+
+
 class CorrectionRecordCorrectedExternalInvoice(BaseModel):
     billing_provider_type: Literal[
         "aws_marketplace",
@@ -288,7 +301,19 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
 
     invoice_id: Optional[str] = None
 
+    invoiced_sub_total: Optional[float] = None
+    """The subtotal amount invoiced, if available from the billing provider."""
+
+    invoiced_total: Optional[float] = None
+    """The total amount invoiced, if available from the billing provider."""
+
     issued_at_timestamp: Optional[datetime] = None
+
+    pdf_url: Optional[str] = None
+    """A URL to the PDF of the invoice, if available from the billing provider."""
+
+    tax: Optional[CorrectionRecordCorrectedExternalInvoiceTax] = None
+    """Tax details for the invoice, if available from the billing provider."""
 
 
 class CorrectionRecord(BaseModel):
@@ -299,6 +324,17 @@ class CorrectionRecord(BaseModel):
     reason: str
 
     corrected_external_invoice: Optional[CorrectionRecordCorrectedExternalInvoice] = None
+
+
+class ExternalInvoiceTax(BaseModel):
+    total_tax_amount: Optional[float] = None
+    """The total tax amount applied to the invoice."""
+
+    total_taxable_amount: Optional[float] = None
+    """The total taxable amount of the invoice."""
+
+    transaction_id: Optional[str] = None
+    """The transaction ID associated with the tax calculation."""
 
 
 class ExternalInvoice(BaseModel):
@@ -331,7 +367,19 @@ class ExternalInvoice(BaseModel):
 
     invoice_id: Optional[str] = None
 
+    invoiced_sub_total: Optional[float] = None
+    """The subtotal amount invoiced, if available from the billing provider."""
+
+    invoiced_total: Optional[float] = None
+    """The total amount invoiced, if available from the billing provider."""
+
     issued_at_timestamp: Optional[datetime] = None
+
+    pdf_url: Optional[str] = None
+    """A URL to the PDF of the invoice, if available from the billing provider."""
+
+    tax: Optional[ExternalInvoiceTax] = None
+    """Tax details for the invoice, if available from the billing provider."""
 
 
 class InvoiceAdjustment(BaseModel):
@@ -390,7 +438,7 @@ class Invoice(BaseModel):
 
     amendment_id: Optional[str] = None
 
-    billable_status: Optional[Literal["billable", "unbillable"]] = None
+    billable_status: Optional[object] = None
     """This field's availability is dependent on your client's configuration."""
 
     contract_custom_fields: Optional[Dict[str, str]] = None

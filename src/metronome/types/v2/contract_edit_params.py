@@ -18,6 +18,9 @@ from ..shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBa
 
 __all__ = [
     "ContractEditParams",
+    "AddBillingProviderConfigurationUpdate",
+    "AddBillingProviderConfigurationUpdateBillingProviderConfiguration",
+    "AddBillingProviderConfigurationUpdateSchedule",
     "AddCommit",
     "AddCommitAccessSchedule",
     "AddCommitAccessScheduleScheduleItem",
@@ -102,6 +105,13 @@ class ContractEditParams(TypedDict, total=False):
 
     customer_id: Required[str]
     """ID of the customer whose contract is being edited"""
+
+    add_billing_provider_configuration_update: AddBillingProviderConfigurationUpdate
+    """Update the billing provider configuration on the contract.
+
+    Currently only supports adding a billing provider configuration to a contract
+    that does not already have one.
+    """
 
     add_commits: Iterable[AddCommit]
 
@@ -191,6 +201,39 @@ class ContractEditParams(TypedDict, total=False):
 
     update_subscriptions: Iterable[UpdateSubscription]
     """Optional list of subscriptions to update."""
+
+
+class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDict, total=False):
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+    ]
+
+    billing_provider_configuration_id: str
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+
+class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
+    """When the billing provider update will take effect."""
+
+
+class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
+    billing_provider_configuration: Required[AddBillingProviderConfigurationUpdateBillingProviderConfiguration]
+
+    schedule: Required[AddBillingProviderConfigurationUpdateSchedule]
+    """Indicates when the billing provider will be active on the contract.
+
+    Any charges accrued during the schedule will be billed to the indicated billing
+    provider.
+    """
 
 
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
@@ -1493,6 +1536,12 @@ class UpdateRecurringCommit(TypedDict, total=False):
 
     invoice_amount: UpdateRecurringCommitInvoiceAmount
 
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the recurring commit to use the specified rate type when
+    generating future commits.
+    """
+
 
 class UpdateRecurringCreditAccessAmount(TypedDict, total=False):
     quantity: float
@@ -1506,6 +1555,12 @@ class UpdateRecurringCredit(TypedDict, total=False):
     access_amount: UpdateRecurringCreditAccessAmount
 
     ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    rate_type: Literal["LIST_RATE", "COMMIT_RATE"]
+    """
+    If provided, updates the recurring credit to use the specified rate type when
+    generating future credits.
+    """
 
 
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):

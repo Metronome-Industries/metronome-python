@@ -126,6 +126,14 @@ class TestContracts:
         contract = client.v2.contracts.edit(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            add_billing_provider_configuration_update={
+                "billing_provider_configuration": {
+                    "billing_provider": "aws_marketplace",
+                    "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "delivery_method": "direct_to_billing_provider",
+                },
+                "schedule": {"effective_at": "START_OF_CURRENT_PERIOD"},
+            },
             add_commits=[
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -660,6 +668,7 @@ class TestContracts:
                         "quantity": 0,
                         "unit_price": 0,
                     },
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_recurring_credits=[
@@ -670,6 +679,7 @@ class TestContracts:
                         "unit_price": 0,
                     },
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_scheduled_charges=[
@@ -794,6 +804,7 @@ class TestContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            hierarchy_configuration={"child_access": {"type": "ALL"}},
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
                 "add_schedule_items": [
@@ -888,6 +899,7 @@ class TestContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            hierarchy_configuration={"child_access": {"type": "ALL"}},
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",
@@ -1069,6 +1081,14 @@ class TestAsyncContracts:
         contract = await async_client.v2.contracts.edit(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            add_billing_provider_configuration_update={
+                "billing_provider_configuration": {
+                    "billing_provider": "aws_marketplace",
+                    "billing_provider_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "delivery_method": "direct_to_billing_provider",
+                },
+                "schedule": {"effective_at": "START_OF_CURRENT_PERIOD"},
+            },
             add_commits=[
                 {
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1603,6 +1623,7 @@ class TestAsyncContracts:
                         "quantity": 0,
                         "unit_price": 0,
                     },
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_recurring_credits=[
@@ -1613,6 +1634,7 @@ class TestAsyncContracts:
                         "unit_price": 0,
                     },
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "rate_type": "LIST_RATE",
                 }
             ],
             update_scheduled_charges=[
@@ -1737,6 +1759,7 @@ class TestAsyncContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            hierarchy_configuration={"child_access": {"type": "ALL"}},
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
                 "add_schedule_items": [
@@ -1831,6 +1854,7 @@ class TestAsyncContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            hierarchy_configuration={"child_access": {"type": "ALL"}},
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",

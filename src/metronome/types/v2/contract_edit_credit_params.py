@@ -9,6 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from ..shared_params.commit_specifier_input import CommitSpecifierInput
+from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 
 __all__ = [
     "ContractEditCreditParams",
@@ -41,6 +42,9 @@ class ContractEditCreditParams(TypedDict, total=False):
     If both applicable_product_ids and applicable_product_tags are not provided, the
     credit applies to all products.
     """
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
 
     priority: Optional[float]
     """

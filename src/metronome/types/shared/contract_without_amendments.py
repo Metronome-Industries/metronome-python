@@ -332,7 +332,7 @@ class ContractWithoutAmendments(BaseModel):
     credits: Optional[List[Credit]] = None
 
     discounts: Optional[List[Discount]] = None
-    """This field's availability is dependent on your client's configuration."""
+    """This field's availability is dependent on your client's"""
 
     ending_before: Optional[datetime] = None
 

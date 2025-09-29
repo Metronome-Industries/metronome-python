@@ -29,73 +29,74 @@ class AlertCreateParams(TypedDict, total=False):
             "invoice_total_reached",
         ]
     ]
-    """Type of the alert"""
+    """Type of the threshold notification"""
 
     name: Required[str]
-    """Name of the alert"""
+    """Name of the threshold notification"""
 
     threshold: Required[float]
-    """Threshold value of the alert policy.
+    """Threshold value of the notification policy.
 
-    Depending upon the alert type, this number may represent a financial amount, the
-    days remaining, or a percentage reached.
+    Depending upon the notification type, this number may represent a financial
+    amount, the days remaining, or a percentage reached.
     """
 
     billable_metric_id: str
     """
-    For alerts of type `usage_threshold_reached`, specifies which billable metric to
-    track the usage for.
+    For threshold notifications of type `usage_threshold_reached`, specifies which
+    billable metric to track the usage for.
     """
 
     credit_grant_type_filters: SequenceNotStr[str]
     """
-    An array of strings, representing a way to filter the credit grant this alert
-    applies to, by looking at the credit_grant_type field on the credit grant. This
-    field is only defined for CreditPercentage and CreditBalance alerts
+    An array of strings, representing a way to filter the credit grant this
+    threshold notification applies to, by looking at the credit_grant_type field on
+    the credit grant. This field is only defined for CreditPercentage and
+    CreditBalance notifications
     """
 
     credit_type_id: str
     """ID of the credit's currency, defaults to USD.
 
-    If the specific alert type requires a pricing unit/currency, find the ID in the
-    [Metronome app](https://app.metronome.com/offering/pricing-units).
+    If the specific notification type requires a pricing unit/currency, find the ID
+    in the [Metronome app](https://app.metronome.com/offering/pricing-units).
     """
 
     custom_field_filters: Iterable[CustomFieldFilter]
-    """A list of custom field filters for alert types that support advanced filtering.
-
-    Only present for contract invoices.
+    """
+    A list of custom field filters for threshold notification types that support
+    advanced filtering. Only present for contract invoices.
     """
 
     customer_id: str
-    """If provided, will create this alert for this specific customer.
+    """If provided, will create this threshold notification for this specific customer.
 
-    To create an alert for all customers, do not specify a `customer_id`.
+    To create a notification for all customers, do not specify a `customer_id`.
     """
 
     evaluate_on_create: bool
     """
-    If true, the alert will evaluate immediately on customers that already meet the
-    alert threshold. If false, it will only evaluate on future customers that
-    trigger the alert threshold. Defaults to true.
+    If true, the threshold notification will evaluate immediately on customers that
+    already meet the notification threshold. If false, it will only evaluate on
+    future customers that trigger the threshold. Defaults to true.
     """
 
     group_values: Iterable[GroupValue]
-    """Only present for `spend_threshold_reached` alerts.
+    """Only present for `spend_threshold_reached` notifications.
 
-    Scope alert to a specific group key on individual line items.
+    Scope notification to a specific group key on individual line items.
     """
 
     invoice_types_filter: SequenceNotStr[str]
-    """Only supported for invoice_total_reached alerts.
+    """Only supported for invoice_total_reached threshold notifications.
 
     A list of invoice types to evaluate.
     """
 
     plan_id: str
-    """If provided, will create this alert for this specific plan.
+    """If provided, will create this threshold notification for this specific plan.
 
-    To create an alert for all customers, do not specify a `plan_id`.
+    To create a notification for all customers, do not specify a `plan_id`.
     """
 
     uniqueness_key: str

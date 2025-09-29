@@ -376,7 +376,7 @@ class CustomersResource(SyncAPIResource):
         - Ingest aliases remain idempotent for archived customers. In order to reuse an
           ingest alias, first remove the ingest alias from the customer prior to
           archiving.
-        - Any alerts associated with the customer will no longer be triggered.
+        - Any notifications associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
@@ -1108,7 +1108,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         - Ingest aliases remain idempotent for archived customers. In order to reuse an
           ingest alias, first remove the ingest alias from the customer prior to
           archiving.
-        - Any alerts associated with the customer will no longer be triggered.
+        - Any notifications associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
