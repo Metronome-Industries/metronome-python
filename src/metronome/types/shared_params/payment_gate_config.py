@@ -49,7 +49,7 @@ class PaymentGateConfig(TypedDict, total=False):
     stripe_config: StripeConfig
     """Only applicable if using STRIPE as your payment gate type."""
 
-    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
+    tax_type: Literal["NONE", "STRIPE", "ANROK", "AVALARA", "PRECALCULATED"]
     """Stripe tax is only supported for Stripe payment gateway.
 
     Select NONE if you do not wish Metronome to calculate tax on your behalf.
