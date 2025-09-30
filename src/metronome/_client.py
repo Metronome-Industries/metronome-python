@@ -49,8 +49,8 @@ class Metronome(SyncAPIClient):
     v2: v2.V2Resource
     v1: v1.V1Resource
     packages: packages.PackagesResource
-    payments: payments.PaymentsResource
     notifications: notifications.NotificationsResource
+    payments: payments.PaymentsResource
     with_raw_response: MetronomeWithRawResponse
     with_streaming_response: MetronomeWithStreamedResponse
 
@@ -119,8 +119,8 @@ class Metronome(SyncAPIClient):
         self.v2 = v2.V2Resource(self)
         self.v1 = v1.V1Resource(self)
         self.packages = packages.PackagesResource(self)
-        self.payments = payments.PaymentsResource(self)
         self.notifications = notifications.NotificationsResource(self)
+        self.payments = payments.PaymentsResource(self)
         self.with_raw_response = MetronomeWithRawResponse(self)
         self.with_streaming_response = MetronomeWithStreamedResponse(self)
 
@@ -235,8 +235,8 @@ class AsyncMetronome(AsyncAPIClient):
     v2: v2.AsyncV2Resource
     v1: v1.AsyncV1Resource
     packages: packages.AsyncPackagesResource
-    payments: payments.AsyncPaymentsResource
     notifications: notifications.AsyncNotificationsResource
+    payments: payments.AsyncPaymentsResource
     with_raw_response: AsyncMetronomeWithRawResponse
     with_streaming_response: AsyncMetronomeWithStreamedResponse
 
@@ -305,8 +305,8 @@ class AsyncMetronome(AsyncAPIClient):
         self.v2 = v2.AsyncV2Resource(self)
         self.v1 = v1.AsyncV1Resource(self)
         self.packages = packages.AsyncPackagesResource(self)
-        self.payments = payments.AsyncPaymentsResource(self)
         self.notifications = notifications.AsyncNotificationsResource(self)
+        self.payments = payments.AsyncPaymentsResource(self)
         self.with_raw_response = AsyncMetronomeWithRawResponse(self)
         self.with_streaming_response = AsyncMetronomeWithStreamedResponse(self)
 
@@ -422,8 +422,8 @@ class MetronomeWithRawResponse:
         self.v2 = v2.V2ResourceWithRawResponse(client.v2)
         self.v1 = v1.V1ResourceWithRawResponse(client.v1)
         self.packages = packages.PackagesResourceWithRawResponse(client.packages)
-        self.payments = payments.PaymentsResourceWithRawResponse(client.payments)
         self.notifications = notifications.NotificationsResourceWithRawResponse(client.notifications)
+        self.payments = payments.PaymentsResourceWithRawResponse(client.payments)
 
 
 class AsyncMetronomeWithRawResponse:
@@ -431,8 +431,8 @@ class AsyncMetronomeWithRawResponse:
         self.v2 = v2.AsyncV2ResourceWithRawResponse(client.v2)
         self.v1 = v1.AsyncV1ResourceWithRawResponse(client.v1)
         self.packages = packages.AsyncPackagesResourceWithRawResponse(client.packages)
-        self.payments = payments.AsyncPaymentsResourceWithRawResponse(client.payments)
         self.notifications = notifications.AsyncNotificationsResourceWithRawResponse(client.notifications)
+        self.payments = payments.AsyncPaymentsResourceWithRawResponse(client.payments)
 
 
 class MetronomeWithStreamedResponse:
@@ -440,8 +440,8 @@ class MetronomeWithStreamedResponse:
         self.v2 = v2.V2ResourceWithStreamingResponse(client.v2)
         self.v1 = v1.V1ResourceWithStreamingResponse(client.v1)
         self.packages = packages.PackagesResourceWithStreamingResponse(client.packages)
-        self.payments = payments.PaymentsResourceWithStreamingResponse(client.payments)
         self.notifications = notifications.NotificationsResourceWithStreamingResponse(client.notifications)
+        self.payments = payments.PaymentsResourceWithStreamingResponse(client.payments)
 
 
 class AsyncMetronomeWithStreamedResponse:
@@ -449,8 +449,8 @@ class AsyncMetronomeWithStreamedResponse:
         self.v2 = v2.AsyncV2ResourceWithStreamingResponse(client.v2)
         self.v1 = v1.AsyncV1ResourceWithStreamingResponse(client.v1)
         self.packages = packages.AsyncPackagesResourceWithStreamingResponse(client.packages)
-        self.payments = payments.AsyncPaymentsResourceWithStreamingResponse(client.payments)
         self.notifications = notifications.AsyncNotificationsResourceWithStreamingResponse(client.notifications)
+        self.payments = payments.AsyncPaymentsResourceWithStreamingResponse(client.payments)
 
 
 Client = Metronome

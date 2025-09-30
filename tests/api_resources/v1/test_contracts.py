@@ -186,7 +186,10 @@ class TestContracts:
                 "parent": {
                     "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
+                },
+                "parent_behavior": {"invoice_consolidation_type": "CONCATENATE"},
+                "payer": "SELF",
+                "usage_statement_behavior": "CONSOLIDATE",
             },
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
             name="name",
@@ -1516,7 +1519,10 @@ class TestAsyncContracts:
                 "parent": {
                     "contract_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "customer_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                }
+                },
+                "parent_behavior": {"invoice_consolidation_type": "CONCATENATE"},
+                "payer": "SELF",
+                "usage_statement_behavior": "CONSOLIDATE",
             },
             multiplier_override_prioritization="LOWEST_MULTIPLIER",
             name="name",
