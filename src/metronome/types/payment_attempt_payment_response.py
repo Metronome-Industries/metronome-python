@@ -8,7 +8,7 @@ from .._models import BaseModel
 from .shared.credit_type_data import CreditTypeData
 
 __all__ = [
-    "PaymentAttemptResponse",
+    "PaymentAttemptPaymentResponse",
     "Data",
     "DataPaymentGateway",
     "DataPaymentGatewayStripe",
@@ -62,5 +62,5 @@ class Data(BaseModel):
     updated_at: Optional[datetime] = None
 
 
-class PaymentAttemptResponse(BaseModel):
+class PaymentAttemptPaymentResponse(BaseModel):
     data: Data
