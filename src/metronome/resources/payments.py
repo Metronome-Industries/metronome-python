@@ -7,9 +7,9 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import payment_list_params
+from ..types import payment_list_params, payment_attempt_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,6 +21,7 @@ from .._response import (
 from ..pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.payment_list_response import PaymentListResponse
+from ..types.payment_attempt_response import PaymentAttemptResponse
 
 __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
 
@@ -96,6 +97,56 @@ class PaymentsResource(SyncAPIResource):
             method="post",
         )
 
+    def attempt(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentAttemptResponse:
+        """
+        Trigger a new attempt by canceling any existing attempts for this invoice and
+        creating a new Payment. This will trigger another attempt to charge the
+        Customer's configured Payment Gateway. Payment can only be attempted if all of
+        the following are true:
+
+        - The Metronome Invoice is finalized
+        - PLG Invoicing is configured for the Customer
+        - You cannot attempt payments for invoices that have already been `paid` or
+          `voided`.
+
+        Attempting to payment on an ineligible Invoice or Customer will result in a
+        `400` response.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/payments/attempt",
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "invoice_id": invoice_id,
+                },
+                payment_attempt_params.PaymentAttemptParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentAttemptResponse,
+        )
+
 
 class AsyncPaymentsResource(AsyncAPIResource):
     @cached_property
@@ -168,6 +219,56 @@ class AsyncPaymentsResource(AsyncAPIResource):
             method="post",
         )
 
+    async def attempt(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentAttemptResponse:
+        """
+        Trigger a new attempt by canceling any existing attempts for this invoice and
+        creating a new Payment. This will trigger another attempt to charge the
+        Customer's configured Payment Gateway. Payment can only be attempted if all of
+        the following are true:
+
+        - The Metronome Invoice is finalized
+        - PLG Invoicing is configured for the Customer
+        - You cannot attempt payments for invoices that have already been `paid` or
+          `voided`.
+
+        Attempting to payment on an ineligible Invoice or Customer will result in a
+        `400` response.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/payments/attempt",
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "invoice_id": invoice_id,
+                },
+                payment_attempt_params.PaymentAttemptParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentAttemptResponse,
+        )
+
 
 class PaymentsResourceWithRawResponse:
     def __init__(self, payments: PaymentsResource) -> None:
@@ -175,6 +276,9 @@ class PaymentsResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             payments.list,
+        )
+        self.attempt = to_raw_response_wrapper(
+            payments.attempt,
         )
 
 
@@ -185,6 +289,9 @@ class AsyncPaymentsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             payments.list,
         )
+        self.attempt = async_to_raw_response_wrapper(
+            payments.attempt,
+        )
 
 
 class PaymentsResourceWithStreamingResponse:
@@ -194,6 +301,9 @@ class PaymentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             payments.list,
         )
+        self.attempt = to_streamed_response_wrapper(
+            payments.attempt,
+        )
 
 
 class AsyncPaymentsResourceWithStreamingResponse:
@@ -202,4 +312,7 @@ class AsyncPaymentsResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             payments.list,
+        )
+        self.attempt = async_to_streamed_response_wrapper(
+            payments.attempt,
         )

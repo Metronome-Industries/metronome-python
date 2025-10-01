@@ -588,9 +588,10 @@ Methods:
 Types:
 
 ```python
-from metronome.types import PaymentListResponse
+from metronome.types import PaymentListResponse, PaymentAttemptResponse
 ```
 
 Methods:
 
 - <code title="post /v1/payments/list">client.payments.<a href="./src/metronome/resources/payments.py">list</a>(\*\*<a href="src/metronome/types/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/payment_list_response.py">SyncBodyCursorPage[PaymentListResponse]</a></code>
+- <code title="post /v1/payments/attempt">client.payments.<a href="./src/metronome/resources/payments.py">attempt</a>(\*\*<a href="src/metronome/types/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/payment_attempt_response.py">PaymentAttemptResponse</a></code>
