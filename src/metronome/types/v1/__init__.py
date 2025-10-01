@@ -130,6 +130,12 @@ from .customer_retrieve_billing_configurations_response import (
 from .contract_retrieve_subscription_quantity_history_params import (
     ContractRetrieveSubscriptionQuantityHistoryParams as ContractRetrieveSubscriptionQuantityHistoryParams,
 )
+from .contract_get_subscription_seats_schedule_history_params import (
+    ContractGetSubscriptionSeatsScheduleHistoryParams as ContractGetSubscriptionSeatsScheduleHistoryParams,
+)
 from .contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse as ContractRetrieveSubscriptionQuantityHistoryResponse,
+)
+from .contract_get_subscription_seats_schedule_history_response import (
+    ContractGetSubscriptionSeatsScheduleHistoryResponse as ContractGetSubscriptionSeatsScheduleHistoryResponse,
 )
