@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["PaymentAttemptParams"]
+__all__ = ["PaymentAttemptPaymentParams"]
 
 
-class PaymentAttemptParams(TypedDict, total=False):
+class PaymentAttemptPaymentParams(TypedDict, total=False):
     customer_id: Required[str]
 
     invoice_id: Required[str]

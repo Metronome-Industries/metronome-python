@@ -541,6 +541,19 @@ Methods:
 
 - <code title="post /v1/packages/create">client.packages.<a href="./src/metronome/resources/packages.py">create</a>(\*\*<a href="src/metronome/types/package_create_params.py">params</a>) -> <a href="./src/metronome/types/package_create_response.py">PackageCreateResponse</a></code>
 
+# Payments
+
+Types:
+
+```python
+from metronome.types import PaymentListResponse, PaymentAttemptPaymentResponse
+```
+
+Methods:
+
+- <code title="post /v1/payments/list">client.payments.<a href="./src/metronome/resources/payments.py">list</a>(\*\*<a href="src/metronome/types/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/payment_list_response.py">SyncBodyCursorPage[PaymentListResponse]</a></code>
+- <code title="post /v1/payments/attempt">client.payments.<a href="./src/metronome/resources/payments.py">attempt_payment</a>(\*\*<a href="src/metronome/types/payment_attempt_payment_params.py">params</a>) -> <a href="./src/metronome/types/payment_attempt_payment_response.py">PaymentAttemptPaymentResponse</a></code>
+
 # Notifications
 
 Types:
@@ -584,16 +597,3 @@ from metronome.types.notifications import SystemListResponse
 Methods:
 
 - <code title="post /v2/notifications/system/list">client.notifications.system.<a href="./src/metronome/resources/notifications/system.py">list</a>() -> <a href="./src/metronome/types/notifications/system_list_response.py">SystemListResponse</a></code>
-
-# Payments
-
-Types:
-
-```python
-from metronome.types import PaymentListResponse, PaymentAttemptResponse
-```
-
-Methods:
-
-- <code title="post /v1/payments/list">client.payments.<a href="./src/metronome/resources/payments.py">list</a>(\*\*<a href="src/metronome/types/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/payment_list_response.py">SyncBodyCursorPage[PaymentListResponse]</a></code>
-- <code title="post /v1/payments/attempt">client.payments.<a href="./src/metronome/resources/payments.py">attempt</a>(\*\*<a href="src/metronome/types/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/payment_attempt_response.py">PaymentAttemptResponse</a></code>
