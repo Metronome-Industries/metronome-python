@@ -25,6 +25,9 @@ class Data(BaseModel):
     id: str
     """ID for this offset notification configuration"""
 
+    archived_at: Optional[datetime] = None
+    """When this notification configuration was archived"""
+
     created_at: datetime
     """RFC 3339 timestamp when this notification configuration was created."""
 
