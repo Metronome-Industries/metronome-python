@@ -1,5 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -23,6 +24,9 @@ class DataPolicy(BaseModel):
 class Data(BaseModel):
     id: str
     """ID for this offset notification configuration"""
+
+    archived_at: Optional[datetime] = None
+    """When this notification configuration was archived"""
 
     created_at: datetime
     """RFC 3339 timestamp when this notification configuration was created."""
