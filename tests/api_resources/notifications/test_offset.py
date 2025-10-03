@@ -25,6 +25,7 @@ class TestOffset:
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         offset = client.notifications.offset.list(
+            archive_filter="NOT_ARCHIVED",
             cursor="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             limit=20,
         )
@@ -64,6 +65,7 @@ class TestAsyncOffset:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         offset = await async_client.notifications.offset.list(
+            archive_filter="NOT_ARCHIVED",
             cursor="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             limit=20,
         )
