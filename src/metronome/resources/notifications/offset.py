@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
@@ -44,6 +46,7 @@ class OffsetResource(SyncAPIResource):
     def list(
         self,
         *,
+        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
         cursor: str | Omit = omit,
         limit: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -57,9 +60,12 @@ class OffsetResource(SyncAPIResource):
 
         These are user-created
         notifications that trigger at a specified time offset relative to lifecycle
-        events.
+        events. Returns a maximum of 400 results per request.
 
         Args:
+          archive_filter: Filter options for the notification configurations. If not provided, defaults to
+              NOT_ARCHIVED.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -72,6 +78,7 @@ class OffsetResource(SyncAPIResource):
             "/v2/notifications/offset/list",
             body=maybe_transform(
                 {
+                    "archive_filter": archive_filter,
                     "cursor": cursor,
                     "limit": limit,
                 },
@@ -107,6 +114,7 @@ class AsyncOffsetResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
         cursor: str | Omit = omit,
         limit: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -120,9 +128,12 @@ class AsyncOffsetResource(AsyncAPIResource):
 
         These are user-created
         notifications that trigger at a specified time offset relative to lifecycle
-        events.
+        events. Returns a maximum of 400 results per request.
 
         Args:
+          archive_filter: Filter options for the notification configurations. If not provided, defaults to
+              NOT_ARCHIVED.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -135,6 +146,7 @@ class AsyncOffsetResource(AsyncAPIResource):
             "/v2/notifications/offset/list",
             body=await async_maybe_transform(
                 {
+                    "archive_filter": archive_filter,
                     "cursor": cursor,
                     "limit": limit,
                 },
