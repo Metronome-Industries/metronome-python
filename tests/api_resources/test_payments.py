@@ -9,10 +9,7 @@ import pytest
 
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
-from metronome.types import (
-    PaymentListResponse,
-    PaymentAttemptPaymentResponse,
-)
+from metronome.types import PaymentListResponse, PaymentAttemptResponse
 from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -67,16 +64,16 @@ class TestPayments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_attempt_payment(self, client: Metronome) -> None:
-        payment = client.payments.attempt_payment(
+    def test_method_attempt(self, client: Metronome) -> None:
+        payment = client.payments.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         )
-        assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+        assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
     @parametrize
-    def test_raw_response_attempt_payment(self, client: Metronome) -> None:
-        response = client.payments.with_raw_response.attempt_payment(
+    def test_raw_response_attempt(self, client: Metronome) -> None:
+        response = client.payments.with_raw_response.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         )
@@ -84,11 +81,11 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+        assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
     @parametrize
-    def test_streaming_response_attempt_payment(self, client: Metronome) -> None:
-        with client.payments.with_streaming_response.attempt_payment(
+    def test_streaming_response_attempt(self, client: Metronome) -> None:
+        with client.payments.with_streaming_response.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         ) as response:
@@ -96,7 +93,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+            assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -152,16 +149,16 @@ class TestAsyncPayments:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_attempt_payment(self, async_client: AsyncMetronome) -> None:
-        payment = await async_client.payments.attempt_payment(
+    async def test_method_attempt(self, async_client: AsyncMetronome) -> None:
+        payment = await async_client.payments.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         )
-        assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+        assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
     @parametrize
-    async def test_raw_response_attempt_payment(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.payments.with_raw_response.attempt_payment(
+    async def test_raw_response_attempt(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.payments.with_raw_response.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         )
@@ -169,11 +166,11 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+        assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
     @parametrize
-    async def test_streaming_response_attempt_payment(self, async_client: AsyncMetronome) -> None:
-        async with async_client.payments.with_streaming_response.attempt_payment(
+    async def test_streaming_response_attempt(self, async_client: AsyncMetronome) -> None:
+        async with async_client.payments.with_streaming_response.attempt(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             invoice_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
         ) as response:
@@ -181,6 +178,6 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(PaymentAttemptPaymentResponse, payment, path=["response"])
+            assert_matches_type(PaymentAttemptResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
