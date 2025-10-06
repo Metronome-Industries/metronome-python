@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import payment_list_params, payment_attempt_payment_params
+from ..types import payment_list_params, payment_attempt_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,7 +21,7 @@ from .._response import (
 from ..pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.payment_list_response import PaymentListResponse
-from ..types.payment_attempt_payment_response import PaymentAttemptPaymentResponse
+from ..types.payment_attempt_response import PaymentAttemptResponse
 
 __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
 
@@ -97,7 +97,7 @@ class PaymentsResource(SyncAPIResource):
             method="post",
         )
 
-    def attempt_payment(
+    def attempt(
         self,
         *,
         customer_id: str,
@@ -108,7 +108,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PaymentAttemptPaymentResponse:
+    ) -> PaymentAttemptResponse:
         """
         Trigger a new attempt by canceling any existing attempts for this invoice and
         creating a new Payment. This will trigger another attempt to charge the
@@ -139,12 +139,12 @@ class PaymentsResource(SyncAPIResource):
                     "customer_id": customer_id,
                     "invoice_id": invoice_id,
                 },
-                payment_attempt_payment_params.PaymentAttemptPaymentParams,
+                payment_attempt_params.PaymentAttemptParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PaymentAttemptPaymentResponse,
+            cast_to=PaymentAttemptResponse,
         )
 
 
@@ -219,7 +219,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
             method="post",
         )
 
-    async def attempt_payment(
+    async def attempt(
         self,
         *,
         customer_id: str,
@@ -230,7 +230,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PaymentAttemptPaymentResponse:
+    ) -> PaymentAttemptResponse:
         """
         Trigger a new attempt by canceling any existing attempts for this invoice and
         creating a new Payment. This will trigger another attempt to charge the
@@ -261,12 +261,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "customer_id": customer_id,
                     "invoice_id": invoice_id,
                 },
-                payment_attempt_payment_params.PaymentAttemptPaymentParams,
+                payment_attempt_params.PaymentAttemptParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PaymentAttemptPaymentResponse,
+            cast_to=PaymentAttemptResponse,
         )
 
 
@@ -277,8 +277,8 @@ class PaymentsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             payments.list,
         )
-        self.attempt_payment = to_raw_response_wrapper(
-            payments.attempt_payment,
+        self.attempt = to_raw_response_wrapper(
+            payments.attempt,
         )
 
 
@@ -289,8 +289,8 @@ class AsyncPaymentsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             payments.list,
         )
-        self.attempt_payment = async_to_raw_response_wrapper(
-            payments.attempt_payment,
+        self.attempt = async_to_raw_response_wrapper(
+            payments.attempt,
         )
 
 
@@ -301,8 +301,8 @@ class PaymentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             payments.list,
         )
-        self.attempt_payment = to_streamed_response_wrapper(
-            payments.attempt_payment,
+        self.attempt = to_streamed_response_wrapper(
+            payments.attempt,
         )
 
 
@@ -313,6 +313,6 @@ class AsyncPaymentsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             payments.list,
         )
-        self.attempt_payment = async_to_streamed_response_wrapper(
-            payments.attempt_payment,
+        self.attempt = async_to_streamed_response_wrapper(
+            payments.attempt,
         )
