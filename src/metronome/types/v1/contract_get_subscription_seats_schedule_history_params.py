@@ -39,7 +39,10 @@ class ContractGetSubscriptionSeatsScheduleHistoryParams(TypedDict, total=False):
     """
 
     limit: Optional[int]
-    """Maximum number of seat schedule entries to return. Defaults to 10."""
+    """Maximum number of seat schedule entries to return.
+
+    Defaults to 10. Required range: 1 <= x <= 10.
+    """
 
     starting_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Include seats history segments that are active at or after this timestamp.
