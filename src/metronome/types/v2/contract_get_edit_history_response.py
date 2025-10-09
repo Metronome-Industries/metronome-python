@@ -27,6 +27,8 @@ __all__ = [
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitInvoiceSchedule",
+    "DataAddCommitInvoiceScheduleScheduleItem",
     "DataAddCredit",
     "DataAddCreditProduct",
     "DataAddOverride",
@@ -95,6 +97,29 @@ class DataAddCommitProduct(BaseModel):
     name: str
 
 
+class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    timestamp: datetime
+
+    amount: Optional[float] = None
+
+    invoice_id: Optional[str] = None
+
+    quantity: Optional[float] = None
+
+    unit_price: Optional[float] = None
+
+
+class DataAddCommitInvoiceSchedule(BaseModel):
+    credit_type: Optional[CreditTypeData] = None
+
+    do_not_invoice: Optional[bool] = None
+    """If true, this schedule will not generate an invoice."""
+
+    schedule_items: Optional[List[DataAddCommitInvoiceScheduleScheduleItem]] = None
+
+
 class DataAddCommit(BaseModel):
     id: str
 
@@ -117,7 +142,7 @@ class DataAddCommit(BaseModel):
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[DataAddCommitInvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     name: Optional[str] = None
