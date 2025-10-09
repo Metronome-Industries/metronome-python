@@ -5,7 +5,7 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["ContractGetSubscriptionSeatsScheduleHistoryResponse", "Data"]
+__all__ = ["ContractGetSubscriptionSeatsHistoryResponse", "Data"]
 
 
 class Data(BaseModel):
@@ -22,7 +22,7 @@ class Data(BaseModel):
     """Total number of assigned and unassigned seats in this period"""
 
 
-class ContractGetSubscriptionSeatsScheduleHistoryResponse(BaseModel):
+class ContractGetSubscriptionSeatsHistoryResponse(BaseModel):
     data: List[Data]
 
     next_page: Optional[str] = None

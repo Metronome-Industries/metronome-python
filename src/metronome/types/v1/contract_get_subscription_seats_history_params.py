@@ -8,10 +8,10 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
-__all__ = ["ContractGetSubscriptionSeatsScheduleHistoryParams"]
+__all__ = ["ContractGetSubscriptionSeatsHistoryParams"]
 
 
-class ContractGetSubscriptionSeatsScheduleHistoryParams(TypedDict, total=False):
+class ContractGetSubscriptionSeatsHistoryParams(TypedDict, total=False):
     contract_id: Required[str]
 
     customer_id: Required[str]

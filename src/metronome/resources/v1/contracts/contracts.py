@@ -32,8 +32,8 @@ from ....types.v1 import (
     contract_add_manual_balance_entry_params,
     contract_create_historical_invoices_params,
     contract_schedule_pro_services_invoice_params,
+    contract_get_subscription_seats_history_params,
     contract_retrieve_subscription_quantity_history_params,
-    contract_get_subscription_seats_schedule_history_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -72,12 +72,10 @@ from ....types.shared_params.spend_threshold_configuration import SpendThreshold
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
+from ....types.v1.contract_get_subscription_seats_history_response import ContractGetSubscriptionSeatsHistoryResponse
 from ....types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse,
-)
-from ....types.v1.contract_get_subscription_seats_schedule_history_response import (
-    ContractGetSubscriptionSeatsScheduleHistoryResponse,
 )
 
 __all__ = ["ContractsResource", "AsyncContractsResource"]
@@ -783,7 +781,7 @@ class ContractsResource(SyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    def get_subscription_seats_schedule_history(
+    def get_subscription_seats_history(
         self,
         *,
         contract_id: str,
@@ -800,7 +798,7 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractGetSubscriptionSeatsScheduleHistoryResponse:
+    ) -> ContractGetSubscriptionSeatsHistoryResponse:
         """
         Get the history of subscription seats schedule over time for a given
         `subscription_id`. This endpoint provides information about seat assignments and
@@ -856,7 +854,7 @@ class ContractsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/contracts/getSubscriptionSeatsScheduleHistory",
+            "/v1/contracts/getSubscriptionSeatsHistory",
             body=maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -868,12 +866,12 @@ class ContractsResource(SyncAPIResource):
                     "limit": limit,
                     "starting_at": starting_at,
                 },
-                contract_get_subscription_seats_schedule_history_params.ContractGetSubscriptionSeatsScheduleHistoryParams,
+                contract_get_subscription_seats_history_params.ContractGetSubscriptionSeatsHistoryParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractGetSubscriptionSeatsScheduleHistoryResponse,
+            cast_to=ContractGetSubscriptionSeatsHistoryResponse,
         )
 
     def list_balances(
@@ -1996,7 +1994,7 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def get_subscription_seats_schedule_history(
+    async def get_subscription_seats_history(
         self,
         *,
         contract_id: str,
@@ -2013,7 +2011,7 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractGetSubscriptionSeatsScheduleHistoryResponse:
+    ) -> ContractGetSubscriptionSeatsHistoryResponse:
         """
         Get the history of subscription seats schedule over time for a given
         `subscription_id`. This endpoint provides information about seat assignments and
@@ -2069,7 +2067,7 @@ class AsyncContractsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/contracts/getSubscriptionSeatsScheduleHistory",
+            "/v1/contracts/getSubscriptionSeatsHistory",
             body=await async_maybe_transform(
                 {
                     "contract_id": contract_id,
@@ -2081,12 +2079,12 @@ class AsyncContractsResource(AsyncAPIResource):
                     "limit": limit,
                     "starting_at": starting_at,
                 },
-                contract_get_subscription_seats_schedule_history_params.ContractGetSubscriptionSeatsScheduleHistoryParams,
+                contract_get_subscription_seats_history_params.ContractGetSubscriptionSeatsHistoryParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractGetSubscriptionSeatsScheduleHistoryResponse,
+            cast_to=ContractGetSubscriptionSeatsHistoryResponse,
         )
 
     def list_balances(
@@ -2534,8 +2532,8 @@ class ContractsResourceWithRawResponse:
         self.create_historical_invoices = to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_schedule_history = to_raw_response_wrapper(
-            contracts.get_subscription_seats_schedule_history,
+        self.get_subscription_seats_history = to_raw_response_wrapper(
+            contracts.get_subscription_seats_history,
         )
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
@@ -2594,8 +2592,8 @@ class AsyncContractsResourceWithRawResponse:
         self.create_historical_invoices = async_to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_schedule_history = async_to_raw_response_wrapper(
-            contracts.get_subscription_seats_schedule_history,
+        self.get_subscription_seats_history = async_to_raw_response_wrapper(
+            contracts.get_subscription_seats_history,
         )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
@@ -2654,8 +2652,8 @@ class ContractsResourceWithStreamingResponse:
         self.create_historical_invoices = to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_schedule_history = to_streamed_response_wrapper(
-            contracts.get_subscription_seats_schedule_history,
+        self.get_subscription_seats_history = to_streamed_response_wrapper(
+            contracts.get_subscription_seats_history,
         )
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
@@ -2714,8 +2712,8 @@ class AsyncContractsResourceWithStreamingResponse:
         self.create_historical_invoices = async_to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_schedule_history = async_to_streamed_response_wrapper(
-            contracts.get_subscription_seats_schedule_history,
+        self.get_subscription_seats_history = async_to_streamed_response_wrapper(
+            contracts.get_subscription_seats_history,
         )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,

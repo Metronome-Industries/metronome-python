@@ -21,7 +21,7 @@ from metronome.types.v1 import (
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
-    ContractGetSubscriptionSeatsScheduleHistoryResponse,
+    ContractGetSubscriptionSeatsHistoryResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
@@ -1068,17 +1068,17 @@ class TestContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_get_subscription_seats_schedule_history(self, client: Metronome) -> None:
-        contract = client.v1.contracts.get_subscription_seats_schedule_history(
+    def test_method_get_subscription_seats_history(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
         )
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    def test_method_get_subscription_seats_schedule_history_with_all_params(self, client: Metronome) -> None:
-        contract = client.v1.contracts.get_subscription_seats_schedule_history(
+    def test_method_get_subscription_seats_history_with_all_params(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -1088,11 +1088,11 @@ class TestContracts:
             limit=10,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    def test_raw_response_get_subscription_seats_schedule_history(self, client: Metronome) -> None:
-        response = client.v1.contracts.with_raw_response.get_subscription_seats_schedule_history(
+    def test_raw_response_get_subscription_seats_history(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -1101,11 +1101,11 @@ class TestContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = response.parse()
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    def test_streaming_response_get_subscription_seats_schedule_history(self, client: Metronome) -> None:
-        with client.v1.contracts.with_streaming_response.get_subscription_seats_schedule_history(
+    def test_streaming_response_get_subscription_seats_history(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -1114,7 +1114,7 @@ class TestContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = response.parse()
-            assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2452,19 +2452,17 @@ class TestAsyncContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_get_subscription_seats_schedule_history(self, async_client: AsyncMetronome) -> None:
-        contract = await async_client.v1.contracts.get_subscription_seats_schedule_history(
+    async def test_method_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
         )
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    async def test_method_get_subscription_seats_schedule_history_with_all_params(
-        self, async_client: AsyncMetronome
-    ) -> None:
-        contract = await async_client.v1.contracts.get_subscription_seats_schedule_history(
+    async def test_method_get_subscription_seats_history_with_all_params(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -2474,11 +2472,11 @@ class TestAsyncContracts:
             limit=10,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    async def test_raw_response_get_subscription_seats_schedule_history(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.contracts.with_raw_response.get_subscription_seats_schedule_history(
+    async def test_raw_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -2487,13 +2485,11 @@ class TestAsyncContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = await response.parse()
-        assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
     @parametrize
-    async def test_streaming_response_get_subscription_seats_schedule_history(
-        self, async_client: AsyncMetronome
-    ) -> None:
-        async with async_client.v1.contracts.with_streaming_response.get_subscription_seats_schedule_history(
+    async def test_streaming_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.with_streaming_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
@@ -2502,7 +2498,7 @@ class TestAsyncContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = await response.parse()
-            assert_matches_type(ContractGetSubscriptionSeatsScheduleHistoryResponse, contract, path=["response"])
+            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
