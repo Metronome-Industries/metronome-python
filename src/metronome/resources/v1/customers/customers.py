@@ -533,12 +533,12 @@ class CustomersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerPreviewEventsResponse:
-        """Preview how a set of events will affect a customer's invoice.
+        """Preview how a set of events will affect a customer's invoices.
 
-        Generates a draft
-        invoice for a customer using their current contract configuration and the
+        Generates draft
+        invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoice before they are actually processed.
+        customer's invoices before they are actually processed.
 
         Args:
           mode: If set to "replace", the preview will be generated as if those were the only
@@ -1265,12 +1265,12 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerPreviewEventsResponse:
-        """Preview how a set of events will affect a customer's invoice.
+        """Preview how a set of events will affect a customer's invoices.
 
-        Generates a draft
-        invoice for a customer using their current contract configuration and the
+        Generates draft
+        invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoice before they are actually processed.
+        customer's invoices before they are actually processed.
 
         Args:
           mode: If set to "replace", the preview will be generated as if those were the only
