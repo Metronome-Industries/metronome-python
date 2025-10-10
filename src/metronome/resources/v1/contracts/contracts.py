@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Union, Iterable, Optional, cast
+from typing import Any, Dict, Union, Iterable, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -32,7 +32,6 @@ from ....types.v1 import (
     contract_add_manual_balance_entry_params,
     contract_create_historical_invoices_params,
     contract_schedule_pro_services_invoice_params,
-    contract_get_subscription_seats_history_params,
     contract_retrieve_subscription_quantity_history_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -72,7 +71,6 @@ from ....types.shared_params.spend_threshold_configuration import SpendThreshold
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
 from ....types.v1.contract_schedule_pro_services_invoice_response import ContractScheduleProServicesInvoiceResponse
-from ....types.v1.contract_get_subscription_seats_history_response import ContractGetSubscriptionSeatsHistoryResponse
 from ....types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 from ....types.v1.contract_retrieve_subscription_quantity_history_response import (
     ContractRetrieveSubscriptionQuantityHistoryResponse,
@@ -779,99 +777,6 @@ class ContractsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ContractCreateHistoricalInvoicesResponse,
-        )
-
-    def get_subscription_seats_history(
-        self,
-        *,
-        contract_id: str,
-        customer_id: str,
-        subscription_id: str,
-        covering_date: Union[str, datetime, None] | Omit = omit,
-        cursor: Optional[str] | Omit = omit,
-        ending_before: Union[str, datetime, None] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        starting_at: Union[str, datetime, None] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractGetSubscriptionSeatsHistoryResponse:
-        """
-        Get the history of subscription seats schedule over time for a given
-        `subscription_id`. This endpoint provides information about seat assignments and
-        total quantities for different time periods, allowing you to track how seat
-        assignments have changed over time.
-
-        ### Use this endpoint to:
-
-        - Track changes to seat assignments over time
-        - Get seat schedule for a specific date using the `covering_date` parameter
-        - Get seat schedule history with optional date range filtering using
-          `starting_at` and `ending_before`
-
-        ### Key response fields:
-
-        - data: array of seat schedule entries with time periods, quantity, and
-          assignments
-        - next_page: cursor for pagination to retrieve additional results
-
-        ### Usage guidelines:
-
-        - Use `covering_date` to get the active seats for a specific point in time.
-          `covering_date` cannot be used with `starting_at` or `ending_before`.
-        - Use `starting_at` and `ending_before` to filter results by time range.
-          `starting_at` and `ending_before` cannot be used with `covering_date`.
-        - Maximum limit is 10 seat schedule entries per request
-        - Results are ordered by `starting_at` timestamp
-
-        Args:
-          covering_date: Get the seats history segment for the covering date. Cannot be used with
-              `starting_at` or `ending_before`.
-
-          cursor: Cursor for pagination. Use the value from the `next_page` field of the previous
-              response to retrieve the next page of results.
-
-          ending_before: Include seats history segments that are active at or before this timestamp. Use
-              with `starting_at` to get a specific time range. If not set, there's no upper
-              bound.
-
-          limit: Maximum number of seat schedule entries to return. Defaults to 10. Required
-              range: 1 <= x <= 10.
-
-          starting_at: Include seats history segments that are active at or after this timestamp. Use
-              with `ending_before` to get a specific time range. If not set, there's no lower
-              bound.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/contracts/getSubscriptionSeatsHistory",
-            body=maybe_transform(
-                {
-                    "contract_id": contract_id,
-                    "customer_id": customer_id,
-                    "subscription_id": subscription_id,
-                    "covering_date": covering_date,
-                    "cursor": cursor,
-                    "ending_before": ending_before,
-                    "limit": limit,
-                    "starting_at": starting_at,
-                },
-                contract_get_subscription_seats_history_params.ContractGetSubscriptionSeatsHistoryParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ContractGetSubscriptionSeatsHistoryResponse,
         )
 
     def list_balances(
@@ -1994,99 +1899,6 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
-    async def get_subscription_seats_history(
-        self,
-        *,
-        contract_id: str,
-        customer_id: str,
-        subscription_id: str,
-        covering_date: Union[str, datetime, None] | Omit = omit,
-        cursor: Optional[str] | Omit = omit,
-        ending_before: Union[str, datetime, None] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        starting_at: Union[str, datetime, None] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractGetSubscriptionSeatsHistoryResponse:
-        """
-        Get the history of subscription seats schedule over time for a given
-        `subscription_id`. This endpoint provides information about seat assignments and
-        total quantities for different time periods, allowing you to track how seat
-        assignments have changed over time.
-
-        ### Use this endpoint to:
-
-        - Track changes to seat assignments over time
-        - Get seat schedule for a specific date using the `covering_date` parameter
-        - Get seat schedule history with optional date range filtering using
-          `starting_at` and `ending_before`
-
-        ### Key response fields:
-
-        - data: array of seat schedule entries with time periods, quantity, and
-          assignments
-        - next_page: cursor for pagination to retrieve additional results
-
-        ### Usage guidelines:
-
-        - Use `covering_date` to get the active seats for a specific point in time.
-          `covering_date` cannot be used with `starting_at` or `ending_before`.
-        - Use `starting_at` and `ending_before` to filter results by time range.
-          `starting_at` and `ending_before` cannot be used with `covering_date`.
-        - Maximum limit is 10 seat schedule entries per request
-        - Results are ordered by `starting_at` timestamp
-
-        Args:
-          covering_date: Get the seats history segment for the covering date. Cannot be used with
-              `starting_at` or `ending_before`.
-
-          cursor: Cursor for pagination. Use the value from the `next_page` field of the previous
-              response to retrieve the next page of results.
-
-          ending_before: Include seats history segments that are active at or before this timestamp. Use
-              with `starting_at` to get a specific time range. If not set, there's no upper
-              bound.
-
-          limit: Maximum number of seat schedule entries to return. Defaults to 10. Required
-              range: 1 <= x <= 10.
-
-          starting_at: Include seats history segments that are active at or after this timestamp. Use
-              with `ending_before` to get a specific time range. If not set, there's no lower
-              bound.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/contracts/getSubscriptionSeatsHistory",
-            body=await async_maybe_transform(
-                {
-                    "contract_id": contract_id,
-                    "customer_id": customer_id,
-                    "subscription_id": subscription_id,
-                    "covering_date": covering_date,
-                    "cursor": cursor,
-                    "ending_before": ending_before,
-                    "limit": limit,
-                    "starting_at": starting_at,
-                },
-                contract_get_subscription_seats_history_params.ContractGetSubscriptionSeatsHistoryParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ContractGetSubscriptionSeatsHistoryResponse,
-        )
-
     def list_balances(
         self,
         *,
@@ -2532,9 +2344,6 @@ class ContractsResourceWithRawResponse:
         self.create_historical_invoices = to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_history = to_raw_response_wrapper(
-            contracts.get_subscription_seats_history,
-        )
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
         )
@@ -2591,9 +2400,6 @@ class AsyncContractsResourceWithRawResponse:
         )
         self.create_historical_invoices = async_to_raw_response_wrapper(
             contracts.create_historical_invoices,
-        )
-        self.get_subscription_seats_history = async_to_raw_response_wrapper(
-            contracts.get_subscription_seats_history,
         )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
@@ -2652,9 +2458,6 @@ class ContractsResourceWithStreamingResponse:
         self.create_historical_invoices = to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
-        self.get_subscription_seats_history = to_streamed_response_wrapper(
-            contracts.get_subscription_seats_history,
-        )
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
         )
@@ -2711,9 +2514,6 @@ class AsyncContractsResourceWithStreamingResponse:
         )
         self.create_historical_invoices = async_to_streamed_response_wrapper(
             contracts.create_historical_invoices,
-        )
-        self.get_subscription_seats_history = async_to_streamed_response_wrapper(
-            contracts.get_subscription_seats_history,
         )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,

@@ -16,30 +16,6 @@ from .v2 import (
     V2ResourceWithStreamingResponse,
     AsyncV2ResourceWithStreamingResponse,
 )
-from .packages import (
-    PackagesResource,
-    AsyncPackagesResource,
-    PackagesResourceWithRawResponse,
-    AsyncPackagesResourceWithRawResponse,
-    PackagesResourceWithStreamingResponse,
-    AsyncPackagesResourceWithStreamingResponse,
-)
-from .payments import (
-    PaymentsResource,
-    AsyncPaymentsResource,
-    PaymentsResourceWithRawResponse,
-    AsyncPaymentsResourceWithRawResponse,
-    PaymentsResourceWithStreamingResponse,
-    AsyncPaymentsResourceWithStreamingResponse,
-)
-from .notifications import (
-    NotificationsResource,
-    AsyncNotificationsResource,
-    NotificationsResourceWithRawResponse,
-    AsyncNotificationsResourceWithRawResponse,
-    NotificationsResourceWithStreamingResponse,
-    AsyncNotificationsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "V2Resource",
@@ -54,22 +30,4 @@ __all__ = [
     "AsyncV1ResourceWithRawResponse",
     "V1ResourceWithStreamingResponse",
     "AsyncV1ResourceWithStreamingResponse",
-    "PackagesResource",
-    "AsyncPackagesResource",
-    "PackagesResourceWithRawResponse",
-    "AsyncPackagesResourceWithRawResponse",
-    "PackagesResourceWithStreamingResponse",
-    "AsyncPackagesResourceWithStreamingResponse",
-    "NotificationsResource",
-    "AsyncNotificationsResource",
-    "NotificationsResourceWithRawResponse",
-    "AsyncNotificationsResourceWithRawResponse",
-    "NotificationsResourceWithStreamingResponse",
-    "AsyncNotificationsResourceWithStreamingResponse",
-    "PaymentsResource",
-    "AsyncPaymentsResource",
-    "PaymentsResourceWithRawResponse",
-    "AsyncPaymentsResourceWithRawResponse",
-    "PaymentsResourceWithStreamingResponse",
-    "AsyncPaymentsResourceWithStreamingResponse",
 ]
