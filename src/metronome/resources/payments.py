@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import payment_list_params, payment_attempt_params
+from ..types import payment_list_params, payment_cancel_params, payment_attempt_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,6 +21,7 @@ from .._response import (
 from ..pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.payment_list_response import PaymentListResponse
+from ..types.payment_cancel_response import PaymentCancelResponse
 from ..types.payment_attempt_response import PaymentAttemptResponse
 
 __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
@@ -147,6 +148,45 @@ class PaymentsResource(SyncAPIResource):
             cast_to=PaymentAttemptResponse,
         )
 
+    def cancel(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentCancelResponse:
+        """
+        Cancel an existing payment attempt for an invoice.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/payments/cancel",
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "invoice_id": invoice_id,
+                },
+                payment_cancel_params.PaymentCancelParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentCancelResponse,
+        )
+
 
 class AsyncPaymentsResource(AsyncAPIResource):
     @cached_property
@@ -269,6 +309,45 @@ class AsyncPaymentsResource(AsyncAPIResource):
             cast_to=PaymentAttemptResponse,
         )
 
+    async def cancel(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentCancelResponse:
+        """
+        Cancel an existing payment attempt for an invoice.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/payments/cancel",
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "invoice_id": invoice_id,
+                },
+                payment_cancel_params.PaymentCancelParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentCancelResponse,
+        )
+
 
 class PaymentsResourceWithRawResponse:
     def __init__(self, payments: PaymentsResource) -> None:
@@ -279,6 +358,9 @@ class PaymentsResourceWithRawResponse:
         )
         self.attempt = to_raw_response_wrapper(
             payments.attempt,
+        )
+        self.cancel = to_raw_response_wrapper(
+            payments.cancel,
         )
 
 
@@ -292,6 +374,9 @@ class AsyncPaymentsResourceWithRawResponse:
         self.attempt = async_to_raw_response_wrapper(
             payments.attempt,
         )
+        self.cancel = async_to_raw_response_wrapper(
+            payments.cancel,
+        )
 
 
 class PaymentsResourceWithStreamingResponse:
@@ -304,6 +389,9 @@ class PaymentsResourceWithStreamingResponse:
         self.attempt = to_streamed_response_wrapper(
             payments.attempt,
         )
+        self.cancel = to_streamed_response_wrapper(
+            payments.cancel,
+        )
 
 
 class AsyncPaymentsResourceWithStreamingResponse:
@@ -315,4 +403,7 @@ class AsyncPaymentsResourceWithStreamingResponse:
         )
         self.attempt = async_to_streamed_response_wrapper(
             payments.attempt,
+        )
+        self.cancel = async_to_streamed_response_wrapper(
+            payments.cancel,
         )
