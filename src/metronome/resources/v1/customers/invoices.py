@@ -13,10 +13,18 @@ from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from ....pagination import SyncCursorPage, AsyncCursorPage
 from ...._base_client import AsyncPaginator, make_request_options
@@ -443,6 +451,69 @@ class InvoicesResource(SyncAPIResource):
             model=InvoiceListBreakdownsResponse,
         )
 
+    def retrieve_pdf(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BinaryAPIResponse:
+        """Retrieve a PDF version of a specific invoice by its unique identifier.
+
+        This
+        endpoint generates a professionally formatted invoice document suitable for
+        sharing with customers, accounting teams, or for record-keeping purposes.
+
+        ### Use this endpoint to:
+
+        - Provide customers with downloadable or emailable copies of their invoices
+        - Support accounting and finance teams with official billing documents
+        - Maintain accurate records of billing transactions for audits and compliance
+
+        ### Key response details:
+
+        - The response is a binary PDF file representing the full invoice
+        - The PDF includes all standard invoice information such as line items, totals,
+          billing period, and customer details
+        - The document is formatted for clarity and professionalism, suitable for
+          official use
+
+        ### Usage guidelines:
+
+        - Ensure the `invoice_id` corresponds to an existing invoice for the specified
+          `customer_id`
+        - The PDF is generated on-demand; frequent requests for the same invoice may
+          impact performance
+        - Use appropriate headers to handle the binary response in your application
+          (e.g., setting `Content-Type: application/pdf`)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not customer_id:
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+        if not invoice_id:
+            raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
+        extra_headers = {"Accept": "application/pdf", **(extra_headers or {})}
+        return self._get(
+            f"/v1/customers/{customer_id}/invoices/{invoice_id}/pdf",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
 
 class AsyncInvoicesResource(AsyncAPIResource):
     @cached_property
@@ -853,6 +924,69 @@ class AsyncInvoicesResource(AsyncAPIResource):
             model=InvoiceListBreakdownsResponse,
         )
 
+    async def retrieve_pdf(
+        self,
+        *,
+        customer_id: str,
+        invoice_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncBinaryAPIResponse:
+        """Retrieve a PDF version of a specific invoice by its unique identifier.
+
+        This
+        endpoint generates a professionally formatted invoice document suitable for
+        sharing with customers, accounting teams, or for record-keeping purposes.
+
+        ### Use this endpoint to:
+
+        - Provide customers with downloadable or emailable copies of their invoices
+        - Support accounting and finance teams with official billing documents
+        - Maintain accurate records of billing transactions for audits and compliance
+
+        ### Key response details:
+
+        - The response is a binary PDF file representing the full invoice
+        - The PDF includes all standard invoice information such as line items, totals,
+          billing period, and customer details
+        - The document is formatted for clarity and professionalism, suitable for
+          official use
+
+        ### Usage guidelines:
+
+        - Ensure the `invoice_id` corresponds to an existing invoice for the specified
+          `customer_id`
+        - The PDF is generated on-demand; frequent requests for the same invoice may
+          impact performance
+        - Use appropriate headers to handle the binary response in your application
+          (e.g., setting `Content-Type: application/pdf`)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not customer_id:
+            raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
+        if not invoice_id:
+            raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
+        extra_headers = {"Accept": "application/pdf", **(extra_headers or {})}
+        return await self._get(
+            f"/v1/customers/{customer_id}/invoices/{invoice_id}/pdf",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
 
 class InvoicesResourceWithRawResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
@@ -869,6 +1003,10 @@ class InvoicesResourceWithRawResponse:
         )
         self.list_breakdowns = to_raw_response_wrapper(
             invoices.list_breakdowns,
+        )
+        self.retrieve_pdf = to_custom_raw_response_wrapper(
+            invoices.retrieve_pdf,
+            BinaryAPIResponse,
         )
 
 
@@ -888,6 +1026,10 @@ class AsyncInvoicesResourceWithRawResponse:
         self.list_breakdowns = async_to_raw_response_wrapper(
             invoices.list_breakdowns,
         )
+        self.retrieve_pdf = async_to_custom_raw_response_wrapper(
+            invoices.retrieve_pdf,
+            AsyncBinaryAPIResponse,
+        )
 
 
 class InvoicesResourceWithStreamingResponse:
@@ -906,6 +1048,10 @@ class InvoicesResourceWithStreamingResponse:
         self.list_breakdowns = to_streamed_response_wrapper(
             invoices.list_breakdowns,
         )
+        self.retrieve_pdf = to_custom_streamed_response_wrapper(
+            invoices.retrieve_pdf,
+            StreamedBinaryAPIResponse,
+        )
 
 
 class AsyncInvoicesResourceWithStreamingResponse:
@@ -923,4 +1069,8 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list_breakdowns = async_to_streamed_response_wrapper(
             invoices.list_breakdowns,
+        )
+        self.retrieve_pdf = async_to_custom_streamed_response_wrapper(
+            invoices.retrieve_pdf,
+            AsyncStreamedBinaryAPIResponse,
         )

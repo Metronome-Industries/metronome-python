@@ -40,6 +40,14 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
+from .payments import (
+    PaymentsResource,
+    AsyncPaymentsResource,
+    PaymentsResourceWithRawResponse,
+    AsyncPaymentsResourceWithRawResponse,
+    PaymentsResourceWithStreamingResponse,
+    AsyncPaymentsResourceWithStreamingResponse,
+)
 from .services import (
     ServicesResource,
     AsyncServicesResource,
@@ -192,6 +200,12 @@ __all__ = [
     "AsyncContractsResourceWithRawResponse",
     "ContractsResourceWithStreamingResponse",
     "AsyncContractsResourceWithStreamingResponse",
+    "PaymentsResource",
+    "AsyncPaymentsResource",
+    "PaymentsResourceWithRawResponse",
+    "AsyncPaymentsResourceWithRawResponse",
+    "PaymentsResourceWithStreamingResponse",
+    "AsyncPaymentsResourceWithStreamingResponse",
     "V1Resource",
     "AsyncV1Resource",
     "V1ResourceWithRawResponse",
