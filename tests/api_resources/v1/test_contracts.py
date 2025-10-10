@@ -21,7 +21,6 @@ from metronome.types.v1 import (
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
-    ContractGetSubscriptionSeatsHistoryResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
@@ -1064,57 +1063,6 @@ class TestContracts:
 
             contract = response.parse()
             assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_get_subscription_seats_history(self, client: Metronome) -> None:
-        contract = client.v1.contracts.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    def test_method_get_subscription_seats_history_with_all_params(self, client: Metronome) -> None:
-        contract = client.v1.contracts.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-            covering_date=parse_datetime("2024-01-15T00:00:00.000Z"),
-            cursor="cursor",
-            ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            limit=10,
-            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-        )
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    def test_raw_response_get_subscription_seats_history(self, client: Metronome) -> None:
-        response = client.v1.contracts.with_raw_response.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        contract = response.parse()
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    def test_streaming_response_get_subscription_seats_history(self, client: Metronome) -> None:
-        with client.v1.contracts.with_streaming_response.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            contract = response.parse()
-            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2448,57 +2396,6 @@ class TestAsyncContracts:
 
             contract = await response.parse()
             assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
-        contract = await async_client.v1.contracts.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    async def test_method_get_subscription_seats_history_with_all_params(self, async_client: AsyncMetronome) -> None:
-        contract = await async_client.v1.contracts.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-            covering_date=parse_datetime("2024-01-15T00:00:00.000Z"),
-            cursor="cursor",
-            ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
-            limit=10,
-            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-        )
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    async def test_raw_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
-        response = await async_client.v1.contracts.with_raw_response.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        contract = await response.parse()
-        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
-        async with async_client.v1.contracts.with_streaming_response.get_subscription_seats_history(
-            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
-            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
-            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            contract = await response.parse()
-            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

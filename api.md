@@ -394,7 +394,6 @@ from metronome.types.v1 import (
     ContractAmendResponse,
     ContractArchiveResponse,
     ContractCreateHistoricalInvoicesResponse,
-    ContractGetSubscriptionSeatsHistoryResponse,
     ContractListBalancesResponse,
     ContractRetrieveRateScheduleResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
@@ -412,7 +411,6 @@ Methods:
 - <code title="post /v1/contracts/amend">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/v1/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_amend_response.py">ContractAmendResponse</a></code>
 - <code title="post /v1/contracts/archive">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/v1/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_archive_response.py">ContractArchiveResponse</a></code>
 - <code title="post /v1/contracts/createHistoricalInvoices">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">create_historical_invoices</a>(\*\*<a href="src/metronome/types/v1/contract_create_historical_invoices_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_create_historical_invoices_response.py">ContractCreateHistoricalInvoicesResponse</a></code>
-- <code title="post /v1/contracts/getSubscriptionSeatsHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">get_subscription_seats_history</a>(\*\*<a href="src/metronome/types/v1/contract_get_subscription_seats_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_get_subscription_seats_history_response.py">ContractGetSubscriptionSeatsHistoryResponse</a></code>
 - <code title="post /v1/contracts/customerBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_balances_response.py">SyncBodyCursorPage[ContractListBalancesResponse]</a></code>
 - <code title="post /v1/contracts/getContractRateSchedule">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
 - <code title="post /v1/contracts/getSubscriptionQuantityHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_subscription_quantity_history</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_subscription_quantity_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_subscription_quantity_history_response.py">ContractRetrieveSubscriptionQuantityHistoryResponse</a></code>
@@ -528,73 +526,3 @@ Methods:
 
 - <code title="post /v1/contract-pricing/rate-cards/getNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/updateNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_update_params.py">params</a>) -> None</code>
-
-# Packages
-
-Types:
-
-```python
-from metronome.types import PackageCreateResponse
-```
-
-Methods:
-
-- <code title="post /v1/packages/create">client.packages.<a href="./src/metronome/resources/packages.py">create</a>(\*\*<a href="src/metronome/types/package_create_params.py">params</a>) -> <a href="./src/metronome/types/package_create_response.py">PackageCreateResponse</a></code>
-
-# Notifications
-
-Types:
-
-```python
-from metronome.types import (
-    NotificationCreateResponse,
-    NotificationRetrieveResponse,
-    NotificationUpdateResponse,
-    NotificationArchiveResponse,
-)
-```
-
-Methods:
-
-- <code title="post /v2/notifications/create">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">create</a>(\*\*<a href="src/metronome/types/notification_create_params.py">params</a>) -> <a href="./src/metronome/types/notification_create_response.py">NotificationCreateResponse</a></code>
-- <code title="post /v2/notifications/get">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">retrieve</a>(\*\*<a href="src/metronome/types/notification_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/notification_retrieve_response.py">NotificationRetrieveResponse</a></code>
-- <code title="post /v2/notifications/edit">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">update</a>(\*\*<a href="src/metronome/types/notification_update_params.py">params</a>) -> <a href="./src/metronome/types/notification_update_response.py">NotificationUpdateResponse</a></code>
-- <code title="post /v2/notifications/archive">client.notifications.<a href="./src/metronome/resources/notifications/notifications.py">archive</a>(\*\*<a href="src/metronome/types/notification_archive_params.py">params</a>) -> <a href="./src/metronome/types/notification_archive_response.py">NotificationArchiveResponse</a></code>
-
-## Offset
-
-Types:
-
-```python
-from metronome.types.notifications import OffsetListResponse
-```
-
-Methods:
-
-- <code title="post /v2/notifications/offset/list">client.notifications.offset.<a href="./src/metronome/resources/notifications/offset.py">list</a>(\*\*<a href="src/metronome/types/notifications/offset_list_params.py">params</a>) -> <a href="./src/metronome/types/notifications/offset_list_response.py">OffsetListResponse</a></code>
-
-## System
-
-Types:
-
-```python
-from metronome.types.notifications import SystemListResponse
-```
-
-Methods:
-
-- <code title="post /v2/notifications/system/list">client.notifications.system.<a href="./src/metronome/resources/notifications/system.py">list</a>() -> <a href="./src/metronome/types/notifications/system_list_response.py">SystemListResponse</a></code>
-
-# Payments
-
-Types:
-
-```python
-from metronome.types import PaymentListResponse, PaymentAttemptResponse, PaymentCancelResponse
-```
-
-Methods:
-
-- <code title="post /v1/payments/list">client.payments.<a href="./src/metronome/resources/payments.py">list</a>(\*\*<a href="src/metronome/types/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/payment_list_response.py">SyncBodyCursorPage[PaymentListResponse]</a></code>
-- <code title="post /v1/payments/attempt">client.payments.<a href="./src/metronome/resources/payments.py">attempt</a>(\*\*<a href="src/metronome/types/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/payment_attempt_response.py">PaymentAttemptResponse</a></code>
-- <code title="post /v1/payments/cancel">client.payments.<a href="./src/metronome/resources/payments.py">cancel</a>(\*\*<a href="src/metronome/types/payment_cancel_params.py">params</a>) -> <a href="./src/metronome/types/payment_cancel_response.py">PaymentCancelResponse</a></code>
