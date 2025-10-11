@@ -10,21 +10,21 @@ __all__ = ["AlertRetrieveParams", "GroupValue"]
 
 class AlertRetrieveParams(TypedDict, total=False):
     alert_id: Required[str]
-    """The Metronome ID of the alert"""
+    """The Metronome ID of the threshold notification"""
 
     customer_id: Required[str]
     """The Metronome ID of the customer"""
 
     group_values: Iterable[GroupValue]
-    """Only present for `spend_threshold_reached` alerts.
+    """Only present for `spend_threshold_reached` notifications.
 
-    Retrieve the alert for a specific group key-value pair.
+    Retrieve the notification for a specific group key-value pair.
     """
 
     plans_or_contracts: Literal["PLANS", "CONTRACTS"]
     """
-    When parallel alerts are enabled during migration, this flag denotes whether to
-    fetch alerts for plans or contracts.
+    When parallel threshold notifications are enabled during migration, this flag
+    denotes whether to fetch notifications for plans or contracts.
     """
 
 

@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import alert_create_params, alert_archive_params
@@ -66,34 +66,33 @@ class AlertsResource(SyncAPIResource):
         ],
         name: str,
         threshold: float,
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
-        customer_id: str | NotGiven = NOT_GIVEN,
-        evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        plan_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+        credit_type_id: str | Omit = omit,
+        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+        customer_id: str | Omit = omit,
+        evaluate_on_create: bool | Omit = omit,
+        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertCreateResponse:
         """
-        Create a new alert to monitor customer spending, balances, and billing metrics
-        in real-time. Metronome's alert system provides industry-leading speed with
-        immediate evaluation capabilities, enabling you to proactively manage customer
-        accounts and prevent revenue leakage.
+        Create a new threshold notification to monitor customer spending, balances, and
+        billing metrics in real-time. Metronome's notification system provides
+        industry-leading speed with immediate evaluation capabilities, enabling you to
+        proactively manage customer accounts and prevent revenue leakage.
 
-        This endpoint creates configurable alerts that continuously monitor various
-        billing thresholds including spend limits, credit balances, commitment
-        utilization, and invoice totals. Alerts can be configured globally for all
-        customers or targeted to specific customer accounts. Custom fields can be used
-        on certain alert types to further target alerts to groups of customers.
+        This endpoint creates configurable threshold notifications that continuously
+        monitor various billing thresholds including spend limits, credit balances,
+        commitment utilization, and invoice totals. Threshold notifications can be
+        configured globally for all customers or targeted to specific customer accounts.
 
         ### Use this endpoint to:
 
@@ -109,64 +108,67 @@ class AlertsResource(SyncAPIResource):
 
         A successful response returns a CustomerAlert object containing:
 
-        - The alert configuration with its unique ID and current status
+        - The threshold notification configuration with its unique ID and current status
         - The customer's evaluation status (ok, in_alarm, or evaluating)
-        - Alert metadata including type, threshold values, and update timestamps
+        - Threshold notification metadata including type, threshold values, and update
+          timestamps
 
         ### Usage guidelines:
 
         - Immediate evaluation: Set `evaluate_on_create` : `true` (default) for instant
           evaluation against existing customers
-        - Uniqueness constraints: Each alert must have a unique `uniqueness_key` within
-          your organization. Use `release_uniqueness_key` : `true` when archiving to
-          reuse keys
-        - Alert type requirements: Different alert types require specific fields (e.g.,
-          `billable_metric_id` for usage alerts, `credit_type_id` for credit-based
-          alerts)
-        - Webhook delivery: Alerts trigger webhook notifications for real-time
-          integration with your systems. Configure webhook endpoints before creating
-          alerts
-        - Performance at scale: Metronome's event-driven architecture processes alert
-          evaluations in real-time as usage events stream in, unlike competitors who
-          rely on periodic polling or batch evaluation cycles
+        - Uniqueness constraints: Each threshold notification must have a unique
+          `uniqueness_key` within your organization. Use `release_uniqueness_key` :
+          `true` when archiving to reuse keys
+        - Notification type requirements: Different threshold notification types require
+          specific fields (e.g., `billable_metric_id` for usage notifications,
+          `credit_type_id` for credit-based threshold notifications)
+        - Webhook delivery: Threshold notifications trigger webhook notifications for
+          real-time integration with your systems. Configure webhook endpoints before
+          creating threshold notifications
+        - Performance at scale: Metronome's event-driven architecture processes
+          threshold notification evaluations in real-time as usage events stream in,
+          unlike competitors who rely on periodic polling or batch evaluation cycles
 
         Args:
-          alert_type: Type of the alert
+          alert_type: Type of the threshold notification
 
-          name: Name of the alert
+          name: Name of the threshold notification
 
-          threshold: Threshold value of the alert policy. Depending upon the alert type, this number
-              may represent a financial amount, the days remaining, or a percentage reached.
+          threshold: Threshold value of the notification policy. Depending upon the notification
+              type, this number may represent a financial amount, the days remaining, or a
+              percentage reached.
 
-          billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
-              track the usage for.
+          billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
+              billable metric to track the usage for.
 
-          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this alert
-              applies to, by looking at the credit_grant_type field on the credit grant. This
-              field is only defined for CreditPercentage and CreditBalance alerts
+          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this
+              threshold notification applies to, by looking at the credit_grant_type field on
+              the credit grant. This field is only defined for CreditPercentage and
+              CreditBalance notifications
 
-          credit_type_id: ID of the credit's currency, defaults to USD. If the specific alert type
+          credit_type_id: ID of the credit's currency, defaults to USD. If the specific notification type
               requires a pricing unit/currency, find the ID in the
               [Metronome app](https://app.metronome.com/offering/pricing-units).
 
-          custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
-              Only present for contract invoices.
+          custom_field_filters: A list of custom field filters for threshold notification types that support
+              advanced filtering. Only present for contract invoices.
 
-          customer_id: If provided, will create this alert for this specific customer. To create an
-              alert for all customers, do not specify a `customer_id`.
+          customer_id: If provided, will create this threshold notification for this specific customer.
+              To create a notification for all customers, do not specify a `customer_id`.
 
-          evaluate_on_create: If true, the alert will evaluate immediately on customers that already meet the
-              alert threshold. If false, it will only evaluate on future customers that
-              trigger the alert threshold. Defaults to true.
+          evaluate_on_create: If true, the threshold notification will evaluate immediately on customers that
+              already meet the notification threshold. If false, it will only evaluate on
+              future customers that trigger the threshold. Defaults to true.
 
-          group_values: Only present for `spend_threshold_reached` alerts. Scope alert to a specific
-              group key on individual line items.
+          group_values: Only present for `spend_threshold_reached` notifications. Scope notification to
+              a specific group key on individual line items.
 
-          invoice_types_filter: Only supported for invoice_total_reached alerts. A list of invoice types to
-              evaluate.
+          invoice_types_filter: Only supported for invoice_total_reached threshold notifications. A list of
+              invoice types to evaluate.
 
-          plan_id: If provided, will create this alert for this specific plan. To create an alert
-              for all customers, do not specify a `plan_id`.
+          plan_id: If provided, will create this threshold notification for this specific plan. To
+              create a notification for all customers, do not specify a `plan_id`.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
@@ -210,47 +212,49 @@ class AlertsResource(SyncAPIResource):
         self,
         *,
         id: str,
-        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
+        release_uniqueness_key: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertArchiveResponse:
         """
-        Permanently disable an alert and remove it from active monitoring across all
-        customers. Archived alerts stop evaluating immediately and can optionally
-        release their uniqueness key for reuse in future alert configurations.
+        Permanently disable a threshold notification and remove it from active
+        monitoring across all customers. Archived threshold notifications stop
+        evaluating immediately and can optionally release their uniqueness key for reuse
+        in future threshold notification configurations.
 
         ### Use this endpoint to:
 
-        - Decommission alerts that are no longer needed
-        - Clean up test or deprecated alert configurations
-        - Free up uniqueness keys for reuse with new alerts
-        - Stop alert evaluations without losing historical configuration data
+        - Decommission threshold notifications that are no longer needed
+        - Clean up test or deprecated threshold notification configurations
+        - Free up uniqueness keys for reuse with new threshold notifications
+        - Stop threshold notification evaluations without losing historical
+          configuration data
         - Disable outdated monitoring rules during pricing model transitions
 
         ### Key response fields:
 
-        - data: Object containing the archived alert's ID
-        - Alert evaluation stops immediately for all affected customers
-        - Historical alert data and configurations remain accessible for audit purposes
+        - data: Object containing the archived threshold notification's ID
 
         ### Usage guidelines:
 
-        - Irreversible for evaluation: Archived alerts cannot be re-enabled; create a
-          new alert to resume monitoring
+        - Irreversible for evaluation: Archived threshold notifications cannot be
+          re-enabled; create a new threshold notification to resume monitoring
         - Uniqueness key handling: Set `release_uniqueness_key` : `true` to reuse the
-          key in future alerts
-        - Immediate effect: Alert evaluation stops instantly across all customers
-        - Historical preservation: Archive operation maintains alert history and
-          configuration for compliance and auditing
+          key in future threshold notifications
+        - Immediate effect: Threshold notification evaluation stops instantly across all
+          customers
+        - Historical preservation: Archive operation maintains threshold notification
+          history and configuration for compliance and auditing
 
         Args:
-          id: The Metronome ID of the alert
+          id: The Metronome ID of the threshold notification
 
-          release_uniqueness_key: If true, resets the uniqueness key on this alert so it can be re-used
+          release_uniqueness_key: If true, resets the uniqueness key on this threshold notification so it can be
+              re-used
 
           extra_headers: Send extra headers
 
@@ -317,34 +321,33 @@ class AsyncAlertsResource(AsyncAPIResource):
         ],
         name: str,
         threshold: float,
-        billable_metric_id: str | NotGiven = NOT_GIVEN,
-        credit_grant_type_filters: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        credit_type_id: str | NotGiven = NOT_GIVEN,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | NotGiven = NOT_GIVEN,
-        customer_id: str | NotGiven = NOT_GIVEN,
-        evaluate_on_create: bool | NotGiven = NOT_GIVEN,
-        group_values: Iterable[alert_create_params.GroupValue] | NotGiven = NOT_GIVEN,
-        invoice_types_filter: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        plan_id: str | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
+        billable_metric_id: str | Omit = omit,
+        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+        credit_type_id: str | Omit = omit,
+        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+        customer_id: str | Omit = omit,
+        evaluate_on_create: bool | Omit = omit,
+        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+        plan_id: str | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertCreateResponse:
         """
-        Create a new alert to monitor customer spending, balances, and billing metrics
-        in real-time. Metronome's alert system provides industry-leading speed with
-        immediate evaluation capabilities, enabling you to proactively manage customer
-        accounts and prevent revenue leakage.
+        Create a new threshold notification to monitor customer spending, balances, and
+        billing metrics in real-time. Metronome's notification system provides
+        industry-leading speed with immediate evaluation capabilities, enabling you to
+        proactively manage customer accounts and prevent revenue leakage.
 
-        This endpoint creates configurable alerts that continuously monitor various
-        billing thresholds including spend limits, credit balances, commitment
-        utilization, and invoice totals. Alerts can be configured globally for all
-        customers or targeted to specific customer accounts. Custom fields can be used
-        on certain alert types to further target alerts to groups of customers.
+        This endpoint creates configurable threshold notifications that continuously
+        monitor various billing thresholds including spend limits, credit balances,
+        commitment utilization, and invoice totals. Threshold notifications can be
+        configured globally for all customers or targeted to specific customer accounts.
 
         ### Use this endpoint to:
 
@@ -360,64 +363,67 @@ class AsyncAlertsResource(AsyncAPIResource):
 
         A successful response returns a CustomerAlert object containing:
 
-        - The alert configuration with its unique ID and current status
+        - The threshold notification configuration with its unique ID and current status
         - The customer's evaluation status (ok, in_alarm, or evaluating)
-        - Alert metadata including type, threshold values, and update timestamps
+        - Threshold notification metadata including type, threshold values, and update
+          timestamps
 
         ### Usage guidelines:
 
         - Immediate evaluation: Set `evaluate_on_create` : `true` (default) for instant
           evaluation against existing customers
-        - Uniqueness constraints: Each alert must have a unique `uniqueness_key` within
-          your organization. Use `release_uniqueness_key` : `true` when archiving to
-          reuse keys
-        - Alert type requirements: Different alert types require specific fields (e.g.,
-          `billable_metric_id` for usage alerts, `credit_type_id` for credit-based
-          alerts)
-        - Webhook delivery: Alerts trigger webhook notifications for real-time
-          integration with your systems. Configure webhook endpoints before creating
-          alerts
-        - Performance at scale: Metronome's event-driven architecture processes alert
-          evaluations in real-time as usage events stream in, unlike competitors who
-          rely on periodic polling or batch evaluation cycles
+        - Uniqueness constraints: Each threshold notification must have a unique
+          `uniqueness_key` within your organization. Use `release_uniqueness_key` :
+          `true` when archiving to reuse keys
+        - Notification type requirements: Different threshold notification types require
+          specific fields (e.g., `billable_metric_id` for usage notifications,
+          `credit_type_id` for credit-based threshold notifications)
+        - Webhook delivery: Threshold notifications trigger webhook notifications for
+          real-time integration with your systems. Configure webhook endpoints before
+          creating threshold notifications
+        - Performance at scale: Metronome's event-driven architecture processes
+          threshold notification evaluations in real-time as usage events stream in,
+          unlike competitors who rely on periodic polling or batch evaluation cycles
 
         Args:
-          alert_type: Type of the alert
+          alert_type: Type of the threshold notification
 
-          name: Name of the alert
+          name: Name of the threshold notification
 
-          threshold: Threshold value of the alert policy. Depending upon the alert type, this number
-              may represent a financial amount, the days remaining, or a percentage reached.
+          threshold: Threshold value of the notification policy. Depending upon the notification
+              type, this number may represent a financial amount, the days remaining, or a
+              percentage reached.
 
-          billable_metric_id: For alerts of type `usage_threshold_reached`, specifies which billable metric to
-              track the usage for.
+          billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
+              billable metric to track the usage for.
 
-          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this alert
-              applies to, by looking at the credit_grant_type field on the credit grant. This
-              field is only defined for CreditPercentage and CreditBalance alerts
+          credit_grant_type_filters: An array of strings, representing a way to filter the credit grant this
+              threshold notification applies to, by looking at the credit_grant_type field on
+              the credit grant. This field is only defined for CreditPercentage and
+              CreditBalance notifications
 
-          credit_type_id: ID of the credit's currency, defaults to USD. If the specific alert type
+          credit_type_id: ID of the credit's currency, defaults to USD. If the specific notification type
               requires a pricing unit/currency, find the ID in the
               [Metronome app](https://app.metronome.com/offering/pricing-units).
 
-          custom_field_filters: A list of custom field filters for alert types that support advanced filtering.
-              Only present for contract invoices.
+          custom_field_filters: A list of custom field filters for threshold notification types that support
+              advanced filtering. Only present for contract invoices.
 
-          customer_id: If provided, will create this alert for this specific customer. To create an
-              alert for all customers, do not specify a `customer_id`.
+          customer_id: If provided, will create this threshold notification for this specific customer.
+              To create a notification for all customers, do not specify a `customer_id`.
 
-          evaluate_on_create: If true, the alert will evaluate immediately on customers that already meet the
-              alert threshold. If false, it will only evaluate on future customers that
-              trigger the alert threshold. Defaults to true.
+          evaluate_on_create: If true, the threshold notification will evaluate immediately on customers that
+              already meet the notification threshold. If false, it will only evaluate on
+              future customers that trigger the threshold. Defaults to true.
 
-          group_values: Only present for `spend_threshold_reached` alerts. Scope alert to a specific
-              group key on individual line items.
+          group_values: Only present for `spend_threshold_reached` notifications. Scope notification to
+              a specific group key on individual line items.
 
-          invoice_types_filter: Only supported for invoice_total_reached alerts. A list of invoice types to
-              evaluate.
+          invoice_types_filter: Only supported for invoice_total_reached threshold notifications. A list of
+              invoice types to evaluate.
 
-          plan_id: If provided, will create this alert for this specific plan. To create an alert
-              for all customers, do not specify a `plan_id`.
+          plan_id: If provided, will create this threshold notification for this specific plan. To
+              create a notification for all customers, do not specify a `plan_id`.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
@@ -461,47 +467,49 @@ class AsyncAlertsResource(AsyncAPIResource):
         self,
         *,
         id: str,
-        release_uniqueness_key: bool | NotGiven = NOT_GIVEN,
+        release_uniqueness_key: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AlertArchiveResponse:
         """
-        Permanently disable an alert and remove it from active monitoring across all
-        customers. Archived alerts stop evaluating immediately and can optionally
-        release their uniqueness key for reuse in future alert configurations.
+        Permanently disable a threshold notification and remove it from active
+        monitoring across all customers. Archived threshold notifications stop
+        evaluating immediately and can optionally release their uniqueness key for reuse
+        in future threshold notification configurations.
 
         ### Use this endpoint to:
 
-        - Decommission alerts that are no longer needed
-        - Clean up test or deprecated alert configurations
-        - Free up uniqueness keys for reuse with new alerts
-        - Stop alert evaluations without losing historical configuration data
+        - Decommission threshold notifications that are no longer needed
+        - Clean up test or deprecated threshold notification configurations
+        - Free up uniqueness keys for reuse with new threshold notifications
+        - Stop threshold notification evaluations without losing historical
+          configuration data
         - Disable outdated monitoring rules during pricing model transitions
 
         ### Key response fields:
 
-        - data: Object containing the archived alert's ID
-        - Alert evaluation stops immediately for all affected customers
-        - Historical alert data and configurations remain accessible for audit purposes
+        - data: Object containing the archived threshold notification's ID
 
         ### Usage guidelines:
 
-        - Irreversible for evaluation: Archived alerts cannot be re-enabled; create a
-          new alert to resume monitoring
+        - Irreversible for evaluation: Archived threshold notifications cannot be
+          re-enabled; create a new threshold notification to resume monitoring
         - Uniqueness key handling: Set `release_uniqueness_key` : `true` to reuse the
-          key in future alerts
-        - Immediate effect: Alert evaluation stops instantly across all customers
-        - Historical preservation: Archive operation maintains alert history and
-          configuration for compliance and auditing
+          key in future threshold notifications
+        - Immediate effect: Threshold notification evaluation stops instantly across all
+          customers
+        - Historical preservation: Archive operation maintains threshold notification
+          history and configuration for compliance and auditing
 
         Args:
-          id: The Metronome ID of the alert
+          id: The Metronome ID of the threshold notification
 
-          release_uniqueness_key: If true, resets the uniqueness key on this alert so it can be re-used
+          release_uniqueness_key: If true, resets the uniqueness key on this threshold notification so it can be
+              re-used
 
           extra_headers: Send extra headers
 

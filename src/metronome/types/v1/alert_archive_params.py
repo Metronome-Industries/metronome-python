@@ -9,7 +9,10 @@ __all__ = ["AlertArchiveParams"]
 
 class AlertArchiveParams(TypedDict, total=False):
     id: Required[str]
-    """The Metronome ID of the alert"""
+    """The Metronome ID of the threshold notification"""
 
     release_uniqueness_key: bool
-    """If true, resets the uniqueness key on this alert so it can be re-used"""
+    """
+    If true, resets the uniqueness key on this threshold notification so it can be
+    re-used
+    """

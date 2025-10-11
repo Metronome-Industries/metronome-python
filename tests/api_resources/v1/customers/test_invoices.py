@@ -5,11 +5,19 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
+from metronome._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
+)
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
 from metronome.types.v1.customers import (
     Invoice,
@@ -258,6 +266,72 @@ class TestInvoices:
                 starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
             )
 
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_method_retrieve_pdf(self, client: Metronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        invoice = client.v1.customers.invoices.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert invoice.is_closed
+        assert invoice.json() == {"foo": "bar"}
+        assert cast(Any, invoice.is_closed) is True
+        assert isinstance(invoice, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_raw_response_retrieve_pdf(self, client: Metronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        invoice = client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert invoice.is_closed is True
+        assert invoice.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert invoice.json() == {"foo": "bar"}
+        assert isinstance(invoice, BinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_streaming_response_retrieve_pdf(self, client: Metronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        with client.v1.customers.invoices.with_streaming_response.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as invoice:
+            assert not invoice.is_closed
+            assert invoice.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert invoice.json() == {"foo": "bar"}
+            assert cast(Any, invoice.is_closed) is True
+            assert isinstance(invoice, StreamedBinaryAPIResponse)
+
+        assert cast(Any, invoice.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    def test_path_params_retrieve_pdf(self, client: Metronome) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
+            client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+                customer_id="",
+                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `invoice_id` but received ''"):
+            client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+                customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                invoice_id="",
+            )
+
 
 class TestAsyncInvoices:
     parametrize = pytest.mark.parametrize(
@@ -496,4 +570,70 @@ class TestAsyncInvoices:
                 customer_id="",
                 ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
                 starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
+            )
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_method_retrieve_pdf(self, async_client: AsyncMetronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        invoice = await async_client.v1.customers.invoices.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+        assert invoice.is_closed
+        assert await invoice.json() == {"foo": "bar"}
+        assert cast(Any, invoice.is_closed) is True
+        assert isinstance(invoice, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_raw_response_retrieve_pdf(self, async_client: AsyncMetronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        invoice = await async_client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        )
+
+        assert invoice.is_closed is True
+        assert invoice.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert await invoice.json() == {"foo": "bar"}
+        assert isinstance(invoice, AsyncBinaryAPIResponse)
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_streaming_response_retrieve_pdf(self, async_client: AsyncMetronome, respx_mock: MockRouter) -> None:
+        respx_mock.get(
+            "/v1/customers/d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc/invoices/6a37bb88-8538-48c5-b37b-a41c836328bd/pdf"
+        ).mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        async with async_client.v1.customers.invoices.with_streaming_response.retrieve_pdf(
+            customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+        ) as invoice:
+            assert not invoice.is_closed
+            assert invoice.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            assert await invoice.json() == {"foo": "bar"}
+            assert cast(Any, invoice.is_closed) is True
+            assert isinstance(invoice, AsyncStreamedBinaryAPIResponse)
+
+        assert cast(Any, invoice.is_closed) is True
+
+    @parametrize
+    @pytest.mark.respx(base_url=base_url)
+    async def test_path_params_retrieve_pdf(self, async_client: AsyncMetronome) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `customer_id` but received ''"):
+            await async_client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+                customer_id="",
+                invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `invoice_id` but received ''"):
+            await async_client.v1.customers.invoices.with_raw_response.retrieve_pdf(
+                customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+                invoice_id="",
             )

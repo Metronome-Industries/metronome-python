@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import usage_list_params, usage_ingest_params, usage_search_params, usage_list_with_groups_params
@@ -54,15 +54,15 @@ class UsageResource(SyncAPIResource):
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         window_size: Literal["HOUR", "DAY", "NONE"],
-        next_page: str | NotGiven = NOT_GIVEN,
-        billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
-        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        next_page: str | Omit = omit,
+        billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
+        customer_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPageWithoutLimit[UsageListResponse]:
         """
         Retrieve aggregated usage data across multiple customers and billable metrics in
@@ -147,13 +147,13 @@ class UsageResource(SyncAPIResource):
     def ingest(
         self,
         *,
-        usage: Iterable[usage_ingest_params.Usage] | NotGiven = NOT_GIVEN,
+        usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         The ingest endpoint is the primary method for sending usage events to Metronome,
@@ -162,8 +162,7 @@ class UsageResource(SyncAPIResource):
         ingestion, supports backdating 34 days, and is built to handle mission-critical
         usage data with enterprise-grade reliability. Metronome supports 100,000 events
         per second without requiring pre-aggregation or rollups and can scale up from
-        there. See
-        [Getting usage into Metronome](https://docs.metronome.com/connect-metronome/) to
+        there. See the [Send usage events](/guides/events/send-usage-events) guide to
         learn more about usage events.
 
         ### Use this endpoint to:
@@ -205,6 +204,9 @@ class UsageResource(SyncAPIResource):
           }
         }
         ```
+
+        Learn more about
+        [usage event structure definitions](/guides/events/design-usage-events).
 
         #### Transaction ID
 
@@ -266,18 +268,18 @@ class UsageResource(SyncAPIResource):
         billable_metric_id: str,
         customer_id: str,
         window_size: Literal["HOUR", "DAY", "NONE"],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        current_period: bool | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        group_by: usage_list_with_groups_params.GroupBy | NotGiven = NOT_GIVEN,
-        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        current_period: bool | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[UsageListWithGroupsResponse]:
         """
         Retrieve granular usage data for a specific customer and billable metric, with
@@ -377,7 +379,7 @@ class UsageResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UsageSearchResponse:
         """
         This endpoint retrieves events by transaction ID for events that occurred within
@@ -462,15 +464,15 @@ class AsyncUsageResource(AsyncAPIResource):
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
         window_size: Literal["HOUR", "DAY", "NONE"],
-        next_page: str | NotGiven = NOT_GIVEN,
-        billable_metrics: Iterable[usage_list_params.BillableMetric] | NotGiven = NOT_GIVEN,
-        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        next_page: str | Omit = omit,
+        billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
+        customer_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[UsageListResponse, AsyncCursorPageWithoutLimit[UsageListResponse]]:
         """
         Retrieve aggregated usage data across multiple customers and billable metrics in
@@ -555,13 +557,13 @@ class AsyncUsageResource(AsyncAPIResource):
     async def ingest(
         self,
         *,
-        usage: Iterable[usage_ingest_params.Usage] | NotGiven = NOT_GIVEN,
+        usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         The ingest endpoint is the primary method for sending usage events to Metronome,
@@ -570,8 +572,7 @@ class AsyncUsageResource(AsyncAPIResource):
         ingestion, supports backdating 34 days, and is built to handle mission-critical
         usage data with enterprise-grade reliability. Metronome supports 100,000 events
         per second without requiring pre-aggregation or rollups and can scale up from
-        there. See
-        [Getting usage into Metronome](https://docs.metronome.com/connect-metronome/) to
+        there. See the [Send usage events](/guides/events/send-usage-events) guide to
         learn more about usage events.
 
         ### Use this endpoint to:
@@ -613,6 +614,9 @@ class AsyncUsageResource(AsyncAPIResource):
           }
         }
         ```
+
+        Learn more about
+        [usage event structure definitions](/guides/events/design-usage-events).
 
         #### Transaction ID
 
@@ -674,18 +678,18 @@ class AsyncUsageResource(AsyncAPIResource):
         billable_metric_id: str,
         customer_id: str,
         window_size: Literal["HOUR", "DAY", "NONE"],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        current_period: bool | NotGiven = NOT_GIVEN,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        group_by: usage_list_with_groups_params.GroupBy | NotGiven = NOT_GIVEN,
-        starting_on: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        current_period: bool | Omit = omit,
+        ending_before: Union[str, datetime] | Omit = omit,
+        group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[UsageListWithGroupsResponse, AsyncCursorPage[UsageListWithGroupsResponse]]:
         """
         Retrieve granular usage data for a specific customer and billable metric, with
@@ -785,7 +789,7 @@ class AsyncUsageResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UsageSearchResponse:
         """
         This endpoint retrieves events by transaction ID for events that occurred within

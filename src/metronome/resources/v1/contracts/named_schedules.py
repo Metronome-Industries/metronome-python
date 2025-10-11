@@ -7,7 +7,7 @@ from datetime import datetime
 
 import httpx
 
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -49,13 +49,13 @@ class NamedSchedulesResource(SyncAPIResource):
         *,
         rate_card_id: str,
         schedule_name: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NamedScheduleRetrieveResponse:
         """Get a named schedule for the given rate card.
 
@@ -101,13 +101,13 @@ class NamedSchedulesResource(SyncAPIResource):
         schedule_name: str,
         starting_at: Union[str, datetime],
         value: object,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Update a named schedule for the given rate card.
 
@@ -175,13 +175,13 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         *,
         rate_card_id: str,
         schedule_name: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NamedScheduleRetrieveResponse:
         """Get a named schedule for the given rate card.
 
@@ -227,13 +227,13 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         schedule_name: str,
         starting_at: Union[str, datetime],
         value: object,
-        ending_before: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        ending_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Update a named schedule for the given rate card.
 

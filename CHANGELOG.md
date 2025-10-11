@@ -1,5 +1,46 @@
 # Changelog
 
+## 2.0.0 (2025-10-10)
+
+Full Changelog: [v1.0.0...v2.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v1.0.0...v2.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** in getEditHistory endpoint, commit invoice schedule amount, unit price, and quantity are now optional values
+* **api:** Added optional archive_filter param to /notifications/offset/list endpoint
+
+### Features
+
+* Add empty handler for cancelPayment ([777d872](https://github.com/Metronome-Industries/metronome-python/commit/777d872b5549d733053cde3c11289b2be70e951e))
+* Add payment + billing invoice APIs to the API reference docs ([4de924a](https://github.com/Metronome-Industries/metronome-python/commit/4de924a5b8add780cf4381071794c5f275c38891))
+* Add payment APIs to the SDK ([cece47e](https://github.com/Metronome-Industries/metronome-python/commit/cece47edb190d39233627b2353501b095f904b75))
+* **api:** add billing_periods to Subscription ([cc6d4ab](https://github.com/Metronome-Industries/metronome-python/commit/cc6d4ab0b5bf00aa94751da93256ca72aaa67c71))
+* **api:** add new payments/attempt v1 api endpoint ([cbc0ac2](https://github.com/Metronome-Industries/metronome-python/commit/cbc0ac2b8a72cb5744e0e4a955d26b040660333a))
+* **api:** Added optional archive_filter param to /notifications/offset/list endpoint ([5f9d325](https://github.com/Metronome-Industries/metronome-python/commit/5f9d32558444a88dd3d734371c5ce98874a6b411))
+* Bump graphql version and fix type errors ([5b17ec5](https://github.com/Metronome-Industries/metronome-python/commit/5b17ec58e14c2fa7be7ad65a8dd958af58644380))
+* elia/orch 128 add external apis for payments ([cd501d0](https://github.com/Metronome-Industries/metronome-python/commit/cd501d0c2a6d55af24644ba7bbfef14079e7b7da))
+* feat(api):Allow clients retrieve archived config via `/notifications/get` ([2ec6978](https://github.com/Metronome-Industries/metronome-python/commit/2ec6978638a39021730ba22005b237d19d56910e))
+* internal: releasing x-mint ([8c6b031](https://github.com/Metronome-Industries/metronome-python/commit/8c6b031c7d5c725d94f99090100d07fa26e7f72c))
+* internal(docs): adding confluent endpoints ([abc0b8a](https://github.com/Metronome-Industries/metronome-python/commit/abc0b8abb4b13b6d176dd4e390b576f2e21dbf17))
+* LAUNCH-516 add getSubscriptionSeatsScheduleHistory api ([3ca576c](https://github.com/Metronome-Industries/metronome-python/commit/3ca576c1bf9ae91f17d33cfb82b0f6df9e89b67d))
+* rename getSubscriptionSeatsScheduleHistory to getSubscriptionSeatsHistory ([7a864da](https://github.com/Metronome-Industries/metronome-python/commit/7a864da4de117c9ac41be1118e1cc62e561a395b))
+* Return array of invoices instead of single invoice and handle multipl… ([be3eb83](https://github.com/Metronome-Industries/metronome-python/commit/be3eb83e8f745cd14d4d227fcfb5b29226820d7c))
+* Set up contract get and create with new AH info ([08124e6](https://github.com/Metronome-Industries/metronome-python/commit/08124e6e71fefb61646fb7bbaebcb183f1571c99))
+
+
+### Bug Fixes
+
+* **api:** in getEditHistory endpoint, commit invoice schedule amount, unit price, and quantity are now optional values ([fa178d7](https://github.com/Metronome-Industries/metronome-python/commit/fa178d7663db6c22cbd12698bc307d7b37458ab0))
+* LAUNCH-1130 remove min and max in api spec for better valiation error message ([5987fcd](https://github.com/Metronome-Industries/metronome-python/commit/5987fcd4e741c5ed58a4dd84e7544ccb115051d7))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([3bc0f53](https://github.com/Metronome-Industries/metronome-python/commit/3bc0f532cdcfd1954dcd63996ae8705696f45919))
+* **internal:** detect missing future annotations with ruff ([4e3eb7d](https://github.com/Metronome-Industries/metronome-python/commit/4e3eb7dc22aa9600e4a159c181a7ab50e1a71dbb))
+* **internal:** update pydantic dependency ([41ac59b](https://github.com/Metronome-Industries/metronome-python/commit/41ac59bd882237b2a21f01ab4e1d4597ae827e73))
+* **types:** change optional parameter type from NotGiven to Omit ([28b9d7e](https://github.com/Metronome-Industries/metronome-python/commit/28b9d7ef99043bbe59857431404ff4b27a7dc27e))
+
 ## 1.0.0 (2025-09-15)
 
 Full Changelog: [v0.3.0...v1.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v0.3.0...v1.0.0)

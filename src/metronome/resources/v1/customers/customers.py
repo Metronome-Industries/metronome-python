@@ -48,7 +48,7 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
-from ...._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven, SequenceNotStr
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ....types.v1 import (
@@ -154,18 +154,18 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         name: str,
-        billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        billing_config: customer_create_params.BillingConfig | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
         customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
-        | NotGiven = NOT_GIVEN,
-        external_id: str | NotGiven = NOT_GIVEN,
-        ingest_aliases: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        external_id: str | Omit = omit,
+        ingest_aliases: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerCreateResponse:
         """
         Create a new customer in Metronome and optionally the billing configuration
@@ -249,7 +249,7 @@ class CustomersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerRetrieveResponse:
         """Get detailed information for a specific customer by their Metronome ID.
 
@@ -283,18 +283,18 @@ class CustomersResource(SyncAPIResource):
     def list(
         self,
         *,
-        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        ingest_alias: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        only_archived: bool | NotGiven = NOT_GIVEN,
-        salesforce_account_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | Omit = omit,
+        ingest_alias: str | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        only_archived: bool | Omit = omit,
+        salesforce_account_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CustomerDetail]:
         """Gets a paginated list of all customers in your Metronome account.
 
@@ -359,7 +359,7 @@ class CustomersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerArchiveResponse:
         """Use this endpoint to archive a customer while preserving auditability.
 
@@ -376,7 +376,7 @@ class CustomersResource(SyncAPIResource):
         - Ingest aliases remain idempotent for archived customers. In order to reuse an
           ingest alias, first remove the ingest alias from the customer prior to
           archiving.
-        - Any alerts associated with the customer will no longer be triggered.
+        - Any notifications associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
@@ -400,16 +400,16 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
+        include_archived: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        on_current_plan: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CustomerListBillableMetricsResponse]:
         """Get all billable metrics available for a specific customer.
 
@@ -465,14 +465,14 @@ class CustomersResource(SyncAPIResource):
         customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[CustomerListCostsResponse]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
@@ -524,21 +524,21 @@ class CustomersResource(SyncAPIResource):
         *,
         customer_id: str,
         events: Iterable[customer_preview_events_params.Event],
-        mode: Literal["replace", "merge"] | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        mode: Literal["replace", "merge"] | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerPreviewEventsResponse:
-        """Preview how a set of events will affect a customer's invoice.
+        """Preview how a set of events will affect a customer's invoices.
 
-        Generates a draft
-        invoice for a customer using their current contract configuration and the
+        Generates draft
+        invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoice before they are actually processed.
+        customer's invoices before they are actually processed.
 
         Args:
           mode: If set to "replace", the preview will be generated as if those were the only
@@ -577,13 +577,13 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_archived: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerRetrieveBillingConfigurationsResponse:
         """Returns all billing configurations previously set for the customer.
 
@@ -625,7 +625,7 @@ class CustomersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Create a billing configuration for a customer.
 
@@ -698,7 +698,7 @@ class CustomersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Sets the ingest aliases for a customer.
 
@@ -749,7 +749,7 @@ class CustomersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerSetNameResponse:
         """Updates the display name for a customer record.
 
@@ -786,14 +786,14 @@ class CustomersResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
-        salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
+        leave_stripe_invoices_in_draft: Optional[bool] | Omit = omit,
+        salesforce_account_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update configuration settings for a specific customer, such as external system
@@ -886,18 +886,18 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        billing_config: customer_create_params.BillingConfig | NotGiven = NOT_GIVEN,
-        custom_fields: Dict[str, str] | NotGiven = NOT_GIVEN,
+        billing_config: customer_create_params.BillingConfig | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
         customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
-        | NotGiven = NOT_GIVEN,
-        external_id: str | NotGiven = NOT_GIVEN,
-        ingest_aliases: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        external_id: str | Omit = omit,
+        ingest_aliases: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerCreateResponse:
         """
         Create a new customer in Metronome and optionally the billing configuration
@@ -981,7 +981,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerRetrieveResponse:
         """Get detailed information for a specific customer by their Metronome ID.
 
@@ -1015,18 +1015,18 @@ class AsyncCustomersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        customer_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
-        ingest_alias: str | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        only_archived: bool | NotGiven = NOT_GIVEN,
-        salesforce_account_ids: SequenceNotStr[str] | NotGiven = NOT_GIVEN,
+        customer_ids: SequenceNotStr[str] | Omit = omit,
+        ingest_alias: str | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        only_archived: bool | Omit = omit,
+        salesforce_account_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CustomerDetail, AsyncCursorPage[CustomerDetail]]:
         """Gets a paginated list of all customers in your Metronome account.
 
@@ -1091,7 +1091,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerArchiveResponse:
         """Use this endpoint to archive a customer while preserving auditability.
 
@@ -1108,7 +1108,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         - Ingest aliases remain idempotent for archived customers. In order to reuse an
           ingest alias, first remove the ingest alias from the customer prior to
           archiving.
-        - Any alerts associated with the customer will no longer be triggered.
+        - Any notifications associated with the customer will no longer be triggered.
 
         Args:
           extra_headers: Send extra headers
@@ -1132,16 +1132,16 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
-        on_current_plan: bool | NotGiven = NOT_GIVEN,
+        include_archived: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        on_current_plan: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CustomerListBillableMetricsResponse, AsyncCursorPage[CustomerListBillableMetricsResponse]]:
         """Get all billable metrics available for a specific customer.
 
@@ -1197,14 +1197,14 @@ class AsyncCustomersResource(AsyncAPIResource):
         customer_id: str,
         ending_before: Union[str, datetime],
         starting_on: Union[str, datetime],
-        limit: int | NotGiven = NOT_GIVEN,
-        next_page: str | NotGiven = NOT_GIVEN,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[CustomerListCostsResponse, AsyncCursorPage[CustomerListCostsResponse]]:
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
@@ -1256,21 +1256,21 @@ class AsyncCustomersResource(AsyncAPIResource):
         *,
         customer_id: str,
         events: Iterable[customer_preview_events_params.Event],
-        mode: Literal["replace", "merge"] | NotGiven = NOT_GIVEN,
-        skip_zero_qty_line_items: bool | NotGiven = NOT_GIVEN,
+        mode: Literal["replace", "merge"] | Omit = omit,
+        skip_zero_qty_line_items: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerPreviewEventsResponse:
-        """Preview how a set of events will affect a customer's invoice.
+        """Preview how a set of events will affect a customer's invoices.
 
-        Generates a draft
-        invoice for a customer using their current contract configuration and the
+        Generates draft
+        invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoice before they are actually processed.
+        customer's invoices before they are actually processed.
 
         Args:
           mode: If set to "replace", the preview will be generated as if those were the only
@@ -1309,13 +1309,13 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        include_archived: bool | NotGiven = NOT_GIVEN,
+        include_archived: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerRetrieveBillingConfigurationsResponse:
         """Returns all billing configurations previously set for the customer.
 
@@ -1357,7 +1357,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Create a billing configuration for a customer.
 
@@ -1430,7 +1430,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """Sets the ingest aliases for a customer.
 
@@ -1481,7 +1481,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CustomerSetNameResponse:
         """Updates the display name for a customer record.
 
@@ -1518,14 +1518,14 @@ class AsyncCustomersResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        leave_stripe_invoices_in_draft: Optional[bool] | NotGiven = NOT_GIVEN,
-        salesforce_account_id: Optional[str] | NotGiven = NOT_GIVEN,
+        leave_stripe_invoices_in_draft: Optional[bool] | Omit = omit,
+        salesforce_account_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
         Update configuration settings for a specific customer, such as external system

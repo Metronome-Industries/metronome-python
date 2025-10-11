@@ -226,6 +226,7 @@ Methods:
 - <code title="get /v1/customers/{customer_id}/invoices">client.v1.customers.invoices.<a href="./src/metronome/resources/v1/customers/invoices.py">list</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customers/invoice_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/invoice.py">SyncCursorPage[Invoice]</a></code>
 - <code title="post /v1/customers/{customer_id}/addCharge">client.v1.customers.invoices.<a href="./src/metronome/resources/v1/customers/invoices.py">add_charge</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customers/invoice_add_charge_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/invoice_add_charge_response.py">InvoiceAddChargeResponse</a></code>
 - <code title="get /v1/customers/{customer_id}/invoices/breakdowns">client.v1.customers.invoices.<a href="./src/metronome/resources/v1/customers/invoices.py">list_breakdowns</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customers/invoice_list_breakdowns_params.py">params</a>) -> <a href="./src/metronome/types/v1/customers/invoice_list_breakdowns_response.py">SyncCursorPage[InvoiceListBreakdownsResponse]</a></code>
+- <code title="get /v1/customers/{customer_id}/invoices/{invoice_id}/pdf">client.v1.customers.invoices.<a href="./src/metronome/resources/v1/customers/invoices.py">retrieve_pdf</a>(\*, customer_id, invoice_id) -> BinaryAPIResponse</code>
 
 ### BillingConfig
 
@@ -526,3 +527,17 @@ Methods:
 
 - <code title="post /v1/contract-pricing/rate-cards/getNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/updateNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_update_params.py">params</a>) -> None</code>
+
+## Payments
+
+Types:
+
+```python
+from metronome.types.v1 import Payment, PaymentStatus, PaymentAttemptResponse, PaymentCancelResponse
+```
+
+Methods:
+
+- <code title="post /v1/payments/list">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">list</a>(\*\*<a href="src/metronome/types/v1/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment.py">SyncBodyCursorPage[Payment]</a></code>
+- <code title="post /v1/payments/attempt">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">attempt</a>(\*\*<a href="src/metronome/types/v1/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_attempt_response.py">PaymentAttemptResponse</a></code>
+- <code title="post /v1/payments/cancel">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">cancel</a>(\*\*<a href="src/metronome/types/v1/payment_cancel_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_cancel_response.py">PaymentCancelResponse</a></code>

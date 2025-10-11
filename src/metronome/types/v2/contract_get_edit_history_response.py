@@ -5,12 +5,13 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..shared.tier import Tier
 from ..shared.discount import Discount
 from ..shared.pro_service import ProService
 from ..shared.subscription import Subscription
 from ..shared.override_tier import OverrideTier
-from ..shared.overwrite_rate import OverwriteRate
 from ..shared.commit_specifier import CommitSpecifier
+from ..shared.credit_type_data import CreditTypeData
 from ..shared.schedule_duration import ScheduleDuration
 from ..shared.commit_specifier_input import CommitSpecifierInput
 from ..shared.payment_gate_config_v2 import PaymentGateConfigV2
@@ -26,10 +27,13 @@ __all__ = [
     "Data",
     "DataAddCommit",
     "DataAddCommitProduct",
+    "DataAddCommitInvoiceSchedule",
+    "DataAddCommitInvoiceScheduleScheduleItem",
     "DataAddCredit",
     "DataAddCreditProduct",
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
+    "DataAddOverrideOverwriteRate",
     "DataAddOverrideProduct",
     "DataAddRecurringCommit",
     "DataAddRecurringCommitAccessAmount",
@@ -93,6 +97,29 @@ class DataAddCommitProduct(BaseModel):
     name: str
 
 
+class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
+    id: str
+
+    timestamp: datetime
+
+    amount: Optional[float] = None
+
+    invoice_id: Optional[str] = None
+
+    quantity: Optional[float] = None
+
+    unit_price: Optional[float] = None
+
+
+class DataAddCommitInvoiceSchedule(BaseModel):
+    credit_type: Optional[CreditTypeData] = None
+
+    do_not_invoice: Optional[bool] = None
+    """If true, this schedule will not generate an invoice."""
+
+    schedule_items: Optional[List[DataAddCommitInvoiceScheduleScheduleItem]] = None
+
+
 class DataAddCommit(BaseModel):
     id: str
 
@@ -115,7 +142,7 @@ class DataAddCommit(BaseModel):
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
-    invoice_schedule: Optional[SchedulePointInTime] = None
+    invoice_schedule: Optional[DataAddCommitInvoiceSchedule] = None
     """The schedule that the customer will be invoiced for this commit."""
 
     name: Optional[str] = None
@@ -215,6 +242,37 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
+class DataAddOverrideOverwriteRate(BaseModel):
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
+
+    credit_type: Optional[CreditTypeData] = None
+
+    custom_rate: Optional[Dict[str, object]] = None
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """
+
+    is_prorated: Optional[bool] = None
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
+
+    price: Optional[float] = None
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    quantity: Optional[float] = None
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    tiers: Optional[List[Tier]] = None
+    """Only set for TIERED rate_type."""
+
+
 class DataAddOverrideProduct(BaseModel):
     id: str
 
@@ -240,7 +298,7 @@ class DataAddOverride(BaseModel):
 
     override_tiers: Optional[List[OverrideTier]] = None
 
-    overwrite_rate: Optional[OverwriteRate] = None
+    overwrite_rate: Optional[DataAddOverrideOverwriteRate] = None
 
     priority: Optional[float] = None
 
@@ -895,6 +953,8 @@ class DataUpdateRecurringCommit(BaseModel):
 
     invoice_amount: Optional[DataUpdateRecurringCommitInvoiceAmount] = None
 
+    rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
+
 
 class DataUpdateRecurringCreditAccessAmount(BaseModel):
     quantity: Optional[float] = None
@@ -908,6 +968,8 @@ class DataUpdateRecurringCredit(BaseModel):
     access_amount: Optional[DataUpdateRecurringCreditAccessAmount] = None
 
     ending_before: Optional[datetime] = None
+
+    rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
 
 
 class DataUpdateRefundInvoice(BaseModel):

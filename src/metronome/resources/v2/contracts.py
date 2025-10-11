@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ...types.v2 import (
@@ -34,6 +34,7 @@ from ...types.v2.contract_edit_commit_response import ContractEditCommitResponse
 from ...types.v2.contract_edit_credit_response import ContractEditCreditResponse
 from ...types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ...types.v2.contract_get_edit_history_response import ContractGetEditHistoryResponse
+from ...types.shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 from ...types.shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
 from ...types.shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
@@ -65,15 +66,15 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
-        as_of_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        as_of_date: Union[str, datetime] | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractRetrieveResponse:
         """
         Gets the details for a specific contract, including contract term, rate card
@@ -134,17 +135,17 @@ class ContractsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractListResponse:
         """
         For a given customer, lists all of their contracts in chronological order.
@@ -210,42 +211,43 @@ class ContractsResource(SyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
-        add_commits: Iterable[contract_edit_params.AddCommit] | NotGiven = NOT_GIVEN,
-        add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
-        add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
-        add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
-        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
-        add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
-        add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
-        add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
-        add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
-        add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
-        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
-        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
-        allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
-        archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
-        archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
-        archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
-        remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
-        update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
-        update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
-        update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
+        add_billing_provider_configuration_update: contract_edit_params.AddBillingProviderConfigurationUpdate
+        | Omit = omit,
+        add_commits: Iterable[contract_edit_params.AddCommit] | Omit = omit,
+        add_credits: Iterable[contract_edit_params.AddCredit] | Omit = omit,
+        add_discounts: Iterable[contract_edit_params.AddDiscount] | Omit = omit,
+        add_overrides: Iterable[contract_edit_params.AddOverride] | Omit = omit,
+        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | Omit = omit,
+        add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | Omit = omit,
+        add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
+        add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
+        add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
+        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
+        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
+        allow_contract_ending_before_finalized_invoice: bool | Omit = omit,
+        archive_commits: Iterable[contract_edit_params.ArchiveCommit] | Omit = omit,
+        archive_credits: Iterable[contract_edit_params.ArchiveCredit] | Omit = omit,
+        archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | Omit = omit,
+        remove_overrides: Iterable[contract_edit_params.RemoveOverride] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
+        update_commits: Iterable[contract_edit_params.UpdateCommit] | Omit = omit,
+        update_contract_end_date: Union[str, datetime, None] | Omit = omit,
+        update_contract_name: Optional[str] | Omit = omit,
+        update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
-        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | NotGiven = NOT_GIVEN,
-        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | NotGiven = NOT_GIVEN,
-        update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
-        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
-        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
+        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | Omit = omit,
+        update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | Omit = omit,
+        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration | Omit = omit,
+        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditResponse:
         """
         The ability to edit a contract helps you react quickly to the needs of your
@@ -275,6 +277,10 @@ class ContractsResource(SyncAPIResource):
           contract_id: ID of the contract being edited
 
           customer_id: ID of the customer whose contract is being edited
+
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
+              supports adding a billing provider configuration to a contract that does not
+              already have one.
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
@@ -326,6 +332,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "add_billing_provider_configuration_update": add_billing_provider_configuration_update,
                     "add_commits": add_commits,
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
@@ -368,21 +375,22 @@ class ContractsResource(SyncAPIResource):
         *,
         commit_id: str,
         customer_id: str,
-        access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        invoice_contract_id: str | NotGiven = NOT_GIVEN,
-        invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-        priority: Optional[float] | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
+        access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
+        priority: Optional[float] | Omit = omit,
+        product_id: str | Omit = omit,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditCommitResponse:
         """Edit specific details for a contract-level or customer-level commit.
 
@@ -415,6 +423,8 @@ class ContractsResource(SyncAPIResource):
           applicable_product_tags: Which tags the commit applies to. If applicable_product_ids,
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
+
+          hierarchy_configuration: Optional configuration for commit hierarchy access control
 
           invoice_contract_id: ID of contract to use for invoicing
 
@@ -449,6 +459,7 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
@@ -469,19 +480,20 @@ class ContractsResource(SyncAPIResource):
         *,
         credit_id: str,
         customer_id: str,
-        access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        priority: Optional[float] | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
+        access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        priority: Optional[float] | Omit = omit,
+        product_id: str | Omit = omit,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditCreditResponse:
         """
         Edit details for a contract-level or customer-level credit.
@@ -511,6 +523,8 @@ class ContractsResource(SyncAPIResource):
 
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
+
+          hierarchy_configuration: Optional configuration for credit hierarchy access control
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -543,6 +557,7 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -566,7 +581,7 @@ class ContractsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractGetEditHistoryResponse:
         """List all the edits made to a contract over time.
 
@@ -636,15 +651,15 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
-        as_of_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
+        as_of_date: Union[str, datetime] | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractRetrieveResponse:
         """
         Gets the details for a specific contract, including contract term, rate card
@@ -705,17 +720,17 @@ class AsyncContractsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
-        covering_date: Union[str, datetime] | NotGiven = NOT_GIVEN,
-        include_archived: bool | NotGiven = NOT_GIVEN,
-        include_balance: bool | NotGiven = NOT_GIVEN,
-        include_ledgers: bool | NotGiven = NOT_GIVEN,
-        starting_at: Union[str, datetime] | NotGiven = NOT_GIVEN,
+        covering_date: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractListResponse:
         """
         For a given customer, lists all of their contracts in chronological order.
@@ -781,42 +796,43 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         contract_id: str,
         customer_id: str,
-        add_commits: Iterable[contract_edit_params.AddCommit] | NotGiven = NOT_GIVEN,
-        add_credits: Iterable[contract_edit_params.AddCredit] | NotGiven = NOT_GIVEN,
-        add_discounts: Iterable[contract_edit_params.AddDiscount] | NotGiven = NOT_GIVEN,
-        add_overrides: Iterable[contract_edit_params.AddOverride] | NotGiven = NOT_GIVEN,
-        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
-        add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | NotGiven = NOT_GIVEN,
-        add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | NotGiven = NOT_GIVEN,
-        add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | NotGiven = NOT_GIVEN,
-        add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | NotGiven = NOT_GIVEN,
-        add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | NotGiven = NOT_GIVEN,
-        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | NotGiven = NOT_GIVEN,
-        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | NotGiven = NOT_GIVEN,
-        allow_contract_ending_before_finalized_invoice: bool | NotGiven = NOT_GIVEN,
-        archive_commits: Iterable[contract_edit_params.ArchiveCommit] | NotGiven = NOT_GIVEN,
-        archive_credits: Iterable[contract_edit_params.ArchiveCredit] | NotGiven = NOT_GIVEN,
-        archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | NotGiven = NOT_GIVEN,
-        remove_overrides: Iterable[contract_edit_params.RemoveOverride] | NotGiven = NOT_GIVEN,
-        uniqueness_key: str | NotGiven = NOT_GIVEN,
-        update_commits: Iterable[contract_edit_params.UpdateCommit] | NotGiven = NOT_GIVEN,
-        update_contract_end_date: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        update_contract_name: Optional[str] | NotGiven = NOT_GIVEN,
-        update_credits: Iterable[contract_edit_params.UpdateCredit] | NotGiven = NOT_GIVEN,
+        add_billing_provider_configuration_update: contract_edit_params.AddBillingProviderConfigurationUpdate
+        | Omit = omit,
+        add_commits: Iterable[contract_edit_params.AddCommit] | Omit = omit,
+        add_credits: Iterable[contract_edit_params.AddCredit] | Omit = omit,
+        add_discounts: Iterable[contract_edit_params.AddDiscount] | Omit = omit,
+        add_overrides: Iterable[contract_edit_params.AddOverride] | Omit = omit,
+        add_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfigurationV2 | Omit = omit,
+        add_professional_services: Iterable[contract_edit_params.AddProfessionalService] | Omit = omit,
+        add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
+        add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
+        add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
+        add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
+        add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
+        allow_contract_ending_before_finalized_invoice: bool | Omit = omit,
+        archive_commits: Iterable[contract_edit_params.ArchiveCommit] | Omit = omit,
+        archive_credits: Iterable[contract_edit_params.ArchiveCredit] | Omit = omit,
+        archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | Omit = omit,
+        remove_overrides: Iterable[contract_edit_params.RemoveOverride] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
+        update_commits: Iterable[contract_edit_params.UpdateCommit] | Omit = omit,
+        update_contract_end_date: Union[str, datetime, None] | Omit = omit,
+        update_contract_name: Optional[str] | Omit = omit,
+        update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
-        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | NotGiven = NOT_GIVEN,
-        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | NotGiven = NOT_GIVEN,
-        update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | NotGiven = NOT_GIVEN,
-        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration
-        | NotGiven = NOT_GIVEN,
-        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | NotGiven = NOT_GIVEN,
+        | Omit = omit,
+        update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
+        update_recurring_credits: Iterable[contract_edit_params.UpdateRecurringCredit] | Omit = omit,
+        update_scheduled_charges: Iterable[contract_edit_params.UpdateScheduledCharge] | Omit = omit,
+        update_spend_threshold_configuration: contract_edit_params.UpdateSpendThresholdConfiguration | Omit = omit,
+        update_subscriptions: Iterable[contract_edit_params.UpdateSubscription] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditResponse:
         """
         The ability to edit a contract helps you react quickly to the needs of your
@@ -846,6 +862,10 @@ class AsyncContractsResource(AsyncAPIResource):
           contract_id: ID of the contract being edited
 
           customer_id: ID of the customer whose contract is being edited
+
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
+              supports adding a billing provider configuration to a contract that does not
+              already have one.
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
@@ -897,6 +917,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "contract_id": contract_id,
                     "customer_id": customer_id,
+                    "add_billing_provider_configuration_update": add_billing_provider_configuration_update,
                     "add_commits": add_commits,
                     "add_credits": add_credits,
                     "add_discounts": add_discounts,
@@ -939,21 +960,22 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         commit_id: str,
         customer_id: str,
-        access_schedule: contract_edit_commit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        invoice_contract_id: str | NotGiven = NOT_GIVEN,
-        invoice_schedule: contract_edit_commit_params.InvoiceSchedule | NotGiven = NOT_GIVEN,
-        priority: Optional[float] | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
+        access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
+        priority: Optional[float] | Omit = omit,
+        product_id: str | Omit = omit,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditCommitResponse:
         """Edit specific details for a contract-level or customer-level commit.
 
@@ -986,6 +1008,8 @@ class AsyncContractsResource(AsyncAPIResource):
           applicable_product_tags: Which tags the commit applies to. If applicable_product_ids,
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
+
+          hierarchy_configuration: Optional configuration for commit hierarchy access control
 
           invoice_contract_id: ID of contract to use for invoicing
 
@@ -1020,6 +1044,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
                     "priority": priority,
@@ -1040,19 +1065,20 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         credit_id: str,
         customer_id: str,
-        access_schedule: contract_edit_credit_params.AccessSchedule | NotGiven = NOT_GIVEN,
-        applicable_product_ids: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        applicable_product_tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        priority: Optional[float] | NotGiven = NOT_GIVEN,
-        product_id: str | NotGiven = NOT_GIVEN,
-        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | NotGiven = NOT_GIVEN,
-        specifiers: Optional[Iterable[CommitSpecifierInput]] | NotGiven = NOT_GIVEN,
+        access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
+        applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        priority: Optional[float] | Omit = omit,
+        product_id: str | Omit = omit,
+        rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
+        specifiers: Optional[Iterable[CommitSpecifierInput]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractEditCreditResponse:
         """
         Edit details for a contract-level or customer-level credit.
@@ -1082,6 +1108,8 @@ class AsyncContractsResource(AsyncAPIResource):
 
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
+
+          hierarchy_configuration: Optional configuration for credit hierarchy access control
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -1114,6 +1142,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "hierarchy_configuration": hierarchy_configuration,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -1137,7 +1166,7 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ContractGetEditHistoryResponse:
         """List all the edits made to a contract over time.
 

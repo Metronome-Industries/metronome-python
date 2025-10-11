@@ -6,7 +6,43 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["Subscription", "Proration", "QuantitySchedule", "SubscriptionRate", "SubscriptionRateProduct"]
+__all__ = [
+    "Subscription",
+    "BillingPeriods",
+    "BillingPeriodsCurrent",
+    "BillingPeriodsNext",
+    "BillingPeriodsPrevious",
+    "Proration",
+    "QuantitySchedule",
+    "SubscriptionRate",
+    "SubscriptionRateProduct",
+]
+
+
+class BillingPeriodsCurrent(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class BillingPeriodsNext(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class BillingPeriodsPrevious(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class BillingPeriods(BaseModel):
+    current: Optional[BillingPeriodsCurrent] = None
+
+    next: Optional[BillingPeriodsNext] = None
+
+    previous: Optional[BillingPeriodsPrevious] = None
 
 
 class Proration(BaseModel):
@@ -36,6 +72,9 @@ class SubscriptionRate(BaseModel):
 
 
 class Subscription(BaseModel):
+    billing_periods: BillingPeriods
+    """Previous, current, and next billing periods for the subscription."""
+
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
     proration: Proration
