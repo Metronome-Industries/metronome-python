@@ -644,6 +644,9 @@ class CustomersResource(SyncAPIResource):
           through system A (e.g. Stripe) but will now be billed through system B (e.g.
           AWS). Once created, the new configuration can then be associated to the
           customer's contract.
+        - Multiple configurations can be added per destination. For example, you can
+          create two Stripe billing configurations for a Metronome customer that each
+          have a distinct `collection_method`.
 
         ### Delivery method options:
 
@@ -1376,6 +1379,9 @@ class AsyncCustomersResource(AsyncAPIResource):
           through system A (e.g. Stripe) but will now be billed through system B (e.g.
           AWS). Once created, the new configuration can then be associated to the
           customer's contract.
+        - Multiple configurations can be added per destination. For example, you can
+          create two Stripe billing configurations for a Metronome customer that each
+          have a distinct `collection_method`.
 
         ### Delivery method options:
 
