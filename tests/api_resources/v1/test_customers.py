@@ -317,7 +317,6 @@ class TestCustomers:
             events=[
                 {
                     "event_type": "heartbeat",
-                    "customer_id": "x",
                     "properties": {
                         "cpu_hours": "bar",
                         "memory_gb_hours": "bar",
@@ -911,7 +910,6 @@ class TestAsyncCustomers:
             events=[
                 {
                     "event_type": "heartbeat",
-                    "customer_id": "x",
                     "properties": {
                         "cpu_hours": "bar",
                         "memory_gb_hours": "bar",
