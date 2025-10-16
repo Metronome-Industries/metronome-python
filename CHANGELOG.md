@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.0.0 (2025-10-16)
+
+Full Changelog: [v2.0.0...v3.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v2.0.0...v3.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** Remove customer_id from preview events payload
+
+### Features
+
+* **api:** Remove customer_id from preview events payload ([eba7907](https://github.com/Metronome-Industries/metronome-python/commit/eba7907bb25b48e74d2a396de89b03799e421091))
+* internal: Skip retrieve_pdf API SDK tests ([a13288f](https://github.com/Metronome-Industries/metronome-python/commit/a13288f79cdf3d08a2d982cd2d343a348082f707))
+* update api docs ([0458f1a](https://github.com/Metronome-Industries/metronome-python/commit/0458f1ab8d5a4eddca9850f977746020a80cefb6))
+
 ## 2.0.0 (2025-10-10)
 
 Full Changelog: [v1.0.0...v2.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v1.0.0...v2.0.0)
