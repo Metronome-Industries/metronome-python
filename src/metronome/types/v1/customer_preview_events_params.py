@@ -27,21 +27,15 @@ class CustomerPreviewEventsParams(TypedDict, total=False):
 class Event(TypedDict, total=False):
     event_type: Required[str]
 
-    customer_id: str
-    """
-    This has no effect for preview events, but may be set for consistency with Event
-    objects. They will be processed even if they do not match the customer's ID or
-    ingest aliases.
-    """
-
     properties: Dict[str, object]
 
     timestamp: str
     """RFC 3339 formatted. If not provided, the current time will be used."""
 
     transaction_id: str
-    """
-    This has no effect for preview events, but may be set for consistency with Event
-    objects. Duplicate transaction_ids are NOT filtered out, even within the same
-    request.
+    """Optional unique identifier for event deduplication.
+
+    When provided, preview events are automatically deduplicated against historical
+    events from the past 34 days. Duplicate transaction IDs within the same request
+    will return an error.
     """
