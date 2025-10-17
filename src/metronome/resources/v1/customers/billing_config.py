@@ -105,6 +105,10 @@ class BillingConfigResource(SyncAPIResource):
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
               subscription ID.
 
+          stripe_collection_method:
+              The collection method for the customer's invoices. NOTE:
+              `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -316,6 +320,10 @@ class AsyncBillingConfigResource(AsyncAPIResource):
         Args:
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
               subscription ID.
+
+          stripe_collection_method:
+              The collection method for the customer's invoices. NOTE:
+              `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
 
           extra_headers: Send extra headers
 

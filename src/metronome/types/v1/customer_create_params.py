@@ -83,6 +83,10 @@ class BillingConfig(TypedDict, total=False):
     stripe_collection_method: Literal[
         "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
     ]
+    """
+    The collection method for the customer's invoices. NOTE:
+    `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
+    """
 
 
 class CustomerBillingProviderConfiguration(TypedDict, total=False):
