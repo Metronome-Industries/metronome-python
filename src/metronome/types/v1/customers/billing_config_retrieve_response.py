@@ -77,6 +77,10 @@ class Data(BaseModel):
     stripe_collection_method: Optional[
         Literal["charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"]
     ] = None
+    """
+    The collection method for the customer's invoices. NOTE:
+    `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
+    """
 
 
 class BillingConfigRetrieveResponse(BaseModel):
