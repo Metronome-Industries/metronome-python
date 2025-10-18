@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1.0 (2025-10-18)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* add beta tag to stripe auto charge items ([f7eaf72](https://github.com/Metronome-Industries/metronome-python/commit/f7eaf72534bcdcebe1cfc22f74693a7f9de62257))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([6fc03bc](https://github.com/Metronome-Industries/metronome-python/commit/6fc03bcde0da509f5bc4e6a8e32c769d4d5d24a4))
+
 ## 3.0.0 (2025-10-16)
 
 Full Changelog: [v2.0.0...v3.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v2.0.0...v3.0.0)
