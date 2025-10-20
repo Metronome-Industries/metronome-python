@@ -80,8 +80,10 @@ class CreditGrantsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantCreateResponse:
-        """
-        Create a new credit grant
+        """Create a new credit grant.
+
+        This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           customer_id: the Metronome ID of the customer
@@ -168,7 +170,8 @@ class CreditGrantsResource(SyncAPIResource):
     ) -> SyncCursorPage[CreditGrantListResponse]:
         """List credit grants.
 
-        This list does not included voided grants.
+        This list does not included voided grants. This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -240,8 +243,10 @@ class CreditGrantsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantEditResponse:
-        """
-        Edit an existing credit grant
+        """Edit an existing credit grant.
+
+        This is a Plans (deprecated) endpoint. New
+        clients should implement using Contracts.
 
         Args:
           id: the ID of the credit grant
@@ -297,7 +302,8 @@ class CreditGrantsResource(SyncAPIResource):
 
         Returns lists of ledgers per customer.
         Ledger entries are returned in chronological order. Ledger entries associated
-        with voided credit grants are not included.
+        with voided credit grants are not included. This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           next_page: Cursor that indicates where the next page of results should start.
@@ -368,8 +374,10 @@ class CreditGrantsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantVoidResponse:
-        """
-        Void a credit grant
+        """Void a credit grant.
+
+        This is a Plans (deprecated) endpoint. New clients should
+        implement using Contracts.
 
         Args:
           release_uniqueness_key: If true, resets the uniqueness key on this grant so it can be re-used
@@ -445,8 +453,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantCreateResponse:
-        """
-        Create a new credit grant
+        """Create a new credit grant.
+
+        This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           customer_id: the Metronome ID of the customer
@@ -533,7 +543,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
     ) -> AsyncPaginator[CreditGrantListResponse, AsyncCursorPage[CreditGrantListResponse]]:
         """List credit grants.
 
-        This list does not included voided grants.
+        This list does not included voided grants. This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -605,8 +616,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantEditResponse:
-        """
-        Edit an existing credit grant
+        """Edit an existing credit grant.
+
+        This is a Plans (deprecated) endpoint. New
+        clients should implement using Contracts.
 
         Args:
           id: the ID of the credit grant
@@ -662,7 +675,8 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
 
         Returns lists of ledgers per customer.
         Ledger entries are returned in chronological order. Ledger entries associated
-        with voided credit grants are not included.
+        with voided credit grants are not included. This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           next_page: Cursor that indicates where the next page of results should start.
@@ -733,8 +747,10 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditGrantVoidResponse:
-        """
-        Void a credit grant
+        """Void a credit grant.
+
+        This is a Plans (deprecated) endpoint. New clients should
+        implement using Contracts.
 
         Args:
           release_uniqueness_key: If true, resets the uniqueness key on this grant so it can be re-used

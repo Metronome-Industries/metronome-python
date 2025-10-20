@@ -66,8 +66,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
-        """
-        List the given customer's plans in reverse-chronological order.
+        """List the given customer's plans in reverse-chronological order.
+
+        This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -125,7 +127,8 @@ class PlansResource(SyncAPIResource):
 
         See the
         [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
-        for details on the price adjustments.
+        for details on the price adjustments. This is a Plans (deprecated) endpoint. New
+        clients should implement using Contracts.
 
         Args:
           starting_on: RFC 3339 timestamp for when the plan becomes active for this customer. Must be
@@ -194,8 +197,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanEndResponse:
-        """
-        Change the end date of a customer's plan.
+        """Change the end date of a customer's plan.
+
+        This is a Plans (deprecated) endpoint.
+        New clients should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp for when the plan ends (exclusive) for this customer. Must be
@@ -254,7 +259,8 @@ class PlansResource(SyncAPIResource):
 
         See the
         [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
-        for details.
+        for details. This is a Plans (deprecated) endpoint. New clients should implement
+        using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -326,8 +332,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
-        """
-        List the given customer's plans in reverse-chronological order.
+        """List the given customer's plans in reverse-chronological order.
+
+        This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -385,7 +393,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
         See the
         [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
-        for details on the price adjustments.
+        for details on the price adjustments. This is a Plans (deprecated) endpoint. New
+        clients should implement using Contracts.
 
         Args:
           starting_on: RFC 3339 timestamp for when the plan becomes active for this customer. Must be
@@ -454,8 +463,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanEndResponse:
-        """
-        Change the end date of a customer's plan.
+        """Change the end date of a customer's plan.
+
+        This is a Plans (deprecated) endpoint.
+        New clients should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp for when the plan ends (exclusive) for this customer. Must be
@@ -514,7 +525,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
         See the
         [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
-        for details.
+        for details. This is a Plans (deprecated) endpoint. New clients should implement
+        using Contracts.
 
         Args:
           limit: Max number of results that should be returned
