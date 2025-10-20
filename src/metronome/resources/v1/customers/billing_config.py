@@ -98,8 +98,10 @@ class BillingConfigResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Set the billing configuration for a given customer.
+        """Set the billing configuration for a given customer.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
@@ -162,8 +164,10 @@ class BillingConfigResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BillingConfigRetrieveResponse:
-        """
-        Fetch the billing configuration for the given customer.
+        """Fetch the billing configuration for the given customer.
+
+        This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -212,7 +216,8 @@ class BillingConfigResource(SyncAPIResource):
         """Delete the billing configuration for a given customer.
 
         Note: this is unsupported
-        for Azure and AWS Marketplace customers.
+        for Azure and AWS Marketplace customers. This is a Plans (deprecated) endpoint.
+        New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -314,8 +319,10 @@ class AsyncBillingConfigResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """
-        Set the billing configuration for a given customer.
+        """Set the billing configuration for a given customer.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
@@ -378,8 +385,10 @@ class AsyncBillingConfigResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> BillingConfigRetrieveResponse:
-        """
-        Fetch the billing configuration for the given customer.
+        """Fetch the billing configuration for the given customer.
+
+        This is a Plans
+        (deprecated) endpoint. New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -428,7 +437,8 @@ class AsyncBillingConfigResource(AsyncAPIResource):
         """Delete the billing configuration for a given customer.
 
         Note: this is unsupported
-        for Azure and AWS Marketplace customers.
+        for Azure and AWS Marketplace customers. This is a Plans (deprecated) endpoint.
+        New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers

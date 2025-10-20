@@ -477,7 +477,8 @@ class CustomersResource(SyncAPIResource):
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
-        UNIQUE-type billable metric.
+        UNIQUE-type billable metric. This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp (exclusive)
@@ -1212,7 +1213,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
-        UNIQUE-type billable metric.
+        UNIQUE-type billable metric. This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp (exclusive)

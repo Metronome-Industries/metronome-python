@@ -59,8 +59,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListResponse]:
-        """
-        List all available plans.
+        """List all available plans.
+
+        This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -105,8 +107,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanGetDetailsResponse:
-        """
-        Fetch high level details of a specific plan.
+        """Fetch high level details of a specific plan.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -140,8 +144,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PlanListChargesResponse]:
-        """
-        Fetches a list of charges of a specific plan.
+        """Fetches a list of charges of a specific plan.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -193,7 +199,8 @@ class PlansResource(SyncAPIResource):
     ) -> SyncCursorPage[PlanListCustomersResponse]:
         """
         Fetches a list of customers on a specific plan (by default, only currently
-        active plans are included)
+        active plans are included). This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -273,8 +280,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListResponse, AsyncCursorPage[PlanListResponse]]:
-        """
-        List all available plans.
+        """List all available plans.
+
+        This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -319,8 +328,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanGetDetailsResponse:
-        """
-        Fetch high level details of a specific plan.
+        """Fetch high level details of a specific plan.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           extra_headers: Send extra headers
@@ -354,8 +365,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PlanListChargesResponse, AsyncCursorPage[PlanListChargesResponse]]:
-        """
-        Fetches a list of charges of a specific plan.
+        """Fetches a list of charges of a specific plan.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
@@ -407,7 +420,8 @@ class AsyncPlansResource(AsyncAPIResource):
     ) -> AsyncPaginator[PlanListCustomersResponse, AsyncCursorPage[PlanListCustomersResponse]]:
         """
         Fetches a list of customers on a specific plan (by default, only currently
-        active plans are included)
+        active plans are included). This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           limit: Max number of results that should be returned
