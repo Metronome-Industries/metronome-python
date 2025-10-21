@@ -786,6 +786,7 @@ class ContractsResource(SyncAPIResource):
         id: str | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
+        exclude_zero_balances: bool | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_contract_balances: bool | Omit = omit,
@@ -841,6 +842,8 @@ class ContractsResource(SyncAPIResource):
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
+          exclude_zero_balances: Exclude balances with zero amounts from the response.
+
           include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -874,6 +877,7 @@ class ContractsResource(SyncAPIResource):
                     "id": id,
                     "covering_date": covering_date,
                     "effective_before": effective_before,
+                    "exclude_zero_balances": exclude_zero_balances,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,
@@ -1906,6 +1910,7 @@ class AsyncContractsResource(AsyncAPIResource):
         id: str | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
+        exclude_zero_balances: bool | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_contract_balances: bool | Omit = omit,
@@ -1961,6 +1966,8 @@ class AsyncContractsResource(AsyncAPIResource):
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
 
+          exclude_zero_balances: Exclude balances with zero amounts from the response.
+
           include_archived: Include archived credits and credits from archived contracts.
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -1994,6 +2001,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "id": id,
                     "covering_date": covering_date,
                     "effective_before": effective_before,
+                    "exclude_zero_balances": exclude_zero_balances,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_contract_balances": include_contract_balances,

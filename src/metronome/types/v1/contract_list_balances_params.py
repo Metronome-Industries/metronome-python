@@ -22,6 +22,9 @@ class ContractListBalancesParams(TypedDict, total=False):
     effective_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Include only balances that have any access before the provided date (exclusive)"""
 
+    exclude_zero_balances: bool
+    """Exclude balances with zero amounts from the response."""
+
     include_archived: bool
     """Include archived credits and credits from archived contracts."""
 
