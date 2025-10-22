@@ -12,17 +12,20 @@ __all__ = [
     "Invoice",
     "LineItem",
     "LineItemAppliedCommitOrCredit",
+    "LineItemOrigin",
     "LineItemPostpaidCommit",
     "LineItemSubLineItem",
     "LineItemSubLineItemTierPeriod",
     "LineItemSubLineItemTier",
     "LineItemTier",
+    "ConstituentInvoice",
     "CorrectionRecord",
     "CorrectionRecordCorrectedExternalInvoice",
     "CorrectionRecordCorrectedExternalInvoiceTax",
     "ExternalInvoice",
     "ExternalInvoiceTax",
     "InvoiceAdjustment",
+    "Payer",
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
@@ -33,6 +36,16 @@ class LineItemAppliedCommitOrCredit(BaseModel):
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
+
+
+class LineItemOrigin(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+    invoice_id: str
+
+    line_item_id: str
 
 
 class LineItemPostpaidCommit(BaseModel):
@@ -195,6 +208,13 @@ class LineItem(BaseModel):
 
     netsuite_item_id: Optional[str] = None
 
+    origin: Optional[LineItemOrigin] = None
+    """
+    Account hierarchy M3 - Present on line items from invoices with type
+    USAGE_CONSOLIDATED. Indicates the original customer, contract, invoice and line
+    item from which this line item was copied.
+    """
+
     postpaid_commit: Optional[LineItemPostpaidCommit] = None
     """Only present for line items paying for a postpaid commit true-up."""
 
@@ -258,6 +278,14 @@ class LineItem(BaseModel):
 
     unit_price: Optional[float] = None
     """The unit price associated with the line item."""
+
+
+class ConstituentInvoice(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+    invoice_id: str
 
 
 class CorrectionRecordCorrectedExternalInvoiceTax(BaseModel):
@@ -395,6 +423,12 @@ class InvoiceAdjustment(BaseModel):
     credit_grant_id: Optional[str] = None
 
 
+class Payer(BaseModel):
+    contract_id: str
+
+    customer_id: str
+
+
 class ResellerRoyaltyAwsOptions(BaseModel):
     aws_account_number: Optional[str] = None
 
@@ -441,6 +475,12 @@ class Invoice(BaseModel):
     billable_status: Optional[object] = None
     """This field's availability is dependent on your client's configuration."""
 
+    constituent_invoices: Optional[List[ConstituentInvoice]] = None
+    """Account hierarchy M3 - Required on invoices with type USAGE_CONSOLIDATED.
+
+    List of constituent invoices that were consolidated to create this invoice.
+    """
+
     contract_custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
@@ -473,6 +513,12 @@ class Invoice(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    payer: Optional[Payer] = None
+    """Account hierarchy M3 - Required for account hierarchy usage invoices.
+
+    An object containing the contract and customer UUIDs that pay for this invoice.
+    """
 
     plan_custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
