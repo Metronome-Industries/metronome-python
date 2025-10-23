@@ -542,11 +542,15 @@ class CustomersResource(SyncAPIResource):
         customer's invoices before they are actually processed.
 
         Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
+          events: Array of usage events to include in the preview calculation. Must contain at
+              least one event in `merge` mode.
 
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
+          mode: Controls how the provided events are combined with existing usage data. Use
+              `replace` to calculate the preview as if these are the only events for the
+              customer, ignoring all historical usage. Use `merge` to combine these events
+              with the customer's existing usage. Defaults to `replace`.
+
+          skip_zero_qty_line_items: When `true`, line items with zero quantity are excluded from the response.
 
           extra_headers: Send extra headers
 
@@ -1278,11 +1282,15 @@ class AsyncCustomersResource(AsyncAPIResource):
         customer's invoices before they are actually processed.
 
         Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
+          events: Array of usage events to include in the preview calculation. Must contain at
+              least one event in `merge` mode.
 
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
+          mode: Controls how the provided events are combined with existing usage data. Use
+              `replace` to calculate the preview as if these are the only events for the
+              customer, ignoring all historical usage. Use `merge` to combine these events
+              with the customer's existing usage. Defaults to `replace`.
+
+          skip_zero_qty_line_items: When `true`, line items with zero quantity are excluded from the response.
 
           extra_headers: Send extra headers
 
