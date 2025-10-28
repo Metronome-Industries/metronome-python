@@ -12,14 +12,6 @@ from .contracts import (
     AsyncContractsResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .notifications import (
-    NotificationsResource,
-    AsyncNotificationsResource,
-    NotificationsResourceWithRawResponse,
-    AsyncNotificationsResourceWithRawResponse,
-    NotificationsResourceWithStreamingResponse,
-    AsyncNotificationsResourceWithStreamingResponse,
-)
 
 __all__ = ["V2Resource", "AsyncV2Resource"]
 
@@ -28,10 +20,6 @@ class V2Resource(SyncAPIResource):
     @cached_property
     def contracts(self) -> ContractsResource:
         return ContractsResource(self._client)
-
-    @cached_property
-    def notifications(self) -> NotificationsResource:
-        return NotificationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> V2ResourceWithRawResponse:
@@ -57,10 +45,6 @@ class AsyncV2Resource(AsyncAPIResource):
     @cached_property
     def contracts(self) -> AsyncContractsResource:
         return AsyncContractsResource(self._client)
-
-    @cached_property
-    def notifications(self) -> AsyncNotificationsResource:
-        return AsyncNotificationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncV2ResourceWithRawResponse:
@@ -90,10 +74,6 @@ class V2ResourceWithRawResponse:
     def contracts(self) -> ContractsResourceWithRawResponse:
         return ContractsResourceWithRawResponse(self._v2.contracts)
 
-    @cached_property
-    def notifications(self) -> NotificationsResourceWithRawResponse:
-        return NotificationsResourceWithRawResponse(self._v2.notifications)
-
 
 class AsyncV2ResourceWithRawResponse:
     def __init__(self, v2: AsyncV2Resource) -> None:
@@ -102,10 +82,6 @@ class AsyncV2ResourceWithRawResponse:
     @cached_property
     def contracts(self) -> AsyncContractsResourceWithRawResponse:
         return AsyncContractsResourceWithRawResponse(self._v2.contracts)
-
-    @cached_property
-    def notifications(self) -> AsyncNotificationsResourceWithRawResponse:
-        return AsyncNotificationsResourceWithRawResponse(self._v2.notifications)
 
 
 class V2ResourceWithStreamingResponse:
@@ -116,10 +92,6 @@ class V2ResourceWithStreamingResponse:
     def contracts(self) -> ContractsResourceWithStreamingResponse:
         return ContractsResourceWithStreamingResponse(self._v2.contracts)
 
-    @cached_property
-    def notifications(self) -> NotificationsResourceWithStreamingResponse:
-        return NotificationsResourceWithStreamingResponse(self._v2.notifications)
-
 
 class AsyncV2ResourceWithStreamingResponse:
     def __init__(self, v2: AsyncV2Resource) -> None:
@@ -128,7 +100,3 @@ class AsyncV2ResourceWithStreamingResponse:
     @cached_property
     def contracts(self) -> AsyncContractsResourceWithStreamingResponse:
         return AsyncContractsResourceWithStreamingResponse(self._v2.contracts)
-
-    @cached_property
-    def notifications(self) -> AsyncNotificationsResourceWithStreamingResponse:
-        return AsyncNotificationsResourceWithStreamingResponse(self._v2.notifications)

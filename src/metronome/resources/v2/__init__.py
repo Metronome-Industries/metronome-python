@@ -16,14 +16,6 @@ from .contracts import (
     ContractsResourceWithStreamingResponse,
     AsyncContractsResourceWithStreamingResponse,
 )
-from .notifications import (
-    NotificationsResource,
-    AsyncNotificationsResource,
-    NotificationsResourceWithRawResponse,
-    AsyncNotificationsResourceWithRawResponse,
-    NotificationsResourceWithStreamingResponse,
-    AsyncNotificationsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "ContractsResource",
@@ -32,12 +24,6 @@ __all__ = [
     "AsyncContractsResourceWithRawResponse",
     "ContractsResourceWithStreamingResponse",
     "AsyncContractsResourceWithStreamingResponse",
-    "NotificationsResource",
-    "AsyncNotificationsResource",
-    "NotificationsResourceWithRawResponse",
-    "AsyncNotificationsResourceWithRawResponse",
-    "NotificationsResourceWithStreamingResponse",
-    "AsyncNotificationsResourceWithStreamingResponse",
     "V2Resource",
     "AsyncV2Resource",
     "V2ResourceWithRawResponse",
