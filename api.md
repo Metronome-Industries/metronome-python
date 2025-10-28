@@ -66,34 +66,6 @@ Methods:
 - <code title="post /v2/contracts/credits/edit">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">edit_credit</a>(\*\*<a href="src/metronome/types/v2/contract_edit_credit_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_edit_credit_response.py">ContractEditCreditResponse</a></code>
 - <code title="post /v2/contracts/getEditHistory">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">get_edit_history</a>(\*\*<a href="src/metronome/types/v2/contract_get_edit_history_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_get_edit_history_response.py">ContractGetEditHistoryResponse</a></code>
 
-## Notifications
-
-Types:
-
-```python
-from metronome.types.v2 import (
-    LifecycleEventOffsetNotificationConfig,
-    LifecycleEventOffsetPolicy,
-    LifecycleEventSystemNotificationConfig,
-    LifecycleEventSystemPolicy,
-    NotificationCreateResponse,
-    NotificationRetrieveResponse,
-    NotificationArchiveResponse,
-    NotificationEditResponse,
-    NotificationListOffsetResponse,
-    NotificationListSystemResponse,
-)
-```
-
-Methods:
-
-- <code title="post /v2/notifications/create">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">create</a>(\*\*<a href="src/metronome/types/v2/notification_create_params.py">params</a>) -> <a href="./src/metronome/types/v2/notification_create_response.py">NotificationCreateResponse</a></code>
-- <code title="post /v2/notifications/get">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">retrieve</a>(\*\*<a href="src/metronome/types/v2/notification_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v2/notification_retrieve_response.py">NotificationRetrieveResponse</a></code>
-- <code title="post /v2/notifications/archive">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">archive</a>(\*\*<a href="src/metronome/types/v2/notification_archive_params.py">params</a>) -> <a href="./src/metronome/types/v2/notification_archive_response.py">NotificationArchiveResponse</a></code>
-- <code title="post /v2/notifications/edit">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">edit</a>(\*\*<a href="src/metronome/types/v2/notification_edit_params.py">params</a>) -> <a href="./src/metronome/types/v2/notification_edit_response.py">NotificationEditResponse</a></code>
-- <code title="post /v2/notifications/offset/list">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">list_offset</a>(\*\*<a href="src/metronome/types/v2/notification_list_offset_params.py">params</a>) -> <a href="./src/metronome/types/v2/notification_list_offset_response.py">NotificationListOffsetResponse</a></code>
-- <code title="post /v2/notifications/system/list">client.v2.notifications.<a href="./src/metronome/resources/v2/notifications.py">list_system</a>() -> <a href="./src/metronome/types/v2/notification_list_system_response.py">NotificationListSystemResponse</a></code>
-
 # V1
 
 ## Alerts

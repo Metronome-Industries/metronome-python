@@ -539,7 +539,8 @@ class CustomersResource(SyncAPIResource):
         Generates draft
         invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoices before they are actually processed.
+        customer's invoices before they are actually processed. Customers on contracts
+        with SQL billable metrics are not supported.
 
         Args:
           events: Array of usage events to include in the preview calculation. Must contain at
@@ -1279,7 +1280,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         Generates draft
         invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoices before they are actually processed.
+        customer's invoices before they are actually processed. Customers on contracts
+        with SQL billable metrics are not supported.
 
         Args:
           events: Array of usage events to include in the preview calculation. Must contain at
