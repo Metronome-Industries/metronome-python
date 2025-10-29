@@ -541,3 +541,28 @@ Methods:
 - <code title="post /v1/payments/list">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">list</a>(\*\*<a href="src/metronome/types/v1/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment.py">SyncBodyCursorPage[Payment]</a></code>
 - <code title="post /v1/payments/attempt">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">attempt</a>(\*\*<a href="src/metronome/types/v1/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_attempt_response.py">PaymentAttemptResponse</a></code>
 - <code title="post /v1/payments/cancel">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">cancel</a>(\*\*<a href="src/metronome/types/v1/payment_cancel_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_cancel_response.py">PaymentCancelResponse</a></code>
+
+## Settings
+
+Types:
+
+```python
+from metronome.types.v1 import SettingUpsertAvalaraCredentialsResponse
+```
+
+Methods:
+
+- <code title="post /v1/upsertAvalaraCredentials">client.v1.settings.<a href="./src/metronome/resources/v1/settings/settings.py">upsert_avalara_credentials</a>(\*\*<a href="src/metronome/types/v1/setting_upsert_avalara_credentials_params.py">params</a>) -> <a href="./src/metronome/types/v1/setting_upsert_avalara_credentials_response.py">SettingUpsertAvalaraCredentialsResponse</a></code>
+
+### BillingProviders
+
+Types:
+
+```python
+from metronome.types.v1.settings import BillingProviderCreateResponse, BillingProviderListResponse
+```
+
+Methods:
+
+- <code title="post /v1/setUpBillingProvider">client.v1.settings.billing_providers.<a href="./src/metronome/resources/v1/settings/billing_providers.py">create</a>(\*\*<a href="src/metronome/types/v1/settings/billing_provider_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/settings/billing_provider_create_response.py">BillingProviderCreateResponse</a></code>
+- <code title="post /v1/listConfiguredBillingProviders">client.v1.settings.billing_providers.<a href="./src/metronome/resources/v1/settings/billing_providers.py">list</a>(\*\*<a href="src/metronome/types/v1/settings/billing_provider_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/settings/billing_provider_list_response.py">BillingProviderListResponse</a></code>

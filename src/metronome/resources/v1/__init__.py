@@ -56,6 +56,14 @@ from .services import (
     ServicesResourceWithStreamingResponse,
     AsyncServicesResourceWithStreamingResponse,
 )
+from .settings import (
+    SettingsResource,
+    AsyncSettingsResource,
+    SettingsResourceWithRawResponse,
+    AsyncSettingsResourceWithRawResponse,
+    SettingsResourceWithStreamingResponse,
+    AsyncSettingsResourceWithStreamingResponse,
+)
 from .contracts import (
     ContractsResource,
     AsyncContractsResource,
@@ -206,6 +214,12 @@ __all__ = [
     "AsyncPaymentsResourceWithRawResponse",
     "PaymentsResourceWithStreamingResponse",
     "AsyncPaymentsResourceWithStreamingResponse",
+    "SettingsResource",
+    "AsyncSettingsResource",
+    "SettingsResourceWithRawResponse",
+    "AsyncSettingsResourceWithRawResponse",
+    "SettingsResourceWithStreamingResponse",
+    "AsyncSettingsResourceWithStreamingResponse",
     "V1Resource",
     "AsyncV1Resource",
     "V1ResourceWithRawResponse",
