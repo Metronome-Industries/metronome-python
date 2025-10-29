@@ -309,6 +309,7 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
         "quickbooks_online",
         "workday",
         "gcp_marketplace",
+        "metronome",
     ]
 
     external_status: Optional[
@@ -375,6 +376,7 @@ class ExternalInvoice(BaseModel):
         "quickbooks_online",
         "workday",
         "gcp_marketplace",
+        "metronome",
     ]
 
     external_status: Optional[

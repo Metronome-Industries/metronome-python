@@ -20,6 +20,7 @@ class BillingConfigCreateParams(TypedDict, total=False):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ]
     ]
 
