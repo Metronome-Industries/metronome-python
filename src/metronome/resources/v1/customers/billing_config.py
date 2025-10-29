@@ -56,6 +56,7 @@ class BillingConfigResource(SyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         billing_provider_customer_id: str,
         aws_product_code: str | Omit = omit,
@@ -156,6 +157,7 @@ class BillingConfigResource(SyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -205,6 +207,7 @@ class BillingConfigResource(SyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -277,6 +280,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         billing_provider_customer_id: str,
         aws_product_code: str | Omit = omit,
@@ -377,6 +381,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -426,6 +431,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

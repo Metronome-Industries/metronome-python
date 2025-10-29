@@ -23,6 +23,7 @@ class Data(TypedDict, total=False):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ]
     ]
     """The billing provider set for this configuration."""

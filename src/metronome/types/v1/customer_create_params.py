@@ -44,6 +44,7 @@ class BillingConfig(TypedDict, total=False):
             "quickbooks_online",
             "workday",
             "gcp_marketplace",
+            "metronome",
         ]
     ]
 

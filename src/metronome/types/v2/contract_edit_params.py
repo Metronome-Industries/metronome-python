@@ -213,6 +213,7 @@ class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDic
         "quickbooks_online",
         "workday",
         "gcp_marketplace",
+        "metronome",
     ]
 
     billing_provider_configuration_id: str

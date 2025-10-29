@@ -27,6 +27,7 @@ class Data(BaseModel):
         "quickbooks_online",
         "workday",
         "gcp_marketplace",
+        "metronome",
     ]
     """The billing provider set for this configuration."""
 
