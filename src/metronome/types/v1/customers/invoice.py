@@ -312,6 +312,9 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
         "metronome",
     ]
 
+    billing_provider_error: Optional[str] = None
+    """Error message from the billing provider, if available."""
+
     external_status: Optional[
         Literal[
             "DRAFT",
@@ -378,6 +381,9 @@ class ExternalInvoice(BaseModel):
         "gcp_marketplace",
         "metronome",
     ]
+
+    billing_provider_error: Optional[str] = None
+    """Error message from the billing provider, if available."""
 
     external_status: Optional[
         Literal[
