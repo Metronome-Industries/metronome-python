@@ -1,5 +1,43 @@
 # Changelog
 
+## 3.1.0 (2025-10-31)
+
+Full Changelog: [v3.0.0...v3.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.0.0...v3.1.0)
+
+### Features
+
+* [ORCH-282] plumb `payment_method_id` to the payment gateway object ([a8c98bb](https://github.com/Metronome-Industries/metronome-python/commit/a8c98bb612d3eab8318ff405ebe44a2e7a06bce3))
+* [ORCH-797] add billing_provider_error to invoice.external_invoice ([25d584b](https://github.com/Metronome-Industries/metronome-python/commit/25d584b771a073e0ff1dfabfc0ed9fa9419ecfe1))
+* Add avalara creds + billing provider APIs to SDK. Add avalara creds API to docs. ([f88624e](https://github.com/Metronome-Industries/metronome-python/commit/f88624ea8665948cc0f0430a4a6af2811ed1b1ee))
+* add beta tag to stripe auto charge items ([f7eaf72](https://github.com/Metronome-Industries/metronome-python/commit/f7eaf72534bcdcebe1cfc22f74693a7f9de62257))
+* add exclude_zero_balances field behind a FF for anthropic ([36af1bf](https://github.com/Metronome-Industries/metronome-python/commit/36af1bfcd66da1feb70165e378ba959d3cbee998))
+* add METRONOME to BillingProvider type ([b64d7f6](https://github.com/Metronome-Industries/metronome-python/commit/b64d7f63fb5433927eb1c05deeaaa0f5d817f410))
+* docs(api) Documentation for seat-based subscription linked recurring commits beta release ([0d2c224](https://github.com/Metronome-Industries/metronome-python/commit/0d2c2242ca6907b7447e962756ec1907f0cf5bf0))
+* ignore_duplicates ([4025e58](https://github.com/Metronome-Industries/metronome-python/commit/4025e5896f98e0189aa5fbdd01ec7c0505e4332f))
+* internal: moving plans docs to deprecated section of new docs site ([2db9469](https://github.com/Metronome-Industries/metronome-python/commit/2db9469e4eccd1d147579d09bf35ff7a1f2ca738))
+* not ready for review ([ca07022](https://github.com/Metronome-Industries/metronome-python/commit/ca07022666e58b2a319d81c6e1a0fdcfe3a3b1b7))
+* not ready for review ([0d0d478](https://github.com/Metronome-Industries/metronome-python/commit/0d0d478ec50247380402630c76176af5a5755800))
+* Relax requirement on customer level commits for invoice_contract_id if do_not_invoice is set to true ([f74df85](https://github.com/Metronome-Industries/metronome-python/commit/f74df850bdb8085f27866f36234a8612488cf65f))
+* update get customer alerts api to include low seat balance type ([4bdaa73](https://github.com/Metronome-Industries/metronome-python/commit/4bdaa732cce863d5ec97aa3bee6d2a17d58a3839))
+
+
+### Bug Fixes
+
+* **api:** Make id field required in /v2/notifications/edit ([ac261c2](https://github.com/Metronome-Industries/metronome-python/commit/ac261c2589c05db34216d2bf84141bab854a592a))
+* **client:** close streams without requiring full consumption ([ed2abf0](https://github.com/Metronome-Industries/metronome-python/commit/ed2abf0e91e189da7a059f8b8db33b49de9a273a))
+
+
+### Chores
+
+* **api:** Note SQL BM is not supported in previewCustomerEvents description ([a75c6fd](https://github.com/Metronome-Industries/metronome-python/commit/a75c6fd81edcad1e4b1848c9a11599c2245b58f1))
+* bump `httpx-aiohttp` version to 0.1.9 ([6fc03bc](https://github.com/Metronome-Industries/metronome-python/commit/6fc03bcde0da509f5bc4e6a8e32c769d4d5d24a4))
+* **internal/tests:** avoid race condition with implicit client cleanup ([53f9064](https://github.com/Metronome-Industries/metronome-python/commit/53f90642543d6ea42dcde84344b3edaf0c0cfdfb))
+
+
+### Documentation
+
+* add migrate amendments to edits page ([d1f8d43](https://github.com/Metronome-Industries/metronome-python/commit/d1f8d43d5b2c3a3b3ae26b1d21c33dd0d381229b))
+
 ## 3.0.0 (2025-10-16)
 
 Full Changelog: [v2.0.0...v3.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v2.0.0...v3.0.0)
