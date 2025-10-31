@@ -477,7 +477,8 @@ class CustomersResource(SyncAPIResource):
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
-        UNIQUE-type billable metric.
+        UNIQUE-type billable metric. This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp (exclusive)
@@ -538,14 +539,19 @@ class CustomersResource(SyncAPIResource):
         Generates draft
         invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoices before they are actually processed.
+        customer's invoices before they are actually processed. Customers on contracts
+        with SQL billable metrics are not supported.
 
         Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
+          events: Array of usage events to include in the preview calculation. Must contain at
+              least one event in `merge` mode.
 
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
+          mode: Controls how the provided events are combined with existing usage data. Use
+              `replace` to calculate the preview as if these are the only events for the
+              customer, ignoring all historical usage. Use `merge` to combine these events
+              with the customer's existing usage. Defaults to `replace`.
+
+          skip_zero_qty_line_items: When `true`, line items with zero quantity are excluded from the response.
 
           extra_headers: Send extra headers
 
@@ -1212,7 +1218,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         """
         Fetch daily pending costs for the specified customer, broken down by credit type
         and line items. Note: this is not supported for customers whose plan includes a
-        UNIQUE-type billable metric.
+        UNIQUE-type billable metric. This is a Plans (deprecated) endpoint. New clients
+        should implement using Contracts.
 
         Args:
           ending_before: RFC 3339 timestamp (exclusive)
@@ -1273,14 +1280,19 @@ class AsyncCustomersResource(AsyncAPIResource):
         Generates draft
         invoices for a customer using their current contract configuration and the
         provided events. This is useful for testing how new events will affect the
-        customer's invoices before they are actually processed.
+        customer's invoices before they are actually processed. Customers on contracts
+        with SQL billable metrics are not supported.
 
         Args:
-          mode: If set to "replace", the preview will be generated as if those were the only
-              events for the specified customer. If set to "merge", the events will be merged
-              with any existing events for the specified customer. Defaults to "replace".
+          events: Array of usage events to include in the preview calculation. Must contain at
+              least one event in `merge` mode.
 
-          skip_zero_qty_line_items: If set, all zero quantity line items will be filtered out of the response.
+          mode: Controls how the provided events are combined with existing usage data. Use
+              `replace` to calculate the preview as if these are the only events for the
+              customer, ignoring all historical usage. Use `merge` to combine these events
+              with the customer's existing usage. Defaults to `replace`.
+
+          skip_zero_qty_line_items: When `true`, line items with zero quantity are excluded from the response.
 
           extra_headers: Send extra headers
 

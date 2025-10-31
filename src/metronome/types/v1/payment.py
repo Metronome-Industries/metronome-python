@@ -24,6 +24,8 @@ class PaymentGatewayStripe(BaseModel):
 
     error: Optional[PaymentGatewayStripeError] = None
 
+    payment_method_id: Optional[str] = None
+
 
 class PaymentGateway(BaseModel):
     stripe: PaymentGatewayStripe

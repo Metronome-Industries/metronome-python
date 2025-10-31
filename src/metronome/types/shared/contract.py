@@ -88,6 +88,7 @@ class CustomerBillingProviderConfiguration(BaseModel):
         "quickbooks_online",
         "workday",
         "gcp_marketplace",
+        "metronome",
     ]
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]

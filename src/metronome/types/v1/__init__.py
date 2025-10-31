@@ -113,11 +113,17 @@ from .contract_add_manual_balance_entry_params import (
 from .contract_retrieve_rate_schedule_response import (
     ContractRetrieveRateScheduleResponse as ContractRetrieveRateScheduleResponse,
 )
+from .setting_upsert_avalara_credentials_params import (
+    SettingUpsertAvalaraCredentialsParams as SettingUpsertAvalaraCredentialsParams,
+)
 from .contract_create_historical_invoices_params import (
     ContractCreateHistoricalInvoicesParams as ContractCreateHistoricalInvoicesParams,
 )
 from .customer_set_billing_configurations_params import (
     CustomerSetBillingConfigurationsParams as CustomerSetBillingConfigurationsParams,
+)
+from .setting_upsert_avalara_credentials_response import (
+    SettingUpsertAvalaraCredentialsResponse as SettingUpsertAvalaraCredentialsResponse,
 )
 from .contract_create_historical_invoices_response import (
     ContractCreateHistoricalInvoicesResponse as ContractCreateHistoricalInvoicesResponse,

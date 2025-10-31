@@ -286,8 +286,10 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceAddChargeResponse:
-        """
-        Add a one time charge to the specified invoice
+        """Add a one time charge to the specified invoice.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           charge_id: The Metronome ID of the charge to add to the invoice. Note that the charge must
@@ -759,8 +761,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceAddChargeResponse:
-        """
-        Add a one time charge to the specified invoice
+        """Add a one time charge to the specified invoice.
+
+        This is a Plans (deprecated)
+        endpoint. New clients should implement using Contracts.
 
         Args:
           charge_id: The Metronome ID of the charge to add to the invoice. Note that the charge must
