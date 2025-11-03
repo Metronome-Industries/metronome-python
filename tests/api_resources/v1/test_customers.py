@@ -423,6 +423,10 @@ class TestCustomers:
                     "billing_provider": "aws_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
+                {
+                    "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
             ],
         )
         assert customer is None
@@ -445,6 +449,10 @@ class TestCustomers:
                 },
                 {
                     "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -473,6 +481,10 @@ class TestCustomers:
                 },
                 {
                     "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -1016,6 +1028,10 @@ class TestAsyncCustomers:
                     "billing_provider": "aws_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
+                {
+                    "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
             ],
         )
         assert customer is None
@@ -1038,6 +1054,10 @@ class TestAsyncCustomers:
                 },
                 {
                     "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -1066,6 +1086,10 @@ class TestAsyncCustomers:
                 },
                 {
                     "billing_provider": "aws_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
