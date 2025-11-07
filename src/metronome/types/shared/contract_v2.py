@@ -371,6 +371,9 @@ class Commit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
+
 
 class OverrideOverrideSpecifier(BaseModel):
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -624,6 +627,13 @@ class Credit(BaseModel):
 
     contract: Optional[CreditContract] = None
 
+    created_at: Optional[datetime] = None
+    """Timestamp of when the credit was created.
+
+    - Recurring credits: latter of credit service period date and parent credit
+      start date
+    """
+
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
@@ -658,6 +668,9 @@ class Credit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
 
 
 class CustomerBillingProviderConfiguration(BaseModel):
