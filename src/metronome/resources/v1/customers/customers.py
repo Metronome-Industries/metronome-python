@@ -158,6 +158,8 @@ class CustomersResource(SyncAPIResource):
         custom_fields: Dict[str, str] | Omit = omit,
         customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
         | Omit = omit,
+        customer_revenue_system_configurations: Iterable[customer_create_params.CustomerRevenueSystemConfiguration]
+        | Omit = omit,
         external_id: str | Omit = omit,
         ingest_aliases: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -229,6 +231,7 @@ class CustomersResource(SyncAPIResource):
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
                     "customer_billing_provider_configurations": customer_billing_provider_configurations,
+                    "customer_revenue_system_configurations": customer_revenue_system_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
@@ -899,6 +902,8 @@ class AsyncCustomersResource(AsyncAPIResource):
         custom_fields: Dict[str, str] | Omit = omit,
         customer_billing_provider_configurations: Iterable[customer_create_params.CustomerBillingProviderConfiguration]
         | Omit = omit,
+        customer_revenue_system_configurations: Iterable[customer_create_params.CustomerRevenueSystemConfiguration]
+        | Omit = omit,
         external_id: str | Omit = omit,
         ingest_aliases: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -970,6 +975,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                     "billing_config": billing_config,
                     "custom_fields": custom_fields,
                     "customer_billing_provider_configurations": customer_billing_provider_configurations,
+                    "customer_revenue_system_configurations": customer_revenue_system_configurations,
                     "external_id": external_id,
                     "ingest_aliases": ingest_aliases,
                 },
