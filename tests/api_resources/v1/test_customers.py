@@ -61,6 +61,14 @@ class TestCustomers:
                     "tax_provider": "anrok",
                 }
             ],
+            customer_revenue_system_configurations=[
+                {
+                    "provider": "netsuite",
+                    "configuration": {"foo": "bar"},
+                    "delivery_method": "direct_to_billing_provider",
+                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                }
+            ],
             external_id="x",
             ingest_aliases=["team@example.com"],
         )
@@ -664,6 +672,14 @@ class TestAsyncCustomers:
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "tax_provider": "anrok",
+                }
+            ],
+            customer_revenue_system_configurations=[
+                {
+                    "provider": "netsuite",
+                    "configuration": {"foo": "bar"},
+                    "delivery_method": "direct_to_billing_provider",
+                    "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 }
             ],
             external_id="x",

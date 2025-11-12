@@ -56,6 +56,7 @@ __all__ = [
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
+    "RevenueSystemConfiguration",
     "ScheduledCharge",
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
@@ -135,6 +136,12 @@ class ContractCreateParams(TypedDict, total=False):
 
     reseller_royalties: Iterable[ResellerRoyalty]
     """This field's availability is dependent on your client's configuration."""
+
+    revenue_system_configuration: RevenueSystemConfiguration
+    """The revenue system configuration associated with a contract.
+
+    Provide either an ID or the provider and delivery method.
+    """
 
     salesforce_opportunity_id: str
     """This field's availability is dependent on your client's configuration."""
@@ -1117,6 +1124,21 @@ class ResellerRoyalty(TypedDict, total=False):
     gcp_options: ResellerRoyaltyGcpOptions
 
     reseller_contract_value: float
+
+
+class RevenueSystemConfiguration(TypedDict, total=False):
+    delivery_method: Literal["direct_to_billing_provider"]
+    """Do not specify if using revenue_system_configuration_id."""
+
+    provider: Literal["netsuite"]
+    """Do not specify if using revenue_system_configuration_id."""
+
+    revenue_system_configuration_id: str
+    """The Metronome ID of the revenue system configuration.
+
+    Use when a customer has multiple configurations with the same provider and
+    delivery method. Otherwise, specify the provider and delivery_method.
+    """
 
 
 class ScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
