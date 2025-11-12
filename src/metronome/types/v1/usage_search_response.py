@@ -34,8 +34,11 @@ class UsageSearchResponseItemMatchedBillableMetric(BaseModel):
     aggregation type is 'count'.
     """
 
-    aggregation_type: Optional[Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE"]] = None
-    """Specifies the type of aggregation performed on matching events."""
+    aggregation_type: Optional[Literal["COUNT", "LATEST", "MAX", "SUM", "UNIQUE", "custom_sql"]] = None
+    """Specifies the type of aggregation performed on matching events.
+
+    Includes "custom_sql" for events search endpoint responses.
+    """
 
     archived_at: Optional[datetime] = None
     """RFC 3339 timestamp indicating when the billable metric was archived.
