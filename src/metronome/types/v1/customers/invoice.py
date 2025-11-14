@@ -315,6 +315,9 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
 
+    external_payment_id: Optional[str] = None
+    """The ID of the payment in the external system, if available."""
+
     external_status: Optional[
         Literal[
             "DRAFT",
@@ -384,6 +387,9 @@ class ExternalInvoice(BaseModel):
 
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
+
+    external_payment_id: Optional[str] = None
+    """The ID of the payment in the external system, if available."""
 
     external_status: Optional[
         Literal[
