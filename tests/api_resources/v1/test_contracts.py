@@ -470,6 +470,11 @@ class TestContracts:
                     "initial_quantity": 0,
                     "name": "name",
                     "quantity_management_mode": "SEAT_BASED",
+                    "seat_config": {
+                        "initial_seat_ids": ["string"],
+                        "seat_group_key": "seat_group_key",
+                        "initial_unassigned_seats": 0,
+                    },
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -1809,6 +1814,11 @@ class TestAsyncContracts:
                     "initial_quantity": 0,
                     "name": "name",
                     "quantity_management_mode": "SEAT_BASED",
+                    "seat_config": {
+                        "initial_seat_ids": ["string"],
+                        "seat_group_key": "seat_group_key",
+                        "initial_unassigned_seats": 0,
+                    },
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }

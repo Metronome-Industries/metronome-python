@@ -64,6 +64,7 @@ __all__ = [
     "Subscription",
     "SubscriptionProration",
     "SubscriptionSubscriptionRate",
+    "SubscriptionSeatConfig",
     "Transition",
     "TransitionFutureInvoiceBehavior",
     "UsageStatementSchedule",
@@ -875,7 +876,7 @@ class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     allocation: Literal["INDIVIDUAL", "POOLED"]
     """If set to POOLED, allocation added per seat is pooled across the account.
 
-    (BETA) If set to INDIVIDUAL, each seat in the subscription will have its own
+    If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
 
@@ -999,7 +1000,7 @@ class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     allocation: Literal["INDIVIDUAL", "POOLED"]
     """If set to POOLED, allocation added per seat is pooled across the account.
 
-    (BETA) If set to INDIVIDUAL, each seat in the subscription will have its own
+    If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
 
@@ -1263,6 +1264,24 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
     """Must be subscription type product"""
 
 
+class SubscriptionSeatConfig(TypedDict, total=False):
+    initial_seat_ids: Required[SequenceNotStr[str]]
+    """The initial assigned seats on this subscription."""
+
+    seat_group_key: Required[str]
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+    initial_unassigned_seats: float
+    """The initial amount of unassigned seats on this subscription."""
+
+
 class Subscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
 
@@ -1296,12 +1315,14 @@ class Subscription(TypedDict, total=False):
     Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
     specified directly on the subscription. `initial_quantity` must be provided with
     this option. Compatible with recurring commits/credits that use POOLED
-    allocation. **SEAT_BASED**: (BETA) Use when you want to pass specific seat
-    identifiers (e.g. add user_123) to increment and decrement a subscription
-    quantity, rather than directly providing the quantity. You must use a
-    **SEAT_BASED** subscription to use a linked recurring credit with an allocation
-    per seat. `seat_config` must be provided with this option.
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
     """
+
+    seat_config: SubscriptionSeatConfig
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Inclusive start time for the subscription.
