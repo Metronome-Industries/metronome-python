@@ -88,6 +88,11 @@ __all__ = [
     "DataUpdateSpendThresholdConfiguration",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
+    "DataUpdateSubscriptionSeatUpdates",
+    "DataUpdateSubscriptionSeatUpdatesAddSeatID",
+    "DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat",
+    "DataUpdateSubscriptionSeatUpdatesRemoveSeatID",
+    "DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat",
 ]
 
 
@@ -1050,12 +1055,82 @@ class DataUpdateSubscriptionQuantityUpdate(BaseModel):
     quantity_delta: Optional[float] = None
 
 
+class DataUpdateSubscriptionSeatUpdatesAddSeatID(BaseModel):
+    seat_ids: List[str]
+
+    starting_at: datetime
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat(BaseModel):
+    quantity: float
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: datetime
+    """Unassigned seats will be updated starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesRemoveSeatID(BaseModel):
+    seat_ids: List[str]
+
+    starting_at: datetime
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(BaseModel):
+    quantity: float
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: datetime
+    """Unassigned seats will be updated starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdates(BaseModel):
+    add_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesAddSeatID]] = None
+    """Adds seat IDs to the subscription.
+
+    If there are unassigned seats, the new seat IDs will fill these unassigned seats
+    and not increase the total subscription quantity. Otherwise, if there are more
+    new seat IDs than unassigned seats, the total subscription quantity will
+    increase.
+    """
+
+    add_unassigned_seats: Optional[List[DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat]] = None
+    """Adds unassigned seats to the subscription.
+
+    This will increase the total subscription quantity.
+    """
+
+    remove_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesRemoveSeatID]] = None
+    """Removes seat IDs from the subscription, if possible.
+
+    If a seat ID is removed, the total subscription quantity will decrease.
+    Otherwise, if the seat ID is not found on the subscription, this is a no-op.
+    """
+
+    remove_unassigned_seats: Optional[List[DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat]] = None
+    """Removes unassigned seats from the subscription.
+
+    This will decrease the total subscription quantity if there are are unassigned
+    seats.
+    """
+
+
 class DataUpdateSubscription(BaseModel):
     id: str
 
     ending_before: Optional[datetime] = None
 
     quantity_updates: Optional[List[DataUpdateSubscriptionQuantityUpdate]] = None
+
+    seat_updates: Optional[DataUpdateSubscriptionSeatUpdates] = None
+    """Manage subscription seats for subscriptions in SEAT_BASED mode."""
 
 
 class Data(BaseModel):

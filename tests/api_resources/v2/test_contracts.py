@@ -530,6 +530,11 @@ class TestContracts:
                     "initial_quantity": 0,
                     "name": "name",
                     "quantity_management_mode": "SEAT_BASED",
+                    "seat_config": {
+                        "initial_seat_ids": ["string"],
+                        "seat_group_key": "seat_group_key",
+                        "initial_unassigned_seats": 0,
+                    },
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -740,6 +745,32 @@ class TestContracts:
                             "quantity_delta": 0,
                         }
                     ],
+                    "seat_updates": {
+                        "add_seat_ids": [
+                            {
+                                "seat_ids": ["string"],
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "add_unassigned_seats": [
+                            {
+                                "quantity": 1,
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "remove_seat_ids": [
+                            {
+                                "seat_ids": ["string"],
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "remove_unassigned_seats": [
+                            {
+                                "quantity": 1,
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                    },
                 }
             ],
         )
@@ -1485,6 +1516,11 @@ class TestAsyncContracts:
                     "initial_quantity": 0,
                     "name": "name",
                     "quantity_management_mode": "SEAT_BASED",
+                    "seat_config": {
+                        "initial_seat_ids": ["string"],
+                        "seat_group_key": "seat_group_key",
+                        "initial_unassigned_seats": 0,
+                    },
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "temporary_id": "temporary_id",
                 }
@@ -1695,6 +1731,32 @@ class TestAsyncContracts:
                             "quantity_delta": 0,
                         }
                     ],
+                    "seat_updates": {
+                        "add_seat_ids": [
+                            {
+                                "seat_ids": ["string"],
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "add_unassigned_seats": [
+                            {
+                                "quantity": 1,
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "remove_seat_ids": [
+                            {
+                                "seat_ids": ["string"],
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                        "remove_unassigned_seats": [
+                            {
+                                "quantity": 1,
+                                "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                            }
+                        ],
+                    },
                 }
             ],
         )

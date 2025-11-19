@@ -63,6 +63,7 @@ __all__ = [
     "AddSubscription",
     "AddSubscriptionProration",
     "AddSubscriptionSubscriptionRate",
+    "AddSubscriptionSeatConfig",
     "ArchiveCommit",
     "ArchiveCredit",
     "ArchiveScheduledCharge",
@@ -96,6 +97,11 @@ __all__ = [
     "UpdateSpendThresholdConfiguration",
     "UpdateSubscription",
     "UpdateSubscriptionQuantityUpdate",
+    "UpdateSubscriptionSeatUpdates",
+    "UpdateSubscriptionSeatUpdatesAddSeatID",
+    "UpdateSubscriptionSeatUpdatesAddUnassignedSeat",
+    "UpdateSubscriptionSeatUpdatesRemoveSeatID",
+    "UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat",
 ]
 
 
@@ -856,7 +862,7 @@ class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
     allocation: Literal["POOLED", "INDIVIDUAL"]
     """If set to POOLED, allocation added per seat is pooled across the account.
 
-    (BETA) If set to INDIVIDUAL, each seat in the subscription will have its own
+    If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
 
@@ -982,7 +988,7 @@ class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
     allocation: Literal["POOLED", "INDIVIDUAL"]
     """If set to POOLED, allocation added per seat is pooled across the account.
 
-    (BETA) If set to INDIVIDUAL, each seat in the subscription will have its own
+    If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
 
@@ -1234,6 +1240,24 @@ class AddSubscriptionSubscriptionRate(TypedDict, total=False):
     """Must be subscription type product"""
 
 
+class AddSubscriptionSeatConfig(TypedDict, total=False):
+    initial_seat_ids: Required[SequenceNotStr[str]]
+    """The initial assigned seats on this subscription."""
+
+    seat_group_key: Required[str]
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+    initial_unassigned_seats: float
+    """The initial amount of unassigned seats on this subscription."""
+
+
 class AddSubscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
 
@@ -1267,12 +1291,14 @@ class AddSubscription(TypedDict, total=False):
     Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
     specified directly on the subscription. `initial_quantity` must be provided with
     this option. Compatible with recurring commits/credits that use POOLED
-    allocation. **SEAT_BASED**: (BETA) Use when you want to pass specific seat
-    identifiers (e.g. add user_123) to increment and decrement a subscription
-    quantity, rather than directly providing the quantity. You must use a
-    **SEAT_BASED** subscription to use a linked recurring credit with an allocation
-    per seat. `seat_config` must be provided with this option.
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
     """
+
+    seat_config: AddSubscriptionSeatConfig
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Inclusive start time for the subscription.
@@ -1655,6 +1681,73 @@ class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
     """
 
 
+class UpdateSubscriptionSeatUpdatesAddSeatID(TypedDict, total=False):
+    seat_ids: Required[SequenceNotStr[str]]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class UpdateSubscriptionSeatUpdatesAddUnassignedSeat(TypedDict, total=False):
+    quantity: Required[float]
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Unassigned seats will be updated starting at this date."""
+
+
+class UpdateSubscriptionSeatUpdatesRemoveSeatID(TypedDict, total=False):
+    seat_ids: Required[SequenceNotStr[str]]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(TypedDict, total=False):
+    quantity: Required[float]
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Unassigned seats will be updated starting at this date."""
+
+
+class UpdateSubscriptionSeatUpdates(TypedDict, total=False):
+    add_seat_ids: Iterable[UpdateSubscriptionSeatUpdatesAddSeatID]
+    """Adds seat IDs to the subscription.
+
+    If there are unassigned seats, the new seat IDs will fill these unassigned seats
+    and not increase the total subscription quantity. Otherwise, if there are more
+    new seat IDs than unassigned seats, the total subscription quantity will
+    increase.
+    """
+
+    add_unassigned_seats: Iterable[UpdateSubscriptionSeatUpdatesAddUnassignedSeat]
+    """Adds unassigned seats to the subscription.
+
+    This will increase the total subscription quantity.
+    """
+
+    remove_seat_ids: Iterable[UpdateSubscriptionSeatUpdatesRemoveSeatID]
+    """Removes seat IDs from the subscription, if possible.
+
+    If a seat ID is removed, the total subscription quantity will decrease.
+    Otherwise, if the seat ID is not found on the subscription, this is a no-op.
+    """
+
+    remove_unassigned_seats: Iterable[UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat]
+    """Removes unassigned seats from the subscription.
+
+    This will decrease the total subscription quantity if there are are unassigned
+    seats.
+    """
+
+
 class UpdateSubscription(TypedDict, total=False):
     subscription_id: Required[str]
 
@@ -1666,3 +1759,5 @@ class UpdateSubscription(TypedDict, total=False):
     are sent. For example, if I scheduled the quantity to be 12 on May 21 and then
     scheduled a quantity delta change of -1, the result from that day would be 11.
     """
+
+    seat_updates: UpdateSubscriptionSeatUpdates
