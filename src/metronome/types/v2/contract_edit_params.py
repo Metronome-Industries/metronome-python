@@ -96,6 +96,8 @@ __all__ = [
     "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "UpdateSpendThresholdConfiguration",
     "UpdateSubscription",
+    "UpdateSubscriptionQuantityManagementModeUpdate",
+    "UpdateSubscriptionQuantityManagementModeUpdateSeatConfig",
     "UpdateSubscriptionQuantityUpdate",
     "UpdateSubscriptionSeatUpdates",
     "UpdateSubscriptionSeatUpdatesAddSeatID",
@@ -1664,6 +1666,16 @@ class UpdateSpendThresholdConfiguration(TypedDict, total=False):
     """
 
 
+class UpdateSubscriptionQuantityManagementModeUpdateSeatConfig(TypedDict, total=False):
+    seat_group_key: Required[str]
+
+
+class UpdateSubscriptionQuantityManagementModeUpdate(TypedDict, total=False):
+    quantity_management_mode: Required[Literal["SEAT_BASED"]]
+
+    seat_config: Required[UpdateSubscriptionQuantityManagementModeUpdateSeatConfig]
+
+
 class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
@@ -1752,6 +1764,12 @@ class UpdateSubscription(TypedDict, total=False):
     subscription_id: Required[str]
 
     ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+
+    quantity_management_mode_update: UpdateSubscriptionQuantityManagementModeUpdate
+    """
+    Update the subscription's quantity management mode from QUANTITY_ONLY to
+    SEAT_BASED with the provided seat_group_key.
+    """
 
     quantity_updates: Iterable[UpdateSubscriptionQuantityUpdate]
     """

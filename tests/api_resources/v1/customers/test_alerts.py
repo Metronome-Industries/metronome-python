@@ -41,6 +41,10 @@ class TestAlerts:
                 }
             ],
             plans_or_contracts="PLANS",
+            seat_filter={
+                "seat_group_key": "seat_group_key",
+                "seat_group_value": "seat_group_value",
+            },
         )
         assert_matches_type(AlertRetrieveResponse, alert, path=["response"])
 
@@ -170,6 +174,10 @@ class TestAsyncAlerts:
                 }
             ],
             plans_or_contracts="PLANS",
+            seat_filter={
+                "seat_group_key": "seat_group_key",
+                "seat_group_value": "seat_group_value",
+            },
         )
         assert_matches_type(AlertRetrieveResponse, alert, path=["response"])
 

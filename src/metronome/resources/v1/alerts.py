@@ -76,6 +76,7 @@ class AlertsResource(SyncAPIResource):
         group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
         invoice_types_filter: SequenceNotStr[str] | Omit = omit,
         plan_id: str | Omit = omit,
+        seat_filter: alert_create_params.SeatFilter | Omit = omit,
         uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -171,6 +172,9 @@ class AlertsResource(SyncAPIResource):
           plan_id: If provided, will create this threshold notification for this specific plan. To
               create a notification for all customers, do not specify a `plan_id`.
 
+          seat_filter: Required for `low_remaining_seat_balance_reached` notifications. The alert is
+              scoped to this seat group key-value pair.
+
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
               request will fail with a 409 error.
@@ -199,6 +203,7 @@ class AlertsResource(SyncAPIResource):
                     "group_values": group_values,
                     "invoice_types_filter": invoice_types_filter,
                     "plan_id": plan_id,
+                    "seat_filter": seat_filter,
                     "uniqueness_key": uniqueness_key,
                 },
                 alert_create_params.AlertCreateParams,
@@ -332,6 +337,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
         invoice_types_filter: SequenceNotStr[str] | Omit = omit,
         plan_id: str | Omit = omit,
+        seat_filter: alert_create_params.SeatFilter | Omit = omit,
         uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -427,6 +433,9 @@ class AsyncAlertsResource(AsyncAPIResource):
           plan_id: If provided, will create this threshold notification for this specific plan. To
               create a notification for all customers, do not specify a `plan_id`.
 
+          seat_filter: Required for `low_remaining_seat_balance_reached` notifications. The alert is
+              scoped to this seat group key-value pair.
+
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
               request will fail with a 409 error.
@@ -455,6 +464,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "group_values": group_values,
                     "invoice_types_filter": invoice_types_filter,
                     "plan_id": plan_id,
+                    "seat_filter": seat_filter,
                     "uniqueness_key": uniqueness_key,
                 },
                 alert_create_params.AlertCreateParams,

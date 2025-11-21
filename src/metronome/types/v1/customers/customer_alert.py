@@ -7,7 +7,14 @@ from typing_extensions import Literal
 from ...._models import BaseModel
 from ...shared.credit_type_data import CreditTypeData
 
-__all__ = ["CustomerAlert", "Alert", "AlertCustomFieldFilter", "AlertGroupKeyFilter", "AlertGroupValue"]
+__all__ = [
+    "CustomerAlert",
+    "Alert",
+    "AlertCustomFieldFilter",
+    "AlertGroupKeyFilter",
+    "AlertGroupValue",
+    "AlertSeatFilter",
+]
 
 
 class AlertCustomFieldFilter(BaseModel):
@@ -28,6 +35,14 @@ class AlertGroupValue(BaseModel):
     key: str
 
     value: Optional[str] = None
+
+
+class AlertSeatFilter(BaseModel):
+    seat_group_key: str
+    """The seat group key (e.g., "seat_id", "user_id") that the alert is scoped to."""
+
+    seat_group_value: Optional[str] = None
+    """The seat group value that the alert is scoped to."""
 
 
 class Alert(BaseModel):
@@ -97,6 +112,12 @@ class Alert(BaseModel):
     """Only supported for invoice_total_reached threshold notifications.
 
     A list of invoice types to evaluate.
+    """
+
+    seat_filter: Optional[AlertSeatFilter] = None
+    """Only present for low_remaining_seat_balance_reached notifications.
+
+    The seat group key or seat group key-value pair the alert is scoped to.
     """
 
     uniqueness_key: Optional[str] = None

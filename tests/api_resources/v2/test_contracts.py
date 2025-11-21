@@ -738,6 +738,10 @@ class TestContracts:
                 {
                     "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "quantity_management_mode_update": {
+                        "quantity_management_mode": "SEAT_BASED",
+                        "seat_config": {"seat_group_key": "seat_group_key"},
+                    },
                     "quantity_updates": [
                         {
                             "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1724,6 +1728,10 @@ class TestAsyncContracts:
                 {
                     "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "quantity_management_mode_update": {
+                        "quantity_management_mode": "SEAT_BASED",
+                        "seat_config": {"seat_group_key": "seat_group_key"},
+                    },
                     "quantity_updates": [
                         {
                             "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
