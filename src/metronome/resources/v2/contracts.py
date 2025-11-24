@@ -378,9 +378,11 @@ class ContractsResource(SyncAPIResource):
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
         hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         invoice_contract_id: str | Omit = omit,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -424,9 +426,13 @@ class ContractsResource(SyncAPIResource):
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
 
+          description: Updated description for the commit
+
           hierarchy_configuration: Optional configuration for commit hierarchy access control
 
           invoice_contract_id: ID of contract to use for invoicing
+
+          name: Updated name for the commit
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -459,9 +465,11 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "description": description,
                     "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
+                    "name": name,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -483,7 +491,9 @@ class ContractsResource(SyncAPIResource):
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
         hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        name: str | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -524,7 +534,11 @@ class ContractsResource(SyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          description: Updated description for the credit
+
           hierarchy_configuration: Optional configuration for credit hierarchy access control
+
+          name: Updated name for the credit
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -557,7 +571,9 @@ class ContractsResource(SyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "description": description,
                     "hierarchy_configuration": hierarchy_configuration,
+                    "name": name,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -963,9 +979,11 @@ class AsyncContractsResource(AsyncAPIResource):
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
         hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
         invoice_contract_id: str | Omit = omit,
         invoice_schedule: contract_edit_commit_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -1009,9 +1027,13 @@ class AsyncContractsResource(AsyncAPIResource):
               applicable_product_tags or specifiers are not provided, the commit applies to
               all products.
 
+          description: Updated description for the commit
+
           hierarchy_configuration: Optional configuration for commit hierarchy access control
 
           invoice_contract_id: ID of contract to use for invoicing
+
+          name: Updated name for the commit
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -1044,9 +1066,11 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "description": description,
                     "hierarchy_configuration": hierarchy_configuration,
                     "invoice_contract_id": invoice_contract_id,
                     "invoice_schedule": invoice_schedule,
+                    "name": name,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,
@@ -1068,7 +1092,9 @@ class AsyncContractsResource(AsyncAPIResource):
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: str | Omit = omit,
         hierarchy_configuration: CommitHierarchyConfiguration | Omit = omit,
+        name: str | Omit = omit,
         priority: Optional[float] | Omit = omit,
         product_id: str | Omit = omit,
         rate_type: Literal["LIST_RATE", "COMMIT_RATE"] | Omit = omit,
@@ -1109,7 +1135,11 @@ class AsyncContractsResource(AsyncAPIResource):
           applicable_product_tags: Which tags the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
 
+          description: Updated description for the credit
+
           hierarchy_configuration: Optional configuration for credit hierarchy access control
+
+          name: Updated name for the credit
 
           priority: If multiple commits are applicable, the one with the lower priority will apply
               first.
@@ -1142,7 +1172,9 @@ class AsyncContractsResource(AsyncAPIResource):
                     "access_schedule": access_schedule,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
+                    "description": description,
                     "hierarchy_configuration": hierarchy_configuration,
+                    "name": name,
                     "priority": priority,
                     "product_id": product_id,
                     "rate_type": rate_type,

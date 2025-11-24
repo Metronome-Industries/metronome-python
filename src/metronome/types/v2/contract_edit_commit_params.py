@@ -47,6 +47,9 @@ class ContractEditCommitParams(TypedDict, total=False):
     provided, the commit applies to all products.
     """
 
+    description: str
+    """Updated description for the commit"""
+
     hierarchy_configuration: CommitHierarchyConfiguration
     """Optional configuration for commit hierarchy access control"""
 
@@ -54,6 +57,9 @@ class ContractEditCommitParams(TypedDict, total=False):
     """ID of contract to use for invoicing"""
 
     invoice_schedule: InvoiceSchedule
+
+    name: str
+    """Updated name for the commit"""
 
     priority: Optional[float]
     """

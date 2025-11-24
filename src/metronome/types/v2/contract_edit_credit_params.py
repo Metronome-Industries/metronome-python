@@ -43,8 +43,14 @@ class ContractEditCreditParams(TypedDict, total=False):
     credit applies to all products.
     """
 
+    description: str
+    """Updated description for the credit"""
+
     hierarchy_configuration: CommitHierarchyConfiguration
     """Optional configuration for credit hierarchy access control"""
+
+    name: str
+    """Updated name for the credit"""
 
     priority: Optional[float]
     """

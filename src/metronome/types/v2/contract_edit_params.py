@@ -1414,10 +1414,14 @@ class UpdateCommit(TypedDict, total=False):
     provided, the commit applies to all products.
     """
 
+    description: str
+
     hierarchy_configuration: CommitHierarchyConfiguration
     """Optional configuration for commit hierarchy access control"""
 
     invoice_schedule: UpdateCommitInvoiceSchedule
+
+    name: str
 
     netsuite_sales_order_id: Optional[str]
 
@@ -1484,8 +1488,12 @@ class UpdateCredit(TypedDict, total=False):
     provided, the commit applies to all products.
     """
 
+    description: str
+
     hierarchy_configuration: CommitHierarchyConfiguration
     """Optional configuration for commit hierarchy access control"""
+
+    name: str
 
     netsuite_sales_order_id: Optional[str]
 

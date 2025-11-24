@@ -568,6 +568,7 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "description": "description",
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
@@ -589,6 +590,7 @@ class TestContracts:
                             }
                         ],
                     },
+                    "name": "name",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -621,7 +623,9 @@ class TestContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "description": "description",
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
+                    "name": "name",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -839,6 +843,7 @@ class TestContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            description="description",
             hierarchy_configuration={"child_access": {"type": "ALL"}},
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
@@ -861,6 +866,7 @@ class TestContracts:
                     }
                 ],
             },
+            name="name",
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",
@@ -934,7 +940,9 @@ class TestContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            description="description",
             hierarchy_configuration={"child_access": {"type": "ALL"}},
+            name="name",
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",
@@ -1558,6 +1566,7 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "description": "description",
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
                     "invoice_schedule": {
                         "add_schedule_items": [
@@ -1579,6 +1588,7 @@ class TestAsyncContracts:
                             }
                         ],
                     },
+                    "name": "name",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1611,7 +1621,9 @@ class TestAsyncContracts:
                     },
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "description": "description",
                     "hierarchy_configuration": {"child_access": {"type": "ALL"}},
+                    "name": "name",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1829,6 +1841,7 @@ class TestAsyncContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            description="description",
             hierarchy_configuration={"child_access": {"type": "ALL"}},
             invoice_contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             invoice_schedule={
@@ -1851,6 +1864,7 @@ class TestAsyncContracts:
                     }
                 ],
             },
+            name="name",
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",
@@ -1924,7 +1938,9 @@ class TestAsyncContracts:
             },
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
+            description="description",
             hierarchy_configuration={"child_access": {"type": "ALL"}},
+            name="name",
             priority=0,
             product_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             rate_type="LIST_RATE",

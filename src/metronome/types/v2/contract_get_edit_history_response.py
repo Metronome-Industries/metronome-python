@@ -696,6 +696,8 @@ class DataUpdateCommit(BaseModel):
     provided, the commit applies to all products.
     """
 
+    description: Optional[str] = None
+
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
@@ -767,6 +769,8 @@ class DataUpdateCredit(BaseModel):
     id: str
 
     access_schedule: Optional[DataUpdateCreditAccessSchedule] = None
+
+    description: Optional[str] = None
 
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
