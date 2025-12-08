@@ -42,6 +42,8 @@ class ParentHierarchyConfiguration(BaseModel):
 
 
 class ChildHierarchyConfigurationParent(BaseModel):
+    """The single parent contract/customer for this child."""
+
     contract_id: str
 
     customer_id: str

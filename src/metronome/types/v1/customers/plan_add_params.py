@@ -103,6 +103,11 @@ class TrialSpecSpendingCap(TypedDict, total=False):
 
 
 class TrialSpec(TypedDict, total=False):
+    """A custom trial can be set for the customer's plan.
+
+    See the [trial configuration documentation](https://docs.metronome.com/provisioning/configure-trials/) for details.
+    """
+
     length_in_days: Required[float]
     """Length of the trial period in days."""
 

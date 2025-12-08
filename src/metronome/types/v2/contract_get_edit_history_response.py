@@ -117,6 +117,8 @@ class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
 
 
 class DataAddCommitInvoiceSchedule(BaseModel):
+    """The schedule that the customer will be invoiced for this commit."""
+
     credit_type: Optional[CreditTypeData] = None
 
     do_not_invoice: Optional[bool] = None
@@ -315,6 +317,8 @@ class DataAddOverride(BaseModel):
 
 
 class DataAddRecurringCommitAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -323,6 +327,8 @@ class DataAddRecurringCommitAccessAmount(BaseModel):
 
 
 class DataAddRecurringCommitCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -339,6 +345,8 @@ class DataAddRecurringCommitContract(BaseModel):
 
 
 class DataAddRecurringCommitInvoiceAmount(BaseModel):
+    """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
@@ -427,6 +435,8 @@ class DataAddRecurringCommit(BaseModel):
 
 
 class DataAddRecurringCreditAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -435,6 +445,8 @@ class DataAddRecurringCreditAccessAmount(BaseModel):
 
 
 class DataAddRecurringCreditCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -792,6 +804,11 @@ class DataUpdateCredit(BaseModel):
 
 
 class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]
 
     ending_before: datetime
@@ -851,6 +868,8 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
 
 
 class DataUpdateDiscountSchedule(BaseModel):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: Optional[str] = None
     """Defaults to USD (cents) if not passed."""
 
@@ -1096,6 +1115,8 @@ class DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(BaseModel):
 
 
 class DataUpdateSubscriptionSeatUpdates(BaseModel):
+    """Manage subscription seats for subscriptions in SEAT_BASED mode."""
+
     add_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesAddSeatID]] = None
     """Adds seat IDs to the subscription.
 

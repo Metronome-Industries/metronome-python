@@ -15,6 +15,8 @@ class CustomerConfig(BaseModel):
 
 
 class CurrentBillableStatus(BaseModel):
+    """This field's availability is dependent on your client's configuration."""
+
     value: Literal["billable", "unbillable"]
 
     effective_at: Optional[datetime] = None

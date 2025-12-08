@@ -74,6 +74,8 @@ class CreditGrantCreateParams(TypedDict, total=False):
 
 
 class GrantAmount(TypedDict, total=False):
+    """the amount of credits granted"""
+
     amount: Required[float]
 
     credit_type_id: Required[str]
@@ -81,6 +83,8 @@ class GrantAmount(TypedDict, total=False):
 
 
 class PaidAmount(TypedDict, total=False):
+    """the amount paid for this credit grant"""
+
     amount: Required[float]
 
     credit_type_id: Required[str]
@@ -91,6 +95,10 @@ RolloverSettingsRolloverAmount: TypeAlias = Union[RolloverAmountMaxPercentagePar
 
 
 class RolloverSettings(TypedDict, total=False):
+    """
+    Configure a rollover for this credit grant so if it expires it rolls over a configured amount to a new credit grant. This feature is currently opt-in only. Contact Metronome to be added to the beta.
+    """
+
     expires_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """The date to expire the rollover credits."""
 

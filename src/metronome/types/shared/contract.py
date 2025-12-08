@@ -77,6 +77,8 @@ class Amendment(BaseModel):
 
 
 class CustomerBillingProviderConfiguration(BaseModel):
+    """The billing provider configuration associated with a contract."""
+
     archived_at: Optional[datetime] = None
 
     billing_provider: Literal[

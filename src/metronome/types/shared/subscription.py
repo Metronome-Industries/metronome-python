@@ -39,6 +39,8 @@ class BillingPeriodsPrevious(BaseModel):
 
 
 class BillingPeriods(BaseModel):
+    """Previous, current, and next billing periods for the subscription."""
+
     current: Optional[BillingPeriodsCurrent] = None
 
     next: Optional[BillingPeriodsNext] = None

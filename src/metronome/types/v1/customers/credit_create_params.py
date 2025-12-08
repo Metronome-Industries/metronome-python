@@ -92,6 +92,8 @@ class AccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class AccessSchedule(TypedDict, total=False):
+    """Schedule for distributing the credit to the customer."""
+
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str

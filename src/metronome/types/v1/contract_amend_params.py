@@ -96,6 +96,11 @@ class CommitAccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class CommitAccessSchedule(TypedDict, total=False):
+    """Required: Schedule for distributing the commit to the customer.
+
+    For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
+    """
+
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
@@ -103,6 +108,11 @@ class CommitAccessSchedule(TypedDict, total=False):
 
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -162,6 +172,10 @@ class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 
 class CommitInvoiceSchedule(TypedDict, total=False):
+    """
+    Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
+    """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -184,6 +198,8 @@ class CommitInvoiceSchedule(TypedDict, total=False):
 
 
 class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    """Only applicable if using PRECALCULATED as your tax type."""
+
     tax_amount: Required[float]
     """Amount of tax to be applied.
 
@@ -199,6 +215,8 @@ class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
 
 
 class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
+    """Only applicable if using STRIPE as your payment gate type."""
+
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
 
@@ -222,6 +240,8 @@ class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
 
 
 class CommitPaymentGateConfig(TypedDict, total=False):
+    """optionally payment gate this commit"""
+
     payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
     """Gate access to the commit balance based on successful collection of payment.
 
@@ -336,6 +356,8 @@ class CreditAccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class CreditAccessSchedule(TypedDict, total=False):
+    """Schedule for distributing the credit to the customer."""
+
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
@@ -395,6 +417,11 @@ class Credit(TypedDict, total=False):
 
 
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -454,6 +481,8 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
 
 
 class DiscountSchedule(TypedDict, total=False):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -546,6 +575,8 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
 
 
 class OverrideOverwriteRate(TypedDict, total=False):
+    """Required for OVERWRITE type."""
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     credit_type_id: str
@@ -714,6 +745,11 @@ class ResellerRoyalty(TypedDict, total=False):
 
 
 class ScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -773,6 +809,8 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 
 class ScheduledChargeSchedule(TypedDict, total=False):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 

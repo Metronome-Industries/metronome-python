@@ -77,6 +77,8 @@ class UsageSearchResponseItemMatchedBillableMetric(BaseModel):
 
 
 class UsageSearchResponseItemMatchedCustomer(BaseModel):
+    """The customer the event was matched to if a match was found"""
+
     id: Optional[str] = None
 
     name: Optional[str] = None

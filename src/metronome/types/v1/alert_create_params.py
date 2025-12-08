@@ -129,6 +129,11 @@ class GroupValue(TypedDict, total=False):
 
 
 class SeatFilter(TypedDict, total=False):
+    """Required for `low_remaining_seat_balance_reached` notifications.
+
+    The alert is scoped to this seat group key-value pair.
+    """
+
     seat_group_key: Required[str]
     """The seat group key (e.g., "seat_id", "user_id")"""
 
