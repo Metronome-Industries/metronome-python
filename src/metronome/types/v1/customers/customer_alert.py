@@ -26,6 +26,10 @@ class AlertCustomFieldFilter(BaseModel):
 
 
 class AlertGroupKeyFilter(BaseModel):
+    """
+    Scopes threshold notification evaluation to a specific presentation group key on individual line items. Only present for spend notifications.
+    """
+
     key: str
 
     value: str
@@ -38,6 +42,11 @@ class AlertGroupValue(BaseModel):
 
 
 class AlertSeatFilter(BaseModel):
+    """Only present for low_remaining_seat_balance_reached notifications.
+
+    The seat group key or seat group key-value pair the alert is scoped to.
+    """
+
     seat_group_key: str
     """The seat group key (e.g., "seat_id", "user_id") that the alert is scoped to."""
 

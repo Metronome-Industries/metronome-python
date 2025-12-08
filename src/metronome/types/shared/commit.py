@@ -45,6 +45,8 @@ class Contract(BaseModel):
 
 
 class InvoiceContract(BaseModel):
+    """The contract that this commit will be billed on."""
+
     id: str
 
 

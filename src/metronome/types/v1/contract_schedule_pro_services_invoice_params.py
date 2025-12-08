@@ -30,6 +30,8 @@ class ContractScheduleProServicesInvoiceParams(TypedDict, total=False):
 
 
 class LineItem(TypedDict, total=False):
+    """Describes the line item for a professional service charge on an invoice."""
+
     professional_service_id: Required[str]
 
     amendment_id: str

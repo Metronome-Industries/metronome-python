@@ -230,11 +230,21 @@ class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDic
 
 
 class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
+    """Indicates when the billing provider will be active on the contract.
+
+    Any charges accrued during the schedule will be billed to the indicated billing provider.
+    """
+
     effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
     """When the billing provider update will take effect."""
 
 
 class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
+    """Update the billing provider configuration on the contract.
+
+    Currently only supports adding a billing provider configuration to a contract that does not already have one.
+    """
+
     billing_provider_configuration: Required[AddBillingProviderConfigurationUpdateBillingProviderConfiguration]
 
     schedule: Required[AddBillingProviderConfigurationUpdateSchedule]
@@ -256,12 +266,22 @@ class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class AddCommitAccessSchedule(TypedDict, total=False):
+    """Required: Schedule for distributing the commit to the customer.
+
+    For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
+    """
+
     schedule_items: Required[Iterable[AddCommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
 
 
 class AddCommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -321,6 +341,10 @@ class AddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
 
 
 class AddCommitInvoiceSchedule(TypedDict, total=False):
+    """
+    Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
+    """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -343,6 +367,8 @@ class AddCommitInvoiceSchedule(TypedDict, total=False):
 
 
 class AddCommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
+    """Only applicable if using PRECALCULATED as your tax type."""
+
     tax_amount: Required[float]
     """Amount of tax to be applied.
 
@@ -358,6 +384,8 @@ class AddCommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
 
 
 class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
+    """Only applicable if using STRIPE as your payment gateway type."""
+
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
 
@@ -381,6 +409,8 @@ class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
 
 
 class AddCommitPaymentGateConfig(TypedDict, total=False):
+    """optionally payment gate this commit"""
+
     payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
     """Gate access to the commit balance based on successful collection of payment.
 
@@ -497,6 +527,8 @@ class AddCreditAccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class AddCreditAccessSchedule(TypedDict, total=False):
+    """Schedule for distributing the credit to the customer."""
+
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
@@ -557,6 +589,11 @@ class AddCredit(TypedDict, total=False):
 
 
 class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -616,6 +653,8 @@ class AddDiscountScheduleScheduleItem(TypedDict, total=False):
 
 
 class AddDiscountSchedule(TypedDict, total=False):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -704,6 +743,8 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
 
 
 class AddOverrideOverwriteRate(TypedDict, total=False):
+    """Required for OVERWRITE type."""
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     credit_type_id: str
@@ -825,6 +866,8 @@ class AddProfessionalService(TypedDict, total=False):
 
 
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
+    """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -837,12 +880,19 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
+    """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
 
 
 class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
+    """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: Required[str]
 
     quantity: Required[float]
@@ -856,6 +906,8 @@ class AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, tot
 
 
 class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
+    """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -959,6 +1011,8 @@ class AddRecurringCommit(TypedDict, total=False):
 
 
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
+    """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -971,6 +1025,11 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
 
 
 class AddRecurringCreditCommitDuration(TypedDict, total=False):
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
+    """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
@@ -982,6 +1041,8 @@ class AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, tot
 
 
 class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
+    """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -1121,6 +1182,11 @@ class AddResellerRoyalty(TypedDict, total=False):
 
 
 class AddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -1180,6 +1246,8 @@ class AddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
 
 
 class AddScheduledChargeSchedule(TypedDict, total=False):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -1679,6 +1747,10 @@ class UpdateSubscriptionQuantityManagementModeUpdateSeatConfig(TypedDict, total=
 
 
 class UpdateSubscriptionQuantityManagementModeUpdate(TypedDict, total=False):
+    """
+    Update the subscription's quantity management mode from QUANTITY_ONLY to SEAT_BASED with the provided seat_group_key.
+    """
+
     quantity_management_mode: Required[Literal["SEAT_BASED"]]
 
     seat_config: Required[UpdateSubscriptionQuantityManagementModeUpdateSeatConfig]

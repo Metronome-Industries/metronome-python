@@ -56,6 +56,8 @@ class UsageStatementSchedule(BaseModel):
 
 
 class RecurringCommitAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -64,6 +66,8 @@ class RecurringCommitAccessAmount(BaseModel):
 
 
 class RecurringCommitCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -80,6 +84,8 @@ class RecurringCommitContract(BaseModel):
 
 
 class RecurringCommitInvoiceAmount(BaseModel):
+    """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
@@ -168,6 +174,8 @@ class RecurringCommit(BaseModel):
 
 
 class RecurringCreditAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -176,6 +184,8 @@ class RecurringCreditAccessAmount(BaseModel):
 
 
 class RecurringCreditCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None

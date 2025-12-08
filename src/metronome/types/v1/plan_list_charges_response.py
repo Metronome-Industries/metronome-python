@@ -23,6 +23,8 @@ class Price(BaseModel):
 
 
 class UnitConversion(BaseModel):
+    """Specifies how quantities for usage based charges will be converted."""
+
     division_factor: float
     """The conversion factor"""
 

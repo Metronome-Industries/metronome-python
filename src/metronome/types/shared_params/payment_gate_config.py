@@ -9,6 +9,8 @@ __all__ = ["PaymentGateConfig", "PrecalculatedTaxConfig", "StripeConfig"]
 
 
 class PrecalculatedTaxConfig(TypedDict, total=False):
+    """Only applicable if using PRECALCULATED as your tax type."""
+
     tax_amount: Required[float]
     """Amount of tax to be applied.
 
@@ -24,6 +26,8 @@ class PrecalculatedTaxConfig(TypedDict, total=False):
 
 
 class StripeConfig(TypedDict, total=False):
+    """Only applicable if using STRIPE as your payment gate type."""
+
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
 

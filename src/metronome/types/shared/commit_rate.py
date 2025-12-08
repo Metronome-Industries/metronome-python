@@ -10,6 +10,11 @@ __all__ = ["CommitRate"]
 
 
 class CommitRate(BaseModel):
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or commit.
+    """
+
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
 
     price: Optional[float] = None

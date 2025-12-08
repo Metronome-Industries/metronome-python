@@ -11,6 +11,10 @@ __all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "P
 
 
 class Balance(BaseModel):
+    """
+    The effective balance of the grant as of the end of the customer's current billing period. Expiration deductions will be included only if the grant expires before the end of the current billing period.
+    """
+
     effective_at: datetime
     """The end_date of the customer's current billing period."""
 
@@ -29,6 +33,8 @@ class Balance(BaseModel):
 
 
 class GrantAmount(BaseModel):
+    """the amount of credits initially granted"""
+
     amount: float
 
     credit_type: CreditTypeData
@@ -36,6 +42,8 @@ class GrantAmount(BaseModel):
 
 
 class PaidAmount(BaseModel):
+    """the amount paid for this credit grant"""
+
     amount: float
 
     credit_type: CreditTypeData
