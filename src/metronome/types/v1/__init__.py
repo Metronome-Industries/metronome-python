@@ -128,6 +128,9 @@ from .setting_upsert_avalara_credentials_response import (
 from .contract_create_historical_invoices_response import (
     ContractCreateHistoricalInvoicesResponse as ContractCreateHistoricalInvoicesResponse,
 )
+from .customer_set_billing_configurations_response import (
+    CustomerSetBillingConfigurationsResponse as CustomerSetBillingConfigurationsResponse,
+)
 from .contract_schedule_pro_services_invoice_params import (
     ContractScheduleProServicesInvoiceParams as ContractScheduleProServicesInvoiceParams,
 )
