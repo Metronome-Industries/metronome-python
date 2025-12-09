@@ -97,6 +97,7 @@ from ....types.v1.customer_set_name_response import CustomerSetNameResponse
 from ....types.v1.customer_list_costs_response import CustomerListCostsResponse
 from ....types.v1.customer_preview_events_response import CustomerPreviewEventsResponse
 from ....types.v1.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
+from ....types.v1.customer_set_billing_configurations_response import CustomerSetBillingConfigurationsResponse
 from ....types.v1.customer_retrieve_billing_configurations_response import CustomerRetrieveBillingConfigurationsResponse
 
 __all__ = ["CustomersResource", "AsyncCustomersResource"]
@@ -635,7 +636,7 @@ class CustomersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> CustomerSetBillingConfigurationsResponse:
         """Create a billing configuration for a customer.
 
         Once created, these
@@ -688,7 +689,6 @@ class CustomersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/setCustomerBillingProviderConfigurations",
             body=maybe_transform(
@@ -697,7 +697,7 @@ class CustomersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=CustomerSetBillingConfigurationsResponse,
         )
 
     def set_ingest_aliases(
@@ -1379,7 +1379,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> CustomerSetBillingConfigurationsResponse:
         """Create a billing configuration for a customer.
 
         Once created, these
@@ -1432,7 +1432,6 @@ class AsyncCustomersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/setCustomerBillingProviderConfigurations",
             body=await async_maybe_transform(
@@ -1441,7 +1440,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=CustomerSetBillingConfigurationsResponse,
         )
 
     async def set_ingest_aliases(

@@ -19,6 +19,7 @@ from metronome.types.v1 import (
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
     CustomerListBillableMetricsResponse,
+    CustomerSetBillingConfigurationsResponse,
     CustomerRetrieveBillingConfigurationsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
@@ -437,7 +438,7 @@ class TestCustomers:
                 },
             ],
         )
-        assert customer is None
+        assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
     def test_raw_response_set_billing_configurations(self, client: Metronome) -> None:
@@ -469,7 +470,7 @@ class TestCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = response.parse()
-        assert customer is None
+        assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
     def test_streaming_response_set_billing_configurations(self, client: Metronome) -> None:
@@ -501,7 +502,7 @@ class TestCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = response.parse()
-            assert customer is None
+            assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1050,7 +1051,7 @@ class TestAsyncCustomers:
                 },
             ],
         )
-        assert customer is None
+        assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
     async def test_raw_response_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
@@ -1082,7 +1083,7 @@ class TestAsyncCustomers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         customer = await response.parse()
-        assert customer is None
+        assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
     @parametrize
     async def test_streaming_response_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
@@ -1114,7 +1115,7 @@ class TestAsyncCustomers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             customer = await response.parse()
-            assert customer is None
+            assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
