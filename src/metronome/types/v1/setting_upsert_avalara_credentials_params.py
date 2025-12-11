@@ -24,3 +24,9 @@ class SettingUpsertAvalaraCredentialsParams(TypedDict, total=False):
     The delivery method IDs of the billing provider configurations to update, can be
     found in the response of the `/listConfiguredBillingProviders` endpoint.
     """
+
+    commit_transactions: bool
+    """
+    Commit transactions if you want Metronome tax calculations used for reporting
+    and tax filings.
+    """
