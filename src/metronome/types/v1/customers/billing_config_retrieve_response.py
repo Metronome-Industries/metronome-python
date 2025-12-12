@@ -10,6 +10,10 @@ __all__ = ["BillingConfigRetrieveResponse", "Data"]
 
 
 class Data(BaseModel):
+    aws_customer_account_id: Optional[str] = None
+
+    aws_customer_id: Optional[str] = None
+
     aws_expiration_date: Optional[datetime] = None
     """Contract expiration date for the customer.
 

@@ -44,6 +44,8 @@ class TestCustomers:
             billing_config={
                 "billing_provider_customer_id": "billing_provider_customer_id",
                 "billing_provider_type": "aws_marketplace",
+                "aws_customer_account_id": "aws_customer_account_id",
+                "aws_customer_id": "aws_customer_id",
                 "aws_is_subscription_product": True,
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",
@@ -657,6 +659,8 @@ class TestAsyncCustomers:
             billing_config={
                 "billing_provider_customer_id": "billing_provider_customer_id",
                 "billing_provider_type": "aws_marketplace",
+                "aws_customer_account_id": "aws_customer_account_id",
+                "aws_customer_id": "aws_customer_id",
                 "aws_is_subscription_product": True,
                 "aws_product_code": "aws_product_code",
                 "aws_region": "af-south-1",

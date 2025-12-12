@@ -55,6 +55,10 @@ class BillingConfig(TypedDict, total=False):
         ]
     ]
 
+    aws_customer_account_id: str
+
+    aws_customer_id: str
+
     aws_is_subscription_product: bool
     """True if the aws_product_code is a SAAS subscription product, false otherwise."""
 
