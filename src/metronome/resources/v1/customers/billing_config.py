@@ -59,6 +59,8 @@ class BillingConfigResource(SyncAPIResource):
             "metronome",
         ],
         billing_provider_customer_id: str,
+        aws_customer_account_id: str | Omit = omit,
+        aws_customer_id: str | Omit = omit,
         aws_product_code: str | Omit = omit,
         aws_region: Literal[
             "af-south-1",
@@ -132,6 +134,8 @@ class BillingConfigResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
+                    "aws_customer_account_id": aws_customer_account_id,
+                    "aws_customer_id": aws_customer_id,
                     "aws_product_code": aws_product_code,
                     "aws_region": aws_region,
                     "stripe_collection_method": stripe_collection_method,
@@ -283,6 +287,8 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             "metronome",
         ],
         billing_provider_customer_id: str,
+        aws_customer_account_id: str | Omit = omit,
+        aws_customer_id: str | Omit = omit,
         aws_product_code: str | Omit = omit,
         aws_region: Literal[
             "af-south-1",
@@ -356,6 +362,8 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
+                    "aws_customer_account_id": aws_customer_account_id,
+                    "aws_customer_id": aws_customer_id,
                     "aws_product_code": aws_product_code,
                     "aws_region": aws_region,
                     "stripe_collection_method": stripe_collection_method,
