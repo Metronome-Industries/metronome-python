@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,6 +20,7 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, MetronomeError
@@ -28,8 +29,11 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.v1 import v1
-from .resources.v2 import v2
+
+if TYPE_CHECKING:
+    from .resources import v1, v2
+    from .resources.v1.v1 import V1Resource, AsyncV1Resource
+    from .resources.v2.v2 import V2Resource, AsyncV2Resource
 
 __all__ = [
     "Timeout",
@@ -44,11 +48,6 @@ __all__ = [
 
 
 class Metronome(SyncAPIClient):
-    v2: v2.V2Resource
-    v1: v1.V1Resource
-    with_raw_response: MetronomeWithRawResponse
-    with_streaming_response: MetronomeWithStreamedResponse
-
     # client options
     bearer_token: str
     webhook_secret: str | None
@@ -111,10 +110,25 @@ class Metronome(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.v2 = v2.V2Resource(self)
-        self.v1 = v1.V1Resource(self)
-        self.with_raw_response = MetronomeWithRawResponse(self)
-        self.with_streaming_response = MetronomeWithStreamedResponse(self)
+    @cached_property
+    def v2(self) -> V2Resource:
+        from .resources.v2 import V2Resource
+
+        return V2Resource(self)
+
+    @cached_property
+    def v1(self) -> V1Resource:
+        from .resources.v1 import V1Resource
+
+        return V1Resource(self)
+
+    @cached_property
+    def with_raw_response(self) -> MetronomeWithRawResponse:
+        return MetronomeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> MetronomeWithStreamedResponse:
+        return MetronomeWithStreamedResponse(self)
 
     @property
     @override
@@ -224,11 +238,6 @@ class Metronome(SyncAPIClient):
 
 
 class AsyncMetronome(AsyncAPIClient):
-    v2: v2.AsyncV2Resource
-    v1: v1.AsyncV1Resource
-    with_raw_response: AsyncMetronomeWithRawResponse
-    with_streaming_response: AsyncMetronomeWithStreamedResponse
-
     # client options
     bearer_token: str
     webhook_secret: str | None
@@ -291,10 +300,25 @@ class AsyncMetronome(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.v2 = v2.AsyncV2Resource(self)
-        self.v1 = v1.AsyncV1Resource(self)
-        self.with_raw_response = AsyncMetronomeWithRawResponse(self)
-        self.with_streaming_response = AsyncMetronomeWithStreamedResponse(self)
+    @cached_property
+    def v2(self) -> AsyncV2Resource:
+        from .resources.v2 import AsyncV2Resource
+
+        return AsyncV2Resource(self)
+
+    @cached_property
+    def v1(self) -> AsyncV1Resource:
+        from .resources.v1 import AsyncV1Resource
+
+        return AsyncV1Resource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncMetronomeWithRawResponse:
+        return AsyncMetronomeWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncMetronomeWithStreamedResponse:
+        return AsyncMetronomeWithStreamedResponse(self)
 
     @property
     @override
@@ -404,27 +428,79 @@ class AsyncMetronome(AsyncAPIClient):
 
 
 class MetronomeWithRawResponse:
+    _client: Metronome
+
     def __init__(self, client: Metronome) -> None:
-        self.v2 = v2.V2ResourceWithRawResponse(client.v2)
-        self.v1 = v1.V1ResourceWithRawResponse(client.v1)
+        self._client = client
+
+    @cached_property
+    def v2(self) -> v2.V2ResourceWithRawResponse:
+        from .resources.v2 import V2ResourceWithRawResponse
+
+        return V2ResourceWithRawResponse(self._client.v2)
+
+    @cached_property
+    def v1(self) -> v1.V1ResourceWithRawResponse:
+        from .resources.v1 import V1ResourceWithRawResponse
+
+        return V1ResourceWithRawResponse(self._client.v1)
 
 
 class AsyncMetronomeWithRawResponse:
+    _client: AsyncMetronome
+
     def __init__(self, client: AsyncMetronome) -> None:
-        self.v2 = v2.AsyncV2ResourceWithRawResponse(client.v2)
-        self.v1 = v1.AsyncV1ResourceWithRawResponse(client.v1)
+        self._client = client
+
+    @cached_property
+    def v2(self) -> v2.AsyncV2ResourceWithRawResponse:
+        from .resources.v2 import AsyncV2ResourceWithRawResponse
+
+        return AsyncV2ResourceWithRawResponse(self._client.v2)
+
+    @cached_property
+    def v1(self) -> v1.AsyncV1ResourceWithRawResponse:
+        from .resources.v1 import AsyncV1ResourceWithRawResponse
+
+        return AsyncV1ResourceWithRawResponse(self._client.v1)
 
 
 class MetronomeWithStreamedResponse:
+    _client: Metronome
+
     def __init__(self, client: Metronome) -> None:
-        self.v2 = v2.V2ResourceWithStreamingResponse(client.v2)
-        self.v1 = v1.V1ResourceWithStreamingResponse(client.v1)
+        self._client = client
+
+    @cached_property
+    def v2(self) -> v2.V2ResourceWithStreamingResponse:
+        from .resources.v2 import V2ResourceWithStreamingResponse
+
+        return V2ResourceWithStreamingResponse(self._client.v2)
+
+    @cached_property
+    def v1(self) -> v1.V1ResourceWithStreamingResponse:
+        from .resources.v1 import V1ResourceWithStreamingResponse
+
+        return V1ResourceWithStreamingResponse(self._client.v1)
 
 
 class AsyncMetronomeWithStreamedResponse:
+    _client: AsyncMetronome
+
     def __init__(self, client: AsyncMetronome) -> None:
-        self.v2 = v2.AsyncV2ResourceWithStreamingResponse(client.v2)
-        self.v1 = v1.AsyncV1ResourceWithStreamingResponse(client.v1)
+        self._client = client
+
+    @cached_property
+    def v2(self) -> v2.AsyncV2ResourceWithStreamingResponse:
+        from .resources.v2 import AsyncV2ResourceWithStreamingResponse
+
+        return AsyncV2ResourceWithStreamingResponse(self._client.v2)
+
+    @cached_property
+    def v1(self) -> v1.AsyncV1ResourceWithStreamingResponse:
+        from .resources.v1 import AsyncV1ResourceWithStreamingResponse
+
+        return AsyncV1ResourceWithStreamingResponse(self._client.v1)
 
 
 Client = Metronome
