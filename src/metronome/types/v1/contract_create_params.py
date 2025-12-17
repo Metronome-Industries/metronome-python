@@ -1190,10 +1190,16 @@ class RevenueSystemConfiguration(TypedDict, total=False):
     """
 
     delivery_method: Literal["direct_to_billing_provider"]
-    """Do not specify if using revenue_system_configuration_id."""
+    """How revenue recognition records should be delivered to the revenue system.
+
+    Do not specify if using revenue_system_configuration_id.
+    """
 
     provider: Literal["netsuite"]
-    """Do not specify if using revenue_system_configuration_id."""
+    """The system that is providing services for revenue recognition.
+
+    Do not specify if using revenue_system_configuration_id.
+    """
 
     revenue_system_configuration_id: str
     """The Metronome ID of the revenue system configuration.
