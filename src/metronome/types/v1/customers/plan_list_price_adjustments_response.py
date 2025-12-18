@@ -12,6 +12,8 @@ class Price(BaseModel):
     adjustment_type: Literal["fixed", "quantity", "percentage", "override"]
     """Determines how the value will be applied."""
 
+    quantity: Optional[float] = None
+
     tier: Optional[float] = None
     """Used in pricing tiers. Indicates at what metric value the price applies."""
 

@@ -88,6 +88,11 @@ __all__ = [
     "DataUpdateSpendThresholdConfiguration",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
+    "DataUpdateSubscriptionSeatUpdates",
+    "DataUpdateSubscriptionSeatUpdatesAddSeatID",
+    "DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat",
+    "DataUpdateSubscriptionSeatUpdatesRemoveSeatID",
+    "DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat",
 ]
 
 
@@ -112,6 +117,8 @@ class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
 
 
 class DataAddCommitInvoiceSchedule(BaseModel):
+    """The schedule that the customer will be invoiced for this commit."""
+
     credit_type: Optional[CreditTypeData] = None
 
     do_not_invoice: Optional[bool] = None
@@ -310,6 +317,8 @@ class DataAddOverride(BaseModel):
 
 
 class DataAddRecurringCommitAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -318,6 +327,8 @@ class DataAddRecurringCommitAccessAmount(BaseModel):
 
 
 class DataAddRecurringCommitCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -334,6 +345,8 @@ class DataAddRecurringCommitContract(BaseModel):
 
 
 class DataAddRecurringCommitInvoiceAmount(BaseModel):
+    """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
@@ -422,6 +435,8 @@ class DataAddRecurringCommit(BaseModel):
 
 
 class DataAddRecurringCreditAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -430,6 +445,8 @@ class DataAddRecurringCreditAccessAmount(BaseModel):
 
 
 class DataAddRecurringCreditCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -691,6 +708,8 @@ class DataUpdateCommit(BaseModel):
     provided, the commit applies to all products.
     """
 
+    description: Optional[str] = None
+
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for commit hierarchy access control"""
 
@@ -763,6 +782,8 @@ class DataUpdateCredit(BaseModel):
 
     access_schedule: Optional[DataUpdateCreditAccessSchedule] = None
 
+    description: Optional[str] = None
+
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
     """Optional configuration for credit hierarchy access control"""
 
@@ -783,6 +804,11 @@ class DataUpdateCredit(BaseModel):
 
 
 class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]
 
     ending_before: datetime
@@ -842,6 +868,8 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
 
 
 class DataUpdateDiscountSchedule(BaseModel):
+    """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: Optional[str] = None
     """Defaults to USD (cents) if not passed."""
 
@@ -1050,12 +1078,84 @@ class DataUpdateSubscriptionQuantityUpdate(BaseModel):
     quantity_delta: Optional[float] = None
 
 
+class DataUpdateSubscriptionSeatUpdatesAddSeatID(BaseModel):
+    seat_ids: List[str]
+
+    starting_at: datetime
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat(BaseModel):
+    quantity: float
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: datetime
+    """Unassigned seats will be updated starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesRemoveSeatID(BaseModel):
+    seat_ids: List[str]
+
+    starting_at: datetime
+    """Assigned seats will be added/removed starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(BaseModel):
+    quantity: float
+    """
+    The number of unassigned seats on the subscription will increase/decrease by
+    this delta. Must be greater than 0.
+    """
+
+    starting_at: datetime
+    """Unassigned seats will be updated starting at this date."""
+
+
+class DataUpdateSubscriptionSeatUpdates(BaseModel):
+    """Manage subscription seats for subscriptions in SEAT_BASED mode."""
+
+    add_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesAddSeatID]] = None
+    """Adds seat IDs to the subscription.
+
+    If there are unassigned seats, the new seat IDs will fill these unassigned seats
+    and not increase the total subscription quantity. Otherwise, if there are more
+    new seat IDs than unassigned seats, the total subscription quantity will
+    increase.
+    """
+
+    add_unassigned_seats: Optional[List[DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat]] = None
+    """Adds unassigned seats to the subscription.
+
+    This will increase the total subscription quantity.
+    """
+
+    remove_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesRemoveSeatID]] = None
+    """Removes seat IDs from the subscription, if possible.
+
+    If a seat ID is removed, the total subscription quantity will decrease.
+    Otherwise, if the seat ID is not found on the subscription, this is a no-op.
+    """
+
+    remove_unassigned_seats: Optional[List[DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat]] = None
+    """Removes unassigned seats from the subscription.
+
+    This will decrease the total subscription quantity if there are are unassigned
+    seats.
+    """
+
+
 class DataUpdateSubscription(BaseModel):
     id: str
 
     ending_before: Optional[datetime] = None
 
     quantity_updates: Optional[List[DataUpdateSubscriptionQuantityUpdate]] = None
+
+    seat_updates: Optional[DataUpdateSubscriptionSeatUpdates] = None
+    """Manage subscription seats for subscriptions in SEAT_BASED mode."""
 
 
 class Data(BaseModel):

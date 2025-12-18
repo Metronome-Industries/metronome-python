@@ -16,6 +16,7 @@ __all__ = [
     "QuantitySchedule",
     "SubscriptionRate",
     "SubscriptionRateProduct",
+    "SeatConfig",
 ]
 
 
@@ -38,6 +39,8 @@ class BillingPeriodsPrevious(BaseModel):
 
 
 class BillingPeriods(BaseModel):
+    """Previous, current, and next billing periods for the subscription."""
+
     current: Optional[BillingPeriodsCurrent] = None
 
     next: Optional[BillingPeriodsNext] = None
@@ -71,6 +74,18 @@ class SubscriptionRate(BaseModel):
     product: SubscriptionRateProduct
 
 
+class SeatConfig(BaseModel):
+    seat_group_key: str
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+
 class Subscription(BaseModel):
     billing_periods: BillingPeriods
     """Previous, current, and next billing periods for the subscription."""
@@ -85,11 +100,11 @@ class Subscription(BaseModel):
     Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
     specified directly on the subscription. `initial_quantity` must be provided with
     this option. Compatible with recurring commits/credits that use POOLED
-    allocation. **SEAT_BASED**: (BETA) Use when you want to pass specific seat
-    identifiers (e.g. add user_123) to increment and decrement a subscription
-    quantity, rather than directly providing the quantity. You must use a
-    **SEAT_BASED** subscription to use a linked recurring credit with an allocation
-    per seat. `seat_config` must be provided with this option.
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
     """
 
     quantity_schedule: List[QuantitySchedule]
@@ -114,3 +129,5 @@ class Subscription(BaseModel):
     fiat_credit_type_id: Optional[str] = None
 
     name: Optional[str] = None
+
+    seat_config: Optional[SeatConfig] = None

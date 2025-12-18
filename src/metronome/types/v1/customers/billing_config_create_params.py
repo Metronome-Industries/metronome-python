@@ -30,6 +30,10 @@ class BillingConfigCreateParams(TypedDict, total=False):
     For Azure, this is the subscription ID.
     """
 
+    aws_customer_account_id: str
+
+    aws_customer_id: str
+
     aws_product_code: str
 
     aws_region: Literal[

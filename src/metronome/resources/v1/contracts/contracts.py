@@ -136,6 +136,7 @@ class ContractsResource(SyncAPIResource):
         recurring_commits: Iterable[contract_create_params.RecurringCommit] | Omit = omit,
         recurring_credits: Iterable[contract_create_params.RecurringCredit] | Omit = omit,
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | Omit = omit,
+        revenue_system_configuration: contract_create_params.RevenueSystemConfiguration | Omit = omit,
         salesforce_opportunity_id: str | Omit = omit,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
@@ -306,6 +307,9 @@ class ContractsResource(SyncAPIResource):
 
           reseller_royalties: This field's availability is dependent on your client's configuration.
 
+          revenue_system_configuration: The revenue system configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
+
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
           scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
@@ -358,6 +362,7 @@ class ContractsResource(SyncAPIResource):
                     "recurring_commits": recurring_commits,
                     "recurring_credits": recurring_credits,
                     "reseller_royalties": reseller_royalties,
+                    "revenue_system_configuration": revenue_system_configuration,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
@@ -506,6 +511,7 @@ class ContractsResource(SyncAPIResource):
         reason: str,
         segment_id: str,
         contract_id: str | Omit = omit,
+        per_group_amounts: Dict[str, float] | Omit = omit,
         timestamp: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -548,6 +554,9 @@ class ContractsResource(SyncAPIResource):
 
           contract_id: ID of the contract to update. Leave blank to update a customer level balance.
 
+          per_group_amounts: If using individually configured commits/credits attached to seat managed
+              subscriptions, the amount to add for each seat. Must sum to total amount.
+
           timestamp: RFC 3339 timestamp indicating when the manual adjustment takes place. If not
               provided, it will default to the start of the segment.
 
@@ -570,6 +579,7 @@ class ContractsResource(SyncAPIResource):
                     "reason": reason,
                     "segment_id": segment_id,
                     "contract_id": contract_id,
+                    "per_group_amounts": per_group_amounts,
                     "timestamp": timestamp,
                 },
                 contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,
@@ -1260,6 +1270,7 @@ class AsyncContractsResource(AsyncAPIResource):
         recurring_commits: Iterable[contract_create_params.RecurringCommit] | Omit = omit,
         recurring_credits: Iterable[contract_create_params.RecurringCredit] | Omit = omit,
         reseller_royalties: Iterable[contract_create_params.ResellerRoyalty] | Omit = omit,
+        revenue_system_configuration: contract_create_params.RevenueSystemConfiguration | Omit = omit,
         salesforce_opportunity_id: str | Omit = omit,
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
@@ -1430,6 +1441,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           reseller_royalties: This field's availability is dependent on your client's configuration.
 
+          revenue_system_configuration: The revenue system configuration associated with a contract. Provide either an
+              ID or the provider and delivery method.
+
           salesforce_opportunity_id: This field's availability is dependent on your client's configuration.
 
           scheduled_charges_on_usage_invoices: Determines which scheduled and commit charges to consolidate onto the Contract's
@@ -1482,6 +1496,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "recurring_commits": recurring_commits,
                     "recurring_credits": recurring_credits,
                     "reseller_royalties": reseller_royalties,
+                    "revenue_system_configuration": revenue_system_configuration,
                     "salesforce_opportunity_id": salesforce_opportunity_id,
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
@@ -1630,6 +1645,7 @@ class AsyncContractsResource(AsyncAPIResource):
         reason: str,
         segment_id: str,
         contract_id: str | Omit = omit,
+        per_group_amounts: Dict[str, float] | Omit = omit,
         timestamp: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1672,6 +1688,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           contract_id: ID of the contract to update. Leave blank to update a customer level balance.
 
+          per_group_amounts: If using individually configured commits/credits attached to seat managed
+              subscriptions, the amount to add for each seat. Must sum to total amount.
+
           timestamp: RFC 3339 timestamp indicating when the manual adjustment takes place. If not
               provided, it will default to the start of the segment.
 
@@ -1694,6 +1713,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "reason": reason,
                     "segment_id": segment_id,
                     "contract_id": contract_id,
+                    "per_group_amounts": per_group_amounts,
                     "timestamp": timestamp,
                 },
                 contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,

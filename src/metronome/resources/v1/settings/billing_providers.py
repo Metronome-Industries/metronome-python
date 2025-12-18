@@ -48,7 +48,7 @@ class BillingProvidersResource(SyncAPIResource):
     def create(
         self,
         *,
-        billing_provider: Literal["aws_marketplace", "azure_marketplace"],
+        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
         configuration: Dict[str, object],
         delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -158,7 +158,7 @@ class AsyncBillingProvidersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        billing_provider: Literal["aws_marketplace", "azure_marketplace"],
+        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
         configuration: Dict[str, object],
         delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

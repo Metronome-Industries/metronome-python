@@ -95,6 +95,8 @@ class CommitContract(BaseModel):
 
 
 class CommitInvoiceContract(BaseModel):
+    """The contract that this commit will be billed on."""
+
     id: str
 
 
@@ -371,6 +373,9 @@ class Commit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
+
 
 class OverrideOverrideSpecifier(BaseModel):
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
@@ -624,6 +629,13 @@ class Credit(BaseModel):
 
     contract: Optional[CreditContract] = None
 
+    created_at: Optional[datetime] = None
+    """Timestamp of when the credit was created.
+
+    - Recurring credits: latter of credit service period date and parent credit
+      start date
+    """
+
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
@@ -659,8 +671,13 @@ class Credit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+    subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
+    """Attach a subscription to the recurring commit/credit."""
+
 
 class CustomerBillingProviderConfiguration(BaseModel):
+    """This field's availability is dependent on your client's configuration."""
+
     id: str
     """ID of Customer's billing provider configuration."""
 
@@ -680,6 +697,11 @@ class CustomerBillingProviderConfiguration(BaseModel):
 
 
 class HasMore(BaseModel):
+    """Indicates whether there are more items than the limit for this endpoint.
+
+    Use the respective list endpoints to get the full lists.
+    """
+
     commits: bool
     """Whether there are more commits on this contract than the limit for this
     endpoint.
@@ -724,6 +746,8 @@ class HierarchyConfigurationParentHierarchyConfiguration(BaseModel):
 
 
 class HierarchyConfigurationChildHierarchyConfigurationV2Parent(BaseModel):
+    """The single parent contract/customer for this child."""
+
     contract_id: str
 
     customer_id: str
@@ -759,6 +783,8 @@ HierarchyConfiguration: TypeAlias = Union[
 
 
 class RecurringCommitAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -767,6 +793,8 @@ class RecurringCommitAccessAmount(BaseModel):
 
 
 class RecurringCommitCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
@@ -783,6 +811,8 @@ class RecurringCommitContract(BaseModel):
 
 
 class RecurringCommitInvoiceAmount(BaseModel):
+    """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
@@ -871,6 +901,8 @@ class RecurringCommit(BaseModel):
 
 
 class RecurringCreditAccessAmount(BaseModel):
+    """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
@@ -879,6 +911,8 @@ class RecurringCreditAccessAmount(BaseModel):
 
 
 class RecurringCreditCommitDuration(BaseModel):
+    """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None

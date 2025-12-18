@@ -52,6 +52,10 @@ class TestAlerts:
             ],
             invoice_types_filter=["SCHEDULED or USAGE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            seat_filter={
+                "seat_group_key": "seat_group_key",
+                "seat_group_value": "seat_group_value",
+            },
             uniqueness_key="x",
         )
         assert_matches_type(AlertCreateResponse, alert, path=["response"])
@@ -164,6 +168,10 @@ class TestAsyncAlerts:
             ],
             invoice_types_filter=["SCHEDULED or USAGE"],
             plan_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            seat_filter={
+                "seat_group_key": "seat_group_key",
+                "seat_group_value": "seat_group_value",
+            },
             uniqueness_key="x",
         )
         assert_matches_type(AlertCreateResponse, alert, path=["response"])

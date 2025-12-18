@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...._types import Body, Query, Headers, NotGiven, SequenceNotStr, not_given
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ...._utils import maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ....types.v1 import setting_upsert_avalara_credentials_params
@@ -62,6 +62,7 @@ class SettingsResource(SyncAPIResource):
         avalara_password: str,
         avalara_username: str,
         delivery_method_ids: SequenceNotStr[str],
+        commit_transactions: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,6 +86,9 @@ class SettingsResource(SyncAPIResource):
           delivery_method_ids: The delivery method IDs of the billing provider configurations to update, can be
               found in the response of the `/listConfiguredBillingProviders` endpoint.
 
+          commit_transactions: Commit transactions if you want Metronome tax calculations used for reporting
+              and tax filings.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -101,6 +105,7 @@ class SettingsResource(SyncAPIResource):
                     "avalara_password": avalara_password,
                     "avalara_username": avalara_username,
                     "delivery_method_ids": delivery_method_ids,
+                    "commit_transactions": commit_transactions,
                 },
                 setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams,
             ),
@@ -142,6 +147,7 @@ class AsyncSettingsResource(AsyncAPIResource):
         avalara_password: str,
         avalara_username: str,
         delivery_method_ids: SequenceNotStr[str],
+        commit_transactions: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,6 +171,9 @@ class AsyncSettingsResource(AsyncAPIResource):
           delivery_method_ids: The delivery method IDs of the billing provider configurations to update, can be
               found in the response of the `/listConfiguredBillingProviders` endpoint.
 
+          commit_transactions: Commit transactions if you want Metronome tax calculations used for reporting
+              and tax filings.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -181,6 +190,7 @@ class AsyncSettingsResource(AsyncAPIResource):
                     "avalara_password": avalara_password,
                     "avalara_username": avalara_username,
                     "delivery_method_ids": delivery_method_ids,
+                    "commit_transactions": commit_transactions,
                 },
                 setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams,
             ),

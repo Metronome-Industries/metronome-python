@@ -53,6 +53,7 @@ class AlertsResource(SyncAPIResource):
         customer_id: str,
         group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
+        seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -128,6 +129,9 @@ class AlertsResource(SyncAPIResource):
           plans_or_contracts: When parallel threshold notifications are enabled during migration, this flag
               denotes whether to fetch notifications for plans or contracts.
 
+          seat_filter: Only allowed for `low_remaining_seat_balance_reached` notifications. This
+              filters alerts by the seat group key-value pair.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -144,6 +148,7 @@ class AlertsResource(SyncAPIResource):
                     "customer_id": customer_id,
                     "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
+                    "seat_filter": seat_filter,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
             ),
@@ -336,6 +341,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         customer_id: str,
         group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
+        seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -411,6 +417,9 @@ class AsyncAlertsResource(AsyncAPIResource):
           plans_or_contracts: When parallel threshold notifications are enabled during migration, this flag
               denotes whether to fetch notifications for plans or contracts.
 
+          seat_filter: Only allowed for `low_remaining_seat_balance_reached` notifications. This
+              filters alerts by the seat group key-value pair.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -427,6 +436,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "customer_id": customer_id,
                     "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
+                    "seat_filter": seat_filter,
                 },
                 alert_retrieve_params.AlertRetrieveParams,
             ),

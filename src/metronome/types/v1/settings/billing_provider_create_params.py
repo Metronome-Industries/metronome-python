@@ -9,7 +9,7 @@ __all__ = ["BillingProviderCreateParams"]
 
 
 class BillingProviderCreateParams(TypedDict, total=False):
-    billing_provider: Required[Literal["aws_marketplace", "azure_marketplace"]]
+    billing_provider: Required[Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"]]
     """The billing provider set for this configuration."""
 
     configuration: Required[Dict[str, object]]

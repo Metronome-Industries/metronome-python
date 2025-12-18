@@ -11,6 +11,8 @@ __all__ = ["CreditGrantListEntriesResponse", "Ledger", "LedgerEndingBalance", "L
 
 
 class LedgerEndingBalance(BaseModel):
+    """the effective balances at the end of the specified time window"""
+
     effective_at: datetime
     """
     the ending_before request parameter (if supplied) or the current billing

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -32,6 +32,12 @@ class ContractAddManualBalanceEntryParams(TypedDict, total=False):
 
     contract_id: str
     """ID of the contract to update. Leave blank to update a customer level balance."""
+
+    per_group_amounts: Dict[str, float]
+    """
+    If using individually configured commits/credits attached to seat managed
+    subscriptions, the amount to add for each seat. Must sum to total amount.
+    """
 
     timestamp: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the manual adjustment takes place.

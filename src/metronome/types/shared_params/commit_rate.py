@@ -11,6 +11,11 @@ __all__ = ["CommitRate"]
 
 
 class CommitRate(TypedDict, total=False):
+    """A distinct rate on the rate card.
+
+    You can choose to use this rate rather than list rate when consuming a credit or commit.
+    """
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
 
     price: float

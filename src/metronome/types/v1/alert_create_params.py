@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupValue"]
+__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupValue", "SeatFilter"]
 
 
 class AlertCreateParams(TypedDict, total=False):
@@ -27,6 +27,7 @@ class AlertCreateParams(TypedDict, total=False):
             "low_remaining_contract_credit_percentage_reached",
             "low_remaining_contract_credit_and_commit_balance_reached",
             "invoice_total_reached",
+            "low_remaining_seat_balance_reached",
         ]
     ]
     """Type of the threshold notification"""
@@ -99,6 +100,12 @@ class AlertCreateParams(TypedDict, total=False):
     To create a notification for all customers, do not specify a `plan_id`.
     """
 
+    seat_filter: SeatFilter
+    """Required for `low_remaining_seat_balance_reached` notifications.
+
+    The alert is scoped to this seat group key-value pair.
+    """
+
     uniqueness_key: str
     """Prevents the creation of duplicates.
 
@@ -119,3 +126,16 @@ class GroupValue(TypedDict, total=False):
     key: Required[str]
 
     value: str
+
+
+class SeatFilter(TypedDict, total=False):
+    """Required for `low_remaining_seat_balance_reached` notifications.
+
+    The alert is scoped to this seat group key-value pair.
+    """
+
+    seat_group_key: Required[str]
+    """The seat group key (e.g., "seat_id", "user_id")"""
+
+    seat_group_value: str
+    """Optional seat identifier the alert is scoped to."""

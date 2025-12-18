@@ -8,6 +8,8 @@ __all__ = ["EventTypeFilter"]
 
 
 class EventTypeFilter(BaseModel):
+    """An optional filtering rule to match the 'event_type' property of an event."""
+
     in_values: Optional[List[str]] = None
     """A list of event types that are explicitly included in the billable metric.
 

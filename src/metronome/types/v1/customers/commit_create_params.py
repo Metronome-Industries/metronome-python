@@ -125,6 +125,11 @@ class AccessScheduleScheduleItem(TypedDict, total=False):
 
 
 class AccessSchedule(TypedDict, total=False):
+    """Schedule for distributing the commit to the customer.
+
+    For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
+    """
+
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
@@ -132,6 +137,11 @@ class AccessSchedule(TypedDict, total=False):
 
 
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
@@ -191,6 +201,10 @@ class InvoiceScheduleScheduleItem(TypedDict, total=False):
 
 
 class InvoiceSchedule(TypedDict, total=False):
+    """
+    Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match accesss_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
+    """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 

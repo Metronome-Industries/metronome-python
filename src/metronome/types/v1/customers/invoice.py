@@ -33,12 +33,21 @@ __all__ = [
 
 
 class LineItemAppliedCommitOrCredit(BaseModel):
+    """Details about the credit or commit that was applied to this line item.
+
+    Only present on line items with product of `USAGE`, `SUBSCRIPTION` or `COMPOSITE` types.
+    """
+
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
 
 
 class LineItemOrigin(BaseModel):
+    """
+    Account hierarchy M3 - Present on line items from invoices with type USAGE_CONSOLIDATED. Indicates the original customer, contract, invoice and line item from which this line item was copied.
+    """
+
     contract_id: str
 
     customer_id: str
@@ -49,10 +58,14 @@ class LineItemOrigin(BaseModel):
 
 
 class LineItemPostpaidCommit(BaseModel):
+    """Only present for line items paying for a postpaid commit true-up."""
+
     id: str
 
 
 class LineItemSubLineItemTierPeriod(BaseModel):
+    """when the current tier started and ends (for tiered charges only)"""
+
     starting_at: datetime
 
     ending_before: Optional[datetime] = None
@@ -102,6 +115,8 @@ class LineItemSubLineItem(BaseModel):
 
 
 class LineItemTier(BaseModel):
+    """Populated if the line item has a tiered price."""
+
     level: float
 
     starting_at: str
@@ -289,6 +304,8 @@ class ConstituentInvoice(BaseModel):
 
 
 class CorrectionRecordCorrectedExternalInvoiceTax(BaseModel):
+    """Tax details for the invoice, if available from the billing provider."""
+
     total_tax_amount: Optional[float] = None
     """The total tax amount applied to the invoice."""
 
@@ -315,11 +332,15 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
 
+    external_payment_id: Optional[str] = None
+    """The ID of the payment in the external system, if available."""
+
     external_status: Optional[
         Literal[
             "DRAFT",
             "FINALIZED",
             "PAID",
+            "PARTIALLY_PAID",
             "UNCOLLECTIBLE",
             "VOID",
             "DELETED",
@@ -359,6 +380,8 @@ class CorrectionRecord(BaseModel):
 
 
 class ExternalInvoiceTax(BaseModel):
+    """Tax details for the invoice, if available from the billing provider."""
+
     total_tax_amount: Optional[float] = None
     """The total tax amount applied to the invoice."""
 
@@ -385,11 +408,15 @@ class ExternalInvoice(BaseModel):
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
 
+    external_payment_id: Optional[str] = None
+    """The ID of the payment in the external system, if available."""
+
     external_status: Optional[
         Literal[
             "DRAFT",
             "FINALIZED",
             "PAID",
+            "PARTIALLY_PAID",
             "UNCOLLECTIBLE",
             "VOID",
             "DELETED",
@@ -432,6 +459,11 @@ class InvoiceAdjustment(BaseModel):
 
 
 class Payer(BaseModel):
+    """Account hierarchy M3 - Required for account hierarchy usage invoices.
+
+    An object containing the contract and customer UUIDs that pay for this invoice.
+    """
+
     contract_id: str
 
     customer_id: str
@@ -452,6 +484,8 @@ class ResellerRoyaltyGcpOptions(BaseModel):
 
 
 class ResellerRoyalty(BaseModel):
+    """Only present for contract invoices with reseller royalties."""
+
     fraction: str
 
     netsuite_reseller_id: str
