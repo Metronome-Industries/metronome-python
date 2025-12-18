@@ -1,5 +1,54 @@
 # Changelog
 
+## 3.2.0 (2025-12-18)
+
+Full Changelog: [v3.1.0...v3.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.1.0...v3.2.0)
+
+### Features
+
+* [ORCH-605] uses x-mint groups to enable conditional rendering of gated revenue system config apis ([0a160fd](https://github.com/Metronome-Industries/metronome-python/commit/0a160fd9339d99dd03b25e7ad1346d3644f873a5))
+* [ORCH-752] Update contract creation endpoints to allow setting revenue system configuration ([29726f1](https://github.com/Metronome-Industries/metronome-python/commit/29726f1244f3bd558999989c058e7801a1eaacb5))
+* [ORCH-757] Add route for get revenue system config resolver ([471ddfa](https://github.com/Metronome-Industries/metronome-python/commit/471ddfa40d4a2575e31f3faaaee64a929b335bfa))
+* Add `commit_transactions` to the body of `/upsertAvalaraCredentials` endpoint ([2fd481c](https://github.com/Metronome-Industries/metronome-python/commit/2fd481ce87b8d0095b2a0be3594e60b01538c7e9))
+* Add `seat_filter` field to creation request and response parameters of the alert object ([d70fc72](https://github.com/Metronome-Industries/metronome-python/commit/d70fc72c306c60c96561fedc6419ad358e06f66b))
+* add quantity to plan pricing adjustment response ([4eb5277](https://github.com/Metronome-Industries/metronome-python/commit/4eb5277b78a7670da7215b4bc2a4808860176222))
+* adds external_payment_id to ExternalInvoice ([35e26be](https://github.com/Metronome-Industries/metronome-python/commit/35e26be2ede51e494fd0f96ef6dda5754e9141eb))
+* everything ([82c61e6](https://github.com/Metronome-Industries/metronome-python/commit/82c61e68a13f41209335e783d365a59ab951b981))
+* GET-6845 get openapi specs ready for GA ([b5fb320](https://github.com/Metronome-Industries/metronome-python/commit/b5fb320ba619c3de5428f9c2e08b922766d0ffac))
+* include aggregation BM info from searchEvents ([8fa8457](https://github.com/Metronome-Industries/metronome-python/commit/8fa84575cb6b097acc3ca1b5048ea9df5f66af53))
+* ORCH-833/948/946/947 - updated the API to accept aws_customer_account_id all gated behind a feature flag ([31af8fd](https://github.com/Metronome-Industries/metronome-python/commit/31af8fdb88445e31c8bfc047d5aebe8ac28a784f))
+* remove beta language, FF, stainless skip ([cc5e7ed](https://github.com/Metronome-Industries/metronome-python/commit/cc5e7ed287fc356246f15cc2ff590a5b57fcfe6d))
+* Return values for set customer billing configuration endpoint ([b546ff5](https://github.com/Metronome-Industries/metronome-python/commit/b546ff55b1a81cff28f3e5e18a780dfc935c2fc1))
+* update create alert api to allow LowRemainingSeatBalanceReached alert ([28bbf3e](https://github.com/Metronome-Industries/metronome-python/commit/28bbf3ec4e2299d5cb8e1e8faba92399b8b27a06))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([d033920](https://github.com/Metronome-Industries/metronome-python/commit/d033920ce482641ec7c705a592e20629c18c720f))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([8748946](https://github.com/Metronome-Industries/metronome-python/commit/8748946083d6f8582dc5d91446952f2987fca3f4))
+* ensure streams are always closed ([25c3ae8](https://github.com/Metronome-Industries/metronome-python/commit/25c3ae8b2e0b26e0c720736b0c5831f8d892ea84))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([9231074](https://github.com/Metronome-Industries/metronome-python/commit/9231074106d4f8009dbfd7a0cc4cf76648a58f7d))
+* use async_to_httpx_files in patch method ([d1b1be0](https://github.com/Metronome-Industries/metronome-python/commit/d1b1be0961af3e6d13c604f3ebca1573cd293a97))
+
+
+### Chores
+
+* add missing docstrings ([355fe47](https://github.com/Metronome-Industries/metronome-python/commit/355fe4740a7fc3ec4e608a1d2da0e7c8588b73ba))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([041a7d2](https://github.com/Metronome-Industries/metronome-python/commit/041a7d232490a1a9e9512f8ba43883f12f32eb19))
+* **docs:** use environment variables for authentication in code snippets ([d7f37cd](https://github.com/Metronome-Industries/metronome-python/commit/d7f37cd1e1d26f3a1fff5cb39da8beb0b3f81df1))
+* **internal:** add `--fix` argument to lint script ([39602a0](https://github.com/Metronome-Industries/metronome-python/commit/39602a0cd5cd28ca2784da697423fbda99a4bd41))
+* **internal:** add missing files argument to base client ([0dd45c5](https://github.com/Metronome-Industries/metronome-python/commit/0dd45c5a13060fde96ffb7a2272001bcb6578736))
+* **internal:** codegen related update ([00a67e8](https://github.com/Metronome-Industries/metronome-python/commit/00a67e8a38c5e470dec2221cc598eb677b2ae4ef))
+* **internal:** codegen related update ([9014e90](https://github.com/Metronome-Industries/metronome-python/commit/9014e904870a05da89e2ef210117f70db746e864))
+* **internal:** grammar fix (it's -&gt; its) ([e844546](https://github.com/Metronome-Industries/metronome-python/commit/e8445469bd3c10da8a3c6d99b1e441866d3e1277))
+* **package:** drop Python 3.8 support ([caf05b2](https://github.com/Metronome-Industries/metronome-python/commit/caf05b2f01f75a1364b9a4d00b7eff8d79e8b1f3))
+* update lockfile ([27cc4f3](https://github.com/Metronome-Industries/metronome-python/commit/27cc4f3f43f10c15209cb69c547eabd46c9f1b16))
+
+
+### Documentation
+
+* document missing fields for schemas related to recurring credits and commits ([3ecb1d7](https://github.com/Metronome-Industries/metronome-python/commit/3ecb1d7544db26e955f1b08e3cb1675c0613108a))
+
 ## 3.1.0 (2025-10-31)
 
 Full Changelog: [v3.0.0...v3.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.0.0...v3.1.0)
