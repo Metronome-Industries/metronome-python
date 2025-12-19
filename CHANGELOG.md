@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.0 (2025-12-19)
+
+Full Changelog: [v3.2.0...v3.3.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.2.0...v3.3.0)
+
+### Features
+
+* Add support for custom fields on package terms ([6f97122](https://github.com/Metronome-Industries/metronome-python/commit/6f971222b85339249821025917838497f68559f6))
+
 ## 3.2.0 (2025-12-18)
 
 Full Changelog: [v3.1.0...v3.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.1.0...v3.2.0)
