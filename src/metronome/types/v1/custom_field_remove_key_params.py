@@ -28,6 +28,10 @@ class CustomFieldRemoveKeyParams(TypedDict, total=False):
             "rate_card",
             "scheduled_charge",
             "subscription",
+            "package_commit",
+            "package_credit",
+            "package_subscription",
+            "package_scheduled_charge",
         ]
     ]
 
