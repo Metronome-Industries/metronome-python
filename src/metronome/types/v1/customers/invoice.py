@@ -29,6 +29,7 @@ __all__ = [
     "ResellerRoyalty",
     "ResellerRoyaltyAwsOptions",
     "ResellerRoyaltyGcpOptions",
+    "RevenueSystemInvoice",
 ]
 
 
@@ -497,6 +498,19 @@ class ResellerRoyalty(BaseModel):
     gcp_options: Optional[ResellerRoyaltyGcpOptions] = None
 
 
+class RevenueSystemInvoice(BaseModel):
+    revenue_system_external_entity_type: str
+
+    revenue_system_provider: str
+
+    sync_status: str
+
+    error_message: Optional[str] = None
+    """The error message from the revenue system, if available."""
+
+    revenue_system_external_entity_id: Optional[str] = None
+
+
 class Invoice(BaseModel):
     id: str
 
@@ -571,6 +585,8 @@ class Invoice(BaseModel):
 
     reseller_royalty: Optional[ResellerRoyalty] = None
     """Only present for contract invoices with reseller royalties."""
+
+    revenue_system_invoices: Optional[List[RevenueSystemInvoice]] = None
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
