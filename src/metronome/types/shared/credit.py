@@ -21,6 +21,8 @@ __all__ = [
     "LedgerCreditCreditedLedgerEntry",
     "LedgerCreditManualLedgerEntry",
     "LedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "SubscriptionConfig",
+    "SubscriptionConfigApplySeatIncreaseConfig",
 ]
 
 
@@ -127,6 +129,23 @@ Ledger: TypeAlias = Union[
 ]
 
 
+class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class SubscriptionConfig(BaseModel):
+    """
+    The subscription configuration for this credit, if it was generated from a recurring credit with a subscription attached.
+    """
+
+    allocation: Optional[Literal["INDIVIDUAL", "POOLED"]] = None
+
+    apply_seat_increase_config: Optional[SubscriptionConfigApplySeatIncreaseConfig] = None
+
+    subscription_id: Optional[str] = None
+
+
 class Credit(BaseModel):
     id: str
 
@@ -185,6 +204,12 @@ class Credit(BaseModel):
 
     rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
+    recurring_credit_id: Optional[str] = None
+    """
+    The ID of the recurring credit that this credit was generated from, if
+    applicable.
+    """
+
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
@@ -193,6 +218,12 @@ class Credit(BaseModel):
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
+    """
+
+    subscription_config: Optional[SubscriptionConfig] = None
+    """
+    The subscription configuration for this credit, if it was generated from a
+    recurring credit with a subscription attached.
     """
 
     uniqueness_key: Optional[str] = None
