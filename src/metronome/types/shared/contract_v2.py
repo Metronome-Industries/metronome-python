@@ -359,6 +359,9 @@ class Commit(BaseModel):
 
     rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
+    recurring_commit_id: Optional[str] = None
+    """The ID of the recurring commit that created this commit"""
+
     rolled_over_from: Optional[CommitRolledOverFrom] = None
 
     rollover_fraction: Optional[float] = None
@@ -660,6 +663,9 @@ class Credit(BaseModel):
     If multiple credits or commits are applicable, the one with the lower priority
     will apply first.
     """
+
+    recurring_credit_id: Optional[str] = None
+    """The ID of the recurring credit that created this credit"""
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
