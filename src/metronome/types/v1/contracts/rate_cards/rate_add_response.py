@@ -54,13 +54,6 @@ class Data(BaseModel):
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
 
-    use_list_prices: Optional[bool] = None
-    """Only set for PERCENTAGE rate_type.
-
-    Defaults to false. If true, rate is computed using list prices rather than the
-    standard rates for this product on the contract.
-    """
-
 
 class RateAddResponse(BaseModel):
     data: Data
