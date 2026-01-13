@@ -122,7 +122,6 @@ class TestRates:
                     "size": 0,
                 }
             ],
-            use_list_prices=True,
         )
         assert_matches_type(RateAddResponse, rate, path=["response"])
 
@@ -336,7 +335,6 @@ class TestAsyncRates:
                     "size": 0,
                 }
             ],
-            use_list_prices=True,
         )
         assert_matches_type(RateAddResponse, rate, path=["response"])
 

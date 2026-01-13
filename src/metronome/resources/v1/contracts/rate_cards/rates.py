@@ -142,7 +142,6 @@ class RatesResource(SyncAPIResource):
         pricing_group_values: Dict[str, str] | Omit = omit,
         quantity: float | Omit = omit,
         tiers: Iterable[Tier] | Omit = omit,
-        use_list_prices: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -189,10 +188,6 @@ class RatesResource(SyncAPIResource):
 
           tiers: Only set for TIERED rate_type.
 
-          use_list_prices: Only set for PERCENTAGE rate_type. Defaults to false. If true, rate is computed
-              using list prices rather than the standard rates for this product on the
-              contract.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -220,7 +215,6 @@ class RatesResource(SyncAPIResource):
                     "pricing_group_values": pricing_group_values,
                     "quantity": quantity,
                     "tiers": tiers,
-                    "use_list_prices": use_list_prices,
                 },
                 rate_add_params.RateAddParams,
             ),
@@ -382,7 +376,6 @@ class AsyncRatesResource(AsyncAPIResource):
         pricing_group_values: Dict[str, str] | Omit = omit,
         quantity: float | Omit = omit,
         tiers: Iterable[Tier] | Omit = omit,
-        use_list_prices: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -429,10 +422,6 @@ class AsyncRatesResource(AsyncAPIResource):
 
           tiers: Only set for TIERED rate_type.
 
-          use_list_prices: Only set for PERCENTAGE rate_type. Defaults to false. If true, rate is computed
-              using list prices rather than the standard rates for this product on the
-              contract.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -460,7 +449,6 @@ class AsyncRatesResource(AsyncAPIResource):
                     "pricing_group_values": pricing_group_values,
                     "quantity": quantity,
                     "tiers": tiers,
-                    "use_list_prices": use_list_prices,
                 },
                 rate_add_params.RateAddParams,
             ),

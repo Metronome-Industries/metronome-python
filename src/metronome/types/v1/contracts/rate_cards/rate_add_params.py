@@ -81,10 +81,3 @@ class RateAddParams(TypedDict, total=False):
 
     tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
-
-    use_list_prices: bool
-    """Only set for PERCENTAGE rate_type.
-
-    Defaults to false. If true, rate is computed using list prices rather than the
-    standard rates for this product on the contract.
-    """
