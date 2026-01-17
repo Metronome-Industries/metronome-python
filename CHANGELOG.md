@@ -1,5 +1,30 @@
 # Changelog
 
+## 4.0.0 (2026-01-17)
+
+Full Changelog: [v3.2.0...v4.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.2.0...v4.0.0)
+
+### Features
+
+* [ORCH-739] expose rev rec data in api ([892c657](https://github.com/Metronome-Industries/metronome-python/commit/892c6572d7ebde89882b14ee0160b724527bdea9))
+* [ORCH-739] expose rev rec data in api ([116577d](https://github.com/Metronome-Industries/metronome-python/commit/116577dfcabc93f07c1e14768aad6e9618985b42))
+* add recurring commit ID and subscription config to commit/credit response schema ([1a719da](https://github.com/Metronome-Industries/metronome-python/commit/1a719daa0d0ef8d6ee1ed103959821a966d7bd55))
+* Add support for custom fields on package terms ([6f97122](https://github.com/Metronome-Industries/metronome-python/commit/6f971222b85339249821025917838497f68559f6))
+* **client:** add support for binary request streaming ([4fdf13d](https://github.com/Metronome-Industries/metronome-python/commit/4fdf13d73627f4a42c208681dff9cded30090b96))
+* remove use list prices config in requests and responses ([cface3c](https://github.com/Metronome-Industries/metronome-python/commit/cface3c4071f60ae5a1792947bdac99a8a1f496d))
+* Revert [ORCH-739] expose rev rec data in api ([824329b](https://github.com/Metronome-Industries/metronome-python/commit/824329b024f4537dc42b3241f9f291783669f79f))
+
+
+### Chores
+
+* **internal:** codegen related update ([5359acb](https://github.com/Metronome-Industries/metronome-python/commit/5359acb803261c24ed83917f753d1bbb05c1a02d))
+* **internal:** update `actions/checkout` version ([874dc0b](https://github.com/Metronome-Industries/metronome-python/commit/874dc0be744c1d04e7bd59af86f46e6a3bdeb679))
+
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([0708fd1](https://github.com/Metronome-Industries/metronome-python/commit/0708fd118d04fc008c2c4e8d7d264f10bded31c3))
+
 ## 3.2.0 (2025-12-18)
 
 Full Changelog: [v3.1.0...v3.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.1.0...v3.2.0)
