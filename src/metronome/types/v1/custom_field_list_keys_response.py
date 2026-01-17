@@ -29,6 +29,10 @@ class CustomFieldListKeysResponse(BaseModel):
         "rate_card",
         "scheduled_charge",
         "subscription",
+        "package_commit",
+        "package_credit",
+        "package_subscription",
+        "package_scheduled_charge",
     ]
 
     key: str

@@ -31,6 +31,8 @@ __all__ = [
     "LedgerPostpaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitExpirationLedgerEntry",
     "RolledOverFrom",
+    "SubscriptionConfig",
+    "SubscriptionConfigApplySeatIncreaseConfig",
 ]
 
 
@@ -232,6 +234,23 @@ class RolledOverFrom(BaseModel):
     contract_id: str
 
 
+class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
+    is_prorated: bool
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class SubscriptionConfig(BaseModel):
+    """
+    The subscription configuration for this commit, if it was generated from a recurring commit with a subscription attached.
+    """
+
+    allocation: Optional[Literal["INDIVIDUAL", "POOLED"]] = None
+
+    apply_seat_increase_config: Optional[SubscriptionConfigApplySeatIncreaseConfig] = None
+
+    subscription_id: Optional[str] = None
+
+
 class Commit(BaseModel):
     id: str
 
@@ -316,6 +335,12 @@ class Commit(BaseModel):
 
     rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 
+    recurring_commit_id: Optional[str] = None
+    """
+    The ID of the recurring commit that this commit was generated from, if
+    applicable.
+    """
+
     rolled_over_from: Optional[RolledOverFrom] = None
 
     rollover_fraction: Optional[float] = None
@@ -328,6 +353,12 @@ class Commit(BaseModel):
     List of filters that determine what kind of customer usage draws down a commit
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
+    """
+
+    subscription_config: Optional[SubscriptionConfig] = None
+    """
+    The subscription configuration for this commit, if it was generated from a
+    recurring commit with a subscription attached.
     """
 
     uniqueness_key: Optional[str] = None
