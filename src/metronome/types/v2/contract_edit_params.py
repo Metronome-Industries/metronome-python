@@ -187,6 +187,12 @@ class ContractEditParams(TypedDict, total=False):
 
     update_credits: Iterable[UpdateCredit]
 
+    update_net_payment_terms_days: Optional[float]
+    """Number of days after issuance of invoice after which the invoice is due (e.g.
+
+    Net 30).
+    """
+
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
 
     update_recurring_commits: Iterable[UpdateRecurringCommit]

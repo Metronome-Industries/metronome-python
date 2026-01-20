@@ -235,6 +235,7 @@ class ContractsResource(SyncAPIResource):
         update_contract_end_date: Union[str, datetime, None] | Omit = omit,
         update_contract_name: Optional[str] | Omit = omit,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
+        update_net_payment_terms_days: Optional[float] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | Omit = omit,
         update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
@@ -308,6 +309,9 @@ class ContractsResource(SyncAPIResource):
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
               remain unchanged.
 
+          update_net_payment_terms_days: Number of days after issuance of invoice after which the invoice is due (e.g.
+              Net 30).
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -355,6 +359,7 @@ class ContractsResource(SyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
+                    "update_net_payment_terms_days": update_net_payment_terms_days,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
                     "update_recurring_credits": update_recurring_credits,
@@ -836,6 +841,7 @@ class AsyncContractsResource(AsyncAPIResource):
         update_contract_end_date: Union[str, datetime, None] | Omit = omit,
         update_contract_name: Optional[str] | Omit = omit,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
+        update_net_payment_terms_days: Optional[float] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | Omit = omit,
         update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
@@ -909,6 +915,9 @@ class AsyncContractsResource(AsyncAPIResource):
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
               remain unchanged.
 
+          update_net_payment_terms_days: Number of days after issuance of invoice after which the invoice is due (e.g.
+              Net 30).
+
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
               will remain unchanged.
@@ -956,6 +965,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
+                    "update_net_payment_terms_days": update_net_payment_terms_days,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
                     "update_recurring_credits": update_recurring_credits,
