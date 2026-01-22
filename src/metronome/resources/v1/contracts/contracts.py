@@ -128,6 +128,8 @@ class ContractsResource(SyncAPIResource):
         net_payment_terms_days: float | Omit = omit,
         netsuite_sales_order_id: str | Omit = omit,
         overrides: Iterable[contract_create_params.Override] | Omit = omit,
+        package_alias: str | Omit = omit,
+        package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
         priority: float | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
@@ -298,6 +300,13 @@ class ContractsResource(SyncAPIResource):
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
 
+          package_alias: Selects the package linked to the specified alias as of the contract's start
+              date. Mutually exclusive with package_id.
+
+          package_id: If provided, provisions a customer on a package instead of creating a
+              traditional contract. When specified, only customer_id, starting_at, package_id,
+              and uniqueness_key are allowed.
+
           priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
@@ -354,6 +363,8 @@ class ContractsResource(SyncAPIResource):
                     "net_payment_terms_days": net_payment_terms_days,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
+                    "package_alias": package_alias,
+                    "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
                     "priority": priority,
                     "professional_services": professional_services,
@@ -1262,6 +1273,8 @@ class AsyncContractsResource(AsyncAPIResource):
         net_payment_terms_days: float | Omit = omit,
         netsuite_sales_order_id: str | Omit = omit,
         overrides: Iterable[contract_create_params.Override] | Omit = omit,
+        package_alias: str | Omit = omit,
+        package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
         priority: float | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
@@ -1432,6 +1445,13 @@ class AsyncContractsResource(AsyncAPIResource):
 
           netsuite_sales_order_id: This field's availability is dependent on your client's configuration.
 
+          package_alias: Selects the package linked to the specified alias as of the contract's start
+              date. Mutually exclusive with package_id.
+
+          package_id: If provided, provisions a customer on a package instead of creating a
+              traditional contract. When specified, only customer_id, starting_at, package_id,
+              and uniqueness_key are allowed.
+
           priority: Priority of the contract.
 
           professional_services: This field's availability is dependent on your client's configuration.
@@ -1488,6 +1508,8 @@ class AsyncContractsResource(AsyncAPIResource):
                     "net_payment_terms_days": net_payment_terms_days,
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
+                    "package_alias": package_alias,
+                    "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
                     "priority": priority,
                     "professional_services": professional_services,
