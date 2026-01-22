@@ -115,6 +115,19 @@ class ContractCreateParams(TypedDict, total=False):
 
     overrides: Iterable[Override]
 
+    package_alias: str
+    """
+    Selects the package linked to the specified alias as of the contract's start
+    date. Mutually exclusive with package_id.
+    """
+
+    package_id: str
+    """
+    If provided, provisions a customer on a package instead of creating a
+    traditional contract. When specified, only customer_id, starting_at, package_id,
+    and uniqueness_key are allowed.
+    """
+
     prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
 
     priority: float

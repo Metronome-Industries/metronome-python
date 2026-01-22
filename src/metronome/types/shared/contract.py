@@ -127,6 +127,9 @@ class Contract(BaseModel):
     customer_billing_provider_configuration: Optional[CustomerBillingProviderConfiguration] = None
     """The billing provider configuration associated with a contract."""
 
+    package_id: Optional[str] = None
+    """ID of the package this contract was created from, if applicable."""
+
     prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfiguration] = None
 
     priority: Optional[float] = None
