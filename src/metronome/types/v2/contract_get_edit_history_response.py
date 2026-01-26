@@ -250,7 +250,7 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
 
 
 class DataAddOverrideOverwriteRate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
 
     credit_type: Optional[CreditTypeData] = None
 

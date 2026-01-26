@@ -15,7 +15,7 @@ class CommitRate(BaseModel):
     You can choose to use this rate rather than list rate when consuming a credit or commit.
     """
 
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
 
     price: Optional[float] = None
     """Commit rate price. For FLAT rate_type, this must be >=0."""
