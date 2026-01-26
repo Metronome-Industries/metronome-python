@@ -11,7 +11,7 @@ __all__ = ["Rate"]
 
 
 class Rate(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED", "TIERED_PERCENTAGE"]
 
     credit_type: Optional[CreditTypeData] = None
 

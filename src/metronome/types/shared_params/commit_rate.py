@@ -16,7 +16,7 @@ class CommitRate(TypedDict, total=False):
     You can choose to use this rate rather than list rate when consuming a credit or commit.
     """
 
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     price: float
     """Commit rate price. For FLAT rate_type, this must be >=0."""

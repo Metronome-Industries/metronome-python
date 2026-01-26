@@ -751,7 +751,7 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
 class AddOverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
 
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     credit_type_id: str
 

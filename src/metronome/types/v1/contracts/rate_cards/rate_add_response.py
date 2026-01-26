@@ -12,7 +12,7 @@ __all__ = ["RateAddResponse", "Data"]
 
 
 class Data(BaseModel):
-    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED"]
+    rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED", "TIERED_PERCENTAGE"]
 
     commit_rate: Optional[CommitRate] = None
     """A distinct rate on the rate card.
