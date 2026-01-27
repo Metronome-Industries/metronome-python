@@ -222,6 +222,7 @@ class ContractsResource(SyncAPIResource):
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
@@ -285,6 +286,10 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_revenue_system_configuration_update: Update the revenue system configuration on the contract. Currently only supports
+              adding a revenue system configuration to a contract that does not already have
+              one.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -346,6 +351,7 @@ class ContractsResource(SyncAPIResource):
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
+                    "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "add_subscriptions": add_subscriptions,
@@ -828,6 +834,7 @@ class AsyncContractsResource(AsyncAPIResource):
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
@@ -891,6 +898,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_revenue_system_configuration_update: Update the revenue system configuration on the contract. Currently only supports
+              adding a revenue system configuration to a contract that does not already have
+              one.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -952,6 +963,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
+                    "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "add_subscriptions": add_subscriptions,

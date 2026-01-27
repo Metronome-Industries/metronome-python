@@ -56,6 +56,9 @@ __all__ = [
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
+    "AddRevenueSystemConfigurationUpdate",
+    "AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration",
+    "AddRevenueSystemConfigurationUpdateSchedule",
     "AddScheduledCharge",
     "AddScheduledChargeSchedule",
     "AddScheduledChargeScheduleRecurringSchedule",
@@ -139,6 +142,13 @@ class ContractEditParams(TypedDict, total=False):
     add_recurring_credits: Iterable[AddRecurringCredit]
 
     add_reseller_royalties: Iterable[AddResellerRoyalty]
+
+    add_revenue_system_configuration_update: AddRevenueSystemConfigurationUpdate
+    """Update the revenue system configuration on the contract.
+
+    Currently only supports adding a revenue system configuration to a contract that
+    does not already have one.
+    """
 
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
@@ -1185,6 +1195,31 @@ class AddResellerRoyalty(TypedDict, total=False):
     reseller_contract_value: float
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
+
+class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, total=False):
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+    provider: Literal["netsuite"]
+    """The revenue system provider type."""
+
+    revenue_system_configuration_id: str
+
+
+class AddRevenueSystemConfigurationUpdateSchedule(TypedDict, total=False):
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
+    """When the revenue system configuration update will take effect."""
+
+
+class AddRevenueSystemConfigurationUpdate(TypedDict, total=False):
+    """Update the revenue system configuration on the contract.
+
+    Currently only supports adding a revenue system configuration to a contract that does not already have one.
+    """
+
+    revenue_system_configuration: Required[AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration]
+
+    schedule: Required[AddRevenueSystemConfigurationUpdateSchedule]
 
 
 class AddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
