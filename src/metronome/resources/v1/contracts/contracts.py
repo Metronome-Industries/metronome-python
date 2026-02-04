@@ -26,6 +26,7 @@ from ....types.v1 import (
     contract_archive_params,
     contract_retrieve_params,
     contract_list_balances_params,
+    contract_get_net_balance_params,
     contract_update_end_date_params,
     contract_set_usage_filter_params,
     contract_retrieve_rate_schedule_params,
@@ -62,10 +63,12 @@ from .rate_cards.rate_cards import (
 from ....types.v1.contract_list_response import ContractListResponse
 from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
+from ....types.shared_params.balance_filter import BalanceFilter
 from ....types.v1.contract_archive_response import ContractArchiveResponse
 from ....types.v1.contract_retrieve_response import ContractRetrieveResponse
 from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
+from ....types.v1.contract_get_net_balance_response import ContractGetNetBalanceResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
 from ....types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
@@ -798,6 +801,106 @@ class ContractsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ContractCreateHistoricalInvoicesResponse,
+        )
+
+    def get_net_balance(
+        self,
+        *,
+        customer_id: str,
+        credit_type_id: str | Omit = omit,
+        filters: Iterable[BalanceFilter] | Omit = omit,
+        invoice_inclusion_mode: Literal["FINALIZED", "FINALIZED_AND_DRAFT"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContractGetNetBalanceResponse:
+        """
+        Retrieve the combined current balance across any grouping of credits and commits
+        for a customer in a single API call.
+
+        - Display real-time available balance to customers in billing dashboards
+        - Build finance dashboards showing credit utilization across customer segments
+        - Validate expected vs. actual balance during billing reconciliation
+
+        ### Key response fields:
+
+        - `balance`: The combined net balance available to use at this moment across all
+          matching commits and credits
+        - `credit_type_id`: The credit type (fiat or custom pricing unit) the balance is
+          denominated in
+
+        ### Filtering options:
+
+        Balance filters allow you to scope the calculation to specific subsets of
+        commits and credits. When using multiple filter objects, they are OR'd together
+        — if a commit or credit matches any filter, it's included in the net balance.
+        Within a single filter object, all specified conditions are AND'd together.
+
+        - **Balance types**: Include any combination of `PREPAID_COMMIT`,
+          `POSTPAID_COMMIT`, and `CREDIT` (e.g., `["PREPAID_COMMIT", "CREDIT"]` to
+          exclude postpaid commits). If not specified, all balance types are included.
+        - **Specific IDs**: Target exact commit or credit IDs for precise balance
+          queries
+        - **Custom fields**: Filter by custom field key-value pairs; when multiple pairs
+          are provided, commits must match all of them
+
+        **Example**: To get the balance of all free-trial credits OR all
+        signup-promotion commits, you'd pass two filter objects — one filtering for
+        CREDIT with custom field campaign: free-trial, and another filtering for
+        PREPAID_COMMIT with custom field campaign: signup-promotion.
+
+        ### Usage guidelines:
+
+        - **Draft invoice handling**: Use `invoice_inclusion_mode` to control whether
+          pending draft invoice deductions are included (`FINALIZED_AND_DRAFT`, the
+          default) or excluded (`FINALIZED`) from the balance calculation
+        - **Account hierarchies**: When querying a child customer, shared commits from
+          parent contracts are not included — query the parent customer directly to see
+          shared commit balances
+        - **Negative balances**: Manual ledger entries can cause negative segment
+          balances; these are treated as zero when calculating the net balance
+        - **Credit types**: If `credit_type_id` is not specified, the balance defaults
+          to USD (cents)
+
+        Args:
+          customer_id: The ID of the customer.
+
+          credit_type_id: The ID of the credit type (can be fiat or a custom pricing unit) to get the
+              balance for. Defaults to USD (cents) if not specified.
+
+          filters: Balance filters are OR'd together, so if a given commit or credit matches any of
+              the filters, it will be included in the net balance.
+
+          invoice_inclusion_mode: Controls which invoices are considered when calculating the remaining balance.
+              `FINALIZED` considers only deductions from finalized invoices.
+              `FINALIZED_AND_DRAFT` also includes deductions from pending draft invoices.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/contracts/customerBalances/getNetBalance",
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "credit_type_id": credit_type_id,
+                    "filters": filters,
+                    "invoice_inclusion_mode": invoice_inclusion_mode,
+                },
+                contract_get_net_balance_params.ContractGetNetBalanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractGetNetBalanceResponse,
         )
 
     def list_balances(
@@ -1945,6 +2048,106 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractCreateHistoricalInvoicesResponse,
         )
 
+    async def get_net_balance(
+        self,
+        *,
+        customer_id: str,
+        credit_type_id: str | Omit = omit,
+        filters: Iterable[BalanceFilter] | Omit = omit,
+        invoice_inclusion_mode: Literal["FINALIZED", "FINALIZED_AND_DRAFT"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContractGetNetBalanceResponse:
+        """
+        Retrieve the combined current balance across any grouping of credits and commits
+        for a customer in a single API call.
+
+        - Display real-time available balance to customers in billing dashboards
+        - Build finance dashboards showing credit utilization across customer segments
+        - Validate expected vs. actual balance during billing reconciliation
+
+        ### Key response fields:
+
+        - `balance`: The combined net balance available to use at this moment across all
+          matching commits and credits
+        - `credit_type_id`: The credit type (fiat or custom pricing unit) the balance is
+          denominated in
+
+        ### Filtering options:
+
+        Balance filters allow you to scope the calculation to specific subsets of
+        commits and credits. When using multiple filter objects, they are OR'd together
+        — if a commit or credit matches any filter, it's included in the net balance.
+        Within a single filter object, all specified conditions are AND'd together.
+
+        - **Balance types**: Include any combination of `PREPAID_COMMIT`,
+          `POSTPAID_COMMIT`, and `CREDIT` (e.g., `["PREPAID_COMMIT", "CREDIT"]` to
+          exclude postpaid commits). If not specified, all balance types are included.
+        - **Specific IDs**: Target exact commit or credit IDs for precise balance
+          queries
+        - **Custom fields**: Filter by custom field key-value pairs; when multiple pairs
+          are provided, commits must match all of them
+
+        **Example**: To get the balance of all free-trial credits OR all
+        signup-promotion commits, you'd pass two filter objects — one filtering for
+        CREDIT with custom field campaign: free-trial, and another filtering for
+        PREPAID_COMMIT with custom field campaign: signup-promotion.
+
+        ### Usage guidelines:
+
+        - **Draft invoice handling**: Use `invoice_inclusion_mode` to control whether
+          pending draft invoice deductions are included (`FINALIZED_AND_DRAFT`, the
+          default) or excluded (`FINALIZED`) from the balance calculation
+        - **Account hierarchies**: When querying a child customer, shared commits from
+          parent contracts are not included — query the parent customer directly to see
+          shared commit balances
+        - **Negative balances**: Manual ledger entries can cause negative segment
+          balances; these are treated as zero when calculating the net balance
+        - **Credit types**: If `credit_type_id` is not specified, the balance defaults
+          to USD (cents)
+
+        Args:
+          customer_id: The ID of the customer.
+
+          credit_type_id: The ID of the credit type (can be fiat or a custom pricing unit) to get the
+              balance for. Defaults to USD (cents) if not specified.
+
+          filters: Balance filters are OR'd together, so if a given commit or credit matches any of
+              the filters, it will be included in the net balance.
+
+          invoice_inclusion_mode: Controls which invoices are considered when calculating the remaining balance.
+              `FINALIZED` considers only deductions from finalized invoices.
+              `FINALIZED_AND_DRAFT` also includes deductions from pending draft invoices.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/contracts/customerBalances/getNetBalance",
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "credit_type_id": credit_type_id,
+                    "filters": filters,
+                    "invoice_inclusion_mode": invoice_inclusion_mode,
+                },
+                contract_get_net_balance_params.ContractGetNetBalanceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractGetNetBalanceResponse,
+        )
+
     def list_balances(
         self,
         *,
@@ -2394,6 +2597,9 @@ class ContractsResourceWithRawResponse:
         self.create_historical_invoices = to_raw_response_wrapper(
             contracts.create_historical_invoices,
         )
+        self.get_net_balance = to_raw_response_wrapper(
+            contracts.get_net_balance,
+        )
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
         )
@@ -2450,6 +2656,9 @@ class AsyncContractsResourceWithRawResponse:
         )
         self.create_historical_invoices = async_to_raw_response_wrapper(
             contracts.create_historical_invoices,
+        )
+        self.get_net_balance = async_to_raw_response_wrapper(
+            contracts.get_net_balance,
         )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
@@ -2508,6 +2717,9 @@ class ContractsResourceWithStreamingResponse:
         self.create_historical_invoices = to_streamed_response_wrapper(
             contracts.create_historical_invoices,
         )
+        self.get_net_balance = to_streamed_response_wrapper(
+            contracts.get_net_balance,
+        )
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
         )
@@ -2564,6 +2776,9 @@ class AsyncContractsResourceWithStreamingResponse:
         )
         self.create_historical_invoices = async_to_streamed_response_wrapper(
             contracts.create_historical_invoices,
+        )
+        self.get_net_balance = async_to_streamed_response_wrapper(
+            contracts.get_net_balance,
         )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,

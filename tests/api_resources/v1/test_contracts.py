@@ -17,6 +17,7 @@ from metronome.types.v1 import (
     ContractArchiveResponse,
     ContractRetrieveResponse,
     ContractListBalancesResponse,
+    ContractGetNetBalanceResponse,
     ContractUpdateEndDateResponse,
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
@@ -1076,6 +1077,58 @@ class TestContracts:
 
             contract = response.parse()
             assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_get_net_balance(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    def test_method_get_net_balance_with_all_params(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+            filters=[
+                {
+                    "balance_types": ["CREDIT"],
+                    "custom_fields": {"campaign": "free-trial"},
+                    "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                },
+                {
+                    "balance_types": ["PREPAID_COMMIT", "POSTPAID_COMMIT"],
+                    "custom_fields": {"campaign": "signup-promotion"},
+                    "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                },
+            ],
+            invoice_inclusion_mode="FINALIZED",
+        )
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_net_balance(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = response.parse()
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_net_balance(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = response.parse()
+            assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2423,6 +2476,58 @@ class TestAsyncContracts:
 
             contract = await response.parse()
             assert_matches_type(ContractCreateHistoricalInvoicesResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_get_net_balance(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_method_get_net_balance_with_all_params(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+            filters=[
+                {
+                    "balance_types": ["CREDIT"],
+                    "custom_fields": {"campaign": "free-trial"},
+                    "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                },
+                {
+                    "balance_types": ["PREPAID_COMMIT", "POSTPAID_COMMIT"],
+                    "custom_fields": {"campaign": "signup-promotion"},
+                    "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                },
+            ],
+            invoice_inclusion_mode="FINALIZED",
+        )
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_net_balance(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = await response.parse()
+        assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_net_balance(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.with_streaming_response.get_net_balance(
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = await response.parse()
+            assert_matches_type(ContractGetNetBalanceResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
