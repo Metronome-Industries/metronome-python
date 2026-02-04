@@ -25,7 +25,7 @@ class Rate(TypedDict, total=False):
     product_id: Required[str]
     """ID of the product to add a rate for"""
 
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive effective date"""

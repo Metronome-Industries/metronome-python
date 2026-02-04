@@ -2,6 +2,7 @@
 
 from .tier import Tier as Tier
 from .commit_rate import CommitRate as CommitRate
+from .balance_filter import BalanceFilter as BalanceFilter
 from .property_filter import PropertyFilter as PropertyFilter
 from .base_usage_filter import BaseUsageFilter as BaseUsageFilter
 from .event_type_filter import EventTypeFilter as EventTypeFilter

@@ -13,6 +13,7 @@ from .contract_v2 import ContractV2 as ContractV2
 from .pro_service import ProService as ProService
 from .subscription import Subscription as Subscription
 from .override_tier import OverrideTier as OverrideTier
+from .balance_filter import BalanceFilter as BalanceFilter
 from .overwrite_rate import OverwriteRate as OverwriteRate
 from .property_filter import PropertyFilter as PropertyFilter
 from .commit_specifier import CommitSpecifier as CommitSpecifier

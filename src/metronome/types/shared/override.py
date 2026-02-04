@@ -80,7 +80,7 @@ class Override(BaseModel):
     quantity: Optional[float] = None
     """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
 
-    rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]] = None
+    rate_type: Optional[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]] = None
 
     target: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
 

@@ -16,6 +16,7 @@ from .shared import (
     ProService as ProService,
     OverrideTier as OverrideTier,
     Subscription as Subscription,
+    BalanceFilter as BalanceFilter,
     OverwriteRate as OverwriteRate,
     CreditTypeData as CreditTypeData,
     PropertyFilter as PropertyFilter,

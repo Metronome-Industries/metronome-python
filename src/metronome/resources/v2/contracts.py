@@ -222,6 +222,7 @@ class ContractsResource(SyncAPIResource):
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
@@ -235,6 +236,7 @@ class ContractsResource(SyncAPIResource):
         update_contract_end_date: Union[str, datetime, None] | Omit = omit,
         update_contract_name: Optional[str] | Omit = omit,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
+        update_net_payment_terms_days: Optional[float] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | Omit = omit,
         update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
@@ -284,6 +286,10 @@ class ContractsResource(SyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_revenue_system_configuration_update: Update the revenue system configuration on the contract. Currently only supports
+              adding a revenue system configuration to a contract that does not already have
+              one.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -307,6 +313,9 @@ class ContractsResource(SyncAPIResource):
 
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
               remain unchanged.
+
+          update_net_payment_terms_days: Number of days after issuance of invoice after which the invoice is due (e.g.
+              Net 30).
 
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
@@ -342,6 +351,7 @@ class ContractsResource(SyncAPIResource):
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
+                    "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "add_subscriptions": add_subscriptions,
@@ -355,6 +365,7 @@ class ContractsResource(SyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
+                    "update_net_payment_terms_days": update_net_payment_terms_days,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
                     "update_recurring_credits": update_recurring_credits,
@@ -823,6 +834,7 @@ class AsyncContractsResource(AsyncAPIResource):
         add_recurring_commits: Iterable[contract_edit_params.AddRecurringCommit] | Omit = omit,
         add_recurring_credits: Iterable[contract_edit_params.AddRecurringCredit] | Omit = omit,
         add_reseller_royalties: Iterable[contract_edit_params.AddResellerRoyalty] | Omit = omit,
+        add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
@@ -836,6 +848,7 @@ class AsyncContractsResource(AsyncAPIResource):
         update_contract_end_date: Union[str, datetime, None] | Omit = omit,
         update_contract_name: Optional[str] | Omit = omit,
         update_credits: Iterable[contract_edit_params.UpdateCredit] | Omit = omit,
+        update_net_payment_terms_days: Optional[float] | Omit = omit,
         update_prepaid_balance_threshold_configuration: contract_edit_params.UpdatePrepaidBalanceThresholdConfiguration
         | Omit = omit,
         update_recurring_commits: Iterable[contract_edit_params.UpdateRecurringCommit] | Omit = omit,
@@ -885,6 +898,10 @@ class AsyncContractsResource(AsyncAPIResource):
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
+          add_revenue_system_configuration_update: Update the revenue system configuration on the contract. Currently only supports
+              adding a revenue system configuration to a contract that does not already have
+              one.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -908,6 +925,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           update_contract_name: Value to update the contract name to. If not provided, the contract name will
               remain unchanged.
+
+          update_net_payment_terms_days: Number of days after issuance of invoice after which the invoice is due (e.g.
+              Net 30).
 
           update_recurring_commits: Edits to these recurring commits will only affect commits whose access schedules
               has not started. Expired commits, and commits with an active access schedule
@@ -943,6 +963,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_recurring_commits": add_recurring_commits,
                     "add_recurring_credits": add_recurring_credits,
                     "add_reseller_royalties": add_reseller_royalties,
+                    "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
                     "add_subscriptions": add_subscriptions,
@@ -956,6 +977,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "update_contract_end_date": update_contract_end_date,
                     "update_contract_name": update_contract_name,
                     "update_credits": update_credits,
+                    "update_net_payment_terms_days": update_net_payment_terms_days,
                     "update_prepaid_balance_threshold_configuration": update_prepaid_balance_threshold_configuration,
                     "update_recurring_commits": update_recurring_commits,
                     "update_recurring_credits": update_recurring_credits,

@@ -45,8 +45,9 @@ class LineItemAppliedCommitOrCredit(BaseModel):
 
 
 class LineItemOrigin(BaseModel):
-    """
-    Account hierarchy M3 - Present on line items from invoices with type USAGE_CONSOLIDATED. Indicates the original customer, contract, invoice and line item from which this line item was copied.
+    """Present on line items from invoices with type USAGE_CONSOLIDATED.
+
+    Indicates the original customer, contract, invoice and line item from which this line item was copied.
     """
 
     contract_id: str
@@ -225,10 +226,10 @@ class LineItem(BaseModel):
     netsuite_item_id: Optional[str] = None
 
     origin: Optional[LineItemOrigin] = None
-    """
-    Account hierarchy M3 - Present on line items from invoices with type
-    USAGE_CONSOLIDATED. Indicates the original customer, contract, invoice and line
-    item from which this line item was copied.
+    """Present on line items from invoices with type USAGE_CONSOLIDATED.
+
+    Indicates the original customer, contract, invoice and line item from which this
+    line item was copied.
     """
 
     postpaid_commit: Optional[LineItemPostpaidCommit] = None
@@ -460,7 +461,7 @@ class InvoiceAdjustment(BaseModel):
 
 
 class Payer(BaseModel):
-    """Account hierarchy M3 - Required for account hierarchy usage invoices.
+    """Required for account hierarchy usage invoices.
 
     An object containing the contract and customer UUIDs that pay for this invoice.
     """
@@ -532,7 +533,7 @@ class Invoice(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     constituent_invoices: Optional[List[ConstituentInvoice]] = None
-    """Account hierarchy M3 - Required on invoices with type USAGE_CONSOLIDATED.
+    """Required on invoices with type USAGE_CONSOLIDATED.
 
     List of constituent invoices that were consolidated to create this invoice.
     """
@@ -571,7 +572,7 @@ class Invoice(BaseModel):
     """This field's availability is dependent on your client's configuration."""
 
     payer: Optional[Payer] = None
-    """Account hierarchy M3 - Required for account hierarchy usage invoices.
+    """Required for account hierarchy usage invoices.
 
     An object containing the contract and customer UUIDs that pay for this invoice.
     """

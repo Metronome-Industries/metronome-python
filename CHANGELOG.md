@@ -1,5 +1,34 @@
 # Changelog
 
+## 4.1.0 (2026-02-04)
+
+Full Changelog: [v4.0.0...v4.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.0.0...v4.1.0)
+
+### Features
+
+* Add `exclude` field to commit and override specifiers shape in the API ([924202e](https://github.com/Metronome-Industries/metronome-python/commit/924202e951e65f67691402d3e5b3556740328da3))
+* **api:** Add getNetBalance endpoint ([d1335f9](https://github.com/Metronome-Industries/metronome-python/commit/d1335f9617bf64f8be39c16d882bbdb91089db1e))
+* bump schema version and update code to support TieredPercentage rate ([9b583a2](https://github.com/Metronome-Industries/metronome-python/commit/9b583a264e2d703b700a4c216e991a8ed42ddb73))
+* **client:** add custom JSON encoder for extended type support ([a76020d](https://github.com/Metronome-Industries/metronome-python/commit/a76020d5569fe1ec31bcf2c79ed7e69f8c7662eb))
+* Expose add revenue config in edit contract api ([5422277](https://github.com/Metronome-Industries/metronome-python/commit/5422277dc61e40efe4c0f47d7f8e2a238ecdcad4))
+* release account hierarchy ([656b37c](https://github.com/Metronome-Industries/metronome-python/commit/656b37c265cd5c7b7fa0a60f78660dce15a7a6a2))
+* update api to allow editing net payment terms ([dd4c885](https://github.com/Metronome-Industries/metronome-python/commit/dd4c88549c93cf369b57c97029a073a9b7b3cf3c))
+
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([5b446b6](https://github.com/Metronome-Industries/metronome-python/commit/5b446b6f3459edb8ceadad163e3a0f2906b2ee4a))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([289b5eb](https://github.com/Metronome-Industries/metronome-python/commit/289b5ebdbdff707f1080af12d9bdd2f9621408e4))
+
+
+### Documentation
+
+* Update package docs for GA ([83d58c1](https://github.com/Metronome-Industries/metronome-python/commit/83d58c14e4e48a6bf66bec5c0c833739331122dc))
+
 ## 4.0.0 (2026-01-17)
 
 Full Changelog: [v3.2.0...v4.0.0](https://github.com/Metronome-Industries/metronome-python/compare/v3.2.0...v4.0.0)

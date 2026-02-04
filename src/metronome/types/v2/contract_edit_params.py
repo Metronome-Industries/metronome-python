@@ -56,6 +56,9 @@ __all__ = [
     "AddResellerRoyalty",
     "AddResellerRoyaltyAwsOptions",
     "AddResellerRoyaltyGcpOptions",
+    "AddRevenueSystemConfigurationUpdate",
+    "AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration",
+    "AddRevenueSystemConfigurationUpdateSchedule",
     "AddScheduledCharge",
     "AddScheduledChargeSchedule",
     "AddScheduledChargeScheduleRecurringSchedule",
@@ -140,6 +143,13 @@ class ContractEditParams(TypedDict, total=False):
 
     add_reseller_royalties: Iterable[AddResellerRoyalty]
 
+    add_revenue_system_configuration_update: AddRevenueSystemConfigurationUpdate
+    """Update the revenue system configuration on the contract.
+
+    Currently only supports adding a revenue system configuration to a contract that
+    does not already have one.
+    """
+
     add_scheduled_charges: Iterable[AddScheduledCharge]
 
     add_spend_threshold_configuration: SpendThresholdConfigurationV2
@@ -186,6 +196,12 @@ class ContractEditParams(TypedDict, total=False):
     """
 
     update_credits: Iterable[UpdateCredit]
+
+    update_net_payment_terms_days: Optional[float]
+    """Number of days after issuance of invoice after which the invoice is due (e.g.
+
+    Net 30).
+    """
 
     update_prepaid_balance_threshold_configuration: UpdatePrepaidBalanceThresholdConfiguration
 
@@ -745,7 +761,7 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
 class AddOverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
 
-    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "CUSTOM"]]
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     credit_type_id: str
 
@@ -1179,6 +1195,31 @@ class AddResellerRoyalty(TypedDict, total=False):
     reseller_contract_value: float
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
+
+class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, total=False):
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
+    provider: Literal["netsuite"]
+    """The revenue system provider type."""
+
+    revenue_system_configuration_id: str
+
+
+class AddRevenueSystemConfigurationUpdateSchedule(TypedDict, total=False):
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
+    """When the revenue system configuration update will take effect."""
+
+
+class AddRevenueSystemConfigurationUpdate(TypedDict, total=False):
+    """Update the revenue system configuration on the contract.
+
+    Currently only supports adding a revenue system configuration to a contract that does not already have one.
+    """
+
+    revenue_system_configuration: Required[AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration]
+
+    schedule: Required[AddRevenueSystemConfigurationUpdateSchedule]
 
 
 class AddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):

@@ -1,6 +1,6 @@
 [project]
 name = "metronome-sdk"
-version = "4.0.0"
+version = "4.1.0"
 description = "The official Python library for the metronome API"
 dynamic = ["readme"]
 license = "Apache-2.0"

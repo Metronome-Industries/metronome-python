@@ -463,6 +463,14 @@ class TestContracts:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
+            add_revenue_system_configuration_update={
+                "revenue_system_configuration": {
+                    "delivery_method": "direct_to_billing_provider",
+                    "provider": "netsuite",
+                    "revenue_system_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                },
+                "schedule": {"effective_at": "START_OF_CURRENT_PERIOD"},
+            },
             add_scheduled_charges=[
                 {
                     "product_id": "2e30f074-d04c-412e-a134-851ebfa5ceb2",
@@ -632,6 +640,7 @@ class TestContracts:
                     "rate_type": "LIST_RATE",
                 }
             ],
+            update_net_payment_terms_days=0,
             update_prepaid_balance_threshold_configuration={
                 "commit": {
                     "description": "description",
@@ -1461,6 +1470,14 @@ class TestAsyncContracts:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
+            add_revenue_system_configuration_update={
+                "revenue_system_configuration": {
+                    "delivery_method": "direct_to_billing_provider",
+                    "provider": "netsuite",
+                    "revenue_system_configuration_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                },
+                "schedule": {"effective_at": "START_OF_CURRENT_PERIOD"},
+            },
             add_scheduled_charges=[
                 {
                     "product_id": "2e30f074-d04c-412e-a134-851ebfa5ceb2",
@@ -1630,6 +1647,7 @@ class TestAsyncContracts:
                     "rate_type": "LIST_RATE",
                 }
             ],
+            update_net_payment_terms_days=0,
             update_prepaid_balance_threshold_configuration={
                 "commit": {
                     "description": "description",

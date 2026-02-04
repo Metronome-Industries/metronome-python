@@ -9,8 +9,16 @@ __all__ = ["CommitSpecifierInput"]
 
 class CommitSpecifierInput(BaseModel):
     presentation_group_values: Optional[Dict[str, str]] = None
+    """
+    If provided, the specifier will apply to product usage with these set of
+    presentation group values.
+    """
 
     pricing_group_values: Optional[Dict[str, str]] = None
+    """
+    If provided, the specifier will apply to product usage with these set of pricing
+    group values.
+    """
 
     product_id: Optional[str] = None
     """
