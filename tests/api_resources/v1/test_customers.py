@@ -438,6 +438,10 @@ class TestCustomers:
                     "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
+                {
+                    "billing_provider": "netsuite",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
             ],
         )
         assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
@@ -464,6 +468,10 @@ class TestCustomers:
                 },
                 {
                     "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "netsuite",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -496,6 +504,10 @@ class TestCustomers:
                 },
                 {
                     "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "netsuite",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -1053,6 +1065,10 @@ class TestAsyncCustomers:
                     "billing_provider": "gcp_marketplace",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
+                {
+                    "billing_provider": "netsuite",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
             ],
         )
         assert_matches_type(CustomerSetBillingConfigurationsResponse, customer, path=["response"])
@@ -1079,6 +1095,10 @@ class TestAsyncCustomers:
                 },
                 {
                     "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "netsuite",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
@@ -1111,6 +1131,10 @@ class TestAsyncCustomers:
                 },
                 {
                     "billing_provider": "gcp_marketplace",
+                    "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
+                },
+                {
+                    "billing_provider": "netsuite",
                     "customer_id": "4db51251-61de-4bfe-b9ce-495e244f3491",
                 },
             ],
