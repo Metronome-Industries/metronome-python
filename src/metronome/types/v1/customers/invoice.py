@@ -290,6 +290,12 @@ class LineItem(BaseModel):
     subscription_custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
+    subscription_id: Optional[str] = None
+    """ID of the subscription that this line item is associated with.
+
+    Only present on line items with product of `SUBSCRIPTION` type.
+    """
+
     tier: Optional[LineItemTier] = None
     """Populated if the line item has a tiered price."""
 
