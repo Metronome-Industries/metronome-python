@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.2.0 (2026-02-13)
+
+Full Changelog: [v4.1.0...v4.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.1.0...v4.2.0)
+
+### Features
+
+* **api:** add subscription_id field to invoice LineItem ([2524836](https://github.com/Metronome-Industries/metronome-python/commit/2524836354f7f6f94cbfabc6c6eda37b47f94df1))
+
+
+### Chores
+
+* format all `api.md` files ([e8f088e](https://github.com/Metronome-Industries/metronome-python/commit/e8f088e5304fa608317cdab83940a32b373b650b))
+* **internal:** bump dependencies ([aecddba](https://github.com/Metronome-Industries/metronome-python/commit/aecddba4fd1728906b822db703828355f23ce559))
+* **internal:** fix lint error on Python 3.14 ([447bc85](https://github.com/Metronome-Industries/metronome-python/commit/447bc852c549102049d49342a15d6f85f6ff2ec8))
+* **tests:** add netsuite billing provider to customers test fixtures ([645f131](https://github.com/Metronome-Industries/metronome-python/commit/645f131e8e61abda5865c8bf2a968b5618793fbb))
+
 ## 4.1.0 (2026-02-04)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.0.0...v4.1.0)
