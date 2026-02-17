@@ -132,9 +132,6 @@ class Contract(BaseModel):
 
     prepaid_balance_threshold_configuration: Optional[PrepaidBalanceThresholdConfiguration] = None
 
-    priority: Optional[float] = None
-    """Priority of the contract."""
-
     scheduled_charges_on_usage_invoices: Optional[Literal["ALL"]] = None
     """
     Determines which scheduled and commit charges to consolidate onto the Contract's
