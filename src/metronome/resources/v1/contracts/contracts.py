@@ -134,7 +134,6 @@ class ContractsResource(SyncAPIResource):
         package_alias: str | Omit = omit,
         package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
-        priority: float | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
         rate_card_alias: str | Omit = omit,
         rate_card_id: str | Omit = omit,
@@ -310,8 +309,6 @@ class ContractsResource(SyncAPIResource):
               traditional contract. When specified, only customer_id, starting_at, package_id,
               and uniqueness_key are allowed.
 
-          priority: Priority of the contract.
-
           professional_services: This field's availability is dependent on your client's configuration.
 
           rate_card_alias: Selects the rate card linked to the specified alias as of the contract's start
@@ -369,7 +366,6 @@ class ContractsResource(SyncAPIResource):
                     "package_alias": package_alias,
                     "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
-                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,
@@ -1379,7 +1375,6 @@ class AsyncContractsResource(AsyncAPIResource):
         package_alias: str | Omit = omit,
         package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
-        priority: float | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
         rate_card_alias: str | Omit = omit,
         rate_card_id: str | Omit = omit,
@@ -1555,8 +1550,6 @@ class AsyncContractsResource(AsyncAPIResource):
               traditional contract. When specified, only customer_id, starting_at, package_id,
               and uniqueness_key are allowed.
 
-          priority: Priority of the contract.
-
           professional_services: This field's availability is dependent on your client's configuration.
 
           rate_card_alias: Selects the rate card linked to the specified alias as of the contract's start
@@ -1614,7 +1607,6 @@ class AsyncContractsResource(AsyncAPIResource):
                     "package_alias": package_alias,
                     "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
-                    "priority": priority,
                     "professional_services": professional_services,
                     "rate_card_alias": rate_card_alias,
                     "rate_card_id": rate_card_id,

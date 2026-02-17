@@ -130,9 +130,6 @@ class ContractCreateParams(TypedDict, total=False):
 
     prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
 
-    priority: float
-    """Priority of the contract."""
-
     professional_services: Iterable[ProfessionalService]
     """This field's availability is dependent on your client's configuration."""
 
