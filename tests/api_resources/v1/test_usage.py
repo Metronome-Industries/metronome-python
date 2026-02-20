@@ -149,9 +149,11 @@ class TestUsage:
             current_period=True,
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             group_by={
-                "key": "region",
-                "values": ["US-East", "US-West", "EU-Central"],
+                "key": "key",
+                "values": ["x"],
             },
+            group_filters={"region": ["us-east1", "us-west1"]},
+            group_key=["region"],
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
         )
         assert_matches_type(SyncCursorPage[UsageListWithGroupsResponse], usage, path=["response"])
@@ -342,9 +344,11 @@ class TestAsyncUsage:
             current_period=True,
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             group_by={
-                "key": "region",
-                "values": ["US-East", "US-West", "EU-Central"],
+                "key": "key",
+                "values": ["x"],
             },
+            group_filters={"region": ["us-east1", "us-west1"]},
+            group_key=["region"],
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
         )
         assert_matches_type(AsyncCursorPage[UsageListWithGroupsResponse], usage, path=["response"])
