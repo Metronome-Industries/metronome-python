@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Dict, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -273,6 +273,8 @@ class UsageResource(SyncAPIResource):
         current_period: bool | Omit = omit,
         ending_before: Union[str, datetime] | Omit = omit,
         group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+        group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
+        group_key: SequenceNotStr[str] | Omit = omit,
         starting_on: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -299,8 +301,11 @@ class UsageResource(SyncAPIResource):
         An array of `PagedUsageAggregate` objects containing:
 
         - `starting_on` and `ending_before`: Time window boundaries
-        - `group_key`: The dimension being grouped by (e.g., "region")
-        - `group_value`: The specific value for this group (e.g., "US-East")
+        - `group`: Object mapping group keys to their values
+          - For simple groups, this will be a map with a single key-value pair (e.g.,
+            `{"region": "US-East"}`)
+          - For compound groups, this will be a map with multiple key-value pairs (e.g.,
+            `{"region": "US-East", "team": "engineering"}`)
         - `value`: Aggregated usage for this group and time window
         - `next_page`: Pagination cursor for large datasets
 
@@ -310,12 +315,13 @@ class UsageResource(SyncAPIResource):
           `window_size`
         - Time windows: Set `window_size` to hour, day, or none for different
           granularities
-        - Group filtering: Use `group_by` to specify:
-          - key: The dimension to group by (must be set on the billable metric as a
-            group key)
-          - values: Optional array to filter to specific values only
+        - Group filtering: Use `group_key` and `group_filters` to specify groups and
+          group filters
+        - Limits: When using compound group keys (2+ keys in `group_key`), the default
+          and max limit is 100
         - Pagination: Use limit and `next_page` for large result sets
-        - Null handling: `group_value` may be null for unmatched data
+        - Null handling: Group values may be null for events missing the group key
+          property
 
         Args:
           window_size: A window_size of "day" or "hour" will return the usage for the specified period
@@ -329,6 +335,25 @@ class UsageResource(SyncAPIResource):
           current_period: If true, will return the usage for the current billing period. Will return an
               error if the customer is currently uncontracted or starting_on and ending_before
               are specified when this is true.
+
+          group_by: Use group_key and group_filters instead. Use a single group key to group by.
+              Compound group keys are not supported.
+
+          group_filters: Object mapping group keys to arrays of values to filter on. Only usage matching
+              these filter values will be returned. Keys must be present in group_key. Omit a
+              key or use an empty array to include all values for that dimension.
+
+          group_key: Group key to group usage by. Supports both simple (single key) and compound
+              (multiple keys) group keys.
+
+              For simple group keys, provide a single key e.g. `["region"]`. For compound
+              group keys, provide multiple keys e.g. `["region", "team"]`.
+
+              For streaming metrics, the keys must be defined as a simple or compound group
+              key on the billable metric. For compound group keys, all keys must match an
+              exact compound group key definition — partial matches are not allowed.
+
+              Cannot be used together with `group_by`.
 
           extra_headers: Send extra headers
 
@@ -349,6 +374,8 @@ class UsageResource(SyncAPIResource):
                     "current_period": current_period,
                     "ending_before": ending_before,
                     "group_by": group_by,
+                    "group_filters": group_filters,
+                    "group_key": group_key,
                     "starting_on": starting_on,
                 },
                 usage_list_with_groups_params.UsageListWithGroupsParams,
@@ -683,6 +710,8 @@ class AsyncUsageResource(AsyncAPIResource):
         current_period: bool | Omit = omit,
         ending_before: Union[str, datetime] | Omit = omit,
         group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+        group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
+        group_key: SequenceNotStr[str] | Omit = omit,
         starting_on: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -709,8 +738,11 @@ class AsyncUsageResource(AsyncAPIResource):
         An array of `PagedUsageAggregate` objects containing:
 
         - `starting_on` and `ending_before`: Time window boundaries
-        - `group_key`: The dimension being grouped by (e.g., "region")
-        - `group_value`: The specific value for this group (e.g., "US-East")
+        - `group`: Object mapping group keys to their values
+          - For simple groups, this will be a map with a single key-value pair (e.g.,
+            `{"region": "US-East"}`)
+          - For compound groups, this will be a map with multiple key-value pairs (e.g.,
+            `{"region": "US-East", "team": "engineering"}`)
         - `value`: Aggregated usage for this group and time window
         - `next_page`: Pagination cursor for large datasets
 
@@ -720,12 +752,13 @@ class AsyncUsageResource(AsyncAPIResource):
           `window_size`
         - Time windows: Set `window_size` to hour, day, or none for different
           granularities
-        - Group filtering: Use `group_by` to specify:
-          - key: The dimension to group by (must be set on the billable metric as a
-            group key)
-          - values: Optional array to filter to specific values only
+        - Group filtering: Use `group_key` and `group_filters` to specify groups and
+          group filters
+        - Limits: When using compound group keys (2+ keys in `group_key`), the default
+          and max limit is 100
         - Pagination: Use limit and `next_page` for large result sets
-        - Null handling: `group_value` may be null for unmatched data
+        - Null handling: Group values may be null for events missing the group key
+          property
 
         Args:
           window_size: A window_size of "day" or "hour" will return the usage for the specified period
@@ -739,6 +772,25 @@ class AsyncUsageResource(AsyncAPIResource):
           current_period: If true, will return the usage for the current billing period. Will return an
               error if the customer is currently uncontracted or starting_on and ending_before
               are specified when this is true.
+
+          group_by: Use group_key and group_filters instead. Use a single group key to group by.
+              Compound group keys are not supported.
+
+          group_filters: Object mapping group keys to arrays of values to filter on. Only usage matching
+              these filter values will be returned. Keys must be present in group_key. Omit a
+              key or use an empty array to include all values for that dimension.
+
+          group_key: Group key to group usage by. Supports both simple (single key) and compound
+              (multiple keys) group keys.
+
+              For simple group keys, provide a single key e.g. `["region"]`. For compound
+              group keys, provide multiple keys e.g. `["region", "team"]`.
+
+              For streaming metrics, the keys must be defined as a simple or compound group
+              key on the billable metric. For compound group keys, all keys must match an
+              exact compound group key definition — partial matches are not allowed.
+
+              Cannot be used together with `group_by`.
 
           extra_headers: Send extra headers
 
@@ -759,6 +811,8 @@ class AsyncUsageResource(AsyncAPIResource):
                     "current_period": current_period,
                     "ending_before": ending_before,
                     "group_by": group_by,
+                    "group_filters": group_filters,
+                    "group_key": group_key,
                     "starting_on": starting_on,
                 },
                 usage_list_with_groups_params.UsageListWithGroupsParams,

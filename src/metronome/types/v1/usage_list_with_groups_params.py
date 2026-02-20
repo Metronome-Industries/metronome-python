@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -40,11 +40,43 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     group_by: GroupBy
+    """Use group_key and group_filters instead.
+
+    Use a single group key to group by. Compound group keys are not supported.
+    """
+
+    group_filters: Dict[str, SequenceNotStr[str]]
+    """Object mapping group keys to arrays of values to filter on.
+
+    Only usage matching these filter values will be returned. Keys must be present
+    in group_key. Omit a key or use an empty array to include all values for that
+    dimension.
+    """
+
+    group_key: SequenceNotStr[str]
+    """Group key to group usage by.
+
+    Supports both simple (single key) and compound (multiple keys) group keys.
+
+    For simple group keys, provide a single key e.g. `["region"]`. For compound
+    group keys, provide multiple keys e.g. `["region", "team"]`.
+
+    For streaming metrics, the keys must be defined as a simple or compound group
+    key on the billable metric. For compound group keys, all keys must match an
+    exact compound group key definition — partial matches are not allowed.
+
+    Cannot be used together with `group_by`.
+    """
 
     starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
 
 class GroupBy(TypedDict, total=False):
+    """Use group_key and group_filters instead.
+
+    Use a single group key to group by. Compound group keys are not supported.
+    """
+
     key: Required[str]
     """The name of the group_by key to use"""
 
