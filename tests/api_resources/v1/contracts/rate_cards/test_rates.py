@@ -101,6 +101,7 @@ class TestRates:
             billing_frequency="MONTHLY",
             commit_rate={
                 "rate_type": "FLAT",
+                "minimum_config": {"minimum": 0},
                 "price": 0,
                 "tiers": [
                     {
@@ -113,6 +114,7 @@ class TestRates:
             custom_rate={"foo": "bar"},
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             is_prorated=True,
+            minimum_config={"minimum": 0},
             price=100,
             pricing_group_values={"foo": "string"},
             quantity=0,
@@ -314,6 +316,7 @@ class TestAsyncRates:
             billing_frequency="MONTHLY",
             commit_rate={
                 "rate_type": "FLAT",
+                "minimum_config": {"minimum": 0},
                 "price": 0,
                 "tiers": [
                     {
@@ -326,6 +329,7 @@ class TestAsyncRates:
             custom_rate={"foo": "bar"},
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             is_prorated=True,
+            minimum_config={"minimum": 0},
             price=100,
             pricing_group_values={"foo": "string"},
             quantity=0,
