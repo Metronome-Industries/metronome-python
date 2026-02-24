@@ -10,7 +10,7 @@ from ....._utils import PropertyInfo
 from ....shared_params.tier import Tier
 from ....shared_params.commit_rate import CommitRate
 
-__all__ = ["RateAddParams"]
+__all__ = ["RateAddParams", "MinimumConfig"]
 
 
 class RateAddParams(TypedDict, total=False):
@@ -63,6 +63,9 @@ class RateAddParams(TypedDict, total=False):
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
 
+    minimum_config: MinimumConfig
+    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
+
     price: float
     """Default price.
 
@@ -81,3 +84,9 @@ class RateAddParams(TypedDict, total=False):
 
     tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
+
+
+class MinimumConfig(TypedDict, total=False):
+    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
+
+    minimum: Required[float]
