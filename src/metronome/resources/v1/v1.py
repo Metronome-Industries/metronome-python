@@ -34,6 +34,14 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
+from .packages import (
+    PackagesResource,
+    AsyncPackagesResource,
+    PackagesResourceWithRawResponse,
+    AsyncPackagesResourceWithRawResponse,
+    PackagesResourceWithStreamingResponse,
+    AsyncPackagesResourceWithStreamingResponse,
+)
 from .payments import (
     PaymentsResource,
     AsyncPaymentsResource,
@@ -182,6 +190,10 @@ class V1Resource(SyncAPIResource):
         return ContractsResource(self._client)
 
     @cached_property
+    def packages(self) -> PackagesResource:
+        return PackagesResource(self._client)
+
+    @cached_property
     def payments(self) -> PaymentsResource:
         return PaymentsResource(self._client)
 
@@ -261,6 +273,10 @@ class AsyncV1Resource(AsyncAPIResource):
     @cached_property
     def contracts(self) -> AsyncContractsResource:
         return AsyncContractsResource(self._client)
+
+    @cached_property
+    def packages(self) -> AsyncPackagesResource:
+        return AsyncPackagesResource(self._client)
 
     @cached_property
     def payments(self) -> AsyncPaymentsResource:
@@ -347,6 +363,10 @@ class V1ResourceWithRawResponse:
         return ContractsResourceWithRawResponse(self._v1.contracts)
 
     @cached_property
+    def packages(self) -> PackagesResourceWithRawResponse:
+        return PackagesResourceWithRawResponse(self._v1.packages)
+
+    @cached_property
     def payments(self) -> PaymentsResourceWithRawResponse:
         return PaymentsResourceWithRawResponse(self._v1.payments)
 
@@ -410,6 +430,10 @@ class AsyncV1ResourceWithRawResponse:
     @cached_property
     def contracts(self) -> AsyncContractsResourceWithRawResponse:
         return AsyncContractsResourceWithRawResponse(self._v1.contracts)
+
+    @cached_property
+    def packages(self) -> AsyncPackagesResourceWithRawResponse:
+        return AsyncPackagesResourceWithRawResponse(self._v1.packages)
 
     @cached_property
     def payments(self) -> AsyncPaymentsResourceWithRawResponse:
@@ -477,6 +501,10 @@ class V1ResourceWithStreamingResponse:
         return ContractsResourceWithStreamingResponse(self._v1.contracts)
 
     @cached_property
+    def packages(self) -> PackagesResourceWithStreamingResponse:
+        return PackagesResourceWithStreamingResponse(self._v1.packages)
+
+    @cached_property
     def payments(self) -> PaymentsResourceWithStreamingResponse:
         return PaymentsResourceWithStreamingResponse(self._v1.payments)
 
@@ -540,6 +568,10 @@ class AsyncV1ResourceWithStreamingResponse:
     @cached_property
     def contracts(self) -> AsyncContractsResourceWithStreamingResponse:
         return AsyncContractsResourceWithStreamingResponse(self._v1.contracts)
+
+    @cached_property
+    def packages(self) -> AsyncPackagesResourceWithStreamingResponse:
+        return AsyncPackagesResourceWithStreamingResponse(self._v1.packages)
 
     @cached_property
     def payments(self) -> AsyncPaymentsResourceWithStreamingResponse:
