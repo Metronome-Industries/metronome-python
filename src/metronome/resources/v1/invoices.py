@@ -23,6 +23,10 @@ __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
 
 class InvoicesResource(SyncAPIResource):
+    """
+    [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+    """
+
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -133,6 +137,10 @@ class InvoicesResource(SyncAPIResource):
 
 
 class AsyncInvoicesResource(AsyncAPIResource):
+    """
+    [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """

@@ -85,14 +85,20 @@ __all__ = ["ContractsResource", "AsyncContractsResource"]
 class ContractsResource(SyncAPIResource):
     @cached_property
     def products(self) -> ProductsResource:
+        """Products are the items that customers purchase."""
         return ProductsResource(self._client)
 
     @cached_property
     def rate_cards(self) -> RateCardsResource:
+        """Rate cards are used to define default pricing for products."""
         return RateCardsResource(self._client)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResource:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResource(self._client)
 
     @cached_property
@@ -1326,14 +1332,20 @@ class ContractsResource(SyncAPIResource):
 class AsyncContractsResource(AsyncAPIResource):
     @cached_property
     def products(self) -> AsyncProductsResource:
+        """Products are the items that customers purchase."""
         return AsyncProductsResource(self._client)
 
     @cached_property
     def rate_cards(self) -> AsyncRateCardsResource:
+        """Rate cards are used to define default pricing for products."""
         return AsyncRateCardsResource(self._client)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResource:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResource(self._client)
 
     @cached_property
@@ -2613,14 +2625,20 @@ class ContractsResourceWithRawResponse:
 
     @cached_property
     def products(self) -> ProductsResourceWithRawResponse:
+        """Products are the items that customers purchase."""
         return ProductsResourceWithRawResponse(self._contracts.products)
 
     @cached_property
     def rate_cards(self) -> RateCardsResourceWithRawResponse:
+        """Rate cards are used to define default pricing for products."""
         return RateCardsResourceWithRawResponse(self._contracts.rate_cards)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResourceWithRawResponse(self._contracts.named_schedules)
 
 
@@ -2673,14 +2691,20 @@ class AsyncContractsResourceWithRawResponse:
 
     @cached_property
     def products(self) -> AsyncProductsResourceWithRawResponse:
+        """Products are the items that customers purchase."""
         return AsyncProductsResourceWithRawResponse(self._contracts.products)
 
     @cached_property
     def rate_cards(self) -> AsyncRateCardsResourceWithRawResponse:
+        """Rate cards are used to define default pricing for products."""
         return AsyncRateCardsResourceWithRawResponse(self._contracts.rate_cards)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResourceWithRawResponse(self._contracts.named_schedules)
 
 
@@ -2733,14 +2757,20 @@ class ContractsResourceWithStreamingResponse:
 
     @cached_property
     def products(self) -> ProductsResourceWithStreamingResponse:
+        """Products are the items that customers purchase."""
         return ProductsResourceWithStreamingResponse(self._contracts.products)
 
     @cached_property
     def rate_cards(self) -> RateCardsResourceWithStreamingResponse:
+        """Rate cards are used to define default pricing for products."""
         return RateCardsResourceWithStreamingResponse(self._contracts.rate_cards)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResourceWithStreamingResponse(self._contracts.named_schedules)
 
 
@@ -2793,12 +2823,18 @@ class AsyncContractsResourceWithStreamingResponse:
 
     @cached_property
     def products(self) -> AsyncProductsResourceWithStreamingResponse:
+        """Products are the items that customers purchase."""
         return AsyncProductsResourceWithStreamingResponse(self._contracts.products)
 
     @cached_property
     def rate_cards(self) -> AsyncRateCardsResourceWithStreamingResponse:
+        """Rate cards are used to define default pricing for products."""
         return AsyncRateCardsResourceWithStreamingResponse(self._contracts.rate_cards)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithStreamingResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResourceWithStreamingResponse(self._contracts.named_schedules)

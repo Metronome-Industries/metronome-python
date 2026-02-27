@@ -25,6 +25,8 @@ __all__ = ["ProductOrdersResource", "AsyncProductOrdersResource"]
 
 
 class ProductOrdersResource(SyncAPIResource):
+    """Rate cards are used to define default pricing for products."""
+
     @cached_property
     def with_raw_response(self) -> ProductOrdersResourceWithRawResponse:
         """
@@ -133,6 +135,8 @@ class ProductOrdersResource(SyncAPIResource):
 
 
 class AsyncProductOrdersResource(AsyncAPIResource):
+    """Rate cards are used to define default pricing for products."""
+
     @cached_property
     def with_raw_response(self) -> AsyncProductOrdersResourceWithRawResponse:
         """

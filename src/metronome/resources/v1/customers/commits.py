@@ -30,6 +30,8 @@ __all__ = ["CommitsResource", "AsyncCommitsResource"]
 
 
 class CommitsResource(SyncAPIResource):
+    """Credits and commits are used to manage customer balances."""
+
     @cached_property
     def with_raw_response(self) -> CommitsResourceWithRawResponse:
         """
@@ -416,6 +418,8 @@ class CommitsResource(SyncAPIResource):
 
 
 class AsyncCommitsResource(AsyncAPIResource):
+    """Credits and commits are used to manage customer balances."""
+
     @cached_property
     def with_raw_response(self) -> AsyncCommitsResourceWithRawResponse:
         """

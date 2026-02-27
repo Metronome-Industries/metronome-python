@@ -106,30 +106,48 @@ __all__ = ["CustomersResource", "AsyncCustomersResource"]
 class CustomersResource(SyncAPIResource):
     @cached_property
     def alerts(self) -> AlertsResource:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AlertsResource(self._client)
 
     @cached_property
     def plans(self) -> PlansResource:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return PlansResource(self._client)
 
     @cached_property
     def invoices(self) -> InvoicesResource:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return InvoicesResource(self._client)
 
     @cached_property
     def billing_config(self) -> BillingConfigResource:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return BillingConfigResource(self._client)
 
     @cached_property
     def commits(self) -> CommitsResource:
+        """Credits and commits are used to manage customer balances."""
         return CommitsResource(self._client)
 
     @cached_property
     def credits(self) -> CreditsResource:
+        """Credits and commits are used to manage customer balances."""
         return CreditsResource(self._client)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResource:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResource(self._client)
 
     @cached_property
@@ -849,30 +867,48 @@ class CustomersResource(SyncAPIResource):
 class AsyncCustomersResource(AsyncAPIResource):
     @cached_property
     def alerts(self) -> AsyncAlertsResource:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AsyncAlertsResource(self._client)
 
     @cached_property
     def plans(self) -> AsyncPlansResource:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return AsyncPlansResource(self._client)
 
     @cached_property
     def invoices(self) -> AsyncInvoicesResource:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return AsyncInvoicesResource(self._client)
 
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResource:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return AsyncBillingConfigResource(self._client)
 
     @cached_property
     def commits(self) -> AsyncCommitsResource:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCommitsResource(self._client)
 
     @cached_property
     def credits(self) -> AsyncCreditsResource:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCreditsResource(self._client)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResource:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResource(self._client)
 
     @cached_property
@@ -1632,30 +1668,48 @@ class CustomersResourceWithRawResponse:
 
     @cached_property
     def alerts(self) -> AlertsResourceWithRawResponse:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AlertsResourceWithRawResponse(self._customers.alerts)
 
     @cached_property
     def plans(self) -> PlansResourceWithRawResponse:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return PlansResourceWithRawResponse(self._customers.plans)
 
     @cached_property
     def invoices(self) -> InvoicesResourceWithRawResponse:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return InvoicesResourceWithRawResponse(self._customers.invoices)
 
     @cached_property
     def billing_config(self) -> BillingConfigResourceWithRawResponse:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return BillingConfigResourceWithRawResponse(self._customers.billing_config)
 
     @cached_property
     def commits(self) -> CommitsResourceWithRawResponse:
+        """Credits and commits are used to manage customer balances."""
         return CommitsResourceWithRawResponse(self._customers.commits)
 
     @cached_property
     def credits(self) -> CreditsResourceWithRawResponse:
+        """Credits and commits are used to manage customer balances."""
         return CreditsResourceWithRawResponse(self._customers.credits)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithRawResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
 
 
@@ -1702,30 +1756,48 @@ class AsyncCustomersResourceWithRawResponse:
 
     @cached_property
     def alerts(self) -> AsyncAlertsResourceWithRawResponse:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AsyncAlertsResourceWithRawResponse(self._customers.alerts)
 
     @cached_property
     def plans(self) -> AsyncPlansResourceWithRawResponse:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return AsyncPlansResourceWithRawResponse(self._customers.plans)
 
     @cached_property
     def invoices(self) -> AsyncInvoicesResourceWithRawResponse:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return AsyncInvoicesResourceWithRawResponse(self._customers.invoices)
 
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResourceWithRawResponse:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return AsyncBillingConfigResourceWithRawResponse(self._customers.billing_config)
 
     @cached_property
     def commits(self) -> AsyncCommitsResourceWithRawResponse:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCommitsResourceWithRawResponse(self._customers.commits)
 
     @cached_property
     def credits(self) -> AsyncCreditsResourceWithRawResponse:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCreditsResourceWithRawResponse(self._customers.credits)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithRawResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResourceWithRawResponse(self._customers.named_schedules)
 
 
@@ -1772,30 +1844,48 @@ class CustomersResourceWithStreamingResponse:
 
     @cached_property
     def alerts(self) -> AlertsResourceWithStreamingResponse:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AlertsResourceWithStreamingResponse(self._customers.alerts)
 
     @cached_property
     def plans(self) -> PlansResourceWithStreamingResponse:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return PlansResourceWithStreamingResponse(self._customers.plans)
 
     @cached_property
     def invoices(self) -> InvoicesResourceWithStreamingResponse:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return InvoicesResourceWithStreamingResponse(self._customers.invoices)
 
     @cached_property
     def billing_config(self) -> BillingConfigResourceWithStreamingResponse:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return BillingConfigResourceWithStreamingResponse(self._customers.billing_config)
 
     @cached_property
     def commits(self) -> CommitsResourceWithStreamingResponse:
+        """Credits and commits are used to manage customer balances."""
         return CommitsResourceWithStreamingResponse(self._customers.commits)
 
     @cached_property
     def credits(self) -> CreditsResourceWithStreamingResponse:
+        """Credits and commits are used to manage customer balances."""
         return CreditsResourceWithStreamingResponse(self._customers.credits)
 
     @cached_property
     def named_schedules(self) -> NamedSchedulesResourceWithStreamingResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return NamedSchedulesResourceWithStreamingResponse(self._customers.named_schedules)
 
 
@@ -1842,28 +1932,46 @@ class AsyncCustomersResourceWithStreamingResponse:
 
     @cached_property
     def alerts(self) -> AsyncAlertsResourceWithStreamingResponse:
+        """
+        [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
+        """
         return AsyncAlertsResourceWithStreamingResponse(self._customers.alerts)
 
     @cached_property
     def plans(self) -> AsyncPlansResourceWithStreamingResponse:
+        """
+        [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+        """
         return AsyncPlansResourceWithStreamingResponse(self._customers.plans)
 
     @cached_property
     def invoices(self) -> AsyncInvoicesResourceWithStreamingResponse:
+        """
+        [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
+        """
         return AsyncInvoicesResourceWithStreamingResponse(self._customers.invoices)
 
     @cached_property
     def billing_config(self) -> AsyncBillingConfigResourceWithStreamingResponse:
+        """
+        [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+        """
         return AsyncBillingConfigResourceWithStreamingResponse(self._customers.billing_config)
 
     @cached_property
     def commits(self) -> AsyncCommitsResourceWithStreamingResponse:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCommitsResourceWithStreamingResponse(self._customers.commits)
 
     @cached_property
     def credits(self) -> AsyncCreditsResourceWithStreamingResponse:
+        """Credits and commits are used to manage customer balances."""
         return AsyncCreditsResourceWithStreamingResponse(self._customers.credits)
 
     @cached_property
     def named_schedules(self) -> AsyncNamedSchedulesResourceWithStreamingResponse:
+        """Named schedules are used for storing custom data that can change over time.
+
+        Named schedules are often used in custom pricing logic.
+        """
         return AsyncNamedSchedulesResourceWithStreamingResponse(self._customers.named_schedules)

@@ -28,6 +28,10 @@ __all__ = ["PlansResource", "AsyncPlansResource"]
 
 
 class PlansResource(SyncAPIResource):
+    """
+    [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+    """
+
     @cached_property
     def with_raw_response(self) -> PlansResourceWithRawResponse:
         """
@@ -249,6 +253,10 @@ class PlansResource(SyncAPIResource):
 
 
 class AsyncPlansResource(AsyncAPIResource):
+    """
+    [Plans](https://docs.metronome.com/pricing-and-packaging/create-plans/) determine the base pricing for a customer. Use these endpoints to add a plan to a customer, end a customer plan, retrieve plans, and retrieve plan details. Create plans in the [Metronome app](https://app.metronome.com/plans).
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncPlansResourceWithRawResponse:
         """

@@ -20,6 +20,10 @@ __all__ = ["ServicesResource", "AsyncServicesResource"]
 
 
 class ServicesResource(SyncAPIResource):
+    """
+    [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
+    """
+
     @cached_property
     def with_raw_response(self) -> ServicesResourceWithRawResponse:
         """
@@ -67,6 +71,10 @@ class ServicesResource(SyncAPIResource):
 
 
 class AsyncServicesResource(AsyncAPIResource):
+    """
+    [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncServicesResourceWithRawResponse:
         """

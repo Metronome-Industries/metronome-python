@@ -25,6 +25,11 @@ __all__ = ["NamedSchedulesResource", "AsyncNamedSchedulesResource"]
 
 
 class NamedSchedulesResource(SyncAPIResource):
+    """Named schedules are used for storing custom data that can change over time.
+
+    Named schedules are often used in custom pricing logic.
+    """
+
     @cached_property
     def with_raw_response(self) -> NamedSchedulesResourceWithRawResponse:
         """
@@ -151,6 +156,11 @@ class NamedSchedulesResource(SyncAPIResource):
 
 
 class AsyncNamedSchedulesResource(AsyncAPIResource):
+    """Named schedules are used for storing custom data that can change over time.
+
+    Named schedules are often used in custom pricing logic.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncNamedSchedulesResourceWithRawResponse:
         """

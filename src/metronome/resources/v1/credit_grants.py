@@ -37,6 +37,10 @@ __all__ = ["CreditGrantsResource", "AsyncCreditGrantsResource"]
 
 
 class CreditGrantsResource(SyncAPIResource):
+    """
+    [Credit grants](https://docs.metronome.com/invoicing/how-billing-works/manage-credits/) adjust a customer balance for prepayments, reimbursements, promotions, and so on. Use these endpoints to create, retrieve, update, and delete credit grants.
+    """
+
     @cached_property
     def with_raw_response(self) -> CreditGrantsResourceWithRawResponse:
         """
@@ -410,6 +414,10 @@ class CreditGrantsResource(SyncAPIResource):
 
 
 class AsyncCreditGrantsResource(AsyncAPIResource):
+    """
+    [Credit grants](https://docs.metronome.com/invoicing/how-billing-works/manage-credits/) adjust a customer balance for prepayments, reimbursements, promotions, and so on. Use these endpoints to create, retrieve, update, and delete credit grants.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncCreditGrantsResourceWithRawResponse:
         """
