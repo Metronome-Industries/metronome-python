@@ -27,6 +27,10 @@ __all__ = ["AuditLogsResource", "AsyncAuditLogsResource"]
 
 
 class AuditLogsResource(SyncAPIResource):
+    """
+    [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
+    """
+
     @cached_property
     def with_raw_response(self) -> AuditLogsResourceWithRawResponse:
         """
@@ -156,6 +160,10 @@ class AuditLogsResource(SyncAPIResource):
 
 
 class AsyncAuditLogsResource(AsyncAPIResource):
+    """
+    [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncAuditLogsResourceWithRawResponse:
         """

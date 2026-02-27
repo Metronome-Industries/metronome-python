@@ -31,6 +31,10 @@ __all__ = ["BillableMetricsResource", "AsyncBillableMetricsResource"]
 
 
 class BillableMetricsResource(SyncAPIResource):
+    """
+    [Billable metrics](https://docs.metronome.com/understanding-metronome/how-metronome-works#billable-metrics) in Metronome represent the various consumption components that Metronome meters and aggregates.
+    """
+
     @cached_property
     def with_raw_response(self) -> BillableMetricsResourceWithRawResponse:
         """
@@ -294,6 +298,10 @@ class BillableMetricsResource(SyncAPIResource):
 
 
 class AsyncBillableMetricsResource(AsyncAPIResource):
+    """
+    [Billable metrics](https://docs.metronome.com/understanding-metronome/how-metronome-works#billable-metrics) in Metronome represent the various consumption components that Metronome meters and aggregates.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncBillableMetricsResourceWithRawResponse:
         """

@@ -25,6 +25,10 @@ __all__ = ["DashboardsResource", "AsyncDashboardsResource"]
 
 
 class DashboardsResource(SyncAPIResource):
+    """
+    [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+    """
+
     @cached_property
     def with_raw_response(self) -> DashboardsResourceWithRawResponse:
         """
@@ -127,6 +131,10 @@ class DashboardsResource(SyncAPIResource):
 
 
 class AsyncDashboardsResource(AsyncAPIResource):
+    """
+    [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncDashboardsResourceWithRawResponse:
         """

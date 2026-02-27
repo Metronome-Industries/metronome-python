@@ -26,6 +26,10 @@ __all__ = ["BillingProvidersResource", "AsyncBillingProvidersResource"]
 
 
 class BillingProvidersResource(SyncAPIResource):
+    """
+    Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+    """
+
     @cached_property
     def with_raw_response(self) -> BillingProvidersResourceWithRawResponse:
         """
@@ -136,6 +140,10 @@ class BillingProvidersResource(SyncAPIResource):
 
 
 class AsyncBillingProvidersResource(AsyncAPIResource):
+    """
+    Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncBillingProvidersResourceWithRawResponse:
         """

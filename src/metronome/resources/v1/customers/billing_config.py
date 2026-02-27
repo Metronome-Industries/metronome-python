@@ -24,6 +24,10 @@ __all__ = ["BillingConfigResource", "AsyncBillingConfigResource"]
 
 
 class BillingConfigResource(SyncAPIResource):
+    """
+    [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+    """
+
     @cached_property
     def with_raw_response(self) -> BillingConfigResourceWithRawResponse:
         """
@@ -252,6 +256,10 @@ class BillingConfigResource(SyncAPIResource):
 
 
 class AsyncBillingConfigResource(AsyncAPIResource):
+    """
+    [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncBillingConfigResourceWithRawResponse:
         """

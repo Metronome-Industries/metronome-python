@@ -29,6 +29,10 @@ __all__ = ["UsageResource", "AsyncUsageResource"]
 
 
 class UsageResource(SyncAPIResource):
+    """
+    [Usage events](https://docs.metronome.com/connecting-metronome/send-usage-data/) are the basis for billable metrics. Use these endpoints to send usage events to Metronome and retrieve aggregated event data.
+    """
+
     @cached_property
     def with_raw_response(self) -> UsageResourceWithRawResponse:
         """
@@ -466,6 +470,10 @@ class UsageResource(SyncAPIResource):
 
 
 class AsyncUsageResource(AsyncAPIResource):
+    """
+    [Usage events](https://docs.metronome.com/connecting-metronome/send-usage-data/) are the basis for billable metrics. Use these endpoints to send usage events to Metronome and retrieve aggregated event data.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncUsageResourceWithRawResponse:
         """

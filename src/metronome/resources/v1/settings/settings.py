@@ -32,8 +32,15 @@ __all__ = ["SettingsResource", "AsyncSettingsResource"]
 
 
 class SettingsResource(SyncAPIResource):
+    """
+    Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+    """
+
     @cached_property
     def billing_providers(self) -> BillingProvidersResource:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return BillingProvidersResource(self._client)
 
     @cached_property
@@ -117,8 +124,15 @@ class SettingsResource(SyncAPIResource):
 
 
 class AsyncSettingsResource(AsyncAPIResource):
+    """
+    Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+    """
+
     @cached_property
     def billing_providers(self) -> AsyncBillingProvidersResource:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return AsyncBillingProvidersResource(self._client)
 
     @cached_property
@@ -211,6 +225,9 @@ class SettingsResourceWithRawResponse:
 
     @cached_property
     def billing_providers(self) -> BillingProvidersResourceWithRawResponse:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return BillingProvidersResourceWithRawResponse(self._settings.billing_providers)
 
 
@@ -224,6 +241,9 @@ class AsyncSettingsResourceWithRawResponse:
 
     @cached_property
     def billing_providers(self) -> AsyncBillingProvidersResourceWithRawResponse:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return AsyncBillingProvidersResourceWithRawResponse(self._settings.billing_providers)
 
 
@@ -237,6 +257,9 @@ class SettingsResourceWithStreamingResponse:
 
     @cached_property
     def billing_providers(self) -> BillingProvidersResourceWithStreamingResponse:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return BillingProvidersResourceWithStreamingResponse(self._settings.billing_providers)
 
 
@@ -250,4 +273,7 @@ class AsyncSettingsResourceWithStreamingResponse:
 
     @cached_property
     def billing_providers(self) -> AsyncBillingProvidersResourceWithStreamingResponse:
+        """
+        Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
+        """
         return AsyncBillingProvidersResourceWithStreamingResponse(self._settings.billing_providers)

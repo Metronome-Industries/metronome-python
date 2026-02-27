@@ -32,6 +32,10 @@ __all__ = ["CustomFieldsResource", "AsyncCustomFieldsResource"]
 
 
 class CustomFieldsResource(SyncAPIResource):
+    """
+    [Custom fields](https://docs.metronome.com/integrations/custom-fields/) enable adding additional data to Metronome entities. Use these endpoints to create, retrieve, update, and delete custom fields.
+    """
+
     @cached_property
     def with_raw_response(self) -> CustomFieldsResourceWithRawResponse:
         """
@@ -426,6 +430,10 @@ class CustomFieldsResource(SyncAPIResource):
 
 
 class AsyncCustomFieldsResource(AsyncAPIResource):
+    """
+    [Custom fields](https://docs.metronome.com/integrations/custom-fields/) enable adding additional data to Metronome entities. Use these endpoints to create, retrieve, update, and delete custom fields.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncCustomFieldsResourceWithRawResponse:
         """
