@@ -532,6 +532,28 @@ Methods:
 - <code title="post /v1/contract-pricing/rate-cards/getNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
 - <code title="post /v1/contract-pricing/rate-cards/updateNamedSchedule">client.v1.contracts.named_schedules.<a href="./src/metronome/resources/v1/contracts/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/named_schedule_update_params.py">params</a>) -> None</code>
 
+## Packages
+
+Types:
+
+```python
+from metronome.types.v1 import (
+    PackageCreateResponse,
+    PackageRetrieveResponse,
+    PackageListResponse,
+    PackageArchiveResponse,
+    PackageListContractsOnPackageResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/packages/create">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">create</a>(\*\*<a href="src/metronome/types/v1/package_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_create_response.py">PackageCreateResponse</a></code>
+- <code title="post /v1/packages/get">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/package_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_retrieve_response.py">PackageRetrieveResponse</a></code>
+- <code title="post /v1/packages/list">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">list</a>(\*\*<a href="src/metronome/types/v1/package_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_list_response.py">SyncCursorPage[PackageListResponse]</a></code>
+- <code title="post /v1/packages/archive">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">archive</a>(\*\*<a href="src/metronome/types/v1/package_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_archive_response.py">PackageArchiveResponse</a></code>
+- <code title="post /v1/packages/listContractsOnPackage">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">list_contracts_on_package</a>(\*\*<a href="src/metronome/types/v1/package_list_contracts_on_package_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_list_contracts_on_package_response.py">SyncCursorPage[PackageListContractsOnPackageResponse]</a></code>
+
 ## Payments
 
 Types:
