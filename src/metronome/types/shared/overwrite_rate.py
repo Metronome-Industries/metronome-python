@@ -7,7 +7,13 @@ from .tier import Tier
 from ..._models import BaseModel
 from .credit_type_data import CreditTypeData
 
-__all__ = ["OverwriteRate"]
+__all__ = ["OverwriteRate", "MinimumConfig"]
+
+
+class MinimumConfig(BaseModel):
+    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
+
+    minimum: float
 
 
 class OverwriteRate(BaseModel):
@@ -26,6 +32,9 @@ class OverwriteRate(BaseModel):
 
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
+
+    minimum_config: Optional[MinimumConfig] = None
+    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: Optional[float] = None
     """Default price.
