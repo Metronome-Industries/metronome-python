@@ -1,5 +1,34 @@
 # Changelog
 
+## 4.2.0 (2026-03-02)
+
+Full Changelog: [v4.1.0...v4.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.1.0...v4.2.0)
+
+### Features
+
+* [ORCH-1333] removes AVALARA enum value from PaymetGateConfig ([8b25c05](https://github.com/Metronome-Industries/metronome-python/commit/8b25c05f9e34e4bc6b44de98fb8e114c0ca790ec))
+* Add minimum config to percentage and tiered percentage overwrites ([f25c634](https://github.com/Metronome-Industries/metronome-python/commit/f25c634faead2fc1919ead3ec2ea26e928fa221f))
+* **api:** add minimum_config to rates/commits, specialized override tier types ([a08189a](https://github.com/Metronome-Industries/metronome-python/commit/a08189a75587afe26acb49a18003d3ec8a2b8856))
+* **api:** add subscription_id field to invoice LineItem ([2524836](https://github.com/Metronome-Industries/metronome-python/commit/2524836354f7f6f94cbfabc6c6eda37b47f94df1))
+* **api:** remove priority from contracts create method and Contract types ([de1a7fe](https://github.com/Metronome-Industries/metronome-python/commit/de1a7fedcece6d088bc4048a0fa1aec2c58ebe33))
+* **api:** support compound group keys in `v1/usage/groups` endpoint ([4aa28d2](https://github.com/Metronome-Industries/metronome-python/commit/4aa28d29135babaca91a47069ea887b478042c3c))
+* update stainless sdk to include new package endpoints ([e6860ce](https://github.com/Metronome-Industries/metronome-python/commit/e6860cef2973a5f8b10e1021a75520d4b9086142))
+
+
+### Chores
+
+* configure new SDK language ([cfb6d00](https://github.com/Metronome-Industries/metronome-python/commit/cfb6d00f9a4e973b1eedeb1f8c1d329c75203e1b))
+* **docs:** add missing descriptions ([67fb7cf](https://github.com/Metronome-Industries/metronome-python/commit/67fb7cfa9df3903cdddc8a907bbd6fc9752099b7))
+* format all `api.md` files ([e8f088e](https://github.com/Metronome-Industries/metronome-python/commit/e8f088e5304fa608317cdab83940a32b373b650b))
+* **internal:** add request options to SSE classes ([588ad46](https://github.com/Metronome-Industries/metronome-python/commit/588ad4635d59d9ba705fce7a4b46dcf3bd8c3840))
+* **internal:** bump dependencies ([aecddba](https://github.com/Metronome-Industries/metronome-python/commit/aecddba4fd1728906b822db703828355f23ce559))
+* **internal:** fix lint error on Python 3.14 ([447bc85](https://github.com/Metronome-Industries/metronome-python/commit/447bc852c549102049d49342a15d6f85f6ff2ec8))
+* **internal:** make `test_proxy_environment_variables` more resilient ([edc23bd](https://github.com/Metronome-Industries/metronome-python/commit/edc23bdc03ad919eab0aceb9ffbd058ef31c88f7))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([d034803](https://github.com/Metronome-Industries/metronome-python/commit/d034803da901b85111ad074cfce0aea96664defb))
+* **internal:** regenerate SDK with no functional changes ([1f04a63](https://github.com/Metronome-Industries/metronome-python/commit/1f04a631b9cdd5186c019b45d3adeb75b797fd9e))
+* **tests:** add netsuite billing provider to customers test fixtures ([645f131](https://github.com/Metronome-Industries/metronome-python/commit/645f131e8e61abda5865c8bf2a968b5618793fbb))
+* update mock server docs ([1948f2e](https://github.com/Metronome-Industries/metronome-python/commit/1948f2eee9e0d6574c43ae326bfea1e696d1634d))
+
 ## 4.1.0 (2026-02-04)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.0.0...v4.1.0)
