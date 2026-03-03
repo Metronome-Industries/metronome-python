@@ -6,13 +6,7 @@ from typing_extensions import Literal
 from .tier import Tier
 from ..._models import BaseModel
 
-__all__ = ["CommitRate", "MinimumConfig"]
-
-
-class MinimumConfig(BaseModel):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: float
+__all__ = ["CommitRate"]
 
 
 class CommitRate(BaseModel):
@@ -22,9 +16,6 @@ class CommitRate(BaseModel):
     """
 
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
-
-    minimum_config: Optional[MinimumConfig] = None
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: Optional[float] = None
     """Commit rate price.

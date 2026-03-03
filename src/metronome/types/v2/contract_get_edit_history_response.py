@@ -34,7 +34,6 @@ __all__ = [
     "DataAddOverride",
     "DataAddOverrideOverrideSpecifier",
     "DataAddOverrideOverwriteRate",
-    "DataAddOverrideOverwriteRateMinimumConfig",
     "DataAddOverrideProduct",
     "DataAddRecurringCommit",
     "DataAddRecurringCommitAccessAmount",
@@ -250,12 +249,6 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
-class DataAddOverrideOverwriteRateMinimumConfig(BaseModel):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: float
-
-
 class DataAddOverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
 
@@ -272,9 +265,6 @@ class DataAddOverrideOverwriteRate(BaseModel):
 
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
-
-    minimum_config: Optional[DataAddOverrideOverwriteRateMinimumConfig] = None
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: Optional[float] = None
     """Default price.

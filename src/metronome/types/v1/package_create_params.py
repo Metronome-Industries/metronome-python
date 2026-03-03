@@ -35,7 +35,6 @@ __all__ = [
     "OverrideStartingAtOffset",
     "OverrideDuration",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateMinimumConfig",
     "OverrideTier",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
@@ -469,12 +468,6 @@ class OverrideDuration(TypedDict, total=False):
     value: Required[int]
 
 
-class OverrideOverwriteRateMinimumConfig(TypedDict, total=False):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: Required[float]
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
 
@@ -493,9 +486,6 @@ class OverrideOverwriteRate(TypedDict, total=False):
 
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
-
-    minimum_config: OverrideOverwriteRateMinimumConfig
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: float
     """Default price.
