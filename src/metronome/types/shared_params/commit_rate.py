@@ -7,13 +7,7 @@ from typing_extensions import Literal, Required, TypedDict
 
 from .tier import Tier
 
-__all__ = ["CommitRate", "MinimumConfig"]
-
-
-class MinimumConfig(TypedDict, total=False):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: Required[float]
+__all__ = ["CommitRate"]
 
 
 class CommitRate(TypedDict, total=False):
@@ -23,9 +17,6 @@ class CommitRate(TypedDict, total=False):
     """
 
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
-
-    minimum_config: MinimumConfig
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: float
     """Commit rate price.

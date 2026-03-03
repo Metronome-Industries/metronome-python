@@ -45,7 +45,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateMinimumConfig",
     "OverrideProduct",
     "Transition",
     "UsageFilter",
@@ -399,12 +398,6 @@ class OverrideOverrideSpecifier(BaseModel):
     recurring_credit_ids: Optional[List[str]] = None
 
 
-class OverrideOverwriteRateMinimumConfig(BaseModel):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: float
-
-
 class OverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
 
@@ -421,9 +414,6 @@ class OverrideOverwriteRate(BaseModel):
 
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
-
-    minimum_config: Optional[OverrideOverwriteRateMinimumConfig] = None
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: Optional[float] = None
     """Default price.

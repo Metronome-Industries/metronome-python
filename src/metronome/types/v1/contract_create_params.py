@@ -40,7 +40,6 @@ __all__ = [
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
-    "OverrideOverwriteRateMinimumConfig",
     "OverrideTier",
     "ProfessionalService",
     "RecurringCommit",
@@ -750,12 +749,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     """
 
 
-class OverrideOverwriteRateMinimumConfig(TypedDict, total=False):
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
-
-    minimum: Required[float]
-
-
 class OverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
 
@@ -774,9 +767,6 @@ class OverrideOverwriteRate(TypedDict, total=False):
 
     Only valid for SUBSCRIPTION rate_type. Must be set to true.
     """
-
-    minimum_config: OverrideOverwriteRateMinimumConfig
-    """Only set for TIERED_PERCENTAGE or PERCENTAGE rate_type."""
 
     price: float
     """Default price.
