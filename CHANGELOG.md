@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.3.0 (2026-03-03)
+
+Full Changelog: [v4.2.0...v4.3.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.2.0...v4.3.0)
+
+### Features
+
+* Skip stainless for non-GA's minimum config ([a529f96](https://github.com/Metronome-Industries/metronome-python/commit/a529f962cd673289dd6189fb38e0317146b6359c))
+
 ## 4.2.0 (2026-03-02)
 
 Full Changelog: [v4.1.0...v4.2.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.1.0...v4.2.0)
