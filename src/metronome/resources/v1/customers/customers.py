@@ -62,6 +62,7 @@ from ....types.v1 import (
     customer_set_ingest_aliases_params,
     customer_list_billable_metrics_params,
     customer_set_billing_configurations_params,
+    customer_archive_billing_configurations_params,
     customer_retrieve_billing_configurations_params,
 )
 from ...._resource import SyncAPIResource, AsyncAPIResource
@@ -98,6 +99,7 @@ from ....types.v1.customer_list_costs_response import CustomerListCostsResponse
 from ....types.v1.customer_preview_events_response import CustomerPreviewEventsResponse
 from ....types.v1.customer_list_billable_metrics_response import CustomerListBillableMetricsResponse
 from ....types.v1.customer_set_billing_configurations_response import CustomerSetBillingConfigurationsResponse
+from ....types.v1.customer_archive_billing_configurations_response import CustomerArchiveBillingConfigurationsResponse
 from ....types.v1.customer_retrieve_billing_configurations_response import CustomerRetrieveBillingConfigurationsResponse
 
 __all__ = ["CustomersResource", "AsyncCustomersResource"]
@@ -416,6 +418,78 @@ class CustomersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CustomerArchiveResponse,
+        )
+
+    def archive_billing_configurations(
+        self,
+        *,
+        customer_billing_provider_configuration_ids: SequenceNotStr[str],
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CustomerArchiveBillingConfigurationsResponse:
+        """
+        Deprecate an existing billing configuration for a customer to handle churn or
+        billing and collection preference changes. Archiving a billing configuration
+        takes effect immediately. If there are active contracts using the configuration,
+        Metronome will archive the configuration on the contract and immediately stop
+        metering to downstream systems.
+
+        ### Use this endpoint to:
+
+        - Remove billing provider customer data and configurations when no longer needed
+        - Clean up test or deprecated billing provider configurations
+        - Free up uniqueness keys for reuse with new billing provider configurations
+        - Disable threshold recharge configurations associated with archived billing
+          providers
+
+        ### Key response fields:
+
+        A successful response returns:
+
+        - `success`: Boolean indicating the operation completed successfully
+        - `error`: Null on success, error message on failure
+
+        ### Usage guidelines:
+
+        - Archiving a contract configuration during a grace period will result in the
+          invoice not being sent to the customer
+        - Automatically disables both spend-based and credit-based threshold recharge
+          configurations for contracts using the archived billing provider
+        - You can archive multiple configurations for a single customer in a single
+          request, but any validation failures for an individual configuration will
+          prevent the entire operation from succeeding
+
+        Args:
+          customer_billing_provider_configuration_ids: Array of billing provider configuration IDs to archive
+
+          customer_id: The customer ID the billing provider configurations belong to
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/archiveCustomerBillingProviderConfigurations",
+            body=maybe_transform(
+                {
+                    "customer_billing_provider_configuration_ids": customer_billing_provider_configuration_ids,
+                    "customer_id": customer_id,
+                },
+                customer_archive_billing_configurations_params.CustomerArchiveBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CustomerArchiveBillingConfigurationsResponse,
         )
 
     def list_billable_metrics(
@@ -1179,6 +1253,78 @@ class AsyncCustomersResource(AsyncAPIResource):
             cast_to=CustomerArchiveResponse,
         )
 
+    async def archive_billing_configurations(
+        self,
+        *,
+        customer_billing_provider_configuration_ids: SequenceNotStr[str],
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CustomerArchiveBillingConfigurationsResponse:
+        """
+        Deprecate an existing billing configuration for a customer to handle churn or
+        billing and collection preference changes. Archiving a billing configuration
+        takes effect immediately. If there are active contracts using the configuration,
+        Metronome will archive the configuration on the contract and immediately stop
+        metering to downstream systems.
+
+        ### Use this endpoint to:
+
+        - Remove billing provider customer data and configurations when no longer needed
+        - Clean up test or deprecated billing provider configurations
+        - Free up uniqueness keys for reuse with new billing provider configurations
+        - Disable threshold recharge configurations associated with archived billing
+          providers
+
+        ### Key response fields:
+
+        A successful response returns:
+
+        - `success`: Boolean indicating the operation completed successfully
+        - `error`: Null on success, error message on failure
+
+        ### Usage guidelines:
+
+        - Archiving a contract configuration during a grace period will result in the
+          invoice not being sent to the customer
+        - Automatically disables both spend-based and credit-based threshold recharge
+          configurations for contracts using the archived billing provider
+        - You can archive multiple configurations for a single customer in a single
+          request, but any validation failures for an individual configuration will
+          prevent the entire operation from succeeding
+
+        Args:
+          customer_billing_provider_configuration_ids: Array of billing provider configuration IDs to archive
+
+          customer_id: The customer ID the billing provider configurations belong to
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/archiveCustomerBillingProviderConfigurations",
+            body=await async_maybe_transform(
+                {
+                    "customer_billing_provider_configuration_ids": customer_billing_provider_configuration_ids,
+                    "customer_id": customer_id,
+                },
+                customer_archive_billing_configurations_params.CustomerArchiveBillingConfigurationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CustomerArchiveBillingConfigurationsResponse,
+        )
+
     def list_billable_metrics(
         self,
         *,
@@ -1641,6 +1787,9 @@ class CustomersResourceWithRawResponse:
         self.archive = to_raw_response_wrapper(
             customers.archive,
         )
+        self.archive_billing_configurations = to_raw_response_wrapper(
+            customers.archive_billing_configurations,
+        )
         self.list_billable_metrics = to_raw_response_wrapper(
             customers.list_billable_metrics,
         )
@@ -1728,6 +1877,9 @@ class AsyncCustomersResourceWithRawResponse:
         )
         self.archive = async_to_raw_response_wrapper(
             customers.archive,
+        )
+        self.archive_billing_configurations = async_to_raw_response_wrapper(
+            customers.archive_billing_configurations,
         )
         self.list_billable_metrics = async_to_raw_response_wrapper(
             customers.list_billable_metrics,
@@ -1817,6 +1969,9 @@ class CustomersResourceWithStreamingResponse:
         self.archive = to_streamed_response_wrapper(
             customers.archive,
         )
+        self.archive_billing_configurations = to_streamed_response_wrapper(
+            customers.archive_billing_configurations,
+        )
         self.list_billable_metrics = to_streamed_response_wrapper(
             customers.list_billable_metrics,
         )
@@ -1904,6 +2059,9 @@ class AsyncCustomersResourceWithStreamingResponse:
         )
         self.archive = async_to_streamed_response_wrapper(
             customers.archive,
+        )
+        self.archive_billing_configurations = async_to_streamed_response_wrapper(
+            customers.archive_billing_configurations,
         )
         self.list_billable_metrics = async_to_streamed_response_wrapper(
             customers.list_billable_metrics,

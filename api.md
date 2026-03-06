@@ -151,6 +151,7 @@ from metronome.types.v1 import (
     CustomerCreateResponse,
     CustomerRetrieveResponse,
     CustomerArchiveResponse,
+    CustomerArchiveBillingConfigurationsResponse,
     CustomerListBillableMetricsResponse,
     CustomerListCostsResponse,
     CustomerPreviewEventsResponse,
@@ -166,6 +167,7 @@ Methods:
 - <code title="get /v1/customers/{customer_id}">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">retrieve</a>(\*, customer_id) -> <a href="./src/metronome/types/v1/customer_retrieve_response.py">CustomerRetrieveResponse</a></code>
 - <code title="get /v1/customers">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list</a>(\*\*<a href="src/metronome/types/v1/customer_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_detail.py">SyncCursorPage[CustomerDetail]</a></code>
 - <code title="post /v1/customers/archive">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">archive</a>(\*\*<a href="src/metronome/types/v1/customer_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_archive_response.py">CustomerArchiveResponse</a></code>
+- <code title="post /v1/archiveCustomerBillingProviderConfigurations">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">archive_billing_configurations</a>(\*\*<a href="src/metronome/types/v1/customer_archive_billing_configurations_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_archive_billing_configurations_response.py">CustomerArchiveBillingConfigurationsResponse</a></code>
 - <code title="get /v1/customers/{customer_id}/billable-metrics">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_billable_metrics</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_billable_metrics_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_billable_metrics_response.py">SyncCursorPage[CustomerListBillableMetricsResponse]</a></code>
 - <code title="get /v1/customers/{customer_id}/costs">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">list_costs</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_list_costs_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_list_costs_response.py">SyncCursorPage[CustomerListCostsResponse]</a></code>
 - <code title="post /v1/customers/{customer_id}/previewEvents">client.v1.customers.<a href="./src/metronome/resources/v1/customers/customers.py">preview_events</a>(\*, customer_id, \*\*<a href="src/metronome/types/v1/customer_preview_events_params.py">params</a>) -> <a href="./src/metronome/types/v1/customer_preview_events_response.py">CustomerPreviewEventsResponse</a></code>

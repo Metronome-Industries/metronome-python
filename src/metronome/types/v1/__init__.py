@@ -150,11 +150,17 @@ from .customer_set_billing_configurations_response import (
 from .contract_schedule_pro_services_invoice_params import (
     ContractScheduleProServicesInvoiceParams as ContractScheduleProServicesInvoiceParams,
 )
+from .customer_archive_billing_configurations_params import (
+    CustomerArchiveBillingConfigurationsParams as CustomerArchiveBillingConfigurationsParams,
+)
 from .contract_schedule_pro_services_invoice_response import (
     ContractScheduleProServicesInvoiceResponse as ContractScheduleProServicesInvoiceResponse,
 )
 from .customer_retrieve_billing_configurations_params import (
     CustomerRetrieveBillingConfigurationsParams as CustomerRetrieveBillingConfigurationsParams,
+)
+from .customer_archive_billing_configurations_response import (
+    CustomerArchiveBillingConfigurationsResponse as CustomerArchiveBillingConfigurationsResponse,
 )
 from .customer_retrieve_billing_configurations_response import (
     CustomerRetrieveBillingConfigurationsResponse as CustomerRetrieveBillingConfigurationsResponse,
