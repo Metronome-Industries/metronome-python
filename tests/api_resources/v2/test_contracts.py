@@ -226,6 +226,7 @@ class TestContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "rollover_fraction": 0,
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -638,6 +639,7 @@ class TestContracts:
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "rate_type": "LIST_RATE",
+                    "rollover_fraction": 0,
                 }
             ],
             update_net_payment_terms_days=0,
@@ -1233,6 +1235,7 @@ class TestAsyncContracts:
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
+                    "rollover_fraction": 0,
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -1645,6 +1648,7 @@ class TestAsyncContracts:
                     "priority": 0,
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "rate_type": "LIST_RATE",
+                    "rollover_fraction": 0,
                 }
             ],
             update_net_payment_terms_days=0,
