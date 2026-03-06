@@ -593,6 +593,9 @@ class AddCredit(TypedDict, total=False):
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
 
+    rollover_fraction: float
+    """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
+
     specifiers: Iterable[CommitSpecifierInput]
     """
     List of filters that determine what kind of customer usage draws down a commit
@@ -1616,6 +1619,8 @@ class UpdateCredit(TypedDict, total=False):
     future invoices. Previously finalized invoices will need to be voided and
     regenerated to reflect the rate type change.
     """
+
+    rollover_fraction: Optional[float]
 
 
 class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit, total=False):
