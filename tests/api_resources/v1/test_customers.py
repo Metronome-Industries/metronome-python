@@ -20,6 +20,7 @@ from metronome.types.v1 import (
     CustomerPreviewEventsResponse,
     CustomerListBillableMetricsResponse,
     CustomerSetBillingConfigurationsResponse,
+    CustomerArchiveBillingConfigurationsResponse,
     CustomerRetrieveBillingConfigurationsResponse,
 )
 from metronome.pagination import SyncCursorPage, AsyncCursorPage
@@ -204,6 +205,49 @@ class TestCustomers:
 
             customer = response.parse()
             assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_archive_billing_configurations(self, client: Metronome) -> None:
+        customer = client.v1.customers.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        )
+        assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    def test_raw_response_archive_billing_configurations(self, client: Metronome) -> None:
+        response = client.v1.customers.with_raw_response.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = response.parse()
+        assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    def test_streaming_response_archive_billing_configurations(self, client: Metronome) -> None:
+        with client.v1.customers.with_streaming_response.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = response.parse()
+            assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -831,6 +875,49 @@ class TestAsyncCustomers:
 
             customer = await response.parse()
             assert_matches_type(CustomerArchiveResponse, customer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_archive_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        customer = await async_client.v1.customers.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        )
+        assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    async def test_raw_response_archive_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.customers.with_raw_response.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        customer = await response.parse()
+        assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_archive_billing_configurations(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.customers.with_streaming_response.archive_billing_configurations(
+            customer_billing_provider_configuration_ids=[
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+                "4db51251-61de-4bfe-b9ce-495e244f3491",
+            ],
+            customer_id="20a060d1-aa80-41d4-8bb2-4f3091b93903",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            customer = await response.parse()
+            assert_matches_type(CustomerArchiveBillingConfigurationsResponse, customer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
