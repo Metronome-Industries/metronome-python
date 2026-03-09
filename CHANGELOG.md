@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.4.0 (2026-03-09)
+
+Full Changelog: [v4.3.0...v4.4.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.3.0...v4.4.0)
+
+### Features
+
+* (docs): update documentation for /usage/groups ([59d2936](https://github.com/Metronome-Industries/metronome-python/commit/59d2936d8051629ac38d9ce2e3660b53bdba42eb))
+* Add archive_billing_configurations endpoint ([ad7ba4d](https://github.com/Metronome-Industries/metronome-python/commit/ad7ba4d8582b38df47d8cdd50001cbea47e0a58f))
+* Enable rollover fraction on credits ([7e31fdc](https://github.com/Metronome-Industries/metronome-python/commit/7e31fdce3ce1ff22e53b250d6da644955f81ed29))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([fb70b44](https://github.com/Metronome-Industries/metronome-python/commit/fb70b449b67f4702b47d360ec776e6b4ca868676))
+* **test:** do not count install time for mock server timeout ([e01b3b6](https://github.com/Metronome-Industries/metronome-python/commit/e01b3b68dbb3665439d349036c1a5a957fed85b3))
+
 ## 4.3.0 (2026-03-03)
 
 Full Changelog: [v4.2.0...v4.3.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.2.0...v4.3.0)
