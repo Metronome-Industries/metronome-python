@@ -60,6 +60,8 @@ __all__ = [
     "CreditLedgerCreditCreditedLedgerEntry",
     "CreditLedgerCreditManualLedgerEntry",
     "CreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "CreditLedgerCreditRolloverLedgerEntry",
+    "CreditRolledOverFrom",
     "CustomerBillingProviderConfiguration",
     "HasMore",
     "HierarchyConfiguration",
@@ -590,6 +592,18 @@ class CreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
 
 
+class CreditLedgerCreditRolloverLedgerEntry(BaseModel):
+    amount: float
+
+    new_contract_id: str
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["CREDIT_ROLLOVER"]
+
+
 CreditLedger: TypeAlias = Union[
     CreditLedgerCreditSegmentStartLedgerEntry,
     CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
@@ -598,7 +612,14 @@ CreditLedger: TypeAlias = Union[
     CreditLedgerCreditCreditedLedgerEntry,
     CreditLedgerCreditManualLedgerEntry,
     CreditLedgerCreditSeatBasedAdjustmentLedgerEntry,
+    CreditLedgerCreditRolloverLedgerEntry,
 ]
+
+
+class CreditRolledOverFrom(BaseModel):
+    contract_id: str
+
+    credit_id: str
 
 
 class Credit(BaseModel):
@@ -666,6 +687,8 @@ class Credit(BaseModel):
 
     recurring_credit_id: Optional[str] = None
     """The ID of the recurring credit that created this credit"""
+
+    rolled_over_from: Optional[CreditRolledOverFrom] = None
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""

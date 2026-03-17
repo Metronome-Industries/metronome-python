@@ -21,6 +21,8 @@ __all__ = [
     "LedgerCreditCreditedLedgerEntry",
     "LedgerCreditManualLedgerEntry",
     "LedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "LedgerCreditRolloverLedgerEntry",
+    "RolledOverFrom",
     "SubscriptionConfig",
     "SubscriptionConfigApplySeatIncreaseConfig",
 ]
@@ -118,6 +120,18 @@ class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
 
 
+class LedgerCreditRolloverLedgerEntry(BaseModel):
+    amount: float
+
+    new_contract_id: str
+
+    segment_id: str
+
+    timestamp: datetime
+
+    type: Literal["CREDIT_ROLLOVER"]
+
+
 Ledger: TypeAlias = Union[
     LedgerCreditSegmentStartLedgerEntry,
     LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
@@ -126,7 +140,14 @@ Ledger: TypeAlias = Union[
     LedgerCreditCreditedLedgerEntry,
     LedgerCreditManualLedgerEntry,
     LedgerCreditSeatBasedAdjustmentLedgerEntry,
+    LedgerCreditRolloverLedgerEntry,
 ]
+
+
+class RolledOverFrom(BaseModel):
+    contract_id: str
+
+    credit_id: str
 
 
 class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
@@ -209,6 +230,8 @@ class Credit(BaseModel):
     The ID of the recurring credit that this credit was generated from, if
     applicable.
     """
+
+    rolled_over_from: Optional[RolledOverFrom] = None
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
