@@ -49,7 +49,7 @@ from .invoices import (
     AsyncInvoicesResourceWithStreamingResponse,
 )
 from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ....types.v1 import (
     customer_list_params,
@@ -297,7 +297,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get(
-            f"/v1/customers/{customer_id}",
+            path_template("/v1/customers/{customer_id}", customer_id=customer_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -535,7 +535,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/billable-metrics",
+            path_template("/v1/customers/{customer_id}/billable-metrics", customer_id=customer_id),
             page=SyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -596,7 +596,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/costs",
+            path_template("/v1/customers/{customer_id}/costs", customer_id=customer_id),
             page=SyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -660,7 +660,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
-            f"/v1/customers/{customer_id}/previewEvents",
+            path_template("/v1/customers/{customer_id}/previewEvents", customer_id=customer_id),
             body=maybe_transform(
                 {
                     "events": events,
@@ -833,7 +833,7 @@ class CustomersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/customers/{customer_id}/setIngestAliases",
+            path_template("/v1/customers/{customer_id}/setIngestAliases", customer_id=customer_id),
             body=maybe_transform(
                 {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
             ),
@@ -878,7 +878,7 @@ class CustomersResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
-            f"/v1/customers/{customer_id}/setName",
+            path_template("/v1/customers/{customer_id}/setName", customer_id=customer_id),
             body=maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -923,7 +923,7 @@ class CustomersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/customers/{customer_id}/updateConfig",
+            path_template("/v1/customers/{customer_id}/updateConfig", customer_id=customer_id),
             body=maybe_transform(
                 {
                     "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
@@ -1130,7 +1130,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._get(
-            f"/v1/customers/{customer_id}",
+            path_template("/v1/customers/{customer_id}", customer_id=customer_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1368,7 +1368,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/billable-metrics",
+            path_template("/v1/customers/{customer_id}/billable-metrics", customer_id=customer_id),
             page=AsyncCursorPage[CustomerListBillableMetricsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -1429,7 +1429,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/costs",
+            path_template("/v1/customers/{customer_id}/costs", customer_id=customer_id),
             page=AsyncCursorPage[CustomerListCostsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -1493,7 +1493,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
-            f"/v1/customers/{customer_id}/previewEvents",
+            path_template("/v1/customers/{customer_id}/previewEvents", customer_id=customer_id),
             body=await async_maybe_transform(
                 {
                     "events": events,
@@ -1666,7 +1666,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/customers/{customer_id}/setIngestAliases",
+            path_template("/v1/customers/{customer_id}/setIngestAliases", customer_id=customer_id),
             body=await async_maybe_transform(
                 {"ingest_aliases": ingest_aliases}, customer_set_ingest_aliases_params.CustomerSetIngestAliasesParams
             ),
@@ -1711,7 +1711,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
-            f"/v1/customers/{customer_id}/setName",
+            path_template("/v1/customers/{customer_id}/setName", customer_id=customer_id),
             body=await async_maybe_transform({"name": name}, customer_set_name_params.CustomerSetNameParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1756,7 +1756,7 @@ class AsyncCustomersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/customers/{customer_id}/updateConfig",
+            path_template("/v1/customers/{customer_id}/updateConfig", customer_id=customer_id),
             body=await async_maybe_transform(
                 {
                     "leave_stripe_invoices_in_draft": leave_stripe_invoices_in_draft,
