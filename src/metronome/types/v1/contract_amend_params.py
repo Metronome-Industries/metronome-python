@@ -567,15 +567,6 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     ids.
     """
 
-    recurring_credit_ids: SequenceNotStr[str]
-    """Can only be used for commit specific overrides.
-
-    Must be used in conjunction with one of `product_id`, `product_tags`,
-    `pricing_group_values`, or `presentation_group_values`. If provided, the
-    override will only apply to credits created by the specified recurring credit
-    ids.
-    """
-
 
 class OverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""

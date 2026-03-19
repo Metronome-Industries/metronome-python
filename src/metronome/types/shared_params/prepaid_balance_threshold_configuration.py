@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Iterable
 from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
@@ -74,4 +74,4 @@ class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
 
-    discount_configuration: Optional[DiscountConfiguration]
+    discount_configuration: DiscountConfiguration

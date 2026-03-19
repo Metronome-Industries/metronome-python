@@ -397,8 +397,6 @@ class OverrideOverrideSpecifier(BaseModel):
 
     recurring_commit_ids: Optional[List[str]] = None
 
-    recurring_credit_ids: Optional[List[str]] = None
-
 
 class OverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]

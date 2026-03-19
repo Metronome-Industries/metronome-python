@@ -194,8 +194,6 @@ class OverrideOverrideSpecifier(BaseModel):
 
     recurring_commit_template_ids: Optional[List[str]] = None
 
-    recurring_credit_template_ids: Optional[List[str]] = None
-
 
 class OverrideStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]

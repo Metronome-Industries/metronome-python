@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from .payment_gate_config_v2 import PaymentGateConfigV2
@@ -39,4 +38,4 @@ class SpendThresholdConfigurationV2(TypedDict, total=False):
     initiated.
     """
 
-    discount_configuration: Optional[DiscountConfiguration]
+    discount_configuration: DiscountConfiguration
