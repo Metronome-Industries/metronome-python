@@ -224,6 +224,7 @@ class TestPackages:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -363,6 +364,7 @@ class TestPackages:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {
@@ -775,6 +777,7 @@ class TestAsyncPackages:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -914,6 +917,7 @@ class TestAsyncPackages:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {
