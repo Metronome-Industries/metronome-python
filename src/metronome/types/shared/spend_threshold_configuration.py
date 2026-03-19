@@ -1,10 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
+
 from ..._models import BaseModel
 from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 
-__all__ = ["SpendThresholdConfiguration"]
+__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration"]
+
+
+class DiscountConfiguration(BaseModel):
+    payment_fraction: float
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
+    """
 
 
 class SpendThresholdConfiguration(BaseModel):
@@ -25,3 +36,5 @@ class SpendThresholdConfiguration(BaseModel):
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
     """
+
+    discount_configuration: Optional[DiscountConfiguration] = None

@@ -344,6 +344,7 @@ class TestContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             add_professional_services=[
                 {
@@ -521,6 +522,7 @@ class TestContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             add_subscriptions=[
                 {
@@ -660,6 +662,7 @@ class TestContracts:
                     ],
                 },
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
@@ -734,6 +737,7 @@ class TestContracts:
                     "name": "name",
                     "product_id": "product_id",
                 },
+                "discount_configuration": {"payment_fraction": 0},
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
@@ -1353,6 +1357,7 @@ class TestAsyncContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             add_professional_services=[
                 {
@@ -1530,6 +1535,7 @@ class TestAsyncContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             add_subscriptions=[
                 {
@@ -1669,6 +1675,7 @@ class TestAsyncContracts:
                     ],
                 },
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",
@@ -1743,6 +1750,7 @@ class TestAsyncContracts:
                     "name": "name",
                     "product_id": "product_id",
                 },
+                "discount_configuration": {"payment_fraction": 0},
                 "is_enabled": True,
                 "payment_gate_config": {
                     "payment_gate_type": "NONE",

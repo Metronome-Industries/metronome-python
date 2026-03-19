@@ -7,7 +7,7 @@ from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 
-__all__ = ["PrepaidBalanceThresholdConfiguration", "Commit"]
+__all__ = ["PrepaidBalanceThresholdConfiguration", "Commit", "DiscountConfiguration"]
 
 
 class Commit(BaseThresholdCommit):
@@ -31,6 +31,15 @@ class Commit(BaseThresholdCommit):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
+
+class DiscountConfiguration(BaseModel):
+    payment_fraction: float
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
     """
 
 
@@ -61,3 +70,5 @@ class PrepaidBalanceThresholdConfiguration(BaseModel):
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
+
+    discount_configuration: Optional[DiscountConfiguration] = None

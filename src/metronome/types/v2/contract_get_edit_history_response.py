@@ -74,6 +74,7 @@ __all__ = [
     "DataUpdateDiscountScheduleScheduleItem",
     "DataUpdatePrepaidBalanceThresholdConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
+    "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
@@ -86,6 +87,7 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "DataUpdateSpendThresholdConfiguration",
+    "DataUpdateSpendThresholdConfigurationDiscountConfiguration",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
     "DataUpdateSubscriptionSeatUpdates",
@@ -931,6 +933,15 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     """
 
 
+class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseModel):
+    payment_fraction: float
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
+    """
+
+
 class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommit] = None
 
@@ -939,6 +950,8 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
+
+    discount_configuration: Optional[DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration] = None
 
     is_enabled: Optional[bool] = None
     """
@@ -1050,8 +1063,19 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
+class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
+    payment_fraction: float
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
+    """
+
+
 class DataUpdateSpendThresholdConfiguration(BaseModel):
     commit: Optional[UpdateBaseThresholdCommit] = None
+
+    discount_configuration: Optional[DataUpdateSpendThresholdConfigurationDiscountConfiguration] = None
 
     is_enabled: Optional[bool] = None
     """
