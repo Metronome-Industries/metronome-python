@@ -754,14 +754,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     will only apply to commits created by the specified recurring commit ids.
     """
 
-    recurring_credit_ids: SequenceNotStr[str]
-    """Can only be used for commit specific overrides.
-
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to commits created by the specified recurring credit ids.
-    """
-
 
 class AddOverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
@@ -1669,7 +1661,7 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
 
-    discount_configuration: Optional[UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration]
+    discount_configuration: UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration
 
     is_enabled: bool
     """
@@ -1793,7 +1785,7 @@ class UpdateSpendThresholdConfigurationDiscountConfiguration(TypedDict, total=Fa
 class UpdateSpendThresholdConfiguration(TypedDict, total=False):
     commit: UpdateBaseThresholdCommit
 
-    discount_configuration: Optional[UpdateSpendThresholdConfigurationDiscountConfiguration]
+    discount_configuration: UpdateSpendThresholdConfigurationDiscountConfiguration
 
     is_enabled: bool
     """
