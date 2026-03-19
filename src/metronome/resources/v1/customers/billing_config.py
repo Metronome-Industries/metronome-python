@@ -7,7 +7,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -134,7 +134,11 @@ class BillingConfigResource(SyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             body=maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
@@ -195,7 +199,11 @@ class BillingConfigResource(SyncAPIResource):
                 f"Expected a non-empty value for `billing_provider_type` but received {billing_provider_type!r}"
             )
         return self._get(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -247,7 +255,11 @@ class BillingConfigResource(SyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -366,7 +378,11 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             body=await async_maybe_transform(
                 {
                     "billing_provider_customer_id": billing_provider_customer_id,
@@ -427,7 +443,11 @@ class AsyncBillingConfigResource(AsyncAPIResource):
                 f"Expected a non-empty value for `billing_provider_type` but received {billing_provider_type!r}"
             )
         return await self._get(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -479,7 +499,11 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+            path_template(
+                "/v1/customers/{customer_id}/billing-config/{billing_provider_type}",
+                customer_id=customer_id,
+                billing_provider_type=billing_provider_type,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

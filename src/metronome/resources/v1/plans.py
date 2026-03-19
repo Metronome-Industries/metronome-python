@@ -7,7 +7,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ...types.v1 import plan_list_params, plan_list_charges_params, plan_list_customers_params
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -128,7 +128,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get(
-            f"/v1/planDetails/{plan_id}",
+            path_template("/v1/planDetails/{plan_id}", plan_id=plan_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -169,7 +169,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/v1/planDetails/{plan_id}/charges",
+            path_template("/v1/planDetails/{plan_id}/charges", plan_id=plan_id),
             page=SyncCursorPage[PlanListChargesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -232,7 +232,7 @@ class PlansResource(SyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/v1/planDetails/{plan_id}/customers",
+            path_template("/v1/planDetails/{plan_id}/customers", plan_id=plan_id),
             page=SyncCursorPage[PlanListCustomersResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -353,7 +353,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return await self._get(
-            f"/v1/planDetails/{plan_id}",
+            path_template("/v1/planDetails/{plan_id}", plan_id=plan_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -394,7 +394,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/v1/planDetails/{plan_id}/charges",
+            path_template("/v1/planDetails/{plan_id}/charges", plan_id=plan_id),
             page=AsyncCursorPage[PlanListChargesResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -457,7 +457,7 @@ class AsyncPlansResource(AsyncAPIResource):
         if not plan_id:
             raise ValueError(f"Expected a non-empty value for `plan_id` but received {plan_id!r}")
         return self._get_api_list(
-            f"/v1/planDetails/{plan_id}/customers",
+            path_template("/v1/planDetails/{plan_id}/customers", plan_id=plan_id),
             page=AsyncCursorPage[PlanListCustomersResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
