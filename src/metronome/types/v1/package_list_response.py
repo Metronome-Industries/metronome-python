@@ -758,6 +758,9 @@ class PackageListResponse(BaseModel):
         ]
     ] = None
 
+    contract_name: Optional[str] = None
+    """The name to use for contracts created from this package."""
+
     credits: Optional[List[Credit]] = None
 
     delivery_method: Optional[Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]] = None
