@@ -932,11 +932,11 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
 
 
 class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseModel):
-    payment_fraction: float
+    payment_fraction: Optional[float] = None
     """
     The fraction of the original amount that the customer pays after applying the
-    discount. For example, 0.85 means the customer pays 85% of the original amount
-    (a 15% discount).
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
     """
 
 
@@ -1062,11 +1062,11 @@ class DataUpdateScheduledCharge(BaseModel):
 
 
 class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
-    payment_fraction: float
+    payment_fraction: Optional[float] = None
     """
     The fraction of the original amount that the customer pays after applying the
-    discount. For example, 0.85 means the customer pays 85% of the original amount
-    (a 15% discount).
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
     """
 
 
