@@ -289,6 +289,8 @@ class ScheduledCharge(BaseModel):
 class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
+    day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START"]] = None
+
 
 class Alias(BaseModel):
     name: str
