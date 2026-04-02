@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
+from .base_threshold_commit import BaseThresholdCommit
 from .payment_gate_config_v2 import PaymentGateConfigV2
-from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
 __all__ = ["SpendThresholdConfigurationV2", "DiscountConfiguration"]
 
@@ -20,7 +20,7 @@ class DiscountConfiguration(TypedDict, total=False):
 
 
 class SpendThresholdConfigurationV2(TypedDict, total=False):
-    commit: Required[UpdateBaseThresholdCommit]
+    commit: Required[BaseThresholdCommit]
 
     is_enabled: Required[bool]
     """

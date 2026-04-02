@@ -3,14 +3,14 @@
 from typing import List, Optional
 
 from ..._models import BaseModel
+from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
-from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
 __all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration"]
 
 
-class Commit(UpdateBaseThresholdCommit):
+class Commit(BaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
 

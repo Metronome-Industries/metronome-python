@@ -16,6 +16,13 @@ class UpdateBaseThresholdCommit(BaseModel):
     If left blank, it will default to the commit product name.
     """
 
+    priority: Optional[float] = None
+    """The priority of the commit, used to determine drawdown order.
+
+    Lower priority commits are consumed first. Defaults to 100 if not specified. On
+    updates, set to null to clear a previously configured priority.
+    """
+
     product_id: Optional[str] = None
     """
     The commit product that will be used to generate the line item for commit

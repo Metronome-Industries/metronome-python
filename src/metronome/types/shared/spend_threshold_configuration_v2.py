@@ -3,8 +3,8 @@
 from typing import Optional
 
 from ..._models import BaseModel
+from .base_threshold_commit import BaseThresholdCommit
 from .payment_gate_config_v2 import PaymentGateConfigV2
-from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
 __all__ = ["SpendThresholdConfigurationV2", "DiscountConfiguration"]
 
@@ -19,7 +19,7 @@ class DiscountConfiguration(BaseModel):
 
 
 class SpendThresholdConfigurationV2(BaseModel):
-    commit: UpdateBaseThresholdCommit
+    commit: BaseThresholdCommit
 
     is_enabled: bool
     """
