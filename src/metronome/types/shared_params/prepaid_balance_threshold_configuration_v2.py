@@ -6,14 +6,14 @@ from typing import Iterable
 from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
+from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
-from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
 __all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration"]
 
 
-class Commit(UpdateBaseThresholdCommit, total=False):
+class Commit(BaseThresholdCommit, total=False):
     applicable_product_ids: SequenceNotStr[str]
     """Which products the threshold commit applies to.
 

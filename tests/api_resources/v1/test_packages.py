@@ -196,6 +196,7 @@ class TestPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -348,6 +349,7 @@ class TestPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -748,6 +750,7 @@ class TestAsyncPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -900,6 +903,7 @@ class TestAsyncPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
