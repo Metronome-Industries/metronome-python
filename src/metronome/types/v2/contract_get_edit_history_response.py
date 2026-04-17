@@ -293,6 +293,8 @@ class DataAddOverrideProduct(BaseModel):
 class DataAddOverride(BaseModel):
     id: str
 
+    created_at: datetime
+
     starting_at: datetime
 
     applicable_product_tags: Optional[List[str]] = None
