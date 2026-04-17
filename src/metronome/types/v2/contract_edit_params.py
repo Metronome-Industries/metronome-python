@@ -1581,17 +1581,17 @@ class UpdateCredit(TypedDict, total=False):
     access_schedule: UpdateCreditAccessSchedule
 
     applicable_product_ids: Optional[SequenceNotStr[str]]
-    """Which products the commit applies to.
+    """Which products the credit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
+    provided, the credit applies to all products.
     """
 
     applicable_product_tags: Optional[SequenceNotStr[str]]
-    """Which tags the commit applies to.
+    """Which tags the credit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
+    provided, the credit applies to all products.
     """
 
     description: str
