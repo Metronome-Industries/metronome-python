@@ -1,5 +1,57 @@
 # Changelog
 
+## 4.5.0 (2026-04-17)
+
+Full Changelog: [v4.4.0...v4.5.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.4.0...v4.5.0)
+
+### Features
+
+* add override created at in api responses ([0353caf](https://github.com/Metronome-Industries/metronome-python/commit/0353caf3ec6b3dc66d5cd2cd0da8684f4da4ab2c))
+* Add recurring_commit_ids and remove recurring_credit_ids from api ([5f239bd](https://github.com/Metronome-Industries/metronome-python/commit/5f239bdfa95512a48bfcda850a2a7aedfab4807d))
+* Docs: Dd/update balance guides ([4c8329c](https://github.com/Metronome-Industries/metronome-python/commit/4c8329ce924aa33ef73c679b2bb1e58cff487948))
+* Enable OIDC auth for npm publisher ([45336e6](https://github.com/Metronome-Industries/metronome-python/commit/45336e675e8f7a253114a30ae69b8eb7512ab089))
+* External fixes for rollover credits ([7da6ac8](https://github.com/Metronome-Industries/metronome-python/commit/7da6ac8ecd734bd6990f1c49e84248a61c41c5a9))
+* Fully document CreditAdd/CreditUpdate fields in API spec ([29ed098](https://github.com/Metronome-Industries/metronome-python/commit/29ed098c10436341d7403e2c08cffd438c929334))
+* **internal:** implement indices array format for query and form serialization ([a24e716](https://github.com/Metronome-Industries/metronome-python/commit/a24e716ec7c8cb55fe09abe5f02c28252d078daf))
+* Map missing `contract_name` when returning Packages ([7f5210b](https://github.com/Metronome-Industries/metronome-python/commit/7f5210bb9585e8d8ff30e1d136e2e5b269ef4f7c))
+* **ORCH-1361:** add priority to threshold commit OpenAPI schemas ([4063972](https://github.com/Metronome-Industries/metronome-python/commit/406397212be14ac4cf1f137bfa706fc67a645120))
+* ORCH-1410: Add discount_configuration to POST v2/contracts/edit ([fb89973](https://github.com/Metronome-Industries/metronome-python/commit/fb89973cd282c06f976817d574aa654794d4d01d))
+* remove dead field, pipe day through to MRI, return day when get package ([c94811d](https://github.com/Metronome-Industries/metronome-python/commit/c94811db67c7e119772e14295dc482ebd405e88b))
+* Support nullable discount fraction on contract update inputs ([85e21b6](https://github.com/Metronome-Industries/metronome-python/commit/85e21b638c7816673286cd28661e461506f87746))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([de47df4](https://github.com/Metronome-Industries/metronome-python/commit/de47df42d21984520bcb238c8719b3ac0e32f840))
+* **deps:** bump minimum typing-extensions version ([0536f67](https://github.com/Metronome-Industries/metronome-python/commit/0536f678dcedf466ea383ffc3c78570c21e8ec66))
+* ensure file data are only sent as 1 parameter ([1f24779](https://github.com/Metronome-Industries/metronome-python/commit/1f24779d807b9ec5274d67b80db671da3363835d))
+* **pydantic:** do not pass `by_alias` unless set ([73c967b](https://github.com/Metronome-Industries/metronome-python/commit/73c967bf22239a30064b0ac97fc288c4eea7e194))
+* sanitize endpoint path params ([21e47de](https://github.com/Metronome-Industries/metronome-python/commit/21e47de70ab5362e4a9cedcb38ff25f7f749eeed))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([f70aced](https://github.com/Metronome-Industries/metronome-python/commit/f70aced94a45d40b8f739f7d3872b7ee428f34f3))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([e087ffa](https://github.com/Metronome-Industries/metronome-python/commit/e087ffa1ca7faf6361aafac393a142ae6a74912b))
+* **internal:** tweak CI branches ([6de9bb5](https://github.com/Metronome-Industries/metronome-python/commit/6de9bb5bae6775a57d1139b99ce87e6cc0c2f8ba))
+* **internal:** update gitignore ([bee887c](https://github.com/Metronome-Industries/metronome-python/commit/bee887cb4902882a0b13b7f1c44b50754e839db9))
+* **tests:** bump steady to v0.19.4 ([d71195d](https://github.com/Metronome-Industries/metronome-python/commit/d71195d09e2846c215578344bc9ea428f3b004a8))
+* **tests:** bump steady to v0.19.5 ([3d64fe6](https://github.com/Metronome-Industries/metronome-python/commit/3d64fe6aaba51170f1d2feb5db816e6a064d63bb))
+* **tests:** bump steady to v0.19.6 ([5dd6df5](https://github.com/Metronome-Industries/metronome-python/commit/5dd6df53fdc1717dcc61d24e82584cc987126222))
+* **tests:** bump steady to v0.19.7 ([30f5001](https://github.com/Metronome-Industries/metronome-python/commit/30f5001940dd0e373054d75df366fa5acbf2eafb))
+* **tests:** bump steady to v0.20.1 ([7161698](https://github.com/Metronome-Industries/metronome-python/commit/7161698d36e333136851b0f68cb891e225fc26f0))
+* **tests:** bump steady to v0.20.2 ([b8f5d90](https://github.com/Metronome-Industries/metronome-python/commit/b8f5d90c72c991e3e93ab5505a814ac596c3dfca))
+* **tests:** bump steady to v0.22.1 ([582ebad](https://github.com/Metronome-Industries/metronome-python/commit/582ebad9dd735ac74d7b9bb3d9dccc95775fcd70))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([7463eb4](https://github.com/Metronome-Industries/metronome-python/commit/7463eb4eca5a2f67196d6fc9a514a4644551d314))
+
 ## 4.4.0 (2026-03-09)
 
 Full Changelog: [v4.3.0...v4.4.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.3.0...v4.4.0)

@@ -7,7 +7,16 @@ from typing_extensions import Required, TypedDict
 from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 
-__all__ = ["SpendThresholdConfiguration"]
+__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration"]
+
+
+class DiscountConfiguration(TypedDict, total=False):
+    payment_fraction: Required[float]
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
+    """
 
 
 class SpendThresholdConfiguration(TypedDict, total=False):
@@ -28,3 +37,5 @@ class SpendThresholdConfiguration(TypedDict, total=False):
     Each time the contract's usage hits this amount, a threshold charge will be
     initiated.
     """
+
+    discount_configuration: DiscountConfiguration

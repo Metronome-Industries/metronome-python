@@ -214,7 +214,6 @@ class TestContracts:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "overwrite_rate": {
@@ -250,6 +249,7 @@ class TestContracts:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -277,6 +277,7 @@ class TestContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             professional_services=[
                 {
@@ -440,6 +441,7 @@ class TestContracts:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -455,6 +457,7 @@ class TestContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {
@@ -839,7 +842,6 @@ class TestContracts:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "overwrite_rate": {
@@ -1614,7 +1616,6 @@ class TestAsyncContracts:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "overwrite_rate": {
@@ -1650,6 +1651,7 @@ class TestAsyncContracts:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -1677,6 +1679,7 @@ class TestAsyncContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             professional_services=[
                 {
@@ -1840,6 +1843,7 @@ class TestAsyncContracts:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -1855,6 +1859,7 @@ class TestAsyncContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {
@@ -2239,7 +2244,6 @@ class TestAsyncContracts:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "overwrite_rate": {

@@ -21,3 +21,9 @@ class BaseThresholdCommit(BaseModel):
 
     If left blank, it will default to the commit product name.
     """
+
+    priority: Optional[float] = None
+    """The priority of the commit, used to determine drawdown order.
+
+    Lower priority commits are consumed first. Defaults to 100 if not specified.
+    """

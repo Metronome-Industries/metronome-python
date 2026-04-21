@@ -28,8 +28,6 @@ class OverrideSpecifier(BaseModel):
 
     recurring_commit_ids: Optional[List[str]] = None
 
-    recurring_credit_ids: Optional[List[str]] = None
-
 
 class Product(BaseModel):
     id: str
@@ -39,6 +37,8 @@ class Product(BaseModel):
 
 class Override(BaseModel):
     id: str
+
+    created_at: datetime
 
     starting_at: datetime
 

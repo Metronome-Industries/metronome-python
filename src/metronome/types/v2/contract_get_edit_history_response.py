@@ -74,6 +74,7 @@ __all__ = [
     "DataUpdateDiscountScheduleScheduleItem",
     "DataUpdatePrepaidBalanceThresholdConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
+    "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
@@ -86,6 +87,7 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "DataUpdateSpendThresholdConfiguration",
+    "DataUpdateSpendThresholdConfigurationDiscountConfiguration",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
     "DataUpdateSubscriptionSeatUpdates",
@@ -217,6 +219,10 @@ class DataAddCredit(BaseModel):
     will apply first.
     """
 
+    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
+
+    rollover_fraction: Optional[float] = None
+
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
@@ -245,8 +251,6 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     product_tags: Optional[List[str]] = None
 
     recurring_commit_ids: Optional[List[str]] = None
-
-    recurring_credit_ids: Optional[List[str]] = None
 
 
 class DataAddOverrideOverwriteRate(BaseModel):
@@ -288,6 +292,8 @@ class DataAddOverrideProduct(BaseModel):
 
 class DataAddOverride(BaseModel):
     id: str
+
+    created_at: datetime
 
     starting_at: datetime
 
@@ -782,6 +788,20 @@ class DataUpdateCredit(BaseModel):
 
     access_schedule: Optional[DataUpdateCreditAccessSchedule] = None
 
+    applicable_product_ids: Optional[List[str]] = None
+    """Which products the credit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the credit applies to all products.
+    """
+
+    applicable_product_tags: Optional[List[str]] = None
+    """Which tags the credit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the credit applies to all products.
+    """
+
     description: Optional[str] = None
 
     hierarchy_configuration: Optional[CommitHierarchyConfiguration] = None
@@ -797,10 +817,22 @@ class DataUpdateCredit(BaseModel):
     first.
     """
 
+    product_id: Optional[str] = None
+
     rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
     """If set, the credit's rate type was updated to the specified value."""
 
     rollover_fraction: Optional[float] = None
+
+    specifiers: Optional[List[CommitSpecifierInput]] = None
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    Instead, to target usage by product or product tag, pass those values in the
+    body of `specifiers`.
+    """
 
 
 class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
@@ -931,6 +963,15 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     """
 
 
+class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseModel):
+    payment_fraction: Optional[float] = None
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
+    """
+
+
 class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommit] = None
 
@@ -939,6 +980,8 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
+
+    discount_configuration: Optional[DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration] = None
 
     is_enabled: Optional[bool] = None
     """
@@ -1050,8 +1093,19 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
+class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
+    payment_fraction: Optional[float] = None
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
+    """
+
+
 class DataUpdateSpendThresholdConfiguration(BaseModel):
     commit: Optional[UpdateBaseThresholdCommit] = None
+
+    discount_configuration: Optional[DataUpdateSpendThresholdConfigurationDiscountConfiguration] = None
 
     is_enabled: Optional[bool] = None
     """

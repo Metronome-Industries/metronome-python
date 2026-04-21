@@ -87,6 +87,7 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "UpdateRecurringCommit",
     "UpdateRecurringCommitAccessAmount",
     "UpdateRecurringCommitInvoiceAmount",
@@ -98,6 +99,7 @@ __all__ = [
     "UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
     "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "UpdateSpendThresholdConfiguration",
+    "UpdateSpendThresholdConfigurationDiscountConfiguration",
     "UpdateSubscription",
     "UpdateSubscriptionQuantityManagementModeUpdate",
     "UpdateSubscriptionQuantityManagementModeUpdateSeatConfig",
@@ -750,14 +752,6 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     Must be used in conjunction with one of product_id, product_tags,
     pricing_group_values, or presentation_group_values. If provided, the override
     will only apply to commits created by the specified recurring commit ids.
-    """
-
-    recurring_credit_ids: SequenceNotStr[str]
-    """Can only be used for commit specific overrides.
-
-    Must be used in conjunction with one of product_id, product_tags,
-    pricing_group_values, or presentation_group_values. If provided, the override
-    will only apply to commits created by the specified recurring credit ids.
     """
 
 
@@ -1587,17 +1581,17 @@ class UpdateCredit(TypedDict, total=False):
     access_schedule: UpdateCreditAccessSchedule
 
     applicable_product_ids: Optional[SequenceNotStr[str]]
-    """Which products the commit applies to.
+    """Which products the credit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
+    provided, the credit applies to all products.
     """
 
     applicable_product_tags: Optional[SequenceNotStr[str]]
-    """Which tags the commit applies to.
+    """Which tags the credit applies to.
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
-    provided, the commit applies to all products.
+    provided, the credit applies to all products.
     """
 
     description: str
@@ -1649,6 +1643,15 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit
     """
 
 
+class UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
+    payment_fraction: Optional[float]
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
+    """
+
+
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
 
@@ -1657,6 +1660,8 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
+
+    discount_configuration: Optional[UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration]
 
     is_enabled: bool
     """
@@ -1768,8 +1773,19 @@ class UpdateScheduledCharge(TypedDict, total=False):
     netsuite_sales_order_id: Optional[str]
 
 
+class UpdateSpendThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
+    payment_fraction: Optional[float]
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. Set to null to remove the discount fraction. For example, 0.85 means
+    the customer pays 85% of the original amount (a 15% discount).
+    """
+
+
 class UpdateSpendThresholdConfiguration(TypedDict, total=False):
     commit: UpdateBaseThresholdCommit
+
+    discount_configuration: Optional[UpdateSpendThresholdConfigurationDiscountConfiguration]
 
     is_enabled: bool
     """

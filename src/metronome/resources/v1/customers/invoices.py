@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
+from ...._utils import path_template, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -137,7 +137,9 @@ class InvoicesResource(SyncAPIResource):
         if not invoice_id:
             raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         return self._get(
-            f"/v1/customers/{customer_id}/invoices/{invoice_id}",
+            path_template(
+                "/v1/customers/{customer_id}/invoices/{invoice_id}", customer_id=customer_id, invoice_id=invoice_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -249,7 +251,7 @@ class InvoicesResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/invoices",
+            path_template("/v1/customers/{customer_id}/invoices", customer_id=customer_id),
             page=SyncCursorPage[Invoice],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -318,7 +320,7 @@ class InvoicesResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._post(
-            f"/v1/customers/{customer_id}/addCharge",
+            path_template("/v1/customers/{customer_id}/addCharge", customer_id=customer_id),
             body=maybe_transform(
                 {
                     "charge_id": charge_id,
@@ -432,7 +434,7 @@ class InvoicesResource(SyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/invoices/breakdowns",
+            path_template("/v1/customers/{customer_id}/invoices/breakdowns", customer_id=customer_id),
             page=SyncCursorPage[InvoiceListBreakdownsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -513,7 +515,9 @@ class InvoicesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         extra_headers = {"Accept": "application/pdf", **(extra_headers or {})}
         return self._get(
-            f"/v1/customers/{customer_id}/invoices/{invoice_id}/pdf",
+            path_template(
+                "/v1/customers/{customer_id}/invoices/{invoice_id}/pdf", customer_id=customer_id, invoice_id=invoice_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -616,7 +620,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not invoice_id:
             raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         return await self._get(
-            f"/v1/customers/{customer_id}/invoices/{invoice_id}",
+            path_template(
+                "/v1/customers/{customer_id}/invoices/{invoice_id}", customer_id=customer_id, invoice_id=invoice_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -728,7 +734,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/invoices",
+            path_template("/v1/customers/{customer_id}/invoices", customer_id=customer_id),
             page=AsyncCursorPage[Invoice],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -797,7 +803,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return await self._post(
-            f"/v1/customers/{customer_id}/addCharge",
+            path_template("/v1/customers/{customer_id}/addCharge", customer_id=customer_id),
             body=await async_maybe_transform(
                 {
                     "charge_id": charge_id,
@@ -911,7 +917,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         if not customer_id:
             raise ValueError(f"Expected a non-empty value for `customer_id` but received {customer_id!r}")
         return self._get_api_list(
-            f"/v1/customers/{customer_id}/invoices/breakdowns",
+            path_template("/v1/customers/{customer_id}/invoices/breakdowns", customer_id=customer_id),
             page=AsyncCursorPage[InvoiceListBreakdownsResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -992,7 +998,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `invoice_id` but received {invoice_id!r}")
         extra_headers = {"Accept": "application/pdf", **(extra_headers or {})}
         return await self._get(
-            f"/v1/customers/{customer_id}/invoices/{invoice_id}/pdf",
+            path_template(
+                "/v1/customers/{customer_id}/invoices/{invoice_id}/pdf", customer_id=customer_id, invoice_id=invoice_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

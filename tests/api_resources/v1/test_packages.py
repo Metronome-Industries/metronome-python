@@ -153,7 +153,6 @@ class TestPackages:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "starting_at_offset": {
@@ -197,6 +196,7 @@ class TestPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -224,6 +224,7 @@ class TestPackages:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -348,6 +349,7 @@ class TestPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -363,6 +365,7 @@ class TestPackages:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {
@@ -704,7 +707,6 @@ class TestAsyncPackages:
                             "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                             "product_tags": ["string"],
                             "recurring_commit_ids": ["string"],
-                            "recurring_credit_ids": ["string"],
                         }
                     ],
                     "starting_at_offset": {
@@ -748,6 +750,7 @@ class TestAsyncPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "specifiers": [
@@ -775,6 +778,7 @@ class TestAsyncPackages:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "discount_configuration": {"payment_fraction": 0},
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -899,6 +903,7 @@ class TestAsyncPackages:
                     "product_id": "product_id",
                     "description": "description",
                     "name": "name",
+                    "priority": 0,
                 },
                 "is_enabled": True,
                 "payment_gate_config": {
@@ -914,6 +919,7 @@ class TestAsyncPackages:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
+                "discount_configuration": {"payment_fraction": 0},
             },
             subscriptions=[
                 {

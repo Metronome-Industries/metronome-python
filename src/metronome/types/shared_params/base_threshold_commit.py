@@ -21,3 +21,9 @@ class BaseThresholdCommit(TypedDict, total=False):
 
     If left blank, it will default to the commit product name.
     """
+
+    priority: float
+    """The priority of the commit, used to determine drawdown order.
+
+    Lower priority commits are consumed first. Defaults to 100 if not specified.
+    """

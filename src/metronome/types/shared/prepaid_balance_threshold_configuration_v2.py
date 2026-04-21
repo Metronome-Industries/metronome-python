@@ -3,14 +3,14 @@
 from typing import List, Optional
 
 from ..._models import BaseModel
+from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
-from .update_base_threshold_commit import UpdateBaseThresholdCommit
 
-__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit"]
+__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration"]
 
 
-class Commit(UpdateBaseThresholdCommit):
+class Commit(BaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
 
@@ -33,6 +33,15 @@ class Commit(UpdateBaseThresholdCommit):
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     Instead, to target usage by product or product tag, pass those values in the
     body of `specifiers`.
+    """
+
+
+class DiscountConfiguration(BaseModel):
+    payment_fraction: float
+    """
+    The fraction of the original amount that the customer pays after applying the
+    discount. For example, 0.85 means the customer pays 85% of the original amount
+    (a 15% discount).
     """
 
 
@@ -63,3 +72,5 @@ class PrepaidBalanceThresholdConfigurationV2(BaseModel):
     If provided, the threshold, recharge-to amount, and the resulting threshold
     commit amount will be in terms of this credit type instead of the fiat currency.
     """
+
+    discount_configuration: Optional[DiscountConfiguration] = None

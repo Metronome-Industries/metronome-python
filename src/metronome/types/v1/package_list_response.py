@@ -194,8 +194,6 @@ class OverrideOverrideSpecifier(BaseModel):
 
     recurring_commit_template_ids: Optional[List[str]] = None
 
-    recurring_credit_template_ids: Optional[List[str]] = None
-
 
 class OverrideStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
@@ -290,6 +288,8 @@ class ScheduledCharge(BaseModel):
 
 class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+    day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START"]] = None
 
 
 class Alias(BaseModel):
@@ -759,6 +759,9 @@ class PackageListResponse(BaseModel):
             "metronome",
         ]
     ] = None
+
+    contract_name: Optional[str] = None
+    """The name to use for contracts created from this package."""
 
     credits: Optional[List[Credit]] = None
 
