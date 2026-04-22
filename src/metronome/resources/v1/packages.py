@@ -63,7 +63,6 @@ class PackagesResource(SyncAPIResource):
         *,
         name: str,
         aliases: Iterable[package_create_params.Alias] | Omit = omit,
-        billing_anchor_date: Literal["contract_start_date", "first_billing_period"] | Omit = omit,
         billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
         | Omit = omit,
         commits: Iterable[package_create_params.Commit] | Omit = omit,
@@ -181,7 +180,6 @@ class PackagesResource(SyncAPIResource):
                 {
                     "name": name,
                     "aliases": aliases,
-                    "billing_anchor_date": billing_anchor_date,
                     "billing_provider": billing_provider,
                     "commits": commits,
                     "contract_name": contract_name,
@@ -448,7 +446,6 @@ class AsyncPackagesResource(AsyncAPIResource):
         *,
         name: str,
         aliases: Iterable[package_create_params.Alias] | Omit = omit,
-        billing_anchor_date: Literal["contract_start_date", "first_billing_period"] | Omit = omit,
         billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
         | Omit = omit,
         commits: Iterable[package_create_params.Commit] | Omit = omit,
@@ -566,7 +563,6 @@ class AsyncPackagesResource(AsyncAPIResource):
                 {
                     "name": name,
                     "aliases": aliases,
-                    "billing_anchor_date": billing_anchor_date,
                     "billing_provider": billing_provider,
                     "commits": commits,
                     "contract_name": contract_name,
