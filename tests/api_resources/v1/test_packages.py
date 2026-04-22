@@ -43,7 +43,6 @@ class TestPackages:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
-            billing_anchor_date="contract_start_date",
             billing_provider="stripe",
             commits=[
                 {
@@ -597,7 +596,6 @@ class TestAsyncPackages:
                     "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
-            billing_anchor_date="contract_start_date",
             billing_provider="stripe",
             commits=[
                 {

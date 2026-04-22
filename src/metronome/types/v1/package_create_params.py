@@ -77,8 +77,6 @@ class PackageCreateParams(TypedDict, total=False):
     customers.
     """
 
-    billing_anchor_date: Literal["contract_start_date", "first_billing_period"]
-
     billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
 
     commits: Iterable[Commit]
