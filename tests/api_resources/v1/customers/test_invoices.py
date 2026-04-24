@@ -100,6 +100,7 @@ class TestInvoices:
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         invoice = client.v1.customers.invoices.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             credit_type_id="credit_type_id",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
@@ -410,6 +411,7 @@ class TestAsyncInvoices:
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         invoice = await async_client.v1.customers.invoices.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             credit_type_id="credit_type_id",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
