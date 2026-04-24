@@ -14,6 +14,9 @@ __all__ = ["InvoiceListParams"]
 class InvoiceListParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    contract_id: str
+    """Only return invoices for the specified contract"""
+
     credit_type_id: str
     """Only return invoices for the specified credit type"""
 
