@@ -166,6 +166,7 @@ class InvoicesResource(SyncAPIResource):
         sort: Literal["date_asc", "date_desc"] | Omit = omit,
         starting_on: Union[str, datetime] | Omit = omit,
         status: str | Omit = omit,
+        type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -243,6 +244,8 @@ class InvoicesResource(SyncAPIResource):
 
           status: Invoice status, e.g. DRAFT, FINALIZED, or VOID
 
+          type: Filter invoices by type. Defaults to returning all invoice types.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -272,6 +275,7 @@ class InvoicesResource(SyncAPIResource):
                         "sort": sort,
                         "starting_on": starting_on,
                         "status": status,
+                        "type": type,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),
@@ -653,6 +657,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         sort: Literal["date_asc", "date_desc"] | Omit = omit,
         starting_on: Union[str, datetime] | Omit = omit,
         status: str | Omit = omit,
+        type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -730,6 +735,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           status: Invoice status, e.g. DRAFT, FINALIZED, or VOID
 
+          type: Filter invoices by type. Defaults to returning all invoice types.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -759,6 +766,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                         "sort": sort,
                         "starting_on": starting_on,
                         "status": status,
+                        "type": type,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),

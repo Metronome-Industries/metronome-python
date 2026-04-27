@@ -50,3 +50,6 @@ class InvoiceListParams(TypedDict, total=False):
 
     status: str
     """Invoice status, e.g. DRAFT, FINALIZED, or VOID"""
+
+    type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"]
+    """Filter invoices by type. Defaults to returning all invoice types."""
