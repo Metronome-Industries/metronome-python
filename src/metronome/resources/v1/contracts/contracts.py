@@ -167,8 +167,8 @@ class ContractsResource(SyncAPIResource):
         """
         Contracts define a customer's products, pricing, discounts, access duration, and
         billing configuration. Contracts serve as the central billing agreement for both
-        PLG and Enterprise customers, you can automatically customers access to your
-        products and services directly from your product or CRM.
+        PLG and Enterprise customers. You can automatically grant customers access to
+        your products and services directly from your product or CRM.
 
         ### Use this endpoint to:
 
@@ -1421,8 +1421,8 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         Contracts define a customer's products, pricing, discounts, access duration, and
         billing configuration. Contracts serve as the central billing agreement for both
-        PLG and Enterprise customers, you can automatically customers access to your
-        products and services directly from your product or CRM.
+        PLG and Enterprise customers. You can automatically grant customers access to
+        your products and services directly from your product or CRM.
 
         ### Use this endpoint to:
 
