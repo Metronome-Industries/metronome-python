@@ -115,7 +115,7 @@ class AlertCreateParams(TypedDict, total=False):
 
 
 class CustomFieldFilter(TypedDict, total=False):
-    entity: Required[Literal["Contract", "Commit", "ContractCredit"]]
+    entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
 
     key: Required[str]
 
