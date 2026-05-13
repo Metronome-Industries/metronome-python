@@ -56,7 +56,7 @@ class ContractListSeatBalancesParams(TypedDict, total=False):
     """
 
     seat_ids: SequenceNotStr[str]
-    """Optional filter to only include specific seats"""
+    """Optional filter to only include specific seats."""
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """

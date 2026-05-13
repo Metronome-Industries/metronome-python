@@ -1104,7 +1104,7 @@ class ContractsResource(SyncAPIResource):
               (total: 108 commits). Each returned seat includes all of its associated credits
               and commits.
 
-          seat_ids: Optional filter to only include specific seats
+          seat_ids: Optional filter to only include specific seats.
 
           starting_at: Include only commits or credits with access effective on or after this date
               (cannot be used with covering_date).
@@ -2471,7 +2471,7 @@ class AsyncContractsResource(AsyncAPIResource):
               (total: 108 commits). Each returned seat includes all of its associated credits
               and commits.
 
-          seat_ids: Optional filter to only include specific seats
+          seat_ids: Optional filter to only include specific seats.
 
           starting_at: Include only commits or credits with access effective on or after this date
               (cannot be used with covering_date).
