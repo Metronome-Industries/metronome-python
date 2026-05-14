@@ -20,9 +20,6 @@ __all__ = [
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
-    "CommitPaymentGateConfig",
-    "CommitPaymentGateConfigPrecalculatedTaxConfig",
-    "CommitPaymentGateConfigStripeConfig",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
@@ -197,73 +194,6 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
-class CommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
-    """Only applicable if using PRECALCULATED as your tax type."""
-
-    tax_amount: Required[float]
-    """Amount of tax to be applied.
-
-    This should be in the same currency and denomination as the commit's invoice
-    schedule
-    """
-
-    tax_name: str
-    """Name of the tax to be applied.
-
-    This may be used in an invoice line item description.
-    """
-
-
-class CommitPaymentGateConfigStripeConfig(TypedDict, total=False):
-    """Only applicable if using STRIPE as your payment gate type."""
-
-    payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
-    """If left blank, will default to INVOICE"""
-
-    invoice_metadata: Dict[str, str]
-    """Metadata to be added to the Stripe invoice.
-
-    Only applicable if using INVOICE as your payment type.
-    """
-
-    on_session_payment: bool
-    """If true, the payment will be made assuming the customer is present (i.e.
-
-    on session).
-
-    If false, the payment will be made assuming the customer is not present (i.e.
-    off session). For cardholders from a country with an e-mandate requirement (e.g.
-    India), the payment may be declined.
-
-    If left blank, will default to false.
-    """
-
-
-class CommitPaymentGateConfig(TypedDict, total=False):
-    """optionally payment gate this commit"""
-
-    payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
-    """Gate access to the commit balance based on successful collection of payment.
-
-    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
-    facilitate payment using your own payment integration. Select NONE if you do not
-    wish to payment gate the commit balance.
-    """
-
-    precalculated_tax_config: CommitPaymentGateConfigPrecalculatedTaxConfig
-    """Only applicable if using PRECALCULATED as your tax type."""
-
-    stripe_config: CommitPaymentGateConfigStripeConfig
-    """Only applicable if using STRIPE as your payment gate type."""
-
-    tax_type: Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]
-    """Stripe tax is only supported for Stripe payment gateway.
-
-    Select NONE if you do not wish Metronome to calculate tax on your behalf.
-    Leaving this field blank will default to NONE.
-    """
-
-
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -315,9 +245,6 @@ class Commit(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
-
-    payment_gate_config: CommitPaymentGateConfig
-    """optionally payment gate this commit"""
 
     priority: float
     """
