@@ -94,19 +94,6 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -735,19 +722,6 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -1547,19 +1521,6 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -2188,19 +2149,6 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
