@@ -8,7 +8,6 @@ from ..._models import BaseModel
 from ..shared.tier import Tier
 from ..shared.discount import Discount
 from ..shared.pro_service import ProService
-from ..shared.subscription import Subscription
 from ..shared.override_tier import OverrideTier
 from ..shared.commit_specifier import CommitSpecifier
 from ..shared.credit_type_data import CreditTypeData
@@ -49,6 +48,16 @@ __all__ = [
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
+    "DataAddSubscription",
+    "DataAddSubscriptionBillingPeriods",
+    "DataAddSubscriptionBillingPeriodsCurrent",
+    "DataAddSubscriptionBillingPeriodsNext",
+    "DataAddSubscriptionBillingPeriodsPrevious",
+    "DataAddSubscriptionProration",
+    "DataAddSubscriptionQuantitySchedule",
+    "DataAddSubscriptionSubscriptionRate",
+    "DataAddSubscriptionSubscriptionRateProduct",
+    "DataAddSubscriptionSeatConfig",
     "DataAddUsageFilter",
     "DataArchiveCommit",
     "DataArchiveCredit",
@@ -591,6 +600,119 @@ class DataAddScheduledCharge(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+
+class DataAddSubscriptionBillingPeriodsCurrent(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddSubscriptionBillingPeriodsNext(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddSubscriptionBillingPeriodsPrevious(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class DataAddSubscriptionBillingPeriods(BaseModel):
+    """Previous, current, and next billing periods for the subscription."""
+
+    current: Optional[DataAddSubscriptionBillingPeriodsCurrent] = None
+
+    next: Optional[DataAddSubscriptionBillingPeriodsNext] = None
+
+    previous: Optional[DataAddSubscriptionBillingPeriodsPrevious] = None
+
+
+class DataAddSubscriptionProration(BaseModel):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+
+    is_prorated: bool
+
+
+class DataAddSubscriptionQuantitySchedule(BaseModel):
+    quantity: float
+
+    starting_at: datetime
+
+    ending_before: Optional[datetime] = None
+
+
+class DataAddSubscriptionSubscriptionRateProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class DataAddSubscriptionSubscriptionRate(BaseModel):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+    product: DataAddSubscriptionSubscriptionRateProduct
+
+
+class DataAddSubscriptionSeatConfig(BaseModel):
+    seat_group_key: str
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+
+class DataAddSubscription(BaseModel):
+    billing_periods: DataAddSubscriptionBillingPeriods
+    """Previous, current, and next billing periods for the subscription."""
+
+    collection_schedule: Literal["ADVANCE", "ARREARS"]
+
+    proration: DataAddSubscriptionProration
+
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
+    """
+
+    quantity_schedule: List[DataAddSubscriptionQuantitySchedule]
+    """List of quantity schedule items for the subscription.
+
+    Only includes the current quantity and future quantity changes.
+    """
+
+    starting_at: datetime
+
+    subscription_rate: DataAddSubscriptionSubscriptionRate
+
+    id: Optional[str] = None
+
+    custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: Optional[str] = None
+
+    ending_before: Optional[datetime] = None
+
+    fiat_credit_type_id: Optional[str] = None
+
+    name: Optional[str] = None
+
+    seat_config: Optional[DataAddSubscriptionSeatConfig] = None
 
 
 class DataAddUsageFilter(BaseModel):
@@ -1237,7 +1359,7 @@ class Data(BaseModel):
 
     add_spend_threshold_configuration: Optional[SpendThresholdConfigurationV2] = None
 
-    add_subscriptions: Optional[List[Subscription]] = None
+    add_subscriptions: Optional[List[DataAddSubscription]] = None
     """List of subscriptions on the contract."""
 
     add_usage_filters: Optional[List[DataAddUsageFilter]] = None

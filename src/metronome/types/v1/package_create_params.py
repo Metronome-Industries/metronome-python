@@ -914,8 +914,8 @@ class ScheduledCharge(TypedDict, total=False):
 
 class SubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
-    """Indicates how mid-period quantity adjustments are invoiced.
-
+    """
+    Indicates how mid-period quantity adjustments are invoiced.
     **BILL_IMMEDIATELY**: Only available when collection schedule is `ADVANCE`. The
     quantity increase will be billed immediately on the scheduled date.
     **BILL_ON_NEXT_COLLECTION_DATE**: The quantity increase will be billed for
