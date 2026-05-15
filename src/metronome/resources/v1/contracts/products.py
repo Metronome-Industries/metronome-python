@@ -77,6 +77,7 @@ class ProductsResource(SyncAPIResource):
         pricing_group_key: SequenceNotStr[str] | Omit = omit,
         quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
         quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
         tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -136,6 +137,13 @@ class ProductsResource(SyncAPIResource):
               the method is "round up" and the decimal places is 0, then the quantity will be
               rounded up to the nearest integer.
 
+          sql_breakdown_granularity: Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+              If set to 'service_period' (default), the usage will be evaluated once for all
+              events the invoice service period and the usage will be applied at the last
+              instant of the invoice. If set to 'hour', it will be broken down and evaluated
+              for each hour. For most use cases, 'hour' is recommended. The setting has no
+              effect for Streaming Billable Metrics.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -162,6 +170,7 @@ class ProductsResource(SyncAPIResource):
                     "pricing_group_key": pricing_group_key,
                     "quantity_conversion": quantity_conversion,
                     "quantity_rounding": quantity_rounding,
+                    "sql_breakdown_granularity": sql_breakdown_granularity,
                     "tags": tags,
                 },
                 product_create_params.ProductCreateParams,
@@ -221,6 +230,7 @@ class ProductsResource(SyncAPIResource):
         pricing_group_key: SequenceNotStr[str] | Omit = omit,
         quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
         quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
         tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -294,6 +304,13 @@ class ProductsResource(SyncAPIResource):
               the method is "round up" and the decimal places is 0, then the quantity will be
               rounded up to the nearest integer.
 
+          sql_breakdown_granularity: Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+              If set to 'service_period' (default), the usage will be evaluated once for all
+              events the invoice service period and the usage will be applied at the last
+              instant of the invoice. If set to 'hour', it will be broken down and evaluated
+              for each hour. For most use cases, 'hour' is recommended. The setting has no
+              effect for Streaming Billable Metrics.
+
           tags: If not provided, defaults to product's current tags
 
           extra_headers: Send extra headers
@@ -322,6 +339,7 @@ class ProductsResource(SyncAPIResource):
                     "pricing_group_key": pricing_group_key,
                     "quantity_conversion": quantity_conversion,
                     "quantity_rounding": quantity_rounding,
+                    "sql_breakdown_granularity": sql_breakdown_granularity,
                     "tags": tags,
                 },
                 product_update_params.ProductUpdateParams,
@@ -464,6 +482,7 @@ class AsyncProductsResource(AsyncAPIResource):
         pricing_group_key: SequenceNotStr[str] | Omit = omit,
         quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
         quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
         tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -523,6 +542,13 @@ class AsyncProductsResource(AsyncAPIResource):
               the method is "round up" and the decimal places is 0, then the quantity will be
               rounded up to the nearest integer.
 
+          sql_breakdown_granularity: Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+              If set to 'service_period' (default), the usage will be evaluated once for all
+              events the invoice service period and the usage will be applied at the last
+              instant of the invoice. If set to 'hour', it will be broken down and evaluated
+              for each hour. For most use cases, 'hour' is recommended. The setting has no
+              effect for Streaming Billable Metrics.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -549,6 +575,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "pricing_group_key": pricing_group_key,
                     "quantity_conversion": quantity_conversion,
                     "quantity_rounding": quantity_rounding,
+                    "sql_breakdown_granularity": sql_breakdown_granularity,
                     "tags": tags,
                 },
                 product_create_params.ProductCreateParams,
@@ -608,6 +635,7 @@ class AsyncProductsResource(AsyncAPIResource):
         pricing_group_key: SequenceNotStr[str] | Omit = omit,
         quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
         quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
         tags: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -681,6 +709,13 @@ class AsyncProductsResource(AsyncAPIResource):
               the method is "round up" and the decimal places is 0, then the quantity will be
               rounded up to the nearest integer.
 
+          sql_breakdown_granularity: Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+              If set to 'service_period' (default), the usage will be evaluated once for all
+              events the invoice service period and the usage will be applied at the last
+              instant of the invoice. If set to 'hour', it will be broken down and evaluated
+              for each hour. For most use cases, 'hour' is recommended. The setting has no
+              effect for Streaming Billable Metrics.
+
           tags: If not provided, defaults to product's current tags
 
           extra_headers: Send extra headers
@@ -709,6 +744,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "pricing_group_key": pricing_group_key,
                     "quantity_conversion": quantity_conversion,
                     "quantity_rounding": quantity_rounding,
+                    "sql_breakdown_granularity": sql_breakdown_granularity,
                     "tags": tags,
                 },
                 product_update_params.ProductUpdateParams,

@@ -87,4 +87,14 @@ class ProductCreateParams(TypedDict, total=False):
     the nearest integer.
     """
 
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"]
+    """Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+
+    If set to 'service_period' (default), the usage will be evaluated once for all
+    events the invoice service period and the usage will be applied at the last
+    instant of the invoice. If set to 'hour', it will be broken down and evaluated
+    for each hour. For most use cases, 'hour' is recommended. The setting has no
+    effect for Streaming Billable Metrics.
+    """
+
     tags: SequenceNotStr[str]
