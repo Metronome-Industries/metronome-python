@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
@@ -107,6 +107,16 @@ class ProductUpdateParams(TypedDict, total=False):
     the provided rounding method and decimal places. For example, if the method is
     "round up" and the decimal places is 0, then the quantity will be rounded up to
     the nearest integer.
+    """
+
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"]
+    """Defines the breakdown behavior when calculating usage from SQL Billable Metrics.
+
+    If set to 'service_period' (default), the usage will be evaluated once for all
+    events the invoice service period and the usage will be applied at the last
+    instant of the invoice. If set to 'hour', it will be broken down and evaluated
+    for each hour. For most use cases, 'hour' is recommended. The setting has no
+    effect for Streaming Billable Metrics.
     """
 
     tags: SequenceNotStr[str]
