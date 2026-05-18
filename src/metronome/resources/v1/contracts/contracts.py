@@ -29,6 +29,7 @@ from ....types.v1 import (
     contract_get_net_balance_params,
     contract_update_end_date_params,
     contract_set_usage_filter_params,
+    contract_list_seat_balances_params,
     contract_retrieve_rate_schedule_params,
     contract_add_manual_balance_entry_params,
     contract_create_historical_invoices_params,
@@ -70,6 +71,7 @@ from ....types.shared_params.base_usage_filter import BaseUsageFilter
 from ....types.v1.contract_list_balances_response import ContractListBalancesResponse
 from ....types.v1.contract_get_net_balance_response import ContractGetNetBalanceResponse
 from ....types.v1.contract_update_end_date_response import ContractUpdateEndDateResponse
+from ....types.v1.contract_list_seat_balances_response import ContractListSeatBalancesResponse
 from ....types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 from ....types.v1.contract_retrieve_rate_schedule_response import ContractRetrieveRateScheduleResponse
 from ....types.v1.contract_create_historical_invoices_response import ContractCreateHistoricalInvoicesResponse
@@ -167,8 +169,8 @@ class ContractsResource(SyncAPIResource):
         """
         Contracts define a customer's products, pricing, discounts, access duration, and
         billing configuration. Contracts serve as the central billing agreement for both
-        PLG and Enterprise customers, you can automatically customers access to your
-        products and services directly from your product or CRM.
+        PLG and Enterprise customers. You can automatically grant customers access to
+        your products and services directly from your product or CRM.
 
         ### Use this endpoint to:
 
@@ -313,7 +315,7 @@ class ContractsResource(SyncAPIResource):
 
           package_id: If provided, provisions a customer on a package instead of creating a
               traditional contract. When specified, only customer_id, starting_at, package_id,
-              and uniqueness_key are allowed.
+              uniqueness_key, transition, and custom_fields are allowed.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -1030,6 +1032,119 @@ class ContractsResource(SyncAPIResource):
             method="post",
         )
 
+    def list_seat_balances(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_credits_and_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        seat_ids: SequenceNotStr[str] | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
+        subscription_ids: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContractListSeatBalancesResponse:
+        """
+        Retrieve detailed balance for seat-based credits and commits from the contract's
+        subscriptions, broken down by individual seats.
+
+        ### Use this endpoint to:
+
+        - Display per-seat balance information in customer dashboards
+        - Filter balance data by subscription or specific seats
+
+        ### Key response fields:
+
+        An array of seat balance objects containing:
+
+        - Seat id
+        - Balance: current total balance across all commits and credits
+
+        ### Usage guidelines:
+
+        - Date filtering: use `covering_date` OR `starting_at`/`ending_before` to filter
+          balance data by time range
+        - Set `include_credits_and_commits=true` for detailed commits and credits
+          breakdown per seat
+        - Set `include_ledgers=true` for detailed transaction history per commit/credit
+          per seat
+
+        Args:
+          contract_id: The contract ID to retrieve seat balances for
+
+          customer_id: The customer ID to retrieve seat balances for
+
+          covering_date: Include only commits or credits with access that cover this specific date
+              (cannot be used with starting_at or ending_before).
+
+          cursor: Page token from a previous response to retrieve the next page
+
+          effective_before: Include only commits or credits with access effective on or before this date
+              (cannot be used with covering_date).
+
+          include_credits_and_commits: Include credits and commits in the response
+
+          include_ledgers: Include ledger entries for each commit and commit. `include_credits_and_commits`
+              must be set to `true` for `include_ledgers=true` to apply.
+
+          limit: Maximum number of seats to return. Range: 1-100. Default: 25. When
+              `include_credits_and_commits = true`, if the total commits/credits across all
+              seats exceeds 100, a limit of 100 applies to the total credits and commits.
+              Seats are included greedily to maximize the number of seats returned. Example:
+              if seat 1 has 98 commits and seat 2 has 10 commits, both seats will be returned
+              (total: 108 commits). Each returned seat includes all of its associated credits
+              and commits.
+
+          seat_ids: Optional filter to only include specific seats.
+
+          starting_at: Include only commits or credits with access effective on or after this date
+              (cannot be used with covering_date).
+
+          subscription_ids: Optional filter to only include seats from specific subscriptions. If
+              subscriptions ids are not mapped to SEAT_BASED subscriptions, error will be
+              returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/contracts/seatBalances/list",
+            body=maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "covering_date": covering_date,
+                    "cursor": cursor,
+                    "effective_before": effective_before,
+                    "include_credits_and_commits": include_credits_and_commits,
+                    "include_ledgers": include_ledgers,
+                    "limit": limit,
+                    "seat_ids": seat_ids,
+                    "starting_at": starting_at,
+                    "subscription_ids": subscription_ids,
+                },
+                contract_list_seat_balances_params.ContractListSeatBalancesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractListSeatBalancesResponse,
+        )
+
     def retrieve_rate_schedule(
         self,
         *,
@@ -1421,8 +1536,8 @@ class AsyncContractsResource(AsyncAPIResource):
         """
         Contracts define a customer's products, pricing, discounts, access duration, and
         billing configuration. Contracts serve as the central billing agreement for both
-        PLG and Enterprise customers, you can automatically customers access to your
-        products and services directly from your product or CRM.
+        PLG and Enterprise customers. You can automatically grant customers access to
+        your products and services directly from your product or CRM.
 
         ### Use this endpoint to:
 
@@ -1567,7 +1682,7 @@ class AsyncContractsResource(AsyncAPIResource):
 
           package_id: If provided, provisions a customer on a package instead of creating a
               traditional contract. When specified, only customer_id, starting_at, package_id,
-              and uniqueness_key are allowed.
+              uniqueness_key, transition, and custom_fields are allowed.
 
           professional_services: This field's availability is dependent on your client's configuration.
 
@@ -2284,6 +2399,119 @@ class AsyncContractsResource(AsyncAPIResource):
             method="post",
         )
 
+    async def list_seat_balances(
+        self,
+        *,
+        contract_id: str,
+        customer_id: str,
+        covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_credits_and_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        seat_ids: SequenceNotStr[str] | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
+        subscription_ids: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ContractListSeatBalancesResponse:
+        """
+        Retrieve detailed balance for seat-based credits and commits from the contract's
+        subscriptions, broken down by individual seats.
+
+        ### Use this endpoint to:
+
+        - Display per-seat balance information in customer dashboards
+        - Filter balance data by subscription or specific seats
+
+        ### Key response fields:
+
+        An array of seat balance objects containing:
+
+        - Seat id
+        - Balance: current total balance across all commits and credits
+
+        ### Usage guidelines:
+
+        - Date filtering: use `covering_date` OR `starting_at`/`ending_before` to filter
+          balance data by time range
+        - Set `include_credits_and_commits=true` for detailed commits and credits
+          breakdown per seat
+        - Set `include_ledgers=true` for detailed transaction history per commit/credit
+          per seat
+
+        Args:
+          contract_id: The contract ID to retrieve seat balances for
+
+          customer_id: The customer ID to retrieve seat balances for
+
+          covering_date: Include only commits or credits with access that cover this specific date
+              (cannot be used with starting_at or ending_before).
+
+          cursor: Page token from a previous response to retrieve the next page
+
+          effective_before: Include only commits or credits with access effective on or before this date
+              (cannot be used with covering_date).
+
+          include_credits_and_commits: Include credits and commits in the response
+
+          include_ledgers: Include ledger entries for each commit and commit. `include_credits_and_commits`
+              must be set to `true` for `include_ledgers=true` to apply.
+
+          limit: Maximum number of seats to return. Range: 1-100. Default: 25. When
+              `include_credits_and_commits = true`, if the total commits/credits across all
+              seats exceeds 100, a limit of 100 applies to the total credits and commits.
+              Seats are included greedily to maximize the number of seats returned. Example:
+              if seat 1 has 98 commits and seat 2 has 10 commits, both seats will be returned
+              (total: 108 commits). Each returned seat includes all of its associated credits
+              and commits.
+
+          seat_ids: Optional filter to only include specific seats.
+
+          starting_at: Include only commits or credits with access effective on or after this date
+              (cannot be used with covering_date).
+
+          subscription_ids: Optional filter to only include seats from specific subscriptions. If
+              subscriptions ids are not mapped to SEAT_BASED subscriptions, error will be
+              returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/contracts/seatBalances/list",
+            body=await async_maybe_transform(
+                {
+                    "contract_id": contract_id,
+                    "customer_id": customer_id,
+                    "covering_date": covering_date,
+                    "cursor": cursor,
+                    "effective_before": effective_before,
+                    "include_credits_and_commits": include_credits_and_commits,
+                    "include_ledgers": include_ledgers,
+                    "limit": limit,
+                    "seat_ids": seat_ids,
+                    "starting_at": starting_at,
+                    "subscription_ids": subscription_ids,
+                },
+                contract_list_seat_balances_params.ContractListSeatBalancesParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ContractListSeatBalancesResponse,
+        )
+
     async def retrieve_rate_schedule(
         self,
         *,
@@ -2621,6 +2849,9 @@ class ContractsResourceWithRawResponse:
         self.list_balances = to_raw_response_wrapper(
             contracts.list_balances,
         )
+        self.list_seat_balances = to_raw_response_wrapper(
+            contracts.list_seat_balances,
+        )
         self.retrieve_rate_schedule = to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
         )
@@ -2686,6 +2917,9 @@ class AsyncContractsResourceWithRawResponse:
         )
         self.list_balances = async_to_raw_response_wrapper(
             contracts.list_balances,
+        )
+        self.list_seat_balances = async_to_raw_response_wrapper(
+            contracts.list_seat_balances,
         )
         self.retrieve_rate_schedule = async_to_raw_response_wrapper(
             contracts.retrieve_rate_schedule,
@@ -2753,6 +2987,9 @@ class ContractsResourceWithStreamingResponse:
         self.list_balances = to_streamed_response_wrapper(
             contracts.list_balances,
         )
+        self.list_seat_balances = to_streamed_response_wrapper(
+            contracts.list_seat_balances,
+        )
         self.retrieve_rate_schedule = to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,
         )
@@ -2818,6 +3055,9 @@ class AsyncContractsResourceWithStreamingResponse:
         )
         self.list_balances = async_to_streamed_response_wrapper(
             contracts.list_balances,
+        )
+        self.list_seat_balances = async_to_streamed_response_wrapper(
+            contracts.list_seat_balances,
         )
         self.retrieve_rate_schedule = async_to_streamed_response_wrapper(
             contracts.retrieve_rate_schedule,

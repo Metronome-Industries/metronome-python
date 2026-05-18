@@ -14,6 +14,9 @@ __all__ = ["InvoiceListParams"]
 class InvoiceListParams(TypedDict, total=False):
     customer_id: Required[str]
 
+    contract_id: str
+    """Only return invoices for the specified contract"""
+
     credit_type_id: str
     """Only return invoices for the specified credit type"""
 
@@ -47,3 +50,6 @@ class InvoiceListParams(TypedDict, total=False):
 
     status: str
     """Invoice status, e.g. DRAFT, FINALIZED, or VOID"""
+
+    type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"]
+    """Filter invoices by type. Defaults to returning all invoice types."""

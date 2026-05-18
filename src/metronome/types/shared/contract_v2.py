@@ -8,7 +8,6 @@ from .tier import Tier
 from .discount import Discount
 from ..._models import BaseModel
 from .pro_service import ProService
-from .subscription import Subscription
 from .override_tier import OverrideTier
 from .commit_specifier import CommitSpecifier
 from .credit_type_data import CreditTypeData
@@ -83,6 +82,16 @@ __all__ = [
     "RecurringCreditContract",
     "ResellerRoyalty",
     "ResellerRoyaltySegment",
+    "Subscription",
+    "SubscriptionBillingPeriods",
+    "SubscriptionBillingPeriodsCurrent",
+    "SubscriptionBillingPeriodsNext",
+    "SubscriptionBillingPeriodsPrevious",
+    "SubscriptionProration",
+    "SubscriptionQuantitySchedule",
+    "SubscriptionSubscriptionRate",
+    "SubscriptionSubscriptionRateProduct",
+    "SubscriptionSeatConfig",
 ]
 
 
@@ -638,6 +647,8 @@ class Credit(BaseModel):
 
     applicable_product_tags: Optional[List[str]] = None
 
+    archived_at: Optional[datetime] = None
+
     balance: Optional[float] = None
     """The current balance of the credit or commit.
 
@@ -1066,6 +1077,119 @@ class ResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
 
     segments: List[ResellerRoyaltySegment]
+
+
+class SubscriptionBillingPeriodsCurrent(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class SubscriptionBillingPeriodsNext(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class SubscriptionBillingPeriodsPrevious(BaseModel):
+    ending_before: datetime
+
+    starting_at: datetime
+
+
+class SubscriptionBillingPeriods(BaseModel):
+    """Previous, current, and next billing periods for the subscription."""
+
+    current: Optional[SubscriptionBillingPeriodsCurrent] = None
+
+    next: Optional[SubscriptionBillingPeriodsNext] = None
+
+    previous: Optional[SubscriptionBillingPeriodsPrevious] = None
+
+
+class SubscriptionProration(BaseModel):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+
+    is_prorated: bool
+
+
+class SubscriptionQuantitySchedule(BaseModel):
+    quantity: float
+
+    starting_at: datetime
+
+    ending_before: Optional[datetime] = None
+
+
+class SubscriptionSubscriptionRateProduct(BaseModel):
+    id: str
+
+    name: str
+
+
+class SubscriptionSubscriptionRate(BaseModel):
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
+    product: SubscriptionSubscriptionRateProduct
+
+
+class SubscriptionSeatConfig(BaseModel):
+    seat_group_key: str
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+
+class Subscription(BaseModel):
+    billing_periods: SubscriptionBillingPeriods
+    """Previous, current, and next billing periods for the subscription."""
+
+    collection_schedule: Literal["ADVANCE", "ARREARS"]
+
+    proration: SubscriptionProration
+
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
+    """
+
+    quantity_schedule: List[SubscriptionQuantitySchedule]
+    """List of quantity schedule items for the subscription.
+
+    Only includes the current quantity and future quantity changes.
+    """
+
+    starting_at: datetime
+
+    subscription_rate: SubscriptionSubscriptionRate
+
+    id: Optional[str] = None
+
+    custom_fields: Optional[Dict[str, str]] = None
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: Optional[str] = None
+
+    ending_before: Optional[datetime] = None
+
+    fiat_credit_type_id: Optional[str] = None
+
+    name: Optional[str] = None
+
+    seat_config: Optional[SubscriptionSeatConfig] = None
 
 
 class ContractV2(BaseModel):

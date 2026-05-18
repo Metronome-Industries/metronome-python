@@ -18,7 +18,7 @@ __all__ = [
 
 
 class AlertCustomFieldFilter(BaseModel):
-    entity: Literal["Contract", "Commit", "ContractCredit"]
+    entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
 
     key: str
 

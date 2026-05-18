@@ -19,6 +19,7 @@ from metronome.types.v1 import (
     ContractListBalancesResponse,
     ContractGetNetBalanceResponse,
     ContractUpdateEndDateResponse,
+    ContractListSeatBalancesResponse,
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
@@ -93,19 +94,6 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -734,19 +722,6 @@ class TestContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -1185,6 +1160,57 @@ class TestContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_list_seat_balances(self, client: Metronome) -> None:
+        contract = client.v1.contracts.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    def test_method_list_seat_balances_with_all_params(self, client: Metronome) -> None:
+        contract = client.v1.contracts.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            covering_date=parse_datetime("2024-03-01T00:00:00.000Z"),
+            cursor="cursor",
+            effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            include_credits_and_commits=True,
+            include_ledgers=True,
+            limit=25,
+            seat_ids=["string"],
+            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            subscription_ids=["8deed800-1b7a-495d-a207-6c52bac54dc9"],
+        )
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    def test_raw_response_list_seat_balances(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = response.parse()
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list_seat_balances(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = response.parse()
+            assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_retrieve_rate_schedule(self, client: Metronome) -> None:
         contract = client.v1.contracts.retrieve_rate_schedule(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -1495,19 +1521,6 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -2136,19 +2149,6 @@ class TestAsyncContracts:
                     },
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
-                    "payment_gate_config": {
-                        "payment_gate_type": "NONE",
-                        "precalculated_tax_config": {
-                            "tax_amount": 0,
-                            "tax_name": "tax_name",
-                        },
-                        "stripe_config": {
-                            "payment_type": "INVOICE",
-                            "invoice_metadata": {"foo": "string"},
-                            "on_session_payment": True,
-                        },
-                        "tax_type": "NONE",
-                    },
                     "priority": 0,
                     "rate_type": "COMMIT_RATE",
                     "rollover_fraction": 0,
@@ -2583,6 +2583,57 @@ class TestAsyncContracts:
 
             contract = await response.parse()
             assert_matches_type(AsyncBodyCursorPage[ContractListBalancesResponse], contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list_seat_balances(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_method_list_seat_balances_with_all_params(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            covering_date=parse_datetime("2024-03-01T00:00:00.000Z"),
+            cursor="cursor",
+            effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            include_credits_and_commits=True,
+            include_ledgers=True,
+            limit=25,
+            seat_ids=["string"],
+            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            subscription_ids=["8deed800-1b7a-495d-a207-6c52bac54dc9"],
+        )
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list_seat_balances(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = await response.parse()
+        assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list_seat_balances(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.with_streaming_response.list_seat_balances(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = await response.parse()
+            assert_matches_type(ContractListSeatBalancesResponse, contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

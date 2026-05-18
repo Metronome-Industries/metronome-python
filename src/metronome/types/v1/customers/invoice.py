@@ -590,6 +590,8 @@ class Invoice(BaseModel):
 
     plan_name: Optional[str] = None
 
+    regenerated_from_invoice_id: Optional[str] = None
+
     reseller_royalty: Optional[ResellerRoyalty] = None
     """Only present for contract invoices with reseller royalties."""
 

@@ -57,6 +57,7 @@ class TestProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
+            sql_breakdown_granularity="HOUR",
             tags=["string"],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
@@ -150,6 +151,7 @@ class TestProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
+            sql_breakdown_granularity="HOUR",
             tags=["string"],
         )
         assert_matches_type(ProductUpdateResponse, product, path=["response"])
@@ -283,6 +285,7 @@ class TestAsyncProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
+            sql_breakdown_granularity="HOUR",
             tags=["string"],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
@@ -376,6 +379,7 @@ class TestAsyncProducts:
                 "decimal_places": 0,
                 "rounding_method": "ROUND_UP",
             },
+            sql_breakdown_granularity="HOUR",
             tags=["string"],
         )
         assert_matches_type(ProductUpdateResponse, product, path=["response"])
