@@ -1,5 +1,45 @@
 # Changelog
 
+## 4.6.0 (2026-05-18)
+
+Full Changelog: [v4.5.0...v4.6.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.5.0...v4.6.0)
+
+### Features
+
+* [docs] fix typo in "Create a Contract" [1] page ([b72bcc4](https://github.com/Metronome-Industries/metronome-python/commit/b72bcc4dd7ba760eb7e107142839a72216683e8b))
+* [orch-383] fix API docs for one-off payment-gated commits ([13db81e](https://github.com/Metronome-Industries/metronome-python/commit/13db81eaa43c875ba16234e4d4671658c72103fc))
+* Add alert specifiers to contract create API ([190c46f](https://github.com/Metronome-Industries/metronome-python/commit/190c46fcd9def1942854b837f42f99d817886db3))
+* add contract_id filter to list invoices endpoint ([1a35085](https://github.com/Metronome-Industries/metronome-python/commit/1a350859127795b682160d85e67adc207f3f8d09))
+* add invoice type filter for list invoices api ([233068e](https://github.com/Metronome-Industries/metronome-python/commit/233068ea61e07f38cf5dec1279e82d20929d17dc))
+* Add list seat balances API endpoint to SDK ([62344cf](https://github.com/Metronome-Industries/metronome-python/commit/62344cf4d31b2a3478824d3c44b796dbd037d165))
+* Add regenerated_from_invoice_id to getInvoice response ([bed1249](https://github.com/Metronome-Industries/metronome-python/commit/bed1249bcfdcb2bc1be1a76b8a51af413f9b8ae7))
+* Add sql_breakdown_granularity flag to product create/edit ([668a634](https://github.com/Metronome-Industries/metronome-python/commit/668a634b49a1009118c65b2cec571bf05163c155))
+* added custom fields to create contract with package ([f4b2e74](https://github.com/Metronome-Industries/metronome-python/commit/f4b2e740e213e66e0fe77ce408fb77788c01c4bf))
+* doc updates ([875328b](https://github.com/Metronome-Industries/metronome-python/commit/875328b08079ed781c73e0999f49022de81e1c14))
+* **internal/types:** support eagerly validating pydantic iterators ([178181e](https://github.com/Metronome-Industries/metronome-python/commit/178181ee2fcb2ac8ce0bcef17052c522cadd3e16))
+* Limit spend breakdown/seat balances to 100 vals ([2c78ab1](https://github.com/Metronome-Industries/metronome-python/commit/2c78ab1b1065a9e6e594859b90d39312fbcc411a))
+* Pranadreddy/launch 2486 remove dead billing anchor date field from api ([d4c9c5c](https://github.com/Metronome-Industries/metronome-python/commit/d4c9c5cdaf7b20e392c0dac0dc8ca398e18a1b42))
+* support setting headers via env ([dc3b7b0](https://github.com/Metronome-Industries/metronome-python/commit/dc3b7b0cc3574cc5c53717451620ebae3ae98c16))
+* Update stainless.yml to include Java configuration logic ([20c9056](https://github.com/Metronome-Industries/metronome-python/commit/20c90564012ccb48ce9084eae0ecf236651c4d96))
+* wip ([b6a488d](https://github.com/Metronome-Industries/metronome-python/commit/b6a488d99f58a93f27840c8375d8a95c8ed57ed7))
+
+
+### Bug Fixes
+
+* add archived_at to Credit schema (parity with Commit) ([9413544](https://github.com/Metronome-Industries/metronome-python/commit/94135442ca82319bc278f577d14bcdb20f897057))
+* **client:** add missing f-string prefix in file type error message ([e45131d](https://github.com/Metronome-Industries/metronome-python/commit/e45131df2e220e81e72d50b21c11893943828531))
+* use correct field name format for multipart file arrays ([9e9b5a2](https://github.com/Metronome-Industries/metronome-python/commit/9e9b5a2552d2115213d6e74504d649a0ae2f4da9))
+
+
+### Chores
+
+* configure new SDK language ([e473b0f](https://github.com/Metronome-Industries/metronome-python/commit/e473b0f59fed56a96446d3651071ecca2a5aad55))
+* configure new SDK language ([e34ef49](https://github.com/Metronome-Industries/metronome-python/commit/e34ef49b548efffbf762ca532a21531ecdbfcbf5))
+* configure new SDK language ([eb7d417](https://github.com/Metronome-Industries/metronome-python/commit/eb7d41763a054f694e4871965fbfb3c0eca0cac5))
+* configure new SDK language ([77363e6](https://github.com/Metronome-Industries/metronome-python/commit/77363e63d596b94be0ab219c7a32e5efe5274063))
+* **internal:** more robust bootstrap script ([cdf8b0f](https://github.com/Metronome-Industries/metronome-python/commit/cdf8b0f5f73f5b2fd2a609284e9668c35a7df822))
+* **internal:** reformat pyproject.toml ([c5299c6](https://github.com/Metronome-Industries/metronome-python/commit/c5299c6530e5f962ed251e0bd03afb50dc7285fa))
+
 ## 4.5.0 (2026-04-17)
 
 Full Changelog: [v4.4.0...v4.5.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.4.0...v4.5.0)
