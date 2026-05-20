@@ -42,14 +42,6 @@ from .packages import (
     PackagesResourceWithStreamingResponse,
     AsyncPackagesResourceWithStreamingResponse,
 )
-from .payments import (
-    PaymentsResource,
-    AsyncPaymentsResource,
-    PaymentsResourceWithRawResponse,
-    AsyncPaymentsResourceWithRawResponse,
-    PaymentsResourceWithStreamingResponse,
-    AsyncPaymentsResourceWithStreamingResponse,
-)
 from .services import (
     ServicesResource,
     AsyncServicesResource,
@@ -227,10 +219,6 @@ class V1Resource(SyncAPIResource):
         return PackagesResource(self._client)
 
     @cached_property
-    def payments(self) -> PaymentsResource:
-        return PaymentsResource(self._client)
-
-    @cached_property
     def settings(self) -> SettingsResource:
         """
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
@@ -346,10 +334,6 @@ class AsyncV1Resource(AsyncAPIResource):
     @cached_property
     def packages(self) -> AsyncPackagesResource:
         return AsyncPackagesResource(self._client)
-
-    @cached_property
-    def payments(self) -> AsyncPaymentsResource:
-        return AsyncPaymentsResource(self._client)
 
     @cached_property
     def settings(self) -> AsyncSettingsResource:
@@ -472,10 +456,6 @@ class V1ResourceWithRawResponse:
         return PackagesResourceWithRawResponse(self._v1.packages)
 
     @cached_property
-    def payments(self) -> PaymentsResourceWithRawResponse:
-        return PaymentsResourceWithRawResponse(self._v1.payments)
-
-    @cached_property
     def settings(self) -> SettingsResourceWithRawResponse:
         """
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
@@ -575,10 +555,6 @@ class AsyncV1ResourceWithRawResponse:
     @cached_property
     def packages(self) -> AsyncPackagesResourceWithRawResponse:
         return AsyncPackagesResourceWithRawResponse(self._v1.packages)
-
-    @cached_property
-    def payments(self) -> AsyncPaymentsResourceWithRawResponse:
-        return AsyncPaymentsResourceWithRawResponse(self._v1.payments)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithRawResponse:
@@ -682,10 +658,6 @@ class V1ResourceWithStreamingResponse:
         return PackagesResourceWithStreamingResponse(self._v1.packages)
 
     @cached_property
-    def payments(self) -> PaymentsResourceWithStreamingResponse:
-        return PaymentsResourceWithStreamingResponse(self._v1.payments)
-
-    @cached_property
     def settings(self) -> SettingsResourceWithStreamingResponse:
         """
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
@@ -785,10 +757,6 @@ class AsyncV1ResourceWithStreamingResponse:
     @cached_property
     def packages(self) -> AsyncPackagesResourceWithStreamingResponse:
         return AsyncPackagesResourceWithStreamingResponse(self._v1.packages)
-
-    @cached_property
-    def payments(self) -> AsyncPaymentsResourceWithStreamingResponse:
-        return AsyncPaymentsResourceWithStreamingResponse(self._v1.payments)
 
     @cached_property
     def settings(self) -> AsyncSettingsResourceWithStreamingResponse:
