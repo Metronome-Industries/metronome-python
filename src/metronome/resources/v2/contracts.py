@@ -225,11 +225,13 @@ class ContractsResource(SyncAPIResource):
         add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
+        add_spend_trackers: Iterable[contract_edit_params.AddSpendTracker] | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
         allow_contract_ending_before_finalized_invoice: bool | Omit = omit,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | Omit = omit,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | Omit = omit,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | Omit = omit,
+        archive_spend_trackers: SequenceNotStr[str] | Omit = omit,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | Omit = omit,
         uniqueness_key: str | Omit = omit,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | Omit = omit,
@@ -290,6 +292,9 @@ class ContractsResource(SyncAPIResource):
               adding a revenue system configuration to a contract that does not already have
               one.
 
+          add_spend_trackers: Spend trackers to add to this contract. Aliases must be unique within a
+              contract.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -304,6 +309,8 @@ class ContractsResource(SyncAPIResource):
           archive_credits: IDs of credits to archive
 
           archive_scheduled_charges: IDs of scheduled charges to archive
+
+          archive_spend_trackers: Aliases of spend trackers to archive.
 
           remove_overrides: IDs of overrides to remove
 
@@ -354,11 +361,13 @@ class ContractsResource(SyncAPIResource):
                     "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "add_spend_trackers": add_spend_trackers,
                     "add_subscriptions": add_subscriptions,
                     "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
+                    "archive_spend_trackers": archive_spend_trackers,
                     "remove_overrides": remove_overrides,
                     "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,
@@ -837,11 +846,13 @@ class AsyncContractsResource(AsyncAPIResource):
         add_revenue_system_configuration_update: contract_edit_params.AddRevenueSystemConfigurationUpdate | Omit = omit,
         add_scheduled_charges: Iterable[contract_edit_params.AddScheduledCharge] | Omit = omit,
         add_spend_threshold_configuration: SpendThresholdConfigurationV2 | Omit = omit,
+        add_spend_trackers: Iterable[contract_edit_params.AddSpendTracker] | Omit = omit,
         add_subscriptions: Iterable[contract_edit_params.AddSubscription] | Omit = omit,
         allow_contract_ending_before_finalized_invoice: bool | Omit = omit,
         archive_commits: Iterable[contract_edit_params.ArchiveCommit] | Omit = omit,
         archive_credits: Iterable[contract_edit_params.ArchiveCredit] | Omit = omit,
         archive_scheduled_charges: Iterable[contract_edit_params.ArchiveScheduledCharge] | Omit = omit,
+        archive_spend_trackers: SequenceNotStr[str] | Omit = omit,
         remove_overrides: Iterable[contract_edit_params.RemoveOverride] | Omit = omit,
         uniqueness_key: str | Omit = omit,
         update_commits: Iterable[contract_edit_params.UpdateCommit] | Omit = omit,
@@ -902,6 +913,9 @@ class AsyncContractsResource(AsyncAPIResource):
               adding a revenue system configuration to a contract that does not already have
               one.
 
+          add_spend_trackers: Spend trackers to add to this contract. Aliases must be unique within a
+              contract.
+
           add_subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -916,6 +930,8 @@ class AsyncContractsResource(AsyncAPIResource):
           archive_credits: IDs of credits to archive
 
           archive_scheduled_charges: IDs of scheduled charges to archive
+
+          archive_spend_trackers: Aliases of spend trackers to archive.
 
           remove_overrides: IDs of overrides to remove
 
@@ -966,11 +982,13 @@ class AsyncContractsResource(AsyncAPIResource):
                     "add_revenue_system_configuration_update": add_revenue_system_configuration_update,
                     "add_scheduled_charges": add_scheduled_charges,
                     "add_spend_threshold_configuration": add_spend_threshold_configuration,
+                    "add_spend_trackers": add_spend_trackers,
                     "add_subscriptions": add_subscriptions,
                     "allow_contract_ending_before_finalized_invoice": allow_contract_ending_before_finalized_invoice,
                     "archive_commits": archive_commits,
                     "archive_credits": archive_credits,
                     "archive_scheduled_charges": archive_scheduled_charges,
+                    "archive_spend_trackers": archive_spend_trackers,
                     "remove_overrides": remove_overrides,
                     "uniqueness_key": uniqueness_key,
                     "update_commits": update_commits,

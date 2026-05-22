@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, List, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -55,6 +55,8 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleScheduleItem",
     "ScheduledChargeScheduleScheduleItemDateOffset",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
     "Subscription",
     "SubscriptionProration",
     "SubscriptionSubscriptionRate",
@@ -127,6 +129,8 @@ class PackageCreateParams(TypedDict, total=False):
     """
 
     spend_threshold_configuration: SpendThresholdConfiguration
+
+    spend_trackers: Iterable[SpendTracker]
 
     subscriptions: Iterable[Subscription]
 
@@ -910,6 +914,26 @@ class ScheduledCharge(TypedDict, total=False):
 
     name: str
     """displayed on invoices"""
+
+
+class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
+    sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
+
+    spend_type: Required[Literal["COMMIT_PURCHASE"]]
+
+    discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
+    """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
+
+class SpendTracker(TypedDict, total=False):
+    alias: Required[str]
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: Required[Iterable[SpendTrackerApplicableSpendSpecifier]]
+
+    credit_type_id: Required[str]
+
+    reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
 
 class SubscriptionProration(TypedDict, total=False):

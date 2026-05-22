@@ -31,6 +31,7 @@ __all__ = [
     "LedgerPostpaidCommitManualLedgerEntry",
     "LedgerPostpaidCommitExpirationLedgerEntry",
     "RolledOverFrom",
+    "SpendTrackerAttributes",
     "SubscriptionConfig",
     "SubscriptionConfigApplySeatIncreaseConfig",
 ]
@@ -234,6 +235,16 @@ class RolledOverFrom(BaseModel):
     contract_id: str
 
 
+class SpendTrackerAttributes(BaseModel):
+    """Optional attributes controlling how this commit interacts with spend trackers."""
+
+    counts_as_discounted: bool
+    """
+    If true, this commit is included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
 class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -354,6 +365,9 @@ class Commit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    spend_tracker_attributes: Optional[SpendTrackerAttributes] = None
+    """Optional attributes controlling how this commit interacts with spend trackers."""
 
     subscription_config: Optional[SubscriptionConfig] = None
     """

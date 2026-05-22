@@ -16,7 +16,15 @@ from .contract_without_amendments import ContractWithoutAmendments
 from .spend_threshold_configuration import SpendThresholdConfiguration
 from .prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = ["Contract", "Amendment", "AmendmentResellerRoyalty", "CustomerBillingProviderConfiguration"]
+__all__ = [
+    "Contract",
+    "Amendment",
+    "AmendmentResellerRoyalty",
+    "CustomerBillingProviderConfiguration",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
+]
 
 
 class AmendmentResellerRoyalty(BaseModel):
@@ -104,6 +112,35 @@ class CustomerBillingProviderConfiguration(BaseModel):
     """
 
 
+class SpendTrackerApplicableSpendSpecifier(BaseModel):
+    sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
+
+    spend_type: Literal["COMMIT_PURCHASE"]
+
+    discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
+
+
+class SpendTrackerAccumulatedSpend(BaseModel):
+    amount: float
+
+    period_ending_before: datetime
+
+    period_starting_at: datetime
+
+
+class SpendTracker(BaseModel):
+    alias: str
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: List[SpendTrackerApplicableSpendSpecifier]
+
+    credit_type_id: str
+
+    reset_frequency: Literal["BILLING_PERIOD"]
+
+    accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
+
+
 class Contract(BaseModel):
     id: str
 
@@ -142,6 +179,9 @@ class Contract(BaseModel):
     """
 
     spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None
+
+    spend_trackers: Optional[List[SpendTracker]] = None
+    """Spend trackers attached to this contract."""
 
     subscriptions: Optional[List[Subscription]] = None
     """List of subscriptions on the contract."""

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -24,6 +24,7 @@ __all__ = [
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
+    "CommitSpendTrackerAttributes",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
@@ -58,6 +59,8 @@ __all__ = [
     "ScheduledChargeSchedule",
     "ScheduledChargeScheduleRecurringSchedule",
     "ScheduledChargeScheduleScheduleItem",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
     "Subscription",
     "SubscriptionProration",
     "SubscriptionSubscriptionRate",
@@ -166,6 +169,12 @@ class ContractCreateParams(TypedDict, total=False):
     """
 
     spend_threshold_configuration: SpendThresholdConfiguration
+
+    spend_trackers: Iterable[SpendTracker]
+    """Spend trackers to attach to this contract.
+
+    Aliases must be unique within a contract.
+    """
 
     subscriptions: Iterable[Subscription]
     """
@@ -324,6 +333,16 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitSpendTrackerAttributes(TypedDict, total=False):
+    """Optional attributes for spend tracker integration. Immutable after creation."""
+
+    counts_as_discounted: Required[bool]
+    """
+    If true, this commit will be included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -394,6 +413,9 @@ class Commit(TypedDict, total=False):
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
+
+    spend_tracker_attributes: CommitSpendTrackerAttributes
+    """Optional attributes for spend tracker integration. Immutable after creation."""
 
     temporary_id: str
     """
@@ -1240,6 +1262,26 @@ class ScheduledCharge(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
+
+class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
+    sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
+
+    spend_type: Required[Literal["COMMIT_PURCHASE"]]
+
+    discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
+    """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
+
+class SpendTracker(TypedDict, total=False):
+    alias: Required[str]
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: Required[Iterable[SpendTrackerApplicableSpendSpecifier]]
+
+    credit_type_id: Required[str]
+
+    reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
 
 class SubscriptionProration(TypedDict, total=False):

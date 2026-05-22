@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -30,6 +30,7 @@ __all__ = [
     "AddCommitPaymentGateConfig",
     "AddCommitPaymentGateConfigPrecalculatedTaxConfig",
     "AddCommitPaymentGateConfigStripeConfig",
+    "AddCommitSpendTrackerAttributes",
     "AddCredit",
     "AddCreditAccessSchedule",
     "AddCreditAccessScheduleScheduleItem",
@@ -63,6 +64,8 @@ __all__ = [
     "AddScheduledChargeSchedule",
     "AddScheduledChargeScheduleRecurringSchedule",
     "AddScheduledChargeScheduleScheduleItem",
+    "AddSpendTracker",
+    "AddSpendTrackerApplicableSpendSpecifier",
     "AddSubscription",
     "AddSubscriptionProration",
     "AddSubscriptionSubscriptionRate",
@@ -88,6 +91,7 @@ __all__ = [
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
     "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
+    "UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
     "UpdateRecurringCommit",
     "UpdateRecurringCommitAccessAmount",
     "UpdateRecurringCommitInvoiceAmount",
@@ -100,6 +104,7 @@ __all__ = [
     "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "UpdateSpendThresholdConfiguration",
     "UpdateSpendThresholdConfigurationDiscountConfiguration",
+    "UpdateSpendThresholdConfigurationDiscountConfigurationCap",
     "UpdateSubscription",
     "UpdateSubscriptionQuantityManagementModeUpdate",
     "UpdateSubscriptionQuantityManagementModeUpdateSeatConfig",
@@ -156,6 +161,12 @@ class ContractEditParams(TypedDict, total=False):
 
     add_spend_threshold_configuration: SpendThresholdConfigurationV2
 
+    add_spend_trackers: Iterable[AddSpendTracker]
+    """Spend trackers to add to this contract.
+
+    Aliases must be unique within a contract.
+    """
+
     add_subscriptions: Iterable[AddSubscription]
     """
     Optional list of
@@ -179,6 +190,9 @@ class ContractEditParams(TypedDict, total=False):
 
     archive_scheduled_charges: Iterable[ArchiveScheduledCharge]
     """IDs of scheduled charges to archive"""
+
+    archive_spend_trackers: SequenceNotStr[str]
+    """Aliases of spend trackers to archive."""
 
     remove_overrides: Iterable[RemoveOverride]
     """IDs of overrides to remove"""
@@ -451,6 +465,16 @@ class AddCommitPaymentGateConfig(TypedDict, total=False):
     """
 
 
+class AddCommitSpendTrackerAttributes(TypedDict, total=False):
+    """Optional attributes for spend tracker integration. Immutable after creation."""
+
+    counts_as_discounted: Required[bool]
+    """
+    If true, this commit will be included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -526,6 +550,9 @@ class AddCommit(TypedDict, total=False):
     Instead, to target usage by product or product tag, pass those values in the
     body of `specifiers`.
     """
+
+    spend_tracker_attributes: AddCommitSpendTrackerAttributes
+    """Optional attributes for spend tracker integration. Immutable after creation."""
 
     temporary_id: str
     """
@@ -1323,6 +1350,26 @@ class AddScheduledCharge(TypedDict, total=False):
     """This field's availability is dependent on your client's configuration."""
 
 
+class AddSpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
+    sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
+
+    spend_type: Required[Literal["COMMIT_PURCHASE"]]
+
+    discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
+    """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
+
+class AddSpendTracker(TypedDict, total=False):
+    alias: Required[str]
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: Required[Iterable[AddSpendTrackerApplicableSpendSpecifier]]
+
+    credit_type_id: Required[str]
+
+    reset_frequency: Required[Literal["BILLING_PERIOD"]]
+
+
 class AddSubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
     """
@@ -1643,7 +1690,20 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit
     """
 
 
+class UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap(TypedDict, total=False):
+    """Update the discount cap. Set to null to remove an existing cap."""
+
+    amount: Required[float]
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: Required[str]
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
+    cap: Optional[UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap]
+    """Update the discount cap. Set to null to remove an existing cap."""
+
     payment_fraction: Optional[float]
     """
     The fraction of the original amount that the customer pays after applying the
@@ -1773,7 +1833,20 @@ class UpdateScheduledCharge(TypedDict, total=False):
     netsuite_sales_order_id: Optional[str]
 
 
+class UpdateSpendThresholdConfigurationDiscountConfigurationCap(TypedDict, total=False):
+    """Update the discount cap. Set to null to remove an existing cap."""
+
+    amount: Required[float]
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: Required[str]
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class UpdateSpendThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
+    cap: Optional[UpdateSpendThresholdConfigurationDiscountConfigurationCap]
+    """Update the discount cap. Set to null to remove an existing cap."""
+
     payment_fraction: Optional[float]
     """
     The fraction of the original amount that the customer pays after applying the

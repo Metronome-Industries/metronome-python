@@ -35,6 +35,9 @@ __all__ = [
     "RecurringCreditProduct",
     "RecurringCreditContract",
     "ResellerRoyalty",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
     "UsageFilter",
     "UsageFilterUpdate",
 ]
@@ -306,6 +309,35 @@ class ResellerRoyalty(BaseModel):
     reseller_contract_value: Optional[float] = None
 
 
+class SpendTrackerApplicableSpendSpecifier(BaseModel):
+    sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
+
+    spend_type: Literal["COMMIT_PURCHASE"]
+
+    discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
+
+
+class SpendTrackerAccumulatedSpend(BaseModel):
+    amount: float
+
+    period_ending_before: datetime
+
+    period_starting_at: datetime
+
+
+class SpendTracker(BaseModel):
+    alias: str
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: List[SpendTrackerApplicableSpendSpecifier]
+
+    credit_type_id: str
+
+    reset_frequency: Literal["BILLING_PERIOD"]
+
+    accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
+
+
 class UsageFilterUpdate(BaseModel):
     group_key: str
 
@@ -386,6 +418,9 @@ class ContractWithoutAmendments(BaseModel):
     """
 
     spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None
+
+    spend_trackers: Optional[List[SpendTracker]] = None
+    """Spend trackers attached to this contract."""
 
     total_contract_value: Optional[float] = None
     """This field's availability is dependent on your client's configuration."""

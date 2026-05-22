@@ -105,6 +105,7 @@ class TestContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "spend_tracker_attributes": {"counts_as_discounted": True},
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -265,7 +266,13 @@ class TestContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "discount_configuration": {"payment_fraction": 0},
+                "discount_configuration": {
+                    "payment_fraction": 0,
+                    "cap": {
+                        "amount": 0,
+                        "spend_tracker_alias": "spend_tracker_alias",
+                    },
+                },
             },
             professional_services=[
                 {
@@ -445,8 +452,28 @@ class TestContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
-                "discount_configuration": {"payment_fraction": 0},
+                "discount_configuration": {
+                    "payment_fraction": 0,
+                    "cap": {
+                        "amount": 0,
+                        "spend_tracker_alias": "spend_tracker_alias",
+                    },
+                },
             },
+            spend_trackers=[
+                {
+                    "alias": "alias",
+                    "applicable_spend_specifiers": [
+                        {
+                            "sources": ["THRESHOLD_RECHARGE"],
+                            "spend_type": "COMMIT_PURCHASE",
+                            "discounted": "ANY",
+                        }
+                    ],
+                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "reset_frequency": "BILLING_PERIOD",
+                }
+            ],
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
@@ -733,6 +760,7 @@ class TestContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "spend_tracker_attributes": {"counts_as_discounted": True},
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1532,6 +1560,7 @@ class TestAsyncContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "spend_tracker_attributes": {"counts_as_discounted": True},
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -1692,7 +1721,13 @@ class TestAsyncContracts:
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
                 "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "discount_configuration": {"payment_fraction": 0},
+                "discount_configuration": {
+                    "payment_fraction": 0,
+                    "cap": {
+                        "amount": 0,
+                        "spend_tracker_alias": "spend_tracker_alias",
+                    },
+                },
             },
             professional_services=[
                 {
@@ -1872,8 +1907,28 @@ class TestAsyncContracts:
                     "tax_type": "NONE",
                 },
                 "threshold_amount": 0,
-                "discount_configuration": {"payment_fraction": 0},
+                "discount_configuration": {
+                    "payment_fraction": 0,
+                    "cap": {
+                        "amount": 0,
+                        "spend_tracker_alias": "spend_tracker_alias",
+                    },
+                },
             },
+            spend_trackers=[
+                {
+                    "alias": "alias",
+                    "applicable_spend_specifiers": [
+                        {
+                            "sources": ["THRESHOLD_RECHARGE"],
+                            "spend_type": "COMMIT_PURCHASE",
+                            "discounted": "ANY",
+                        }
+                    ],
+                    "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "reset_frequency": "BILLING_PERIOD",
+                }
+            ],
             subscriptions=[
                 {
                     "collection_schedule": "ADVANCE",
@@ -2160,6 +2215,7 @@ class TestAsyncContracts:
                             "product_tags": ["string"],
                         }
                     ],
+                    "spend_tracker_attributes": {"counts_as_discounted": True},
                     "temporary_id": "temporary_id",
                 }
             ],
