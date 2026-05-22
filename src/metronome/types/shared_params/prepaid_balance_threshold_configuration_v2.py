@@ -10,7 +10,7 @@ from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
-__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration"]
+__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration", "DiscountConfigurationCap"]
 
 
 class Commit(BaseThresholdCommit, total=False):
@@ -39,12 +39,30 @@ class Commit(BaseThresholdCommit, total=False):
     """
 
 
+class DiscountConfigurationCap(TypedDict, total=False):
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
+    """
+
+    amount: Required[float]
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: Required[str]
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class DiscountConfiguration(TypedDict, total=False):
     payment_fraction: Required[float]
     """
     The fraction of the original amount that the customer pays after applying the
     discount. For example, 0.85 means the customer pays 85% of the original amount
     (a 15% discount).
+    """
+
+    cap: DiscountConfigurationCap
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated
+    this much spend in the billing period.
     """
 
 

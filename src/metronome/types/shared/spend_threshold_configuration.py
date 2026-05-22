@@ -6,7 +6,19 @@ from ..._models import BaseModel
 from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 
-__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration"]
+__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration", "DiscountConfigurationCap"]
+
+
+class DiscountConfigurationCap(BaseModel):
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
+    """
+
+    amount: float
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: str
+    """Alias of the spend tracker this cap is measured against."""
 
 
 class DiscountConfiguration(BaseModel):
@@ -15,6 +27,12 @@ class DiscountConfiguration(BaseModel):
     The fraction of the original amount that the customer pays after applying the
     discount. For example, 0.85 means the customer pays 85% of the original amount
     (a 15% discount).
+    """
+
+    cap: Optional[DiscountConfigurationCap] = None
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated
+    this much spend in the billing period.
     """
 
 

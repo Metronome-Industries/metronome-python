@@ -59,6 +59,8 @@ __all__ = [
     "RecurringCreditDuration",
     "RecurringCreditSubscriptionConfig",
     "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
     "Subscription",
     "SubscriptionProration",
     "SubscriptionSubscriptionRate",
@@ -645,6 +647,25 @@ class RecurringCredit(BaseModel):
     """Attach a subscription to the recurring commit/credit."""
 
 
+class SpendTrackerApplicableSpendSpecifier(BaseModel):
+    sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
+
+    spend_type: Literal["COMMIT_PURCHASE"]
+
+    discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
+
+
+class SpendTracker(BaseModel):
+    alias: str
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: List[SpendTrackerApplicableSpendSpecifier]
+
+    credit_type_id: str
+
+    reset_frequency: Literal["BILLING_PERIOD"]
+
+
 class SubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
@@ -799,6 +820,8 @@ class PackageListResponse(BaseModel):
     """
 
     spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None
+
+    spend_trackers: Optional[List[SpendTracker]] = None
 
     subscriptions: Optional[List[Subscription]] = None
 

@@ -84,6 +84,7 @@ __all__ = [
     "DataUpdatePrepaidBalanceThresholdConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
     "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
+    "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
@@ -97,6 +98,7 @@ __all__ = [
     "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
     "DataUpdateSpendThresholdConfiguration",
     "DataUpdateSpendThresholdConfigurationDiscountConfiguration",
+    "DataUpdateSpendThresholdConfigurationDiscountConfigurationCap",
     "DataUpdateSubscription",
     "DataUpdateSubscriptionQuantityUpdate",
     "DataUpdateSubscriptionSeatUpdates",
@@ -1085,7 +1087,20 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     """
 
 
+class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap(BaseModel):
+    """Update the discount cap. Set to null to remove an existing cap."""
+
+    amount: float
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: str
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseModel):
+    cap: Optional[DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap] = None
+    """Update the discount cap. Set to null to remove an existing cap."""
+
     payment_fraction: Optional[float] = None
     """
     The fraction of the original amount that the customer pays after applying the
@@ -1215,7 +1230,20 @@ class DataUpdateScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
 
 
+class DataUpdateSpendThresholdConfigurationDiscountConfigurationCap(BaseModel):
+    """Update the discount cap. Set to null to remove an existing cap."""
+
+    amount: float
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: str
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
+    cap: Optional[DataUpdateSpendThresholdConfigurationDiscountConfigurationCap] = None
+    """Update the discount cap. Set to null to remove an existing cap."""
+
     payment_fraction: Optional[float] = None
     """
     The fraction of the original amount that the customer pays after applying the

@@ -153,6 +153,7 @@ class ContractsResource(SyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
         spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+        spend_trackers: Iterable[contract_create_params.SpendTracker] | Omit = omit,
         subscriptions: Iterable[contract_create_params.Subscription] | Omit = omit,
         total_contract_value: float | Omit = omit,
         transition: contract_create_params.Transition | Omit = omit,
@@ -335,6 +336,9 @@ class ContractsResource(SyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
+          spend_trackers: Spend trackers to attach to this contract. Aliases must be unique within a
+              contract.
+
           subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -385,6 +389,7 @@ class ContractsResource(SyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "spend_trackers": spend_trackers,
                     "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
@@ -1520,6 +1525,7 @@ class AsyncContractsResource(AsyncAPIResource):
         scheduled_charges: Iterable[contract_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
         spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+        spend_trackers: Iterable[contract_create_params.SpendTracker] | Omit = omit,
         subscriptions: Iterable[contract_create_params.Subscription] | Omit = omit,
         total_contract_value: float | Omit = omit,
         transition: contract_create_params.Transition | Omit = omit,
@@ -1702,6 +1708,9 @@ class AsyncContractsResource(AsyncAPIResource):
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
 
+          spend_trackers: Spend trackers to attach to this contract. Aliases must be unique within a
+              contract.
+
           subscriptions: Optional list of
               [subscriptions](https://docs.metronome.com/manage-product-access/create-subscription/)
               to add to the contract.
@@ -1752,6 +1761,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "spend_trackers": spend_trackers,
                     "subscriptions": subscriptions,
                     "total_contract_value": total_contract_value,
                     "transition": transition,
