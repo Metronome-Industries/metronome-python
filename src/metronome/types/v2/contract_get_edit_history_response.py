@@ -85,6 +85,9 @@ __all__ = [
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
     "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
+    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
+    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude",
+    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter",
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
@@ -1109,6 +1112,24 @@ class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseMo
     """
 
 
+class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
+    entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
+
+    key: str
+
+    value: str
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude(BaseModel):
+    custom_field_filters: List[
+        DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter
+    ]
+
+
+class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier(BaseModel):
+    exclude: List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude]
+
+
 class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommit] = None
 
@@ -1138,6 +1159,10 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     Each time the contract's balance lowers to this amount, a threshold charge will
     be initiated.
     """
+
+    threshold_balance_specifiers: Optional[
+        List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
+    ] = None
 
 
 class DataUpdateRecurringCommitAccessAmount(BaseModel):

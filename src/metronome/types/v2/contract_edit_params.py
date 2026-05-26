@@ -92,6 +92,9 @@ __all__ = [
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
     "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter",
     "UpdateRecurringCommit",
     "UpdateRecurringCommitAccessAmount",
     "UpdateRecurringCommitInvoiceAmount",
@@ -1712,6 +1715,26 @@ class UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(TypedDict,
     """
 
 
+class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter(
+    TypedDict, total=False
+):
+    entity: Required[Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: Required[str]
+
+
+class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude(TypedDict, total=False):
+    custom_field_filters: Required[
+        Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter]
+    ]
+
+
+class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier(TypedDict, total=False):
+    exclude: Required[Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude]]
+
+
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
 
@@ -1741,6 +1764,10 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     Each time the contract's balance lowers to this amount, a threshold charge will
     be initiated.
     """
+
+    threshold_balance_specifiers: Optional[
+        Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
+    ]
 
 
 class UpdateRecurringCommitAccessAmount(TypedDict, total=False):

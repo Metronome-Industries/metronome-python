@@ -3,14 +3,22 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
-__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration", "DiscountConfigurationCap"]
+__all__ = [
+    "PrepaidBalanceThresholdConfigurationV2",
+    "Commit",
+    "DiscountConfiguration",
+    "DiscountConfigurationCap",
+    "ThresholdBalanceSpecifier",
+    "ThresholdBalanceSpecifierExclude",
+    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
+]
 
 
 class Commit(BaseThresholdCommit, total=False):
@@ -66,6 +74,22 @@ class DiscountConfiguration(TypedDict, total=False):
     """
 
 
+class ThresholdBalanceSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
+    entity: Required[Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: Required[str]
+
+
+class ThresholdBalanceSpecifierExclude(TypedDict, total=False):
+    custom_field_filters: Required[Iterable[ThresholdBalanceSpecifierExcludeCustomFieldFilter]]
+
+
+class ThresholdBalanceSpecifier(TypedDict, total=False):
+    exclude: Required[Iterable[ThresholdBalanceSpecifierExclude]]
+
+
 class PrepaidBalanceThresholdConfigurationV2(TypedDict, total=False):
     commit: Required[Commit]
 
@@ -95,3 +119,5 @@ class PrepaidBalanceThresholdConfigurationV2(TypedDict, total=False):
     """
 
     discount_configuration: DiscountConfiguration
+
+    threshold_balance_specifiers: Iterable[ThresholdBalanceSpecifier]

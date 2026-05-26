@@ -352,6 +352,21 @@ class TestContracts:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             add_professional_services=[
                 {
@@ -714,6 +729,21 @@ class TestContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             update_recurring_commits=[
                 {
@@ -1408,6 +1438,21 @@ class TestAsyncContracts:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             add_professional_services=[
                 {
@@ -1770,6 +1815,21 @@ class TestAsyncContracts:
                 },
                 "recharge_to_amount": 0,
                 "threshold_amount": 0,
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             update_recurring_commits=[
                 {
