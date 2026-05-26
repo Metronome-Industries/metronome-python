@@ -273,6 +273,21 @@ class TestContracts:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             professional_services=[
                 {
@@ -1728,6 +1743,21 @@ class TestAsyncContracts:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             professional_services=[
                 {

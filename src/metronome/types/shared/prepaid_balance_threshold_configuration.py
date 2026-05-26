@@ -1,13 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 
-__all__ = ["PrepaidBalanceThresholdConfiguration", "Commit", "DiscountConfiguration", "DiscountConfigurationCap"]
+__all__ = [
+    "PrepaidBalanceThresholdConfiguration",
+    "Commit",
+    "DiscountConfiguration",
+    "DiscountConfigurationCap",
+    "ThresholdBalanceSpecifier",
+    "ThresholdBalanceSpecifierExclude",
+    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
+]
 
 
 class Commit(BaseThresholdCommit):
@@ -61,6 +70,26 @@ class DiscountConfiguration(BaseModel):
     """
 
 
+class ThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
+    entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
+
+    key: str
+
+    value: str
+
+
+class ThresholdBalanceSpecifierExclude(BaseModel):
+    custom_field_filters: List[ThresholdBalanceSpecifierExcludeCustomFieldFilter]
+    """
+    If provided, balances with all the custom fields will not be considered when
+    evaluating threshold billing
+    """
+
+
+class ThresholdBalanceSpecifier(BaseModel):
+    exclude: List[ThresholdBalanceSpecifierExclude]
+
+
 class PrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Commit
 
@@ -90,3 +119,5 @@ class PrepaidBalanceThresholdConfiguration(BaseModel):
     """
 
     discount_configuration: Optional[DiscountConfiguration] = None
+
+    threshold_balance_specifiers: Optional[List[ThresholdBalanceSpecifier]] = None

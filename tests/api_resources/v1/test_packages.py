@@ -230,6 +230,21 @@ class TestPackages:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -809,6 +824,21 @@ class TestAsyncPackages:
                         "spend_tracker_alias": "spend_tracker_alias",
                     },
                 },
+                "threshold_balance_specifiers": [
+                    {
+                        "exclude": [
+                            {
+                                "custom_field_filters": [
+                                    {
+                                        "entity": "Commit",
+                                        "key": "key",
+                                        "value": "value",
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
             },
             rate_card_alias="rate_card_alias",
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
