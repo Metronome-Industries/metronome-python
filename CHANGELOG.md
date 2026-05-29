@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.7.0 (2026-05-29)
+
+Full Changelog: [v4.6.0...v4.7.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.6.0...v4.7.0)
+
+### Features
+
+* [LAUNCH-2814] editContract returns full edit in the response ([918e37c](https://github.com/Metronome-Industries/metronome-python/commit/918e37cf7c332247cbee157cfd027e9fe544b323))
+* [orch-1860] remove all deprecated `/payments/*` endpoints from API ([18e35ff](https://github.com/Metronome-Industries/metronome-python/commit/18e35ffc40321d898069710cca6beccc8de0bd8d))
+* create contract returns contract data ([d389dd3](https://github.com/Metronome-Industries/metronome-python/commit/d389dd34fb1fba3845e269efc7ba9e51c761840c))
+* nikku-orch-1723-update-create-contract ([55828d8](https://github.com/Metronome-Industries/metronome-python/commit/55828d8566c304e7ca8a5333dc45b3611e3c9298))
+
+
+### Chores
+
+* (internal) Add threshold balance specifier to contract create & edit, package create and both contract and package retrievals ([69b5ffe](https://github.com/Metronome-Industries/metronome-python/commit/69b5ffeeefbfccad8d0ee40d5e0abe8fff254bfc))
+
 ## 4.6.0 (2026-05-18)
 
 Full Changelog: [v4.5.0...v4.6.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.5.0...v4.6.0)

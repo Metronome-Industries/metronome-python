@@ -20,6 +20,7 @@ __all__ = [
     "CommitInvoiceSchedule",
     "CommitInvoiceScheduleRecurringSchedule",
     "CommitInvoiceScheduleScheduleItem",
+    "CommitSpendTrackerAttributes",
     "Credit",
     "CreditAccessSchedule",
     "CreditAccessScheduleScheduleItem",
@@ -194,6 +195,16 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     """Either provide amount or provide both unit_price and quantity."""
 
 
+class CommitSpendTrackerAttributes(TypedDict, total=False):
+    """Optional attributes for spend tracker integration. Immutable after creation."""
+
+    counts_as_discounted: Required[bool]
+    """
+    If true, this commit will be included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
 class Commit(TypedDict, total=False):
     product_id: Required[str]
 
@@ -264,6 +275,9 @@ class Commit(TypedDict, total=False):
     specifiers to contribute to a commit's or credit's drawdown. This field cannot
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
+
+    spend_tracker_attributes: CommitSpendTrackerAttributes
+    """Optional attributes for spend tracker integration. Immutable after creation."""
 
     temporary_id: str
     """

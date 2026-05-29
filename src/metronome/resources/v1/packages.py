@@ -81,6 +81,7 @@ class PackagesResource(SyncAPIResource):
         scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
         spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+        spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
         subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
         uniqueness_key: str | Omit = omit,
         usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
@@ -197,6 +198,7 @@ class PackagesResource(SyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "spend_trackers": spend_trackers,
                     "subscriptions": subscriptions,
                     "uniqueness_key": uniqueness_key,
                     "usage_statement_schedule": usage_statement_schedule,
@@ -365,10 +367,9 @@ class PackagesResource(SyncAPIResource):
 
         ### **Usage guidelines:**
 
-        Use the **`starting_at`**, **`covering_date`**,
-        and **`include_archived`** parameters to filter the list of returned contracts.
-        For example, to list only currently active contracts,
-        pass **`covering_date`** equal to the current time.
+        Use the **`starting_at`**, **`covering_date`**, and **`include_archived`**
+        parameters to filter the list of returned contracts. For example, to list only
+        currently active contracts, pass **`covering_date`** equal to the current time.
 
         Args:
           limit: Max number of results that should be returned
@@ -464,6 +465,7 @@ class AsyncPackagesResource(AsyncAPIResource):
         scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
         scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
         spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+        spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
         subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
         uniqueness_key: str | Omit = omit,
         usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
@@ -580,6 +582,7 @@ class AsyncPackagesResource(AsyncAPIResource):
                     "scheduled_charges": scheduled_charges,
                     "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
                     "spend_threshold_configuration": spend_threshold_configuration,
+                    "spend_trackers": spend_trackers,
                     "subscriptions": subscriptions,
                     "uniqueness_key": uniqueness_key,
                     "usage_statement_schedule": usage_statement_schedule,
@@ -748,10 +751,9 @@ class AsyncPackagesResource(AsyncAPIResource):
 
         ### **Usage guidelines:**
 
-        Use the **`starting_at`**, **`covering_date`**,
-        and **`include_archived`** parameters to filter the list of returned contracts.
-        For example, to list only currently active contracts,
-        pass **`covering_date`** equal to the current time.
+        Use the **`starting_at`**, **`covering_date`**, and **`include_archived`**
+        parameters to filter the list of returned contracts. For example, to list only
+        currently active contracts, pass **`covering_date`** equal to the current time.
 
         Args:
           limit: Max number of results that should be returned

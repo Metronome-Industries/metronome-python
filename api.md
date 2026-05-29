@@ -558,20 +558,6 @@ Methods:
 - <code title="post /v1/packages/archive">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">archive</a>(\*\*<a href="src/metronome/types/v1/package_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_archive_response.py">PackageArchiveResponse</a></code>
 - <code title="post /v1/packages/listContractsOnPackage">client.v1.packages.<a href="./src/metronome/resources/v1/packages.py">list_contracts_on_package</a>(\*\*<a href="src/metronome/types/v1/package_list_contracts_on_package_params.py">params</a>) -> <a href="./src/metronome/types/v1/package_list_contracts_on_package_response.py">SyncCursorPage[PackageListContractsOnPackageResponse]</a></code>
 
-## Payments
-
-Types:
-
-```python
-from metronome.types.v1 import Payment, PaymentStatus, PaymentAttemptResponse, PaymentCancelResponse
-```
-
-Methods:
-
-- <code title="post /v1/payments/list">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">list</a>(\*\*<a href="src/metronome/types/v1/payment_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment.py">SyncBodyCursorPage[Payment]</a></code>
-- <code title="post /v1/payments/attempt">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">attempt</a>(\*\*<a href="src/metronome/types/v1/payment_attempt_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_attempt_response.py">PaymentAttemptResponse</a></code>
-- <code title="post /v1/payments/cancel">client.v1.payments.<a href="./src/metronome/resources/v1/payments.py">cancel</a>(\*\*<a href="src/metronome/types/v1/payment_cancel_params.py">params</a>) -> <a href="./src/metronome/types/v1/payment_cancel_response.py">PaymentCancelResponse</a></code>
-
 ## Settings
 
 Types:

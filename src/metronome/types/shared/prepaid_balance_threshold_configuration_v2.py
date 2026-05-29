@@ -1,13 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .base_threshold_commit import BaseThresholdCommit
 from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
-__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration"]
+__all__ = [
+    "PrepaidBalanceThresholdConfigurationV2",
+    "Commit",
+    "DiscountConfiguration",
+    "DiscountConfigurationCap",
+    "ThresholdBalanceSpecifier",
+    "ThresholdBalanceSpecifierExclude",
+    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
+]
 
 
 class Commit(BaseThresholdCommit):
@@ -36,6 +45,18 @@ class Commit(BaseThresholdCommit):
     """
 
 
+class DiscountConfigurationCap(BaseModel):
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
+    """
+
+    amount: float
+    """Accumulated spend ceiling above which the discount stops applying."""
+
+    spend_tracker_alias: str
+    """Alias of the spend tracker this cap is measured against."""
+
+
 class DiscountConfiguration(BaseModel):
     payment_fraction: float
     """
@@ -43,6 +64,28 @@ class DiscountConfiguration(BaseModel):
     discount. For example, 0.85 means the customer pays 85% of the original amount
     (a 15% discount).
     """
+
+    cap: Optional[DiscountConfigurationCap] = None
+    """
+    If provided, the discount stops applying once the spend tracker has accumulated
+    this much spend in the billing period.
+    """
+
+
+class ThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
+    entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
+
+    key: str
+
+    value: str
+
+
+class ThresholdBalanceSpecifierExclude(BaseModel):
+    custom_field_filters: List[ThresholdBalanceSpecifierExcludeCustomFieldFilter]
+
+
+class ThresholdBalanceSpecifier(BaseModel):
+    exclude: List[ThresholdBalanceSpecifierExclude]
 
 
 class PrepaidBalanceThresholdConfigurationV2(BaseModel):
@@ -74,3 +117,5 @@ class PrepaidBalanceThresholdConfigurationV2(BaseModel):
     """
 
     discount_configuration: Optional[DiscountConfiguration] = None
+
+    threshold_balance_specifiers: Optional[List[ThresholdBalanceSpecifier]] = None

@@ -41,6 +41,7 @@ __all__ = [
     "CommitLedgerPostpaidCommitManualLedgerEntry",
     "CommitLedgerPostpaidCommitExpirationLedgerEntry",
     "CommitRolledOverFrom",
+    "CommitSpendTrackerAttributes",
     "Override",
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
@@ -82,6 +83,9 @@ __all__ = [
     "RecurringCreditContract",
     "ResellerRoyalty",
     "ResellerRoyaltySegment",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
     "Subscription",
     "SubscriptionBillingPeriods",
     "SubscriptionBillingPeriodsCurrent",
@@ -293,6 +297,16 @@ class CommitRolledOverFrom(BaseModel):
     contract_id: str
 
 
+class CommitSpendTrackerAttributes(BaseModel):
+    """Optional attributes controlling how this commit interacts with spend trackers."""
+
+    counts_as_discounted: bool
+    """
+    If true, this commit is included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
 class Commit(BaseModel):
     id: str
 
@@ -386,6 +400,9 @@ class Commit(BaseModel):
     or credit. A customer's usage needs to meet the condition of at least one of the
     specifiers to contribute to a commit's or credit's drawdown.
     """
+
+    spend_tracker_attributes: Optional[CommitSpendTrackerAttributes] = None
+    """Optional attributes controlling how this commit interacts with spend trackers."""
 
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
@@ -1079,6 +1096,35 @@ class ResellerRoyalty(BaseModel):
     segments: List[ResellerRoyaltySegment]
 
 
+class SpendTrackerApplicableSpendSpecifier(BaseModel):
+    sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
+
+    spend_type: Literal["COMMIT_PURCHASE"]
+
+    discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
+
+
+class SpendTrackerAccumulatedSpend(BaseModel):
+    amount: float
+
+    period_ending_before: datetime
+
+    period_starting_at: datetime
+
+
+class SpendTracker(BaseModel):
+    alias: str
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: List[SpendTrackerApplicableSpendSpecifier]
+
+    credit_type_id: str
+
+    reset_frequency: Literal["BILLING_PERIOD"]
+
+    accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
+
+
 class SubscriptionBillingPeriodsCurrent(BaseModel):
     ending_before: datetime
 
@@ -1287,6 +1333,9 @@ class ContractV2(BaseModel):
     """
 
     spend_threshold_configuration: Optional[SpendThresholdConfigurationV2] = None
+
+    spend_trackers: Optional[List[SpendTracker]] = None
+    """Spend trackers attached to this contract."""
 
     subscriptions: Optional[List[Subscription]] = None
     """List of subscriptions on the contract."""
