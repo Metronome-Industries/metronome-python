@@ -50,6 +50,9 @@ __all__ = [
     "DataRecurringCommitStartingAtOffset",
     "DataRecurringCommitDuration",
     "DataRecurringCommitInvoiceAmount",
+    "DataRecurringCommitProrationRounding",
+    "DataRecurringCommitProrationRoundingAccess",
+    "DataRecurringCommitProrationRoundingInvoice",
     "DataRecurringCommitSubscriptionConfig",
     "DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "DataRecurringCredit",
@@ -58,14 +61,18 @@ __all__ = [
     "DataRecurringCreditProduct",
     "DataRecurringCreditStartingAtOffset",
     "DataRecurringCreditDuration",
+    "DataRecurringCreditProrationRounding",
+    "DataRecurringCreditProrationRoundingAccess",
     "DataRecurringCreditSubscriptionConfig",
     "DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "DataSpendTracker",
     "DataSpendTrackerApplicableSpendSpecifier",
     "DataSubscription",
     "DataSubscriptionProration",
+    "DataSubscriptionProrationRounding",
     "DataSubscriptionSubscriptionRate",
     "DataSubscriptionSubscriptionRateProduct",
+    "DataSubscriptionBillingCycleConfig",
     "DataSubscriptionDuration",
     "DataSubscriptionSeatConfig",
     "DataSubscriptionStartingAtOffset",
@@ -427,6 +434,38 @@ class DataRecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class DataRecurringCommitProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataRecurringCommitProrationRoundingInvoice(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataRecurringCommitProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    access: Optional[DataRecurringCommitProrationRoundingAccess] = None
+
+    invoice: Optional[DataRecurringCommitProrationRoundingInvoice] = None
+
+
 class DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -489,6 +528,9 @@ class DataRecurringCommit(BaseModel):
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
     last commits).
     """
+
+    proration_rounding: Optional[DataRecurringCommitProrationRounding] = None
+    """Rounding configuration for prorated recurring commit amounts."""
 
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
@@ -561,6 +603,24 @@ class DataRecurringCreditDuration(BaseModel):
     value: int
 
 
+class DataRecurringCreditProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataRecurringCreditProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    access: Optional[DataRecurringCreditProrationRoundingAccess] = None
+
+
 class DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -621,6 +681,9 @@ class DataRecurringCredit(BaseModel):
     last commits).
     """
 
+    proration_rounding: Optional[DataRecurringCreditProrationRounding] = None
+    """Rounding configuration for prorated recurring credit amounts."""
+
     recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
     """The frequency at which the recurring commits will be created.
 
@@ -667,10 +730,24 @@ class DataSpendTracker(BaseModel):
     reset_frequency: Literal["BILLING_PERIOD"]
 
 
+class DataSubscriptionProrationRounding(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
 class DataSubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
+
+    rounding: Optional[DataSubscriptionProrationRounding] = None
 
 
 class DataSubscriptionSubscriptionRateProduct(BaseModel):
@@ -683,6 +760,10 @@ class DataSubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: DataSubscriptionSubscriptionRateProduct
+
+
+class DataSubscriptionBillingCycleConfig(BaseModel):
+    invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
 
 
 class DataSubscriptionDuration(BaseModel):
@@ -717,6 +798,8 @@ class DataSubscription(BaseModel):
     subscription_rate: DataSubscriptionSubscriptionRate
 
     id: Optional[str] = None
+
+    billing_cycle_config: Optional[DataSubscriptionBillingCycleConfig] = None
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
