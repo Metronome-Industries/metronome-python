@@ -44,11 +44,16 @@ __all__ = [
     "RecurringCommitAccessAmount",
     "RecurringCommitCommitDuration",
     "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
     "RecurringCommitSubscriptionConfig",
     "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
     "RecurringCreditSubscriptionConfig",
     "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "ResellerRoyalty",
@@ -63,7 +68,9 @@ __all__ = [
     "SpendTrackerApplicableSpendSpecifier",
     "Subscription",
     "SubscriptionProration",
+    "SubscriptionProrationRounding",
     "SubscriptionSubscriptionRate",
+    "SubscriptionBillingCycleConfig",
     "SubscriptionSeatConfig",
     "Transition",
     "TransitionFutureInvoiceBehavior",
@@ -858,6 +865,38 @@ class RecurringCommitInvoiceAmount(TypedDict, total=False):
     unit_price: Required[float]
 
 
+class RecurringCommitProrationRoundingAccess(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class RecurringCommitProrationRoundingInvoice(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class RecurringCommitProrationRounding(TypedDict, total=False):
+    """Optional rounding configuration for prorated recurring commit amounts."""
+
+    access: RecurringCommitProrationRoundingAccess
+
+    invoice: RecurringCommitProrationRoundingInvoice
+
+
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -929,6 +968,9 @@ class RecurringCommit(TypedDict, total=False):
     last commits).
     """
 
+    proration_rounding: RecurringCommitProrationRounding
+    """Optional rounding configuration for prorated recurring commit amounts."""
+
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
@@ -989,6 +1031,24 @@ class RecurringCreditCommitDuration(TypedDict, total=False):
     value: Required[float]
 
     unit: Literal["PERIODS"]
+
+
+class RecurringCreditProrationRoundingAccess(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class RecurringCreditProrationRounding(TypedDict, total=False):
+    """Optional rounding configuration for prorated recurring credit amounts."""
+
+    access: RecurringCreditProrationRoundingAccess
 
 
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
@@ -1058,6 +1118,9 @@ class RecurringCredit(TypedDict, total=False):
     If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
     last commits).
     """
+
+    proration_rounding: RecurringCreditProrationRounding
+    """Optional rounding configuration for prorated recurring credit amounts."""
 
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
@@ -1284,6 +1347,18 @@ class SpendTracker(TypedDict, total=False):
     reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
 
+class SubscriptionProrationRounding(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
 class SubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
     """
@@ -1297,6 +1372,8 @@ class SubscriptionProration(TypedDict, total=False):
     is_prorated: bool
     """Indicates if the partial period will be prorated or charged a full amount."""
 
+    rounding: SubscriptionProrationRounding
+
 
 class SubscriptionSubscriptionRate(TypedDict, total=False):
     billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
@@ -1307,6 +1384,20 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
 
     product_id: Required[str]
     """Must be subscription type product"""
+
+
+class SubscriptionBillingCycleConfig(TypedDict, total=False):
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date to anchor the billing cycle to.
+
+    If omitted, defaults to the contract's usage invoice billing cycle anchor date.
+    """
+
+    invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
+    """
+    Controls whether this subscription consolidates onto usage invoices or gets its
+    own scheduled invoice. Defaults to ON_USAGE_INVOICE if omitted.
+    """
 
 
 class SubscriptionSeatConfig(TypedDict, total=False):
@@ -1333,6 +1424,8 @@ class Subscription(TypedDict, total=False):
     proration: Required[SubscriptionProration]
 
     subscription_rate: Required[SubscriptionSubscriptionRate]
+
+    billing_cycle_config: SubscriptionBillingCycleConfig
 
     custom_fields: Dict[str, str]
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
