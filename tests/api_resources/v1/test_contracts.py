@@ -329,16 +329,6 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                        "invoice": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -380,12 +370,6 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        }
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -511,18 +495,10 @@ class TestContracts:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
-                        "rounding": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "billing_cycle_config": {
-                        "anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                        "invoice_placement": "ON_SCHEDULED_INVOICE",
                     },
                     "custom_fields": {"foo": "string"},
                     "description": "description",
@@ -1823,16 +1799,6 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                        "invoice": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -1874,12 +1840,6 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        }
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -2005,18 +1965,10 @@ class TestAsyncContracts:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
-                        "rounding": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    },
-                    "billing_cycle_config": {
-                        "anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
-                        "invoice_placement": "ON_SCHEDULED_INVOICE",
                     },
                     "custom_fields": {"foo": "string"},
                     "description": "description",

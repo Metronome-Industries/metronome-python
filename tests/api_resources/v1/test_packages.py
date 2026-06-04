@@ -279,16 +279,6 @@ class TestPackages:
                     },
                     "name": "x",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                        "invoice": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -334,12 +324,6 @@ class TestPackages:
                     },
                     "name": "x",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        }
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -429,16 +413,11 @@ class TestPackages:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
-                        "rounding": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
-                    "billing_cycle_config": {"invoice_placement": "ON_SCHEDULED_INVOICE"},
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "duration": {
@@ -894,16 +873,6 @@ class TestAsyncPackages:
                     },
                     "name": "x",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                        "invoice": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -949,12 +918,6 @@ class TestAsyncPackages:
                     },
                     "name": "x",
                     "proration": "NONE",
-                    "proration_rounding": {
-                        "access": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        }
-                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -1044,16 +1007,11 @@ class TestAsyncPackages:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
-                        "rounding": {
-                            "decimal_places": -5,
-                            "rounding_method": "HALF_UP",
-                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
-                    "billing_cycle_config": {"invoice_placement": "ON_SCHEDULED_INVOICE"},
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "duration": {
