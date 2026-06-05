@@ -13,9 +13,11 @@ __all__ = [
     "BillingPeriodsNext",
     "BillingPeriodsPrevious",
     "Proration",
+    "ProrationRounding",
     "QuantitySchedule",
     "SubscriptionRate",
     "SubscriptionRateProduct",
+    "BillingCycleConfig",
     "SeatConfig",
 ]
 
@@ -48,10 +50,24 @@ class BillingPeriods(BaseModel):
     previous: Optional[BillingPeriodsPrevious] = None
 
 
+class ProrationRounding(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
 class Proration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
+
+    rounding: Optional[ProrationRounding] = None
 
 
 class QuantitySchedule(BaseModel):
@@ -72,6 +88,17 @@ class SubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionRateProduct
+
+
+class BillingCycleConfig(BaseModel):
+    anchor_date: datetime
+    """The date this subscription's billing cycle is anchored to."""
+
+    invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
+    """
+    Controls whether this subscription consolidates onto usage invoices or gets its
+    own scheduled invoice.
+    """
 
 
 class SeatConfig(BaseModel):
@@ -118,6 +145,8 @@ class Subscription(BaseModel):
     subscription_rate: SubscriptionRate
 
     id: Optional[str] = None
+
+    billing_cycle_config: Optional[BillingCycleConfig] = None
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
