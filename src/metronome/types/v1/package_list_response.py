@@ -189,6 +189,8 @@ class Commit(BaseModel):
 
 
 class OverrideOverrideSpecifier(BaseModel):
+    any_commit_or_credit_template_ids: Optional[List[str]] = None
+
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
     commit_template_ids: Optional[List[str]] = None
