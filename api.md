@@ -400,6 +400,7 @@ from metronome.types.v1 import (
     ContractArchiveResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractGetNetBalanceResponse,
+    ContractGetSubscriptionSeatsHistoryResponse,
     ContractListBalancesResponse,
     ContractListSeatBalancesResponse,
     ContractRetrieveRateScheduleResponse,
@@ -419,6 +420,7 @@ Methods:
 - <code title="post /v1/contracts/archive">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/v1/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_archive_response.py">ContractArchiveResponse</a></code>
 - <code title="post /v1/contracts/createHistoricalInvoices">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">create_historical_invoices</a>(\*\*<a href="src/metronome/types/v1/contract_create_historical_invoices_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_create_historical_invoices_response.py">ContractCreateHistoricalInvoicesResponse</a></code>
 - <code title="post /v1/contracts/customerBalances/getNetBalance">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">get_net_balance</a>(\*\*<a href="src/metronome/types/v1/contract_get_net_balance_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_get_net_balance_response.py">ContractGetNetBalanceResponse</a></code>
+- <code title="post /v1/contracts/getSubscriptionSeatsHistory">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">get_subscription_seats_history</a>(\*\*<a href="src/metronome/types/v1/contract_get_subscription_seats_history_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_get_subscription_seats_history_response.py">ContractGetSubscriptionSeatsHistoryResponse</a></code>
 - <code title="post /v1/contracts/customerBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_balances_response.py">SyncBodyCursorPage[ContractListBalancesResponse]</a></code>
 - <code title="post /v1/contracts/seatBalances/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list_seat_balances</a>(\*\*<a href="src/metronome/types/v1/contract_list_seat_balances_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_seat_balances_response.py">ContractListSeatBalancesResponse</a></code>
 - <code title="post /v1/contracts/getContractRateSchedule">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve_rate_schedule</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_rate_schedule_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_rate_schedule_response.py">ContractRetrieveRateScheduleResponse</a></code>
