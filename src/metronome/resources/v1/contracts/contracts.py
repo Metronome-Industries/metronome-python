@@ -1144,6 +1144,7 @@ class ContractsResource(SyncAPIResource):
         include_ledgers: bool | Omit = omit,
         limit: int | Omit = omit,
         seat_ids: SequenceNotStr[str] | Omit = omit,
+        skip_missing_seat_ids: bool | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         subscription_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1206,6 +1207,9 @@ class ContractsResource(SyncAPIResource):
 
           seat_ids: Optional filter to only include specific seats.
 
+          skip_missing_seat_ids: When true, any seat_ids not found in contract subscriptions will be silently
+              omitted from the response instead of returning a 400 error.
+
           starting_at: Include only commits or credits with access effective on or after this date
               (cannot be used with covering_date).
 
@@ -1234,6 +1238,7 @@ class ContractsResource(SyncAPIResource):
                     "include_ledgers": include_ledgers,
                     "limit": limit,
                     "seat_ids": seat_ids,
+                    "skip_missing_seat_ids": skip_missing_seat_ids,
                     "starting_at": starting_at,
                     "subscription_ids": subscription_ids,
                 },
@@ -2609,6 +2614,7 @@ class AsyncContractsResource(AsyncAPIResource):
         include_ledgers: bool | Omit = omit,
         limit: int | Omit = omit,
         seat_ids: SequenceNotStr[str] | Omit = omit,
+        skip_missing_seat_ids: bool | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         subscription_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -2671,6 +2677,9 @@ class AsyncContractsResource(AsyncAPIResource):
 
           seat_ids: Optional filter to only include specific seats.
 
+          skip_missing_seat_ids: When true, any seat_ids not found in contract subscriptions will be silently
+              omitted from the response instead of returning a 400 error.
+
           starting_at: Include only commits or credits with access effective on or after this date
               (cannot be used with covering_date).
 
@@ -2699,6 +2708,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "include_ledgers": include_ledgers,
                     "limit": limit,
                     "seat_ids": seat_ids,
+                    "skip_missing_seat_ids": skip_missing_seat_ids,
                     "starting_at": starting_at,
                     "subscription_ids": subscription_ids,
                 },
