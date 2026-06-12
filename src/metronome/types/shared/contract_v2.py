@@ -358,6 +358,9 @@ class Commit(BaseModel):
 
     contract: Optional[CommitContract] = None
 
+    created_by: Optional[str] = None
+    """The actor who created this commit."""
+
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
@@ -696,6 +699,9 @@ class Credit(BaseModel):
     - Recurring credits: latter of credit service period date and parent credit
       start date
     """
+
+    created_by: Optional[str] = None
+    """The actor who created this credit."""
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
