@@ -313,6 +313,9 @@ class Commit(BaseModel):
 
     contract: Optional[Contract] = None
 
+    created_by: Optional[str] = None
+    """The actor who created this commit."""
+
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
