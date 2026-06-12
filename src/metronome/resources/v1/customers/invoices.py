@@ -167,6 +167,7 @@ class InvoicesResource(SyncAPIResource):
         starting_on: Union[str, datetime] | Omit = omit,
         status: str | Omit = omit,
         type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"] | Omit = omit,
+        webhook_notification_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -246,6 +247,9 @@ class InvoicesResource(SyncAPIResource):
 
           type: Filter invoices by type. Defaults to returning all invoice types.
 
+          webhook_notification_id: Indicates that this API request was triggered by a webhook notification with the
+              provided ID.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -276,6 +280,7 @@ class InvoicesResource(SyncAPIResource):
                         "starting_on": starting_on,
                         "status": status,
                         "type": type,
+                        "webhook_notification_id": webhook_notification_id,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),
@@ -658,6 +663,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         starting_on: Union[str, datetime] | Omit = omit,
         status: str | Omit = omit,
         type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"] | Omit = omit,
+        webhook_notification_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -737,6 +743,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           type: Filter invoices by type. Defaults to returning all invoice types.
 
+          webhook_notification_id: Indicates that this API request was triggered by a webhook notification with the
+              provided ID.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -767,6 +776,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                         "starting_on": starting_on,
                         "status": status,
                         "type": type,
+                        "webhook_notification_id": webhook_notification_id,
                     },
                     invoice_list_params.InvoiceListParams,
                 ),
