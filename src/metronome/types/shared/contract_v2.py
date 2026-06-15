@@ -359,7 +359,11 @@ class Commit(BaseModel):
     contract: Optional[CommitContract] = None
 
     created_by: Optional[str] = None
-    """The actor who created this commit."""
+    """The actor who created this commit.
+
+    Omitted for system-generated commits such as recurring commits, rollover
+    commits, and threshold commits.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
@@ -701,7 +705,10 @@ class Credit(BaseModel):
     """
 
     created_by: Optional[str] = None
-    """The actor who created this credit."""
+    """The actor who created this credit.
+
+    Omitted for system-generated credits such as recurring credits.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
