@@ -100,11 +100,11 @@ class AlertsResource(SyncAPIResource):
         - `null` - Notification has been archived
         - `triggered_by`: Additional context about what caused the notification to
           trigger (when applicable)
+        - `updated_at`: Timestamp of when the `customer_status` was last updated
         - alert: Complete threshold notification configuration including:
           - Notification ID, name, and type
           - Current threshold values and credit type information
           - Notification status (enabled, disabled, or archived)
-          - Last update timestamp
           - Any applied filters (credit grant types, custom fields, group values)
 
         ### Usage guidelines:
@@ -392,11 +392,11 @@ class AsyncAlertsResource(AsyncAPIResource):
         - `null` - Notification has been archived
         - `triggered_by`: Additional context about what caused the notification to
           trigger (when applicable)
+        - `updated_at`: Timestamp of when the `customer_status` was last updated
         - alert: Complete threshold notification configuration including:
           - Notification ID, name, and type
           - Current threshold values and credit type information
           - Notification status (enabled, disabled, or archived)
-          - Last update timestamp
           - Any applied filters (credit grant types, custom fields, group values)
 
         ### Usage guidelines:

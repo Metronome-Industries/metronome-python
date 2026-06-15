@@ -87,7 +87,9 @@ class Alert(BaseModel):
     """Type of the threshold notification"""
 
     updated_at: datetime
-    """Timestamp for when the threshold notification was last updated"""
+    """
+    Timestamp for when the threshold notification's customer status was last updated
+    """
 
     credit_grant_type_filters: Optional[List[str]] = None
     """
