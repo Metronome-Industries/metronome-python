@@ -474,7 +474,7 @@ class DataAddRecurringCommit(BaseModel):
     proration_rounding: Optional[DataAddRecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -599,7 +599,7 @@ class DataAddRecurringCredit(BaseModel):
     proration_rounding: Optional[DataAddRecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
