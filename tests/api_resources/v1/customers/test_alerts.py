@@ -34,6 +34,28 @@ class TestAlerts:
         alert = client.v1.customers.alerts.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            alert_specifiers=[
+                {
+                    "custom_field_filters": [
+                        {
+                            "entity": "Contract",
+                            "key": "key",
+                            "value": "value",
+                        }
+                    ],
+                    "exclude": [
+                        {
+                            "custom_field_filters": [
+                                {
+                                    "entity": "Contract",
+                                    "key": "key",
+                                    "value": "value",
+                                }
+                            ]
+                        }
+                    ],
+                }
+            ],
             group_values=[
                 {
                     "key": "key",
@@ -167,6 +189,28 @@ class TestAsyncAlerts:
         alert = await async_client.v1.customers.alerts.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            alert_specifiers=[
+                {
+                    "custom_field_filters": [
+                        {
+                            "entity": "Contract",
+                            "key": "key",
+                            "value": "value",
+                        }
+                    ],
+                    "exclude": [
+                        {
+                            "custom_field_filters": [
+                                {
+                                    "entity": "Contract",
+                                    "key": "key",
+                                    "value": "value",
+                                }
+                            ]
+                        }
+                    ],
+                }
+            ],
             group_values=[
                 {
                     "key": "key",

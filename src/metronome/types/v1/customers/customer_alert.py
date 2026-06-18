@@ -10,11 +10,53 @@ from ...shared.credit_type_data import CreditTypeData
 __all__ = [
     "CustomerAlert",
     "Alert",
+    "AlertAlertSpecifier",
+    "AlertAlertSpecifierCustomFieldFilter",
+    "AlertAlertSpecifierExclude",
+    "AlertAlertSpecifierExcludeCustomFieldFilter",
     "AlertCustomFieldFilter",
     "AlertGroupKeyFilter",
     "AlertGroupValue",
     "AlertSeatFilter",
 ]
+
+
+class AlertAlertSpecifierCustomFieldFilter(BaseModel):
+    entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
+
+    key: str
+
+    value: Optional[str] = None
+
+
+class AlertAlertSpecifierExcludeCustomFieldFilter(BaseModel):
+    entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
+
+    key: str
+
+    value: str
+
+
+class AlertAlertSpecifierExclude(BaseModel):
+    custom_field_filters: Optional[List[AlertAlertSpecifierExcludeCustomFieldFilter]] = None
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+
+class AlertAlertSpecifier(BaseModel):
+    custom_field_filters: Optional[List[AlertAlertSpecifierCustomFieldFilter]] = None
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+    exclude: Optional[List[AlertAlertSpecifierExclude]] = None
+    """
+    If provided, the specifier will not apply to balances that matches the inclusion
+    criteria and any of the excluding values.
+    """
 
 
 class AlertCustomFieldFilter(BaseModel):
@@ -89,6 +131,13 @@ class Alert(BaseModel):
     updated_at: datetime
     """
     Timestamp for when the threshold notification's customer status was last updated
+    """
+
+    alert_specifiers: Optional[List[AlertAlertSpecifier]] = None
+    """
+    Present for `low_remaining_contract_credit_and_commit_balance_reached`
+    notifications. The filters that define the balances that are considered when
+    evaluating the alert.
     """
 
     credit_grant_type_filters: Optional[List[str]] = None
