@@ -7,7 +7,16 @@ from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AlertCreateParams", "CustomFieldFilter", "GroupValue", "SeatFilter"]
+__all__ = [
+    "AlertCreateParams",
+    "AlertSpecifier",
+    "AlertSpecifierCustomFieldFilter",
+    "AlertSpecifierExclude",
+    "AlertSpecifierExcludeCustomFieldFilter",
+    "CustomFieldFilter",
+    "GroupValue",
+    "SeatFilter",
+]
 
 
 class AlertCreateParams(TypedDict, total=False):
@@ -40,6 +49,13 @@ class AlertCreateParams(TypedDict, total=False):
 
     Depending upon the notification type, this number may represent a financial
     amount, the days remaining, or a percentage reached.
+    """
+
+    alert_specifiers: Iterable[AlertSpecifier]
+    """
+    Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+    notifications. Defines the balances that are considered when evaluating the
+    alert.
     """
 
     billable_metric_id: str
@@ -111,6 +127,44 @@ class AlertCreateParams(TypedDict, total=False):
 
     If a request to create a record is made with a previously used uniqueness key, a
     new record will not be created and the request will fail with a 409 error.
+    """
+
+
+class AlertSpecifierCustomFieldFilter(TypedDict, total=False):
+    entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: str
+
+
+class AlertSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
+    entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: Required[str]
+
+
+class AlertSpecifierExclude(TypedDict, total=False):
+    custom_field_filters: Iterable[AlertSpecifierExcludeCustomFieldFilter]
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+
+class AlertSpecifier(TypedDict, total=False):
+    custom_field_filters: Iterable[AlertSpecifierCustomFieldFilter]
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+    exclude: Iterable[AlertSpecifierExclude]
+    """
+    If provided, the specifier will not apply to balances that matches the inclusion
+    criteria and any of the excluding values.
     """
 
 

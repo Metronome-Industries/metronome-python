@@ -5,7 +5,15 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["AlertRetrieveParams", "GroupValue", "SeatFilter"]
+__all__ = [
+    "AlertRetrieveParams",
+    "AlertSpecifier",
+    "AlertSpecifierCustomFieldFilter",
+    "AlertSpecifierExclude",
+    "AlertSpecifierExcludeCustomFieldFilter",
+    "GroupValue",
+    "SeatFilter",
+]
 
 
 class AlertRetrieveParams(TypedDict, total=False):
@@ -14,6 +22,12 @@ class AlertRetrieveParams(TypedDict, total=False):
 
     customer_id: Required[str]
     """The Metronome ID of the customer"""
+
+    alert_specifiers: Iterable[AlertSpecifier]
+    """
+    Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+    notifications. Used to filter the alert by the custom field key-value pair.
+    """
 
     group_values: Iterable[GroupValue]
     """Only present for `spend_threshold_reached` notifications.
@@ -31,6 +45,44 @@ class AlertRetrieveParams(TypedDict, total=False):
     """Only allowed for `low_remaining_seat_balance_reached` notifications.
 
     This filters alerts by the seat group key-value pair.
+    """
+
+
+class AlertSpecifierCustomFieldFilter(TypedDict, total=False):
+    entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: Required[str]
+
+
+class AlertSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
+    entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
+
+    key: Required[str]
+
+    value: Required[str]
+
+
+class AlertSpecifierExclude(TypedDict, total=False):
+    custom_field_filters: Iterable[AlertSpecifierExcludeCustomFieldFilter]
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+
+class AlertSpecifier(TypedDict, total=False):
+    custom_field_filters: Required[Iterable[AlertSpecifierCustomFieldFilter]]
+    """
+    A list of custom field filters for notification types that support advanced
+    filtering
+    """
+
+    exclude: Iterable[AlertSpecifierExclude]
+    """
+    If provided, the specifier will not apply to balances that matches the inclusion
+    criteria and any of the excluding values.
     """
 
 

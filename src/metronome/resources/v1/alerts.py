@@ -71,6 +71,7 @@ class AlertsResource(SyncAPIResource):
         ],
         name: str,
         threshold: float,
+        alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
         billable_metric_id: str | Omit = omit,
         credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
         credit_type_id: str | Omit = omit,
@@ -145,6 +146,10 @@ class AlertsResource(SyncAPIResource):
               type, this number may represent a financial amount, the days remaining, or a
               percentage reached.
 
+          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+              notifications. Defines the balances that are considered when evaluating the
+              alert.
+
           billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
               billable metric to track the usage for.
 
@@ -198,6 +203,7 @@ class AlertsResource(SyncAPIResource):
                     "alert_type": alert_type,
                     "name": name,
                     "threshold": threshold,
+                    "alert_specifiers": alert_specifiers,
                     "billable_metric_id": billable_metric_id,
                     "credit_grant_type_filters": credit_grant_type_filters,
                     "credit_type_id": credit_type_id,
@@ -336,6 +342,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         ],
         name: str,
         threshold: float,
+        alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
         billable_metric_id: str | Omit = omit,
         credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
         credit_type_id: str | Omit = omit,
@@ -410,6 +417,10 @@ class AsyncAlertsResource(AsyncAPIResource):
               type, this number may represent a financial amount, the days remaining, or a
               percentage reached.
 
+          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+              notifications. Defines the balances that are considered when evaluating the
+              alert.
+
           billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
               billable metric to track the usage for.
 
@@ -463,6 +474,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "alert_type": alert_type,
                     "name": name,
                     "threshold": threshold,
+                    "alert_specifiers": alert_specifiers,
                     "billable_metric_id": billable_metric_id,
                     "credit_grant_type_filters": credit_grant_type_filters,
                     "credit_type_id": credit_type_id,
