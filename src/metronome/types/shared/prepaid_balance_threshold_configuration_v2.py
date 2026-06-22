@@ -119,3 +119,7 @@ class PrepaidBalanceThresholdConfigurationV2(BaseModel):
     discount_configuration: Optional[DiscountConfiguration] = None
 
     threshold_balance_specifiers: Optional[List[ThresholdBalanceSpecifier]] = None
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """
