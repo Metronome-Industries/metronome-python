@@ -1256,6 +1256,10 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     threshold_balance_specifiers: Optional[
         List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
     ] = None
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """
 
 
 class DataUpdateRecurringCommitAccessAmount(BaseModel):

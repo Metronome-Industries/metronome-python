@@ -90,6 +90,10 @@ class ThresholdBalanceSpecifierExclude(TypedDict, total=False):
 
 class ThresholdBalanceSpecifier(TypedDict, total=False):
     exclude: Required[Iterable[ThresholdBalanceSpecifierExclude]]
+    """
+    If any of the exclude specifier is met, the balance is not considered when
+    evaluating threshold billing
+    """
 
 
 class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
@@ -123,3 +127,7 @@ class PrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     discount_configuration: DiscountConfiguration
 
     threshold_balance_specifiers: Iterable[ThresholdBalanceSpecifier]
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """

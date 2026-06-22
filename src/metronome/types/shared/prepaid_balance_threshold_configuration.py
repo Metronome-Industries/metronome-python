@@ -88,6 +88,10 @@ class ThresholdBalanceSpecifierExclude(BaseModel):
 
 class ThresholdBalanceSpecifier(BaseModel):
     exclude: List[ThresholdBalanceSpecifierExclude]
+    """
+    If any of the exclude specifier is met, the balance is not considered when
+    evaluating threshold billing
+    """
 
 
 class PrepaidBalanceThresholdConfiguration(BaseModel):
@@ -121,3 +125,7 @@ class PrepaidBalanceThresholdConfiguration(BaseModel):
     discount_configuration: Optional[DiscountConfiguration] = None
 
     threshold_balance_specifiers: Optional[List[ThresholdBalanceSpecifier]] = None
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """

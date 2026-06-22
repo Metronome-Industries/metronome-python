@@ -121,3 +121,7 @@ class PrepaidBalanceThresholdConfigurationV2(TypedDict, total=False):
     discount_configuration: DiscountConfiguration
 
     threshold_balance_specifiers: Iterable[ThresholdBalanceSpecifier]
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """

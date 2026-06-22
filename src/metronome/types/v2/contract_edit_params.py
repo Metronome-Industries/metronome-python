@@ -1872,6 +1872,10 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     threshold_balance_specifiers: Optional[
         Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
     ]
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """
 
 
 class UpdateRecurringCommitAccessAmount(TypedDict, total=False):
