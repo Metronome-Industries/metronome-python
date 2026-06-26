@@ -61,6 +61,8 @@ class ColorOverride(TypedDict, total=False):
         "Primary_red",
         "Progress_bar",
         "Progress_bar_background",
+        "Action",
+        "Action_hover",
     ]
     """The color to override"""
 
