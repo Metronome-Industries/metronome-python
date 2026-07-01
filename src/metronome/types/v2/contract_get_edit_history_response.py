@@ -40,11 +40,16 @@ __all__ = [
     "DataAddRecurringCommitProduct",
     "DataAddRecurringCommitContract",
     "DataAddRecurringCommitInvoiceAmount",
+    "DataAddRecurringCommitProrationRounding",
+    "DataAddRecurringCommitProrationRoundingAccess",
+    "DataAddRecurringCommitProrationRoundingInvoice",
     "DataAddRecurringCredit",
     "DataAddRecurringCreditAccessAmount",
     "DataAddRecurringCreditCommitDuration",
     "DataAddRecurringCreditProduct",
     "DataAddRecurringCreditContract",
+    "DataAddRecurringCreditProrationRounding",
+    "DataAddRecurringCreditProrationRoundingAccess",
     "DataAddResellerRoyalty",
     "DataAddScheduledCharge",
     "DataAddScheduledChargeProduct",
@@ -54,9 +59,11 @@ __all__ = [
     "DataAddSubscriptionBillingPeriodsNext",
     "DataAddSubscriptionBillingPeriodsPrevious",
     "DataAddSubscriptionProration",
+    "DataAddSubscriptionProrationRounding",
     "DataAddSubscriptionQuantitySchedule",
     "DataAddSubscriptionSubscriptionRate",
     "DataAddSubscriptionSubscriptionRateProduct",
+    "DataAddSubscriptionBillingCycleConfig",
     "DataAddSubscriptionSeatConfig",
     "DataAddUsageFilter",
     "DataArchiveCommit",
@@ -91,8 +98,13 @@ __all__ = [
     "DataUpdateRecurringCommit",
     "DataUpdateRecurringCommitAccessAmount",
     "DataUpdateRecurringCommitInvoiceAmount",
+    "DataUpdateRecurringCommitProrationRounding",
+    "DataUpdateRecurringCommitProrationRoundingAccess",
+    "DataUpdateRecurringCommitProrationRoundingInvoice",
     "DataUpdateRecurringCredit",
     "DataUpdateRecurringCreditAccessAmount",
+    "DataUpdateRecurringCreditProrationRounding",
+    "DataUpdateRecurringCreditProrationRoundingAccess",
     "DataUpdateRefundInvoice",
     "DataUpdateScheduledCharge",
     "DataUpdateScheduledChargeInvoiceSchedule",
@@ -252,6 +264,8 @@ class DataAddCredit(BaseModel):
 
 
 class DataAddOverrideOverrideSpecifier(BaseModel):
+    any_commit_or_credit_ids: Optional[List[str]] = None
+
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
     commit_ids: Optional[List[str]] = None
@@ -374,6 +388,36 @@ class DataAddRecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class DataAddRecurringCommitProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataAddRecurringCommitProrationRoundingInvoice(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataAddRecurringCommitProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    access: Optional[DataAddRecurringCommitProrationRoundingAccess] = None
+
+    invoice: Optional[DataAddRecurringCommitProrationRoundingInvoice] = None
+
+
 class DataAddRecurringCommit(BaseModel):
     id: str
 
@@ -427,7 +471,10 @@ class DataAddRecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[DataAddRecurringCommitProrationRounding] = None
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -482,6 +529,23 @@ class DataAddRecurringCreditContract(BaseModel):
     id: str
 
 
+class DataAddRecurringCreditProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataAddRecurringCreditProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    access: Optional[DataAddRecurringCreditProrationRoundingAccess] = None
+
+
 class DataAddRecurringCredit(BaseModel):
     id: str
 
@@ -532,7 +596,10 @@ class DataAddRecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[DataAddRecurringCreditProrationRounding] = None
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -635,10 +702,23 @@ class DataAddSubscriptionBillingPeriods(BaseModel):
     previous: Optional[DataAddSubscriptionBillingPeriodsPrevious] = None
 
 
+class DataAddSubscriptionProrationRounding(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
 class DataAddSubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
+
+    rounding: Optional[DataAddSubscriptionProrationRounding] = None
 
 
 class DataAddSubscriptionQuantitySchedule(BaseModel):
@@ -659,6 +739,17 @@ class DataAddSubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: DataAddSubscriptionSubscriptionRateProduct
+
+
+class DataAddSubscriptionBillingCycleConfig(BaseModel):
+    anchor_date: datetime
+    """The date this subscription's billing cycle is anchored to."""
+
+    invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
+    """
+    Controls whether this subscription consolidates onto usage invoices or gets its
+    own scheduled invoice.
+    """
 
 
 class DataAddSubscriptionSeatConfig(BaseModel):
@@ -705,6 +796,8 @@ class DataAddSubscription(BaseModel):
     subscription_rate: DataAddSubscriptionSubscriptionRate
 
     id: Optional[str] = None
+
+    billing_cycle_config: Optional[DataAddSubscriptionBillingCycleConfig] = None
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
@@ -1163,6 +1256,10 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     threshold_balance_specifiers: Optional[
         List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
     ] = None
+    """
+    Determines which balances are excluded from remaining balance calculation for
+    threshold billing.
+    """
 
 
 class DataUpdateRecurringCommitAccessAmount(BaseModel):
@@ -1177,6 +1274,36 @@ class DataUpdateRecurringCommitInvoiceAmount(BaseModel):
     unit_price: Optional[float] = None
 
 
+class DataUpdateRecurringCommitProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataUpdateRecurringCommitProrationRoundingInvoice(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataUpdateRecurringCommitProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    access: Optional[DataUpdateRecurringCommitProrationRoundingAccess] = None
+
+    invoice: Optional[DataUpdateRecurringCommitProrationRoundingInvoice] = None
+
+
 class DataUpdateRecurringCommit(BaseModel):
     id: str
 
@@ -1185,6 +1312,9 @@ class DataUpdateRecurringCommit(BaseModel):
     ending_before: Optional[datetime] = None
 
     invoice_amount: Optional[DataUpdateRecurringCommitInvoiceAmount] = None
+
+    proration_rounding: Optional[DataUpdateRecurringCommitProrationRounding] = None
+    """Rounding configuration for prorated recurring commit amounts."""
 
     rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
 
@@ -1195,12 +1325,32 @@ class DataUpdateRecurringCreditAccessAmount(BaseModel):
     unit_price: Optional[float] = None
 
 
+class DataUpdateRecurringCreditProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class DataUpdateRecurringCreditProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    access: Optional[DataUpdateRecurringCreditProrationRoundingAccess] = None
+
+
 class DataUpdateRecurringCredit(BaseModel):
     id: str
 
     access_amount: Optional[DataUpdateRecurringCreditAccessAmount] = None
 
     ending_before: Optional[datetime] = None
+
+    proration_rounding: Optional[DataUpdateRecurringCreditProrationRounding] = None
+    """Rounding configuration for prorated recurring credit amounts."""
 
     rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
 

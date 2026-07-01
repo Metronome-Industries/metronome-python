@@ -29,11 +29,16 @@ __all__ = [
     "RecurringCommitProduct",
     "RecurringCommitContract",
     "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
     "RecurringCredit",
     "RecurringCreditAccessAmount",
     "RecurringCreditCommitDuration",
     "RecurringCreditProduct",
     "RecurringCreditContract",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
     "ResellerRoyalty",
     "SpendTracker",
     "SpendTrackerApplicableSpendSpecifier",
@@ -96,6 +101,38 @@ class RecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class RecurringCommitProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCommitProrationRoundingInvoice(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCommitProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    access: Optional[RecurringCommitProrationRoundingAccess] = None
+
+    invoice: Optional[RecurringCommitProrationRoundingInvoice] = None
+
+
 class RecurringCommit(BaseModel):
     id: str
 
@@ -149,7 +186,10 @@ class RecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[RecurringCommitProrationRounding] = None
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -204,6 +244,24 @@ class RecurringCreditContract(BaseModel):
     id: str
 
 
+class RecurringCreditProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCreditProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    access: Optional[RecurringCreditProrationRoundingAccess] = None
+
+
 class RecurringCredit(BaseModel):
     id: str
 
@@ -254,7 +312,10 @@ class RecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[RecurringCreditProrationRounding] = None
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.

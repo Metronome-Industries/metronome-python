@@ -110,6 +110,7 @@ class TestInvoices:
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="status",
             type="USAGE",
+            webhook_notification_id="webhook_notification_id",
         )
         assert_matches_type(SyncCursorPage[Invoice], invoice, path=["response"])
 
@@ -422,6 +423,7 @@ class TestAsyncInvoices:
             starting_on=parse_datetime("2019-12-27T18:11:19.117Z"),
             status="status",
             type="USAGE",
+            webhook_notification_id="webhook_notification_id",
         )
         assert_matches_type(AsyncCursorPage[Invoice], invoice, path=["response"])
 

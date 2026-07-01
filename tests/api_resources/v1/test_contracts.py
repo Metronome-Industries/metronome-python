@@ -23,6 +23,7 @@ from metronome.types.v1 import (
     ContractRetrieveRateScheduleResponse,
     ContractCreateHistoricalInvoicesResponse,
     ContractScheduleProServicesInvoiceResponse,
+    ContractGetSubscriptionSeatsHistoryResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
 from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
@@ -196,6 +197,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "any_commit_or_credit_ids": ["string"],
                             "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
@@ -329,6 +331,16 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
+                    "proration_rounding": {
+                        "access": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
+                        "invoice": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
+                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -370,6 +382,12 @@ class TestContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
+                    "proration_rounding": {
+                        "access": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        }
+                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -495,10 +513,18 @@ class TestContracts:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
+                        "rounding": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "billing_cycle_config": {
+                        "anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                        "invoice_placement": "ON_SCHEDULED_INVOICE",
                     },
                     "custom_fields": {"foo": "string"},
                     "description": "description",
@@ -853,6 +879,7 @@ class TestContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "any_commit_or_credit_ids": ["string"],
                             "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
@@ -1154,6 +1181,57 @@ class TestContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    def test_method_get_subscription_seats_history(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_method_get_subscription_seats_history_with_all_params(self, client: Metronome) -> None:
+        contract = client.v1.contracts.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+            covering_date=parse_datetime("2024-01-15T00:00:00.000Z"),
+            cursor="cursor",
+            ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            limit=10,
+            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_raw_response_get_subscription_seats_history(self, client: Metronome) -> None:
+        response = client.v1.contracts.with_raw_response.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = response.parse()
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    def test_streaming_response_get_subscription_seats_history(self, client: Metronome) -> None:
+        with client.v1.contracts.with_streaming_response.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = response.parse()
+            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_list_balances(self, client: Metronome) -> None:
         contract = client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1222,6 +1300,7 @@ class TestContracts:
             include_ledgers=True,
             limit=25,
             seat_ids=["string"],
+            skip_missing_seat_ids=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             subscription_ids=["8deed800-1b7a-495d-a207-6c52bac54dc9"],
         )
@@ -1666,6 +1745,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "any_commit_or_credit_ids": ["string"],
                             "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
@@ -1799,6 +1879,16 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
+                    "proration_rounding": {
+                        "access": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
+                        "invoice": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
+                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -1840,6 +1930,12 @@ class TestAsyncContracts:
                     "name": "x",
                     "netsuite_sales_order_id": "netsuite_sales_order_id",
                     "proration": "NONE",
+                    "proration_rounding": {
+                        "access": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        }
+                    },
                     "rate_type": "COMMIT_RATE",
                     "recurrence_frequency": "MONTHLY",
                     "rollover_fraction": 0,
@@ -1965,10 +2061,18 @@ class TestAsyncContracts:
                     "proration": {
                         "invoice_behavior": "BILL_IMMEDIATELY",
                         "is_prorated": True,
+                        "rounding": {
+                            "decimal_places": -5,
+                            "rounding_method": "HALF_UP",
+                        },
                     },
                     "subscription_rate": {
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    },
+                    "billing_cycle_config": {
+                        "anchor_date": parse_datetime("2019-12-27T18:11:19.117Z"),
+                        "invoice_placement": "ON_SCHEDULED_INVOICE",
                     },
                     "custom_fields": {"foo": "string"},
                     "description": "description",
@@ -2323,6 +2427,7 @@ class TestAsyncContracts:
                     "multiplier": 0,
                     "override_specifiers": [
                         {
+                            "any_commit_or_credit_ids": ["string"],
                             "billing_frequency": "MONTHLY",
                             "commit_ids": ["string"],
                             "presentation_group_values": {"foo": "string"},
@@ -2624,6 +2729,57 @@ class TestAsyncContracts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
+    async def test_method_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_method_get_subscription_seats_history_with_all_params(self, async_client: AsyncMetronome) -> None:
+        contract = await async_client.v1.contracts.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+            covering_date=parse_datetime("2024-01-15T00:00:00.000Z"),
+            cursor="cursor",
+            ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            limit=10,
+            starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_raw_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.with_raw_response.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        contract = await response.parse()
+        assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.with_streaming_response.get_subscription_seats_history(
+            contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            subscription_id="1a824d53-bde6-4d82-96d7-6347ff227d5c",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            contract = await response.parse()
+            assert_matches_type(ContractGetSubscriptionSeatsHistoryResponse, contract, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     async def test_method_list_balances(self, async_client: AsyncMetronome) -> None:
         contract = await async_client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2692,6 +2848,7 @@ class TestAsyncContracts:
             include_ledgers=True,
             limit=25,
             seat_ids=["string"],
+            skip_missing_seat_ids=True,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             subscription_ids=["8deed800-1b7a-495d-a207-6c52bac54dc9"],
         )

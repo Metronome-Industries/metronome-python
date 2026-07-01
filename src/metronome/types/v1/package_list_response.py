@@ -49,6 +49,9 @@ __all__ = [
     "RecurringCommitStartingAtOffset",
     "RecurringCommitDuration",
     "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
     "RecurringCommitSubscriptionConfig",
     "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
     "RecurringCredit",
@@ -57,14 +60,18 @@ __all__ = [
     "RecurringCreditProduct",
     "RecurringCreditStartingAtOffset",
     "RecurringCreditDuration",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
     "RecurringCreditSubscriptionConfig",
     "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
     "SpendTracker",
     "SpendTrackerApplicableSpendSpecifier",
     "Subscription",
     "SubscriptionProration",
+    "SubscriptionProrationRounding",
     "SubscriptionSubscriptionRate",
     "SubscriptionSubscriptionRateProduct",
+    "SubscriptionBillingCycleConfig",
     "SubscriptionDuration",
     "SubscriptionSeatConfig",
     "SubscriptionStartingAtOffset",
@@ -182,6 +189,8 @@ class Commit(BaseModel):
 
 
 class OverrideOverrideSpecifier(BaseModel):
+    any_commit_or_credit_template_ids: Optional[List[str]] = None
+
     billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
 
     commit_template_ids: Optional[List[str]] = None
@@ -426,6 +435,38 @@ class RecurringCommitInvoiceAmount(BaseModel):
     unit_price: float
 
 
+class RecurringCommitProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCommitProrationRoundingInvoice(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCommitProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    access: Optional[RecurringCommitProrationRoundingAccess] = None
+
+    invoice: Optional[RecurringCommitProrationRoundingInvoice] = None
+
+
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -489,7 +530,10 @@ class RecurringCommit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[RecurringCommitProrationRounding] = None
+    """Rounding configuration for prorated recurring commit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -560,6 +604,24 @@ class RecurringCreditDuration(BaseModel):
     value: int
 
 
+class RecurringCreditProrationRoundingAccess(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
+class RecurringCreditProrationRounding(BaseModel):
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    access: Optional[RecurringCreditProrationRoundingAccess] = None
+
+
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
@@ -620,7 +682,10 @@ class RecurringCredit(BaseModel):
     last commits).
     """
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    proration_rounding: Optional[RecurringCreditProrationRounding] = None
+    """Rounding configuration for prorated recurring credit amounts."""
+
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -666,10 +731,24 @@ class SpendTracker(BaseModel):
     reset_frequency: Literal["BILLING_PERIOD"]
 
 
+class SubscriptionProrationRounding(BaseModel):
+    decimal_places: float
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
+
+
 class SubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
+
+    rounding: Optional[SubscriptionProrationRounding] = None
 
 
 class SubscriptionSubscriptionRateProduct(BaseModel):
@@ -682,6 +761,10 @@ class SubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionSubscriptionRateProduct
+
+
+class SubscriptionBillingCycleConfig(BaseModel):
+    invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
 
 
 class SubscriptionDuration(BaseModel):
@@ -716,6 +799,8 @@ class Subscription(BaseModel):
     subscription_rate: SubscriptionSubscriptionRate
 
     id: Optional[str] = None
+
+    billing_cycle_config: Optional[SubscriptionBillingCycleConfig] = None
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""

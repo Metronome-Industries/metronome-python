@@ -53,3 +53,9 @@ class InvoiceListParams(TypedDict, total=False):
 
     type: Literal["USAGE", "USAGE_CONSOLIDATED", "SCHEDULED"]
     """Filter invoices by type. Defaults to returning all invoice types."""
+
+    webhook_notification_id: str
+    """
+    Indicates that this API request was triggered by a webhook notification with the
+    provided ID.
+    """

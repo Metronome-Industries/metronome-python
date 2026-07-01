@@ -55,6 +55,7 @@ class AlertsResource(SyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
         group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
         seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
@@ -100,11 +101,11 @@ class AlertsResource(SyncAPIResource):
         - `null` - Notification has been archived
         - `triggered_by`: Additional context about what caused the notification to
           trigger (when applicable)
+        - `updated_at`: Timestamp of when the `customer_status` was last updated
         - alert: Complete threshold notification configuration including:
           - Notification ID, name, and type
           - Current threshold values and credit type information
           - Notification status (enabled, disabled, or archived)
-          - Last update timestamp
           - Any applied filters (credit grant types, custom fields, group values)
 
         ### Usage guidelines:
@@ -126,6 +127,9 @@ class AlertsResource(SyncAPIResource):
           alert_id: The Metronome ID of the threshold notification
 
           customer_id: The Metronome ID of the customer
+
+          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+              notifications. Used to filter the alert by the custom field key-value pair.
 
           group_values: Only present for `spend_threshold_reached` notifications. Retrieve the
               notification for a specific group key-value pair.
@@ -150,6 +154,7 @@ class AlertsResource(SyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "alert_specifiers": alert_specifiers,
                     "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
                     "seat_filter": seat_filter,
@@ -347,6 +352,7 @@ class AsyncAlertsResource(AsyncAPIResource):
         *,
         alert_id: str,
         customer_id: str,
+        alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
         group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
         plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
         seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
@@ -392,11 +398,11 @@ class AsyncAlertsResource(AsyncAPIResource):
         - `null` - Notification has been archived
         - `triggered_by`: Additional context about what caused the notification to
           trigger (when applicable)
+        - `updated_at`: Timestamp of when the `customer_status` was last updated
         - alert: Complete threshold notification configuration including:
           - Notification ID, name, and type
           - Current threshold values and credit type information
           - Notification status (enabled, disabled, or archived)
-          - Last update timestamp
           - Any applied filters (credit grant types, custom fields, group values)
 
         ### Usage guidelines:
@@ -418,6 +424,9 @@ class AsyncAlertsResource(AsyncAPIResource):
           alert_id: The Metronome ID of the threshold notification
 
           customer_id: The Metronome ID of the customer
+
+          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
+              notifications. Used to filter the alert by the custom field key-value pair.
 
           group_values: Only present for `spend_threshold_reached` notifications. Retrieve the
               notification for a specific group key-value pair.
@@ -442,6 +451,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                 {
                     "alert_id": alert_id,
                     "customer_id": customer_id,
+                    "alert_specifiers": alert_specifiers,
                     "group_values": group_values,
                     "plans_or_contracts": plans_or_contracts,
                     "seat_filter": seat_filter,

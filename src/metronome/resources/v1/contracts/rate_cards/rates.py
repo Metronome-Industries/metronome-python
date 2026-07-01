@@ -151,8 +151,13 @@ class RatesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateAddResponse:
-        """
-        Add a new rate
+        """Add a new rate
+
+        This endpoint is heavily rate limited.
+
+        For adding multiple rates, using the
+        [addRates](https://docs.metronome.com/api-reference/rate-cards/add-rates)
+        endpoint is strongly encouraged.
 
         Args:
           product_id: ID of the product to add a rate for
@@ -387,8 +392,13 @@ class AsyncRatesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateAddResponse:
-        """
-        Add a new rate
+        """Add a new rate
+
+        This endpoint is heavily rate limited.
+
+        For adding multiple rates, using the
+        [addRates](https://docs.metronome.com/api-reference/rate-cards/add-rates)
+        endpoint is strongly encouraged.
 
         Args:
           product_id: ID of the product to add a rate for

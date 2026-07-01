@@ -1,5 +1,37 @@
 # Changelog
 
+## 4.8.0 (2026-06-26)
+
+Full Changelog: [v4.7.0...v4.8.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.7.0...v4.8.0)
+
+### Features
+
+* [🪿] Remove `allow-subscriptions-custom-billing-anchor` feature flag ([6a6aa17](https://github.com/Metronome-Industries/metronome-python/commit/6a6aa17cb52535dcba439c801da5a0d6b40a5eaa))
+* Add `Action` and `Action_hover` theme color options to embeddable dashboard ([5fa2952](https://github.com/Metronome-Industries/metronome-python/commit/5fa29520582701f3e3a9f08120f4bb9cb697e4f5))
+* Add alert specifiers to  for `low_remaining_contract_credit_and_commit_balance_reached` threshold notification creation payload ([5e8300a](https://github.com/Metronome-Industries/metronome-python/commit/5e8300aa1d20d91cc325e4633cc977407b0bbcbc))
+* Add any_commit_and_credit_ids to override specifier fields ([27da988](https://github.com/Metronome-Industries/metronome-python/commit/27da988084802941df355025a439375e427ff5c3))
+* add getSubscriptionSeatsHistory to Node SDK ([09cf021](https://github.com/Metronome-Industries/metronome-python/commit/09cf021411b8328e38578447af6565b521d77726))
+* Add notification_metadata to four API endpoints (Anthropic-only) ([347b393](https://github.com/Metronome-Industries/metronome-python/commit/347b393d2071f2e424ba7f3fb7539ffeb1fe3266))
+* added created by to commits ([07d901e](https://github.com/Metronome-Industries/metronome-python/commit/07d901e4fe8aea23bbbb8d55c289f6ea9189d083))
+* **CONN-980:** add contract_id, invoice_type, show_unbillable_invoices to embeddable dashboard API ([19667f2](https://github.com/Metronome-Industries/metronome-python/commit/19667f2dbf36e05aa47ca718438eeed4f7112bff))
+* createdBy description specifies excluding system created commits ([54488b6](https://github.com/Metronome-Industries/metronome-python/commit/54488b69f50c83b22f65b238159d6388b504fe26))
+* daily recurrence frequency for recurring commits ([1bbec1a](https://github.com/Metronome-Industries/metronome-python/commit/1bbec1a2c6790ff1b54df6eb1b45079f670f2afb))
+* Docs: Update v1.yml ([00238e9](https://github.com/Metronome-Industries/metronome-python/commit/00238e9ca5fd8211787c13bfcc94a3623b254f74))
+* Revert "[pgs] Remove `allow-subscriptions-custom-billing-anchor` and proration rounding feature flags" ([5b5b50c](https://github.com/Metronome-Industries/metronome-python/commit/5b5b50c35e05783bc7ec21cdfc35dc55ef7df98a))
+* Revert "Revert "[pgs] Remove `allow-subscriptions-custom-billing-anchor` and proration rounding feature flags"" ([9072722](https://github.com/Metronome-Industries/metronome-python/commit/90727227766981cccdd4861b3c5306dc25313a2f))
+* skip seat IDs from balances ([d85e5c3](https://github.com/Metronome-Industries/metronome-python/commit/d85e5c34240b7eda18b6d2805b9fac675fe289b1))
+* Update copy ([d488dd1](https://github.com/Metronome-Industries/metronome-python/commit/d488dd1fa852bc189f464cd229e7ce84f64abb64))
+
+
+### Chores
+
+* (internal) Add description for threshold balance specifiers fields ([559744a](https://github.com/Metronome-Industries/metronome-python/commit/559744a39a9db4125c15efbdc7a11d6d89aa8fa3))
+
+
+### Documentation
+
+* add RPS limit and batch recommendation to addRate endpoint ([44a4312](https://github.com/Metronome-Industries/metronome-python/commit/44a43127cef87bd4c0cff211d36a76ad2d715573))
+
 ## 4.7.0 (2026-05-29)
 
 Full Changelog: [v4.6.0...v4.7.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.6.0...v4.7.0)

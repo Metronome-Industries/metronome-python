@@ -145,6 +145,9 @@ from .customer_set_billing_configurations_response import (
 from .contract_schedule_pro_services_invoice_params import (
     ContractScheduleProServicesInvoiceParams as ContractScheduleProServicesInvoiceParams,
 )
+from .contract_get_subscription_seats_history_params import (
+    ContractGetSubscriptionSeatsHistoryParams as ContractGetSubscriptionSeatsHistoryParams,
+)
 from .customer_archive_billing_configurations_params import (
     CustomerArchiveBillingConfigurationsParams as CustomerArchiveBillingConfigurationsParams,
 )
@@ -153,6 +156,9 @@ from .contract_schedule_pro_services_invoice_response import (
 )
 from .customer_retrieve_billing_configurations_params import (
     CustomerRetrieveBillingConfigurationsParams as CustomerRetrieveBillingConfigurationsParams,
+)
+from .contract_get_subscription_seats_history_response import (
+    ContractGetSubscriptionSeatsHistoryResponse as ContractGetSubscriptionSeatsHistoryResponse,
 )
 from .customer_archive_billing_configurations_response import (
     CustomerArchiveBillingConfigurationsResponse as CustomerArchiveBillingConfigurationsResponse,

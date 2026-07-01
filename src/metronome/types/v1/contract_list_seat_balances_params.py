@@ -58,6 +58,12 @@ class ContractListSeatBalancesParams(TypedDict, total=False):
     seat_ids: SequenceNotStr[str]
     """Optional filter to only include specific seats."""
 
+    skip_missing_seat_ids: bool
+    """
+    When true, any seat_ids not found in contract subscriptions will be silently
+    omitted from the response instead of returning a 400 error.
+    """
+
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """
     Include only commits or credits with access effective on or after this date
