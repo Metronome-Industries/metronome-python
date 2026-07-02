@@ -71,25 +71,46 @@ class DataContractUsageStatementSchedule(BaseModel):
 
 
 class DataContractCustomerBillingProviderConfiguration(BaseModel):
-    """The billing provider configuration associated with the contract."""
+    id: str
+    """
+    ID of this configuration; can be provided as the
+    billing_provider_configuration_id when creating a contract.
+    """
 
-    id: Optional[str] = None
+    archived_at: Optional[datetime] = None
 
-    billing_provider: Optional[
-        Literal[
-            "aws_marketplace",
-            "stripe",
-            "netsuite",
-            "custom",
-            "azure_marketplace",
-            "quickbooks_online",
-            "workday",
-            "gcp_marketplace",
-            "metronome",
-        ]
-    ] = None
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
+    """The billing provider set for this configuration."""
 
-    delivery_method: Optional[Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]] = None
+    configuration: Dict[str, object]
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider.
+    """
+
+    customer_id: str
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """The method to use for delivering invoices to this customer."""
+
+    delivery_method_configuration: Dict[str, object]
+    """Configuration for the delivery method.
+
+    The structure of this object is specific to the delivery method.
+    """
+
+    delivery_method_id: str
+    """ID of the delivery method to use for this customer."""
 
 
 class DataContractHasMore(BaseModel):
@@ -425,7 +446,6 @@ class DataContract(BaseModel):
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configuration: Optional[DataContractCustomerBillingProviderConfiguration] = None
-    """The billing provider configuration associated with the contract."""
 
     ending_before: Optional[datetime] = None
 

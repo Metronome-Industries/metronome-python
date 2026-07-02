@@ -85,7 +85,11 @@ class Amendment(BaseModel):
 
 
 class CustomerBillingProviderConfiguration(BaseModel):
-    """The billing provider configuration associated with a contract."""
+    id: str
+    """
+    ID of this configuration; can be provided as the
+    billing_provider_configuration_id when creating a contract.
+    """
 
     archived_at: Optional[datetime] = None
 
@@ -100,16 +104,27 @@ class CustomerBillingProviderConfiguration(BaseModel):
         "gcp_marketplace",
         "metronome",
     ]
+    """The billing provider set for this configuration."""
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
-
-    id: Optional[str] = None
-
-    configuration: Optional[Dict[str, object]] = None
+    configuration: Dict[str, object]
     """Configuration for the billing provider.
 
     The structure of this object is specific to the billing provider.
     """
+
+    customer_id: str
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """The method to use for delivering invoices to this customer."""
+
+    delivery_method_configuration: Dict[str, object]
+    """Configuration for the delivery method.
+
+    The structure of this object is specific to the delivery method.
+    """
+
+    delivery_method_id: str
+    """ID of the delivery method to use for this customer."""
 
 
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
@@ -162,7 +177,6 @@ class Contract(BaseModel):
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configuration: Optional[CustomerBillingProviderConfiguration] = None
-    """The billing provider configuration associated with a contract."""
 
     package_id: Optional[str] = None
     """ID of the package this contract was created from, if applicable."""
