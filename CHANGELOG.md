@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.9.0 (2026-07-02)
+
+Full Changelog: [v4.8.0...v4.9.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.8.0...v4.9.0)
+
+### Features
+
+* [ORCH-1875] add billing config schedule to api ([be9c46c](https://github.com/Metronome-Industries/metronome-python/commit/be9c46cf4aa5fb42ee507cb3d14c69de86e24e7d))
+
 ## 4.8.0 (2026-06-26)
 
 Full Changelog: [v4.7.0...v4.8.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.7.0...v4.8.0)
