@@ -49,6 +49,8 @@ __all__ = [
     "Transition",
     "UsageFilter",
     "UsageStatementSchedule",
+    "BillingProviderConfigurationSchedule",
+    "BillingProviderConfigurationScheduleBillingProviderConfiguration",
     "Credit",
     "CreditProduct",
     "CreditContract",
@@ -88,6 +90,8 @@ __all__ = [
     "RecurringCreditProrationRoundingAccess",
     "ResellerRoyalty",
     "ResellerRoyaltySegment",
+    "RevenueSystemConfigurationSchedule",
+    "RevenueSystemConfigurationScheduleRevenueSystemConfiguration",
     "SpendTracker",
     "SpendTrackerApplicableSpendSpecifier",
     "SpendTrackerAccumulatedSpend",
@@ -542,6 +546,62 @@ class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
 
+class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel):
+    id: str
+    """
+    ID of this configuration; can be provided as the
+    billing_provider_configuration_id when creating a contract.
+    """
+
+    archived_at: Optional[datetime] = None
+
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
+    """The billing provider set for this configuration."""
+
+    configuration: Dict[str, object]
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider.
+    """
+
+    customer_id: str
+
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """The method to use for delivering invoices to this customer."""
+
+    delivery_method_configuration: Dict[str, object]
+    """Configuration for the delivery method.
+
+    The structure of this object is specific to the delivery method.
+    """
+
+    delivery_method_id: str
+    """ID of the delivery method to use for this customer."""
+
+
+class BillingProviderConfigurationSchedule(BaseModel):
+    billing_provider_configuration: BillingProviderConfigurationScheduleBillingProviderConfiguration
+
+    effective_at: datetime
+    """The date this billing provider configuration became or becomes active."""
+
+    effective_until: Optional[datetime] = None
+    """The date this billing provider configuration is superseded by the next entry.
+
+    Null for the last entry in the schedule.
+    """
+
+
 class CreditProduct(BaseModel):
     id: str
 
@@ -755,10 +815,13 @@ class Credit(BaseModel):
 
 
 class CustomerBillingProviderConfiguration(BaseModel):
-    """This field's availability is dependent on your client's configuration."""
-
     id: str
-    """ID of Customer's billing provider configuration."""
+    """
+    ID of this configuration; can be provided as the
+    billing_provider_configuration_id when creating a contract.
+    """
+
+    archived_at: Optional[datetime] = None
 
     billing_provider: Literal[
         "aws_marketplace",
@@ -771,8 +834,27 @@ class CustomerBillingProviderConfiguration(BaseModel):
         "gcp_marketplace",
         "metronome",
     ]
+    """The billing provider set for this configuration."""
+
+    configuration: Dict[str, object]
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider.
+    """
+
+    customer_id: str
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    """The method to use for delivering invoices to this customer."""
+
+    delivery_method_configuration: Dict[str, object]
+    """Configuration for the delivery method.
+
+    The structure of this object is specific to the delivery method.
+    """
+
+    delivery_method_id: str
+    """ID of the delivery method to use for this customer."""
 
 
 class HasMore(BaseModel):
@@ -1171,6 +1253,49 @@ class ResellerRoyalty(BaseModel):
     segments: List[ResellerRoyaltySegment]
 
 
+class RevenueSystemConfigurationScheduleRevenueSystemConfiguration(BaseModel):
+    id: str
+    """ID of the revenue system configuration."""
+
+    configuration: Dict[str, object]
+    """Configuration for the revenue system.
+
+    The structure of this object is specific to the provider.
+    """
+
+    customer_id: str
+
+    delivery_method_id: str
+    """ID of the delivery method used for this customer configuration."""
+
+    provider: Literal["netsuite"]
+    """The revenue system provider (e.g. netsuite)."""
+
+    archived_at: Optional[datetime] = None
+
+    delivery_method: Optional[Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]] = None
+    """The method to use for delivering data to the revenue system."""
+
+    delivery_method_configuration: Optional[Dict[str, object]] = None
+    """Configuration for the delivery method.
+
+    The structure of this object is specific to the delivery method.
+    """
+
+
+class RevenueSystemConfigurationSchedule(BaseModel):
+    effective_at: datetime
+    """The date this revenue system configuration became or becomes active."""
+
+    revenue_system_configuration: RevenueSystemConfigurationScheduleRevenueSystemConfiguration
+
+    effective_until: Optional[datetime] = None
+    """The date this revenue system configuration is superseded by the next entry.
+
+    Null for the last entry in the schedule.
+    """
+
+
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
@@ -1364,13 +1489,18 @@ class ContractV2(BaseModel):
 
     archived_at: Optional[datetime] = None
 
+    billing_provider_configuration_schedule: Optional[List[BillingProviderConfigurationSchedule]] = None
+    """
+    The schedule of billing provider configuration changes on the contract, ordered
+    by effective_at ascending.
+    """
+
     credits: Optional[List[Credit]] = None
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
     customer_billing_provider_configuration: Optional[CustomerBillingProviderConfiguration] = None
-    """This field's availability is dependent on your client's configuration."""
 
     discounts: Optional[List[Discount]] = None
     """This field's availability is dependent on your client's configuration."""
@@ -1420,6 +1550,12 @@ class ContractV2(BaseModel):
 
     reseller_royalties: Optional[List[ResellerRoyalty]] = None
     """This field's availability is dependent on your client's configuration."""
+
+    revenue_system_configuration_schedule: Optional[List[RevenueSystemConfigurationSchedule]] = None
+    """
+    The schedule of revenue system configuration changes on the contract, ordered by
+    effective_at ascending.
+    """
 
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""

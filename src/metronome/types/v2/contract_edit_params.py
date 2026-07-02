@@ -283,7 +283,7 @@ class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
     Any charges accrued during the schedule will be billed to the indicated billing provider.
     """
 
-    effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
     """When the billing provider update will take effect."""
 
 
@@ -1309,7 +1309,7 @@ class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, t
 
 
 class AddRevenueSystemConfigurationUpdateSchedule(TypedDict, total=False):
-    effective_at: Required[Literal["START_OF_CURRENT_PERIOD"]]
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
     """When the revenue system configuration update will take effect."""
 
 
