@@ -50,7 +50,7 @@ class DataContractTransition(BaseModel):
 
     to_contract_id: str
 
-    type: Literal["SUPERSEDE", "RENEWAL"]
+    type: Literal["RENEWAL"]
 
 
 class DataContractUsageFilter(BaseModel):

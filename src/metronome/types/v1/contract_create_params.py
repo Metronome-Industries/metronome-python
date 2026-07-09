@@ -1500,7 +1500,7 @@ class TransitionFutureInvoiceBehavior(TypedDict, total=False):
 class Transition(TypedDict, total=False):
     from_contract_id: Required[str]
 
-    type: Required[Literal["SUPERSEDE", "RENEWAL"]]
+    type: Required[Literal["RENEWAL"]]
     """This field's available values may vary based on your client's configuration."""
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
