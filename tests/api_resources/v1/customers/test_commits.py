@@ -104,6 +104,7 @@ class TestCommits:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.customers.commits.with_raw_response.create(
             access_schedule={
                 "schedule_items": [
@@ -176,6 +177,7 @@ class TestCommits:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.customers.commits.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -218,6 +220,7 @@ class TestCommits:
 
     @parametrize
     def test_raw_response_update_end_date(self, client: Metronome) -> None:
+
         response = client.v1.customers.commits.with_raw_response.update_end_date(
             commit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -329,6 +332,7 @@ class TestAsyncCommits:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.commits.with_raw_response.create(
             access_schedule={
                 "schedule_items": [
@@ -401,6 +405,7 @@ class TestAsyncCommits:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.commits.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -443,6 +448,7 @@ class TestAsyncCommits:
 
     @parametrize
     async def test_raw_response_update_end_date(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.commits.with_raw_response.update_end_date(
             commit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",

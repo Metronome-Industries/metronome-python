@@ -59,6 +59,7 @@ class TestUsage:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.usage.with_raw_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
@@ -111,6 +112,7 @@ class TestUsage:
 
     @parametrize
     def test_raw_response_ingest(self, client: Metronome) -> None:
+
         response = client.v1.usage.with_raw_response.ingest()
 
         assert response.is_closed is True
@@ -160,6 +162,7 @@ class TestUsage:
 
     @parametrize
     def test_raw_response_list_with_groups(self, client: Metronome) -> None:
+
         response = client.v1.usage.with_raw_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
@@ -195,6 +198,7 @@ class TestUsage:
 
     @parametrize
     def test_raw_response_search(self, client: Metronome) -> None:
+
         response = client.v1.usage.with_raw_response.search(
             transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
         )
@@ -254,6 +258,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.usage.with_raw_response.list(
             ending_before=parse_datetime("2021-01-03T00:00:00Z"),
             starting_on=parse_datetime("2021-01-01T00:00:00Z"),
@@ -306,6 +311,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_raw_response_ingest(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.usage.with_raw_response.ingest()
 
         assert response.is_closed is True
@@ -355,6 +361,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_raw_response_list_with_groups(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.usage.with_raw_response.list_with_groups(
             billable_metric_id="222796fd-d29c-429e-89b2-549fabda4ed6",
             customer_id="04ca7e72-4229-4a6e-ab11-9f7376fccbcb",
@@ -390,6 +397,7 @@ class TestAsyncUsage:
 
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.usage.with_raw_response.search(
             transaction_ids=["2021-01-01T00:00:00Z_cluster42"],
         )

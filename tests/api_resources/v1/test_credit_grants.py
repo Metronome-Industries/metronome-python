@@ -83,6 +83,7 @@ class TestCreditGrants:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.credit_grants.with_raw_response.create(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             expires_at=parse_datetime("2022-04-01T00:00:00Z"),
@@ -147,6 +148,7 @@ class TestCreditGrants:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.credit_grants.with_raw_response.list()
 
         assert response.is_closed is True
@@ -184,6 +186,7 @@ class TestCreditGrants:
 
     @parametrize
     def test_raw_response_edit(self, client: Metronome) -> None:
+
         response = client.v1.credit_grants.with_raw_response.edit(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -225,6 +228,7 @@ class TestCreditGrants:
 
     @parametrize
     def test_raw_response_list_entries(self, client: Metronome) -> None:
+
         response = client.v1.credit_grants.with_raw_response.list_entries()
 
         assert response.is_closed is True
@@ -263,6 +267,7 @@ class TestCreditGrants:
 
     @parametrize
     def test_raw_response_void(self, client: Metronome) -> None:
+
         response = client.v1.credit_grants.with_raw_response.void(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -344,6 +349,7 @@ class TestAsyncCreditGrants:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.credit_grants.with_raw_response.create(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             expires_at=parse_datetime("2022-04-01T00:00:00Z"),
@@ -408,6 +414,7 @@ class TestAsyncCreditGrants:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.credit_grants.with_raw_response.list()
 
         assert response.is_closed is True
@@ -445,6 +452,7 @@ class TestAsyncCreditGrants:
 
     @parametrize
     async def test_raw_response_edit(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.credit_grants.with_raw_response.edit(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -490,6 +498,7 @@ class TestAsyncCreditGrants:
 
     @parametrize
     async def test_raw_response_list_entries(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.credit_grants.with_raw_response.list_entries()
 
         assert response.is_closed is True
@@ -530,6 +539,7 @@ class TestAsyncCreditGrants:
 
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.credit_grants.with_raw_response.void(
             id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )

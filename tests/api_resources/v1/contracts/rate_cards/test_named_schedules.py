@@ -41,6 +41,7 @@ class TestNamedSchedules:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
+
         response = client.v1.contracts.rate_cards.named_schedules.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
@@ -92,6 +93,7 @@ class TestNamedSchedules:
 
     @parametrize
     def test_raw_response_update(self, client: Metronome) -> None:
+
         response = client.v1.contracts.rate_cards.named_schedules.with_raw_response.update(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
@@ -149,6 +151,7 @@ class TestAsyncNamedSchedules:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.contracts.rate_cards.named_schedules.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
@@ -200,6 +203,7 @@ class TestAsyncNamedSchedules:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.contracts.rate_cards.named_schedules.with_raw_response.update(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",

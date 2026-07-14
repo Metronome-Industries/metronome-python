@@ -42,6 +42,7 @@ class TestBillingConfig:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.customers.billing_config.with_raw_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",
@@ -87,6 +88,7 @@ class TestBillingConfig:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
+
         response = client.v1.customers.billing_config.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",
@@ -129,6 +131,7 @@ class TestBillingConfig:
 
     @parametrize
     def test_raw_response_delete(self, client: Metronome) -> None:
+
         response = client.v1.customers.billing_config.with_raw_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",
@@ -192,6 +195,7 @@ class TestAsyncBillingConfig:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.billing_config.with_raw_response.create(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",
@@ -237,6 +241,7 @@ class TestAsyncBillingConfig:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.billing_config.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",
@@ -279,6 +284,7 @@ class TestAsyncBillingConfig:
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.billing_config.with_raw_response.delete(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             billing_provider_type="stripe",

@@ -71,8 +71,26 @@ class ColorOverride(TypedDict, total=False):
 
 
 class DashboardOption(TypedDict, total=False):
-    key: Required[str]
+    key: Required[
+        Literal[
+            "show_zero_usage_line_items",
+            "contract_id",
+            "invoice_type",
+            "invoice_status_filter",
+            "hide_voided_invoices",
+            "billable_status_filter",
+            "hide_grant_name",
+            "credit_ledger_credit_type_id",
+        ]
+    ]
     """The option key name"""
 
     value: Required[str]
-    """The option value"""
+    """The option value.
+
+    For show_zero_usage_line_items: "true" or "false" (default "false"). For
+    contract_id: a UUID filtering invoices to a specific contract. For invoice_type:
+    "USAGE" or "SCHEDULED". For invoice_status_filter: "VOID", "FINALIZED", "DRAFT",
+    "FINALIZED_AND_DRAFT", or "ALL". For hide_voided_invoices (deprecated): "true"
+    or "false".
+    """

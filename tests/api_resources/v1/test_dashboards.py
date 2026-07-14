@@ -32,12 +32,9 @@ class TestDashboards:
             dashboard="invoices",
             bm_group_key_overrides=[
                 {
-                    "group_key_name": "tenant_id",
-                    "display_name": "Org ID",
-                    "value_display_names": {
-                        "48ecb18f358f": "bar",
-                        "e358f3ce242d": "bar",
-                    },
+                    "group_key_name": "group_key_name",
+                    "display_name": "display_name",
+                    "value_display_names": {"foo": "bar"},
                 }
             ],
             color_overrides=[
@@ -52,8 +49,8 @@ class TestDashboards:
                     "value": "false",
                 },
                 {
-                    "key": "hide_voided_invoices",
-                    "value": "true",
+                    "key": "invoice_status_filter",
+                    "value": "FINALIZED",
                 },
             ],
         )
@@ -61,6 +58,7 @@ class TestDashboards:
 
     @parametrize
     def test_raw_response_get_embeddable_url(self, client: Metronome) -> None:
+
         response = client.v1.dashboards.with_raw_response.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",
@@ -106,12 +104,9 @@ class TestAsyncDashboards:
             dashboard="invoices",
             bm_group_key_overrides=[
                 {
-                    "group_key_name": "tenant_id",
-                    "display_name": "Org ID",
-                    "value_display_names": {
-                        "48ecb18f358f": "bar",
-                        "e358f3ce242d": "bar",
-                    },
+                    "group_key_name": "group_key_name",
+                    "display_name": "display_name",
+                    "value_display_names": {"foo": "bar"},
                 }
             ],
             color_overrides=[
@@ -126,8 +121,8 @@ class TestAsyncDashboards:
                     "value": "false",
                 },
                 {
-                    "key": "hide_voided_invoices",
-                    "value": "true",
+                    "key": "invoice_status_filter",
+                    "value": "FINALIZED",
                 },
             ],
         )
@@ -135,6 +130,7 @@ class TestAsyncDashboards:
 
     @parametrize
     async def test_raw_response_get_embeddable_url(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.dashboards.with_raw_response.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",

@@ -29,6 +29,7 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_regenerate(self, client: Metronome) -> None:
+
         response = client.v1.invoices.with_raw_response.regenerate(
             id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
@@ -60,6 +61,7 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_void(self, client: Metronome) -> None:
+
         response = client.v1.invoices.with_raw_response.void(
             id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
@@ -97,6 +99,7 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_regenerate(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.invoices.with_raw_response.regenerate(
             id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
@@ -128,6 +131,7 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.invoices.with_raw_response.void(
             id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
