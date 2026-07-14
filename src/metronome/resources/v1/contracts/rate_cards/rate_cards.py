@@ -233,6 +233,7 @@ class RateCardsResource(SyncAPIResource):
         self,
         *,
         rate_card_id: str,
+        add_credit_type_conversions: Iterable[rate_card_update_params.AddCreditTypeConversion] | Omit = omit,
         aliases: Iterable[rate_card_update_params.Alias] | Omit = omit,
         description: str | Omit = omit,
         name: str | Omit = omit,
@@ -244,24 +245,19 @@ class RateCardsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardUpdateResponse:
         """
-        Update the metadata properties of an existing rate card, including its name,
-        description, and aliases. This endpoint is designed for managing rate card
-        identity and reference aliases rather than modifying pricing rates.
-
-        Modifies the descriptive properties and alias configuration of a rate card
-        without affecting the underlying pricing rates or schedules. This allows you to
-        update how a rate card is identified and referenced throughout your system.
+        Update a rate card's name, description, aliases, and credit type conversion
+        rates. This endpoint does not affect underlying pricing rates or schedules.
 
         ### Use this endpoint to:
 
-        - Rate card renaming: Update display names or descriptions for organizational
+        - Rename rate cards: Update display names or descriptions for organizational
           clarity
-        - Alias management: Add, modify, or schedule alias transitions for seamless rate
-          card migrations
-        - Documentation updates: Keep rate card descriptions current with business
+        - Manage aliases: Add, modify, or schedule alias transitions for seamless and
+          code-free rate card migrations
+        - Update documentation: Keep rate card descriptions current with business
           context
-        - Self-serve provisioning setup: Configure aliases to enable code-free rate card
-          transitions
+        - Configure custom pricing units: Add credit type conversions to enable rates
+          with different pricing units
 
         #### Active contract impact:
 
@@ -300,6 +296,9 @@ class RateCardsResource(SyncAPIResource):
         Args:
           rate_card_id: ID of the rate card to update
 
+          add_credit_type_conversions: Add credit type conversions for using custom pricing units in rates. Existing
+              conversions cannot be modified.
+
           aliases: Reference this alias when creating a contract. If the same alias is assigned to
               multiple rate cards, it will reference the rate card to which it was most
               recently assigned. It is not exposed to end customers.
@@ -319,6 +318,7 @@ class RateCardsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
+                    "add_credit_type_conversions": add_credit_type_conversions,
                     "aliases": aliases,
                     "description": description,
                     "name": name,
@@ -674,6 +674,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
         self,
         *,
         rate_card_id: str,
+        add_credit_type_conversions: Iterable[rate_card_update_params.AddCreditTypeConversion] | Omit = omit,
         aliases: Iterable[rate_card_update_params.Alias] | Omit = omit,
         description: str | Omit = omit,
         name: str | Omit = omit,
@@ -685,24 +686,19 @@ class AsyncRateCardsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RateCardUpdateResponse:
         """
-        Update the metadata properties of an existing rate card, including its name,
-        description, and aliases. This endpoint is designed for managing rate card
-        identity and reference aliases rather than modifying pricing rates.
-
-        Modifies the descriptive properties and alias configuration of a rate card
-        without affecting the underlying pricing rates or schedules. This allows you to
-        update how a rate card is identified and referenced throughout your system.
+        Update a rate card's name, description, aliases, and credit type conversion
+        rates. This endpoint does not affect underlying pricing rates or schedules.
 
         ### Use this endpoint to:
 
-        - Rate card renaming: Update display names or descriptions for organizational
+        - Rename rate cards: Update display names or descriptions for organizational
           clarity
-        - Alias management: Add, modify, or schedule alias transitions for seamless rate
-          card migrations
-        - Documentation updates: Keep rate card descriptions current with business
+        - Manage aliases: Add, modify, or schedule alias transitions for seamless and
+          code-free rate card migrations
+        - Update documentation: Keep rate card descriptions current with business
           context
-        - Self-serve provisioning setup: Configure aliases to enable code-free rate card
-          transitions
+        - Configure custom pricing units: Add credit type conversions to enable rates
+          with different pricing units
 
         #### Active contract impact:
 
@@ -741,6 +737,9 @@ class AsyncRateCardsResource(AsyncAPIResource):
         Args:
           rate_card_id: ID of the rate card to update
 
+          add_credit_type_conversions: Add credit type conversions for using custom pricing units in rates. Existing
+              conversions cannot be modified.
+
           aliases: Reference this alias when creating a contract. If the same alias is assigned to
               multiple rate cards, it will reference the rate card to which it was most
               recently assigned. It is not exposed to end customers.
@@ -760,6 +759,7 @@ class AsyncRateCardsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "rate_card_id": rate_card_id,
+                    "add_credit_type_conversions": add_credit_type_conversions,
                     "aliases": aliases,
                     "description": description,
                     "name": name,

@@ -122,6 +122,12 @@ class TestRateCards:
     def test_method_update_with_all_params(self, client: Metronome) -> None:
         rate_card = client.v1.contracts.rate_cards.update(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            add_credit_type_conversions=[
+                {
+                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "fiat_per_custom_credit": 0,
+                }
+            ],
             aliases=[
                 {
                     "name": "name",
@@ -381,6 +387,12 @@ class TestAsyncRateCards:
     async def test_method_update_with_all_params(self, async_client: AsyncMetronome) -> None:
         rate_card = await async_client.v1.contracts.rate_cards.update(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
+            add_credit_type_conversions=[
+                {
+                    "custom_credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    "fiat_per_custom_credit": 0,
+                }
+            ],
             aliases=[
                 {
                     "name": "name",

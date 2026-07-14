@@ -8,12 +8,18 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 
-__all__ = ["RateCardUpdateParams", "Alias"]
+__all__ = ["RateCardUpdateParams", "AddCreditTypeConversion", "Alias"]
 
 
 class RateCardUpdateParams(TypedDict, total=False):
     rate_card_id: Required[str]
     """ID of the rate card to update"""
+
+    add_credit_type_conversions: Iterable[AddCreditTypeConversion]
+    """Add credit type conversions for using custom pricing units in rates.
+
+    Existing conversions cannot be modified.
+    """
 
     aliases: Iterable[Alias]
     """Reference this alias when creating a contract.
@@ -26,6 +32,12 @@ class RateCardUpdateParams(TypedDict, total=False):
 
     name: str
     """Used only in UI/API. It is not exposed to end customers."""
+
+
+class AddCreditTypeConversion(TypedDict, total=False):
+    custom_credit_type_id: Required[str]
+
+    fiat_per_custom_credit: Required[float]
 
 
 class Alias(TypedDict, total=False):
