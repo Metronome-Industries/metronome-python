@@ -590,7 +590,7 @@ class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel
 
 
 class BillingProviderConfigurationSchedule(BaseModel):
-    billing_provider_configuration: BillingProviderConfigurationScheduleBillingProviderConfiguration
+    billing_provider_configuration: Optional[BillingProviderConfigurationScheduleBillingProviderConfiguration] = None
 
     effective_at: datetime
     """The date this billing provider configuration became or becomes active."""
@@ -1291,7 +1291,7 @@ class RevenueSystemConfigurationSchedule(BaseModel):
     effective_at: datetime
     """The date this revenue system configuration became or becomes active."""
 
-    revenue_system_configuration: RevenueSystemConfigurationScheduleRevenueSystemConfiguration
+    revenue_system_configuration: Optional[RevenueSystemConfigurationScheduleRevenueSystemConfiguration] = None
 
     effective_until: Optional[datetime] = None
     """The date this revenue system configuration is superseded by the next entry.
