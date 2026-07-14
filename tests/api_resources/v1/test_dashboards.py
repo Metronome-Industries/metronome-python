@@ -32,12 +32,9 @@ class TestDashboards:
             dashboard="invoices",
             bm_group_key_overrides=[
                 {
-                    "group_key_name": "tenant_id",
-                    "display_name": "Org ID",
-                    "value_display_names": {
-                        "48ecb18f358f": "bar",
-                        "e358f3ce242d": "bar",
-                    },
+                    "group_key_name": "group_key_name",
+                    "display_name": "display_name",
+                    "value_display_names": {"foo": "bar"},
                 }
             ],
             color_overrides=[
@@ -52,8 +49,8 @@ class TestDashboards:
                     "value": "false",
                 },
                 {
-                    "key": "hide_voided_invoices",
-                    "value": "true",
+                    "key": "invoice_status_filter",
+                    "value": "FINALIZED",
                 },
             ],
         )
@@ -106,12 +103,9 @@ class TestAsyncDashboards:
             dashboard="invoices",
             bm_group_key_overrides=[
                 {
-                    "group_key_name": "tenant_id",
-                    "display_name": "Org ID",
-                    "value_display_names": {
-                        "48ecb18f358f": "bar",
-                        "e358f3ce242d": "bar",
-                    },
+                    "group_key_name": "group_key_name",
+                    "display_name": "display_name",
+                    "value_display_names": {"foo": "bar"},
                 }
             ],
             color_overrides=[
@@ -126,8 +120,8 @@ class TestAsyncDashboards:
                     "value": "false",
                 },
                 {
-                    "key": "hide_voided_invoices",
-                    "value": "true",
+                    "key": "invoice_status_filter",
+                    "value": "FINALIZED",
                 },
             ],
         )
