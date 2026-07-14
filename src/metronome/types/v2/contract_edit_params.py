@@ -272,7 +272,7 @@ class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDic
         "metronome",
     ]
 
-    billing_provider_configuration_id: str
+    billing_provider_configuration_id: Optional[str]
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
 
@@ -1309,7 +1309,7 @@ class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, t
     provider: Literal["netsuite"]
     """The revenue system provider type."""
 
-    revenue_system_configuration_id: str
+    revenue_system_configuration_id: Optional[str]
 
 
 class AddRevenueSystemConfigurationUpdateSchedule(TypedDict, total=False):
