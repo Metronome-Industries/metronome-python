@@ -46,7 +46,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -92,7 +91,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -921,7 +919,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_edit(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.edit(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1019,7 +1016,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_edit_commit(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.edit_commit(
             commit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
             customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
@@ -1096,7 +1092,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_edit_credit(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.edit_credit(
             credit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
             customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
@@ -1131,7 +1126,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_get_edit_history(self, client: Metronome) -> None:
-
         response = client.v2.contracts.with_raw_response.get_edit_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1183,7 +1177,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1229,7 +1222,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -2058,7 +2050,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_edit(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.edit(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2156,7 +2147,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_edit_commit(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.edit_commit(
             commit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
             customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
@@ -2233,7 +2223,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_edit_credit(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.edit_credit(
             credit_id="5e7e82cf-ccb7-428c-a96f-a8e4f67af822",
             customer_id="4c91c473-fc12-445a-9c38-40421d47023f",
@@ -2268,7 +2257,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_get_edit_history(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v2.contracts.with_raw_response.get_edit_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",

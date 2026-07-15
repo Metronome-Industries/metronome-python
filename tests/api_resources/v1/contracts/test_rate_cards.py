@@ -58,7 +58,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.create(
             name="My Rate Card",
         )
@@ -90,7 +89,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.retrieve(
             id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
         )
@@ -138,7 +136,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_update(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.update(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -177,7 +174,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.list()
 
         assert response.is_closed is True
@@ -205,7 +201,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.archive(
             id="12b21470-4570-40df-8998-449d0b0bc52f",
         )
@@ -260,7 +255,6 @@ class TestRateCards:
 
     @parametrize
     def test_raw_response_retrieve_rate_schedule(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.with_raw_response.retrieve_rate_schedule(
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
             starting_at=parse_datetime("2024-01-01T00:00:00.000Z"),
@@ -323,7 +317,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.create(
             name="My Rate Card",
         )
@@ -355,7 +348,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.retrieve(
             id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
         )
@@ -403,7 +395,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.update(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -442,7 +433,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.list()
 
         assert response.is_closed is True
@@ -470,7 +460,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.archive(
             id="12b21470-4570-40df-8998-449d0b0bc52f",
         )
@@ -525,7 +514,6 @@ class TestAsyncRateCards:
 
     @parametrize
     async def test_raw_response_retrieve_rate_schedule(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.with_raw_response.retrieve_rate_schedule(
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
             starting_at=parse_datetime("2024-01-01T00:00:00.000Z"),

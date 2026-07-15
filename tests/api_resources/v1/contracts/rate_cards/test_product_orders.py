@@ -39,7 +39,6 @@ class TestProductOrders:
 
     @parametrize
     def test_raw_response_update(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.product_orders.with_raw_response.update(
             product_moves=[
                 {
@@ -92,7 +91,6 @@ class TestProductOrders:
 
     @parametrize
     def test_raw_response_set(self, client: Metronome) -> None:
-
         response = client.v1.contracts.rate_cards.product_orders.with_raw_response.set(
             product_order=["13117714-3f05-48e5-a6e9-a66093f13b4d", "b086f2f4-9851-4466-9ca0-30d53e6a42ac"],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
@@ -142,7 +140,6 @@ class TestAsyncProductOrders:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.product_orders.with_raw_response.update(
             product_moves=[
                 {
@@ -195,7 +192,6 @@ class TestAsyncProductOrders:
 
     @parametrize
     async def test_raw_response_set(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.rate_cards.product_orders.with_raw_response.set(
             product_order=["13117714-3f05-48e5-a6e9-a66093f13b4d", "b086f2f4-9851-4466-9ca0-30d53e6a42ac"],
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",

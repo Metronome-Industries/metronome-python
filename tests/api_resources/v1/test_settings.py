@@ -40,7 +40,6 @@ class TestSettings:
 
     @parametrize
     def test_raw_response_upsert_avalara_credentials(self, client: Metronome) -> None:
-
         response = client.v1.settings.with_raw_response.upsert_avalara_credentials(
             avalara_environment="PRODUCTION",
             avalara_password="my_password_123",
@@ -98,7 +97,6 @@ class TestAsyncSettings:
 
     @parametrize
     async def test_raw_response_upsert_avalara_credentials(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.settings.with_raw_response.upsert_avalara_credentials(
             avalara_environment="PRODUCTION",
             avalara_password="my_password_123",

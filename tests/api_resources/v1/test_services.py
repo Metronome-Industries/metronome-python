@@ -24,7 +24,6 @@ class TestServices:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.services.with_raw_response.list()
 
         assert response.is_closed is True
@@ -56,7 +55,6 @@ class TestAsyncServices:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.services.with_raw_response.list()
 
         assert response.is_closed is True

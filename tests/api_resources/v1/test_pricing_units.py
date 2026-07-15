@@ -33,7 +33,6 @@ class TestPricingUnits:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.pricing_units.with_raw_response.list()
 
         assert response.is_closed is True
@@ -73,7 +72,6 @@ class TestAsyncPricingUnits:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.pricing_units.with_raw_response.list()
 
         assert response.is_closed is True
