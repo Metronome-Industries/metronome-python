@@ -974,6 +974,7 @@ class TestContracts:
                     }
                 ],
             },
+            applicable_contract_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             description="description",
@@ -1071,6 +1072,7 @@ class TestContracts:
                     }
                 ],
             },
+            applicable_contract_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             description="description",
@@ -2105,6 +2107,7 @@ class TestAsyncContracts:
                     }
                 ],
             },
+            applicable_contract_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             description="description",
@@ -2202,6 +2205,7 @@ class TestAsyncContracts:
                     }
                 ],
             },
+            applicable_contract_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             applicable_product_tags=["string"],
             description="description",
