@@ -313,6 +313,9 @@ class Commit(BaseModel):
 
     contract: Optional[Contract] = None
 
+    cost_basis: Optional[float] = None
+    """The ratio of the amount paid for the commit to the amount of credit granted."""
+
     created_by: Optional[str] = None
     """The actor who created this commit.
 
