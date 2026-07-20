@@ -396,6 +396,7 @@ class ContractsResource(SyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
+        applicable_contract_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
         description: str | Omit = omit,
@@ -437,6 +438,10 @@ class ContractsResource(SyncAPIResource):
           commit_id: ID of the commit to edit
 
           customer_id: ID of the customer whose commit is being edited
+
+          applicable_contract_ids: Which contracts the customer-level commit applies to. If set to null, the commit
+              applies to all of the customer's contracts. This field cannot be edited for
+              POSTPAID commits or contract-level commits.
 
           applicable_product_ids: Which products the commit applies to. If applicable_product_ids,
               applicable_product_tags or specifiers are not provided, the commit applies to
@@ -483,6 +488,7 @@ class ContractsResource(SyncAPIResource):
                     "commit_id": commit_id,
                     "customer_id": customer_id,
                     "access_schedule": access_schedule,
+                    "applicable_contract_ids": applicable_contract_ids,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "description": description,
@@ -509,6 +515,7 @@ class ContractsResource(SyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
+        applicable_contract_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
         description: str | Omit = omit,
@@ -547,6 +554,10 @@ class ContractsResource(SyncAPIResource):
           credit_id: ID of the credit to edit
 
           customer_id: ID of the customer whose credit is being edited
+
+          applicable_contract_ids: Which contracts the customer-level credit applies to. If set to null, the credit
+              applies to all of the customer's contracts. This field cannot be set on a
+              contract-level credit.
 
           applicable_product_ids: Which products the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
@@ -589,6 +600,7 @@ class ContractsResource(SyncAPIResource):
                     "credit_id": credit_id,
                     "customer_id": customer_id,
                     "access_schedule": access_schedule,
+                    "applicable_contract_ids": applicable_contract_ids,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "description": description,
@@ -1017,6 +1029,7 @@ class AsyncContractsResource(AsyncAPIResource):
         commit_id: str,
         customer_id: str,
         access_schedule: contract_edit_commit_params.AccessSchedule | Omit = omit,
+        applicable_contract_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
         description: str | Omit = omit,
@@ -1058,6 +1071,10 @@ class AsyncContractsResource(AsyncAPIResource):
           commit_id: ID of the commit to edit
 
           customer_id: ID of the customer whose commit is being edited
+
+          applicable_contract_ids: Which contracts the customer-level commit applies to. If set to null, the commit
+              applies to all of the customer's contracts. This field cannot be edited for
+              POSTPAID commits or contract-level commits.
 
           applicable_product_ids: Which products the commit applies to. If applicable_product_ids,
               applicable_product_tags or specifiers are not provided, the commit applies to
@@ -1104,6 +1121,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "commit_id": commit_id,
                     "customer_id": customer_id,
                     "access_schedule": access_schedule,
+                    "applicable_contract_ids": applicable_contract_ids,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "description": description,
@@ -1130,6 +1148,7 @@ class AsyncContractsResource(AsyncAPIResource):
         credit_id: str,
         customer_id: str,
         access_schedule: contract_edit_credit_params.AccessSchedule | Omit = omit,
+        applicable_contract_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         applicable_product_tags: Optional[SequenceNotStr[str]] | Omit = omit,
         description: str | Omit = omit,
@@ -1168,6 +1187,10 @@ class AsyncContractsResource(AsyncAPIResource):
           credit_id: ID of the credit to edit
 
           customer_id: ID of the customer whose credit is being edited
+
+          applicable_contract_ids: Which contracts the customer-level credit applies to. If set to null, the credit
+              applies to all of the customer's contracts. This field cannot be set on a
+              contract-level credit.
 
           applicable_product_ids: Which products the credit applies to. If both applicable_product_ids and
               applicable_product_tags are not provided, the credit applies to all products.
@@ -1210,6 +1233,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "credit_id": credit_id,
                     "customer_id": customer_id,
                     "access_schedule": access_schedule,
+                    "applicable_contract_ids": applicable_contract_ids,
                     "applicable_product_ids": applicable_product_ids,
                     "applicable_product_tags": applicable_product_tags,
                     "description": description,

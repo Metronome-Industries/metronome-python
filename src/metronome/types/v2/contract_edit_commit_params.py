@@ -33,6 +33,13 @@ class ContractEditCommitParams(TypedDict, total=False):
 
     access_schedule: AccessSchedule
 
+    applicable_contract_ids: Optional[SequenceNotStr[str]]
+    """Which contracts the customer-level commit applies to.
+
+    If set to null, the commit applies to all of the customer's contracts. This
+    field cannot be edited for POSTPAID commits or contract-level commits.
+    """
+
     applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the commit applies to.
 
