@@ -362,6 +362,9 @@ class Commit(BaseModel):
 
     contract: Optional[CommitContract] = None
 
+    cost_basis: Optional[float] = None
+    """The ratio of the amount paid for the commit to the amount of credit granted."""
+
     created_by: Optional[str] = None
     """The actor who created this commit.
 
@@ -518,7 +521,7 @@ class Transition(BaseModel):
 
     to_contract_id: str
 
-    type: Literal["SUPERSEDE", "RENEWAL"]
+    type: Literal["RENEWAL"]
 
 
 class UsageFilter(BaseModel):
@@ -590,7 +593,7 @@ class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel
 
 
 class BillingProviderConfigurationSchedule(BaseModel):
-    billing_provider_configuration: BillingProviderConfigurationScheduleBillingProviderConfiguration
+    billing_provider_configuration: Optional[BillingProviderConfigurationScheduleBillingProviderConfiguration] = None
 
     effective_at: datetime
     """The date this billing provider configuration became or becomes active."""
@@ -1073,7 +1076,9 @@ class RecurringCommit(BaseModel):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    starting_at rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
     """
 
     rollover_fraction: Optional[float] = None
@@ -1198,7 +1203,9 @@ class RecurringCredit(BaseModel):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    starting_at rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
     """
 
     rollover_fraction: Optional[float] = None
@@ -1287,7 +1294,7 @@ class RevenueSystemConfigurationSchedule(BaseModel):
     effective_at: datetime
     """The date this revenue system configuration became or becomes active."""
 
-    revenue_system_configuration: RevenueSystemConfigurationScheduleRevenueSystemConfiguration
+    revenue_system_configuration: Optional[RevenueSystemConfigurationScheduleRevenueSystemConfiguration] = None
 
     effective_until: Optional[datetime] = None
     """The date this revenue system configuration is superseded by the next entry.

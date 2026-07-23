@@ -29,6 +29,13 @@ class ContractEditCreditParams(TypedDict, total=False):
 
     access_schedule: AccessSchedule
 
+    applicable_contract_ids: Optional[SequenceNotStr[str]]
+    """Which contracts the customer-level credit applies to.
+
+    If set to null, the credit applies to all of the customer's contracts. This
+    field cannot be set on a contract-level credit.
+    """
+
     applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the credit applies to.
 

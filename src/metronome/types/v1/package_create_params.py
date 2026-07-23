@@ -742,7 +742,9 @@ class RecurringCommit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    starting_at rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
     """
 
     rollover_fraction: float
@@ -913,7 +915,9 @@ class RecurringCredit(TypedDict, total=False):
     If not provided: - The commits will be created on the usage invoice frequency.
     If provided: - The period defined in the duration will correspond to this
     frequency. - Commits will be created aligned with the recurring commit's
-    starting_at rather than the usage invoice dates.
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
     """
 
     rollover_fraction: float
