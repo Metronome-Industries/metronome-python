@@ -1,5 +1,21 @@
 # Changelog
 
+## 4.10.0 (2026-07-23)
+
+Full Changelog: [v4.9.0...v4.10.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.9.0...v4.10.0)
+
+### Features
+
+* [ORCH-2018] fixes type issues created from breaking gql changes ([95a8a28](https://github.com/Metronome-Industries/metronome-python/commit/95a8a2872383911291ec3de5ce8859b0fcb372ff))
+* Add add_credit_type_conversions field to update_rate_card ([e122f29](https://github.com/Metronome-Industries/metronome-python/commit/e122f2908564c40271878baae7f10e368639e63d))
+* Add cost_basis to commits ([a179898](https://github.com/Metronome-Industries/metronome-python/commit/a1798984da8b71cc7cd83702298614ad8e9e2aa6))
+* Add daily recurring commit description to docs ([7353549](https://github.com/Metronome-Industries/metronome-python/commit/73535490b9ca9b7bec279be4c0dcf7979d46bbc3))
+* add stlc SDK generation workflow to api repo ([0ad6355](https://github.com/Metronome-Industries/metronome-python/commit/0ad63550cac5d78b777705ba9bb5dde99c14ba57))
+* Docs: embeddable dashboard doc updates ([7843f2c](https://github.com/Metronome-Industries/metronome-python/commit/7843f2c6ffb56fa5405482146a91ea1117bdee20))
+* Kmd/remove supersede from contract transition ([6ae254e](https://github.com/Metronome-Industries/metronome-python/commit/6ae254e33a9824e39e4de2cfc49a8d7bafde87f5))
+* Plumb applicable_contract_ids in edit customer commit ([be9106e](https://github.com/Metronome-Industries/metronome-python/commit/be9106e587074f414a1911788c9763305256fad7))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([59a4fb7](https://github.com/Metronome-Industries/metronome-python/commit/59a4fb7d60f47b7fa4b74e400ae8c645f25b15f2))
+
 ## 4.9.0 (2026-07-02)
 
 Full Changelog: [v4.8.0...v4.9.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.8.0...v4.9.0)
