@@ -80,6 +80,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.create(
             name="Example, Inc.",
         )
@@ -111,6 +112,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -159,6 +161,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -186,6 +189,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
@@ -221,6 +225,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_archive_billing_configurations(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.archive_billing_configurations(
             customer_billing_provider_configuration_ids=[
                 "4db51251-61de-4bfe-b9ce-495e244f3491",
@@ -271,6 +276,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_list_billable_metrics(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -322,6 +328,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_list_costs(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.list_costs(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -387,6 +394,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_preview_events(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.preview_events(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             events=[{"event_type": "heartbeat"}],
@@ -436,6 +444,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_retrieve_billing_configurations(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
@@ -492,6 +501,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_set_billing_configurations(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.set_billing_configurations(
             data=[
                 {
@@ -574,6 +584,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_set_ingest_aliases(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
@@ -616,6 +627,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_set_name(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
@@ -666,6 +678,7 @@ class TestCustomers:
 
     @parametrize
     def test_raw_response_update_config(self, client: Metronome) -> None:
+
         response = client.v1.customers.with_raw_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -750,6 +763,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.create(
             name="Example, Inc.",
         )
@@ -781,6 +795,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -829,6 +844,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -856,6 +872,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
@@ -891,6 +908,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_archive_billing_configurations(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.archive_billing_configurations(
             customer_billing_provider_configuration_ids=[
                 "4db51251-61de-4bfe-b9ce-495e244f3491",
@@ -941,6 +959,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_list_billable_metrics(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.list_billable_metrics(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -992,6 +1011,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_list_costs(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.list_costs(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -1057,6 +1077,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_preview_events(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.preview_events(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             events=[{"event_type": "heartbeat"}],
@@ -1106,6 +1127,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_retrieve_billing_configurations(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.retrieve_billing_configurations(
             customer_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
         )
@@ -1162,6 +1184,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_set_billing_configurations(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.set_billing_configurations(
             data=[
                 {
@@ -1244,6 +1267,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_set_ingest_aliases(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.set_ingest_aliases(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ingest_aliases=["team@example.com"],
@@ -1286,6 +1310,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_set_name(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.set_name(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             name="Example, Inc.",
@@ -1336,6 +1361,7 @@ class TestAsyncCustomers:
 
     @parametrize
     async def test_raw_response_update_config(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.customers.with_raw_response.update_config(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )

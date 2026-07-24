@@ -34,6 +34,7 @@ class TestBillingProviders:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.settings.billing_providers.with_raw_response.create(
             billing_provider="aws_marketplace",
             configuration={
@@ -80,6 +81,7 @@ class TestBillingProviders:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.settings.billing_providers.with_raw_response.list()
 
         assert response.is_closed is True
@@ -118,6 +120,7 @@ class TestAsyncBillingProviders:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.settings.billing_providers.with_raw_response.create(
             billing_provider="aws_marketplace",
             configuration={
@@ -164,6 +167,7 @@ class TestAsyncBillingProviders:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.settings.billing_providers.with_raw_response.list()
 
         assert response.is_closed is True

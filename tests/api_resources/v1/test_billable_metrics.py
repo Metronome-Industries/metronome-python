@@ -68,6 +68,7 @@ class TestBillableMetrics:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.billable_metrics.with_raw_response.create(
             name="CPU Hours",
         )
@@ -99,6 +100,7 @@ class TestBillableMetrics:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
+
         response = client.v1.billable_metrics.with_raw_response.retrieve(
             billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -144,6 +146,7 @@ class TestBillableMetrics:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.billable_metrics.with_raw_response.list()
 
         assert response.is_closed is True
@@ -171,6 +174,7 @@ class TestBillableMetrics:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
+
         response = client.v1.billable_metrics.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
@@ -244,6 +248,7 @@ class TestAsyncBillableMetrics:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.billable_metrics.with_raw_response.create(
             name="CPU Hours",
         )
@@ -275,6 +280,7 @@ class TestAsyncBillableMetrics:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.billable_metrics.with_raw_response.retrieve(
             billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -320,6 +326,7 @@ class TestAsyncBillableMetrics:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.billable_metrics.with_raw_response.list()
 
         assert response.is_closed is True
@@ -347,6 +354,7 @@ class TestAsyncBillableMetrics:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.billable_metrics.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )

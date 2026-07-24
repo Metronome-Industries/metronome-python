@@ -84,6 +84,7 @@ class TestAlerts:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
+
         response = client.v1.alerts.with_raw_response.create(
             alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
@@ -127,6 +128,7 @@ class TestAlerts:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
+
         response = client.v1.alerts.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )
@@ -222,6 +224,7 @@ class TestAsyncAlerts:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.alerts.with_raw_response.create(
             alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
@@ -265,6 +268,7 @@ class TestAsyncAlerts:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.alerts.with_raw_response.archive(
             id="8deed800-1b7a-495d-a207-6c52bac54dc9",
         )

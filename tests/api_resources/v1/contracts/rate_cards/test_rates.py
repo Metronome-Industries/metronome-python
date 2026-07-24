@@ -55,6 +55,7 @@ class TestRates:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
+
         response = client.v1.contracts.rate_cards.rates.with_raw_response.list(
             at=parse_datetime("2024-01-01T00:00:00.000Z"),
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
@@ -127,6 +128,7 @@ class TestRates:
 
     @parametrize
     def test_raw_response_add(self, client: Metronome) -> None:
+
         response = client.v1.contracts.rate_cards.rates.with_raw_response.add(
             entitled=True,
             product_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -180,6 +182,7 @@ class TestRates:
 
     @parametrize
     def test_raw_response_add_many(self, client: Metronome) -> None:
+
         response = client.v1.contracts.rate_cards.rates.with_raw_response.add_many(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rates=[
@@ -268,6 +271,7 @@ class TestAsyncRates:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.contracts.rate_cards.rates.with_raw_response.list(
             at=parse_datetime("2024-01-01T00:00:00.000Z"),
             rate_card_id="f3d51ae8-f283-44e1-9933-a3cf9ad7a6fe",
@@ -340,6 +344,7 @@ class TestAsyncRates:
 
     @parametrize
     async def test_raw_response_add(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.contracts.rate_cards.rates.with_raw_response.add(
             entitled=True,
             product_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -393,6 +398,7 @@ class TestAsyncRates:
 
     @parametrize
     async def test_raw_response_add_many(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.contracts.rate_cards.rates.with_raw_response.add_many(
             rate_card_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             rates=[

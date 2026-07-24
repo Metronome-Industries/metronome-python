@@ -58,6 +58,7 @@ class TestDashboards:
 
     @parametrize
     def test_raw_response_get_embeddable_url(self, client: Metronome) -> None:
+
         response = client.v1.dashboards.with_raw_response.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",
@@ -129,6 +130,7 @@ class TestAsyncDashboards:
 
     @parametrize
     async def test_raw_response_get_embeddable_url(self, async_client: AsyncMetronome) -> None:
+
         response = await async_client.v1.dashboards.with_raw_response.get_embeddable_url(
             customer_id="4db51251-61de-4bfe-b9ce-495e244f3491",
             dashboard="invoices",
