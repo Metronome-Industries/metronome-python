@@ -24,9 +24,18 @@ jobs:
     env:
       PRODUCTION_REPO: Metronome-Industries/metronome-python
     steps:
+      - name: Generate stlc bot token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.STLC_BOT_APP_ID }}
+          private-key: ${{ secrets.STLC_BOT_APP_PRIVATE_KEY }}
+          owner: Metronome-Industries
+
       - name: Check out staging
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
 
       - name: Fetch production main
