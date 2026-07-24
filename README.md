@@ -7,6 +7,8 @@ The Metronome Python library provides convenient access to the Metronome REST AP
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
+It is generated with [Stainless](https://www.stainless.com/).
+
 ## MCP Server
 
 Use the Metronome MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
