@@ -72,7 +72,6 @@ class TestAlerts:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.customers.alerts.with_raw_response.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
@@ -115,7 +114,6 @@ class TestAlerts:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.customers.alerts.with_raw_response.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -148,7 +146,6 @@ class TestAlerts:
 
     @parametrize
     def test_raw_response_reset(self, client: Metronome) -> None:
-
         response = client.v1.customers.alerts.with_raw_response.reset(
             alert_id="5e8691bf-b22a-4672-922d-f80eee940f01",
             customer_id="4c83caf3-8af4-44e2-9aeb-e290531726d9",
@@ -230,7 +227,6 @@ class TestAsyncAlerts:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.alerts.with_raw_response.retrieve(
             alert_id="8deed800-1b7a-495d-a207-6c52bac54dc9",
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
@@ -273,7 +269,6 @@ class TestAsyncAlerts:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.alerts.with_raw_response.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -306,7 +301,6 @@ class TestAsyncAlerts:
 
     @parametrize
     async def test_raw_response_reset(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.alerts.with_raw_response.reset(
             alert_id="5e8691bf-b22a-4672-922d-f80eee940f01",
             customer_id="4c83caf3-8af4-44e2-9aeb-e290531726d9",

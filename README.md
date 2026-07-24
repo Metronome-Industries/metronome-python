@@ -120,7 +120,9 @@ from metronome import AsyncMetronome
 
 async def main() -> None:
     async with AsyncMetronome(
-        bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
+        bearer_token=os.environ.get(
+            "METRONOME_BEARER_TOKEN"
+        ),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         await client.v1.usage.ingest(
@@ -361,10 +363,10 @@ In an API response, a field may be explicitly `null`, or missing entirely; in ei
 
 ```py
 if response.my_field is None:
-    if "my_field" not in response.model_fields_set:
-        print('Got json like {}, without a "my_field" key present at all.')
-    else:
-        print('Got json like {"my_field": null}.')
+  if 'my_field' not in response.model_fields_set:
+    print('Got json like {}, without a "my_field" key present at all.')
+  else:
+    print('Got json like {"my_field": null}.')
 ```
 
 ### Accessing raw response data (e.g. headers)
@@ -381,7 +383,7 @@ response = client.v1.contracts.with_raw_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
-print(response.headers.get("X-My-Header"))
+print(response.headers.get('X-My-Header'))
 
 contract = response.parse()  # get the object that `v1.contracts.create()` would have returned
 print(contract.data)
@@ -482,8 +484,8 @@ By default the library closes underlying HTTP connections whenever the client is
 from metronome import Metronome
 
 with Metronome() as client:
-    # make requests here
-    ...
+  # make requests here
+  ...
 
 # HTTP client is now closed
 ```
@@ -508,7 +510,6 @@ You can determine the version that is being used at runtime with:
 
 ```py
 import metronome
-
 print(metronome.__version__)
 ```
 

@@ -80,7 +80,6 @@ class TestCredits:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
-
         response = client.v1.customers.credits.with_raw_response.create(
             access_schedule={
                 "schedule_items": [
@@ -151,7 +150,6 @@ class TestCredits:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.customers.credits.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -185,7 +183,6 @@ class TestCredits:
 
     @parametrize
     def test_raw_response_update_end_date(self, client: Metronome) -> None:
-
         response = client.v1.customers.credits.with_raw_response.update_end_date(
             access_ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
             credit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
@@ -275,7 +272,6 @@ class TestAsyncCredits:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.credits.with_raw_response.create(
             access_schedule={
                 "schedule_items": [
@@ -346,7 +342,6 @@ class TestAsyncCredits:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.credits.with_raw_response.list(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -380,7 +375,6 @@ class TestAsyncCredits:
 
     @parametrize
     async def test_raw_response_update_end_date(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.credits.with_raw_response.update_end_date(
             access_ending_before=parse_datetime("2020-01-01T00:00:00.000Z"),
             credit_id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",

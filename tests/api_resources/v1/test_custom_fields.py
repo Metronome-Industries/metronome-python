@@ -31,7 +31,6 @@ class TestCustomFields:
 
     @parametrize
     def test_raw_response_add_key(self, client: Metronome) -> None:
-
         response = client.v1.custom_fields.with_raw_response.add_key(
             enforce_uniqueness=True,
             entity="customer",
@@ -69,7 +68,6 @@ class TestCustomFields:
 
     @parametrize
     def test_raw_response_delete_values(self, client: Metronome) -> None:
-
         response = client.v1.custom_fields.with_raw_response.delete_values(
             entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
@@ -111,7 +109,6 @@ class TestCustomFields:
 
     @parametrize
     def test_raw_response_list_keys(self, client: Metronome) -> None:
-
         response = client.v1.custom_fields.with_raw_response.list_keys()
 
         assert response.is_closed is True
@@ -142,7 +139,6 @@ class TestCustomFields:
 
     @parametrize
     def test_raw_response_remove_key(self, client: Metronome) -> None:
-
         response = client.v1.custom_fields.with_raw_response.remove_key(
             entity="customer",
             key="x_account_id",
@@ -178,7 +174,6 @@ class TestCustomFields:
 
     @parametrize
     def test_raw_response_set_values(self, client: Metronome) -> None:
-
         response = client.v1.custom_fields.with_raw_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
             entity="customer",
@@ -222,7 +217,6 @@ class TestAsyncCustomFields:
 
     @parametrize
     async def test_raw_response_add_key(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.custom_fields.with_raw_response.add_key(
             enforce_uniqueness=True,
             entity="customer",
@@ -260,7 +254,6 @@ class TestAsyncCustomFields:
 
     @parametrize
     async def test_raw_response_delete_values(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.custom_fields.with_raw_response.delete_values(
             entity="customer",
             entity_id="99594816-e8a5-4bca-be21-8d1de0f45120",
@@ -302,7 +295,6 @@ class TestAsyncCustomFields:
 
     @parametrize
     async def test_raw_response_list_keys(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.custom_fields.with_raw_response.list_keys()
 
         assert response.is_closed is True
@@ -333,7 +325,6 @@ class TestAsyncCustomFields:
 
     @parametrize
     async def test_raw_response_remove_key(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.custom_fields.with_raw_response.remove_key(
             entity="customer",
             key="x_account_id",
@@ -369,7 +360,6 @@ class TestAsyncCustomFields:
 
     @parametrize
     async def test_raw_response_set_values(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.custom_fields.with_raw_response.set_values(
             custom_fields={"x_account_id": "KyVnHhSBWl7eY2bl"},
             entity="customer",

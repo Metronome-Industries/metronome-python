@@ -42,7 +42,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.customers.plans.with_raw_response.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -118,7 +117,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_add(self, client: Metronome) -> None:
-
         response = client.v1.customers.plans.with_raw_response.add(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             plan_id="d2c06dae-9549-4d7d-bc04-b78dd3d241b8",
@@ -175,7 +173,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_end(self, client: Metronome) -> None:
-
         response = client.v1.customers.plans.with_raw_response.end(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
@@ -234,7 +231,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_list_price_adjustments(self, client: Metronome) -> None:
-
         response = client.v1.customers.plans.with_raw_response.list_price_adjustments(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
@@ -297,7 +293,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.plans.with_raw_response.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -373,7 +368,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_add(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.plans.with_raw_response.add(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             plan_id="d2c06dae-9549-4d7d-bc04-b78dd3d241b8",
@@ -430,7 +424,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_end(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.plans.with_raw_response.end(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",
@@ -489,7 +482,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_list_price_adjustments(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.plans.with_raw_response.list_price_adjustments(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_plan_id="7aa11640-0703-4600-8eb9-293f535a6b74",

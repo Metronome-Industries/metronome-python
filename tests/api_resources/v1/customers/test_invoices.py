@@ -51,7 +51,6 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.customers.invoices.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
@@ -117,7 +116,6 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.customers.invoices.with_raw_response.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -162,7 +160,6 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_add_charge(self, client: Metronome) -> None:
-
         response = client.v1.customers.invoices.with_raw_response.add_charge(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             charge_id="5ae4b726-1ebe-439c-9190-9831760ba195",
@@ -237,7 +234,6 @@ class TestInvoices:
 
     @parametrize
     def test_raw_response_list_breakdowns(self, client: Metronome) -> None:
-
         response = client.v1.customers.invoices.with_raw_response.list_breakdowns(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -368,7 +364,6 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.invoices.with_raw_response.retrieve(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             invoice_id="6a37bb88-8538-48c5-b37b-a41c836328bd",
@@ -434,7 +429,6 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.invoices.with_raw_response.list(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -479,7 +473,6 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_add_charge(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.invoices.with_raw_response.add_charge(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             charge_id="5ae4b726-1ebe-439c-9190-9831760ba195",
@@ -554,7 +547,6 @@ class TestAsyncInvoices:
 
     @parametrize
     async def test_raw_response_list_breakdowns(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.customers.invoices.with_raw_response.list_breakdowns(
             customer_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             ending_before=parse_datetime("2019-12-27T18:11:19.117Z"),

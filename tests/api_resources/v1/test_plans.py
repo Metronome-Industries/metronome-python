@@ -38,7 +38,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.plans.with_raw_response.list()
 
         assert response.is_closed is True
@@ -66,7 +65,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_get_details(self, client: Metronome) -> None:
-
         response = client.v1.plans.with_raw_response.get_details(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -114,7 +112,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_list_charges(self, client: Metronome) -> None:
-
         response = client.v1.plans.with_raw_response.list_charges(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -163,7 +160,6 @@ class TestPlans:
 
     @parametrize
     def test_raw_response_list_customers(self, client: Metronome) -> None:
-
         response = client.v1.plans.with_raw_response.list_customers(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -214,7 +210,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.plans.with_raw_response.list()
 
         assert response.is_closed is True
@@ -242,7 +237,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_get_details(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.plans.with_raw_response.get_details(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -290,7 +284,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_list_charges(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.plans.with_raw_response.list_charges(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -339,7 +332,6 @@ class TestAsyncPlans:
 
     @parametrize
     async def test_raw_response_list_customers(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.plans.with_raw_response.list_customers(
             plan_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )

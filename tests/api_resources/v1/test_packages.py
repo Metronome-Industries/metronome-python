@@ -474,7 +474,6 @@ class TestPackages:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
-
         response = client.v1.packages.with_raw_response.create(
             name="My package",
         )
@@ -506,7 +505,6 @@ class TestPackages:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.packages.with_raw_response.retrieve(
             package_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -545,7 +543,6 @@ class TestPackages:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.packages.with_raw_response.list()
 
         assert response.is_closed is True
@@ -573,7 +570,6 @@ class TestPackages:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
-
         response = client.v1.packages.with_raw_response.archive(
             package_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -617,7 +613,6 @@ class TestPackages:
 
     @parametrize
     def test_raw_response_list_contracts_on_package(self, client: Metronome) -> None:
-
         response = client.v1.packages.with_raw_response.list_contracts_on_package(
             package_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -1095,7 +1090,6 @@ class TestAsyncPackages:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.packages.with_raw_response.create(
             name="My package",
         )
@@ -1127,7 +1121,6 @@ class TestAsyncPackages:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.packages.with_raw_response.retrieve(
             package_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -1166,7 +1159,6 @@ class TestAsyncPackages:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.packages.with_raw_response.list()
 
         assert response.is_closed is True
@@ -1194,7 +1186,6 @@ class TestAsyncPackages:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.packages.with_raw_response.archive(
             package_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -1238,7 +1229,6 @@ class TestAsyncPackages:
 
     @parametrize
     async def test_raw_response_list_contracts_on_package(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.packages.with_raw_response.list_contracts_on_package(
             package_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )

@@ -64,7 +64,6 @@ class TestProducts:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
-
         response = client.v1.contracts.products.with_raw_response.create(
             name="My Product",
             type="USAGE",
@@ -98,7 +97,6 @@ class TestProducts:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.contracts.products.with_raw_response.retrieve(
             id="d84e7f4e-7a70-4fe4-be02-7a5027beffcc",
         )
@@ -160,7 +158,6 @@ class TestProducts:
 
     @parametrize
     def test_raw_response_update(self, client: Metronome) -> None:
-
         response = client.v1.contracts.products.with_raw_response.update(
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
@@ -201,7 +198,6 @@ class TestProducts:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.contracts.products.with_raw_response.list()
 
         assert response.is_closed is True
@@ -229,7 +225,6 @@ class TestProducts:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
-
         response = client.v1.contracts.products.with_raw_response.archive(
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )
@@ -297,7 +292,6 @@ class TestAsyncProducts:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.products.with_raw_response.create(
             name="My Product",
             type="USAGE",
@@ -331,7 +325,6 @@ class TestAsyncProducts:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.products.with_raw_response.retrieve(
             id="d84e7f4e-7a70-4fe4-be02-7a5027beffcc",
         )
@@ -393,7 +386,6 @@ class TestAsyncProducts:
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.products.with_raw_response.update(
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
@@ -434,7 +426,6 @@ class TestAsyncProducts:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.products.with_raw_response.list()
 
         assert response.is_closed is True
@@ -462,7 +453,6 @@ class TestAsyncProducts:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.products.with_raw_response.archive(
             product_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
         )

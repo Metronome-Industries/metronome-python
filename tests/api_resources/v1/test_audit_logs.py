@@ -39,7 +39,6 @@ class TestAuditLogs:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.audit_logs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -84,7 +83,6 @@ class TestAsyncAuditLogs:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.audit_logs.with_raw_response.list()
 
         assert response.is_closed is True

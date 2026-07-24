@@ -564,7 +564,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_create(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
@@ -609,7 +608,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_retrieve(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -655,7 +653,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -705,7 +702,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_add_manual_balance_entry(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.add_manual_balance_entry(
             id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             amount=-1000,
@@ -987,7 +983,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_amend(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.amend(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1025,7 +1020,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_archive(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.archive(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1078,7 +1072,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_create_historical_invoices(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
@@ -1165,7 +1158,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_get_net_balance(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.get_net_balance(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -1213,7 +1205,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_get_subscription_seats_history(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1267,7 +1258,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_list_balances(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -1318,7 +1308,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_list_seat_balances(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.list_seat_balances(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1376,7 +1365,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_retrieve_rate_schedule(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.retrieve_rate_schedule(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1412,7 +1400,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_retrieve_subscription_quantity_history(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1474,7 +1461,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_schedule_pro_services_invoice(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.schedule_pro_services_invoice(
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1516,7 +1502,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_set_usage_filter(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.set_usage_filter(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -1567,7 +1552,6 @@ class TestContracts:
 
     @parametrize
     def test_raw_response_update_end_date(self, client: Metronome) -> None:
-
         response = client.v1.contracts.with_raw_response.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2128,7 +2112,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.create(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             starting_at=parse_datetime("2020-01-01T00:00:00.000Z"),
@@ -2173,7 +2156,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.retrieve(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2219,7 +2201,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
@@ -2269,7 +2250,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_add_manual_balance_entry(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.add_manual_balance_entry(
             id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
             amount=-1000,
@@ -2551,7 +2531,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_amend(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.amend(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2589,7 +2568,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_archive(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.archive(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2642,7 +2620,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_create_historical_invoices(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.create_historical_invoices(
             invoices=[
                 {
@@ -2729,7 +2706,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_get_net_balance(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.get_net_balance(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -2777,7 +2753,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_get_subscription_seats_history(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.get_subscription_seats_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2831,7 +2806,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_list_balances(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
         )
@@ -2882,7 +2856,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_list_seat_balances(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.list_seat_balances(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2940,7 +2913,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_retrieve_rate_schedule(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.retrieve_rate_schedule(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -2976,7 +2948,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_retrieve_subscription_quantity_history(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.retrieve_subscription_quantity_history(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -3040,7 +3011,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_schedule_pro_services_invoice(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.schedule_pro_services_invoice(
             contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             customer_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -3082,7 +3052,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_set_usage_filter(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.set_usage_filter(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -3133,7 +3102,6 @@ class TestAsyncContracts:
 
     @parametrize
     async def test_raw_response_update_end_date(self, async_client: AsyncMetronome) -> None:
-
         response = await async_client.v1.contracts.with_raw_response.update_end_date(
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
