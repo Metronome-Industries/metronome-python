@@ -76,7 +76,11 @@ class CreditsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditCreateResponse:
-        """
+        """⚠️ For most contract amendments, use `contracts/edit` directly.
+
+        Use this
+        endpoint only for cross-contract or enterprise-wide commits.
+
         Creates customer-level credits that provide spending allowances or free credit
         balances for customers across their Metronome usage. Note: In most cases, you
         should add credits directly to customer contracts using the contract/create or
@@ -421,7 +425,11 @@ class AsyncCreditsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreditCreateResponse:
-        """
+        """⚠️ For most contract amendments, use `contracts/edit` directly.
+
+        Use this
+        endpoint only for cross-contract or enterprise-wide commits.
+
         Creates customer-level credits that provide spending allowances or free credit
         balances for customers across their Metronome usage. Note: In most cases, you
         should add credits directly to customer contracts using the contract/create or
