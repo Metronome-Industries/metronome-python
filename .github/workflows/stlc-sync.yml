@@ -77,9 +77,18 @@ jobs:
     env:
       CONFIG_REPO: Metronome-Industries/api
     steps:
+      - name: Mint API dispatch token
+        id: api-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.STLC_BOT_APP_ID }}
+          private-key: ${{ secrets.STLC_BOT_APP_PRIVATE_KEY }}
+          owner: Metronome-Industries
+          repositories: api
+
       - name: Loop-guard and send re-seal dispatch
         env:
-          DISPATCH_TOKEN: ${{ secrets.CONFIG_DISPATCH_TOKEN }}
+          DISPATCH_TOKEN: ${{ steps.api-token.outputs.token }}
           HEAD_MSG: ${{ github.event.head_commit.message }}
           HEAD_AUTHOR_NAME: ${{ github.event.head_commit.author.name }}
           SHA: ${{ github.sha }}
@@ -94,11 +103,6 @@ jobs:
 
           if [ "$HEAD_AUTHOR_NAME" = "stlc-bot" ]; then
             echo "stlc-bot commit — skipping re-seal dispatch."
-            exit 0
-          fi
-
-          if [ -z "${DISPATCH_TOKEN:-}" ]; then
-            echo "::notice::CONFIG_DISPATCH_TOKEN not configured — scheduled API sync is the backstop."
             exit 0
           fi
 
