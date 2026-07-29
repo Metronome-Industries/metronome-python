@@ -10,6 +10,8 @@ __all__ = [
     "AsyncCursorPage",
     "SyncBodyCursorPage",
     "AsyncBodyCursorPage",
+    "SyncBodyCursorPageCursorField",
+    "AsyncBodyCursorPageCursorField",
     "SyncCursorPageWithoutLimit",
     "AsyncCursorPageWithoutLimit",
 ]
@@ -119,6 +121,58 @@ class AsyncBodyCursorPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
             return None
 
         return PageInfo(json={"next_page": next_page})
+
+
+class SyncBodyCursorPageCursorField(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    cursor: Optional[str] = None
+    """Cursor to fetch the next page"""
+    data: List[_T]
+    """Items of the page"""
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        if not data:
+            return []
+        return data
+
+    @override
+    def has_next_page(self) -> bool:
+        return self.next_page_info() is not None
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        cursor = self.cursor
+        if not cursor:
+            return None
+
+        return PageInfo(json={"cursor": cursor})
+
+
+class AsyncBodyCursorPageCursorField(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    cursor: Optional[str] = None
+    """Cursor to fetch the next page"""
+    data: List[_T]
+    """Items of the page"""
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        data = self.data
+        if not data:
+            return []
+        return data
+
+    @override
+    def has_next_page(self) -> bool:
+        return self.next_page_info() is not None
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        cursor = self.cursor
+        if not cursor:
+            return None
+
+        return PageInfo(json={"cursor": cursor})
 
 
 class SyncCursorPageWithoutLimit(BaseSyncPage[_T], BasePage[_T], Generic[_T]):

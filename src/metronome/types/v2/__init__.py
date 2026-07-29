@@ -14,3 +14,9 @@ from .contract_edit_commit_response import ContractEditCommitResponse as Contrac
 from .contract_edit_credit_response import ContractEditCreditResponse as ContractEditCreditResponse
 from .contract_get_edit_history_params import ContractGetEditHistoryParams as ContractGetEditHistoryParams
 from .contract_get_edit_history_response import ContractGetEditHistoryResponse as ContractGetEditHistoryResponse
+from .lifecycle_event_offset_notification_config import (
+    LifecycleEventOffsetNotificationConfig as LifecycleEventOffsetNotificationConfig,
+)
+from .lifecycle_event_system_notification_config import (
+    LifecycleEventSystemNotificationConfig as LifecycleEventSystemNotificationConfig,
+)
