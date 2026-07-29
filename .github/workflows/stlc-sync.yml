@@ -11,11 +11,10 @@ on:
   workflow_dispatch: {}
   repository_dispatch:
     types: [prod-released]
-
-jobs:
   push:
     branches: [main]
 
+jobs:
   back-sync:
     runs-on: ubuntu-latest
     if: github.repository == 'Metronome-Industries/metronome-python-staging'
