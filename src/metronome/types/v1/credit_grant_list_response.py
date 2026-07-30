@@ -1,20 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ..._models import BaseModel
+
 from datetime import datetime
 
-from ..._models import BaseModel
-from .credit_ledger_entry import CreditLedgerEntry
 from ..shared.credit_type_data import CreditTypeData
 
-__all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
+from typing import Dict, List, Optional
 
+from .credit_ledger_entry import CreditLedgerEntry
+
+__all__ = ["CreditGrantListResponse", "Balance", "GrantAmount", "PaidAmount", "Product"]
 
 class Balance(BaseModel):
     """
     The effective balance of the grant as of the end of the customer's current billing period. Expiration deductions will be included only if the grant expires before the end of the current billing period.
     """
-
     effective_at: datetime
     """The end_date of the customer's current billing period."""
 
@@ -31,30 +32,24 @@ class Balance(BaseModel):
     this amount will be 0.
     """
 
-
 class GrantAmount(BaseModel):
     """the amount of credits initially granted"""
-
     amount: float
 
     credit_type: CreditTypeData
     """the credit type for the amount granted"""
 
-
 class PaidAmount(BaseModel):
     """the amount paid for this credit grant"""
-
     amount: float
 
     credit_type: CreditTypeData
     """the credit type for the amount paid"""
 
-
 class Product(BaseModel):
     id: str
 
     name: str
-
 
 class CreditGrantListResponse(BaseModel):
     id: str

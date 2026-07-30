@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
 from ..._types import SequenceNotStr
+
+from typing import Union
+
+from datetime import datetime
+
 from ..._utils import PropertyInfo
 
 __all__ = ["ContractSetUsageFilterParams"]
-
 
 class ContractSetUsageFilterParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -21,4 +23,4 @@ class ContractSetUsageFilterParams(TypedDict, total=False):
 
     group_values: Required[SequenceNotStr[str]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]

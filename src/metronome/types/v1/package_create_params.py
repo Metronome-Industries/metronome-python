@@ -2,78 +2,25 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Literal, Annotated
 
-from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
-from ..shared_params.tier import Tier
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
-from ..shared_params.spend_threshold_configuration import SpendThresholdConfiguration
+from typing import Iterable, Union, Dict, List
+
 from ..shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = [
-    "PackageCreateParams",
-    "Alias",
-    "Commit",
-    "CommitAccessSchedule",
-    "CommitAccessScheduleScheduleItem",
-    "CommitAccessScheduleScheduleItemDuration",
-    "CommitAccessScheduleScheduleItemStartingAtOffset",
-    "CommitInvoiceSchedule",
-    "CommitInvoiceScheduleScheduleItem",
-    "CommitInvoiceScheduleScheduleItemDateOffset",
-    "Credit",
-    "CreditAccessSchedule",
-    "CreditAccessScheduleScheduleItem",
-    "CreditAccessScheduleScheduleItemDuration",
-    "CreditAccessScheduleScheduleItemStartingAtOffset",
-    "Duration",
-    "Override",
-    "OverrideOverrideSpecifier",
-    "OverrideStartingAtOffset",
-    "OverrideDuration",
-    "OverrideOverwriteRate",
-    "OverrideTier",
-    "RecurringCommit",
-    "RecurringCommitAccessAmount",
-    "RecurringCommitCommitDuration",
-    "RecurringCommitStartingAtOffset",
-    "RecurringCommitDuration",
-    "RecurringCommitInvoiceAmount",
-    "RecurringCommitProrationRounding",
-    "RecurringCommitProrationRoundingAccess",
-    "RecurringCommitProrationRoundingInvoice",
-    "RecurringCommitSubscriptionConfig",
-    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
-    "RecurringCredit",
-    "RecurringCreditAccessAmount",
-    "RecurringCreditCommitDuration",
-    "RecurringCreditStartingAtOffset",
-    "RecurringCreditDuration",
-    "RecurringCreditProrationRounding",
-    "RecurringCreditProrationRoundingAccess",
-    "RecurringCreditSubscriptionConfig",
-    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
-    "ScheduledCharge",
-    "ScheduledChargeSchedule",
-    "ScheduledChargeScheduleScheduleItem",
-    "ScheduledChargeScheduleScheduleItemDateOffset",
-    "SpendTracker",
-    "SpendTrackerApplicableSpendSpecifier",
-    "Subscription",
-    "SubscriptionProration",
-    "SubscriptionProrationRounding",
-    "SubscriptionSubscriptionRate",
-    "SubscriptionBillingCycleConfig",
-    "SubscriptionDuration",
-    "SubscriptionSeatConfig",
-    "SubscriptionStartingAtOffset",
-    "UsageStatementSchedule",
-    "UsageStatementScheduleInvoiceGenerationStartingAtOffset",
-]
+from ..shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 
+from datetime import datetime
+
+from ..._utils import PropertyInfo
+
+from ..._types import SequenceNotStr
+
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
+
+from ..shared_params.tier import Tier
+
+__all__ = ["PackageCreateParams", "Alias", "Commit", "CommitAccessSchedule", "CommitAccessScheduleScheduleItem", "CommitAccessScheduleScheduleItemDuration", "CommitAccessScheduleScheduleItemStartingAtOffset", "CommitInvoiceSchedule", "CommitInvoiceScheduleScheduleItem", "CommitInvoiceScheduleScheduleItemDateOffset", "Credit", "CreditAccessSchedule", "CreditAccessScheduleScheduleItem", "CreditAccessScheduleScheduleItemDuration", "CreditAccessScheduleScheduleItemStartingAtOffset", "Duration", "Override", "OverrideOverrideSpecifier", "OverrideStartingAtOffset", "OverrideDuration", "OverrideOverwriteRate", "OverrideTier", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitStartingAtOffset", "RecurringCommitDuration", "RecurringCommitInvoiceAmount", "RecurringCommitProrationRounding", "RecurringCommitProrationRoundingAccess", "RecurringCommitProrationRoundingInvoice", "RecurringCommitSubscriptionConfig", "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditStartingAtOffset", "RecurringCreditDuration", "RecurringCreditProrationRounding", "RecurringCreditProrationRoundingAccess", "RecurringCreditSubscriptionConfig", "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig", "ScheduledCharge", "ScheduledChargeSchedule", "ScheduledChargeScheduleScheduleItem", "ScheduledChargeScheduleScheduleItemDateOffset", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "Subscription", "SubscriptionProration", "SubscriptionProrationRounding", "SubscriptionSubscriptionRate", "SubscriptionBillingCycleConfig", "SubscriptionDuration", "SubscriptionSeatConfig", "SubscriptionStartingAtOffset", "UsageStatementSchedule", "UsageStatementScheduleInvoiceGenerationStartingAtOffset"]
 
 class PackageCreateParams(TypedDict, total=False):
     name: Required[str]
@@ -150,32 +97,26 @@ class PackageCreateParams(TypedDict, total=False):
 
     usage_statement_schedule: UsageStatementSchedule
 
-
 class Alias(TypedDict, total=False):
     name: Required[str]
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
 
 class CommitAccessScheduleScheduleItemDuration(TypedDict, total=False):
     """Offset relative to the start of this segment indicating when it should end."""
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class CommitAccessScheduleScheduleItemStartingAtOffset(TypedDict, total=False):
     """
     Date relative to the contract start date indicating the start of this schedule segment.
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class CommitAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
@@ -189,26 +130,21 @@ class CommitAccessScheduleScheduleItem(TypedDict, total=False):
     segment.
     """
 
-
 class CommitAccessSchedule(TypedDict, total=False):
     """Required: Schedule for distributing the commit to the customer.
 
     For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
     """
-
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
 
-
 class CommitInvoiceScheduleScheduleItemDateOffset(TypedDict, total=False):
     """Date relative to the contract start date."""
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
     date_offset: Required[CommitInvoiceScheduleScheduleItemDateOffset]
@@ -226,12 +162,10 @@ class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
     Will be multiplied by quantity to determine the amount.
     """
 
-
 class CommitInvoiceSchedule(TypedDict, total=False):
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
     """
-
     schedule_items: Required[Iterable[CommitInvoiceScheduleScheduleItem]]
     """Either provide amount or provide both unit_price and quantity."""
 
@@ -240,7 +174,6 @@ class CommitInvoiceSchedule(TypedDict, total=False):
 
     do_not_invoice: bool
     """If true, this schedule will not generate an invoice."""
-
 
 class Commit(TypedDict, total=False):
     access_schedule: Required[CommitAccessSchedule]
@@ -310,24 +243,19 @@ class Commit(TypedDict, total=False):
     commit specific overrides.
     """
 
-
 class CreditAccessScheduleScheduleItemDuration(TypedDict, total=False):
     """Offset relative to the start of this segment indicating when it should end."""
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class CreditAccessScheduleScheduleItemStartingAtOffset(TypedDict, total=False):
     """
     Date relative to the contract start date indicating the start of this schedule segment.
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class CreditAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
@@ -341,15 +269,12 @@ class CreditAccessScheduleScheduleItem(TypedDict, total=False):
     segment.
     """
 
-
 class CreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
-
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
-
 
 class Credit(TypedDict, total=False):
     access_schedule: Required[CreditAccessSchedule]
@@ -396,12 +321,10 @@ class Credit(TypedDict, total=False):
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
-
 class Duration(TypedDict, total=False):
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
     any_commit_or_credit_ids: SequenceNotStr[str]
@@ -456,30 +379,24 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     ids.
     """
 
-
 class OverrideStartingAtOffset(TypedDict, total=False):
     """
     Offset relative to contract start date indicating when the override will start applying (inclusive)
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class OverrideDuration(TypedDict, total=False):
     """
     Offset relative to override start indicating when the override will stop applying (exclusive)
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
 
-
 class OverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
-
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     credit_type_id: str
@@ -509,12 +426,10 @@ class OverrideOverwriteRate(TypedDict, total=False):
     tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
-
 class OverrideTier(TypedDict, total=False):
     multiplier: Required[float]
 
     size: float
-
 
 class Override(TypedDict, total=False):
     override_specifiers: Required[Iterable[OverrideOverrideSpecifier]]
@@ -571,10 +486,8 @@ class Override(TypedDict, total=False):
     type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
-
 class RecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
-
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -585,47 +498,38 @@ class RecurringCommitAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
-
 class RecurringCommitCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
-
     value: Required[float]
 
     unit: Literal["PERIODS"]
-
 
 class RecurringCommitStartingAtOffset(TypedDict, total=False):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class RecurringCommitDuration(TypedDict, total=False):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
 
-
 class RecurringCommitInvoiceAmount(TypedDict, total=False):
     """The amount the customer should be billed for the commit. Not required."""
-
     credit_type_id: Required[str]
 
     quantity: Required[float]
 
     unit_price: Required[float]
-
 
 class RecurringCommitProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -638,7 +542,6 @@ class RecurringCommitProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
-
 class RecurringCommitProrationRoundingInvoice(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -650,23 +553,18 @@ class RecurringCommitProrationRoundingInvoice(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
-
 class RecurringCommitProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring commit amounts."""
-
     access: RecurringCommitProrationRoundingAccess
 
     invoice: RecurringCommitProrationRoundingInvoice
-
 
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
-
 class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
-
     apply_seat_increase_config: Required[RecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -678,7 +576,6 @@ class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
-
 
 class RecurringCommit(TypedDict, total=False):
     access_amount: Required[RecurringCommitAccessAmount]
@@ -771,10 +668,8 @@ class RecurringCommit(TypedDict, total=False):
     specific overrides.
     """
 
-
 class RecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
-
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -785,37 +680,30 @@ class RecurringCreditAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
-
 class RecurringCreditCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
-
     value: Required[float]
 
     unit: Literal["PERIODS"]
-
 
 class RecurringCreditStartingAtOffset(TypedDict, total=False):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class RecurringCreditDuration(TypedDict, total=False):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class RecurringCreditProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -828,21 +716,16 @@ class RecurringCreditProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
-
 class RecurringCreditProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring credit amounts."""
-
     access: RecurringCreditProrationRoundingAccess
-
 
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
-
 class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
-
     apply_seat_increase_config: Required[RecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -854,7 +737,6 @@ class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
-
 
 class RecurringCredit(TypedDict, total=False):
     access_amount: Required[RecurringCreditAccessAmount]
@@ -944,14 +826,11 @@ class RecurringCredit(TypedDict, total=False):
     specific overrides.
     """
 
-
 class ScheduledChargeScheduleScheduleItemDateOffset(TypedDict, total=False):
     """Date relative to the contract start date."""
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
     date_offset: Required[ScheduledChargeScheduleScheduleItemDateOffset]
@@ -969,16 +848,13 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
     Will be multiplied by quantity to determine the amount.
     """
 
-
 class ScheduledChargeSchedule(TypedDict, total=False):
     """Must provide schedule_items."""
-
     schedule_items: Required[Iterable[ScheduledChargeScheduleScheduleItem]]
     """Either provide amount or provide both unit_price and quantity."""
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
-
 
 class ScheduledCharge(TypedDict, total=False):
     product_id: Required[str]
@@ -992,7 +868,6 @@ class ScheduledCharge(TypedDict, total=False):
     name: str
     """displayed on invoices"""
 
-
 class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
     sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
 
@@ -1000,7 +875,6 @@ class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
 
     discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
     """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
-
 
 class SpendTracker(TypedDict, total=False):
     alias: Required[str]
@@ -1012,7 +886,6 @@ class SpendTracker(TypedDict, total=False):
 
     reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
-
 class SubscriptionProrationRounding(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -1023,7 +896,6 @@ class SubscriptionProrationRounding(TypedDict, total=False):
     """
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
-
 
 class SubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
@@ -1040,7 +912,6 @@ class SubscriptionProration(TypedDict, total=False):
 
     rounding: SubscriptionProrationRounding
 
-
 class SubscriptionSubscriptionRate(TypedDict, total=False):
     billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
@@ -1051,7 +922,6 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
     product_id: Required[str]
     """Must be subscription type product"""
 
-
 class SubscriptionBillingCycleConfig(TypedDict, total=False):
     invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
     """Controls whether subscriptions consolidate onto usage invoices.
@@ -1059,17 +929,14 @@ class SubscriptionBillingCycleConfig(TypedDict, total=False):
     Defaults to ON_USAGE_INVOICE if omitted.
     """
 
-
 class SubscriptionDuration(TypedDict, total=False):
     """Lifetime of the subscription from its start.
 
     If not provided, subscription inherits contract end date.
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class SubscriptionSeatConfig(TypedDict, total=False):
     seat_group_key: Required[str]
@@ -1085,16 +952,13 @@ class SubscriptionSeatConfig(TypedDict, total=False):
     initial_unassigned_seats: float
     """The initial amount of unassigned seats on this subscription."""
 
-
 class SubscriptionStartingAtOffset(TypedDict, total=False):
     """
     Relative date from contract start date corresponding to the inclusive start time for the subscription. If not provided, defaults to contract start date
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class Subscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
@@ -1152,16 +1016,13 @@ class Subscription(TypedDict, total=False):
     subscription configs created within the same payload.
     """
 
-
 class UsageStatementScheduleInvoiceGenerationStartingAtOffset(TypedDict, total=False):
     """
     The offset at which Metronome should start generating usage invoices, relative to the contract start date.  If unspecified, contract start date will be used. This is useful to set if you want to import historical invoices via our 'Create Historical Invoices' API rather than having Metronome automatically generate them.
     """
-
     unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
 
     value: Required[int]
-
 
 class UsageStatementSchedule(TypedDict, total=False):
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]

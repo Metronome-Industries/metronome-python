@@ -4,29 +4,32 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import pricing_unit_list_params
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import AsyncPaginator, make_request_options
+
+from ..._compat import cached_property
+
 from ...types.v1.pricing_unit_list_response import PricingUnitListResponse
 
-__all__ = ["PricingUnitsResource", "AsyncPricingUnitsResource"]
+from ...pagination import SyncCursorPage, AsyncCursorPage
 
+from ..._base_client import make_request_options, AsyncPaginator
+
+from ..._utils import maybe_transform
+
+from ..._types import Omit, omit, NotGiven
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import pricing_unit_list_params
+
+__all__ = ["PricingUnitsResource", "AsyncPricingUnitsResource"]
 
 class PricingUnitsResource(SyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
-
     @cached_property
     def with_raw_response(self) -> PricingUnitsResourceWithRawResponse:
         """
@@ -46,18 +49,16 @@ class PricingUnitsResource(SyncAPIResource):
         """
         return PricingUnitsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[PricingUnitListResponse]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[PricingUnitListResponse]:
         """List all pricing units.
 
         All fiat currency types (for example, USD or GBP) will
@@ -82,29 +83,18 @@ class PricingUnitsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credit-types/list",
-            page=SyncCursorPage[PricingUnitListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    pricing_unit_list_params.PricingUnitListParams,
-                ),
-            ),
+            page = SyncCursorPage[PricingUnitListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, pricing_unit_list_params.PricingUnitListParams)),
             model=PricingUnitListResponse,
         )
-
 
 class AsyncPricingUnitsResource(AsyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
-
     @cached_property
     def with_raw_response(self) -> AsyncPricingUnitsResourceWithRawResponse:
         """
@@ -124,18 +114,16 @@ class AsyncPricingUnitsResource(AsyncAPIResource):
         """
         return AsyncPricingUnitsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PricingUnitListResponse, AsyncCursorPage[PricingUnitListResponse]]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[PricingUnitListResponse, AsyncCursorPage[PricingUnitListResponse]]:
         """List all pricing units.
 
         All fiat currency types (for example, USD or GBP) will
@@ -160,23 +148,13 @@ class AsyncPricingUnitsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credit-types/list",
-            page=AsyncCursorPage[PricingUnitListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    pricing_unit_list_params.PricingUnitListParams,
-                ),
-            ),
+            page = AsyncCursorPage[PricingUnitListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, pricing_unit_list_params.PricingUnitListParams)),
             model=PricingUnitListResponse,
         )
-
 
 class PricingUnitsResourceWithRawResponse:
     def __init__(self, pricing_units: PricingUnitsResource) -> None:
@@ -186,7 +164,6 @@ class PricingUnitsResourceWithRawResponse:
             pricing_units.list,
         )
 
-
 class AsyncPricingUnitsResourceWithRawResponse:
     def __init__(self, pricing_units: AsyncPricingUnitsResource) -> None:
         self._pricing_units = pricing_units
@@ -195,7 +172,6 @@ class AsyncPricingUnitsResourceWithRawResponse:
             pricing_units.list,
         )
 
-
 class PricingUnitsResourceWithStreamingResponse:
     def __init__(self, pricing_units: PricingUnitsResource) -> None:
         self._pricing_units = pricing_units
@@ -203,7 +179,6 @@ class PricingUnitsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             pricing_units.list,
         )
-
 
 class AsyncPricingUnitsResourceWithStreamingResponse:
     def __init__(self, pricing_units: AsyncPricingUnitsResource) -> None:

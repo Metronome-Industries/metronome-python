@@ -6,7 +6,6 @@ from typing_extensions import TypedDict
 
 __all__ = ["RateCardListParams"]
 
-
 class RateCardListParams(TypedDict, total=False):
     limit: int
     """Max number of results that should be returned"""

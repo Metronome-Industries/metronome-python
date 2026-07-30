@@ -2,22 +2,23 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["CustomerListCostsParams"]
 
-
 class CustomerListCostsParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
 
     limit: int

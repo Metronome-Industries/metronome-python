@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict, Literal
 
 __all__ = ["OffsetListParams"]
-
 
 class OffsetListParams(TypedDict, total=False):
     archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"]

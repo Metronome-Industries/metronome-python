@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
-from ..._types import SequenceNotStr
+from typing import Union
+
+from datetime import datetime
+
 from ..._utils import PropertyInfo
 
-__all__ = ["ContractListSeatBalancesParams"]
+from ..._types import SequenceNotStr
 
+__all__ = ["ContractListSeatBalancesParams"]
 
 class ContractListSeatBalancesParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -19,7 +21,7 @@ class ContractListSeatBalancesParams(TypedDict, total=False):
     customer_id: Required[str]
     """The customer ID to retrieve seat balances for"""
 
-    covering_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    covering_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """
     Include only commits or credits with access that cover this specific date
     (cannot be used with starting_at or ending_before).
@@ -28,7 +30,7 @@ class ContractListSeatBalancesParams(TypedDict, total=False):
     cursor: str
     """Page token from a previous response to retrieve the next page"""
 
-    effective_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    effective_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """
     Include only commits or credits with access effective on or before this date
     (cannot be used with covering_date).
@@ -64,7 +66,7 @@ class ContractListSeatBalancesParams(TypedDict, total=False):
     omitted from the response instead of returning a 400 error.
     """
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """
     Include only commits or credits with access effective on or after this date
     (cannot be used with covering_date).

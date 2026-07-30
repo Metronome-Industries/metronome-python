@@ -6,7 +6,6 @@ from typing_extensions import TypedDict
 
 __all__ = ["BillableMetricListParams"]
 
-
 class BillableMetricListParams(TypedDict, total=False):
     include_archived: bool
     """If true, the list of returned metrics will include archived metrics"""

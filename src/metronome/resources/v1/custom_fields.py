@@ -2,40 +2,42 @@
 
 from __future__ import annotations
 
-from typing import Dict, List
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import (
-    custom_field_add_key_params,
-    custom_field_list_keys_params,
-    custom_field_remove_key_params,
-    custom_field_set_values_params,
-    custom_field_delete_values_params,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
-from ..._base_client import AsyncPaginator, make_request_options
+
+from ..._compat import cached_property
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing_extensions import Literal
+
+from ..._types import NotGiven, SequenceNotStr, Omit, omit
+
 from ...types.v1.custom_field_list_keys_response import CustomFieldListKeysResponse
 
-__all__ = ["CustomFieldsResource", "AsyncCustomFieldsResource"]
+from ...pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
 
+from typing import List, Dict
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import custom_field_add_key_params
+from ...types.v1 import custom_field_delete_values_params
+from ...types.v1 import custom_field_list_keys_params
+from ...types.v1 import custom_field_remove_key_params
+from ...types.v1 import custom_field_set_values_params
+
+__all__ = ["CustomFieldsResource", "AsyncCustomFieldsResource"]
 
 class CustomFieldsResource(SyncAPIResource):
     """
     [Custom fields](https://docs.metronome.com/integrations/custom-fields/) enable adding additional data to Metronome entities. Use these endpoints to create, retrieve, update, and delete custom fields.
     """
-
     @cached_property
     def with_raw_response(self) -> CustomFieldsResourceWithRawResponse:
         """
@@ -55,42 +57,17 @@ class CustomFieldsResource(SyncAPIResource):
         """
         return CustomFieldsResourceWithStreamingResponse(self)
 
-    def add_key(
-        self,
-        *,
-        enforce_uniqueness: bool,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        key: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def add_key(self,
+    *,
+    enforce_uniqueness: bool,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    key: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Creates a new custom field key for a given entity (e.g.
 
         billable metric,
@@ -135,56 +112,26 @@ class CustomFieldsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/customFields/addKey",
-            body=maybe_transform(
-                {
-                    "enforce_uniqueness": enforce_uniqueness,
-                    "entity": entity,
-                    "key": key,
-                },
-                custom_field_add_key_params.CustomFieldAddKeyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "enforce_uniqueness": enforce_uniqueness,
+                "entity": entity,
+                "key": key,
+            }, custom_field_add_key_params.CustomFieldAddKeyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def delete_values(
-        self,
-        *,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        entity_id: str,
-        keys: SequenceNotStr[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def delete_values(self,
+    *,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    entity_id: str,
+    keys: SequenceNotStr[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         Remove specific custom field values from a Metronome entity instance by
         specifying the field keys to delete. Use this endpoint to clean up unwanted
@@ -203,58 +150,25 @@ class CustomFieldsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/customFields/deleteValues",
-            body=maybe_transform(
-                {
-                    "entity": entity,
-                    "entity_id": entity_id,
-                    "keys": keys,
-                },
-                custom_field_delete_values_params.CustomFieldDeleteValuesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "entity": entity,
+                "entity_id": entity_id,
+                "keys": keys,
+            }, custom_field_delete_values_params.CustomFieldDeleteValuesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def list_keys(
-        self,
-        *,
-        next_page: str | Omit = omit,
-        entities: List[
-            Literal[
-                "alert",
-                "billable_metric",
-                "charge",
-                "commit",
-                "contract_credit",
-                "contract_product",
-                "contract",
-                "credit_grant",
-                "customer_plan",
-                "customer",
-                "discount",
-                "invoice",
-                "plan",
-                "professional_service",
-                "product",
-                "rate_card",
-                "scheduled_charge",
-                "subscription",
-                "package_commit",
-                "package_credit",
-                "package_subscription",
-                "package_scheduled_charge",
-            ]
-        ]
-        | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPageWithoutLimit[CustomFieldListKeysResponse]:
+    def list_keys(self,
+    *,
+    next_page: str | Omit = omit,
+    entities: List[Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPageWithoutLimit[CustomFieldListKeysResponse]:
         """
         Retrieve all your active custom field keys, with optional filtering by entity
         type (customer, contract, product, etc.). Use this endpoint to discover what
@@ -276,56 +190,27 @@ class CustomFieldsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customFields/listKeys",
-            page=SyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
-            body=maybe_transform({"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"next_page": next_page}, custom_field_list_keys_params.CustomFieldListKeysParams
-                ),
-            ),
+            page = SyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
+            body=maybe_transform({
+                "entities": entities
+            }, custom_field_list_keys_params.CustomFieldListKeysParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page
+            }, custom_field_list_keys_params.CustomFieldListKeysParams)),
             model=CustomFieldListKeysResponse,
             method="post",
         )
 
-    def remove_key(
-        self,
-        *,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        key: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def remove_key(self,
+    *,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    key: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         Removes a custom field key from the allowlist for a specific entity type,
         preventing future use of that key across all instances of the entity. Existing
@@ -344,55 +229,25 @@ class CustomFieldsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/customFields/removeKey",
-            body=maybe_transform(
-                {
-                    "entity": entity,
-                    "key": key,
-                },
-                custom_field_remove_key_params.CustomFieldRemoveKeyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "entity": entity,
+                "key": key,
+            }, custom_field_remove_key_params.CustomFieldRemoveKeyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def set_values(
-        self,
-        *,
-        custom_fields: Dict[str, str],
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        entity_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def set_values(self,
+    *,
+    custom_fields: Dict[str, str],
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    entity_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Sets custom field values on a specific Metronome entity instance.
 
         Overwrites
@@ -414,26 +269,19 @@ class CustomFieldsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/customFields/setValues",
-            body=maybe_transform(
-                {
-                    "custom_fields": custom_fields,
-                    "entity": entity,
-                    "entity_id": entity_id,
-                },
-                custom_field_set_values_params.CustomFieldSetValuesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "custom_fields": custom_fields,
+                "entity": entity,
+                "entity_id": entity_id,
+            }, custom_field_set_values_params.CustomFieldSetValuesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
-
 
 class AsyncCustomFieldsResource(AsyncAPIResource):
     """
     [Custom fields](https://docs.metronome.com/integrations/custom-fields/) enable adding additional data to Metronome entities. Use these endpoints to create, retrieve, update, and delete custom fields.
     """
-
     @cached_property
     def with_raw_response(self) -> AsyncCustomFieldsResourceWithRawResponse:
         """
@@ -453,42 +301,17 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         return AsyncCustomFieldsResourceWithStreamingResponse(self)
 
-    async def add_key(
-        self,
-        *,
-        enforce_uniqueness: bool,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        key: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def add_key(self,
+    *,
+    enforce_uniqueness: bool,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    key: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Creates a new custom field key for a given entity (e.g.
 
         billable metric,
@@ -533,56 +356,26 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/customFields/addKey",
-            body=await async_maybe_transform(
-                {
-                    "enforce_uniqueness": enforce_uniqueness,
-                    "entity": entity,
-                    "key": key,
-                },
-                custom_field_add_key_params.CustomFieldAddKeyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "enforce_uniqueness": enforce_uniqueness,
+                "entity": entity,
+                "key": key,
+            }, custom_field_add_key_params.CustomFieldAddKeyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    async def delete_values(
-        self,
-        *,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        entity_id: str,
-        keys: SequenceNotStr[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def delete_values(self,
+    *,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    entity_id: str,
+    keys: SequenceNotStr[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         Remove specific custom field values from a Metronome entity instance by
         specifying the field keys to delete. Use this endpoint to clean up unwanted
@@ -601,58 +394,25 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/customFields/deleteValues",
-            body=await async_maybe_transform(
-                {
-                    "entity": entity,
-                    "entity_id": entity_id,
-                    "keys": keys,
-                },
-                custom_field_delete_values_params.CustomFieldDeleteValuesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "entity": entity,
+                "entity_id": entity_id,
+                "keys": keys,
+            }, custom_field_delete_values_params.CustomFieldDeleteValuesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def list_keys(
-        self,
-        *,
-        next_page: str | Omit = omit,
-        entities: List[
-            Literal[
-                "alert",
-                "billable_metric",
-                "charge",
-                "commit",
-                "contract_credit",
-                "contract_product",
-                "contract",
-                "credit_grant",
-                "customer_plan",
-                "customer",
-                "discount",
-                "invoice",
-                "plan",
-                "professional_service",
-                "product",
-                "rate_card",
-                "scheduled_charge",
-                "subscription",
-                "package_commit",
-                "package_credit",
-                "package_subscription",
-                "package_scheduled_charge",
-            ]
-        ]
-        | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[CustomFieldListKeysResponse, AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse]]:
+    def list_keys(self,
+    *,
+    next_page: str | Omit = omit,
+    entities: List[Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[CustomFieldListKeysResponse, AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse]]:
         """
         Retrieve all your active custom field keys, with optional filtering by entity
         type (customer, contract, product, etc.). Use this endpoint to discover what
@@ -674,56 +434,27 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customFields/listKeys",
-            page=AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
-            body=maybe_transform({"entities": entities}, custom_field_list_keys_params.CustomFieldListKeysParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"next_page": next_page}, custom_field_list_keys_params.CustomFieldListKeysParams
-                ),
-            ),
+            page = AsyncCursorPageWithoutLimit[CustomFieldListKeysResponse],
+            body=maybe_transform({
+                "entities": entities
+            }, custom_field_list_keys_params.CustomFieldListKeysParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page
+            }, custom_field_list_keys_params.CustomFieldListKeysParams)),
             model=CustomFieldListKeysResponse,
             method="post",
         )
 
-    async def remove_key(
-        self,
-        *,
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        key: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def remove_key(self,
+    *,
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    key: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         Removes a custom field key from the allowlist for a specific entity type,
         preventing future use of that key across all instances of the entity. Existing
@@ -742,55 +473,25 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/customFields/removeKey",
-            body=await async_maybe_transform(
-                {
-                    "entity": entity,
-                    "key": key,
-                },
-                custom_field_remove_key_params.CustomFieldRemoveKeyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "entity": entity,
+                "key": key,
+            }, custom_field_remove_key_params.CustomFieldRemoveKeyParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    async def set_values(
-        self,
-        *,
-        custom_fields: Dict[str, str],
-        entity: Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ],
-        entity_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def set_values(self,
+    *,
+    custom_fields: Dict[str, str],
+    entity: Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"],
+    entity_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Sets custom field values on a specific Metronome entity instance.
 
         Overwrites
@@ -812,20 +513,14 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/customFields/setValues",
-            body=await async_maybe_transform(
-                {
-                    "custom_fields": custom_fields,
-                    "entity": entity,
-                    "entity_id": entity_id,
-                },
-                custom_field_set_values_params.CustomFieldSetValuesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "custom_fields": custom_fields,
+                "entity": entity,
+                "entity_id": entity_id,
+            }, custom_field_set_values_params.CustomFieldSetValuesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
-
 
 class CustomFieldsResourceWithRawResponse:
     def __init__(self, custom_fields: CustomFieldsResource) -> None:
@@ -847,7 +542,6 @@ class CustomFieldsResourceWithRawResponse:
             custom_fields.set_values,
         )
 
-
 class AsyncCustomFieldsResourceWithRawResponse:
     def __init__(self, custom_fields: AsyncCustomFieldsResource) -> None:
         self._custom_fields = custom_fields
@@ -868,7 +562,6 @@ class AsyncCustomFieldsResourceWithRawResponse:
             custom_fields.set_values,
         )
 
-
 class CustomFieldsResourceWithStreamingResponse:
     def __init__(self, custom_fields: CustomFieldsResource) -> None:
         self._custom_fields = custom_fields
@@ -888,7 +581,6 @@ class CustomFieldsResourceWithStreamingResponse:
         self.set_values = to_streamed_response_wrapper(
             custom_fields.set_values,
         )
-
 
 class AsyncCustomFieldsResourceWithStreamingResponse:
     def __init__(self, custom_fields: AsyncCustomFieldsResource) -> None:

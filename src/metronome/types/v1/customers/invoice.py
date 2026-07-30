@@ -1,55 +1,33 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ...._models import BaseModel
+
 from typing_extensions import Literal
 
-from ...._models import BaseModel
-from ...shared.rate import Rate
+from datetime import datetime
+
+from typing import Optional, Dict, List
+
 from ...shared.credit_type_data import CreditTypeData
 
-__all__ = [
-    "Invoice",
-    "LineItem",
-    "LineItemAppliedCommitOrCredit",
-    "LineItemOrigin",
-    "LineItemPostpaidCommit",
-    "LineItemSubLineItem",
-    "LineItemSubLineItemTierPeriod",
-    "LineItemSubLineItemTier",
-    "LineItemTier",
-    "ConstituentInvoice",
-    "CorrectionRecord",
-    "CorrectionRecordCorrectedExternalInvoice",
-    "CorrectionRecordCorrectedExternalInvoiceTax",
-    "ExternalInvoice",
-    "ExternalInvoiceTax",
-    "InvoiceAdjustment",
-    "Payer",
-    "ResellerRoyalty",
-    "ResellerRoyaltyAwsOptions",
-    "ResellerRoyaltyGcpOptions",
-    "RevenueSystemInvoice",
-]
+from ...shared.rate import Rate
 
+__all__ = ["Invoice", "LineItem", "LineItemAppliedCommitOrCredit", "LineItemOrigin", "LineItemPostpaidCommit", "LineItemSubLineItem", "LineItemSubLineItemTierPeriod", "LineItemSubLineItemTier", "LineItemTier", "ConstituentInvoice", "CorrectionRecord", "CorrectionRecordCorrectedExternalInvoice", "CorrectionRecordCorrectedExternalInvoiceTax", "ExternalInvoice", "ExternalInvoiceTax", "InvoiceAdjustment", "Payer", "ResellerRoyalty", "ResellerRoyaltyAwsOptions", "ResellerRoyaltyGcpOptions", "RevenueSystemInvoice"]
 
 class LineItemAppliedCommitOrCredit(BaseModel):
     """Details about the credit or commit that was applied to this line item.
 
     Only present on line items with product of `USAGE`, `SUBSCRIPTION` or `COMPOSITE` types.
     """
-
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
-
 
 class LineItemOrigin(BaseModel):
     """Present on line items from invoices with type USAGE_CONSOLIDATED.
 
     Indicates the original customer, contract, invoice and line item from which this line item was copied.
     """
-
     contract_id: str
 
     customer_id: str
@@ -58,20 +36,15 @@ class LineItemOrigin(BaseModel):
 
     line_item_id: str
 
-
 class LineItemPostpaidCommit(BaseModel):
     """Only present for line items paying for a postpaid commit true-up."""
-
     id: str
-
 
 class LineItemSubLineItemTierPeriod(BaseModel):
     """when the current tier started and ends (for tiered charges only)"""
-
     starting_at: datetime
 
     ending_before: Optional[datetime] = None
-
 
 class LineItemSubLineItemTier(BaseModel):
     price: float
@@ -82,7 +55,6 @@ class LineItemSubLineItemTier(BaseModel):
     """at what metric amount this tier begins"""
 
     subtotal: float
-
 
 class LineItemSubLineItem(BaseModel):
     custom_fields: Dict[str, str]
@@ -115,16 +87,13 @@ class LineItemSubLineItem(BaseModel):
 
     tiers: Optional[List[LineItemSubLineItemTier]] = None
 
-
 class LineItemTier(BaseModel):
     """Populated if the line item has a tiered price."""
-
     level: float
 
     starting_at: str
 
     size: Optional[str] = None
-
 
 class LineItem(BaseModel):
     credit_type: CreditTypeData
@@ -302,7 +271,6 @@ class LineItem(BaseModel):
     unit_price: Optional[float] = None
     """The unit price associated with the line item."""
 
-
 class ConstituentInvoice(BaseModel):
     contract_id: str
 
@@ -310,10 +278,8 @@ class ConstituentInvoice(BaseModel):
 
     invoice_id: str
 
-
 class CorrectionRecordCorrectedExternalInvoiceTax(BaseModel):
     """Tax details for the invoice, if available from the billing provider."""
-
     total_tax_amount: Optional[float] = None
     """The total tax amount applied to the invoice."""
 
@@ -323,19 +289,8 @@ class CorrectionRecordCorrectedExternalInvoiceTax(BaseModel):
     transaction_id: Optional[str] = None
     """The transaction ID associated with the tax calculation."""
 
-
 class CorrectionRecordCorrectedExternalInvoice(BaseModel):
-    billing_provider_type: Literal[
-        "aws_marketplace",
-        "stripe",
-        "netsuite",
-        "custom",
-        "azure_marketplace",
-        "quickbooks_online",
-        "workday",
-        "gcp_marketplace",
-        "metronome",
-    ]
+    billing_provider_type: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
 
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
@@ -343,22 +298,7 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
     external_payment_id: Optional[str] = None
     """The ID of the payment in the external system, if available."""
 
-    external_status: Optional[
-        Literal[
-            "DRAFT",
-            "FINALIZED",
-            "PAID",
-            "PARTIALLY_PAID",
-            "UNCOLLECTIBLE",
-            "VOID",
-            "DELETED",
-            "PAYMENT_FAILED",
-            "INVALID_REQUEST_ERROR",
-            "SKIPPED",
-            "SENT",
-            "QUEUED",
-        ]
-    ] = None
+    external_status: Optional[Literal["DRAFT", "FINALIZED", "PAID", "PARTIALLY_PAID", "UNCOLLECTIBLE", "VOID", "DELETED", "PAYMENT_FAILED", "INVALID_REQUEST_ERROR", "SKIPPED", "SENT", "QUEUED"]] = None
 
     invoice_id: Optional[str] = None
 
@@ -376,7 +316,6 @@ class CorrectionRecordCorrectedExternalInvoice(BaseModel):
     tax: Optional[CorrectionRecordCorrectedExternalInvoiceTax] = None
     """Tax details for the invoice, if available from the billing provider."""
 
-
 class CorrectionRecord(BaseModel):
     corrected_invoice_id: str
 
@@ -386,10 +325,8 @@ class CorrectionRecord(BaseModel):
 
     corrected_external_invoice: Optional[CorrectionRecordCorrectedExternalInvoice] = None
 
-
 class ExternalInvoiceTax(BaseModel):
     """Tax details for the invoice, if available from the billing provider."""
-
     total_tax_amount: Optional[float] = None
     """The total tax amount applied to the invoice."""
 
@@ -399,19 +336,8 @@ class ExternalInvoiceTax(BaseModel):
     transaction_id: Optional[str] = None
     """The transaction ID associated with the tax calculation."""
 
-
 class ExternalInvoice(BaseModel):
-    billing_provider_type: Literal[
-        "aws_marketplace",
-        "stripe",
-        "netsuite",
-        "custom",
-        "azure_marketplace",
-        "quickbooks_online",
-        "workday",
-        "gcp_marketplace",
-        "metronome",
-    ]
+    billing_provider_type: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
 
     billing_provider_error: Optional[str] = None
     """Error message from the billing provider, if available."""
@@ -419,22 +345,7 @@ class ExternalInvoice(BaseModel):
     external_payment_id: Optional[str] = None
     """The ID of the payment in the external system, if available."""
 
-    external_status: Optional[
-        Literal[
-            "DRAFT",
-            "FINALIZED",
-            "PAID",
-            "PARTIALLY_PAID",
-            "UNCOLLECTIBLE",
-            "VOID",
-            "DELETED",
-            "PAYMENT_FAILED",
-            "INVALID_REQUEST_ERROR",
-            "SKIPPED",
-            "SENT",
-            "QUEUED",
-        ]
-    ] = None
+    external_status: Optional[Literal["DRAFT", "FINALIZED", "PAID", "PARTIALLY_PAID", "UNCOLLECTIBLE", "VOID", "DELETED", "PAYMENT_FAILED", "INVALID_REQUEST_ERROR", "SKIPPED", "SENT", "QUEUED"]] = None
 
     invoice_id: Optional[str] = None
 
@@ -452,7 +363,6 @@ class ExternalInvoice(BaseModel):
     tax: Optional[ExternalInvoiceTax] = None
     """Tax details for the invoice, if available from the billing provider."""
 
-
 class InvoiceAdjustment(BaseModel):
     credit_type: CreditTypeData
 
@@ -465,17 +375,14 @@ class InvoiceAdjustment(BaseModel):
 
     credit_grant_id: Optional[str] = None
 
-
 class Payer(BaseModel):
     """Required for account hierarchy usage invoices.
 
     An object containing the contract and customer UUIDs that pay for this invoice.
     """
-
     contract_id: str
 
     customer_id: str
-
 
 class ResellerRoyaltyAwsOptions(BaseModel):
     aws_account_number: Optional[str] = None
@@ -484,16 +391,13 @@ class ResellerRoyaltyAwsOptions(BaseModel):
 
     aws_payer_reference_id: Optional[str] = None
 
-
 class ResellerRoyaltyGcpOptions(BaseModel):
     gcp_account_id: Optional[str] = None
 
     gcp_offer_id: Optional[str] = None
 
-
 class ResellerRoyalty(BaseModel):
     """Only present for contract invoices with reseller royalties."""
-
     fraction: str
 
     netsuite_reseller_id: str
@@ -503,7 +407,6 @@ class ResellerRoyalty(BaseModel):
     aws_options: Optional[ResellerRoyaltyAwsOptions] = None
 
     gcp_options: Optional[ResellerRoyaltyGcpOptions] = None
-
 
 class RevenueSystemInvoice(BaseModel):
     revenue_system_external_entity_type: str
@@ -516,7 +419,6 @@ class RevenueSystemInvoice(BaseModel):
     """The error message from the revenue system, if available."""
 
     revenue_system_external_entity_id: Optional[str] = None
-
 
 class Invoice(BaseModel):
     id: str

@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal, TypedDict, Required
+
 from typing import Dict
-from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["PaymentGateConfigV2", "PrecalculatedTaxConfig", "StripeConfig"]
 
-
 class PrecalculatedTaxConfig(TypedDict, total=False):
     """Only applicable if using PRECALCULATED as your tax type."""
-
     tax_amount: Required[float]
     """Amount of tax to be applied.
 
@@ -24,10 +23,8 @@ class PrecalculatedTaxConfig(TypedDict, total=False):
     This may be used in an invoice line item description.
     """
 
-
 class StripeConfig(TypedDict, total=False):
     """Only applicable if using STRIPE as your payment gateway type."""
-
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
 
@@ -36,7 +33,6 @@ class StripeConfig(TypedDict, total=False):
 
     Only applicable if using INVOICE as your payment type.
     """
-
 
 class PaymentGateConfigV2(TypedDict, total=False):
     payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]

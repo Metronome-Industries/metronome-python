@@ -2,40 +2,36 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal
-
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
-from ...._compat import cached_property
-from ....types.v1 import setting_upsert_avalara_credentials_params
 from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...._base_client import make_request_options
-from .billing_providers import (
-    BillingProvidersResource,
-    AsyncBillingProvidersResource,
-    BillingProvidersResourceWithRawResponse,
-    AsyncBillingProvidersResourceWithRawResponse,
-    BillingProvidersResourceWithStreamingResponse,
-    AsyncBillingProvidersResourceWithStreamingResponse,
-)
+
+from .billing_providers import BillingProvidersResource, AsyncBillingProvidersResource, BillingProvidersResourceWithRawResponse, AsyncBillingProvidersResourceWithRawResponse, BillingProvidersResourceWithStreamingResponse, AsyncBillingProvidersResourceWithStreamingResponse
+
+from ...._compat import cached_property
+
 from ....types.v1.setting_upsert_avalara_credentials_response import SettingUpsertAvalaraCredentialsResponse
 
-__all__ = ["SettingsResource", "AsyncSettingsResource"]
+from ...._utils import maybe_transform, async_maybe_transform
 
+from ...._base_client import make_request_options
+
+from typing_extensions import Literal
+
+from ...._types import SequenceNotStr, Omit, omit, NotGiven
+
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ....types.v1 import setting_upsert_avalara_credentials_params
+
+__all__ = ["SettingsResource", "AsyncSettingsResource"]
 
 class SettingsResource(SyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
-
     @cached_property
     def billing_providers(self) -> BillingProvidersResource:
         """
@@ -62,21 +58,19 @@ class SettingsResource(SyncAPIResource):
         """
         return SettingsResourceWithStreamingResponse(self)
 
-    def upsert_avalara_credentials(
-        self,
-        *,
-        avalara_environment: Literal["PRODUCTION", "SANDBOX"],
-        avalara_password: str,
-        avalara_username: str,
-        delivery_method_ids: SequenceNotStr[str],
-        commit_transactions: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SettingUpsertAvalaraCredentialsResponse:
+    def upsert_avalara_credentials(self,
+    *,
+    avalara_environment: Literal["PRODUCTION", "SANDBOX"],
+    avalara_password: str,
+    avalara_username: str,
+    delivery_method_ids: SequenceNotStr[str],
+    commit_transactions: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SettingUpsertAvalaraCredentialsResponse:
         """
         Set the Avalara credentials for some specified `delivery_method_ids`, which can
         be found in the `/listConfiguredBillingProviders` response. This maps the
@@ -106,28 +100,21 @@ class SettingsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/upsertAvalaraCredentials",
-            body=maybe_transform(
-                {
-                    "avalara_environment": avalara_environment,
-                    "avalara_password": avalara_password,
-                    "avalara_username": avalara_username,
-                    "delivery_method_ids": delivery_method_ids,
-                    "commit_transactions": commit_transactions,
-                },
-                setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "avalara_environment": avalara_environment,
+                "avalara_password": avalara_password,
+                "avalara_username": avalara_username,
+                "delivery_method_ids": delivery_method_ids,
+                "commit_transactions": commit_transactions,
+            }, setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=SettingUpsertAvalaraCredentialsResponse,
         )
-
 
 class AsyncSettingsResource(AsyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
-
     @cached_property
     def billing_providers(self) -> AsyncBillingProvidersResource:
         """
@@ -154,21 +141,19 @@ class AsyncSettingsResource(AsyncAPIResource):
         """
         return AsyncSettingsResourceWithStreamingResponse(self)
 
-    async def upsert_avalara_credentials(
-        self,
-        *,
-        avalara_environment: Literal["PRODUCTION", "SANDBOX"],
-        avalara_password: str,
-        avalara_username: str,
-        delivery_method_ids: SequenceNotStr[str],
-        commit_transactions: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SettingUpsertAvalaraCredentialsResponse:
+    async def upsert_avalara_credentials(self,
+    *,
+    avalara_environment: Literal["PRODUCTION", "SANDBOX"],
+    avalara_password: str,
+    avalara_username: str,
+    delivery_method_ids: SequenceNotStr[str],
+    commit_transactions: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SettingUpsertAvalaraCredentialsResponse:
         """
         Set the Avalara credentials for some specified `delivery_method_ids`, which can
         be found in the `/listConfiguredBillingProviders` response. This maps the
@@ -198,22 +183,16 @@ class AsyncSettingsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/upsertAvalaraCredentials",
-            body=await async_maybe_transform(
-                {
-                    "avalara_environment": avalara_environment,
-                    "avalara_password": avalara_password,
-                    "avalara_username": avalara_username,
-                    "delivery_method_ids": delivery_method_ids,
-                    "commit_transactions": commit_transactions,
-                },
-                setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "avalara_environment": avalara_environment,
+                "avalara_password": avalara_password,
+                "avalara_username": avalara_username,
+                "delivery_method_ids": delivery_method_ids,
+                "commit_transactions": commit_transactions,
+            }, setting_upsert_avalara_credentials_params.SettingUpsertAvalaraCredentialsParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=SettingUpsertAvalaraCredentialsResponse,
         )
-
 
 class SettingsResourceWithRawResponse:
     def __init__(self, settings: SettingsResource) -> None:
@@ -230,7 +209,6 @@ class SettingsResourceWithRawResponse:
         """
         return BillingProvidersResourceWithRawResponse(self._settings.billing_providers)
 
-
 class AsyncSettingsResourceWithRawResponse:
     def __init__(self, settings: AsyncSettingsResource) -> None:
         self._settings = settings
@@ -246,7 +224,6 @@ class AsyncSettingsResourceWithRawResponse:
         """
         return AsyncBillingProvidersResourceWithRawResponse(self._settings.billing_providers)
 
-
 class SettingsResourceWithStreamingResponse:
     def __init__(self, settings: SettingsResource) -> None:
         self._settings = settings
@@ -261,7 +238,6 @@ class SettingsResourceWithStreamingResponse:
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
         """
         return BillingProvidersResourceWithStreamingResponse(self._settings.billing_providers)
-
 
 class AsyncSettingsResourceWithStreamingResponse:
     def __init__(self, settings: AsyncSettingsResource) -> None:

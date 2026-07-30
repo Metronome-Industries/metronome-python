@@ -1,15 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
-from ..shared.property_filter import PropertyFilter
+from datetime import datetime
+
 from ..shared.event_type_filter import EventTypeFilter
 
-__all__ = ["CustomerListBillableMetricsResponse"]
+from ..shared.property_filter import PropertyFilter
 
+__all__ = ["CustomerListBillableMetricsResponse"]
 
 class CustomerListBillableMetricsResponse(BaseModel):
     id: str

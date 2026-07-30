@@ -1,14 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ..._models import BaseModel
+
 from typing_extensions import Literal
 
-from .tier import Tier
-from ..._models import BaseModel
+from typing import Optional, Dict, List
+
 from .credit_type_data import CreditTypeData
 
-__all__ = ["OverwriteRate"]
+from .tier import Tier
 
+__all__ = ["OverwriteRate"]
 
 class OverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]

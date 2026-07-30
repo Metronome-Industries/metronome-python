@@ -2,37 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict, Literal, Required
 
 __all__ = ["CustomFieldRemoveKeyParams"]
 
-
 class CustomFieldRemoveKeyParams(TypedDict, total=False):
-    entity: Required[
-        Literal[
-            "alert",
-            "billable_metric",
-            "charge",
-            "commit",
-            "contract_credit",
-            "contract_product",
-            "contract",
-            "credit_grant",
-            "customer_plan",
-            "customer",
-            "discount",
-            "invoice",
-            "plan",
-            "professional_service",
-            "product",
-            "rate_card",
-            "scheduled_charge",
-            "subscription",
-            "package_commit",
-            "package_credit",
-            "package_subscription",
-            "package_scheduled_charge",
-        ]
-    ]
+    entity: Required[Literal["alert", "billable_metric", "charge", "commit", "contract_credit", "contract_product", "contract", "credit_grant", "customer_plan", "customer", "discount", "invoice", "plan", "professional_service", "product", "rate_card", "scheduled_charge", "subscription", "package_commit", "package_credit", "package_subscription", "package_scheduled_charge"]]
 
     key: Required[str]

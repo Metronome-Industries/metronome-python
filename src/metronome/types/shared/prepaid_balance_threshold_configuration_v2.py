@@ -1,23 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from typing_extensions import Literal
+from .base_threshold_commit import BaseThresholdCommit
+
+from typing import Optional, List
+
+from .commit_specifier_input import CommitSpecifierInput
 
 from ..._models import BaseModel
-from .base_threshold_commit import BaseThresholdCommit
-from .commit_specifier_input import CommitSpecifierInput
+
+from typing_extensions import Literal
+
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
-__all__ = [
-    "PrepaidBalanceThresholdConfigurationV2",
-    "Commit",
-    "DiscountConfiguration",
-    "DiscountConfigurationCap",
-    "ThresholdBalanceSpecifier",
-    "ThresholdBalanceSpecifierExclude",
-    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
-]
-
+__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration", "DiscountConfigurationCap", "ThresholdBalanceSpecifier", "ThresholdBalanceSpecifierExclude", "ThresholdBalanceSpecifierExcludeCustomFieldFilter"]
 
 class Commit(BaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
@@ -44,18 +39,15 @@ class Commit(BaseThresholdCommit):
     body of `specifiers`.
     """
 
-
 class DiscountConfigurationCap(BaseModel):
     """
     If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
     """
-
     amount: float
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: str
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DiscountConfiguration(BaseModel):
     payment_fraction: float
@@ -71,7 +63,6 @@ class DiscountConfiguration(BaseModel):
     this much spend in the billing period.
     """
 
-
 class ThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
     entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
 
@@ -79,14 +70,11 @@ class ThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
 
     value: str
 
-
 class ThresholdBalanceSpecifierExclude(BaseModel):
     custom_field_filters: List[ThresholdBalanceSpecifierExcludeCustomFieldFilter]
 
-
 class ThresholdBalanceSpecifier(BaseModel):
     exclude: List[ThresholdBalanceSpecifierExclude]
-
 
 class PrepaidBalanceThresholdConfigurationV2(BaseModel):
     commit: Commit

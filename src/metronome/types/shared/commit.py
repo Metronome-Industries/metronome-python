@@ -1,57 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, TypeAlias
-
 from ..._models import BaseModel
-from .commit_specifier import CommitSpecifier
+
+from typing import Union, Optional, List, Dict
+
+from datetime import datetime
+
+from typing_extensions import Literal, TypeAliasType, TypeAlias
+
 from .schedule_duration import ScheduleDuration
-from .schedule_point_in_time import SchedulePointInTime
+
 from .commit_hierarchy_configuration import CommitHierarchyConfiguration
 
-__all__ = [
-    "Commit",
-    "Product",
-    "Contract",
-    "InvoiceContract",
-    "Ledger",
-    "LedgerPrepaidCommitSegmentStartLedgerEntry",
-    "LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerPrepaidCommitRolloverLedgerEntry",
-    "LedgerPrepaidCommitExpirationLedgerEntry",
-    "LedgerPrepaidCommitCanceledLedgerEntry",
-    "LedgerPrepaidCommitCreditedLedgerEntry",
-    "LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
-    "LedgerPostpaidCommitInitialBalanceLedgerEntry",
-    "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
-    "LedgerPostpaidCommitRolloverLedgerEntry",
-    "LedgerPostpaidCommitTrueupLedgerEntry",
-    "LedgerPrepaidCommitManualLedgerEntry",
-    "LedgerPostpaidCommitManualLedgerEntry",
-    "LedgerPostpaidCommitExpirationLedgerEntry",
-    "RolledOverFrom",
-    "SpendTrackerAttributes",
-    "SubscriptionConfig",
-    "SubscriptionConfigApplySeatIncreaseConfig",
-]
+from .schedule_point_in_time import SchedulePointInTime
 
+from .commit_specifier import CommitSpecifier
+
+__all__ = ["Commit", "Product", "Contract", "InvoiceContract", "Ledger", "LedgerPrepaidCommitSegmentStartLedgerEntry", "LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry", "LedgerPrepaidCommitRolloverLedgerEntry", "LedgerPrepaidCommitExpirationLedgerEntry", "LedgerPrepaidCommitCanceledLedgerEntry", "LedgerPrepaidCommitCreditedLedgerEntry", "LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry", "LedgerPostpaidCommitInitialBalanceLedgerEntry", "LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry", "LedgerPostpaidCommitRolloverLedgerEntry", "LedgerPostpaidCommitTrueupLedgerEntry", "LedgerPrepaidCommitManualLedgerEntry", "LedgerPostpaidCommitManualLedgerEntry", "LedgerPostpaidCommitExpirationLedgerEntry", "RolledOverFrom", "SpendTrackerAttributes", "SubscriptionConfig", "SubscriptionConfigApplySeatIncreaseConfig"]
 
 class Product(BaseModel):
     id: str
 
     name: str
 
-
 class Contract(BaseModel):
     id: str
 
-
 class InvoiceContract(BaseModel):
     """The contract that this commit will be billed on."""
-
     id: str
-
 
 class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -61,7 +38,6 @@ class LedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_SEGMENT_START"]
-
 
 class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -76,7 +52,6 @@ class LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
-
 class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -88,7 +63,6 @@ class LedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_ROLLOVER"]
 
-
 class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -97,7 +71,6 @@ class LedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_EXPIRATION"]
-
 
 class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
     amount: float
@@ -112,7 +85,6 @@ class LedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
-
 class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -126,7 +98,6 @@ class LedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
-
 class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
     amount: float
 
@@ -136,14 +107,12 @@ class LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
 
-
 class LedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_INITIAL_BALANCE"]
-
 
 class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -158,7 +127,6 @@ class LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
-
 class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -169,7 +137,6 @@ class LedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
-
 
 class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
@@ -182,7 +149,6 @@ class LedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
-
 class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
     amount: float
 
@@ -191,7 +157,6 @@ class LedgerPrepaidCommitManualLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_MANUAL"]
-
 
 class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
     amount: float
@@ -202,7 +167,6 @@ class LedgerPostpaidCommitManualLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_MANUAL"]
 
-
 class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -210,57 +174,34 @@ class LedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
-
-Ledger: TypeAlias = Union[
-    LedgerPrepaidCommitSegmentStartLedgerEntry,
-    LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    LedgerPrepaidCommitRolloverLedgerEntry,
-    LedgerPrepaidCommitExpirationLedgerEntry,
-    LedgerPrepaidCommitCanceledLedgerEntry,
-    LedgerPrepaidCommitCreditedLedgerEntry,
-    LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
-    LedgerPostpaidCommitInitialBalanceLedgerEntry,
-    LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
-    LedgerPostpaidCommitRolloverLedgerEntry,
-    LedgerPostpaidCommitTrueupLedgerEntry,
-    LedgerPrepaidCommitManualLedgerEntry,
-    LedgerPostpaidCommitManualLedgerEntry,
-    LedgerPostpaidCommitExpirationLedgerEntry,
-]
-
+Ledger: TypeAlias = Union[LedgerPrepaidCommitSegmentStartLedgerEntry, LedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry, LedgerPrepaidCommitRolloverLedgerEntry, LedgerPrepaidCommitExpirationLedgerEntry, LedgerPrepaidCommitCanceledLedgerEntry, LedgerPrepaidCommitCreditedLedgerEntry, LedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry, LedgerPostpaidCommitInitialBalanceLedgerEntry, LedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry, LedgerPostpaidCommitRolloverLedgerEntry, LedgerPostpaidCommitTrueupLedgerEntry, LedgerPrepaidCommitManualLedgerEntry, LedgerPostpaidCommitManualLedgerEntry, LedgerPostpaidCommitExpirationLedgerEntry]
 
 class RolledOverFrom(BaseModel):
     commit_id: str
 
     contract_id: str
 
-
 class SpendTrackerAttributes(BaseModel):
     """Optional attributes controlling how this commit interacts with spend trackers."""
-
     counts_as_discounted: bool
     """
     If true, this commit is included in spend trackers with discounted set to
     DISCOUNTED_ONLY
     """
 
-
 class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
-
 
 class SubscriptionConfig(BaseModel):
     """
     The subscription configuration for this commit, if it was generated from a recurring commit with a subscription attached.
     """
-
     allocation: Optional[Literal["INDIVIDUAL", "POOLED"]] = None
 
     apply_seat_increase_config: Optional[SubscriptionConfigApplySeatIncreaseConfig] = None
 
     subscription_id: Optional[str] = None
-
 
 class Commit(BaseModel):
     id: str

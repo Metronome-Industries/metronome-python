@@ -2,34 +2,41 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import alert_create_params, alert_archive_params
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
+
+from ..._compat import cached_property
+
 from ...types.v1.alert_create_response import AlertCreateResponse
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options
+
+from typing_extensions import Literal
+
+from typing import Iterable
+
+from ..._types import Omit, omit, SequenceNotStr, NotGiven
+
 from ...types.v1.alert_archive_response import AlertArchiveResponse
 
-__all__ = ["AlertsResource", "AsyncAlertsResource"]
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
+from ...types.v1 import alert_create_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import alert_create_params
+from ...types.v1 import alert_archive_params
+
+__all__ = ["AlertsResource", "AsyncAlertsResource"]
 
 class AlertsResource(SyncAPIResource):
     """
     [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
     """
-
     @cached_property
     def with_raw_response(self) -> AlertsResourceWithRawResponse:
         """
@@ -49,47 +56,29 @@ class AlertsResource(SyncAPIResource):
         """
         return AlertsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        alert_type: Literal[
-            "low_credit_balance_reached",
-            "spend_threshold_reached",
-            "monthly_invoice_total_spend_threshold_reached",
-            "low_remaining_days_in_plan_reached",
-            "low_remaining_credit_percentage_reached",
-            "usage_threshold_reached",
-            "low_remaining_days_for_commit_segment_reached",
-            "low_remaining_commit_balance_reached",
-            "low_remaining_commit_percentage_reached",
-            "low_remaining_days_for_contract_credit_segment_reached",
-            "low_remaining_contract_credit_balance_reached",
-            "low_remaining_contract_credit_percentage_reached",
-            "low_remaining_contract_credit_and_commit_balance_reached",
-            "invoice_total_reached",
-            "low_remaining_seat_balance_reached",
-        ],
-        name: str,
-        threshold: float,
-        alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
-        billable_metric_id: str | Omit = omit,
-        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
-        credit_type_id: str | Omit = omit,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
-        customer_id: str | Omit = omit,
-        evaluate_on_create: bool | Omit = omit,
-        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
-        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
-        plan_id: str | Omit = omit,
-        seat_filter: alert_create_params.SeatFilter | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlertCreateResponse:
+    def create(self,
+    *,
+    alert_type: Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "invoice_total_reached", "low_remaining_seat_balance_reached"],
+    name: str,
+    threshold: float,
+    alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
+    billable_metric_id: str | Omit = omit,
+    credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+    credit_type_id: str | Omit = omit,
+    custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+    customer_id: str | Omit = omit,
+    evaluate_on_create: bool | Omit = omit,
+    group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+    invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+    plan_id: str | Omit = omit,
+    seat_filter: alert_create_params.SeatFilter | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertCreateResponse:
         """
         Create a new threshold notification to monitor customer spending, balances, and
         billing metrics in real-time. Metronome's notification system provides
@@ -198,44 +187,37 @@ class AlertsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/alerts/create",
-            body=maybe_transform(
-                {
-                    "alert_type": alert_type,
-                    "name": name,
-                    "threshold": threshold,
-                    "alert_specifiers": alert_specifiers,
-                    "billable_metric_id": billable_metric_id,
-                    "credit_grant_type_filters": credit_grant_type_filters,
-                    "credit_type_id": credit_type_id,
-                    "custom_field_filters": custom_field_filters,
-                    "customer_id": customer_id,
-                    "evaluate_on_create": evaluate_on_create,
-                    "group_values": group_values,
-                    "invoice_types_filter": invoice_types_filter,
-                    "plan_id": plan_id,
-                    "seat_filter": seat_filter,
-                    "uniqueness_key": uniqueness_key,
-                },
-                alert_create_params.AlertCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "alert_type": alert_type,
+                "name": name,
+                "threshold": threshold,
+                "alert_specifiers": alert_specifiers,
+                "billable_metric_id": billable_metric_id,
+                "credit_grant_type_filters": credit_grant_type_filters,
+                "credit_type_id": credit_type_id,
+                "custom_field_filters": custom_field_filters,
+                "customer_id": customer_id,
+                "evaluate_on_create": evaluate_on_create,
+                "group_values": group_values,
+                "invoice_types_filter": invoice_types_filter,
+                "plan_id": plan_id,
+                "seat_filter": seat_filter,
+                "uniqueness_key": uniqueness_key,
+            }, alert_create_params.AlertCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AlertCreateResponse,
         )
 
-    def archive(
-        self,
-        *,
-        id: str,
-        release_uniqueness_key: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlertArchiveResponse:
+    def archive(self,
+    *,
+    id: str,
+    release_uniqueness_key: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertArchiveResponse:
         """
         Permanently disable a threshold notification and remove it from active
         monitoring across all customers. Archived threshold notifications stop
@@ -282,25 +264,18 @@ class AlertsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/alerts/archive",
-            body=maybe_transform(
-                {
-                    "id": id,
-                    "release_uniqueness_key": release_uniqueness_key,
-                },
-                alert_archive_params.AlertArchiveParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id,
+                "release_uniqueness_key": release_uniqueness_key,
+            }, alert_archive_params.AlertArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AlertArchiveResponse,
         )
-
 
 class AsyncAlertsResource(AsyncAPIResource):
     """
     [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
     """
-
     @cached_property
     def with_raw_response(self) -> AsyncAlertsResourceWithRawResponse:
         """
@@ -320,47 +295,29 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return AsyncAlertsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        alert_type: Literal[
-            "low_credit_balance_reached",
-            "spend_threshold_reached",
-            "monthly_invoice_total_spend_threshold_reached",
-            "low_remaining_days_in_plan_reached",
-            "low_remaining_credit_percentage_reached",
-            "usage_threshold_reached",
-            "low_remaining_days_for_commit_segment_reached",
-            "low_remaining_commit_balance_reached",
-            "low_remaining_commit_percentage_reached",
-            "low_remaining_days_for_contract_credit_segment_reached",
-            "low_remaining_contract_credit_balance_reached",
-            "low_remaining_contract_credit_percentage_reached",
-            "low_remaining_contract_credit_and_commit_balance_reached",
-            "invoice_total_reached",
-            "low_remaining_seat_balance_reached",
-        ],
-        name: str,
-        threshold: float,
-        alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
-        billable_metric_id: str | Omit = omit,
-        credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
-        credit_type_id: str | Omit = omit,
-        custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
-        customer_id: str | Omit = omit,
-        evaluate_on_create: bool | Omit = omit,
-        group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
-        invoice_types_filter: SequenceNotStr[str] | Omit = omit,
-        plan_id: str | Omit = omit,
-        seat_filter: alert_create_params.SeatFilter | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlertCreateResponse:
+    async def create(self,
+    *,
+    alert_type: Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "invoice_total_reached", "low_remaining_seat_balance_reached"],
+    name: str,
+    threshold: float,
+    alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
+    billable_metric_id: str | Omit = omit,
+    credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
+    credit_type_id: str | Omit = omit,
+    custom_field_filters: Iterable[alert_create_params.CustomFieldFilter] | Omit = omit,
+    customer_id: str | Omit = omit,
+    evaluate_on_create: bool | Omit = omit,
+    group_values: Iterable[alert_create_params.GroupValue] | Omit = omit,
+    invoice_types_filter: SequenceNotStr[str] | Omit = omit,
+    plan_id: str | Omit = omit,
+    seat_filter: alert_create_params.SeatFilter | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertCreateResponse:
         """
         Create a new threshold notification to monitor customer spending, balances, and
         billing metrics in real-time. Metronome's notification system provides
@@ -469,44 +426,37 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/alerts/create",
-            body=await async_maybe_transform(
-                {
-                    "alert_type": alert_type,
-                    "name": name,
-                    "threshold": threshold,
-                    "alert_specifiers": alert_specifiers,
-                    "billable_metric_id": billable_metric_id,
-                    "credit_grant_type_filters": credit_grant_type_filters,
-                    "credit_type_id": credit_type_id,
-                    "custom_field_filters": custom_field_filters,
-                    "customer_id": customer_id,
-                    "evaluate_on_create": evaluate_on_create,
-                    "group_values": group_values,
-                    "invoice_types_filter": invoice_types_filter,
-                    "plan_id": plan_id,
-                    "seat_filter": seat_filter,
-                    "uniqueness_key": uniqueness_key,
-                },
-                alert_create_params.AlertCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "alert_type": alert_type,
+                "name": name,
+                "threshold": threshold,
+                "alert_specifiers": alert_specifiers,
+                "billable_metric_id": billable_metric_id,
+                "credit_grant_type_filters": credit_grant_type_filters,
+                "credit_type_id": credit_type_id,
+                "custom_field_filters": custom_field_filters,
+                "customer_id": customer_id,
+                "evaluate_on_create": evaluate_on_create,
+                "group_values": group_values,
+                "invoice_types_filter": invoice_types_filter,
+                "plan_id": plan_id,
+                "seat_filter": seat_filter,
+                "uniqueness_key": uniqueness_key,
+            }, alert_create_params.AlertCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AlertCreateResponse,
         )
 
-    async def archive(
-        self,
-        *,
-        id: str,
-        release_uniqueness_key: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AlertArchiveResponse:
+    async def archive(self,
+    *,
+    id: str,
+    release_uniqueness_key: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertArchiveResponse:
         """
         Permanently disable a threshold notification and remove it from active
         monitoring across all customers. Archived threshold notifications stop
@@ -553,19 +503,13 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/alerts/archive",
-            body=await async_maybe_transform(
-                {
-                    "id": id,
-                    "release_uniqueness_key": release_uniqueness_key,
-                },
-                alert_archive_params.AlertArchiveParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id,
+                "release_uniqueness_key": release_uniqueness_key,
+            }, alert_archive_params.AlertArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AlertArchiveResponse,
         )
-
 
 class AlertsResourceWithRawResponse:
     def __init__(self, alerts: AlertsResource) -> None:
@@ -578,7 +522,6 @@ class AlertsResourceWithRawResponse:
             alerts.archive,
         )
 
-
 class AsyncAlertsResourceWithRawResponse:
     def __init__(self, alerts: AsyncAlertsResource) -> None:
         self._alerts = alerts
@@ -590,7 +533,6 @@ class AsyncAlertsResourceWithRawResponse:
             alerts.archive,
         )
 
-
 class AlertsResourceWithStreamingResponse:
     def __init__(self, alerts: AlertsResource) -> None:
         self._alerts = alerts
@@ -601,7 +543,6 @@ class AlertsResourceWithStreamingResponse:
         self.archive = to_streamed_response_wrapper(
             alerts.archive,
         )
-
 
 class AsyncAlertsResourceWithStreamingResponse:
     def __init__(self, alerts: AsyncAlertsResource) -> None:

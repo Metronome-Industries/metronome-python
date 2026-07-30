@@ -1,44 +1,7 @@
 # Shared Types
 
 ```python
-from metronome.types import (
-    BalanceFilter,
-    BaseThresholdCommit,
-    BaseUsageFilter,
-    Commit,
-    CommitHierarchyConfiguration,
-    CommitRate,
-    CommitSpecifier,
-    CommitSpecifierInput,
-    Contract,
-    ContractV2,
-    ContractWithoutAmendments,
-    Credit,
-    CreditTypeData,
-    Discount,
-    EventTypeFilter,
-    HierarchyConfiguration,
-    ID,
-    Override,
-    OverrideTier,
-    OverwriteRate,
-    PaymentGateConfig,
-    PaymentGateConfigV2,
-    PrepaidBalanceThresholdConfiguration,
-    PrepaidBalanceThresholdConfigurationV2,
-    PropertyFilter,
-    ProService,
-    Rate,
-    RecurringCommitSubscriptionConfig,
-    ScheduledCharge,
-    ScheduleDuration,
-    SchedulePointInTime,
-    SpendThresholdConfiguration,
-    SpendThresholdConfigurationV2,
-    Subscription,
-    Tier,
-    UpdateBaseThresholdCommit,
-)
+from metronome.types import BalanceFilter, BaseThresholdCommit, BaseUsageFilter, Commit, CommitHierarchyConfiguration, CommitRate, CommitSpecifier, CommitSpecifierInput, Contract, ContractV2, ContractWithoutAmendments, Credit, CreditTypeData, Discount, EventTypeFilter, HierarchyConfiguration, ID, Override, OverrideTier, OverwriteRate, PaymentGateConfig, PaymentGateConfigV2, PrepaidBalanceThresholdConfiguration, PrepaidBalanceThresholdConfigurationV2, PropertyFilter, ProService, Rate, RecurringCommitSubscriptionConfig, ScheduledCharge, ScheduleDuration, SchedulePointInTime, SpendThresholdConfiguration, SpendThresholdConfigurationV2, Subscription, Tier, UpdateBaseThresholdCommit
 ```
 
 # V2
@@ -48,14 +11,7 @@ from metronome.types import (
 Types:
 
 ```python
-from metronome.types.v2 import (
-    ContractRetrieveResponse,
-    ContractListResponse,
-    ContractEditResponse,
-    ContractEditCommitResponse,
-    ContractEditCreditResponse,
-    ContractGetEditHistoryResponse,
-)
+from metronome.types.v2 import ContractRetrieveResponse, ContractListResponse, ContractEditResponse, ContractEditCommitResponse, ContractEditCreditResponse, ContractGetEditHistoryResponse
 ```
 
 Methods:
@@ -72,10 +28,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v2 import (
-    LifecycleEventOffsetNotificationConfig,
-    LifecycleEventSystemNotificationConfig,
-)
+from metronome.types.v2 import LifecycleEventOffsetNotificationConfig, LifecycleEventSystemNotificationConfig
 ```
 
 ### Offset
@@ -83,12 +36,7 @@ from metronome.types.v2 import (
 Types:
 
 ```python
-from metronome.types.v2.notifications import (
-    OffsetCreateResponse,
-    OffsetRetrieveResponse,
-    OffsetArchiveResponse,
-    OffsetEditResponse,
-)
+from metronome.types.v2.notifications import OffsetCreateResponse, OffsetRetrieveResponse, OffsetArchiveResponse, OffsetEditResponse
 ```
 
 Methods:
@@ -131,13 +79,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    PlanDetail,
-    PlanListResponse,
-    PlanGetDetailsResponse,
-    PlanListChargesResponse,
-    PlanListCustomersResponse,
-)
+from metronome.types.v1 import PlanDetail, PlanListResponse, PlanGetDetailsResponse, PlanListChargesResponse, PlanListCustomersResponse
 ```
 
 Methods:
@@ -152,16 +94,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    CreditLedgerEntry,
-    RolloverAmountMaxAmount,
-    RolloverAmountMaxPercentage,
-    CreditGrantCreateResponse,
-    CreditGrantListResponse,
-    CreditGrantEditResponse,
-    CreditGrantListEntriesResponse,
-    CreditGrantVoidResponse,
-)
+from metronome.types.v1 import CreditLedgerEntry, RolloverAmountMaxAmount, RolloverAmountMaxPercentage, CreditGrantCreateResponse, CreditGrantListResponse, CreditGrantEditResponse, CreditGrantListEntriesResponse, CreditGrantVoidResponse
 ```
 
 Methods:
@@ -189,20 +122,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    Customer,
-    CustomerDetail,
-    CustomerCreateResponse,
-    CustomerRetrieveResponse,
-    CustomerArchiveResponse,
-    CustomerArchiveBillingConfigurationsResponse,
-    CustomerListBillableMetricsResponse,
-    CustomerListCostsResponse,
-    CustomerPreviewEventsResponse,
-    CustomerRetrieveBillingConfigurationsResponse,
-    CustomerSetBillingConfigurationsResponse,
-    CustomerSetNameResponse,
-)
+from metronome.types.v1 import Customer, CustomerDetail, CustomerCreateResponse, CustomerRetrieveResponse, CustomerArchiveResponse, CustomerArchiveBillingConfigurationsResponse, CustomerListBillableMetricsResponse, CustomerListCostsResponse, CustomerPreviewEventsResponse, CustomerRetrieveBillingConfigurationsResponse, CustomerSetBillingConfigurationsResponse, CustomerSetNameResponse
 ```
 
 Methods:
@@ -240,12 +160,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import (
-    PlanListResponse,
-    PlanAddResponse,
-    PlanEndResponse,
-    PlanListPriceAdjustmentsResponse,
-)
+from metronome.types.v1.customers import PlanListResponse, PlanAddResponse, PlanEndResponse, PlanListPriceAdjustmentsResponse
 ```
 
 Methods:
@@ -260,12 +175,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.customers import (
-    Invoice,
-    InvoiceRetrieveResponse,
-    InvoiceAddChargeResponse,
-    InvoiceListBreakdownsResponse,
-)
+from metronome.types.v1.customers import Invoice, InvoiceRetrieveResponse, InvoiceAddChargeResponse, InvoiceListBreakdownsResponse
 ```
 
 Methods:
@@ -391,12 +301,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    BillableMetricCreateResponse,
-    BillableMetricRetrieveResponse,
-    BillableMetricListResponse,
-    BillableMetricArchiveResponse,
-)
+from metronome.types.v1 import BillableMetricCreateResponse, BillableMetricRetrieveResponse, BillableMetricListResponse, BillableMetricArchiveResponse
 ```
 
 Methods:
@@ -436,22 +341,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    ContractCreateResponse,
-    ContractRetrieveResponse,
-    ContractListResponse,
-    ContractAmendResponse,
-    ContractArchiveResponse,
-    ContractCreateHistoricalInvoicesResponse,
-    ContractGetNetBalanceResponse,
-    ContractGetSubscriptionSeatsHistoryResponse,
-    ContractListBalancesResponse,
-    ContractListSeatBalancesResponse,
-    ContractRetrieveRateScheduleResponse,
-    ContractRetrieveSubscriptionQuantityHistoryResponse,
-    ContractScheduleProServicesInvoiceResponse,
-    ContractUpdateEndDateResponse,
-)
+from metronome.types.v1 import ContractCreateResponse, ContractRetrieveResponse, ContractListResponse, ContractAmendResponse, ContractArchiveResponse, ContractCreateHistoricalInvoicesResponse, ContractGetNetBalanceResponse, ContractGetSubscriptionSeatsHistoryResponse, ContractListBalancesResponse, ContractListSeatBalancesResponse, ContractRetrieveRateScheduleResponse, ContractRetrieveSubscriptionQuantityHistoryResponse, ContractScheduleProServicesInvoiceResponse, ContractUpdateEndDateResponse
 ```
 
 Methods:
@@ -478,16 +368,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.contracts import (
-    ProductListItemState,
-    QuantityConversion,
-    QuantityRounding,
-    ProductCreateResponse,
-    ProductRetrieveResponse,
-    ProductUpdateResponse,
-    ProductListResponse,
-    ProductArchiveResponse,
-)
+from metronome.types.v1.contracts import ProductListItemState, QuantityConversion, QuantityRounding, ProductCreateResponse, ProductRetrieveResponse, ProductUpdateResponse, ProductListResponse, ProductArchiveResponse
 ```
 
 Methods:
@@ -503,14 +384,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.contracts import (
-    RateCardCreateResponse,
-    RateCardRetrieveResponse,
-    RateCardUpdateResponse,
-    RateCardListResponse,
-    RateCardArchiveResponse,
-    RateCardRetrieveRateScheduleResponse,
-)
+from metronome.types.v1.contracts import RateCardCreateResponse, RateCardRetrieveResponse, RateCardUpdateResponse, RateCardListResponse, RateCardArchiveResponse, RateCardRetrieveRateScheduleResponse
 ```
 
 Methods:
@@ -527,10 +401,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.contracts.rate_cards import (
-    ProductOrderUpdateResponse,
-    ProductOrderSetResponse,
-)
+from metronome.types.v1.contracts.rate_cards import ProductOrderUpdateResponse, ProductOrderSetResponse
 ```
 
 Methods:
@@ -543,11 +414,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.contracts.rate_cards import (
-    RateListResponse,
-    RateAddResponse,
-    RateAddManyResponse,
-)
+from metronome.types.v1.contracts.rate_cards import RateListResponse, RateAddResponse, RateAddManyResponse
 ```
 
 Methods:
@@ -587,13 +454,7 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import (
-    PackageCreateResponse,
-    PackageRetrieveResponse,
-    PackageListResponse,
-    PackageArchiveResponse,
-    PackageListContractsOnPackageResponse,
-)
+from metronome.types.v1 import PackageCreateResponse, PackageRetrieveResponse, PackageListResponse, PackageArchiveResponse, PackageListContractsOnPackageResponse
 ```
 
 Methods:

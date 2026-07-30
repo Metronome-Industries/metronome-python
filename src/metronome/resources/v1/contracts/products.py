@@ -2,45 +2,58 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
-from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ....pagination import SyncCursorPage, AsyncCursorPage
-from ...._base_client import AsyncPaginator, make_request_options
-from ....types.v1.contracts import (
-    product_list_params,
-    product_create_params,
-    product_update_params,
-    product_archive_params,
-    product_retrieve_params,
-)
-from ....types.v1.contracts.product_list_response import ProductListResponse
+
+from ...._compat import cached_property
+
 from ....types.v1.contracts.product_create_response import ProductCreateResponse
-from ....types.v1.contracts.product_update_response import ProductUpdateResponse
-from ....types.v1.contracts.quantity_rounding_param import QuantityRoundingParam
-from ....types.v1.contracts.product_archive_response import ProductArchiveResponse
-from ....types.v1.contracts.product_retrieve_response import ProductRetrieveResponse
+
+from ...._utils import maybe_transform, async_maybe_transform
+
+from ...._base_client import make_request_options, AsyncPaginator
+
+from typing_extensions import Literal
+
+from ...._types import Omit, omit, SequenceNotStr, NotGiven
+
+from typing import Dict, Optional, Union
+
 from ....types.v1.contracts.quantity_conversion_param import QuantityConversionParam
+
+from ....types.v1.contracts.quantity_rounding_param import QuantityRoundingParam
+
+from ....types.v1.contracts.product_retrieve_response import ProductRetrieveResponse
+
+from ....types.v1.contracts.product_update_response import ProductUpdateResponse
+
+from datetime import datetime
+
+from ....types.v1.contracts.product_list_response import ProductListResponse
+
+from ....pagination import SyncCursorPage, AsyncCursorPage
+
+from ....types.v1.contracts.product_archive_response import ProductArchiveResponse
+
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ....types.v1.contracts import product_create_params
+from ....types.v1.contracts import product_retrieve_params
+from ....types.v1.contracts import product_update_params
+from ....types.v1.contracts import product_list_params
+from ....types.v1.contracts import product_archive_params
+from ....types.v1.contracts import QuantityConversion
+from ....types.v1.contracts import QuantityRounding
+from ....types.v1.contracts import QuantityConversion
+from ....types.v1.contracts import QuantityRounding
 
 __all__ = ["ProductsResource", "AsyncProductsResource"]
 
-
 class ProductsResource(SyncAPIResource):
     """Products are the items that customers purchase."""
-
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
         """
@@ -60,32 +73,30 @@ class ProductsResource(SyncAPIResource):
         """
         return ProductsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
-        billable_metric_id: str | Omit = omit,
-        composite_product_ids: SequenceNotStr[str] | Omit = omit,
-        composite_tags: SequenceNotStr[str] | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        exclude_free_usage: bool | Omit = omit,
-        is_refundable: bool | Omit = omit,
-        netsuite_internal_item_id: str | Omit = omit,
-        netsuite_overage_item_id: str | Omit = omit,
-        presentation_group_key: SequenceNotStr[str] | Omit = omit,
-        pricing_group_key: SequenceNotStr[str] | Omit = omit,
-        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
-        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
-        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductCreateResponse:
+    def create(self,
+    *,
+    name: str,
+    type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
+    billable_metric_id: str | Omit = omit,
+    composite_product_ids: SequenceNotStr[str] | Omit = omit,
+    composite_tags: SequenceNotStr[str] | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    exclude_free_usage: bool | Omit = omit,
+    is_refundable: bool | Omit = omit,
+    netsuite_internal_item_id: str | Omit = omit,
+    netsuite_overage_item_id: str | Omit = omit,
+    presentation_group_key: SequenceNotStr[str] | Omit = omit,
+    pricing_group_key: SequenceNotStr[str] | Omit = omit,
+    quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+    quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductCreateResponse:
         """Create a new product object.
 
         Products in Metronome represent your company's
@@ -154,44 +165,37 @@ class ProductsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contract-pricing/products/create",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "type": type,
-                    "billable_metric_id": billable_metric_id,
-                    "composite_product_ids": composite_product_ids,
-                    "composite_tags": composite_tags,
-                    "custom_fields": custom_fields,
-                    "exclude_free_usage": exclude_free_usage,
-                    "is_refundable": is_refundable,
-                    "netsuite_internal_item_id": netsuite_internal_item_id,
-                    "netsuite_overage_item_id": netsuite_overage_item_id,
-                    "presentation_group_key": presentation_group_key,
-                    "pricing_group_key": pricing_group_key,
-                    "quantity_conversion": quantity_conversion,
-                    "quantity_rounding": quantity_rounding,
-                    "sql_breakdown_granularity": sql_breakdown_granularity,
-                    "tags": tags,
-                },
-                product_create_params.ProductCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "type": type,
+                "billable_metric_id": billable_metric_id,
+                "composite_product_ids": composite_product_ids,
+                "composite_tags": composite_tags,
+                "custom_fields": custom_fields,
+                "exclude_free_usage": exclude_free_usage,
+                "is_refundable": is_refundable,
+                "netsuite_internal_item_id": netsuite_internal_item_id,
+                "netsuite_overage_item_id": netsuite_overage_item_id,
+                "presentation_group_key": presentation_group_key,
+                "pricing_group_key": pricing_group_key,
+                "quantity_conversion": quantity_conversion,
+                "quantity_rounding": quantity_rounding,
+                "sql_breakdown_granularity": sql_breakdown_granularity,
+                "tags": tags,
+            }, product_create_params.ProductCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductRetrieveResponse:
+    def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductRetrieveResponse:
         """
         Retrieve a product by its ID, including all metadata and historical changes.
 
@@ -206,39 +210,37 @@ class ProductsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contract-pricing/products/get",
-            body=maybe_transform({"id": id}, product_retrieve_params.ProductRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id
+            }, product_retrieve_params.ProductRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductRetrieveResponse,
         )
 
-    def update(
-        self,
-        *,
-        product_id: str,
-        starting_at: Union[str, datetime],
-        billable_metric_id: str | Omit = omit,
-        composite_product_ids: SequenceNotStr[str] | Omit = omit,
-        composite_tags: SequenceNotStr[str] | Omit = omit,
-        exclude_free_usage: bool | Omit = omit,
-        is_refundable: bool | Omit = omit,
-        name: str | Omit = omit,
-        netsuite_internal_item_id: str | Omit = omit,
-        netsuite_overage_item_id: str | Omit = omit,
-        presentation_group_key: SequenceNotStr[str] | Omit = omit,
-        pricing_group_key: SequenceNotStr[str] | Omit = omit,
-        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
-        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
-        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductUpdateResponse:
+    def update(self,
+    *,
+    product_id: str,
+    starting_at: Union[str, datetime],
+    billable_metric_id: str | Omit = omit,
+    composite_product_ids: SequenceNotStr[str] | Omit = omit,
+    composite_tags: SequenceNotStr[str] | Omit = omit,
+    exclude_free_usage: bool | Omit = omit,
+    is_refundable: bool | Omit = omit,
+    name: str | Omit = omit,
+    netsuite_internal_item_id: str | Omit = omit,
+    netsuite_overage_item_id: str | Omit = omit,
+    presentation_group_key: SequenceNotStr[str] | Omit = omit,
+    pricing_group_key: SequenceNotStr[str] | Omit = omit,
+    quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+    quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductUpdateResponse:
         """
         Updates a product's configuration while maintaining billing continuity for
         active customers. Use this endpoint to modify product names, metrics, pricing
@@ -323,46 +325,39 @@ class ProductsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contract-pricing/products/update",
-            body=maybe_transform(
-                {
-                    "product_id": product_id,
-                    "starting_at": starting_at,
-                    "billable_metric_id": billable_metric_id,
-                    "composite_product_ids": composite_product_ids,
-                    "composite_tags": composite_tags,
-                    "exclude_free_usage": exclude_free_usage,
-                    "is_refundable": is_refundable,
-                    "name": name,
-                    "netsuite_internal_item_id": netsuite_internal_item_id,
-                    "netsuite_overage_item_id": netsuite_overage_item_id,
-                    "presentation_group_key": presentation_group_key,
-                    "pricing_group_key": pricing_group_key,
-                    "quantity_conversion": quantity_conversion,
-                    "quantity_rounding": quantity_rounding,
-                    "sql_breakdown_granularity": sql_breakdown_granularity,
-                    "tags": tags,
-                },
-                product_update_params.ProductUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "product_id": product_id,
+                "starting_at": starting_at,
+                "billable_metric_id": billable_metric_id,
+                "composite_product_ids": composite_product_ids,
+                "composite_tags": composite_tags,
+                "exclude_free_usage": exclude_free_usage,
+                "is_refundable": is_refundable,
+                "name": name,
+                "netsuite_internal_item_id": netsuite_internal_item_id,
+                "netsuite_overage_item_id": netsuite_overage_item_id,
+                "presentation_group_key": presentation_group_key,
+                "pricing_group_key": pricing_group_key,
+                "quantity_conversion": quantity_conversion,
+                "quantity_rounding": quantity_rounding,
+                "sql_breakdown_granularity": sql_breakdown_granularity,
+                "tags": tags,
+            }, product_update_params.ProductUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductUpdateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[ProductListResponse]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[ProductListResponse]:
         """
         Get a paginated list of all products in your organization with their complete
         configuration, version history, and metadata. By default excludes archived
@@ -385,36 +380,27 @@ class ProductsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contract-pricing/products/list",
-            page=SyncCursorPage[ProductListResponse],
-            body=maybe_transform({"archive_filter": archive_filter}, product_list_params.ProductListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    product_list_params.ProductListParams,
-                ),
-            ),
+            page = SyncCursorPage[ProductListResponse],
+            body=maybe_transform({
+                "archive_filter": archive_filter
+            }, product_list_params.ProductListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, product_list_params.ProductListParams)),
             model=ProductListResponse,
             method="post",
         )
 
-    def archive(
-        self,
-        *,
-        product_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductArchiveResponse:
+    def archive(self,
+    *,
+    product_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductArchiveResponse:
         """Archive a product.
 
         Any current rate cards associated with this product will
@@ -435,17 +421,15 @@ class ProductsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contract-pricing/products/archive",
-            body=maybe_transform({"product_id": product_id}, product_archive_params.ProductArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "product_id": product_id
+            }, product_archive_params.ProductArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductArchiveResponse,
         )
 
-
 class AsyncProductsResource(AsyncAPIResource):
     """Products are the items that customers purchase."""
-
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
         """
@@ -465,32 +449,30 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return AsyncProductsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
-        billable_metric_id: str | Omit = omit,
-        composite_product_ids: SequenceNotStr[str] | Omit = omit,
-        composite_tags: SequenceNotStr[str] | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        exclude_free_usage: bool | Omit = omit,
-        is_refundable: bool | Omit = omit,
-        netsuite_internal_item_id: str | Omit = omit,
-        netsuite_overage_item_id: str | Omit = omit,
-        presentation_group_key: SequenceNotStr[str] | Omit = omit,
-        pricing_group_key: SequenceNotStr[str] | Omit = omit,
-        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
-        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
-        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductCreateResponse:
+    async def create(self,
+    *,
+    name: str,
+    type: Literal["FIXED", "USAGE", "COMPOSITE", "SUBSCRIPTION", "PROFESSIONAL_SERVICE", "PRO_SERVICE"],
+    billable_metric_id: str | Omit = omit,
+    composite_product_ids: SequenceNotStr[str] | Omit = omit,
+    composite_tags: SequenceNotStr[str] | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    exclude_free_usage: bool | Omit = omit,
+    is_refundable: bool | Omit = omit,
+    netsuite_internal_item_id: str | Omit = omit,
+    netsuite_overage_item_id: str | Omit = omit,
+    presentation_group_key: SequenceNotStr[str] | Omit = omit,
+    pricing_group_key: SequenceNotStr[str] | Omit = omit,
+    quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+    quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductCreateResponse:
         """Create a new product object.
 
         Products in Metronome represent your company's
@@ -559,44 +541,37 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contract-pricing/products/create",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "type": type,
-                    "billable_metric_id": billable_metric_id,
-                    "composite_product_ids": composite_product_ids,
-                    "composite_tags": composite_tags,
-                    "custom_fields": custom_fields,
-                    "exclude_free_usage": exclude_free_usage,
-                    "is_refundable": is_refundable,
-                    "netsuite_internal_item_id": netsuite_internal_item_id,
-                    "netsuite_overage_item_id": netsuite_overage_item_id,
-                    "presentation_group_key": presentation_group_key,
-                    "pricing_group_key": pricing_group_key,
-                    "quantity_conversion": quantity_conversion,
-                    "quantity_rounding": quantity_rounding,
-                    "sql_breakdown_granularity": sql_breakdown_granularity,
-                    "tags": tags,
-                },
-                product_create_params.ProductCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "type": type,
+                "billable_metric_id": billable_metric_id,
+                "composite_product_ids": composite_product_ids,
+                "composite_tags": composite_tags,
+                "custom_fields": custom_fields,
+                "exclude_free_usage": exclude_free_usage,
+                "is_refundable": is_refundable,
+                "netsuite_internal_item_id": netsuite_internal_item_id,
+                "netsuite_overage_item_id": netsuite_overage_item_id,
+                "presentation_group_key": presentation_group_key,
+                "pricing_group_key": pricing_group_key,
+                "quantity_conversion": quantity_conversion,
+                "quantity_rounding": quantity_rounding,
+                "sql_breakdown_granularity": sql_breakdown_granularity,
+                "tags": tags,
+            }, product_create_params.ProductCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductRetrieveResponse:
+    async def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductRetrieveResponse:
         """
         Retrieve a product by its ID, including all metadata and historical changes.
 
@@ -611,39 +586,37 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contract-pricing/products/get",
-            body=await async_maybe_transform({"id": id}, product_retrieve_params.ProductRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id
+            }, product_retrieve_params.ProductRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductRetrieveResponse,
         )
 
-    async def update(
-        self,
-        *,
-        product_id: str,
-        starting_at: Union[str, datetime],
-        billable_metric_id: str | Omit = omit,
-        composite_product_ids: SequenceNotStr[str] | Omit = omit,
-        composite_tags: SequenceNotStr[str] | Omit = omit,
-        exclude_free_usage: bool | Omit = omit,
-        is_refundable: bool | Omit = omit,
-        name: str | Omit = omit,
-        netsuite_internal_item_id: str | Omit = omit,
-        netsuite_overage_item_id: str | Omit = omit,
-        presentation_group_key: SequenceNotStr[str] | Omit = omit,
-        pricing_group_key: SequenceNotStr[str] | Omit = omit,
-        quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
-        quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
-        sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductUpdateResponse:
+    async def update(self,
+    *,
+    product_id: str,
+    starting_at: Union[str, datetime],
+    billable_metric_id: str | Omit = omit,
+    composite_product_ids: SequenceNotStr[str] | Omit = omit,
+    composite_tags: SequenceNotStr[str] | Omit = omit,
+    exclude_free_usage: bool | Omit = omit,
+    is_refundable: bool | Omit = omit,
+    name: str | Omit = omit,
+    netsuite_internal_item_id: str | Omit = omit,
+    netsuite_overage_item_id: str | Omit = omit,
+    presentation_group_key: SequenceNotStr[str] | Omit = omit,
+    pricing_group_key: SequenceNotStr[str] | Omit = omit,
+    quantity_conversion: Optional[QuantityConversionParam] | Omit = omit,
+    quantity_rounding: Optional[QuantityRoundingParam] | Omit = omit,
+    sql_breakdown_granularity: Literal["HOUR", "SERVICE_PERIOD"] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductUpdateResponse:
         """
         Updates a product's configuration while maintaining billing continuity for
         active customers. Use this endpoint to modify product names, metrics, pricing
@@ -728,46 +701,39 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contract-pricing/products/update",
-            body=await async_maybe_transform(
-                {
-                    "product_id": product_id,
-                    "starting_at": starting_at,
-                    "billable_metric_id": billable_metric_id,
-                    "composite_product_ids": composite_product_ids,
-                    "composite_tags": composite_tags,
-                    "exclude_free_usage": exclude_free_usage,
-                    "is_refundable": is_refundable,
-                    "name": name,
-                    "netsuite_internal_item_id": netsuite_internal_item_id,
-                    "netsuite_overage_item_id": netsuite_overage_item_id,
-                    "presentation_group_key": presentation_group_key,
-                    "pricing_group_key": pricing_group_key,
-                    "quantity_conversion": quantity_conversion,
-                    "quantity_rounding": quantity_rounding,
-                    "sql_breakdown_granularity": sql_breakdown_granularity,
-                    "tags": tags,
-                },
-                product_update_params.ProductUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "product_id": product_id,
+                "starting_at": starting_at,
+                "billable_metric_id": billable_metric_id,
+                "composite_product_ids": composite_product_ids,
+                "composite_tags": composite_tags,
+                "exclude_free_usage": exclude_free_usage,
+                "is_refundable": is_refundable,
+                "name": name,
+                "netsuite_internal_item_id": netsuite_internal_item_id,
+                "netsuite_overage_item_id": netsuite_overage_item_id,
+                "presentation_group_key": presentation_group_key,
+                "pricing_group_key": pricing_group_key,
+                "quantity_conversion": quantity_conversion,
+                "quantity_rounding": quantity_rounding,
+                "sql_breakdown_granularity": sql_breakdown_granularity,
+                "tags": tags,
+            }, product_update_params.ProductUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductUpdateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[ProductListResponse, AsyncCursorPage[ProductListResponse]]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[ProductListResponse, AsyncCursorPage[ProductListResponse]]:
         """
         Get a paginated list of all products in your organization with their complete
         configuration, version history, and metadata. By default excludes archived
@@ -790,36 +756,27 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contract-pricing/products/list",
-            page=AsyncCursorPage[ProductListResponse],
-            body=maybe_transform({"archive_filter": archive_filter}, product_list_params.ProductListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    product_list_params.ProductListParams,
-                ),
-            ),
+            page = AsyncCursorPage[ProductListResponse],
+            body=maybe_transform({
+                "archive_filter": archive_filter
+            }, product_list_params.ProductListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, product_list_params.ProductListParams)),
             model=ProductListResponse,
             method="post",
         )
 
-    async def archive(
-        self,
-        *,
-        product_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductArchiveResponse:
+    async def archive(self,
+    *,
+    product_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ProductArchiveResponse:
         """Archive a product.
 
         Any current rate cards associated with this product will
@@ -840,13 +797,12 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contract-pricing/products/archive",
-            body=await async_maybe_transform({"product_id": product_id}, product_archive_params.ProductArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "product_id": product_id
+            }, product_archive_params.ProductArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProductArchiveResponse,
         )
-
 
 class ProductsResourceWithRawResponse:
     def __init__(self, products: ProductsResource) -> None:
@@ -868,7 +824,6 @@ class ProductsResourceWithRawResponse:
             products.archive,
         )
 
-
 class AsyncProductsResourceWithRawResponse:
     def __init__(self, products: AsyncProductsResource) -> None:
         self._products = products
@@ -889,7 +844,6 @@ class AsyncProductsResourceWithRawResponse:
             products.archive,
         )
 
-
 class ProductsResourceWithStreamingResponse:
     def __init__(self, products: ProductsResource) -> None:
         self._products = products
@@ -909,7 +863,6 @@ class ProductsResourceWithStreamingResponse:
         self.archive = to_streamed_response_wrapper(
             products.archive,
         )
-
 
 class AsyncProductsResourceWithStreamingResponse:
     def __init__(self, products: AsyncProductsResource) -> None:

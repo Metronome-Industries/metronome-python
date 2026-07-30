@@ -1,18 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from ..._models import BaseModel
+
 from datetime import datetime
 
-from ..._models import BaseModel
-from .credit_ledger_entry import CreditLedgerEntry
 from ..shared.credit_type_data import CreditTypeData
+
+from typing import List
+
+from .credit_ledger_entry import CreditLedgerEntry
 
 __all__ = ["CreditGrantListEntriesResponse", "Ledger", "LedgerEndingBalance", "LedgerStartingBalance"]
 
-
 class LedgerEndingBalance(BaseModel):
     """the effective balances at the end of the specified time window"""
-
     effective_at: datetime
     """
     the ending_before request parameter (if supplied) or the current billing
@@ -31,7 +32,6 @@ class LedgerEndingBalance(BaseModel):
     the excluding_pending balance plus any pending invoice deductions and
     expirations that will happen by the effective_at date
     """
-
 
 class LedgerStartingBalance(BaseModel):
     effective_at: datetime
@@ -52,7 +52,6 @@ class LedgerStartingBalance(BaseModel):
     at the time of the query
     """
 
-
 class Ledger(BaseModel):
     credit_type: CreditTypeData
 
@@ -64,7 +63,6 @@ class Ledger(BaseModel):
     pending_entries: List[CreditLedgerEntry]
 
     starting_balance: LedgerStartingBalance
-
 
 class CreditGrantListEntriesResponse(BaseModel):
     customer_id: str

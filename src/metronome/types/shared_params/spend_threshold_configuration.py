@@ -2,25 +2,23 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
-
-from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
 
-__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration", "DiscountConfigurationCap"]
+from .payment_gate_config import PaymentGateConfig
 
+from typing_extensions import TypedDict, Required
+
+__all__ = ["SpendThresholdConfiguration", "DiscountConfiguration", "DiscountConfigurationCap"]
 
 class DiscountConfigurationCap(TypedDict, total=False):
     """
     If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
     """
-
     amount: Required[float]
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: Required[str]
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DiscountConfiguration(TypedDict, total=False):
     payment_fraction: Required[float]
@@ -35,7 +33,6 @@ class DiscountConfiguration(TypedDict, total=False):
     If provided, the discount stops applying once the spend tracker has accumulated
     this much spend in the billing period.
     """
-
 
 class SpendThresholdConfiguration(TypedDict, total=False):
     commit: Required[BaseThresholdCommit]

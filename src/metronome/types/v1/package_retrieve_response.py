@@ -1,101 +1,41 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
-from ..shared.override_tier import OverrideTier
-from ..shared.overwrite_rate import OverwriteRate
-from ..shared.commit_specifier import CommitSpecifier
 from ..shared.credit_type_data import CreditTypeData
-from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
+
+from typing import List, Optional, Dict
+
+from ..shared.commit_specifier import CommitSpecifier
+
+from ..shared.override_tier import OverrideTier
+
+from ..shared.overwrite_rate import OverwriteRate
+
+from datetime import datetime
+
 from ..shared.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = [
-    "PackageRetrieveResponse",
-    "Data",
-    "DataCommit",
-    "DataCommitProduct",
-    "DataCommitAccessSchedule",
-    "DataCommitAccessScheduleScheduleItem",
-    "DataCommitAccessScheduleScheduleItemDuration",
-    "DataCommitAccessScheduleScheduleItemStartingAtOffset",
-    "DataCommitInvoiceSchedule",
-    "DataCommitInvoiceScheduleScheduleItem",
-    "DataCommitInvoiceScheduleScheduleItemDateOffset",
-    "DataOverride",
-    "DataOverrideOverrideSpecifier",
-    "DataOverrideStartingAtOffset",
-    "DataOverrideDuration",
-    "DataOverrideProduct",
-    "DataScheduledCharge",
-    "DataScheduledChargeProduct",
-    "DataScheduledChargeSchedule",
-    "DataScheduledChargeScheduleScheduleItem",
-    "DataScheduledChargeScheduleScheduleItemDateOffset",
-    "DataUsageStatementSchedule",
-    "DataAlias",
-    "DataCredit",
-    "DataCreditProduct",
-    "DataCreditAccessSchedule",
-    "DataCreditAccessScheduleScheduleItem",
-    "DataCreditAccessScheduleScheduleItemDuration",
-    "DataCreditAccessScheduleScheduleItemStartingAtOffset",
-    "DataDuration",
-    "DataRecurringCommit",
-    "DataRecurringCommitAccessAmount",
-    "DataRecurringCommitCommitDuration",
-    "DataRecurringCommitProduct",
-    "DataRecurringCommitStartingAtOffset",
-    "DataRecurringCommitDuration",
-    "DataRecurringCommitInvoiceAmount",
-    "DataRecurringCommitProrationRounding",
-    "DataRecurringCommitProrationRoundingAccess",
-    "DataRecurringCommitProrationRoundingInvoice",
-    "DataRecurringCommitSubscriptionConfig",
-    "DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
-    "DataRecurringCredit",
-    "DataRecurringCreditAccessAmount",
-    "DataRecurringCreditCommitDuration",
-    "DataRecurringCreditProduct",
-    "DataRecurringCreditStartingAtOffset",
-    "DataRecurringCreditDuration",
-    "DataRecurringCreditProrationRounding",
-    "DataRecurringCreditProrationRoundingAccess",
-    "DataRecurringCreditSubscriptionConfig",
-    "DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
-    "DataSpendTracker",
-    "DataSpendTrackerApplicableSpendSpecifier",
-    "DataSubscription",
-    "DataSubscriptionProration",
-    "DataSubscriptionProrationRounding",
-    "DataSubscriptionSubscriptionRate",
-    "DataSubscriptionSubscriptionRateProduct",
-    "DataSubscriptionBillingCycleConfig",
-    "DataSubscriptionDuration",
-    "DataSubscriptionSeatConfig",
-    "DataSubscriptionStartingAtOffset",
-]
+from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
 
+__all__ = ["PackageRetrieveResponse", "Data", "DataCommit", "DataCommitProduct", "DataCommitAccessSchedule", "DataCommitAccessScheduleScheduleItem", "DataCommitAccessScheduleScheduleItemDuration", "DataCommitAccessScheduleScheduleItemStartingAtOffset", "DataCommitInvoiceSchedule", "DataCommitInvoiceScheduleScheduleItem", "DataCommitInvoiceScheduleScheduleItemDateOffset", "DataOverride", "DataOverrideOverrideSpecifier", "DataOverrideStartingAtOffset", "DataOverrideDuration", "DataOverrideProduct", "DataScheduledCharge", "DataScheduledChargeProduct", "DataScheduledChargeSchedule", "DataScheduledChargeScheduleScheduleItem", "DataScheduledChargeScheduleScheduleItemDateOffset", "DataUsageStatementSchedule", "DataAlias", "DataCredit", "DataCreditProduct", "DataCreditAccessSchedule", "DataCreditAccessScheduleScheduleItem", "DataCreditAccessScheduleScheduleItemDuration", "DataCreditAccessScheduleScheduleItemStartingAtOffset", "DataDuration", "DataRecurringCommit", "DataRecurringCommitAccessAmount", "DataRecurringCommitCommitDuration", "DataRecurringCommitProduct", "DataRecurringCommitStartingAtOffset", "DataRecurringCommitDuration", "DataRecurringCommitInvoiceAmount", "DataRecurringCommitProrationRounding", "DataRecurringCommitProrationRoundingAccess", "DataRecurringCommitProrationRoundingInvoice", "DataRecurringCommitSubscriptionConfig", "DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig", "DataRecurringCredit", "DataRecurringCreditAccessAmount", "DataRecurringCreditCommitDuration", "DataRecurringCreditProduct", "DataRecurringCreditStartingAtOffset", "DataRecurringCreditDuration", "DataRecurringCreditProrationRounding", "DataRecurringCreditProrationRoundingAccess", "DataRecurringCreditSubscriptionConfig", "DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig", "DataSpendTracker", "DataSpendTrackerApplicableSpendSpecifier", "DataSubscription", "DataSubscriptionProration", "DataSubscriptionProrationRounding", "DataSubscriptionSubscriptionRate", "DataSubscriptionSubscriptionRateProduct", "DataSubscriptionBillingCycleConfig", "DataSubscriptionDuration", "DataSubscriptionSeatConfig", "DataSubscriptionStartingAtOffset"]
 
 class DataCommitProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataCommitAccessScheduleScheduleItemDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
-
 class DataCommitAccessScheduleScheduleItemStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataCommitAccessScheduleScheduleItem(BaseModel):
     id: str
@@ -106,22 +46,18 @@ class DataCommitAccessScheduleScheduleItem(BaseModel):
 
     starting_at_offset: DataCommitAccessScheduleScheduleItemStartingAtOffset
 
-
 class DataCommitAccessSchedule(BaseModel):
     """
     The schedule that the customer will gain access to the credits purposed with this commit.
     """
-
     credit_type: CreditTypeData
 
     schedule_items: List[DataCommitAccessScheduleScheduleItem]
-
 
 class DataCommitInvoiceScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataCommitInvoiceScheduleScheduleItem(BaseModel):
     id: str
@@ -132,17 +68,14 @@ class DataCommitInvoiceScheduleScheduleItem(BaseModel):
 
     unit_price: float
 
-
 class DataCommitInvoiceSchedule(BaseModel):
     """The schedule that the customer will be invoiced for this commit."""
-
     credit_type: CreditTypeData
 
     do_not_invoice: bool
     """If true, this schedule will not generate an invoice."""
 
     schedule_items: List[DataCommitInvoiceScheduleScheduleItem]
-
 
 class DataCommit(BaseModel):
     id: str
@@ -188,7 +121,6 @@ class DataCommit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-
 class DataOverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_template_ids: Optional[List[str]] = None
 
@@ -206,24 +138,20 @@ class DataOverrideOverrideSpecifier(BaseModel):
 
     recurring_commit_template_ids: Optional[List[str]] = None
 
-
 class DataOverrideStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataOverrideDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
-
 class DataOverrideProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataOverride(BaseModel):
     id: str
@@ -254,18 +182,15 @@ class DataOverride(BaseModel):
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
 
-
 class DataScheduledChargeProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataScheduledChargeScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataScheduledChargeScheduleScheduleItem(BaseModel):
     id: str
@@ -276,12 +201,10 @@ class DataScheduledChargeScheduleScheduleItem(BaseModel):
 
     unit_price: float
 
-
 class DataScheduledChargeSchedule(BaseModel):
     credit_type: CreditTypeData
 
     schedule_items: List[DataScheduledChargeScheduleScheduleItem]
-
 
 class DataScheduledCharge(BaseModel):
     id: str
@@ -297,12 +220,10 @@ class DataScheduledCharge(BaseModel):
 
     name: Optional[str] = None
 
-
 class DataUsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START"]] = None
-
 
 class DataAlias(BaseModel):
     name: str
@@ -311,24 +232,20 @@ class DataAlias(BaseModel):
 
     starting_at: Optional[datetime] = None
 
-
 class DataCreditProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataCreditAccessScheduleScheduleItemDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
-
 class DataCreditAccessScheduleScheduleItemStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataCreditAccessScheduleScheduleItem(BaseModel):
     id: str
@@ -339,12 +256,10 @@ class DataCreditAccessScheduleScheduleItem(BaseModel):
 
     starting_at_offset: DataCreditAccessScheduleScheduleItemStartingAtOffset
 
-
 class DataCreditAccessSchedule(BaseModel):
     credit_type: CreditTypeData
 
     schedule_items: List[DataCreditAccessScheduleScheduleItem]
-
 
 class DataCredit(BaseModel):
     id: str
@@ -375,66 +290,53 @@ class DataCredit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
-
 class DataDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
-
 class DataRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataRecurringCommitCommitDuration(BaseModel):
     """The amount of time each of the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataRecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataRecurringCommitStartingAtOffset(BaseModel):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
-
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataRecurringCommitDuration(BaseModel):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
-
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
-
 class DataRecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit."""
-
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
-
 
 class DataRecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -447,7 +349,6 @@ class DataRecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataRecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -459,29 +360,23 @@ class DataRecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataRecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
-
     access: Optional[DataRecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[DataRecurringCommitProrationRoundingInvoice] = None
-
 
 class DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
 
-
 class DataRecurringCommitSubscriptionConfig(BaseModel):
     """Attach a subscription to the recurring commit/credit."""
-
     allocation: Literal["INDIVIDUAL", "POOLED"]
 
     apply_seat_increase_config: DataRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
 
     subscription_template_id: str
-
 
 class DataRecurringCommit(BaseModel):
     id: str
@@ -562,50 +457,40 @@ class DataRecurringCommit(BaseModel):
     subscription_config: Optional[DataRecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataRecurringCreditCommitDuration(BaseModel):
     """The amount of time each of the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataRecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataRecurringCreditStartingAtOffset(BaseModel):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
-
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataRecurringCreditDuration(BaseModel):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
-
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataRecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -618,27 +503,21 @@ class DataRecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataRecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
-
     access: Optional[DataRecurringCreditProrationRoundingAccess] = None
-
 
 class DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
 
-
 class DataRecurringCreditSubscriptionConfig(BaseModel):
     """Attach a subscription to the recurring commit/credit."""
-
     allocation: Literal["INDIVIDUAL", "POOLED"]
 
     apply_seat_increase_config: DataRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
 
     subscription_template_id: str
-
 
 class DataRecurringCredit(BaseModel):
     id: str
@@ -716,14 +595,12 @@ class DataRecurringCredit(BaseModel):
     subscription_config: Optional[DataRecurringCreditSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataSpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
     spend_type: Literal["COMMIT_PURCHASE"]
 
     discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
-
 
 class DataSpendTracker(BaseModel):
     alias: str
@@ -734,7 +611,6 @@ class DataSpendTracker(BaseModel):
     credit_type_id: str
 
     reset_frequency: Literal["BILLING_PERIOD"]
-
 
 class DataSubscriptionProrationRounding(BaseModel):
     decimal_places: float
@@ -747,7 +623,6 @@ class DataSubscriptionProrationRounding(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataSubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
@@ -755,28 +630,23 @@ class DataSubscriptionProration(BaseModel):
 
     rounding: Optional[DataSubscriptionProrationRounding] = None
 
-
 class DataSubscriptionSubscriptionRateProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataSubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: DataSubscriptionSubscriptionRateProduct
 
-
 class DataSubscriptionBillingCycleConfig(BaseModel):
     invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
-
 
 class DataSubscriptionDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataSubscriptionSeatConfig(BaseModel):
     seat_group_key: str
@@ -789,12 +659,10 @@ class DataSubscriptionSeatConfig(BaseModel):
     usage.
     """
 
-
 class DataSubscriptionStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
-
 
 class DataSubscription(BaseModel):
     collection_schedule: Literal["ADVANCE", "ARREARS"]
@@ -837,7 +705,6 @@ class DataSubscription(BaseModel):
 
     starting_at_offset: Optional[DataSubscriptionStartingAtOffset] = None
 
-
 class Data(BaseModel):
     id: str
 
@@ -857,19 +724,7 @@ class Data(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Optional[
-        Literal[
-            "aws_marketplace",
-            "stripe",
-            "netsuite",
-            "custom",
-            "azure_marketplace",
-            "quickbooks_online",
-            "workday",
-            "gcp_marketplace",
-            "metronome",
-        ]
-    ] = None
+    billing_provider: Optional[Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]] = None
 
     contract_name: Optional[str] = None
     """The name to use for contracts created from this package."""
@@ -921,7 +776,6 @@ class Data(BaseModel):
     If a request to create a record is made with a previously used uniqueness key, a
     new record will not be created and the request will fail with a 409 error.
     """
-
 
 class PackageRetrieveResponse(BaseModel):
     data: Data

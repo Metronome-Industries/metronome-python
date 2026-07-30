@@ -4,7 +4,6 @@ from ..._models import BaseModel
 
 __all__ = ["CreditTypeData"]
 
-
 class CreditTypeData(BaseModel):
     id: str
 

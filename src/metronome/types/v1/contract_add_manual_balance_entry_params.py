@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Dict, Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["ContractAddManualBalanceEntryParams"]
-
 
 class ContractAddManualBalanceEntryParams(TypedDict, total=False):
     id: Required[str]
@@ -39,7 +40,7 @@ class ContractAddManualBalanceEntryParams(TypedDict, total=False):
     subscriptions, the amount to add for each seat. Must sum to total amount.
     """
 
-    timestamp: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    timestamp: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """RFC 3339 timestamp indicating when the manual adjustment takes place.
 
     If not provided, it will default to the start of the segment.

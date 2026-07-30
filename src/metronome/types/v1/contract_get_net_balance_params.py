@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Literal
+
 from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
 
 from ..shared_params.balance_filter import BalanceFilter
 
 __all__ = ["ContractGetNetBalanceParams"]
-
 
 class ContractGetNetBalanceParams(TypedDict, total=False):
     customer_id: Required[str]

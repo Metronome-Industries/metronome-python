@@ -1,134 +1,49 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ..._models import BaseModel
+
 from datetime import datetime
+
+from typing import Optional, List, Dict
+
+from ..shared.credit_type_data import CreditTypeData
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
-from ..shared.tier import Tier
-from ..shared.discount import Discount
-from ..shared.pro_service import ProService
-from ..shared.override_tier import OverrideTier
-from ..shared.commit_specifier import CommitSpecifier
-from ..shared.credit_type_data import CreditTypeData
 from ..shared.schedule_duration import ScheduleDuration
-from ..shared.commit_specifier_input import CommitSpecifierInput
-from ..shared.payment_gate_config_v2 import PaymentGateConfigV2
-from ..shared.schedule_point_in_time import SchedulePointInTime
-from ..shared.update_base_threshold_commit import UpdateBaseThresholdCommit
+
 from ..shared.commit_hierarchy_configuration import CommitHierarchyConfiguration
-from ..shared.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+
+from ..shared.commit_specifier_input import CommitSpecifierInput
+
+from ..shared.tier import Tier
+
+from ..shared.override_tier import OverrideTier
+
+from ..shared.commit_specifier import CommitSpecifier
+
 from ..shared.recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
+
+from ..shared.schedule_point_in_time import SchedulePointInTime
+
+from ..shared.update_base_threshold_commit import UpdateBaseThresholdCommit
+
+from ..shared.payment_gate_config_v2 import PaymentGateConfigV2
+
+from ..shared.discount import Discount
+
 from ..shared.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
-__all__ = [
-    "ContractGetEditHistoryResponse",
-    "Data",
-    "DataAddCommit",
-    "DataAddCommitProduct",
-    "DataAddCommitInvoiceSchedule",
-    "DataAddCommitInvoiceScheduleScheduleItem",
-    "DataAddCredit",
-    "DataAddCreditProduct",
-    "DataAddOverride",
-    "DataAddOverrideOverrideSpecifier",
-    "DataAddOverrideOverwriteRate",
-    "DataAddOverrideProduct",
-    "DataAddRecurringCommit",
-    "DataAddRecurringCommitAccessAmount",
-    "DataAddRecurringCommitCommitDuration",
-    "DataAddRecurringCommitProduct",
-    "DataAddRecurringCommitContract",
-    "DataAddRecurringCommitInvoiceAmount",
-    "DataAddRecurringCommitProrationRounding",
-    "DataAddRecurringCommitProrationRoundingAccess",
-    "DataAddRecurringCommitProrationRoundingInvoice",
-    "DataAddRecurringCredit",
-    "DataAddRecurringCreditAccessAmount",
-    "DataAddRecurringCreditCommitDuration",
-    "DataAddRecurringCreditProduct",
-    "DataAddRecurringCreditContract",
-    "DataAddRecurringCreditProrationRounding",
-    "DataAddRecurringCreditProrationRoundingAccess",
-    "DataAddResellerRoyalty",
-    "DataAddScheduledCharge",
-    "DataAddScheduledChargeProduct",
-    "DataAddSubscription",
-    "DataAddSubscriptionBillingPeriods",
-    "DataAddSubscriptionBillingPeriodsCurrent",
-    "DataAddSubscriptionBillingPeriodsNext",
-    "DataAddSubscriptionBillingPeriodsPrevious",
-    "DataAddSubscriptionProration",
-    "DataAddSubscriptionProrationRounding",
-    "DataAddSubscriptionQuantitySchedule",
-    "DataAddSubscriptionSubscriptionRate",
-    "DataAddSubscriptionSubscriptionRateProduct",
-    "DataAddSubscriptionBillingCycleConfig",
-    "DataAddSubscriptionSeatConfig",
-    "DataAddUsageFilter",
-    "DataArchiveCommit",
-    "DataArchiveCredit",
-    "DataArchiveScheduledCharge",
-    "DataRemoveOverride",
-    "DataUpdateCommit",
-    "DataUpdateCommitAccessSchedule",
-    "DataUpdateCommitAccessScheduleAddScheduleItem",
-    "DataUpdateCommitAccessScheduleRemoveScheduleItem",
-    "DataUpdateCommitAccessScheduleUpdateScheduleItem",
-    "DataUpdateCommitInvoiceSchedule",
-    "DataUpdateCommitInvoiceScheduleAddScheduleItem",
-    "DataUpdateCommitInvoiceScheduleRemoveScheduleItem",
-    "DataUpdateCommitInvoiceScheduleUpdateScheduleItem",
-    "DataUpdateCredit",
-    "DataUpdateCreditAccessSchedule",
-    "DataUpdateCreditAccessScheduleAddScheduleItem",
-    "DataUpdateCreditAccessScheduleRemoveScheduleItem",
-    "DataUpdateCreditAccessScheduleUpdateScheduleItem",
-    "DataUpdateDiscount",
-    "DataUpdateDiscountSchedule",
-    "DataUpdateDiscountScheduleRecurringSchedule",
-    "DataUpdateDiscountScheduleScheduleItem",
-    "DataUpdatePrepaidBalanceThresholdConfiguration",
-    "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
-    "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
-    "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
-    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
-    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude",
-    "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter",
-    "DataUpdateRecurringCommit",
-    "DataUpdateRecurringCommitAccessAmount",
-    "DataUpdateRecurringCommitInvoiceAmount",
-    "DataUpdateRecurringCommitProrationRounding",
-    "DataUpdateRecurringCommitProrationRoundingAccess",
-    "DataUpdateRecurringCommitProrationRoundingInvoice",
-    "DataUpdateRecurringCredit",
-    "DataUpdateRecurringCreditAccessAmount",
-    "DataUpdateRecurringCreditProrationRounding",
-    "DataUpdateRecurringCreditProrationRoundingAccess",
-    "DataUpdateRefundInvoice",
-    "DataUpdateScheduledCharge",
-    "DataUpdateScheduledChargeInvoiceSchedule",
-    "DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem",
-    "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
-    "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
-    "DataUpdateSpendThresholdConfiguration",
-    "DataUpdateSpendThresholdConfigurationDiscountConfiguration",
-    "DataUpdateSpendThresholdConfigurationDiscountConfigurationCap",
-    "DataUpdateSubscription",
-    "DataUpdateSubscriptionQuantityUpdate",
-    "DataUpdateSubscriptionSeatUpdates",
-    "DataUpdateSubscriptionSeatUpdatesAddSeatID",
-    "DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat",
-    "DataUpdateSubscriptionSeatUpdatesRemoveSeatID",
-    "DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat",
-]
+from ..shared.pro_service import ProService
 
+from ..shared.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+
+__all__ = ["ContractGetEditHistoryResponse", "Data", "DataAddCommit", "DataAddCommitProduct", "DataAddCommitInvoiceSchedule", "DataAddCommitInvoiceScheduleScheduleItem", "DataAddCredit", "DataAddCreditProduct", "DataAddOverride", "DataAddOverrideOverrideSpecifier", "DataAddOverrideOverwriteRate", "DataAddOverrideProduct", "DataAddRecurringCommit", "DataAddRecurringCommitAccessAmount", "DataAddRecurringCommitCommitDuration", "DataAddRecurringCommitProduct", "DataAddRecurringCommitContract", "DataAddRecurringCommitInvoiceAmount", "DataAddRecurringCommitProrationRounding", "DataAddRecurringCommitProrationRoundingAccess", "DataAddRecurringCommitProrationRoundingInvoice", "DataAddRecurringCredit", "DataAddRecurringCreditAccessAmount", "DataAddRecurringCreditCommitDuration", "DataAddRecurringCreditProduct", "DataAddRecurringCreditContract", "DataAddRecurringCreditProrationRounding", "DataAddRecurringCreditProrationRoundingAccess", "DataAddResellerRoyalty", "DataAddScheduledCharge", "DataAddScheduledChargeProduct", "DataAddSubscription", "DataAddSubscriptionBillingPeriods", "DataAddSubscriptionBillingPeriodsCurrent", "DataAddSubscriptionBillingPeriodsNext", "DataAddSubscriptionBillingPeriodsPrevious", "DataAddSubscriptionProration", "DataAddSubscriptionProrationRounding", "DataAddSubscriptionQuantitySchedule", "DataAddSubscriptionSubscriptionRate", "DataAddSubscriptionSubscriptionRateProduct", "DataAddSubscriptionBillingCycleConfig", "DataAddSubscriptionSeatConfig", "DataAddUsageFilter", "DataArchiveCommit", "DataArchiveCredit", "DataArchiveScheduledCharge", "DataRemoveOverride", "DataUpdateCommit", "DataUpdateCommitAccessSchedule", "DataUpdateCommitAccessScheduleAddScheduleItem", "DataUpdateCommitAccessScheduleRemoveScheduleItem", "DataUpdateCommitAccessScheduleUpdateScheduleItem", "DataUpdateCommitInvoiceSchedule", "DataUpdateCommitInvoiceScheduleAddScheduleItem", "DataUpdateCommitInvoiceScheduleRemoveScheduleItem", "DataUpdateCommitInvoiceScheduleUpdateScheduleItem", "DataUpdateCredit", "DataUpdateCreditAccessSchedule", "DataUpdateCreditAccessScheduleAddScheduleItem", "DataUpdateCreditAccessScheduleRemoveScheduleItem", "DataUpdateCreditAccessScheduleUpdateScheduleItem", "DataUpdateDiscount", "DataUpdateDiscountSchedule", "DataUpdateDiscountScheduleRecurringSchedule", "DataUpdateDiscountScheduleScheduleItem", "DataUpdatePrepaidBalanceThresholdConfiguration", "DataUpdatePrepaidBalanceThresholdConfigurationCommit", "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration", "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap", "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier", "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude", "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter", "DataUpdateRecurringCommit", "DataUpdateRecurringCommitAccessAmount", "DataUpdateRecurringCommitInvoiceAmount", "DataUpdateRecurringCommitProrationRounding", "DataUpdateRecurringCommitProrationRoundingAccess", "DataUpdateRecurringCommitProrationRoundingInvoice", "DataUpdateRecurringCredit", "DataUpdateRecurringCreditAccessAmount", "DataUpdateRecurringCreditProrationRounding", "DataUpdateRecurringCreditProrationRoundingAccess", "DataUpdateRefundInvoice", "DataUpdateScheduledCharge", "DataUpdateScheduledChargeInvoiceSchedule", "DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem", "DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem", "DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem", "DataUpdateSpendThresholdConfiguration", "DataUpdateSpendThresholdConfigurationDiscountConfiguration", "DataUpdateSpendThresholdConfigurationDiscountConfigurationCap", "DataUpdateSubscription", "DataUpdateSubscriptionQuantityUpdate", "DataUpdateSubscriptionSeatUpdates", "DataUpdateSubscriptionSeatUpdatesAddSeatID", "DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat", "DataUpdateSubscriptionSeatUpdatesRemoveSeatID", "DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat"]
 
 class DataAddCommitProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
     id: str
@@ -143,17 +58,14 @@ class DataAddCommitInvoiceScheduleScheduleItem(BaseModel):
 
     unit_price: Optional[float] = None
 
-
 class DataAddCommitInvoiceSchedule(BaseModel):
     """The schedule that the customer will be invoiced for this commit."""
-
     credit_type: Optional[CreditTypeData] = None
 
     do_not_invoice: Optional[bool] = None
     """If true, this schedule will not generate an invoice."""
 
     schedule_items: Optional[List[DataAddCommitInvoiceScheduleScheduleItem]] = None
-
 
 class DataAddCommit(BaseModel):
     id: str
@@ -208,12 +120,10 @@ class DataAddCommit(BaseModel):
     body of `specifiers`.
     """
 
-
 class DataAddCreditProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataAddCredit(BaseModel):
     id: str
@@ -262,7 +172,6 @@ class DataAddCredit(BaseModel):
     body of `specifiers`.
     """
 
-
 class DataAddOverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_ids: Optional[List[str]] = None
 
@@ -279,7 +188,6 @@ class DataAddOverrideOverrideSpecifier(BaseModel):
     product_tags: Optional[List[str]] = None
 
     recurring_commit_ids: Optional[List[str]] = None
-
 
 class DataAddOverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
@@ -311,12 +219,10 @@ class DataAddOverrideOverwriteRate(BaseModel):
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
 
-
 class DataAddOverrideProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataAddOverride(BaseModel):
     id: str
@@ -349,44 +255,35 @@ class DataAddOverride(BaseModel):
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
 
-
 class DataAddRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataAddRecurringCommitCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataAddRecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataAddRecurringCommitContract(BaseModel):
     id: str
 
-
 class DataAddRecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit. Not required."""
-
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
-
 
 class DataAddRecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -398,7 +295,6 @@ class DataAddRecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataAddRecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -409,14 +305,11 @@ class DataAddRecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataAddRecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
-
     access: Optional[DataAddRecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[DataAddRecurringCommitProrationRoundingInvoice] = None
-
 
 class DataAddRecurringCommit(BaseModel):
     id: str
@@ -502,34 +395,27 @@ class DataAddRecurringCommit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataAddRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataAddRecurringCreditCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataAddRecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataAddRecurringCreditContract(BaseModel):
     id: str
-
 
 class DataAddRecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -541,12 +427,9 @@ class DataAddRecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataAddRecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
-
     access: Optional[DataAddRecurringCreditProrationRoundingAccess] = None
-
 
 class DataAddRecurringCredit(BaseModel):
     id: str
@@ -629,7 +512,6 @@ class DataAddRecurringCredit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataAddResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
 
@@ -657,12 +539,10 @@ class DataAddResellerRoyalty(BaseModel):
 
     starting_at: Optional[datetime] = None
 
-
 class DataAddScheduledChargeProduct(BaseModel):
     id: str
 
     name: str
-
 
 class DataAddScheduledCharge(BaseModel):
     id: str
@@ -677,34 +557,28 @@ class DataAddScheduledCharge(BaseModel):
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
-
 class DataAddSubscriptionBillingPeriodsCurrent(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
-
 
 class DataAddSubscriptionBillingPeriodsNext(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
-
 class DataAddSubscriptionBillingPeriodsPrevious(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
-
 class DataAddSubscriptionBillingPeriods(BaseModel):
     """Previous, current, and next billing periods for the subscription."""
-
     current: Optional[DataAddSubscriptionBillingPeriodsCurrent] = None
 
     next: Optional[DataAddSubscriptionBillingPeriodsNext] = None
 
     previous: Optional[DataAddSubscriptionBillingPeriodsPrevious] = None
-
 
 class DataAddSubscriptionProrationRounding(BaseModel):
     decimal_places: float
@@ -716,14 +590,12 @@ class DataAddSubscriptionProrationRounding(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataAddSubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
 
     rounding: Optional[DataAddSubscriptionProrationRounding] = None
-
 
 class DataAddSubscriptionQuantitySchedule(BaseModel):
     quantity: float
@@ -732,18 +604,15 @@ class DataAddSubscriptionQuantitySchedule(BaseModel):
 
     ending_before: Optional[datetime] = None
 
-
 class DataAddSubscriptionSubscriptionRateProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataAddSubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: DataAddSubscriptionSubscriptionRateProduct
-
 
 class DataAddSubscriptionBillingCycleConfig(BaseModel):
     anchor_date: datetime
@@ -755,7 +624,6 @@ class DataAddSubscriptionBillingCycleConfig(BaseModel):
     own scheduled invoice.
     """
 
-
 class DataAddSubscriptionSeatConfig(BaseModel):
     seat_group_key: str
     """
@@ -766,7 +634,6 @@ class DataAddSubscriptionSeatConfig(BaseModel):
     recurring credits with an allocation per seat to be consumed by only one seat's
     usage.
     """
-
 
 class DataAddSubscription(BaseModel):
     billing_periods: DataAddSubscriptionBillingPeriods
@@ -816,7 +683,6 @@ class DataAddSubscription(BaseModel):
 
     seat_config: Optional[DataAddSubscriptionSeatConfig] = None
 
-
 class DataAddUsageFilter(BaseModel):
     group_key: str
 
@@ -834,22 +700,17 @@ class DataAddUsageFilter(BaseModel):
     end of the contract. It will be undefined if the contract is open-ended.
     """
 
-
 class DataArchiveCommit(BaseModel):
     id: str
-
 
 class DataArchiveCredit(BaseModel):
     id: str
 
-
 class DataArchiveScheduledCharge(BaseModel):
     id: str
 
-
 class DataRemoveOverride(BaseModel):
     id: str
-
 
 class DataUpdateCommitAccessScheduleAddScheduleItem(BaseModel):
     amount: float
@@ -860,10 +721,8 @@ class DataUpdateCommitAccessScheduleAddScheduleItem(BaseModel):
     starting_at: datetime
     """RFC 3339 timestamp (inclusive)"""
 
-
 class DataUpdateCommitAccessScheduleRemoveScheduleItem(BaseModel):
     id: str
-
 
 class DataUpdateCommitAccessScheduleUpdateScheduleItem(BaseModel):
     id: str
@@ -876,14 +735,12 @@ class DataUpdateCommitAccessScheduleUpdateScheduleItem(BaseModel):
     starting_at: Optional[datetime] = None
     """RFC 3339 timestamp (inclusive)"""
 
-
 class DataUpdateCommitAccessSchedule(BaseModel):
     add_schedule_items: Optional[List[DataUpdateCommitAccessScheduleAddScheduleItem]] = None
 
     remove_schedule_items: Optional[List[DataUpdateCommitAccessScheduleRemoveScheduleItem]] = None
 
     update_schedule_items: Optional[List[DataUpdateCommitAccessScheduleUpdateScheduleItem]] = None
-
 
 class DataUpdateCommitInvoiceScheduleAddScheduleItem(BaseModel):
     timestamp: datetime
@@ -894,10 +751,8 @@ class DataUpdateCommitInvoiceScheduleAddScheduleItem(BaseModel):
 
     unit_price: Optional[float] = None
 
-
 class DataUpdateCommitInvoiceScheduleRemoveScheduleItem(BaseModel):
     id: str
-
 
 class DataUpdateCommitInvoiceScheduleUpdateScheduleItem(BaseModel):
     id: str
@@ -910,14 +765,12 @@ class DataUpdateCommitInvoiceScheduleUpdateScheduleItem(BaseModel):
 
     unit_price: Optional[float] = None
 
-
 class DataUpdateCommitInvoiceSchedule(BaseModel):
     add_schedule_items: Optional[List[DataUpdateCommitInvoiceScheduleAddScheduleItem]] = None
 
     remove_schedule_items: Optional[List[DataUpdateCommitInvoiceScheduleRemoveScheduleItem]] = None
 
     update_schedule_items: Optional[List[DataUpdateCommitInvoiceScheduleUpdateScheduleItem]] = None
-
 
 class DataUpdateCommit(BaseModel):
     id: str
@@ -972,7 +825,6 @@ class DataUpdateCommit(BaseModel):
     body of `specifiers`.
     """
 
-
 class DataUpdateCreditAccessScheduleAddScheduleItem(BaseModel):
     amount: float
 
@@ -982,10 +834,8 @@ class DataUpdateCreditAccessScheduleAddScheduleItem(BaseModel):
     starting_at: datetime
     """RFC 3339 timestamp (inclusive)"""
 
-
 class DataUpdateCreditAccessScheduleRemoveScheduleItem(BaseModel):
     id: str
-
 
 class DataUpdateCreditAccessScheduleUpdateScheduleItem(BaseModel):
     id: str
@@ -998,14 +848,12 @@ class DataUpdateCreditAccessScheduleUpdateScheduleItem(BaseModel):
     starting_at: Optional[datetime] = None
     """RFC 3339 timestamp (inclusive)"""
 
-
 class DataUpdateCreditAccessSchedule(BaseModel):
     add_schedule_items: Optional[List[DataUpdateCreditAccessScheduleAddScheduleItem]] = None
 
     remove_schedule_items: Optional[List[DataUpdateCreditAccessScheduleRemoveScheduleItem]] = None
 
     update_schedule_items: Optional[List[DataUpdateCreditAccessScheduleUpdateScheduleItem]] = None
-
 
 class DataUpdateCredit(BaseModel):
     id: str
@@ -1058,13 +906,11 @@ class DataUpdateCredit(BaseModel):
     body of `specifiers`.
     """
 
-
 class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
-
     amount_distribution: Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]
 
     ending_before: datetime
@@ -1096,7 +942,6 @@ class DataUpdateDiscountScheduleRecurringSchedule(BaseModel):
     with quantity. If specified amount cannot be provided.
     """
 
-
 class DataUpdateDiscountScheduleScheduleItem(BaseModel):
     timestamp: datetime
     """timestamp of the scheduled event"""
@@ -1122,10 +967,8 @@ class DataUpdateDiscountScheduleScheduleItem(BaseModel):
     with quantity. If specified amount cannot be provided.
     """
 
-
 class DataUpdateDiscountSchedule(BaseModel):
     """Must provide either schedule_items or recurring_schedule."""
-
     credit_type_id: Optional[str] = None
     """Defaults to USD (cents) if not passed."""
 
@@ -1146,7 +989,6 @@ class DataUpdateDiscountSchedule(BaseModel):
     schedule_items: Optional[List[DataUpdateDiscountScheduleScheduleItem]] = None
     """Either provide amount or provide both unit_price and quantity."""
 
-
 class DataUpdateDiscount(BaseModel):
     id: str
 
@@ -1159,7 +1001,6 @@ class DataUpdateDiscount(BaseModel):
 
     schedule: Optional[DataUpdateDiscountSchedule] = None
     """Must provide either schedule_items or recurring_schedule."""
-
 
 class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
@@ -1186,16 +1027,13 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
     body of `specifiers`.
     """
 
-
 class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap(BaseModel):
     """Update the discount cap. Set to null to remove an existing cap."""
-
     amount: float
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: str
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseModel):
     cap: Optional[DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap] = None
@@ -1208,7 +1046,6 @@ class DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(BaseMo
     the customer pays 85% of the original amount (a 15% discount).
     """
 
-
 class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
     entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
 
@@ -1216,16 +1053,11 @@ class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExc
 
     value: str
 
-
 class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude(BaseModel):
-    custom_field_filters: List[
-        DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter
-    ]
-
+    custom_field_filters: List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter]
 
 class DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier(BaseModel):
     exclude: List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude]
-
 
 class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommit] = None
@@ -1257,26 +1089,21 @@ class DataUpdatePrepaidBalanceThresholdConfiguration(BaseModel):
     be initiated.
     """
 
-    threshold_balance_specifiers: Optional[
-        List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
-    ] = None
+    threshold_balance_specifiers: Optional[List[DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]] = None
     """
     Determines which balances are excluded from remaining balance calculation for
     threshold billing.
     """
-
 
 class DataUpdateRecurringCommitAccessAmount(BaseModel):
     quantity: Optional[float] = None
 
     unit_price: Optional[float] = None
 
-
 class DataUpdateRecurringCommitInvoiceAmount(BaseModel):
     quantity: Optional[float] = None
 
     unit_price: Optional[float] = None
-
 
 class DataUpdateRecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -1288,7 +1115,6 @@ class DataUpdateRecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataUpdateRecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -1299,14 +1125,11 @@ class DataUpdateRecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataUpdateRecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
-
     access: Optional[DataUpdateRecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[DataUpdateRecurringCommitProrationRoundingInvoice] = None
-
 
 class DataUpdateRecurringCommit(BaseModel):
     id: str
@@ -1322,12 +1145,10 @@ class DataUpdateRecurringCommit(BaseModel):
 
     rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
 
-
 class DataUpdateRecurringCreditAccessAmount(BaseModel):
     quantity: Optional[float] = None
 
     unit_price: Optional[float] = None
-
 
 class DataUpdateRecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -1339,12 +1160,9 @@ class DataUpdateRecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataUpdateRecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
-
     access: Optional[DataUpdateRecurringCreditProrationRoundingAccess] = None
-
 
 class DataUpdateRecurringCredit(BaseModel):
     id: str
@@ -1358,12 +1176,10 @@ class DataUpdateRecurringCredit(BaseModel):
 
     rate_type: Optional[Literal["LIST_RATE", "COMMIT_RATE"]] = None
 
-
 class DataUpdateRefundInvoice(BaseModel):
     date: datetime
 
     invoice_id: str
-
 
 class DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem(BaseModel):
     timestamp: datetime
@@ -1374,10 +1190,8 @@ class DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem(BaseModel):
 
     unit_price: Optional[float] = None
 
-
 class DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem(BaseModel):
     id: str
-
 
 class DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem(BaseModel):
     id: str
@@ -1390,14 +1204,12 @@ class DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem(BaseModel):
 
     unit_price: Optional[float] = None
 
-
 class DataUpdateScheduledChargeInvoiceSchedule(BaseModel):
     add_schedule_items: Optional[List[DataUpdateScheduledChargeInvoiceScheduleAddScheduleItem]] = None
 
     remove_schedule_items: Optional[List[DataUpdateScheduledChargeInvoiceScheduleRemoveScheduleItem]] = None
 
     update_schedule_items: Optional[List[DataUpdateScheduledChargeInvoiceScheduleUpdateScheduleItem]] = None
-
 
 class DataUpdateScheduledCharge(BaseModel):
     id: str
@@ -1408,16 +1220,13 @@ class DataUpdateScheduledCharge(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
 
-
 class DataUpdateSpendThresholdConfigurationDiscountConfigurationCap(BaseModel):
     """Update the discount cap. Set to null to remove an existing cap."""
-
     amount: float
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: str
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
     cap: Optional[DataUpdateSpendThresholdConfigurationDiscountConfigurationCap] = None
@@ -1429,7 +1238,6 @@ class DataUpdateSpendThresholdConfigurationDiscountConfiguration(BaseModel):
     discount. Set to null to remove the discount fraction. For example, 0.85 means
     the customer pays 85% of the original amount (a 15% discount).
     """
-
 
 class DataUpdateSpendThresholdConfiguration(BaseModel):
     commit: Optional[UpdateBaseThresholdCommit] = None
@@ -1452,7 +1260,6 @@ class DataUpdateSpendThresholdConfiguration(BaseModel):
     initiated.
     """
 
-
 class DataUpdateSubscriptionQuantityUpdate(BaseModel):
     starting_at: datetime
 
@@ -1460,13 +1267,11 @@ class DataUpdateSubscriptionQuantityUpdate(BaseModel):
 
     quantity_delta: Optional[float] = None
 
-
 class DataUpdateSubscriptionSeatUpdatesAddSeatID(BaseModel):
     seat_ids: List[str]
 
     starting_at: datetime
     """Assigned seats will be added/removed starting at this date."""
-
 
 class DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat(BaseModel):
     quantity: float
@@ -1478,13 +1283,11 @@ class DataUpdateSubscriptionSeatUpdatesAddUnassignedSeat(BaseModel):
     starting_at: datetime
     """Unassigned seats will be updated starting at this date."""
 
-
 class DataUpdateSubscriptionSeatUpdatesRemoveSeatID(BaseModel):
     seat_ids: List[str]
 
     starting_at: datetime
     """Assigned seats will be added/removed starting at this date."""
-
 
 class DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(BaseModel):
     quantity: float
@@ -1496,10 +1299,8 @@ class DataUpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(BaseModel):
     starting_at: datetime
     """Unassigned seats will be updated starting at this date."""
 
-
 class DataUpdateSubscriptionSeatUpdates(BaseModel):
     """Manage subscription seats for subscriptions in SEAT_BASED mode."""
-
     add_seat_ids: Optional[List[DataUpdateSubscriptionSeatUpdatesAddSeatID]] = None
     """Adds seat IDs to the subscription.
 
@@ -1529,7 +1330,6 @@ class DataUpdateSubscriptionSeatUpdates(BaseModel):
     seats.
     """
 
-
 class DataUpdateSubscription(BaseModel):
     id: str
 
@@ -1539,7 +1339,6 @@ class DataUpdateSubscription(BaseModel):
 
     seat_updates: Optional[DataUpdateSubscriptionSeatUpdates] = None
     """Manage subscription seats for subscriptions in SEAT_BASED mode."""
-
 
 class Data(BaseModel):
     id: str
@@ -1616,7 +1415,6 @@ class Data(BaseModel):
 
     update_subscriptions: Optional[List[DataUpdateSubscription]] = None
     """Optional list of subscriptions to update."""
-
 
 class ContractGetEditHistoryResponse(BaseModel):
     data: List[Data]

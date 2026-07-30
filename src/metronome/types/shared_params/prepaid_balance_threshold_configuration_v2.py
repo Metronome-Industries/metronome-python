@@ -2,24 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
-
-from ..._types import SequenceNotStr
-from .base_threshold_commit import BaseThresholdCommit
-from .commit_specifier_input import CommitSpecifierInput
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
-__all__ = [
-    "PrepaidBalanceThresholdConfigurationV2",
-    "Commit",
-    "DiscountConfiguration",
-    "DiscountConfigurationCap",
-    "ThresholdBalanceSpecifier",
-    "ThresholdBalanceSpecifierExclude",
-    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
-]
+from typing import Iterable
 
+from ..._types import SequenceNotStr
+
+from .commit_specifier_input import CommitSpecifierInput
+
+from .base_threshold_commit import BaseThresholdCommit
+
+from typing_extensions import TypedDict, Required, Literal
+
+__all__ = ["PrepaidBalanceThresholdConfigurationV2", "Commit", "DiscountConfiguration", "DiscountConfigurationCap", "ThresholdBalanceSpecifier", "ThresholdBalanceSpecifierExclude", "ThresholdBalanceSpecifierExcludeCustomFieldFilter"]
 
 class Commit(BaseThresholdCommit, total=False):
     applicable_product_ids: SequenceNotStr[str]
@@ -46,18 +41,15 @@ class Commit(BaseThresholdCommit, total=False):
     body of `specifiers`.
     """
 
-
 class DiscountConfigurationCap(TypedDict, total=False):
     """
     If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
     """
-
     amount: Required[float]
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: Required[str]
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DiscountConfiguration(TypedDict, total=False):
     payment_fraction: Required[float]
@@ -73,7 +65,6 @@ class DiscountConfiguration(TypedDict, total=False):
     this much spend in the billing period.
     """
 
-
 class ThresholdBalanceSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]]
 
@@ -81,14 +72,11 @@ class ThresholdBalanceSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
 
     value: Required[str]
 
-
 class ThresholdBalanceSpecifierExclude(TypedDict, total=False):
     custom_field_filters: Required[Iterable[ThresholdBalanceSpecifierExcludeCustomFieldFilter]]
 
-
 class ThresholdBalanceSpecifier(TypedDict, total=False):
     exclude: Required[Iterable[ThresholdBalanceSpecifierExclude]]
-
 
 class PrepaidBalanceThresholdConfigurationV2(TypedDict, total=False):
     commit: Required[Commit]

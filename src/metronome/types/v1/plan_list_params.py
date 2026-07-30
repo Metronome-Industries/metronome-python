@@ -6,7 +6,6 @@ from typing_extensions import TypedDict
 
 __all__ = ["PlanListParams"]
 
-
 class PlanListParams(TypedDict, total=False):
     limit: int
     """Max number of results that should be returned"""

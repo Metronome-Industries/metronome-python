@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-from datetime import datetime
-
 from ..._models import BaseModel
 
-__all__ = ["UsageListResponse"]
+from datetime import datetime
 
+from typing import Optional, Dict
+
+__all__ = ["UsageListResponse"]
 
 class UsageListResponse(BaseModel):
     billable_metric_id: str

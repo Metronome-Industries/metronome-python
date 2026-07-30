@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated, Literal
 
-from ..._types import SequenceNotStr
+from typing import Union, Iterable, Dict
+
+from datetime import datetime
+
 from ..._utils import PropertyInfo
 
-__all__ = ["ContractRetrieveRateScheduleParams", "Selector"]
+from ..._types import SequenceNotStr
 
+__all__ = ["ContractRetrieveRateScheduleParams", "Selector"]
 
 class ContractRetrieveRateScheduleParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -25,7 +27,7 @@ class ContractRetrieveRateScheduleParams(TypedDict, total=False):
     next_page: str
     """Cursor that indicates where the next page of results should start."""
 
-    at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """optional timestamp which overlaps with the returned rate schedule segments.
 
     When not specified, the current timestamp will be used.
@@ -36,7 +38,6 @@ class ContractRetrieveRateScheduleParams(TypedDict, total=False):
     List of rate selectors, rates matching ANY of the selectors will be included in
     the response. Passing no selectors will result in all rates being returned.
     """
-
 
 class Selector(TypedDict, total=False):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]

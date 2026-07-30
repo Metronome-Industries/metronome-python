@@ -2,23 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable, Optional
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Literal, Annotated
+
+from typing import Optional, Iterable, Union
 
 from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
+
 from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 
-__all__ = [
-    "ContractEditCreditParams",
-    "AccessSchedule",
-    "AccessScheduleAddScheduleItem",
-    "AccessScheduleRemoveScheduleItem",
-    "AccessScheduleUpdateScheduleItem",
-]
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
 
+from datetime import datetime
+
+from ..._utils import PropertyInfo
+
+__all__ = ["ContractEditCreditParams", "AccessSchedule", "AccessScheduleAddScheduleItem", "AccessScheduleRemoveScheduleItem", "AccessScheduleUpdateScheduleItem"]
 
 class ContractEditCreditParams(TypedDict, total=False):
     credit_id: Required[str]
@@ -84,28 +82,24 @@ class ContractEditCreditParams(TypedDict, total=False):
     body of `specifiers`.
     """
 
-
 class AccessScheduleAddScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
 class AccessScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
-
 
 class AccessScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
 
     amount: float
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
 
 class AccessSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[AccessScheduleAddScheduleItem]

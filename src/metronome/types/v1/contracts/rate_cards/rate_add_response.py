@@ -1,15 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ....._models import BaseModel
+
 from typing_extensions import Literal
 
-from ....._models import BaseModel
-from ....shared.tier import Tier
+from typing import Optional, Dict, List
+
 from ....shared.commit_rate import CommitRate
+
 from ....shared.credit_type_data import CreditTypeData
 
-__all__ = ["RateAddResponse", "Data"]
+from ....shared.tier import Tier
 
+__all__ = ["RateAddResponse", "Data"]
 
 class Data(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "CUSTOM", "TIERED", "TIERED_PERCENTAGE"]
@@ -53,7 +56,6 @@ class Data(BaseModel):
 
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
-
 
 class RateAddResponse(BaseModel):
     data: Data

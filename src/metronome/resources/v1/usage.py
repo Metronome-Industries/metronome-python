@@ -2,37 +2,49 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import usage_list_params, usage_ingest_params, usage_search_params, usage_list_with_groups_params
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPage, AsyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
-from ..._base_client import AsyncPaginator, make_request_options
+
+from ..._compat import cached_property
+
 from ...types.v1.usage_list_response import UsageListResponse
-from ...types.v1.usage_search_response import UsageSearchResponse
+
+from ...pagination import SyncCursorPageWithoutLimit, SyncCursorPage, AsyncCursorPageWithoutLimit, AsyncCursorPage
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Union, Iterable, Dict
+
+from datetime import datetime
+
+from typing_extensions import Literal
+
+from ..._types import Omit, omit, SequenceNotStr, NotGiven
+
 from ...types.v1.usage_list_with_groups_response import UsageListWithGroupsResponse
 
-__all__ = ["UsageResource", "AsyncUsageResource"]
+from ...types.v1.usage_search_response import UsageSearchResponse
 
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.v1 import usage_list_params, usage_ingest_params, usage_list_with_groups_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import usage_list_params
+from ...types.v1 import usage_ingest_params
+from ...types.v1 import usage_list_with_groups_params
+from ...types.v1 import usage_search_params
+
+__all__ = ["UsageResource", "AsyncUsageResource"]
 
 class UsageResource(SyncAPIResource):
     """
     [Usage events](https://docs.metronome.com/connecting-metronome/send-usage-data/) are the basis for billable metrics. Use these endpoints to send usage events to Metronome and retrieve aggregated event data.
     """
-
     @cached_property
     def with_raw_response(self) -> UsageResourceWithRawResponse:
         """
@@ -52,22 +64,20 @@ class UsageResource(SyncAPIResource):
         """
         return UsageResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        ending_before: Union[str, datetime],
-        starting_on: Union[str, datetime],
-        window_size: Literal["HOUR", "DAY", "NONE"],
-        next_page: str | Omit = omit,
-        billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPageWithoutLimit[UsageListResponse]:
+    def list(self,
+    *,
+    ending_before: Union[str, datetime],
+    starting_on: Union[str, datetime],
+    window_size: Literal["HOUR", "DAY", "NONE"],
+    next_page: str | Omit = omit,
+    billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPageWithoutLimit[UsageListResponse]:
         """
         Retrieve aggregated usage data across multiple customers and billable metrics in
         a single query. This batch endpoint enables you to fetch usage patterns at
@@ -126,39 +136,30 @@ class UsageResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/usage",
-            page=SyncCursorPageWithoutLimit[UsageListResponse],
-            body=maybe_transform(
-                {
-                    "ending_before": ending_before,
-                    "starting_on": starting_on,
-                    "window_size": window_size,
-                    "billable_metrics": billable_metrics,
-                    "customer_ids": customer_ids,
-                },
-                usage_list_params.UsageListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"next_page": next_page}, usage_list_params.UsageListParams),
-            ),
+            page = SyncCursorPageWithoutLimit[UsageListResponse],
+            body=maybe_transform({
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+                "window_size": window_size,
+                "billable_metrics": billable_metrics,
+                "customer_ids": customer_ids,
+            }, usage_list_params.UsageListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page
+            }, usage_list_params.UsageListParams)),
             model=UsageListResponse,
             method="post",
         )
 
-    def ingest(
-        self,
-        *,
-        usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def ingest(self,
+    *,
+    usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         The ingest endpoint is the primary method for sending usage events to Metronome,
         serving as the foundation for all billing calculations in your usage-based
@@ -260,33 +261,29 @@ class UsageResource(SyncAPIResource):
         return self._post(
             "/v1/ingest",
             body=maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def list_with_groups(
-        self,
-        *,
-        billable_metric_id: str,
-        customer_id: str,
-        window_size: Literal["HOUR", "DAY", "NONE"],
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        current_period: bool | Omit = omit,
-        ending_before: Union[str, datetime] | Omit = omit,
-        group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
-        group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
-        group_key: SequenceNotStr[str] | Omit = omit,
-        starting_on: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[UsageListWithGroupsResponse]:
+    def list_with_groups(self,
+    *,
+    billable_metric_id: str,
+    customer_id: str,
+    window_size: Literal["HOUR", "DAY", "NONE"],
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    current_period: bool | Omit = omit,
+    ending_before: Union[str, datetime] | Omit = omit,
+    group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+    group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
+    group_key: SequenceNotStr[str] | Omit = omit,
+    starting_on: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[UsageListWithGroupsResponse]:
         """
         Retrieve granular usage data for a specific customer and billable metric, with
         the ability to break down usage by custom grouping dimensions. This endpoint
@@ -390,49 +387,35 @@ class UsageResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/usage/groups",
-            page=SyncCursorPage[UsageListWithGroupsResponse],
-            body=maybe_transform(
-                {
-                    "billable_metric_id": billable_metric_id,
-                    "customer_id": customer_id,
-                    "window_size": window_size,
-                    "current_period": current_period,
-                    "ending_before": ending_before,
-                    "group_by": group_by,
-                    "group_filters": group_filters,
-                    "group_key": group_key,
-                    "starting_on": starting_on,
-                },
-                usage_list_with_groups_params.UsageListWithGroupsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    usage_list_with_groups_params.UsageListWithGroupsParams,
-                ),
-            ),
+            page = SyncCursorPage[UsageListWithGroupsResponse],
+            body=maybe_transform({
+                "billable_metric_id": billable_metric_id,
+                "customer_id": customer_id,
+                "window_size": window_size,
+                "current_period": current_period,
+                "ending_before": ending_before,
+                "group_by": group_by,
+                "group_filters": group_filters,
+                "group_key": group_key,
+                "starting_on": starting_on,
+            }, usage_list_with_groups_params.UsageListWithGroupsParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, usage_list_with_groups_params.UsageListWithGroupsParams)),
             model=UsageListWithGroupsResponse,
             method="post",
         )
 
-    def search(
-        self,
-        *,
-        transaction_ids: SequenceNotStr[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UsageSearchResponse:
+    def search(self,
+    *,
+    transaction_ids: SequenceNotStr[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> UsageSearchResponse:
         """
         This endpoint retrieves events by transaction ID for events that occurred within
         the last 34 days. It is specifically designed for sampling-based testing
@@ -482,19 +465,17 @@ class UsageResource(SyncAPIResource):
         """
         return self._post(
             "/v1/events/search",
-            body=maybe_transform({"transaction_ids": transaction_ids}, usage_search_params.UsageSearchParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "transaction_ids": transaction_ids
+            }, usage_search_params.UsageSearchParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=UsageSearchResponse,
         )
-
 
 class AsyncUsageResource(AsyncAPIResource):
     """
     [Usage events](https://docs.metronome.com/connecting-metronome/send-usage-data/) are the basis for billable metrics. Use these endpoints to send usage events to Metronome and retrieve aggregated event data.
     """
-
     @cached_property
     def with_raw_response(self) -> AsyncUsageResourceWithRawResponse:
         """
@@ -514,22 +495,20 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         return AsyncUsageResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        ending_before: Union[str, datetime],
-        starting_on: Union[str, datetime],
-        window_size: Literal["HOUR", "DAY", "NONE"],
-        next_page: str | Omit = omit,
-        billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[UsageListResponse, AsyncCursorPageWithoutLimit[UsageListResponse]]:
+    def list(self,
+    *,
+    ending_before: Union[str, datetime],
+    starting_on: Union[str, datetime],
+    window_size: Literal["HOUR", "DAY", "NONE"],
+    next_page: str | Omit = omit,
+    billable_metrics: Iterable[usage_list_params.BillableMetric] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[UsageListResponse, AsyncCursorPageWithoutLimit[UsageListResponse]]:
         """
         Retrieve aggregated usage data across multiple customers and billable metrics in
         a single query. This batch endpoint enables you to fetch usage patterns at
@@ -588,39 +567,30 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/usage",
-            page=AsyncCursorPageWithoutLimit[UsageListResponse],
-            body=maybe_transform(
-                {
-                    "ending_before": ending_before,
-                    "starting_on": starting_on,
-                    "window_size": window_size,
-                    "billable_metrics": billable_metrics,
-                    "customer_ids": customer_ids,
-                },
-                usage_list_params.UsageListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"next_page": next_page}, usage_list_params.UsageListParams),
-            ),
+            page = AsyncCursorPageWithoutLimit[UsageListResponse],
+            body=maybe_transform({
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+                "window_size": window_size,
+                "billable_metrics": billable_metrics,
+                "customer_ids": customer_ids,
+            }, usage_list_params.UsageListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page
+            }, usage_list_params.UsageListParams)),
             model=UsageListResponse,
             method="post",
         )
 
-    async def ingest(
-        self,
-        *,
-        usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def ingest(self,
+    *,
+    usage: Iterable[usage_ingest_params.Usage] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """
         The ingest endpoint is the primary method for sending usage events to Metronome,
         serving as the foundation for all billing calculations in your usage-based
@@ -722,33 +692,29 @@ class AsyncUsageResource(AsyncAPIResource):
         return await self._post(
             "/v1/ingest",
             body=await async_maybe_transform(usage, Iterable[usage_ingest_params.Usage]),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def list_with_groups(
-        self,
-        *,
-        billable_metric_id: str,
-        customer_id: str,
-        window_size: Literal["HOUR", "DAY", "NONE"],
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        current_period: bool | Omit = omit,
-        ending_before: Union[str, datetime] | Omit = omit,
-        group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
-        group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
-        group_key: SequenceNotStr[str] | Omit = omit,
-        starting_on: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[UsageListWithGroupsResponse, AsyncCursorPage[UsageListWithGroupsResponse]]:
+    def list_with_groups(self,
+    *,
+    billable_metric_id: str,
+    customer_id: str,
+    window_size: Literal["HOUR", "DAY", "NONE"],
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    current_period: bool | Omit = omit,
+    ending_before: Union[str, datetime] | Omit = omit,
+    group_by: usage_list_with_groups_params.GroupBy | Omit = omit,
+    group_filters: Dict[str, SequenceNotStr[str]] | Omit = omit,
+    group_key: SequenceNotStr[str] | Omit = omit,
+    starting_on: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[UsageListWithGroupsResponse, AsyncCursorPage[UsageListWithGroupsResponse]]:
         """
         Retrieve granular usage data for a specific customer and billable metric, with
         the ability to break down usage by custom grouping dimensions. This endpoint
@@ -852,49 +818,35 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/usage/groups",
-            page=AsyncCursorPage[UsageListWithGroupsResponse],
-            body=maybe_transform(
-                {
-                    "billable_metric_id": billable_metric_id,
-                    "customer_id": customer_id,
-                    "window_size": window_size,
-                    "current_period": current_period,
-                    "ending_before": ending_before,
-                    "group_by": group_by,
-                    "group_filters": group_filters,
-                    "group_key": group_key,
-                    "starting_on": starting_on,
-                },
-                usage_list_with_groups_params.UsageListWithGroupsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    usage_list_with_groups_params.UsageListWithGroupsParams,
-                ),
-            ),
+            page = AsyncCursorPage[UsageListWithGroupsResponse],
+            body=maybe_transform({
+                "billable_metric_id": billable_metric_id,
+                "customer_id": customer_id,
+                "window_size": window_size,
+                "current_period": current_period,
+                "ending_before": ending_before,
+                "group_by": group_by,
+                "group_filters": group_filters,
+                "group_key": group_key,
+                "starting_on": starting_on,
+            }, usage_list_with_groups_params.UsageListWithGroupsParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, usage_list_with_groups_params.UsageListWithGroupsParams)),
             model=UsageListWithGroupsResponse,
             method="post",
         )
 
-    async def search(
-        self,
-        *,
-        transaction_ids: SequenceNotStr[str],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> UsageSearchResponse:
+    async def search(self,
+    *,
+    transaction_ids: SequenceNotStr[str],
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> UsageSearchResponse:
         """
         This endpoint retrieves events by transaction ID for events that occurred within
         the last 34 days. It is specifically designed for sampling-based testing
@@ -944,15 +896,12 @@ class AsyncUsageResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/events/search",
-            body=await async_maybe_transform(
-                {"transaction_ids": transaction_ids}, usage_search_params.UsageSearchParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "transaction_ids": transaction_ids
+            }, usage_search_params.UsageSearchParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=UsageSearchResponse,
         )
-
 
 class UsageResourceWithRawResponse:
     def __init__(self, usage: UsageResource) -> None:
@@ -971,7 +920,6 @@ class UsageResourceWithRawResponse:
             usage.search,
         )
 
-
 class AsyncUsageResourceWithRawResponse:
     def __init__(self, usage: AsyncUsageResource) -> None:
         self._usage = usage
@@ -989,7 +937,6 @@ class AsyncUsageResourceWithRawResponse:
             usage.search,
         )
 
-
 class UsageResourceWithStreamingResponse:
     def __init__(self, usage: UsageResource) -> None:
         self._usage = usage
@@ -1006,7 +953,6 @@ class UsageResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             usage.search,
         )
-
 
 class AsyncUsageResourceWithStreamingResponse:
     def __init__(self, usage: AsyncUsageResource) -> None:

@@ -1,17 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict
+
 from typing_extensions import Literal
 
-from .tier import Tier
-from ..._models import BaseModel
-from .override_tier import OverrideTier
-from .overwrite_rate import OverwriteRate
+from datetime import datetime
+
 from .credit_type_data import CreditTypeData
 
-__all__ = ["Override", "OverrideSpecifier", "Product"]
+from .override_tier import OverrideTier
 
+from .overwrite_rate import OverwriteRate
+
+from .tier import Tier
+
+__all__ = ["Override", "OverrideSpecifier", "Product"]
 
 class OverrideSpecifier(BaseModel):
     any_commit_or_credit_ids: Optional[List[str]] = None
@@ -30,12 +35,10 @@ class OverrideSpecifier(BaseModel):
 
     recurring_commit_ids: Optional[List[str]] = None
 
-
 class Product(BaseModel):
     id: str
 
     name: str
-
 
 class Override(BaseModel):
     id: str

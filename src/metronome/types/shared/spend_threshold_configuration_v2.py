@@ -1,25 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from ..._models import BaseModel
+
 from typing import Optional
 
-from ..._models import BaseModel
 from .base_threshold_commit import BaseThresholdCommit
+
 from .payment_gate_config_v2 import PaymentGateConfigV2
 
 __all__ = ["SpendThresholdConfigurationV2", "DiscountConfiguration", "DiscountConfigurationCap"]
-
 
 class DiscountConfigurationCap(BaseModel):
     """
     If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
     """
-
     amount: float
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: str
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DiscountConfiguration(BaseModel):
     payment_fraction: float
@@ -34,7 +33,6 @@ class DiscountConfiguration(BaseModel):
     If provided, the discount stops applying once the spend tracker has accumulated
     this much spend in the billing period.
     """
-
 
 class SpendThresholdConfigurationV2(BaseModel):
     commit: BaseThresholdCommit

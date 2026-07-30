@@ -2,41 +2,55 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import (
-    package_list_params,
-    package_create_params,
-    package_archive_params,
-    package_retrieve_params,
-    package_list_contracts_on_package_params,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPage, AsyncCursorPage
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.v1.package_list_response import PackageListResponse
+
+from ..._compat import cached_property
+
 from ...types.v1.package_create_response import PackageCreateResponse
-from ...types.v1.package_archive_response import PackageArchiveResponse
-from ...types.v1.package_retrieve_response import PackageRetrieveResponse
-from ...types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
-from ...types.v1.package_list_contracts_on_package_response import PackageListContractsOnPackageResponse
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Iterable, Union
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
 from ...types.shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = ["PackagesResource", "AsyncPackagesResource"]
+from ...types.shared_params.spend_threshold_configuration import SpendThresholdConfiguration
 
+from ...types.v1.package_retrieve_response import PackageRetrieveResponse
+
+from ...types.v1.package_list_response import PackageListResponse
+
+from ...pagination import SyncCursorPage, AsyncCursorPage
+
+from ...types.v1.package_archive_response import PackageArchiveResponse
+
+from ...types.v1.package_list_contracts_on_package_response import PackageListContractsOnPackageResponse
+
+from datetime import datetime
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.v1 import package_create_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import package_create_params
+from ...types.v1 import package_retrieve_params
+from ...types.v1 import package_list_params
+from ...types.v1 import package_archive_params
+from ...types.v1 import package_list_contracts_on_package_params
+from ...types import shared
+from ...types import shared
+
+__all__ = ["PackagesResource", "AsyncPackagesResource"]
 
 class PackagesResource(SyncAPIResource):
     @cached_property
@@ -58,40 +72,37 @@ class PackagesResource(SyncAPIResource):
         """
         return PackagesResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        aliases: Iterable[package_create_params.Alias] | Omit = omit,
-        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
-        | Omit = omit,
-        commits: Iterable[package_create_params.Commit] | Omit = omit,
-        contract_name: str | Omit = omit,
-        credits: Iterable[package_create_params.Credit] | Omit = omit,
-        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
-        duration: package_create_params.Duration | Omit = omit,
-        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
-        net_payment_terms_days: float | Omit = omit,
-        overrides: Iterable[package_create_params.Override] | Omit = omit,
-        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
-        rate_card_alias: str | Omit = omit,
-        rate_card_id: str | Omit = omit,
-        recurring_commits: Iterable[package_create_params.RecurringCommit] | Omit = omit,
-        recurring_credits: Iterable[package_create_params.RecurringCredit] | Omit = omit,
-        scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
-        scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
-        spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
-        spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
-        subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageCreateResponse:
+    def create(self,
+    *,
+    name: str,
+    aliases: Iterable[package_create_params.Alias] | Omit = omit,
+    billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"] | Omit = omit,
+    commits: Iterable[package_create_params.Commit] | Omit = omit,
+    contract_name: str | Omit = omit,
+    credits: Iterable[package_create_params.Credit] | Omit = omit,
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
+    duration: package_create_params.Duration | Omit = omit,
+    multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
+    net_payment_terms_days: float | Omit = omit,
+    overrides: Iterable[package_create_params.Override] | Omit = omit,
+    prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
+    rate_card_alias: str | Omit = omit,
+    rate_card_id: str | Omit = omit,
+    recurring_commits: Iterable[package_create_params.RecurringCommit] | Omit = omit,
+    recurring_credits: Iterable[package_create_params.RecurringCredit] | Omit = omit,
+    scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
+    scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
+    spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+    spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
+    subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageCreateResponse:
         """
         Create a package that defines a set of reusable, time-relative contract terms
         that can be used across cohorts of customers. Packages provide an abstraction
@@ -177,51 +188,44 @@ class PackagesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/packages/create",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "aliases": aliases,
-                    "billing_provider": billing_provider,
-                    "commits": commits,
-                    "contract_name": contract_name,
-                    "credits": credits,
-                    "delivery_method": delivery_method,
-                    "duration": duration,
-                    "multiplier_override_prioritization": multiplier_override_prioritization,
-                    "net_payment_terms_days": net_payment_terms_days,
-                    "overrides": overrides,
-                    "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
-                    "rate_card_alias": rate_card_alias,
-                    "rate_card_id": rate_card_id,
-                    "recurring_commits": recurring_commits,
-                    "recurring_credits": recurring_credits,
-                    "scheduled_charges": scheduled_charges,
-                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                    "spend_threshold_configuration": spend_threshold_configuration,
-                    "spend_trackers": spend_trackers,
-                    "subscriptions": subscriptions,
-                    "uniqueness_key": uniqueness_key,
-                    "usage_statement_schedule": usage_statement_schedule,
-                },
-                package_create_params.PackageCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "aliases": aliases,
+                "billing_provider": billing_provider,
+                "commits": commits,
+                "contract_name": contract_name,
+                "credits": credits,
+                "delivery_method": delivery_method,
+                "duration": duration,
+                "multiplier_override_prioritization": multiplier_override_prioritization,
+                "net_payment_terms_days": net_payment_terms_days,
+                "overrides": overrides,
+                "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                "rate_card_alias": rate_card_alias,
+                "rate_card_id": rate_card_id,
+                "recurring_commits": recurring_commits,
+                "recurring_credits": recurring_credits,
+                "scheduled_charges": scheduled_charges,
+                "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
+                "spend_threshold_configuration": spend_threshold_configuration,
+                "spend_trackers": spend_trackers,
+                "subscriptions": subscriptions,
+                "uniqueness_key": uniqueness_key,
+                "usage_statement_schedule": usage_statement_schedule,
+            }, package_create_params.PackageCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        package_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageRetrieveResponse:
+    def retrieve(self,
+    *,
+    package_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageRetrieveResponse:
         """
         Gets the details for a specific package, including name, aliases, duration, and
         terms. Use this endpoint to understand a package’s alias schedule, or display a
@@ -238,26 +242,24 @@ class PackagesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/packages/get",
-            body=maybe_transform({"package_id": package_id}, package_retrieve_params.PackageRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "package_id": package_id
+            }, package_retrieve_params.PackageRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[PackageListResponse]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[PackageListResponse]:
         """Lists all packages with details including name, aliases, duration, and terms.
 
         To
@@ -280,36 +282,27 @@ class PackagesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/packages/list",
-            page=SyncCursorPage[PackageListResponse],
-            body=maybe_transform({"archive_filter": archive_filter}, package_list_params.PackageListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    package_list_params.PackageListParams,
-                ),
-            ),
+            page = SyncCursorPage[PackageListResponse],
+            body=maybe_transform({
+                "archive_filter": archive_filter
+            }, package_list_params.PackageListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, package_list_params.PackageListParams)),
             model=PackageListResponse,
             method="post",
         )
 
-    def archive(
-        self,
-        *,
-        package_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageArchiveResponse:
+    def archive(self,
+    *,
+    package_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageArchiveResponse:
         """Archive a package.
 
         Archived packages cannot be used to create new contracts.
@@ -330,29 +323,27 @@ class PackagesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/packages/archive",
-            body=maybe_transform({"package_id": package_id}, package_archive_params.PackageArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "package_id": package_id
+            }, package_archive_params.PackageArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageArchiveResponse,
         )
 
-    def list_contracts_on_package(
-        self,
-        *,
-        package_id: str,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        covering_date: Union[str, datetime] | Omit = omit,
-        include_archived: bool | Omit = omit,
-        starting_at: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[PackageListContractsOnPackageResponse]:
+    def list_contracts_on_package(self,
+    *,
+    package_id: str,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    covering_date: Union[str, datetime] | Omit = omit,
+    include_archived: bool | Omit = omit,
+    starting_at: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[PackageListContractsOnPackageResponse]:
         """
         For a given package, returns all contract IDs and customer IDs associated with
         the package over a specific time period.
@@ -394,33 +385,20 @@ class PackagesResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/packages/listContractsOnPackage",
-            page=SyncCursorPage[PackageListContractsOnPackageResponse],
-            body=maybe_transform(
-                {
-                    "package_id": package_id,
-                    "covering_date": covering_date,
-                    "include_archived": include_archived,
-                    "starting_at": starting_at,
-                },
-                package_list_contracts_on_package_params.PackageListContractsOnPackageParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    package_list_contracts_on_package_params.PackageListContractsOnPackageParams,
-                ),
-            ),
+            page = SyncCursorPage[PackageListContractsOnPackageResponse],
+            body=maybe_transform({
+                "package_id": package_id,
+                "covering_date": covering_date,
+                "include_archived": include_archived,
+                "starting_at": starting_at,
+            }, package_list_contracts_on_package_params.PackageListContractsOnPackageParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, package_list_contracts_on_package_params.PackageListContractsOnPackageParams)),
             model=PackageListContractsOnPackageResponse,
             method="post",
         )
-
 
 class AsyncPackagesResource(AsyncAPIResource):
     @cached_property
@@ -442,40 +420,37 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return AsyncPackagesResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        aliases: Iterable[package_create_params.Alias] | Omit = omit,
-        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
-        | Omit = omit,
-        commits: Iterable[package_create_params.Commit] | Omit = omit,
-        contract_name: str | Omit = omit,
-        credits: Iterable[package_create_params.Credit] | Omit = omit,
-        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
-        duration: package_create_params.Duration | Omit = omit,
-        multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
-        net_payment_terms_days: float | Omit = omit,
-        overrides: Iterable[package_create_params.Override] | Omit = omit,
-        prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
-        rate_card_alias: str | Omit = omit,
-        rate_card_id: str | Omit = omit,
-        recurring_commits: Iterable[package_create_params.RecurringCommit] | Omit = omit,
-        recurring_credits: Iterable[package_create_params.RecurringCredit] | Omit = omit,
-        scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
-        scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
-        spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
-        spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
-        subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageCreateResponse:
+    async def create(self,
+    *,
+    name: str,
+    aliases: Iterable[package_create_params.Alias] | Omit = omit,
+    billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"] | Omit = omit,
+    commits: Iterable[package_create_params.Commit] | Omit = omit,
+    contract_name: str | Omit = omit,
+    credits: Iterable[package_create_params.Credit] | Omit = omit,
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
+    duration: package_create_params.Duration | Omit = omit,
+    multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
+    net_payment_terms_days: float | Omit = omit,
+    overrides: Iterable[package_create_params.Override] | Omit = omit,
+    prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
+    rate_card_alias: str | Omit = omit,
+    rate_card_id: str | Omit = omit,
+    recurring_commits: Iterable[package_create_params.RecurringCommit] | Omit = omit,
+    recurring_credits: Iterable[package_create_params.RecurringCredit] | Omit = omit,
+    scheduled_charges: Iterable[package_create_params.ScheduledCharge] | Omit = omit,
+    scheduled_charges_on_usage_invoices: Literal["ALL"] | Omit = omit,
+    spend_threshold_configuration: SpendThresholdConfiguration | Omit = omit,
+    spend_trackers: Iterable[package_create_params.SpendTracker] | Omit = omit,
+    subscriptions: Iterable[package_create_params.Subscription] | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    usage_statement_schedule: package_create_params.UsageStatementSchedule | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageCreateResponse:
         """
         Create a package that defines a set of reusable, time-relative contract terms
         that can be used across cohorts of customers. Packages provide an abstraction
@@ -561,51 +536,44 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/packages/create",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "aliases": aliases,
-                    "billing_provider": billing_provider,
-                    "commits": commits,
-                    "contract_name": contract_name,
-                    "credits": credits,
-                    "delivery_method": delivery_method,
-                    "duration": duration,
-                    "multiplier_override_prioritization": multiplier_override_prioritization,
-                    "net_payment_terms_days": net_payment_terms_days,
-                    "overrides": overrides,
-                    "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
-                    "rate_card_alias": rate_card_alias,
-                    "rate_card_id": rate_card_id,
-                    "recurring_commits": recurring_commits,
-                    "recurring_credits": recurring_credits,
-                    "scheduled_charges": scheduled_charges,
-                    "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
-                    "spend_threshold_configuration": spend_threshold_configuration,
-                    "spend_trackers": spend_trackers,
-                    "subscriptions": subscriptions,
-                    "uniqueness_key": uniqueness_key,
-                    "usage_statement_schedule": usage_statement_schedule,
-                },
-                package_create_params.PackageCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "aliases": aliases,
+                "billing_provider": billing_provider,
+                "commits": commits,
+                "contract_name": contract_name,
+                "credits": credits,
+                "delivery_method": delivery_method,
+                "duration": duration,
+                "multiplier_override_prioritization": multiplier_override_prioritization,
+                "net_payment_terms_days": net_payment_terms_days,
+                "overrides": overrides,
+                "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
+                "rate_card_alias": rate_card_alias,
+                "rate_card_id": rate_card_id,
+                "recurring_commits": recurring_commits,
+                "recurring_credits": recurring_credits,
+                "scheduled_charges": scheduled_charges,
+                "scheduled_charges_on_usage_invoices": scheduled_charges_on_usage_invoices,
+                "spend_threshold_configuration": spend_threshold_configuration,
+                "spend_trackers": spend_trackers,
+                "subscriptions": subscriptions,
+                "uniqueness_key": uniqueness_key,
+                "usage_statement_schedule": usage_statement_schedule,
+            }, package_create_params.PackageCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        package_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageRetrieveResponse:
+    async def retrieve(self,
+    *,
+    package_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageRetrieveResponse:
         """
         Gets the details for a specific package, including name, aliases, duration, and
         terms. Use this endpoint to understand a package’s alias schedule, or display a
@@ -622,26 +590,24 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/packages/get",
-            body=await async_maybe_transform({"package_id": package_id}, package_retrieve_params.PackageRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "package_id": package_id
+            }, package_retrieve_params.PackageRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PackageListResponse, AsyncCursorPage[PackageListResponse]]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[PackageListResponse, AsyncCursorPage[PackageListResponse]]:
         """Lists all packages with details including name, aliases, duration, and terms.
 
         To
@@ -664,36 +630,27 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/packages/list",
-            page=AsyncCursorPage[PackageListResponse],
-            body=maybe_transform({"archive_filter": archive_filter}, package_list_params.PackageListParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    package_list_params.PackageListParams,
-                ),
-            ),
+            page = AsyncCursorPage[PackageListResponse],
+            body=maybe_transform({
+                "archive_filter": archive_filter
+            }, package_list_params.PackageListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, package_list_params.PackageListParams)),
             model=PackageListResponse,
             method="post",
         )
 
-    async def archive(
-        self,
-        *,
-        package_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PackageArchiveResponse:
+    async def archive(self,
+    *,
+    package_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PackageArchiveResponse:
         """Archive a package.
 
         Archived packages cannot be used to create new contracts.
@@ -714,29 +671,27 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/packages/archive",
-            body=await async_maybe_transform({"package_id": package_id}, package_archive_params.PackageArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "package_id": package_id
+            }, package_archive_params.PackageArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=PackageArchiveResponse,
         )
 
-    def list_contracts_on_package(
-        self,
-        *,
-        package_id: str,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        covering_date: Union[str, datetime] | Omit = omit,
-        include_archived: bool | Omit = omit,
-        starting_at: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PackageListContractsOnPackageResponse, AsyncCursorPage[PackageListContractsOnPackageResponse]]:
+    def list_contracts_on_package(self,
+    *,
+    package_id: str,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    covering_date: Union[str, datetime] | Omit = omit,
+    include_archived: bool | Omit = omit,
+    starting_at: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[PackageListContractsOnPackageResponse, AsyncCursorPage[PackageListContractsOnPackageResponse]]:
         """
         For a given package, returns all contract IDs and customer IDs associated with
         the package over a specific time period.
@@ -778,33 +733,20 @@ class AsyncPackagesResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/packages/listContractsOnPackage",
-            page=AsyncCursorPage[PackageListContractsOnPackageResponse],
-            body=maybe_transform(
-                {
-                    "package_id": package_id,
-                    "covering_date": covering_date,
-                    "include_archived": include_archived,
-                    "starting_at": starting_at,
-                },
-                package_list_contracts_on_package_params.PackageListContractsOnPackageParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    package_list_contracts_on_package_params.PackageListContractsOnPackageParams,
-                ),
-            ),
+            page = AsyncCursorPage[PackageListContractsOnPackageResponse],
+            body=maybe_transform({
+                "package_id": package_id,
+                "covering_date": covering_date,
+                "include_archived": include_archived,
+                "starting_at": starting_at,
+            }, package_list_contracts_on_package_params.PackageListContractsOnPackageParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, package_list_contracts_on_package_params.PackageListContractsOnPackageParams)),
             model=PackageListContractsOnPackageResponse,
             method="post",
         )
-
 
 class PackagesResourceWithRawResponse:
     def __init__(self, packages: PackagesResource) -> None:
@@ -826,7 +768,6 @@ class PackagesResourceWithRawResponse:
             packages.list_contracts_on_package,
         )
 
-
 class AsyncPackagesResourceWithRawResponse:
     def __init__(self, packages: AsyncPackagesResource) -> None:
         self._packages = packages
@@ -847,7 +788,6 @@ class AsyncPackagesResourceWithRawResponse:
             packages.list_contracts_on_package,
         )
 
-
 class PackagesResourceWithStreamingResponse:
     def __init__(self, packages: PackagesResource) -> None:
         self._packages = packages
@@ -867,7 +807,6 @@ class PackagesResourceWithStreamingResponse:
         self.list_contracts_on_package = to_streamed_response_wrapper(
             packages.list_contracts_on_package,
         )
-
 
 class AsyncPackagesResourceWithStreamingResponse:
     def __init__(self, packages: AsyncPackagesResource) -> None:

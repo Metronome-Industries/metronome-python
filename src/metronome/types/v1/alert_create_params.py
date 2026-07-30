@@ -2,43 +2,16 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Literal, Required
+
 from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = [
-    "AlertCreateParams",
-    "AlertSpecifier",
-    "AlertSpecifierCustomFieldFilter",
-    "AlertSpecifierExclude",
-    "AlertSpecifierExcludeCustomFieldFilter",
-    "CustomFieldFilter",
-    "GroupValue",
-    "SeatFilter",
-]
-
+__all__ = ["AlertCreateParams", "AlertSpecifier", "AlertSpecifierCustomFieldFilter", "AlertSpecifierExclude", "AlertSpecifierExcludeCustomFieldFilter", "CustomFieldFilter", "GroupValue", "SeatFilter"]
 
 class AlertCreateParams(TypedDict, total=False):
-    alert_type: Required[
-        Literal[
-            "low_credit_balance_reached",
-            "spend_threshold_reached",
-            "monthly_invoice_total_spend_threshold_reached",
-            "low_remaining_days_in_plan_reached",
-            "low_remaining_credit_percentage_reached",
-            "usage_threshold_reached",
-            "low_remaining_days_for_commit_segment_reached",
-            "low_remaining_commit_balance_reached",
-            "low_remaining_commit_percentage_reached",
-            "low_remaining_days_for_contract_credit_segment_reached",
-            "low_remaining_contract_credit_balance_reached",
-            "low_remaining_contract_credit_percentage_reached",
-            "low_remaining_contract_credit_and_commit_balance_reached",
-            "invoice_total_reached",
-            "low_remaining_seat_balance_reached",
-        ]
-    ]
+    alert_type: Required[Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "invoice_total_reached", "low_remaining_seat_balance_reached"]]
     """Type of the threshold notification"""
 
     name: Required[str]
@@ -129,14 +102,12 @@ class AlertCreateParams(TypedDict, total=False):
     new record will not be created and the request will fail with a 409 error.
     """
 
-
 class AlertSpecifierCustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
 
     key: Required[str]
 
     value: str
-
 
 class AlertSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
@@ -145,14 +116,12 @@ class AlertSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
 
     value: Required[str]
 
-
 class AlertSpecifierExclude(TypedDict, total=False):
     custom_field_filters: Iterable[AlertSpecifierExcludeCustomFieldFilter]
     """
     A list of custom field filters for notification types that support advanced
     filtering
     """
-
 
 class AlertSpecifier(TypedDict, total=False):
     custom_field_filters: Iterable[AlertSpecifierCustomFieldFilter]
@@ -167,7 +136,6 @@ class AlertSpecifier(TypedDict, total=False):
     criteria and any of the excluding values.
     """
 
-
 class CustomFieldFilter(TypedDict, total=False):
     entity: Required[Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]]
 
@@ -175,19 +143,16 @@ class CustomFieldFilter(TypedDict, total=False):
 
     value: Required[str]
 
-
 class GroupValue(TypedDict, total=False):
     key: Required[str]
 
     value: str
-
 
 class SeatFilter(TypedDict, total=False):
     """Required for `low_remaining_seat_balance_reached` notifications.
 
     The alert is scoped to this seat group key-value pair.
     """
-
     seat_group_key: Required[str]
     """The seat group key (e.g., "seat_id", "user_id")"""
 

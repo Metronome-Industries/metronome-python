@@ -1,20 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
-from typing_extensions import Literal, TypeAlias
-
 from ..._models import BaseModel
-from ..shared.property_filter import PropertyFilter
+
+from typing import Optional, List, Dict
+
+from typing_extensions import Literal, TypeAliasType, TypeAlias
+
+from datetime import datetime
+
 from ..shared.event_type_filter import EventTypeFilter
 
-__all__ = [
-    "UsageSearchResponse",
-    "UsageSearchResponseItem",
-    "UsageSearchResponseItemMatchedBillableMetric",
-    "UsageSearchResponseItemMatchedCustomer",
-]
+from ..shared.property_filter import PropertyFilter
 
+__all__ = ["UsageSearchResponse", "UsageSearchResponseItem", "UsageSearchResponseItemMatchedBillableMetric", "UsageSearchResponseItemMatchedCustomer"]
 
 class UsageSearchResponseItemMatchedBillableMetric(BaseModel):
     id: str
@@ -75,14 +73,11 @@ class UsageSearchResponseItemMatchedBillableMetric(BaseModel):
     sql: Optional[str] = None
     """The SQL query associated with the billable metric"""
 
-
 class UsageSearchResponseItemMatchedCustomer(BaseModel):
     """The customer the event was matched to if a match was found"""
-
     id: Optional[str] = None
 
     name: Optional[str] = None
-
 
 class UsageSearchResponseItem(BaseModel):
     id: str
@@ -106,6 +101,5 @@ class UsageSearchResponseItem(BaseModel):
     processed_at: Optional[datetime] = None
 
     properties: Optional[Dict[str, object]] = None
-
 
 UsageSearchResponse: TypeAlias = List[UsageSearchResponseItem]

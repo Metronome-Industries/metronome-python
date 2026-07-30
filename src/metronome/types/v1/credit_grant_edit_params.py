@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Annotated
+
 from typing import Union
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["CreditGrantEditParams"]
-
 
 class CreditGrantEditParams(TypedDict, total=False):
     id: Required[str]
@@ -18,7 +19,7 @@ class CreditGrantEditParams(TypedDict, total=False):
     credit_grant_type: str
     """the updated credit grant type"""
 
-    expires_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    expires_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
     """the updated expiration date for the credit grant"""
 
     name: str

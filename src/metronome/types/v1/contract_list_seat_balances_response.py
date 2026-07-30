@@ -1,22 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from datetime import datetime
-from typing_extensions import Literal
-
 from ..._models import BaseModel
 
-__all__ = [
-    "ContractListSeatBalancesResponse",
-    "Data",
-    "DataBalance",
-    "DataCommit",
-    "DataCommitLedgerEntry",
-    "DataCredit",
-    "DataCreditLedgerEntry",
-    "Pagination",
-]
+from datetime import datetime
 
+from typing_extensions import Literal
+
+from typing import Optional, List
+
+__all__ = ["ContractListSeatBalancesResponse", "Data", "DataBalance", "DataCommit", "DataCommitLedgerEntry", "DataCredit", "DataCreditLedgerEntry", "Pagination"]
 
 class DataBalance(BaseModel):
     balance: float
@@ -33,7 +25,6 @@ class DataBalance(BaseModel):
     credit type.
     """
 
-
 class DataCommitLedgerEntry(BaseModel):
     amount: float
     """Amount of the ledger entry"""
@@ -41,18 +32,8 @@ class DataCommitLedgerEntry(BaseModel):
     timestamp: datetime
     """The datetime when the ledger is created"""
 
-    type: Literal[
-        "PREPAID_COMMIT_SEGMENT_START",
-        "PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION",
-        "PREPAID_COMMIT_ROLLOVER",
-        "PREPAID_COMMIT_EXPIRATION",
-        "PREPAID_COMMIT_CANCELED",
-        "PREPAID_COMMIT_CREDITED",
-        "PREPAID_COMMIT_MANUAL",
-        "PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT",
-    ]
+    type: Literal["PREPAID_COMMIT_SEGMENT_START", "PREPAID_COMMIT_AUTOMATED_INVOICE_DEDUCTION", "PREPAID_COMMIT_ROLLOVER", "PREPAID_COMMIT_EXPIRATION", "PREPAID_COMMIT_CANCELED", "PREPAID_COMMIT_CREDITED", "PREPAID_COMMIT_MANUAL", "PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
     """Commit ledger type"""
-
 
 class DataCommit(BaseModel):
     id: str
@@ -73,7 +54,6 @@ class DataCommit(BaseModel):
     include_ledgers=true)
     """
 
-
 class DataCreditLedgerEntry(BaseModel):
     amount: float
     """Amount of the ledger entry"""
@@ -81,18 +61,8 @@ class DataCreditLedgerEntry(BaseModel):
     timestamp: datetime
     """The datetime when the ledger is created"""
 
-    type: Literal[
-        "CREDIT_SEGMENT_START",
-        "CREDIT_AUTOMATED_INVOICE_DEDUCTION",
-        "CREDIT_EXPIRATION",
-        "CREDIT_CANCELED",
-        "CREDIT_CREDITED",
-        "CREDIT_MANUAL",
-        "CREDIT_SEAT_BASED_ADJUSTMENT",
-        "CREDIT_ROLLOVER",
-    ]
+    type: Literal["CREDIT_SEGMENT_START", "CREDIT_AUTOMATED_INVOICE_DEDUCTION", "CREDIT_EXPIRATION", "CREDIT_CANCELED", "CREDIT_CREDITED", "CREDIT_MANUAL", "CREDIT_SEAT_BASED_ADJUSTMENT", "CREDIT_ROLLOVER"]
     """Credit ledger type"""
-
 
 class DataCredit(BaseModel):
     id: str
@@ -113,7 +83,6 @@ class DataCredit(BaseModel):
     include_ledgers=true)
     """
 
-
 class Data(BaseModel):
     balances: List[DataBalance]
 
@@ -126,7 +95,6 @@ class Data(BaseModel):
     credits: Optional[List[DataCredit]] = None
     """Array of credits applicable to this seat with their balances"""
 
-
 class Pagination(BaseModel):
     seats_available_for_next_page: float
     """Number of seats available to fetch in the next page"""
@@ -136,7 +104,6 @@ class Pagination(BaseModel):
 
     next_page: Optional[str] = None
     """Token to retrieve the next page of results. Null if no more pages available"""
-
 
 class ContractListSeatBalancesResponse(BaseModel):
     data: List[Data]

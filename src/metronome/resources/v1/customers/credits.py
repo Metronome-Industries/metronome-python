@@ -2,36 +2,48 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
-from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
-from ...._base_client import AsyncPaginator, make_request_options
-from ....types.v1.customers import credit_list_params, credit_create_params, credit_update_end_date_params
-from ....types.shared.credit import Credit
+
+from ...._compat import cached_property
+
 from ....types.v1.customers.credit_create_response import CreditCreateResponse
+
+from ...._utils import maybe_transform, async_maybe_transform
+
+from ...._base_client import make_request_options, AsyncPaginator
+
+from ...._types import SequenceNotStr, Omit, omit, NotGiven
+
+from typing import Dict, Iterable, Union
+
+from typing_extensions import Literal
+
 from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
+
+from ....types.shared.credit import Credit
+
+from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+
+from datetime import datetime
+
 from ....types.v1.customers.credit_update_end_date_response import CreditUpdateEndDateResponse
+
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ....types.v1.customers import credit_create_params
+
+from typing_extensions import Literal, overload
+from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ....types.v1.customers import credit_create_params
+from ....types.v1.customers import credit_list_params
+from ....types.v1.customers import credit_update_end_date_params
 
 __all__ = ["CreditsResource", "AsyncCreditsResource"]
 
-
 class CreditsResource(SyncAPIResource):
     """Credits and commits are used to manage customer balances."""
-
     @cached_property
     def with_raw_response(self) -> CreditsResourceWithRawResponse:
         """
@@ -51,31 +63,29 @@ class CreditsResource(SyncAPIResource):
         """
         return CreditsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        access_schedule: credit_create_params.AccessSchedule,
-        customer_id: str,
-        priority: float,
-        product_id: str,
-        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
-        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
-        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        description: str | Omit = omit,
-        name: str | Omit = omit,
-        netsuite_sales_order_id: str | Omit = omit,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
-        salesforce_opportunity_id: str | Omit = omit,
-        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditCreateResponse:
+    def create(self,
+    *,
+    access_schedule: credit_create_params.AccessSchedule,
+    customer_id: str,
+    priority: float,
+    product_id: str,
+    applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+    applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+    applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    description: str | Omit = omit,
+    name: str | Omit = omit,
+    netsuite_sales_order_id: str | Omit = omit,
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+    salesforce_opportunity_id: str | Omit = omit,
+    specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditCreateResponse:
         """⚠️ For most contract amendments, use `contracts/edit` directly.
 
         Use this
@@ -176,53 +186,46 @@ class CreditsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contracts/customerCredits/create",
-            body=maybe_transform(
-                {
-                    "access_schedule": access_schedule,
-                    "customer_id": customer_id,
-                    "priority": priority,
-                    "product_id": product_id,
-                    "applicable_contract_ids": applicable_contract_ids,
-                    "applicable_product_ids": applicable_product_ids,
-                    "applicable_product_tags": applicable_product_tags,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "name": name,
-                    "netsuite_sales_order_id": netsuite_sales_order_id,
-                    "rate_type": rate_type,
-                    "salesforce_opportunity_id": salesforce_opportunity_id,
-                    "specifiers": specifiers,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_create_params.CreditCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "access_schedule": access_schedule,
+                "customer_id": customer_id,
+                "priority": priority,
+                "product_id": product_id,
+                "applicable_contract_ids": applicable_contract_ids,
+                "applicable_product_ids": applicable_product_ids,
+                "applicable_product_tags": applicable_product_tags,
+                "custom_fields": custom_fields,
+                "description": description,
+                "name": name,
+                "netsuite_sales_order_id": netsuite_sales_order_id,
+                "rate_type": rate_type,
+                "salesforce_opportunity_id": salesforce_opportunity_id,
+                "specifiers": specifiers,
+                "uniqueness_key": uniqueness_key,
+            }, credit_create_params.CreditCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditCreateResponse,
         )
 
-    def list(
-        self,
-        *,
-        customer_id: str,
-        covering_date: Union[str, datetime] | Omit = omit,
-        credit_id: str | Omit = omit,
-        effective_before: Union[str, datetime] | Omit = omit,
-        include_archived: bool | Omit = omit,
-        include_balance: bool | Omit = omit,
-        include_contract_credits: bool | Omit = omit,
-        include_ledgers: bool | Omit = omit,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        starting_at: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncBodyCursorPage[Credit]:
+    def list(self,
+    *,
+    customer_id: str,
+    covering_date: Union[str, datetime] | Omit = omit,
+    credit_id: str | Omit = omit,
+    effective_before: Union[str, datetime] | Omit = omit,
+    include_archived: bool | Omit = omit,
+    include_balance: bool | Omit = omit,
+    include_contract_credits: bool | Omit = omit,
+    include_ledgers: bool | Omit = omit,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    starting_at: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncBodyCursorPage[Credit]:
         """
         Retrieve a detailed list of all credits available to a customer, including
         promotional credits and contract-specific credits. This endpoint provides
@@ -300,43 +303,36 @@ class CreditsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCredits/list",
-            page=SyncBodyCursorPage[Credit],
-            body=maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "covering_date": covering_date,
-                    "credit_id": credit_id,
-                    "effective_before": effective_before,
-                    "include_archived": include_archived,
-                    "include_balance": include_balance,
-                    "include_contract_credits": include_contract_credits,
-                    "include_ledgers": include_ledgers,
-                    "limit": limit,
-                    "next_page": next_page,
-                    "starting_at": starting_at,
-                },
-                credit_list_params.CreditListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            page = SyncBodyCursorPage[Credit],
+            body=maybe_transform({
+                "customer_id": customer_id,
+                "covering_date": covering_date,
+                "credit_id": credit_id,
+                "effective_before": effective_before,
+                "include_archived": include_archived,
+                "include_balance": include_balance,
+                "include_contract_credits": include_contract_credits,
+                "include_ledgers": include_ledgers,
+                "limit": limit,
+                "next_page": next_page,
+                "starting_at": starting_at,
+            }, credit_list_params.CreditListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             model=Credit,
             method="post",
         )
 
-    def update_end_date(
-        self,
-        *,
-        access_ending_before: Union[str, datetime],
-        credit_id: str,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditUpdateEndDateResponse:
+    def update_end_date(self,
+    *,
+    access_ending_before: Union[str, datetime],
+    credit_id: str,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditUpdateEndDateResponse:
         """
         Shortens the end date of an existing customer credit to terminate it earlier
         than originally scheduled. Only allows moving end dates forward (earlier), not
@@ -363,24 +359,17 @@ class CreditsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contracts/customerCredits/updateEndDate",
-            body=maybe_transform(
-                {
-                    "access_ending_before": access_ending_before,
-                    "credit_id": credit_id,
-                    "customer_id": customer_id,
-                },
-                credit_update_end_date_params.CreditUpdateEndDateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "access_ending_before": access_ending_before,
+                "credit_id": credit_id,
+                "customer_id": customer_id,
+            }, credit_update_end_date_params.CreditUpdateEndDateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditUpdateEndDateResponse,
         )
 
-
 class AsyncCreditsResource(AsyncAPIResource):
     """Credits and commits are used to manage customer balances."""
-
     @cached_property
     def with_raw_response(self) -> AsyncCreditsResourceWithRawResponse:
         """
@@ -400,31 +389,29 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return AsyncCreditsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        access_schedule: credit_create_params.AccessSchedule,
-        customer_id: str,
-        priority: float,
-        product_id: str,
-        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
-        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
-        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        description: str | Omit = omit,
-        name: str | Omit = omit,
-        netsuite_sales_order_id: str | Omit = omit,
-        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
-        salesforce_opportunity_id: str | Omit = omit,
-        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditCreateResponse:
+    async def create(self,
+    *,
+    access_schedule: credit_create_params.AccessSchedule,
+    customer_id: str,
+    priority: float,
+    product_id: str,
+    applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+    applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+    applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    description: str | Omit = omit,
+    name: str | Omit = omit,
+    netsuite_sales_order_id: str | Omit = omit,
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+    salesforce_opportunity_id: str | Omit = omit,
+    specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditCreateResponse:
         """⚠️ For most contract amendments, use `contracts/edit` directly.
 
         Use this
@@ -525,53 +512,46 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contracts/customerCredits/create",
-            body=await async_maybe_transform(
-                {
-                    "access_schedule": access_schedule,
-                    "customer_id": customer_id,
-                    "priority": priority,
-                    "product_id": product_id,
-                    "applicable_contract_ids": applicable_contract_ids,
-                    "applicable_product_ids": applicable_product_ids,
-                    "applicable_product_tags": applicable_product_tags,
-                    "custom_fields": custom_fields,
-                    "description": description,
-                    "name": name,
-                    "netsuite_sales_order_id": netsuite_sales_order_id,
-                    "rate_type": rate_type,
-                    "salesforce_opportunity_id": salesforce_opportunity_id,
-                    "specifiers": specifiers,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_create_params.CreditCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "access_schedule": access_schedule,
+                "customer_id": customer_id,
+                "priority": priority,
+                "product_id": product_id,
+                "applicable_contract_ids": applicable_contract_ids,
+                "applicable_product_ids": applicable_product_ids,
+                "applicable_product_tags": applicable_product_tags,
+                "custom_fields": custom_fields,
+                "description": description,
+                "name": name,
+                "netsuite_sales_order_id": netsuite_sales_order_id,
+                "rate_type": rate_type,
+                "salesforce_opportunity_id": salesforce_opportunity_id,
+                "specifiers": specifiers,
+                "uniqueness_key": uniqueness_key,
+            }, credit_create_params.CreditCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditCreateResponse,
         )
 
-    def list(
-        self,
-        *,
-        customer_id: str,
-        covering_date: Union[str, datetime] | Omit = omit,
-        credit_id: str | Omit = omit,
-        effective_before: Union[str, datetime] | Omit = omit,
-        include_archived: bool | Omit = omit,
-        include_balance: bool | Omit = omit,
-        include_contract_credits: bool | Omit = omit,
-        include_ledgers: bool | Omit = omit,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        starting_at: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Credit, AsyncBodyCursorPage[Credit]]:
+    def list(self,
+    *,
+    customer_id: str,
+    covering_date: Union[str, datetime] | Omit = omit,
+    credit_id: str | Omit = omit,
+    effective_before: Union[str, datetime] | Omit = omit,
+    include_archived: bool | Omit = omit,
+    include_balance: bool | Omit = omit,
+    include_contract_credits: bool | Omit = omit,
+    include_ledgers: bool | Omit = omit,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    starting_at: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Credit, AsyncBodyCursorPage[Credit]]:
         """
         Retrieve a detailed list of all credits available to a customer, including
         promotional credits and contract-specific credits. This endpoint provides
@@ -649,43 +629,36 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCredits/list",
-            page=AsyncBodyCursorPage[Credit],
-            body=maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "covering_date": covering_date,
-                    "credit_id": credit_id,
-                    "effective_before": effective_before,
-                    "include_archived": include_archived,
-                    "include_balance": include_balance,
-                    "include_contract_credits": include_contract_credits,
-                    "include_ledgers": include_ledgers,
-                    "limit": limit,
-                    "next_page": next_page,
-                    "starting_at": starting_at,
-                },
-                credit_list_params.CreditListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            page = AsyncBodyCursorPage[Credit],
+            body=maybe_transform({
+                "customer_id": customer_id,
+                "covering_date": covering_date,
+                "credit_id": credit_id,
+                "effective_before": effective_before,
+                "include_archived": include_archived,
+                "include_balance": include_balance,
+                "include_contract_credits": include_contract_credits,
+                "include_ledgers": include_ledgers,
+                "limit": limit,
+                "next_page": next_page,
+                "starting_at": starting_at,
+            }, credit_list_params.CreditListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             model=Credit,
             method="post",
         )
 
-    async def update_end_date(
-        self,
-        *,
-        access_ending_before: Union[str, datetime],
-        credit_id: str,
-        customer_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditUpdateEndDateResponse:
+    async def update_end_date(self,
+    *,
+    access_ending_before: Union[str, datetime],
+    credit_id: str,
+    customer_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditUpdateEndDateResponse:
         """
         Shortens the end date of an existing customer credit to terminate it earlier
         than originally scheduled. Only allows moving end dates forward (earlier), not
@@ -712,20 +685,14 @@ class AsyncCreditsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contracts/customerCredits/updateEndDate",
-            body=await async_maybe_transform(
-                {
-                    "access_ending_before": access_ending_before,
-                    "credit_id": credit_id,
-                    "customer_id": customer_id,
-                },
-                credit_update_end_date_params.CreditUpdateEndDateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "access_ending_before": access_ending_before,
+                "credit_id": credit_id,
+                "customer_id": customer_id,
+            }, credit_update_end_date_params.CreditUpdateEndDateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditUpdateEndDateResponse,
         )
-
 
 class CreditsResourceWithRawResponse:
     def __init__(self, credits: CreditsResource) -> None:
@@ -741,7 +708,6 @@ class CreditsResourceWithRawResponse:
             credits.update_end_date,
         )
 
-
 class AsyncCreditsResourceWithRawResponse:
     def __init__(self, credits: AsyncCreditsResource) -> None:
         self._credits = credits
@@ -756,7 +722,6 @@ class AsyncCreditsResourceWithRawResponse:
             credits.update_end_date,
         )
 
-
 class CreditsResourceWithStreamingResponse:
     def __init__(self, credits: CreditsResource) -> None:
         self._credits = credits
@@ -770,7 +735,6 @@ class CreditsResourceWithStreamingResponse:
         self.update_end_date = to_streamed_response_wrapper(
             credits.update_end_date,
         )
-
 
 class AsyncCreditsResourceWithStreamingResponse:
     def __init__(self, credits: AsyncCreditsResource) -> None:

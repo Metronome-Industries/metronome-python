@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from datetime import datetime
-
 from ..._models import BaseModel
 
-__all__ = ["PackageListContractsOnPackageResponse"]
+from datetime import datetime
 
+from typing import Optional
+
+__all__ = ["PackageListContractsOnPackageResponse"]
 
 class PackageListContractsOnPackageResponse(BaseModel):
     contract_id: str

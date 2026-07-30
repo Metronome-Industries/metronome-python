@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from datetime import datetime
-
 from ..._models import BaseModel
 
-__all__ = ["ContractGetSubscriptionSeatsHistoryResponse", "Data"]
+from typing import List, Optional
 
+from datetime import datetime
+
+__all__ = ["ContractGetSubscriptionSeatsHistoryResponse", "Data"]
 
 class Data(BaseModel):
     assigned_seat_ids: List[str]
@@ -20,7 +20,6 @@ class Data(BaseModel):
 
     total_quantity: int
     """Total number of assigned and unassigned seats in this period"""
-
 
 class ContractGetSubscriptionSeatsHistoryResponse(BaseModel):
     data: List[Data]

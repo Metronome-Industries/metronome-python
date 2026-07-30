@@ -4,7 +4,6 @@ from ..._models import BaseModel
 
 __all__ = ["ContractGetNetBalanceResponse", "Data"]
 
-
 class Data(BaseModel):
     balance: float
     """
@@ -17,7 +16,6 @@ class Data(BaseModel):
     The ID of the credit type (can be fiat or a custom pricing unit) that the
     balance is for.
     """
-
 
 class ContractGetNetBalanceResponse(BaseModel):
     data: Data

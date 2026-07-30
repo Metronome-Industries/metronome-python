@@ -2,20 +2,22 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Annotated, Required, Literal
+
 from typing import Union, Iterable
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from ..._utils import PropertyInfo
 
 from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
 
 __all__ = ["UsageListParams", "BillableMetric", "BillableMetricGroupBy"]
 
-
 class UsageListParams(TypedDict, total=False):
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
-    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
 
     window_size: Required[Literal["HOUR", "DAY", "NONE"]]
     """
@@ -39,7 +41,6 @@ class UsageListParams(TypedDict, total=False):
     If absent, usage for all customers will be returned.
     """
 
-
 class BillableMetricGroupBy(TypedDict, total=False):
     key: Required[str]
     """The name of the group_by key to use"""
@@ -50,7 +51,6 @@ class BillableMetricGroupBy(TypedDict, total=False):
     If this field is omitted, all available values will be returned, up to a maximum
     of 200.
     """
-
 
 class BillableMetric(TypedDict, total=False):
     id: Required[str]

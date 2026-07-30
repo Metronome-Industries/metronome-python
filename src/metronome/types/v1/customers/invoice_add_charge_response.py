@@ -4,6 +4,5 @@ from ...._models import BaseModel
 
 __all__ = ["InvoiceAddChargeResponse"]
 
-
 class InvoiceAddChargeResponse(BaseModel):
     pass

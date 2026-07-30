@@ -2,45 +2,54 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ...types.v1 import (
-    credit_grant_edit_params,
-    credit_grant_list_params,
-    credit_grant_void_params,
-    credit_grant_create_params,
-    credit_grant_list_entries_params,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncCursorPage, AsyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.v1.credit_grant_edit_response import CreditGrantEditResponse
-from ...types.v1.credit_grant_list_response import CreditGrantListResponse
-from ...types.v1.credit_grant_void_response import CreditGrantVoidResponse
+
+from ..._compat import cached_property
+
 from ...types.v1.credit_grant_create_response import CreditGrantCreateResponse
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Union, Dict
+
+from datetime import datetime
+
+from ..._types import Omit, omit, SequenceNotStr, NotGiven
+
+from ...types.v1.credit_grant_list_response import CreditGrantListResponse
+
+from ...pagination import SyncCursorPage, SyncCursorPageWithoutLimit, AsyncCursorPage, AsyncCursorPageWithoutLimit
+
+from ...types.v1.credit_grant_edit_response import CreditGrantEditResponse
+
 from ...types.v1.credit_grant_list_entries_response import CreditGrantListEntriesResponse
 
-__all__ = ["CreditGrantsResource", "AsyncCreditGrantsResource"]
+from typing_extensions import Literal
 
+from ...types.v1.credit_grant_void_response import CreditGrantVoidResponse
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.v1 import credit_grant_create_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.v1 import credit_grant_create_params
+from ...types.v1 import credit_grant_list_params
+from ...types.v1 import credit_grant_edit_params
+from ...types.v1 import credit_grant_list_entries_params
+from ...types.v1 import credit_grant_void_params
+
+__all__ = ["CreditGrantsResource", "AsyncCreditGrantsResource"]
 
 class CreditGrantsResource(SyncAPIResource):
     """
     [Credit grants](https://docs.metronome.com/invoicing/how-billing-works/manage-credits/) adjust a customer balance for prepayments, reimbursements, promotions, and so on. Use these endpoints to create, retrieve, update, and delete credit grants.
     """
-
     @cached_property
     def with_raw_response(self) -> CreditGrantsResourceWithRawResponse:
         """
@@ -60,30 +69,28 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return CreditGrantsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        customer_id: str,
-        expires_at: Union[str, datetime],
-        grant_amount: credit_grant_create_params.GrantAmount,
-        name: str,
-        paid_amount: credit_grant_create_params.PaidAmount,
-        priority: float,
-        credit_grant_type: str | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        effective_at: Union[str, datetime] | Omit = omit,
-        invoice_date: Union[str, datetime] | Omit = omit,
-        product_ids: SequenceNotStr[str] | Omit = omit,
-        reason: str | Omit = omit,
-        rollover_settings: credit_grant_create_params.RolloverSettings | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantCreateResponse:
+    def create(self,
+    *,
+    customer_id: str,
+    expires_at: Union[str, datetime],
+    grant_amount: credit_grant_create_params.GrantAmount,
+    name: str,
+    paid_amount: credit_grant_create_params.PaidAmount,
+    priority: float,
+    credit_grant_type: str | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    effective_at: Union[str, datetime] | Omit = omit,
+    invoice_date: Union[str, datetime] | Omit = omit,
+    product_ids: SequenceNotStr[str] | Omit = omit,
+    reason: str | Omit = omit,
+    rollover_settings: credit_grant_create_params.RolloverSettings | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantCreateResponse:
         """Create a new credit grant.
 
         This is a Plans (deprecated) endpoint. New clients
@@ -130,48 +137,41 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/credits/createGrant",
-            body=maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "expires_at": expires_at,
-                    "grant_amount": grant_amount,
-                    "name": name,
-                    "paid_amount": paid_amount,
-                    "priority": priority,
-                    "credit_grant_type": credit_grant_type,
-                    "custom_fields": custom_fields,
-                    "effective_at": effective_at,
-                    "invoice_date": invoice_date,
-                    "product_ids": product_ids,
-                    "reason": reason,
-                    "rollover_settings": rollover_settings,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_grant_create_params.CreditGrantCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "customer_id": customer_id,
+                "expires_at": expires_at,
+                "grant_amount": grant_amount,
+                "name": name,
+                "paid_amount": paid_amount,
+                "priority": priority,
+                "credit_grant_type": credit_grant_type,
+                "custom_fields": custom_fields,
+                "effective_at": effective_at,
+                "invoice_date": invoice_date,
+                "product_ids": product_ids,
+                "reason": reason,
+                "rollover_settings": rollover_settings,
+                "uniqueness_key": uniqueness_key,
+            }, credit_grant_create_params.CreditGrantCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantCreateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        credit_grant_ids: SequenceNotStr[str] | Omit = omit,
-        credit_type_ids: SequenceNotStr[str] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        effective_before: Union[str, datetime] | Omit = omit,
-        not_expiring_before: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[CreditGrantListResponse]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    credit_grant_ids: SequenceNotStr[str] | Omit = omit,
+    credit_type_ids: SequenceNotStr[str] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    effective_before: Union[str, datetime] | Omit = omit,
+    not_expiring_before: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[CreditGrantListResponse]:
         """List credit grants.
 
         This list does not included voided grants. This is a Plans
@@ -205,48 +205,34 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credits/listGrants",
-            page=SyncCursorPage[CreditGrantListResponse],
-            body=maybe_transform(
-                {
-                    "credit_grant_ids": credit_grant_ids,
-                    "credit_type_ids": credit_type_ids,
-                    "customer_ids": customer_ids,
-                    "effective_before": effective_before,
-                    "not_expiring_before": not_expiring_before,
-                },
-                credit_grant_list_params.CreditGrantListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    credit_grant_list_params.CreditGrantListParams,
-                ),
-            ),
+            page = SyncCursorPage[CreditGrantListResponse],
+            body=maybe_transform({
+                "credit_grant_ids": credit_grant_ids,
+                "credit_type_ids": credit_type_ids,
+                "customer_ids": customer_ids,
+                "effective_before": effective_before,
+                "not_expiring_before": not_expiring_before,
+            }, credit_grant_list_params.CreditGrantListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, credit_grant_list_params.CreditGrantListParams)),
             model=CreditGrantListResponse,
             method="post",
         )
 
-    def edit(
-        self,
-        *,
-        id: str,
-        credit_grant_type: str | Omit = omit,
-        expires_at: Union[str, datetime] | Omit = omit,
-        name: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantEditResponse:
+    def edit(self,
+    *,
+    id: str,
+    credit_grant_type: str | Omit = omit,
+    expires_at: Union[str, datetime] | Omit = omit,
+    name: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantEditResponse:
         """Edit an existing credit grant.
 
         This is a Plans (deprecated) endpoint. New
@@ -271,37 +257,30 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/credits/editGrant",
-            body=maybe_transform(
-                {
-                    "id": id,
-                    "credit_grant_type": credit_grant_type,
-                    "expires_at": expires_at,
-                    "name": name,
-                },
-                credit_grant_edit_params.CreditGrantEditParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id,
+                "credit_grant_type": credit_grant_type,
+                "expires_at": expires_at,
+                "name": name,
+            }, credit_grant_edit_params.CreditGrantEditParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantEditResponse,
         )
 
-    def list_entries(
-        self,
-        *,
-        next_page: str | Omit = omit,
-        sort: Literal["asc", "desc"] | Omit = omit,
-        credit_type_ids: SequenceNotStr[str] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        ending_before: Union[str, datetime] | Omit = omit,
-        starting_on: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]:
+    def list_entries(self,
+    *,
+    next_page: str | Omit = omit,
+    sort: Literal["asc", "desc"] | Omit = omit,
+    credit_type_ids: SequenceNotStr[str] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    ending_before: Union[str, datetime] | Omit = omit,
+    starting_on: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -338,46 +317,32 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credits/listEntries",
-            page=SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
-            body=maybe_transform(
-                {
-                    "credit_type_ids": credit_type_ids,
-                    "customer_ids": customer_ids,
-                    "ending_before": ending_before,
-                    "starting_on": starting_on,
-                },
-                credit_grant_list_entries_params.CreditGrantListEntriesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "next_page": next_page,
-                        "sort": sort,
-                    },
-                    credit_grant_list_entries_params.CreditGrantListEntriesParams,
-                ),
-            ),
+            page = SyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
+            body=maybe_transform({
+                "credit_type_ids": credit_type_ids,
+                "customer_ids": customer_ids,
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+            }, credit_grant_list_entries_params.CreditGrantListEntriesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page,
+                "sort": sort,
+            }, credit_grant_list_entries_params.CreditGrantListEntriesParams)),
             model=CreditGrantListEntriesResponse,
             method="post",
         )
 
-    def void(
-        self,
-        *,
-        id: str,
-        release_uniqueness_key: bool | Omit = omit,
-        void_credit_purchase_invoice: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantVoidResponse:
+    def void(self,
+    *,
+    id: str,
+    release_uniqueness_key: bool | Omit = omit,
+    void_credit_purchase_invoice: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantVoidResponse:
         """Void a credit grant.
 
         This is a Plans (deprecated) endpoint. New clients should
@@ -398,26 +363,19 @@ class CreditGrantsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/credits/voidGrant",
-            body=maybe_transform(
-                {
-                    "id": id,
-                    "release_uniqueness_key": release_uniqueness_key,
-                    "void_credit_purchase_invoice": void_credit_purchase_invoice,
-                },
-                credit_grant_void_params.CreditGrantVoidParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id,
+                "release_uniqueness_key": release_uniqueness_key,
+                "void_credit_purchase_invoice": void_credit_purchase_invoice,
+            }, credit_grant_void_params.CreditGrantVoidParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantVoidResponse,
         )
-
 
 class AsyncCreditGrantsResource(AsyncAPIResource):
     """
     [Credit grants](https://docs.metronome.com/invoicing/how-billing-works/manage-credits/) adjust a customer balance for prepayments, reimbursements, promotions, and so on. Use these endpoints to create, retrieve, update, and delete credit grants.
     """
-
     @cached_property
     def with_raw_response(self) -> AsyncCreditGrantsResourceWithRawResponse:
         """
@@ -437,30 +395,28 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return AsyncCreditGrantsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        customer_id: str,
-        expires_at: Union[str, datetime],
-        grant_amount: credit_grant_create_params.GrantAmount,
-        name: str,
-        paid_amount: credit_grant_create_params.PaidAmount,
-        priority: float,
-        credit_grant_type: str | Omit = omit,
-        custom_fields: Dict[str, str] | Omit = omit,
-        effective_at: Union[str, datetime] | Omit = omit,
-        invoice_date: Union[str, datetime] | Omit = omit,
-        product_ids: SequenceNotStr[str] | Omit = omit,
-        reason: str | Omit = omit,
-        rollover_settings: credit_grant_create_params.RolloverSettings | Omit = omit,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantCreateResponse:
+    async def create(self,
+    *,
+    customer_id: str,
+    expires_at: Union[str, datetime],
+    grant_amount: credit_grant_create_params.GrantAmount,
+    name: str,
+    paid_amount: credit_grant_create_params.PaidAmount,
+    priority: float,
+    credit_grant_type: str | Omit = omit,
+    custom_fields: Dict[str, str] | Omit = omit,
+    effective_at: Union[str, datetime] | Omit = omit,
+    invoice_date: Union[str, datetime] | Omit = omit,
+    product_ids: SequenceNotStr[str] | Omit = omit,
+    reason: str | Omit = omit,
+    rollover_settings: credit_grant_create_params.RolloverSettings | Omit = omit,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantCreateResponse:
         """Create a new credit grant.
 
         This is a Plans (deprecated) endpoint. New clients
@@ -507,48 +463,41 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/credits/createGrant",
-            body=await async_maybe_transform(
-                {
-                    "customer_id": customer_id,
-                    "expires_at": expires_at,
-                    "grant_amount": grant_amount,
-                    "name": name,
-                    "paid_amount": paid_amount,
-                    "priority": priority,
-                    "credit_grant_type": credit_grant_type,
-                    "custom_fields": custom_fields,
-                    "effective_at": effective_at,
-                    "invoice_date": invoice_date,
-                    "product_ids": product_ids,
-                    "reason": reason,
-                    "rollover_settings": rollover_settings,
-                    "uniqueness_key": uniqueness_key,
-                },
-                credit_grant_create_params.CreditGrantCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "customer_id": customer_id,
+                "expires_at": expires_at,
+                "grant_amount": grant_amount,
+                "name": name,
+                "paid_amount": paid_amount,
+                "priority": priority,
+                "credit_grant_type": credit_grant_type,
+                "custom_fields": custom_fields,
+                "effective_at": effective_at,
+                "invoice_date": invoice_date,
+                "product_ids": product_ids,
+                "reason": reason,
+                "rollover_settings": rollover_settings,
+                "uniqueness_key": uniqueness_key,
+            }, credit_grant_create_params.CreditGrantCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantCreateResponse,
         )
 
-    def list(
-        self,
-        *,
-        limit: int | Omit = omit,
-        next_page: str | Omit = omit,
-        credit_grant_ids: SequenceNotStr[str] | Omit = omit,
-        credit_type_ids: SequenceNotStr[str] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        effective_before: Union[str, datetime] | Omit = omit,
-        not_expiring_before: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[CreditGrantListResponse, AsyncCursorPage[CreditGrantListResponse]]:
+    def list(self,
+    *,
+    limit: int | Omit = omit,
+    next_page: str | Omit = omit,
+    credit_grant_ids: SequenceNotStr[str] | Omit = omit,
+    credit_type_ids: SequenceNotStr[str] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    effective_before: Union[str, datetime] | Omit = omit,
+    not_expiring_before: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[CreditGrantListResponse, AsyncCursorPage[CreditGrantListResponse]]:
         """List credit grants.
 
         This list does not included voided grants. This is a Plans
@@ -582,48 +531,34 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credits/listGrants",
-            page=AsyncCursorPage[CreditGrantListResponse],
-            body=maybe_transform(
-                {
-                    "credit_grant_ids": credit_grant_ids,
-                    "credit_type_ids": credit_type_ids,
-                    "customer_ids": customer_ids,
-                    "effective_before": effective_before,
-                    "not_expiring_before": not_expiring_before,
-                },
-                credit_grant_list_params.CreditGrantListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "limit": limit,
-                        "next_page": next_page,
-                    },
-                    credit_grant_list_params.CreditGrantListParams,
-                ),
-            ),
+            page = AsyncCursorPage[CreditGrantListResponse],
+            body=maybe_transform({
+                "credit_grant_ids": credit_grant_ids,
+                "credit_type_ids": credit_type_ids,
+                "customer_ids": customer_ids,
+                "effective_before": effective_before,
+                "not_expiring_before": not_expiring_before,
+            }, credit_grant_list_params.CreditGrantListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "limit": limit,
+                "next_page": next_page,
+            }, credit_grant_list_params.CreditGrantListParams)),
             model=CreditGrantListResponse,
             method="post",
         )
 
-    async def edit(
-        self,
-        *,
-        id: str,
-        credit_grant_type: str | Omit = omit,
-        expires_at: Union[str, datetime] | Omit = omit,
-        name: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantEditResponse:
+    async def edit(self,
+    *,
+    id: str,
+    credit_grant_type: str | Omit = omit,
+    expires_at: Union[str, datetime] | Omit = omit,
+    name: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantEditResponse:
         """Edit an existing credit grant.
 
         This is a Plans (deprecated) endpoint. New
@@ -648,37 +583,30 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/credits/editGrant",
-            body=await async_maybe_transform(
-                {
-                    "id": id,
-                    "credit_grant_type": credit_grant_type,
-                    "expires_at": expires_at,
-                    "name": name,
-                },
-                credit_grant_edit_params.CreditGrantEditParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id,
+                "credit_grant_type": credit_grant_type,
+                "expires_at": expires_at,
+                "name": name,
+            }, credit_grant_edit_params.CreditGrantEditParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantEditResponse,
         )
 
-    def list_entries(
-        self,
-        *,
-        next_page: str | Omit = omit,
-        sort: Literal["asc", "desc"] | Omit = omit,
-        credit_type_ids: SequenceNotStr[str] | Omit = omit,
-        customer_ids: SequenceNotStr[str] | Omit = omit,
-        ending_before: Union[str, datetime] | Omit = omit,
-        starting_on: Union[str, datetime] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[CreditGrantListEntriesResponse, AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]]:
+    def list_entries(self,
+    *,
+    next_page: str | Omit = omit,
+    sort: Literal["asc", "desc"] | Omit = omit,
+    credit_type_ids: SequenceNotStr[str] | Omit = omit,
+    customer_ids: SequenceNotStr[str] | Omit = omit,
+    ending_before: Union[str, datetime] | Omit = omit,
+    starting_on: Union[str, datetime] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[CreditGrantListEntriesResponse, AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse]]:
         """Fetches a list of credit ledger entries.
 
         Returns lists of ledgers per customer.
@@ -715,46 +643,32 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/credits/listEntries",
-            page=AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
-            body=maybe_transform(
-                {
-                    "credit_type_ids": credit_type_ids,
-                    "customer_ids": customer_ids,
-                    "ending_before": ending_before,
-                    "starting_on": starting_on,
-                },
-                credit_grant_list_entries_params.CreditGrantListEntriesParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "next_page": next_page,
-                        "sort": sort,
-                    },
-                    credit_grant_list_entries_params.CreditGrantListEntriesParams,
-                ),
-            ),
+            page = AsyncCursorPageWithoutLimit[CreditGrantListEntriesResponse],
+            body=maybe_transform({
+                "credit_type_ids": credit_type_ids,
+                "customer_ids": customer_ids,
+                "ending_before": ending_before,
+                "starting_on": starting_on,
+            }, credit_grant_list_entries_params.CreditGrantListEntriesParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "next_page": next_page,
+                "sort": sort,
+            }, credit_grant_list_entries_params.CreditGrantListEntriesParams)),
             model=CreditGrantListEntriesResponse,
             method="post",
         )
 
-    async def void(
-        self,
-        *,
-        id: str,
-        release_uniqueness_key: bool | Omit = omit,
-        void_credit_purchase_invoice: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CreditGrantVoidResponse:
+    async def void(self,
+    *,
+    id: str,
+    release_uniqueness_key: bool | Omit = omit,
+    void_credit_purchase_invoice: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CreditGrantVoidResponse:
         """Void a credit grant.
 
         This is a Plans (deprecated) endpoint. New clients should
@@ -775,20 +689,14 @@ class AsyncCreditGrantsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/credits/voidGrant",
-            body=await async_maybe_transform(
-                {
-                    "id": id,
-                    "release_uniqueness_key": release_uniqueness_key,
-                    "void_credit_purchase_invoice": void_credit_purchase_invoice,
-                },
-                credit_grant_void_params.CreditGrantVoidParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id,
+                "release_uniqueness_key": release_uniqueness_key,
+                "void_credit_purchase_invoice": void_credit_purchase_invoice,
+            }, credit_grant_void_params.CreditGrantVoidParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CreditGrantVoidResponse,
         )
-
 
 class CreditGrantsResourceWithRawResponse:
     def __init__(self, credit_grants: CreditGrantsResource) -> None:
@@ -810,7 +718,6 @@ class CreditGrantsResourceWithRawResponse:
             credit_grants.void,
         )
 
-
 class AsyncCreditGrantsResourceWithRawResponse:
     def __init__(self, credit_grants: AsyncCreditGrantsResource) -> None:
         self._credit_grants = credit_grants
@@ -831,7 +738,6 @@ class AsyncCreditGrantsResourceWithRawResponse:
             credit_grants.void,
         )
 
-
 class CreditGrantsResourceWithStreamingResponse:
     def __init__(self, credit_grants: CreditGrantsResource) -> None:
         self._credit_grants = credit_grants
@@ -851,7 +757,6 @@ class CreditGrantsResourceWithStreamingResponse:
         self.void = to_streamed_response_wrapper(
             credit_grants.void,
         )
-
 
 class AsyncCreditGrantsResourceWithStreamingResponse:
     def __init__(self, credit_grants: AsyncCreditGrantsResource) -> None:

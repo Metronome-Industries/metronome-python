@@ -1,49 +1,36 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
-from ..shared.commit import Commit
-from ..shared.credit import Credit
-from ..shared.override import Override
-from ..shared.subscription import Subscription
-from ..shared.commit_specifier import CommitSpecifier
-from ..shared.scheduled_charge import ScheduledCharge
-from ..shared.hierarchy_configuration import HierarchyConfiguration
-from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
+from typing import List, Optional, Dict
+
+from datetime import datetime
+
 from ..shared.commit_hierarchy_configuration import CommitHierarchyConfiguration
+
+from ..shared.commit_specifier import CommitSpecifier
+
 from ..shared.recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
+
+from ..shared.commit import Commit
+
+from ..shared.override import Override
+
+from ..shared.scheduled_charge import ScheduledCharge
+
+from ..shared.credit import Credit
+
+from ..shared.hierarchy_configuration import HierarchyConfiguration
+
 from ..shared.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = [
-    "ContractCreateResponse",
-    "Data",
-    "DataContract",
-    "DataContractTransition",
-    "DataContractUsageFilter",
-    "DataContractUsageStatementSchedule",
-    "DataContractCustomerBillingProviderConfiguration",
-    "DataContractHasMore",
-    "DataContractRecurringCommit",
-    "DataContractRecurringCommitAccessAmount",
-    "DataContractRecurringCommitCommitDuration",
-    "DataContractRecurringCommitProduct",
-    "DataContractRecurringCommitContract",
-    "DataContractRecurringCommitInvoiceAmount",
-    "DataContractRecurringCommitProrationRounding",
-    "DataContractRecurringCommitProrationRoundingAccess",
-    "DataContractRecurringCommitProrationRoundingInvoice",
-    "DataContractRecurringCredit",
-    "DataContractRecurringCreditAccessAmount",
-    "DataContractRecurringCreditCommitDuration",
-    "DataContractRecurringCreditProduct",
-    "DataContractRecurringCreditContract",
-    "DataContractRecurringCreditProrationRounding",
-    "DataContractRecurringCreditProrationRoundingAccess",
-]
+from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
 
+from ..shared.subscription import Subscription
+
+__all__ = ["ContractCreateResponse", "Data", "DataContract", "DataContractTransition", "DataContractUsageFilter", "DataContractUsageStatementSchedule", "DataContractCustomerBillingProviderConfiguration", "DataContractHasMore", "DataContractRecurringCommit", "DataContractRecurringCommitAccessAmount", "DataContractRecurringCommitCommitDuration", "DataContractRecurringCommitProduct", "DataContractRecurringCommitContract", "DataContractRecurringCommitInvoiceAmount", "DataContractRecurringCommitProrationRounding", "DataContractRecurringCommitProrationRoundingAccess", "DataContractRecurringCommitProrationRoundingInvoice", "DataContractRecurringCredit", "DataContractRecurringCreditAccessAmount", "DataContractRecurringCreditCommitDuration", "DataContractRecurringCreditProduct", "DataContractRecurringCreditContract", "DataContractRecurringCreditProrationRounding", "DataContractRecurringCreditProrationRoundingAccess"]
 
 class DataContractTransition(BaseModel):
     from_contract_id: str
@@ -51,7 +38,6 @@ class DataContractTransition(BaseModel):
     to_contract_id: str
 
     type: Literal["RENEWAL"]
-
 
 class DataContractUsageFilter(BaseModel):
     group_key: str
@@ -62,13 +48,11 @@ class DataContractUsageFilter(BaseModel):
 
     ending_before: Optional[datetime] = None
 
-
 class DataContractUsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
-
 
 class DataContractCustomerBillingProviderConfiguration(BaseModel):
     id: str
@@ -79,17 +63,7 @@ class DataContractCustomerBillingProviderConfiguration(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Literal[
-        "aws_marketplace",
-        "stripe",
-        "netsuite",
-        "custom",
-        "azure_marketplace",
-        "quickbooks_online",
-        "workday",
-        "gcp_marketplace",
-        "metronome",
-    ]
+    billing_provider: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
     """The billing provider set for this configuration."""
 
     configuration: Dict[str, object]
@@ -112,13 +86,11 @@ class DataContractCustomerBillingProviderConfiguration(BaseModel):
     delivery_method_id: str
     """ID of the delivery method to use for this customer."""
 
-
 class DataContractHasMore(BaseModel):
     """Indicates whether there are more items than the limit for this endpoint.
 
     Use the respective list endpoints to get the full lists.
     """
-
     commits: bool
     """Whether there are more commits on this contract than the limit for this
     endpoint.
@@ -135,44 +107,35 @@ class DataContractHasMore(BaseModel):
     credits.
     """
 
-
 class DataContractRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataContractRecurringCommitCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataContractRecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataContractRecurringCommitContract(BaseModel):
     id: str
 
-
 class DataContractRecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit. Not required."""
-
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
-
 
 class DataContractRecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -185,7 +148,6 @@ class DataContractRecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataContractRecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -197,14 +159,11 @@ class DataContractRecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataContractRecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
-
     access: Optional[DataContractRecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[DataContractRecurringCommitProrationRoundingInvoice] = None
-
 
 class DataContractRecurringCommit(BaseModel):
     id: str
@@ -290,34 +249,27 @@ class DataContractRecurringCommit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataContractRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
-
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
-
 class DataContractRecurringCreditCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
-
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
-
 
 class DataContractRecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
-
 class DataContractRecurringCreditContract(BaseModel):
     id: str
-
 
 class DataContractRecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -330,12 +282,9 @@ class DataContractRecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
-
 class DataContractRecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
-
     access: Optional[DataContractRecurringCreditProrationRoundingAccess] = None
-
 
 class DataContractRecurringCredit(BaseModel):
     id: str
@@ -418,10 +367,8 @@ class DataContractRecurringCredit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
-
 class DataContract(BaseModel):
     """The created contract."""
-
     id: str
 
     commits: List[Commit]
@@ -505,13 +452,11 @@ class DataContract(BaseModel):
     uniqueness_key: Optional[str] = None
     """Optional uniqueness key to prevent duplicate contract creations."""
 
-
 class Data(BaseModel):
     id: str
 
     contract: Optional[DataContract] = None
     """The created contract."""
-
 
 class ContractCreateResponse(BaseModel):
     data: Data

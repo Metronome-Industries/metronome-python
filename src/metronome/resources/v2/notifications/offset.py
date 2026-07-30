@@ -2,37 +2,45 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal
-
 import httpx
 
-from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ...._utils import maybe_transform, async_maybe_transform
-from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
-from ...._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ....pagination import SyncBodyCursorPageCursorField, AsyncBodyCursorPageCursorField
-from ...._base_client import AsyncPaginator, make_request_options
-from ....types.v2.notifications import (
-    offset_edit_params,
-    offset_list_params,
-    offset_create_params,
-    offset_archive_params,
-    offset_retrieve_params,
-)
-from ....types.v2.notifications.offset_edit_response import OffsetEditResponse
+
+from ...._compat import cached_property
+
 from ....types.v2.notifications.offset_create_response import OffsetCreateResponse
-from ....types.v2.notifications.offset_archive_response import OffsetArchiveResponse
+
+from ...._utils import maybe_transform, async_maybe_transform
+
+from ...._base_client import make_request_options, AsyncPaginator
+
+from ...._types import Omit, omit, NotGiven
+
 from ....types.v2.notifications.offset_retrieve_response import OffsetRetrieveResponse
+
 from ....types.v2.lifecycle_event_offset_notification_config import LifecycleEventOffsetNotificationConfig
 
-__all__ = ["OffsetResource", "AsyncOffsetResource"]
+from ....pagination import SyncBodyCursorPageCursorField, AsyncBodyCursorPageCursorField
 
+from typing_extensions import Literal
+
+from ....types.v2.notifications.offset_archive_response import OffsetArchiveResponse
+
+from ....types.v2.notifications.offset_edit_response import OffsetEditResponse
+
+from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ....types.v2.notifications import offset_create_params, offset_edit_params
+
+from typing_extensions import Literal, overload
+from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ....types.v2.notifications import offset_create_params
+from ....types.v2.notifications import offset_retrieve_params
+from ....types.v2.notifications import offset_list_params
+from ....types.v2.notifications import offset_archive_params
+from ....types.v2.notifications import offset_edit_params
+
+__all__ = ["OffsetResource", "AsyncOffsetResource"]
 
 class OffsetResource(SyncAPIResource):
     @cached_property
@@ -54,19 +62,17 @@ class OffsetResource(SyncAPIResource):
         """
         return OffsetResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        policy: offset_create_params.Policy,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetCreateResponse:
+    def create(self,
+    *,
+    name: str,
+    policy: offset_create_params.Policy,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetCreateResponse:
         """Create an offset lifecycle event notification configuration.
 
         The lifecycle event
@@ -91,31 +97,24 @@ class OffsetResource(SyncAPIResource):
         """
         return self._post(
             "/v2/notifications/create",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "policy": policy,
-                    "uniqueness_key": uniqueness_key,
-                },
-                offset_create_params.OffsetCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "policy": policy,
+                "uniqueness_key": uniqueness_key,
+            }, offset_create_params.OffsetCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetCreateResponse,
         )
 
-    def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetRetrieveResponse:
+    def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetRetrieveResponse:
         """
         Retrieve a specific offset lifecycle event notification configuration by ID.
 
@@ -132,26 +131,24 @@ class OffsetResource(SyncAPIResource):
         """
         return self._post(
             "/v2/notifications/get",
-            body=maybe_transform({"id": id}, offset_retrieve_params.OffsetRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id
+            }, offset_retrieve_params.OffsetRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        cursor: str | Omit = omit,
-        limit: float | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig]:
+    def list(self,
+    *,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    cursor: str | Omit = omit,
+    limit: float | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig]:
         """List offset lifecycle event notification configurations.
 
         These are user-created
@@ -172,33 +169,26 @@ class OffsetResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v2/notifications/offset/list",
-            page=SyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig],
-            body=maybe_transform(
-                {
-                    "archive_filter": archive_filter,
-                    "cursor": cursor,
-                    "limit": limit,
-                },
-                offset_list_params.OffsetListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            page = SyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig],
+            body=maybe_transform({
+                "archive_filter": archive_filter,
+                "cursor": cursor,
+                "limit": limit,
+            }, offset_list_params.OffsetListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             model=LifecycleEventOffsetNotificationConfig,
             method="post",
         )
 
-    def archive(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetArchiveResponse:
+    def archive(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetArchiveResponse:
         """Archive an offset lifecycle event notification configuration.
 
         Archived
@@ -217,26 +207,24 @@ class OffsetResource(SyncAPIResource):
         """
         return self._post(
             "/v2/notifications/archive",
-            body=maybe_transform({"id": id}, offset_archive_params.OffsetArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "id": id
+            }, offset_archive_params.OffsetArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetArchiveResponse,
         )
 
-    def edit(
-        self,
-        *,
-        policy: offset_edit_params.Policy,
-        id: str | Omit = omit,
-        is_enabled: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetEditResponse:
+    def edit(self,
+    *,
+    policy: offset_edit_params.Policy,
+    id: str | Omit = omit,
+    is_enabled: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetEditResponse:
         """
         Edit an existing offset lifecycle event notification configuration.
 
@@ -260,20 +248,14 @@ class OffsetResource(SyncAPIResource):
         """
         return self._post(
             "/v2/notifications/edit",
-            body=maybe_transform(
-                {
-                    "policy": policy,
-                    "id": id,
-                    "is_enabled": is_enabled,
-                },
-                offset_edit_params.OffsetEditParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "policy": policy,
+                "id": id,
+                "is_enabled": is_enabled,
+            }, offset_edit_params.OffsetEditParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetEditResponse,
         )
-
 
 class AsyncOffsetResource(AsyncAPIResource):
     @cached_property
@@ -295,19 +277,17 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return AsyncOffsetResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        policy: offset_create_params.Policy,
-        uniqueness_key: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetCreateResponse:
+    async def create(self,
+    *,
+    name: str,
+    policy: offset_create_params.Policy,
+    uniqueness_key: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetCreateResponse:
         """Create an offset lifecycle event notification configuration.
 
         The lifecycle event
@@ -332,31 +312,24 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/notifications/create",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "policy": policy,
-                    "uniqueness_key": uniqueness_key,
-                },
-                offset_create_params.OffsetCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "policy": policy,
+                "uniqueness_key": uniqueness_key,
+            }, offset_create_params.OffsetCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetRetrieveResponse:
+    async def retrieve(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetRetrieveResponse:
         """
         Retrieve a specific offset lifecycle event notification configuration by ID.
 
@@ -373,28 +346,24 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/notifications/get",
-            body=await async_maybe_transform({"id": id}, offset_retrieve_params.OffsetRetrieveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id
+            }, offset_retrieve_params.OffsetRetrieveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
-        cursor: str | Omit = omit,
-        limit: float | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[
-        LifecycleEventOffsetNotificationConfig, AsyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig]
-    ]:
+    def list(self,
+    *,
+    archive_filter: Literal["ARCHIVED", "NOT_ARCHIVED", "ALL"] | Omit = omit,
+    cursor: str | Omit = omit,
+    limit: float | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[LifecycleEventOffsetNotificationConfig, AsyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig]]:
         """List offset lifecycle event notification configurations.
 
         These are user-created
@@ -415,33 +384,26 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v2/notifications/offset/list",
-            page=AsyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig],
-            body=maybe_transform(
-                {
-                    "archive_filter": archive_filter,
-                    "cursor": cursor,
-                    "limit": limit,
-                },
-                offset_list_params.OffsetListParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            page = AsyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig],
+            body=maybe_transform({
+                "archive_filter": archive_filter,
+                "cursor": cursor,
+                "limit": limit,
+            }, offset_list_params.OffsetListParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             model=LifecycleEventOffsetNotificationConfig,
             method="post",
         )
 
-    async def archive(
-        self,
-        *,
-        id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetArchiveResponse:
+    async def archive(self,
+    *,
+    id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetArchiveResponse:
         """Archive an offset lifecycle event notification configuration.
 
         Archived
@@ -460,26 +422,24 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/notifications/archive",
-            body=await async_maybe_transform({"id": id}, offset_archive_params.OffsetArchiveParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "id": id
+            }, offset_archive_params.OffsetArchiveParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetArchiveResponse,
         )
 
-    async def edit(
-        self,
-        *,
-        policy: offset_edit_params.Policy,
-        id: str | Omit = omit,
-        is_enabled: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> OffsetEditResponse:
+    async def edit(self,
+    *,
+    policy: offset_edit_params.Policy,
+    id: str | Omit = omit,
+    is_enabled: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> OffsetEditResponse:
         """
         Edit an existing offset lifecycle event notification configuration.
 
@@ -503,20 +463,14 @@ class AsyncOffsetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/notifications/edit",
-            body=await async_maybe_transform(
-                {
-                    "policy": policy,
-                    "id": id,
-                    "is_enabled": is_enabled,
-                },
-                offset_edit_params.OffsetEditParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "policy": policy,
+                "id": id,
+                "is_enabled": is_enabled,
+            }, offset_edit_params.OffsetEditParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=OffsetEditResponse,
         )
-
 
 class OffsetResourceWithRawResponse:
     def __init__(self, offset: OffsetResource) -> None:
@@ -538,7 +492,6 @@ class OffsetResourceWithRawResponse:
             offset.edit,
         )
 
-
 class AsyncOffsetResourceWithRawResponse:
     def __init__(self, offset: AsyncOffsetResource) -> None:
         self._offset = offset
@@ -559,7 +512,6 @@ class AsyncOffsetResourceWithRawResponse:
             offset.edit,
         )
 
-
 class OffsetResourceWithStreamingResponse:
     def __init__(self, offset: OffsetResource) -> None:
         self._offset = offset
@@ -579,7 +531,6 @@ class OffsetResourceWithStreamingResponse:
         self.edit = to_streamed_response_wrapper(
             offset.edit,
         )
-
 
 class AsyncOffsetResourceWithStreamingResponse:
     def __init__(self, offset: AsyncOffsetResource) -> None:

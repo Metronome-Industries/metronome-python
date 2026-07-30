@@ -1,23 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from typing_extensions import Literal
-
-from ..._models import BaseModel
-from .payment_gate_config import PaymentGateConfig
 from .base_threshold_commit import BaseThresholdCommit
+
+from typing import Optional, List
+
 from .commit_specifier_input import CommitSpecifierInput
 
-__all__ = [
-    "PrepaidBalanceThresholdConfiguration",
-    "Commit",
-    "DiscountConfiguration",
-    "DiscountConfigurationCap",
-    "ThresholdBalanceSpecifier",
-    "ThresholdBalanceSpecifierExclude",
-    "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
-]
+from ..._models import BaseModel
 
+from typing_extensions import Literal
+
+from .payment_gate_config import PaymentGateConfig
+
+__all__ = ["PrepaidBalanceThresholdConfiguration", "Commit", "DiscountConfiguration", "DiscountConfigurationCap", "ThresholdBalanceSpecifier", "ThresholdBalanceSpecifierExclude", "ThresholdBalanceSpecifierExcludeCustomFieldFilter"]
 
 class Commit(BaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
@@ -42,18 +37,15 @@ class Commit(BaseThresholdCommit):
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
-
 class DiscountConfigurationCap(BaseModel):
     """
     If provided, the discount stops applying once the spend tracker has accumulated this much spend in the billing period.
     """
-
     amount: float
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: str
     """Alias of the spend tracker this cap is measured against."""
-
 
 class DiscountConfiguration(BaseModel):
     payment_fraction: float
@@ -69,14 +61,12 @@ class DiscountConfiguration(BaseModel):
     this much spend in the billing period.
     """
 
-
 class ThresholdBalanceSpecifierExcludeCustomFieldFilter(BaseModel):
     entity: Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]
 
     key: str
 
     value: str
-
 
 class ThresholdBalanceSpecifierExclude(BaseModel):
     custom_field_filters: List[ThresholdBalanceSpecifierExcludeCustomFieldFilter]
@@ -85,14 +75,12 @@ class ThresholdBalanceSpecifierExclude(BaseModel):
     evaluating threshold billing
     """
 
-
 class ThresholdBalanceSpecifier(BaseModel):
     exclude: List[ThresholdBalanceSpecifierExclude]
     """
     If any of the exclude specifier is met, the balance is not considered when
     evaluating threshold billing
     """
-
 
 class PrepaidBalanceThresholdConfiguration(BaseModel):
     commit: Commit
