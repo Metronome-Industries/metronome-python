@@ -2,39 +2,34 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ...._resource import SyncAPIResource, AsyncAPIResource
-
-from ...._compat import cached_property
-
-from ....types.v1.settings.billing_provider_create_response import BillingProviderCreateResponse
-
-from ...._utils import maybe_transform, async_maybe_transform
-
-from ...._base_client import make_request_options
-
+from typing import Dict, Optional
 from typing_extensions import Literal
 
-from typing import Dict, Optional
+import httpx
 
-from ...._types import NotGiven, Omit, omit
-
+from ...._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ...._utils import maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...._base_client import make_request_options
+from ....types.v1.settings import billing_provider_list_params, billing_provider_create_params
 from ....types.v1.settings.billing_provider_list_response import BillingProviderListResponse
-
-from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ....types.v1.settings import billing_provider_create_params
-from ....types.v1.settings import billing_provider_list_params
+from ....types.v1.settings.billing_provider_create_response import BillingProviderCreateResponse
 
 __all__ = ["BillingProvidersResource", "AsyncBillingProvidersResource"]
+
 
 class BillingProvidersResource(SyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
+
     @cached_property
     def with_raw_response(self) -> BillingProvidersResourceWithRawResponse:
         """
@@ -54,17 +49,19 @@ class BillingProvidersResource(SyncAPIResource):
         """
         return BillingProvidersResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
-    configuration: Dict[str, object],
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BillingProviderCreateResponse:
+    def create(
+        self,
+        *,
+        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
+        configuration: Dict[str, object],
+        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillingProviderCreateResponse:
         """Set up account-level configuration for a billing provider.
 
         Once configured,
@@ -90,24 +87,31 @@ class BillingProvidersResource(SyncAPIResource):
         """
         return self._post(
             "/v1/setUpBillingProvider",
-            body=maybe_transform({
-                "billing_provider": billing_provider,
-                "configuration": configuration,
-                "delivery_method": delivery_method,
-            }, billing_provider_create_params.BillingProviderCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "billing_provider": billing_provider,
+                    "configuration": configuration,
+                    "delivery_method": delivery_method,
+                },
+                billing_provider_create_params.BillingProviderCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillingProviderCreateResponse,
         )
 
-    def list(self,
-    *,
-    next_page: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BillingProviderListResponse:
+    def list(
+        self,
+        *,
+        next_page: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillingProviderListResponse:
         """
         Lists all configured billing providers and their delivery method configurations
         for your account. Returns provider details, delivery method IDs, and
@@ -127,17 +131,19 @@ class BillingProvidersResource(SyncAPIResource):
         """
         return self._post(
             "/v1/listConfiguredBillingProviders",
-            body=maybe_transform({
-                "next_page": next_page
-            }, billing_provider_list_params.BillingProviderListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"next_page": next_page}, billing_provider_list_params.BillingProviderListParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillingProviderListResponse,
         )
+
 
 class AsyncBillingProvidersResource(AsyncAPIResource):
     """
     Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncBillingProvidersResourceWithRawResponse:
         """
@@ -157,17 +163,19 @@ class AsyncBillingProvidersResource(AsyncAPIResource):
         """
         return AsyncBillingProvidersResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
-    configuration: Dict[str, object],
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BillingProviderCreateResponse:
+    async def create(
+        self,
+        *,
+        billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace"],
+        configuration: Dict[str, object],
+        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillingProviderCreateResponse:
         """Set up account-level configuration for a billing provider.
 
         Once configured,
@@ -193,24 +201,31 @@ class AsyncBillingProvidersResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/setUpBillingProvider",
-            body=await async_maybe_transform({
-                "billing_provider": billing_provider,
-                "configuration": configuration,
-                "delivery_method": delivery_method,
-            }, billing_provider_create_params.BillingProviderCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "billing_provider": billing_provider,
+                    "configuration": configuration,
+                    "delivery_method": delivery_method,
+                },
+                billing_provider_create_params.BillingProviderCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillingProviderCreateResponse,
         )
 
-    async def list(self,
-    *,
-    next_page: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BillingProviderListResponse:
+    async def list(
+        self,
+        *,
+        next_page: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillingProviderListResponse:
         """
         Lists all configured billing providers and their delivery method configurations
         for your account. Returns provider details, delivery method IDs, and
@@ -230,12 +245,15 @@ class AsyncBillingProvidersResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/listConfiguredBillingProviders",
-            body=await async_maybe_transform({
-                "next_page": next_page
-            }, billing_provider_list_params.BillingProviderListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {"next_page": next_page}, billing_provider_list_params.BillingProviderListParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BillingProviderListResponse,
         )
+
 
 class BillingProvidersResourceWithRawResponse:
     def __init__(self, billing_providers: BillingProvidersResource) -> None:
@@ -248,6 +266,7 @@ class BillingProvidersResourceWithRawResponse:
             billing_providers.list,
         )
 
+
 class AsyncBillingProvidersResourceWithRawResponse:
     def __init__(self, billing_providers: AsyncBillingProvidersResource) -> None:
         self._billing_providers = billing_providers
@@ -259,6 +278,7 @@ class AsyncBillingProvidersResourceWithRawResponse:
             billing_providers.list,
         )
 
+
 class BillingProvidersResourceWithStreamingResponse:
     def __init__(self, billing_providers: BillingProvidersResource) -> None:
         self._billing_providers = billing_providers
@@ -269,6 +289,7 @@ class BillingProvidersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             billing_providers.list,
         )
+
 
 class AsyncBillingProvidersResourceWithStreamingResponse:
     def __init__(self, billing_providers: AsyncBillingProvidersResource) -> None:

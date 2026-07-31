@@ -1,16 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
+from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from typing import Optional, List
-
-from datetime import datetime
-
+from ...._models import BaseModel
 from ...shared.credit_type_data import CreditTypeData
 
-__all__ = ["CustomerAlert", "Alert", "AlertAlertSpecifier", "AlertAlertSpecifierCustomFieldFilter", "AlertAlertSpecifierExclude", "AlertAlertSpecifierExcludeCustomFieldFilter", "AlertCustomFieldFilter", "AlertGroupKeyFilter", "AlertGroupValue", "AlertSeatFilter"]
+__all__ = [
+    "CustomerAlert",
+    "Alert",
+    "AlertAlertSpecifier",
+    "AlertAlertSpecifierCustomFieldFilter",
+    "AlertAlertSpecifierExclude",
+    "AlertAlertSpecifierExcludeCustomFieldFilter",
+    "AlertCustomFieldFilter",
+    "AlertGroupKeyFilter",
+    "AlertGroupValue",
+    "AlertSeatFilter",
+]
+
 
 class AlertAlertSpecifierCustomFieldFilter(BaseModel):
     entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
@@ -19,6 +28,7 @@ class AlertAlertSpecifierCustomFieldFilter(BaseModel):
 
     value: Optional[str] = None
 
+
 class AlertAlertSpecifierExcludeCustomFieldFilter(BaseModel):
     entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
 
@@ -26,12 +36,14 @@ class AlertAlertSpecifierExcludeCustomFieldFilter(BaseModel):
 
     value: str
 
+
 class AlertAlertSpecifierExclude(BaseModel):
     custom_field_filters: Optional[List[AlertAlertSpecifierExcludeCustomFieldFilter]] = None
     """
     A list of custom field filters for notification types that support advanced
     filtering
     """
+
 
 class AlertAlertSpecifier(BaseModel):
     custom_field_filters: Optional[List[AlertAlertSpecifierCustomFieldFilter]] = None
@@ -46,6 +58,7 @@ class AlertAlertSpecifier(BaseModel):
     criteria and any of the excluding values.
     """
 
+
 class AlertCustomFieldFilter(BaseModel):
     entity: Literal["Contract", "Commit", "ContractCredit", "ContractCreditOrCommit"]
 
@@ -53,29 +66,35 @@ class AlertCustomFieldFilter(BaseModel):
 
     value: str
 
+
 class AlertGroupKeyFilter(BaseModel):
     """
     Scopes threshold notification evaluation to a specific presentation group key on individual line items. Only present for spend notifications.
     """
+
     key: str
 
     value: str
+
 
 class AlertGroupValue(BaseModel):
     key: str
 
     value: Optional[str] = None
 
+
 class AlertSeatFilter(BaseModel):
     """Only present for low_remaining_seat_balance_reached notifications.
 
     The seat group key or seat group key-value pair the alert is scoped to.
     """
+
     seat_group_key: str
     """The seat group key (e.g., "seat_id", "user_id") that the alert is scoped to."""
 
     seat_group_value: Optional[str] = None
     """The seat group value that the alert is scoped to."""
+
 
 class Alert(BaseModel):
     id: str
@@ -90,7 +109,23 @@ class Alert(BaseModel):
     threshold: float
     """Threshold value of the notification policy"""
 
-    type: Literal["low_credit_balance_reached", "spend_threshold_reached", "monthly_invoice_total_spend_threshold_reached", "low_remaining_days_in_plan_reached", "low_remaining_credit_percentage_reached", "usage_threshold_reached", "low_remaining_days_for_commit_segment_reached", "low_remaining_commit_balance_reached", "low_remaining_commit_percentage_reached", "low_remaining_days_for_contract_credit_segment_reached", "low_remaining_contract_credit_balance_reached", "low_remaining_contract_credit_percentage_reached", "low_remaining_contract_credit_and_commit_balance_reached", "low_remaining_seat_balance_reached", "invoice_total_reached"]
+    type: Literal[
+        "low_credit_balance_reached",
+        "spend_threshold_reached",
+        "monthly_invoice_total_spend_threshold_reached",
+        "low_remaining_days_in_plan_reached",
+        "low_remaining_credit_percentage_reached",
+        "usage_threshold_reached",
+        "low_remaining_days_for_commit_segment_reached",
+        "low_remaining_commit_balance_reached",
+        "low_remaining_commit_percentage_reached",
+        "low_remaining_days_for_contract_credit_segment_reached",
+        "low_remaining_contract_credit_balance_reached",
+        "low_remaining_contract_credit_percentage_reached",
+        "low_remaining_contract_credit_and_commit_balance_reached",
+        "low_remaining_seat_balance_reached",
+        "invoice_total_reached",
+    ]
     """Type of the threshold notification"""
 
     updated_at: datetime
@@ -151,6 +186,7 @@ class Alert(BaseModel):
     If a request to create a record is made with a previously used uniqueness key, a
     new record will not be created and the request will fail with a 409 error.
     """
+
 
 class CustomerAlert(BaseModel):
     alert: Alert

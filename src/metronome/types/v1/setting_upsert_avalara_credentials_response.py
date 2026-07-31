@@ -4,5 +4,6 @@ from ..._models import BaseModel
 
 __all__ = ["SettingUpsertAvalaraCredentialsResponse"]
 
+
 class SettingUpsertAvalaraCredentialsResponse(BaseModel):
     pass

@@ -1,15 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, Dict
-
+from typing import Dict, Optional
 from typing_extensions import Literal
+
+from ..._models import BaseModel
 
 __all__ = ["PaymentGateConfigV2", "PrecalculatedTaxConfig", "StripeConfig"]
 
+
 class PrecalculatedTaxConfig(BaseModel):
     """Only applicable if using PRECALCULATED as your tax type."""
+
     tax_amount: float
     """Amount of tax to be applied.
 
@@ -23,8 +24,10 @@ class PrecalculatedTaxConfig(BaseModel):
     This may be used in an invoice line item description.
     """
 
+
 class StripeConfig(BaseModel):
     """Only applicable if using STRIPE as your payment gateway type."""
+
     payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
     """If left blank, will default to INVOICE"""
 
@@ -33,6 +36,7 @@ class StripeConfig(BaseModel):
 
     Only applicable if using INVOICE as your payment type.
     """
+
 
 class PaymentGateConfigV2(BaseModel):
     payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]

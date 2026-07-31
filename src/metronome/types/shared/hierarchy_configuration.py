@@ -1,17 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional, List
+from typing import List, Union, Optional
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias
+__all__ = [
+    "HierarchyConfiguration",
+    "ParentHierarchyConfiguration",
+    "ParentHierarchyConfigurationChild",
+    "ParentHierarchyConfigurationParentBehavior",
+    "ChildHierarchyConfiguration",
+    "ChildHierarchyConfigurationParent",
+]
 
-__all__ = ["HierarchyConfiguration", "ParentHierarchyConfiguration", "ParentHierarchyConfigurationChild", "ParentHierarchyConfigurationParentBehavior", "ChildHierarchyConfiguration", "ChildHierarchyConfigurationParent"]
 
 class ParentHierarchyConfigurationChild(BaseModel):
     contract_id: str
 
     customer_id: str
+
 
 class ParentHierarchyConfigurationParentBehavior(BaseModel):
     invoice_consolidation_type: Optional[Literal["CONCATENATE", "NONE"]] = None
@@ -25,17 +33,21 @@ class ParentHierarchyConfigurationParentBehavior(BaseModel):
     **NONE**: Do not generate consolidated invoices
     """
 
+
 class ParentHierarchyConfiguration(BaseModel):
     children: List[ParentHierarchyConfigurationChild]
     """List of contracts that belong to this parent."""
 
     parent_behavior: Optional[ParentHierarchyConfigurationParentBehavior] = None
 
+
 class ChildHierarchyConfigurationParent(BaseModel):
     """The single parent contract/customer for this child."""
+
     contract_id: str
 
     customer_id: str
+
 
 class ChildHierarchyConfiguration(BaseModel):
     parent: ChildHierarchyConfigurationParent
@@ -60,5 +72,6 @@ class ChildHierarchyConfiguration(BaseModel):
     **SEPARATE**: Child's invoice statements will appear not appear on parent's
     consolidated invoices
     """
+
 
 HierarchyConfiguration: TypeAlias = Union[ParentHierarchyConfiguration, ChildHierarchyConfiguration]

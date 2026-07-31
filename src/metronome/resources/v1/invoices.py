@@ -4,33 +4,29 @@ from __future__ import annotations
 
 import httpx
 
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
+from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
-
+from ...types.v1 import invoice_void_params, invoice_regenerate_params
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.v1.invoice_void_response import InvoiceVoidResponse
 from ...types.v1.invoice_regenerate_response import InvoiceRegenerateResponse
 
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ..._base_client import make_request_options
-
-from ..._types import NotGiven
-
-from ...types.v1.invoice_void_response import InvoiceVoidResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.v1 import invoice_regenerate_params
-from ...types.v1 import invoice_void_params
-
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
+
 
 class InvoicesResource(SyncAPIResource):
     """
     [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
     """
+
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -50,15 +46,17 @@ class InvoicesResource(SyncAPIResource):
         """
         return InvoicesResourceWithStreamingResponse(self)
 
-    def regenerate(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> InvoiceRegenerateResponse:
+    def regenerate(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceRegenerateResponse:
         """
         This endpoint regenerates a voided invoice and recalculates the invoice based on
         up-to-date rates, available balances, and other fees regardless of the billing
@@ -92,22 +90,24 @@ class InvoicesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/invoices/regenerate",
-            body=maybe_transform({
-                "id": id
-            }, invoice_regenerate_params.InvoiceRegenerateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"id": id}, invoice_regenerate_params.InvoiceRegenerateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceRegenerateResponse,
         )
 
-    def void(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> InvoiceVoidResponse:
+    def void(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceVoidResponse:
         """
         Permanently cancels an invoice by setting its status to voided, preventing
         collection and removing it from customer billing. Use this to correct billing
@@ -128,17 +128,19 @@ class InvoicesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/invoices/void",
-            body=maybe_transform({
-                "id": id
-            }, invoice_void_params.InvoiceVoidParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"id": id}, invoice_void_params.InvoiceVoidParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceVoidResponse,
         )
+
 
 class AsyncInvoicesResource(AsyncAPIResource):
     """
     [Invoices](https://docs.metronome.com/invoicing/) reflect how much a customer spent during a period, which is the basis for billing. Metronome automatically generates invoices based upon your pricing, packaging, and usage events. Use these endpoints to retrieve invoices.
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """
@@ -158,15 +160,17 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return AsyncInvoicesResourceWithStreamingResponse(self)
 
-    async def regenerate(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> InvoiceRegenerateResponse:
+    async def regenerate(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceRegenerateResponse:
         """
         This endpoint regenerates a voided invoice and recalculates the invoice based on
         up-to-date rates, available balances, and other fees regardless of the billing
@@ -200,22 +204,24 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/invoices/regenerate",
-            body=await async_maybe_transform({
-                "id": id
-            }, invoice_regenerate_params.InvoiceRegenerateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"id": id}, invoice_regenerate_params.InvoiceRegenerateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceRegenerateResponse,
         )
 
-    async def void(self,
-    *,
-    id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> InvoiceVoidResponse:
+    async def void(
+        self,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceVoidResponse:
         """
         Permanently cancels an invoice by setting its status to voided, preventing
         collection and removing it from customer billing. Use this to correct billing
@@ -236,12 +242,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/invoices/void",
-            body=await async_maybe_transform({
-                "id": id
-            }, invoice_void_params.InvoiceVoidParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"id": id}, invoice_void_params.InvoiceVoidParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InvoiceVoidResponse,
         )
+
 
 class InvoicesResourceWithRawResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
@@ -254,6 +261,7 @@ class InvoicesResourceWithRawResponse:
             invoices.void,
         )
 
+
 class AsyncInvoicesResourceWithRawResponse:
     def __init__(self, invoices: AsyncInvoicesResource) -> None:
         self._invoices = invoices
@@ -265,6 +273,7 @@ class AsyncInvoicesResourceWithRawResponse:
             invoices.void,
         )
 
+
 class InvoicesResourceWithStreamingResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
         self._invoices = invoices
@@ -275,6 +284,7 @@ class InvoicesResourceWithStreamingResponse:
         self.void = to_streamed_response_wrapper(
             invoices.void,
         )
+
 
 class AsyncInvoicesResourceWithStreamingResponse:
     def __init__(self, invoices: AsyncInvoicesResource) -> None:

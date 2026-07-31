@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, List, Optional
+
 from ..._models import BaseModel
 
-from typing import Optional, Dict, List
-
 __all__ = ["CommitSpecifier"]
+
 
 class CommitSpecifier(BaseModel):
     presentation_group_values: Optional[Dict[str, str]] = None

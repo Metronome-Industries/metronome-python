@@ -4,5 +4,6 @@ from ..._models import BaseModel
 
 __all__ = ["ID"]
 
+
 class ID(BaseModel):
     id: str

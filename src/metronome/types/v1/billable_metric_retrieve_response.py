@@ -1,18 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, Dict, List
-
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from datetime import datetime
-
+from ..._models import BaseModel
+from ..shared.property_filter import PropertyFilter
 from ..shared.event_type_filter import EventTypeFilter
 
-from ..shared.property_filter import PropertyFilter
-
 __all__ = ["BillableMetricRetrieveResponse", "Data"]
+
 
 class Data(BaseModel):
     id: str
@@ -59,6 +56,7 @@ class Data(BaseModel):
 
     sql: Optional[str] = None
     """The SQL query associated with the billable metric"""
+
 
 class BillableMetricRetrieveResponse(BaseModel):
     data: Data

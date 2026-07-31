@@ -1,52 +1,130 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Union, Optional, List, Dict
-
+from typing import Dict, List, Union, Optional
 from datetime import datetime
-
-from typing_extensions import Literal, TypeAliasType, TypeAlias
-
-from .schedule_duration import ScheduleDuration
-
-from .commit_hierarchy_configuration import CommitHierarchyConfiguration
-
-from .schedule_point_in_time import SchedulePointInTime
-
-from .commit_specifier import CommitSpecifier
-
-from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
-
-from .credit_type_data import CreditTypeData
+from typing_extensions import Literal, TypeAlias
 
 from .tier import Tier
-
-from .override_tier import OverrideTier
-
-from .scheduled_charge import ScheduledCharge
-
 from .discount import Discount
-
+from ..._models import BaseModel
+from .pro_service import ProService
+from .override_tier import OverrideTier
+from .commit_specifier import CommitSpecifier
+from .credit_type_data import CreditTypeData
+from .scheduled_charge import ScheduledCharge
+from .schedule_duration import ScheduleDuration
+from .schedule_point_in_time import SchedulePointInTime
+from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from .spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
 from .prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
-from .pro_service import ProService
+__all__ = [
+    "ContractV2",
+    "Commit",
+    "CommitProduct",
+    "CommitContract",
+    "CommitInvoiceContract",
+    "CommitLedger",
+    "CommitLedgerPrepaidCommitSegmentStartLedgerEntry",
+    "CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry",
+    "CommitLedgerPrepaidCommitRolloverLedgerEntry",
+    "CommitLedgerPrepaidCommitExpirationLedgerEntry",
+    "CommitLedgerPrepaidCommitCanceledLedgerEntry",
+    "CommitLedgerPrepaidCommitCreditedLedgerEntry",
+    "CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry",
+    "CommitLedgerPostpaidCommitInitialBalanceLedgerEntry",
+    "CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry",
+    "CommitLedgerPostpaidCommitRolloverLedgerEntry",
+    "CommitLedgerPostpaidCommitTrueupLedgerEntry",
+    "CommitLedgerPrepaidCommitManualLedgerEntry",
+    "CommitLedgerPostpaidCommitManualLedgerEntry",
+    "CommitLedgerPostpaidCommitExpirationLedgerEntry",
+    "CommitRolledOverFrom",
+    "CommitSpendTrackerAttributes",
+    "Override",
+    "OverrideOverrideSpecifier",
+    "OverrideOverwriteRate",
+    "OverrideProduct",
+    "Transition",
+    "UsageFilter",
+    "UsageStatementSchedule",
+    "BillingProviderConfigurationSchedule",
+    "BillingProviderConfigurationScheduleBillingProviderConfiguration",
+    "Credit",
+    "CreditProduct",
+    "CreditContract",
+    "CreditLedger",
+    "CreditLedgerCreditSegmentStartLedgerEntry",
+    "CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry",
+    "CreditLedgerCreditExpirationLedgerEntry",
+    "CreditLedgerCreditCanceledLedgerEntry",
+    "CreditLedgerCreditCreditedLedgerEntry",
+    "CreditLedgerCreditManualLedgerEntry",
+    "CreditLedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "CreditLedgerCreditRolloverLedgerEntry",
+    "CreditRolledOverFrom",
+    "CustomerBillingProviderConfiguration",
+    "HasMore",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParentHierarchyConfiguration",
+    "HierarchyConfigurationParentHierarchyConfigurationChild",
+    "HierarchyConfigurationParentHierarchyConfigurationParentBehavior",
+    "HierarchyConfigurationChildHierarchyConfigurationV2",
+    "HierarchyConfigurationChildHierarchyConfigurationV2Parent",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitProduct",
+    "RecurringCommitContract",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditProduct",
+    "RecurringCreditContract",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
+    "ResellerRoyalty",
+    "ResellerRoyaltySegment",
+    "RevenueSystemConfigurationSchedule",
+    "RevenueSystemConfigurationScheduleRevenueSystemConfiguration",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
+    "Subscription",
+    "SubscriptionBillingPeriods",
+    "SubscriptionBillingPeriodsCurrent",
+    "SubscriptionBillingPeriodsNext",
+    "SubscriptionBillingPeriodsPrevious",
+    "SubscriptionProration",
+    "SubscriptionProrationRounding",
+    "SubscriptionQuantitySchedule",
+    "SubscriptionSubscriptionRate",
+    "SubscriptionSubscriptionRateProduct",
+    "SubscriptionBillingCycleConfig",
+    "SubscriptionSeatConfig",
+]
 
-from .spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
-
-__all__ = ["ContractV2", "Commit", "CommitProduct", "CommitContract", "CommitInvoiceContract", "CommitLedger", "CommitLedgerPrepaidCommitSegmentStartLedgerEntry", "CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry", "CommitLedgerPrepaidCommitRolloverLedgerEntry", "CommitLedgerPrepaidCommitExpirationLedgerEntry", "CommitLedgerPrepaidCommitCanceledLedgerEntry", "CommitLedgerPrepaidCommitCreditedLedgerEntry", "CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry", "CommitLedgerPostpaidCommitInitialBalanceLedgerEntry", "CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry", "CommitLedgerPostpaidCommitRolloverLedgerEntry", "CommitLedgerPostpaidCommitTrueupLedgerEntry", "CommitLedgerPrepaidCommitManualLedgerEntry", "CommitLedgerPostpaidCommitManualLedgerEntry", "CommitLedgerPostpaidCommitExpirationLedgerEntry", "CommitRolledOverFrom", "CommitSpendTrackerAttributes", "Override", "OverrideOverrideSpecifier", "OverrideOverwriteRate", "OverrideProduct", "Transition", "UsageFilter", "UsageStatementSchedule", "BillingProviderConfigurationSchedule", "BillingProviderConfigurationScheduleBillingProviderConfiguration", "Credit", "CreditProduct", "CreditContract", "CreditLedger", "CreditLedgerCreditSegmentStartLedgerEntry", "CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry", "CreditLedgerCreditExpirationLedgerEntry", "CreditLedgerCreditCanceledLedgerEntry", "CreditLedgerCreditCreditedLedgerEntry", "CreditLedgerCreditManualLedgerEntry", "CreditLedgerCreditSeatBasedAdjustmentLedgerEntry", "CreditLedgerCreditRolloverLedgerEntry", "CreditRolledOverFrom", "CustomerBillingProviderConfiguration", "HasMore", "HierarchyConfiguration", "HierarchyConfigurationParentHierarchyConfiguration", "HierarchyConfigurationParentHierarchyConfigurationChild", "HierarchyConfigurationParentHierarchyConfigurationParentBehavior", "HierarchyConfigurationChildHierarchyConfigurationV2", "HierarchyConfigurationChildHierarchyConfigurationV2Parent", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitProduct", "RecurringCommitContract", "RecurringCommitInvoiceAmount", "RecurringCommitProrationRounding", "RecurringCommitProrationRoundingAccess", "RecurringCommitProrationRoundingInvoice", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditProduct", "RecurringCreditContract", "RecurringCreditProrationRounding", "RecurringCreditProrationRoundingAccess", "ResellerRoyalty", "ResellerRoyaltySegment", "RevenueSystemConfigurationSchedule", "RevenueSystemConfigurationScheduleRevenueSystemConfiguration", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "SpendTrackerAccumulatedSpend", "Subscription", "SubscriptionBillingPeriods", "SubscriptionBillingPeriodsCurrent", "SubscriptionBillingPeriodsNext", "SubscriptionBillingPeriodsPrevious", "SubscriptionProration", "SubscriptionProrationRounding", "SubscriptionQuantitySchedule", "SubscriptionSubscriptionRate", "SubscriptionSubscriptionRateProduct", "SubscriptionBillingCycleConfig", "SubscriptionSeatConfig"]
 
 class CommitProduct(BaseModel):
     id: str
 
     name: str
 
+
 class CommitContract(BaseModel):
     id: str
 
+
 class CommitInvoiceContract(BaseModel):
     """The contract that this commit will be billed on."""
+
     id: str
+
 
 class CommitLedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -56,6 +134,7 @@ class CommitLedgerPrepaidCommitSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_SEGMENT_START"]
+
 
 class CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -70,6 +149,7 @@ class CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CommitLedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -81,6 +161,7 @@ class CommitLedgerPrepaidCommitRolloverLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_ROLLOVER"]
 
+
 class CommitLedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -89,6 +170,7 @@ class CommitLedgerPrepaidCommitExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_EXPIRATION"]
+
 
 class CommitLedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
     amount: float
@@ -103,6 +185,7 @@ class CommitLedgerPrepaidCommitCanceledLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -116,6 +199,7 @@ class CommitLedgerPrepaidCommitCreditedLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
     amount: float
 
@@ -125,12 +209,14 @@ class CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry(BaseModel):
 
     type: Literal["PREPAID_COMMIT_SEAT_BASED_ADJUSTMENT"]
 
+
 class CommitLedgerPostpaidCommitInitialBalanceLedgerEntry(BaseModel):
     amount: float
 
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_INITIAL_BALANCE"]
+
 
 class CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -145,6 +231,7 @@ class CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CommitLedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     amount: float
 
@@ -155,6 +242,7 @@ class CommitLedgerPostpaidCommitRolloverLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["POSTPAID_COMMIT_ROLLOVER"]
+
 
 class CommitLedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
     amount: float
@@ -167,6 +255,7 @@ class CommitLedgerPostpaidCommitTrueupLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CommitLedgerPrepaidCommitManualLedgerEntry(BaseModel):
     amount: float
 
@@ -175,6 +264,7 @@ class CommitLedgerPrepaidCommitManualLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["PREPAID_COMMIT_MANUAL"]
+
 
 class CommitLedgerPostpaidCommitManualLedgerEntry(BaseModel):
     amount: float
@@ -185,6 +275,7 @@ class CommitLedgerPostpaidCommitManualLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_MANUAL"]
 
+
 class CommitLedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -192,20 +283,40 @@ class CommitLedgerPostpaidCommitExpirationLedgerEntry(BaseModel):
 
     type: Literal["POSTPAID_COMMIT_EXPIRATION"]
 
-CommitLedger: TypeAlias = Union[CommitLedgerPrepaidCommitSegmentStartLedgerEntry, CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry, CommitLedgerPrepaidCommitRolloverLedgerEntry, CommitLedgerPrepaidCommitExpirationLedgerEntry, CommitLedgerPrepaidCommitCanceledLedgerEntry, CommitLedgerPrepaidCommitCreditedLedgerEntry, CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry, CommitLedgerPostpaidCommitInitialBalanceLedgerEntry, CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry, CommitLedgerPostpaidCommitRolloverLedgerEntry, CommitLedgerPostpaidCommitTrueupLedgerEntry, CommitLedgerPrepaidCommitManualLedgerEntry, CommitLedgerPostpaidCommitManualLedgerEntry, CommitLedgerPostpaidCommitExpirationLedgerEntry]
+
+CommitLedger: TypeAlias = Union[
+    CommitLedgerPrepaidCommitSegmentStartLedgerEntry,
+    CommitLedgerPrepaidCommitAutomatedInvoiceDeductionLedgerEntry,
+    CommitLedgerPrepaidCommitRolloverLedgerEntry,
+    CommitLedgerPrepaidCommitExpirationLedgerEntry,
+    CommitLedgerPrepaidCommitCanceledLedgerEntry,
+    CommitLedgerPrepaidCommitCreditedLedgerEntry,
+    CommitLedgerPrepaidCommitSeatBasedAdjustmentLedgerEntry,
+    CommitLedgerPostpaidCommitInitialBalanceLedgerEntry,
+    CommitLedgerPostpaidCommitAutomatedInvoiceDeductionLedgerEntry,
+    CommitLedgerPostpaidCommitRolloverLedgerEntry,
+    CommitLedgerPostpaidCommitTrueupLedgerEntry,
+    CommitLedgerPrepaidCommitManualLedgerEntry,
+    CommitLedgerPostpaidCommitManualLedgerEntry,
+    CommitLedgerPostpaidCommitExpirationLedgerEntry,
+]
+
 
 class CommitRolledOverFrom(BaseModel):
     commit_id: str
 
     contract_id: str
 
+
 class CommitSpendTrackerAttributes(BaseModel):
     """Optional attributes controlling how this commit interacts with spend trackers."""
+
     counts_as_discounted: bool
     """
     If true, this commit is included in spend trackers with discounted set to
     DISCOUNTED_ONLY
     """
+
 
 class Commit(BaseModel):
     id: str
@@ -317,6 +428,7 @@ class Commit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class OverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_ids: Optional[List[str]] = None
 
@@ -333,6 +445,7 @@ class OverrideOverrideSpecifier(BaseModel):
     product_tags: Optional[List[str]] = None
 
     recurring_commit_ids: Optional[List[str]] = None
+
 
 class OverrideOverwriteRate(BaseModel):
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
@@ -364,10 +477,12 @@ class OverrideOverwriteRate(BaseModel):
     tiers: Optional[List[Tier]] = None
     """Only set for TIERED rate_type."""
 
+
 class OverrideProduct(BaseModel):
     id: str
 
     name: str
+
 
 class Override(BaseModel):
     id: str
@@ -400,12 +515,14 @@ class Override(BaseModel):
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
 
+
 class Transition(BaseModel):
     from_contract_id: str
 
     to_contract_id: str
 
     type: Literal["RENEWAL"]
+
 
 class UsageFilter(BaseModel):
     group_key: str
@@ -424,11 +541,13 @@ class UsageFilter(BaseModel):
     end of the contract. It will be undefined if the contract is open-ended.
     """
 
+
 class UsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+
 
 class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel):
     id: str
@@ -439,7 +558,17 @@ class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
     """The billing provider set for this configuration."""
 
     configuration: Dict[str, object]
@@ -462,6 +591,7 @@ class BillingProviderConfigurationScheduleBillingProviderConfiguration(BaseModel
     delivery_method_id: str
     """ID of the delivery method to use for this customer."""
 
+
 class BillingProviderConfigurationSchedule(BaseModel):
     billing_provider_configuration: Optional[BillingProviderConfigurationScheduleBillingProviderConfiguration] = None
 
@@ -474,13 +604,16 @@ class BillingProviderConfigurationSchedule(BaseModel):
     Null for the last entry in the schedule.
     """
 
+
 class CreditProduct(BaseModel):
     id: str
 
     name: str
 
+
 class CreditContract(BaseModel):
     id: str
+
 
 class CreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -490,6 +623,7 @@ class CreditLedgerCreditSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_SEGMENT_START"]
+
 
 class CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -504,6 +638,7 @@ class CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CreditLedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -512,6 +647,7 @@ class CreditLedgerCreditExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_EXPIRATION"]
+
 
 class CreditLedgerCreditCanceledLedgerEntry(BaseModel):
     amount: float
@@ -526,6 +662,7 @@ class CreditLedgerCreditCanceledLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CreditLedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -539,6 +676,7 @@ class CreditLedgerCreditCreditedLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class CreditLedgerCreditManualLedgerEntry(BaseModel):
     amount: float
 
@@ -548,6 +686,7 @@ class CreditLedgerCreditManualLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_MANUAL"]
 
+
 class CreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     amount: float
 
@@ -556,6 +695,7 @@ class CreditLedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
+
 
 class CreditLedgerCreditRolloverLedgerEntry(BaseModel):
     amount: float
@@ -568,12 +708,24 @@ class CreditLedgerCreditRolloverLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_ROLLOVER"]
 
-CreditLedger: TypeAlias = Union[CreditLedgerCreditSegmentStartLedgerEntry, CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry, CreditLedgerCreditExpirationLedgerEntry, CreditLedgerCreditCanceledLedgerEntry, CreditLedgerCreditCreditedLedgerEntry, CreditLedgerCreditManualLedgerEntry, CreditLedgerCreditSeatBasedAdjustmentLedgerEntry, CreditLedgerCreditRolloverLedgerEntry]
+
+CreditLedger: TypeAlias = Union[
+    CreditLedgerCreditSegmentStartLedgerEntry,
+    CreditLedgerCreditAutomatedInvoiceDeductionLedgerEntry,
+    CreditLedgerCreditExpirationLedgerEntry,
+    CreditLedgerCreditCanceledLedgerEntry,
+    CreditLedgerCreditCreditedLedgerEntry,
+    CreditLedgerCreditManualLedgerEntry,
+    CreditLedgerCreditSeatBasedAdjustmentLedgerEntry,
+    CreditLedgerCreditRolloverLedgerEntry,
+]
+
 
 class CreditRolledOverFrom(BaseModel):
     contract_id: str
 
     credit_id: str
+
 
 class Credit(BaseModel):
     id: str
@@ -664,6 +816,7 @@ class Credit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class CustomerBillingProviderConfiguration(BaseModel):
     id: str
     """
@@ -673,7 +826,17 @@ class CustomerBillingProviderConfiguration(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
     """The billing provider set for this configuration."""
 
     configuration: Dict[str, object]
@@ -696,11 +859,13 @@ class CustomerBillingProviderConfiguration(BaseModel):
     delivery_method_id: str
     """ID of the delivery method to use for this customer."""
 
+
 class HasMore(BaseModel):
     """Indicates whether there are more items than the limit for this endpoint.
 
     Use the respective list endpoints to get the full lists.
     """
+
     commits: bool
     """Whether there are more commits on this contract than the limit for this
     endpoint.
@@ -717,10 +882,12 @@ class HasMore(BaseModel):
     credits.
     """
 
+
 class HierarchyConfigurationParentHierarchyConfigurationChild(BaseModel):
     contract_id: str
 
     customer_id: str
+
 
 class HierarchyConfigurationParentHierarchyConfigurationParentBehavior(BaseModel):
     invoice_consolidation_type: Optional[Literal["CONCATENATE", "NONE"]] = None
@@ -734,17 +901,21 @@ class HierarchyConfigurationParentHierarchyConfigurationParentBehavior(BaseModel
     **NONE**: Do not generate consolidated invoices
     """
 
+
 class HierarchyConfigurationParentHierarchyConfiguration(BaseModel):
     children: List[HierarchyConfigurationParentHierarchyConfigurationChild]
     """List of contracts that belong to this parent."""
 
     parent_behavior: Optional[HierarchyConfigurationParentHierarchyConfigurationParentBehavior] = None
 
+
 class HierarchyConfigurationChildHierarchyConfigurationV2Parent(BaseModel):
     """The single parent contract/customer for this child."""
+
     contract_id: str
 
     customer_id: str
+
 
 class HierarchyConfigurationChildHierarchyConfigurationV2(BaseModel):
     parent: HierarchyConfigurationChildHierarchyConfigurationV2Parent
@@ -769,37 +940,49 @@ class HierarchyConfigurationChildHierarchyConfigurationV2(BaseModel):
     consolidated invoices
     """
 
-HierarchyConfiguration: TypeAlias = Union[HierarchyConfigurationParentHierarchyConfiguration, HierarchyConfigurationChildHierarchyConfigurationV2]
+
+HierarchyConfiguration: TypeAlias = Union[
+    HierarchyConfigurationParentHierarchyConfiguration, HierarchyConfigurationChildHierarchyConfigurationV2
+]
+
 
 class RecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCommitCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCommitContract(BaseModel):
     id: str
 
+
 class RecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
+
 
 class RecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -811,6 +994,7 @@ class RecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -821,11 +1005,14 @@ class RecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
+
     access: Optional[RecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[RecurringCommitProrationRoundingInvoice] = None
+
 
 class RecurringCommit(BaseModel):
     id: str
@@ -911,27 +1098,34 @@ class RecurringCommit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class RecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCreditCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCreditContract(BaseModel):
     id: str
+
 
 class RecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -943,9 +1137,12 @@ class RecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
+
     access: Optional[RecurringCreditProrationRoundingAccess] = None
+
 
 class RecurringCredit(BaseModel):
     id: str
@@ -1028,6 +1225,7 @@ class RecurringCredit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class ResellerRoyaltySegment(BaseModel):
     fraction: float
 
@@ -1055,10 +1253,12 @@ class ResellerRoyaltySegment(BaseModel):
 
     reseller_contract_value: Optional[float] = None
 
+
 class ResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
 
     segments: List[ResellerRoyaltySegment]
+
 
 class RevenueSystemConfigurationScheduleRevenueSystemConfiguration(BaseModel):
     id: str
@@ -1089,6 +1289,7 @@ class RevenueSystemConfigurationScheduleRevenueSystemConfiguration(BaseModel):
     The structure of this object is specific to the delivery method.
     """
 
+
 class RevenueSystemConfigurationSchedule(BaseModel):
     effective_at: datetime
     """The date this revenue system configuration became or becomes active."""
@@ -1101,6 +1302,7 @@ class RevenueSystemConfigurationSchedule(BaseModel):
     Null for the last entry in the schedule.
     """
 
+
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
@@ -1108,12 +1310,14 @@ class SpendTrackerApplicableSpendSpecifier(BaseModel):
 
     discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
 
+
 class SpendTrackerAccumulatedSpend(BaseModel):
     amount: float
 
     period_ending_before: datetime
 
     period_starting_at: datetime
+
 
 class SpendTracker(BaseModel):
     alias: str
@@ -1127,28 +1331,34 @@ class SpendTracker(BaseModel):
 
     accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
 
+
 class SubscriptionBillingPeriodsCurrent(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
+
 
 class SubscriptionBillingPeriodsNext(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
+
 class SubscriptionBillingPeriodsPrevious(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
+
 class SubscriptionBillingPeriods(BaseModel):
     """Previous, current, and next billing periods for the subscription."""
+
     current: Optional[SubscriptionBillingPeriodsCurrent] = None
 
     next: Optional[SubscriptionBillingPeriodsNext] = None
 
     previous: Optional[SubscriptionBillingPeriodsPrevious] = None
+
 
 class SubscriptionProrationRounding(BaseModel):
     decimal_places: float
@@ -1160,12 +1370,14 @@ class SubscriptionProrationRounding(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class SubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
 
     rounding: Optional[SubscriptionProrationRounding] = None
+
 
 class SubscriptionQuantitySchedule(BaseModel):
     quantity: float
@@ -1174,15 +1386,18 @@ class SubscriptionQuantitySchedule(BaseModel):
 
     ending_before: Optional[datetime] = None
 
+
 class SubscriptionSubscriptionRateProduct(BaseModel):
     id: str
 
     name: str
 
+
 class SubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionSubscriptionRateProduct
+
 
 class SubscriptionBillingCycleConfig(BaseModel):
     anchor_date: datetime
@@ -1194,6 +1409,7 @@ class SubscriptionBillingCycleConfig(BaseModel):
     own scheduled invoice.
     """
 
+
 class SubscriptionSeatConfig(BaseModel):
     seat_group_key: str
     """
@@ -1204,6 +1420,7 @@ class SubscriptionSeatConfig(BaseModel):
     recurring credits with an allocation per seat to be consumed by only one seat's
     usage.
     """
+
 
 class Subscription(BaseModel):
     billing_periods: SubscriptionBillingPeriods
@@ -1252,6 +1469,7 @@ class Subscription(BaseModel):
     name: Optional[str] = None
 
     seat_config: Optional[SubscriptionSeatConfig] = None
+
 
 class ContractV2(BaseModel):
     id: str

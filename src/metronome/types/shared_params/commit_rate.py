@@ -2,19 +2,20 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict, Required
-
 from typing import Iterable
+from typing_extensions import Literal, Required, TypedDict
 
 from .tier import Tier
 
 __all__ = ["CommitRate"]
+
 
 class CommitRate(TypedDict, total=False):
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or commit.
     """
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     price: float

@@ -42,17 +42,19 @@ client = Metronome(
 )
 
 client.v1.usage.ingest(
-    usage=[{
-        "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
-        "customer_id": "team@example.com",
-        "event_type": "heartbeat",
-        "timestamp": "2024-01-01T00:00:00Z",
-        "properties": {
-            "cluster_id": "42",
-            "cpu_seconds": 60,
-            "region": "Europe",
-        },
-    }],
+    usage=[
+        {
+            "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
+            "customer_id": "team@example.com",
+            "event_type": "heartbeat",
+            "timestamp": "2024-01-01T00:00:00Z",
+            "properties": {
+                "cluster_id": "42",
+                "cpu_seconds": 60,
+                "region": "Europe",
+            },
+        }
+    ],
 )
 ```
 
@@ -74,20 +76,24 @@ client = AsyncMetronome(
     bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
 )
 
+
 async def main() -> None:
-  await client.v1.usage.ingest(
-      usage=[{
-          "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
-          "customer_id": "team@example.com",
-          "event_type": "heartbeat",
-          "timestamp": "2024-01-01T00:00:00Z",
-          "properties": {
-              "cluster_id": "42",
-              "cpu_seconds": 60,
-              "region": "Europe",
-          },
-      }],
-  )
+    await client.v1.usage.ingest(
+        usage=[
+            {
+                "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
+                "customer_id": "team@example.com",
+                "event_type": "heartbeat",
+                "timestamp": "2024-01-01T00:00:00Z",
+                "properties": {
+                    "cluster_id": "42",
+                    "cpu_seconds": 60,
+                    "region": "Europe",
+                },
+            }
+        ],
+    )
+
 
 asyncio.run(main())
 ```
@@ -113,24 +119,30 @@ import asyncio
 from metronome import DefaultAioHttpClient
 from metronome import AsyncMetronome
 
+
 async def main() -> None:
-  async with AsyncMetronome(
-    bearer_token=os.environ.get("METRONOME_BEARER_TOKEN"),  # This is the default and can be omitted
-    http_client=DefaultAioHttpClient(),
-) as client:
-    await client.v1.usage.ingest(
-        usage=[{
-            "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
-            "customer_id": "team@example.com",
-            "event_type": "heartbeat",
-            "timestamp": "2024-01-01T00:00:00Z",
-            "properties": {
-                "cluster_id": "42",
-                "cpu_seconds": 60,
-                "region": "Europe",
-            },
-        }],
-    )
+    async with AsyncMetronome(
+        bearer_token=os.environ.get(
+            "METRONOME_BEARER_TOKEN"
+        ),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        await client.v1.usage.ingest(
+            usage=[
+                {
+                    "transaction_id": "90e9401f-0f8c-4cd3-9a9f-d6beb56d8d72",
+                    "customer_id": "team@example.com",
+                    "event_type": "heartbeat",
+                    "timestamp": "2024-01-01T00:00:00Z",
+                    "properties": {
+                        "cluster_id": "42",
+                        "cpu_seconds": 60,
+                        "region": "Europe",
+                    },
+                }
+            ],
+        )
+
 
 asyncio.run(main())
 ```
@@ -171,12 +183,14 @@ from metronome import AsyncMetronome
 
 client = AsyncMetronome()
 
+
 async def main() -> None:
     all_products = []
     # Iterate through items across all pages, issuing requests as needed.
     async for product in client.v1.contracts.products.list():
         all_products.append(product)
     print(all_products)
+
 
 asyncio.run(main())
 ```
@@ -198,7 +212,7 @@ Or just work directly with the returned data:
 ```python
 first_page = await client.v1.contracts.products.list()
 
-print(f"next page cursor: {first_page.next_page}") # => "next page cursor: ..."
+print(f"next page cursor: {first_page.next_page}")  # => "next page cursor: ..."
 for product in first_page.data:
     print(product.id)
 
@@ -251,7 +265,7 @@ try:
     )
 except metronome.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__) # an underlying Exception, likely raised within httpx.
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
 except metronome.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except metronome.APIStatusError as e:
@@ -293,7 +307,7 @@ client = Metronome(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries = 5).v1.contracts.create(
+client.with_options(max_retries=5).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
@@ -321,7 +335,7 @@ client = Metronome(
 )
 
 # Override per-request:
-client.with_options(timeout = 5.0).v1.contracts.create(
+client.with_options(timeout=5.0).v1.contracts.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
 )
@@ -393,11 +407,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.v1.contracts.with_streaming_response.create(
     customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
     starting_at=datetime.fromisoformat("2020-01-01T00:00:00.000"),
-) as response :
-    print(response.headers.get('X-My-Header'))
+) as response:
+    print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
-      print(line)
+        print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -451,7 +465,10 @@ from metronome import Metronome, DefaultHttpxClient
 client = Metronome(
     # Or use the `METRONOME_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
+    http_client=DefaultHttpxClient(
+        proxy="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
 )
 ```
 

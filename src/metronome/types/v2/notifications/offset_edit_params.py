@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, TypeAliasType, TypeAlias
-
 from typing import Union
+from typing_extensions import Required, TypeAlias, TypedDict
 
 __all__ = ["OffsetEditParams", "Policy", "PolicyLifecycleEventOffsetPolicy", "PolicyLifecycleEventSystemPolicy"]
+
 
 class OffsetEditParams(TypedDict, total=False):
     policy: Required[Policy]
@@ -27,6 +27,7 @@ class OffsetEditParams(TypedDict, total=False):
     policy, false to disable. Only supported by system lifecycle events.
     """
 
+
 class PolicyLifecycleEventOffsetPolicy(TypedDict, total=False):
     offset: Required[str]
     """
@@ -39,8 +40,10 @@ class PolicyLifecycleEventOffsetPolicy(TypedDict, total=False):
     type: Required[str]
     """The type of lifecycle event that this offset is based on."""
 
+
 class PolicyLifecycleEventSystemPolicy(TypedDict, total=False):
     type: Required[str]
     """The type of lifecycle event (e.g., "contract.create", "contract.start")"""
+
 
 Policy: TypeAlias = Union[PolicyLifecycleEventOffsetPolicy, PolicyLifecycleEventSystemPolicy]

@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from ..._types import SequenceNotStr
-
 from typing_extensions import TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["EventTypeFilter"]
 
+
 class EventTypeFilter(TypedDict, total=False):
     """An optional filtering rule to match the 'event_type' property of an event."""
+
     in_values: SequenceNotStr[str]
     """A list of event types that are explicitly included in the billable metric.
 

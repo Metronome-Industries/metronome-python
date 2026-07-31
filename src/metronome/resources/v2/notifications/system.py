@@ -4,22 +4,20 @@ from __future__ import annotations
 
 import httpx
 
-from ...._resource import SyncAPIResource, AsyncAPIResource
-
+from ...._types import Body, Query, Headers, NotGiven, not_given
 from ...._compat import cached_property
-
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...._base_client import make_request_options
 from ....types.v2.notifications.system_list_response import SystemListResponse
 
-from ...._base_client import make_request_options
-
-from ...._types import NotGiven
-
-from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-
 __all__ = ["SystemResource", "AsyncSystemResource"]
+
 
 class SystemResource(SyncAPIResource):
     @cached_property
@@ -41,14 +39,16 @@ class SystemResource(SyncAPIResource):
         """
         return SystemResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SystemListResponse:
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SystemListResponse:
         """List available system lifecycle event types for notifications.
 
         These are
@@ -56,9 +56,12 @@ class SystemResource(SyncAPIResource):
         """
         return self._post(
             "/v2/notifications/system/list",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=SystemListResponse,
         )
+
 
 class AsyncSystemResource(AsyncAPIResource):
     @cached_property
@@ -80,14 +83,16 @@ class AsyncSystemResource(AsyncAPIResource):
         """
         return AsyncSystemResourceWithStreamingResponse(self)
 
-    async def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SystemListResponse:
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SystemListResponse:
         """List available system lifecycle event types for notifications.
 
         These are
@@ -95,9 +100,12 @@ class AsyncSystemResource(AsyncAPIResource):
         """
         return await self._post(
             "/v2/notifications/system/list",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=SystemListResponse,
         )
+
 
 class SystemResourceWithRawResponse:
     def __init__(self, system: SystemResource) -> None:
@@ -107,6 +115,7 @@ class SystemResourceWithRawResponse:
             system.list,
         )
 
+
 class AsyncSystemResourceWithRawResponse:
     def __init__(self, system: AsyncSystemResource) -> None:
         self._system = system
@@ -115,6 +124,7 @@ class AsyncSystemResourceWithRawResponse:
             system.list,
         )
 
+
 class SystemResourceWithStreamingResponse:
     def __init__(self, system: SystemResource) -> None:
         self._system = system
@@ -122,6 +132,7 @@ class SystemResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             system.list,
         )
+
 
 class AsyncSystemResourceWithStreamingResponse:
     def __init__(self, system: AsyncSystemResource) -> None:

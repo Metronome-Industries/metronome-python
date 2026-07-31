@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, Optional
 from datetime import datetime
 
-from typing import Optional, Dict
+from ..._models import BaseModel
 
 __all__ = ["UsageListWithGroupsResponse"]
+
 
 class UsageListWithGroupsResponse(BaseModel):
     ending_before: datetime

@@ -1,20 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import List, Optional
 from typing_extensions import Literal
 
-from typing import Optional, List
-
 from .tier import Tier
+from ..._models import BaseModel
 
 __all__ = ["CommitRate"]
+
 
 class CommitRate(BaseModel):
     """A distinct rate on the rate card.
 
     You can choose to use this rate rather than list rate when consuming a credit or commit.
     """
+
     rate_type: Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]
 
     price: Optional[float] = None

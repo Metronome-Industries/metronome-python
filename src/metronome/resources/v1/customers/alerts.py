@@ -2,44 +2,35 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ...._resource import SyncAPIResource, AsyncAPIResource
-
-from ...._compat import cached_property
-
-from ....types.v1.customers.alert_retrieve_response import AlertRetrieveResponse
-
-from ...._utils import maybe_transform, async_maybe_transform
-
-from ...._base_client import make_request_options, AsyncPaginator
-
-from typing import Iterable, List
-
-from ...._types import Omit, omit, NotGiven
-
+from typing import List, Iterable
 from typing_extensions import Literal
 
-from ....types.v1.customers.customer_alert import CustomerAlert
+import httpx
 
+from ...._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ...._utils import maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ....pagination import SyncCursorPageWithoutLimit, AsyncCursorPageWithoutLimit
-
-from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ....types.v1.customers import alert_retrieve_params
-
-from typing_extensions import Literal, overload
-from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ....types.v1.customers import alert_retrieve_params
-from ....types.v1.customers import alert_list_params
-from ....types.v1.customers import alert_reset_params
+from ...._base_client import AsyncPaginator, make_request_options
+from ....types.v1.customers import alert_list_params, alert_reset_params, alert_retrieve_params
+from ....types.v1.customers.customer_alert import CustomerAlert
+from ....types.v1.customers.alert_retrieve_response import AlertRetrieveResponse
 
 __all__ = ["AlertsResource", "AsyncAlertsResource"]
+
 
 class AlertsResource(SyncAPIResource):
     """
     [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
     """
+
     @cached_property
     def with_raw_response(self) -> AlertsResourceWithRawResponse:
         """
@@ -59,20 +50,22 @@ class AlertsResource(SyncAPIResource):
         """
         return AlertsResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    *,
-    alert_id: str,
-    customer_id: str,
-    alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
-    group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
-    plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
-    seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertRetrieveResponse:
+    def retrieve(
+        self,
+        *,
+        alert_id: str,
+        customer_id: str,
+        alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
+        seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AlertRetrieveResponse:
         """
         Retrieve the real-time evaluation status for a specific threshold
         notification-customer pair. This endpoint provides instant visibility into
@@ -157,29 +150,36 @@ class AlertsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/customer-alerts/get",
-            body=maybe_transform({
-                "alert_id": alert_id,
-                "customer_id": customer_id,
-                "alert_specifiers": alert_specifiers,
-                "group_values": group_values,
-                "plans_or_contracts": plans_or_contracts,
-                "seat_filter": seat_filter,
-            }, alert_retrieve_params.AlertRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "alert_id": alert_id,
+                    "customer_id": customer_id,
+                    "alert_specifiers": alert_specifiers,
+                    "group_values": group_values,
+                    "plans_or_contracts": plans_or_contracts,
+                    "seat_filter": seat_filter,
+                },
+                alert_retrieve_params.AlertRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AlertRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    next_page: str | Omit = omit,
-    alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPageWithoutLimit[CustomerAlert]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        next_page: str | Omit = omit,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPageWithoutLimit[CustomerAlert]:
         """
         Retrieve all threshold notification configurations and their current statuses
         for a specific customer in a single API call. This endpoint provides a
@@ -231,28 +231,37 @@ class AlertsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customer-alerts/list",
-            page = SyncCursorPageWithoutLimit[CustomerAlert],
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "alert_statuses": alert_statuses,
-            }, alert_list_params.AlertListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "next_page": next_page
-            }, alert_list_params.AlertListParams)),
+            page=SyncCursorPageWithoutLimit[CustomerAlert],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "alert_statuses": alert_statuses,
+                },
+                alert_list_params.AlertListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
+            ),
             model=CustomerAlert,
             method="post",
         )
 
-    def reset(self,
-    *,
-    alert_id: str,
-    customer_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    def reset(
+        self,
+        *,
+        alert_id: str,
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Force an immediate re-evaluation of a specific threshold notification for a
         customer, clearing any previous state and triggering a fresh assessment against
@@ -300,18 +309,25 @@ class AlertsResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/v1/customer-alerts/reset",
-            body=maybe_transform({
-                "alert_id": alert_id,
-                "customer_id": customer_id,
-            }, alert_reset_params.AlertResetParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "alert_id": alert_id,
+                    "customer_id": customer_id,
+                },
+                alert_reset_params.AlertResetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
+
 
 class AsyncAlertsResource(AsyncAPIResource):
     """
     [Alerts](https://docs.metronome.com/connecting-metronome/alerts/) monitor customer spending, balances, and other billing factors. Use these endpoints to create, retrieve, and archive customer alerts. To view sample alert payloads by alert type, navigate [here.](https://docs.metronome.com/manage-product-access/create-manage-alerts/#webhook-notifications)
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncAlertsResourceWithRawResponse:
         """
@@ -331,20 +347,22 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return AsyncAlertsResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    *,
-    alert_id: str,
-    customer_id: str,
-    alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
-    group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
-    plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
-    seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AlertRetrieveResponse:
+    async def retrieve(
+        self,
+        *,
+        alert_id: str,
+        customer_id: str,
+        alert_specifiers: Iterable[alert_retrieve_params.AlertSpecifier] | Omit = omit,
+        group_values: Iterable[alert_retrieve_params.GroupValue] | Omit = omit,
+        plans_or_contracts: Literal["PLANS", "CONTRACTS"] | Omit = omit,
+        seat_filter: alert_retrieve_params.SeatFilter | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AlertRetrieveResponse:
         """
         Retrieve the real-time evaluation status for a specific threshold
         notification-customer pair. This endpoint provides instant visibility into
@@ -429,29 +447,36 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/customer-alerts/get",
-            body=await async_maybe_transform({
-                "alert_id": alert_id,
-                "customer_id": customer_id,
-                "alert_specifiers": alert_specifiers,
-                "group_values": group_values,
-                "plans_or_contracts": plans_or_contracts,
-                "seat_filter": seat_filter,
-            }, alert_retrieve_params.AlertRetrieveParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "alert_id": alert_id,
+                    "customer_id": customer_id,
+                    "alert_specifiers": alert_specifiers,
+                    "group_values": group_values,
+                    "plans_or_contracts": plans_or_contracts,
+                    "seat_filter": seat_filter,
+                },
+                alert_retrieve_params.AlertRetrieveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AlertRetrieveResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    next_page: str | Omit = omit,
-    alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[CustomerAlert, AsyncCursorPageWithoutLimit[CustomerAlert]]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        next_page: str | Omit = omit,
+        alert_statuses: List[Literal["ENABLED", "DISABLED", "ARCHIVED"]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[CustomerAlert, AsyncCursorPageWithoutLimit[CustomerAlert]]:
         """
         Retrieve all threshold notification configurations and their current statuses
         for a specific customer in a single API call. This endpoint provides a
@@ -503,28 +528,37 @@ class AsyncAlertsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/customer-alerts/list",
-            page = AsyncCursorPageWithoutLimit[CustomerAlert],
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "alert_statuses": alert_statuses,
-            }, alert_list_params.AlertListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "next_page": next_page
-            }, alert_list_params.AlertListParams)),
+            page=AsyncCursorPageWithoutLimit[CustomerAlert],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "alert_statuses": alert_statuses,
+                },
+                alert_list_params.AlertListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"next_page": next_page}, alert_list_params.AlertListParams),
+            ),
             model=CustomerAlert,
             method="post",
         )
 
-    async def reset(self,
-    *,
-    alert_id: str,
-    customer_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    async def reset(
+        self,
+        *,
+        alert_id: str,
+        customer_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Force an immediate re-evaluation of a specific threshold notification for a
         customer, clearing any previous state and triggering a fresh assessment against
@@ -572,13 +606,19 @@ class AsyncAlertsResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/v1/customer-alerts/reset",
-            body=await async_maybe_transform({
-                "alert_id": alert_id,
-                "customer_id": customer_id,
-            }, alert_reset_params.AlertResetParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "alert_id": alert_id,
+                    "customer_id": customer_id,
+                },
+                alert_reset_params.AlertResetParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
+
 
 class AlertsResourceWithRawResponse:
     def __init__(self, alerts: AlertsResource) -> None:
@@ -594,6 +634,7 @@ class AlertsResourceWithRawResponse:
             alerts.reset,
         )
 
+
 class AsyncAlertsResourceWithRawResponse:
     def __init__(self, alerts: AsyncAlertsResource) -> None:
         self._alerts = alerts
@@ -608,6 +649,7 @@ class AsyncAlertsResourceWithRawResponse:
             alerts.reset,
         )
 
+
 class AlertsResourceWithStreamingResponse:
     def __init__(self, alerts: AlertsResource) -> None:
         self._alerts = alerts
@@ -621,6 +663,7 @@ class AlertsResourceWithStreamingResponse:
         self.reset = to_streamed_response_wrapper(
             alerts.reset,
         )
+
 
 class AsyncAlertsResourceWithStreamingResponse:
     def __init__(self, alerts: AsyncAlertsResource) -> None:

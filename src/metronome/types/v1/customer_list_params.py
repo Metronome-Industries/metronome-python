@@ -8,6 +8,7 @@ from ..._types import SequenceNotStr
 
 __all__ = ["CustomerListParams"]
 
+
 class CustomerListParams(TypedDict, total=False):
     customer_ids: SequenceNotStr[str]
     """Filter the customer list by customer_id. Up to 100 ids can be provided."""

@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
-from typing import Iterable, Dict
+from typing import Dict, Iterable
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CustomerPreviewEventsParams", "Event"]
+
 
 class CustomerPreviewEventsParams(TypedDict, total=False):
     customer_id: Required[str]
@@ -27,6 +27,7 @@ class CustomerPreviewEventsParams(TypedDict, total=False):
 
     skip_zero_qty_line_items: bool
     """When `true`, line items with zero quantity are excluded from the response."""
+
 
 class Event(TypedDict, total=False):
     event_type: Required[str]

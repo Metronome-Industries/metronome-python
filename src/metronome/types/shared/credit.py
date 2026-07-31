@@ -1,28 +1,42 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Union, Optional, List, Dict
-
+from typing import Dict, List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias
-
+from ..._models import BaseModel
+from .commit_specifier import CommitSpecifier
 from .schedule_duration import ScheduleDuration
-
 from .commit_hierarchy_configuration import CommitHierarchyConfiguration
 
-from .commit_specifier import CommitSpecifier
+__all__ = [
+    "Credit",
+    "Product",
+    "Contract",
+    "Ledger",
+    "LedgerCreditSegmentStartLedgerEntry",
+    "LedgerCreditAutomatedInvoiceDeductionLedgerEntry",
+    "LedgerCreditExpirationLedgerEntry",
+    "LedgerCreditCanceledLedgerEntry",
+    "LedgerCreditCreditedLedgerEntry",
+    "LedgerCreditManualLedgerEntry",
+    "LedgerCreditSeatBasedAdjustmentLedgerEntry",
+    "LedgerCreditRolloverLedgerEntry",
+    "RolledOverFrom",
+    "SubscriptionConfig",
+    "SubscriptionConfigApplySeatIncreaseConfig",
+]
 
-__all__ = ["Credit", "Product", "Contract", "Ledger", "LedgerCreditSegmentStartLedgerEntry", "LedgerCreditAutomatedInvoiceDeductionLedgerEntry", "LedgerCreditExpirationLedgerEntry", "LedgerCreditCanceledLedgerEntry", "LedgerCreditCreditedLedgerEntry", "LedgerCreditManualLedgerEntry", "LedgerCreditSeatBasedAdjustmentLedgerEntry", "LedgerCreditRolloverLedgerEntry", "RolledOverFrom", "SubscriptionConfig", "SubscriptionConfigApplySeatIncreaseConfig"]
 
 class Product(BaseModel):
     id: str
 
     name: str
 
+
 class Contract(BaseModel):
     id: str
+
 
 class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     amount: float
@@ -32,6 +46,7 @@ class LedgerCreditSegmentStartLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_SEGMENT_START"]
+
 
 class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
     amount: float
@@ -46,6 +61,7 @@ class LedgerCreditAutomatedInvoiceDeductionLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class LedgerCreditExpirationLedgerEntry(BaseModel):
     amount: float
 
@@ -54,6 +70,7 @@ class LedgerCreditExpirationLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_EXPIRATION"]
+
 
 class LedgerCreditCanceledLedgerEntry(BaseModel):
     amount: float
@@ -68,6 +85,7 @@ class LedgerCreditCanceledLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class LedgerCreditCreditedLedgerEntry(BaseModel):
     amount: float
 
@@ -81,6 +99,7 @@ class LedgerCreditCreditedLedgerEntry(BaseModel):
 
     contract_id: Optional[str] = None
 
+
 class LedgerCreditManualLedgerEntry(BaseModel):
     amount: float
 
@@ -90,6 +109,7 @@ class LedgerCreditManualLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_MANUAL"]
 
+
 class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     amount: float
 
@@ -98,6 +118,7 @@ class LedgerCreditSeatBasedAdjustmentLedgerEntry(BaseModel):
     timestamp: datetime
 
     type: Literal["CREDIT_SEAT_BASED_ADJUSTMENT"]
+
 
 class LedgerCreditRolloverLedgerEntry(BaseModel):
     amount: float
@@ -110,26 +131,41 @@ class LedgerCreditRolloverLedgerEntry(BaseModel):
 
     type: Literal["CREDIT_ROLLOVER"]
 
-Ledger: TypeAlias = Union[LedgerCreditSegmentStartLedgerEntry, LedgerCreditAutomatedInvoiceDeductionLedgerEntry, LedgerCreditExpirationLedgerEntry, LedgerCreditCanceledLedgerEntry, LedgerCreditCreditedLedgerEntry, LedgerCreditManualLedgerEntry, LedgerCreditSeatBasedAdjustmentLedgerEntry, LedgerCreditRolloverLedgerEntry]
+
+Ledger: TypeAlias = Union[
+    LedgerCreditSegmentStartLedgerEntry,
+    LedgerCreditAutomatedInvoiceDeductionLedgerEntry,
+    LedgerCreditExpirationLedgerEntry,
+    LedgerCreditCanceledLedgerEntry,
+    LedgerCreditCreditedLedgerEntry,
+    LedgerCreditManualLedgerEntry,
+    LedgerCreditSeatBasedAdjustmentLedgerEntry,
+    LedgerCreditRolloverLedgerEntry,
+]
+
 
 class RolledOverFrom(BaseModel):
     contract_id: str
 
     credit_id: str
 
+
 class SubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
+
 
 class SubscriptionConfig(BaseModel):
     """
     The subscription configuration for this credit, if it was generated from a recurring credit with a subscription attached.
     """
+
     allocation: Optional[Literal["INDIVIDUAL", "POOLED"]] = None
 
     apply_seat_increase_config: Optional[SubscriptionConfigApplySeatIncreaseConfig] = None
 
     subscription_id: Optional[str] = None
+
 
 class Credit(BaseModel):
     id: str

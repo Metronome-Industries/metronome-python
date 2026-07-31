@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Annotated
+from typing import Union
+from datetime import datetime
+from typing_extensions import Annotated, TypedDict
 
 from ..._types import SequenceNotStr
-
-from typing import Union
-
-from datetime import datetime
-
 from ..._utils import PropertyInfo
 
 __all__ = ["CreditGrantListParams"]
+
 
 class CreditGrantListParams(TypedDict, total=False):
     limit: int
@@ -39,8 +37,8 @@ class CreditGrantListParams(TypedDict, total=False):
     This must not be specified if credit_grant_ids is specified.
     """
 
-    effective_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    effective_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return credit grants that are effective before this timestamp (exclusive)."""
 
-    not_expiring_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    not_expiring_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return credit grants that expire at or after this timestamp."""

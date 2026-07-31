@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated
-
 from typing import Union, Optional
-
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["ContractGetSubscriptionSeatsHistoryParams"]
+
 
 class ContractGetSubscriptionSeatsHistoryParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -19,7 +18,7 @@ class ContractGetSubscriptionSeatsHistoryParams(TypedDict, total=False):
 
     subscription_id: Required[str]
 
-    covering_date: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    covering_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Get the seats history segment for the covering date.
 
     Cannot be used with `starting_at` or `ending_before`.
@@ -32,7 +31,7 @@ class ContractGetSubscriptionSeatsHistoryParams(TypedDict, total=False):
     the next page of results.
     """
 
-    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Include seats history segments that are active at or before this timestamp.
 
     Use with `starting_at` to get a specific time range. If not set, there's no
@@ -45,7 +44,7 @@ class ContractGetSubscriptionSeatsHistoryParams(TypedDict, total=False):
     Defaults to 10. Required range: 1 <= x <= 10.
     """
 
-    starting_at: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Include seats history segments that are active at or after this timestamp.
 
     Use with `ending_before` to get a specific time range. If not set, there's no

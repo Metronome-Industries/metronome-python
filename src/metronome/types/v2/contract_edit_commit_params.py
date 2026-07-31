@@ -2,21 +2,27 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Optional, Iterable, Union
+from typing import Union, Iterable, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
-
+from ..._utils import PropertyInfo
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
 from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
 
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
+__all__ = [
+    "ContractEditCommitParams",
+    "AccessSchedule",
+    "AccessScheduleAddScheduleItem",
+    "AccessScheduleRemoveScheduleItem",
+    "AccessScheduleUpdateScheduleItem",
+    "InvoiceSchedule",
+    "InvoiceScheduleAddScheduleItem",
+    "InvoiceScheduleRemoveScheduleItem",
+    "InvoiceScheduleUpdateScheduleItem",
+]
 
-from datetime import datetime
-
-from ..._utils import PropertyInfo
-
-__all__ = ["ContractEditCommitParams", "AccessSchedule", "AccessScheduleAddScheduleItem", "AccessScheduleRemoveScheduleItem", "AccessScheduleUpdateScheduleItem", "InvoiceSchedule", "InvoiceScheduleAddScheduleItem", "InvoiceScheduleRemoveScheduleItem", "InvoiceScheduleUpdateScheduleItem"]
 
 class ContractEditCommitParams(TypedDict, total=False):
     commit_id: Required[str]
@@ -87,24 +93,28 @@ class ContractEditCommitParams(TypedDict, total=False):
     body of `specifiers`.
     """
 
+
 class AccessScheduleAddScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
 
 class AccessScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class AccessScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
 
     amount: float
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class AccessSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[AccessScheduleAddScheduleItem]
@@ -113,8 +123,9 @@ class AccessSchedule(TypedDict, total=False):
 
     update_schedule_items: Iterable[AccessScheduleUpdateScheduleItem]
 
+
 class InvoiceScheduleAddScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     amount: float
 
@@ -122,8 +133,10 @@ class InvoiceScheduleAddScheduleItem(TypedDict, total=False):
 
     unit_price: float
 
+
 class InvoiceScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class InvoiceScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
@@ -132,9 +145,10 @@ class InvoiceScheduleUpdateScheduleItem(TypedDict, total=False):
 
     quantity: float
 
-    timestamp: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    timestamp: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     unit_price: float
+
 
 class InvoiceSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[InvoiceScheduleAddScheduleItem]

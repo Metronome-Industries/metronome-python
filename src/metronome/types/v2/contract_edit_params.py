@@ -2,31 +2,136 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated, Literal
-
-from typing import Iterable, Union, Optional, Dict, List
-
-from ..shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
-
-from ..shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from typing import Dict, List, Union, Iterable, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
-
-from datetime import datetime
-
 from ..._utils import PropertyInfo
-
-from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
-
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
-
 from ..shared_params.tier import Tier
-
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
 from ..shared_params.payment_gate_config_v2 import PaymentGateConfigV2
-
 from ..shared_params.update_base_threshold_commit import UpdateBaseThresholdCommit
+from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
+from ..shared_params.spend_threshold_configuration_v2 import SpendThresholdConfigurationV2
+from ..shared_params.prepaid_balance_threshold_configuration_v2 import PrepaidBalanceThresholdConfigurationV2
 
-__all__ = ["ContractEditParams", "AddBillingProviderConfigurationUpdate", "AddBillingProviderConfigurationUpdateBillingProviderConfiguration", "AddBillingProviderConfigurationUpdateSchedule", "AddCommit", "AddCommitAccessSchedule", "AddCommitAccessScheduleScheduleItem", "AddCommitInvoiceSchedule", "AddCommitInvoiceScheduleRecurringSchedule", "AddCommitInvoiceScheduleScheduleItem", "AddCommitPaymentGateConfig", "AddCommitPaymentGateConfigPrecalculatedTaxConfig", "AddCommitPaymentGateConfigStripeConfig", "AddCommitSpendTrackerAttributes", "AddCredit", "AddCreditAccessSchedule", "AddCreditAccessScheduleScheduleItem", "AddDiscount", "AddDiscountSchedule", "AddDiscountScheduleRecurringSchedule", "AddDiscountScheduleScheduleItem", "AddOverride", "AddOverrideOverrideSpecifier", "AddOverrideOverwriteRate", "AddOverrideTier", "AddProfessionalService", "AddRecurringCommit", "AddRecurringCommitAccessAmount", "AddRecurringCommitCommitDuration", "AddRecurringCommitInvoiceAmount", "AddRecurringCommitProrationRounding", "AddRecurringCommitProrationRoundingAccess", "AddRecurringCommitProrationRoundingInvoice", "AddRecurringCommitSubscriptionConfig", "AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig", "AddRecurringCredit", "AddRecurringCreditAccessAmount", "AddRecurringCreditCommitDuration", "AddRecurringCreditProrationRounding", "AddRecurringCreditProrationRoundingAccess", "AddRecurringCreditSubscriptionConfig", "AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig", "AddResellerRoyalty", "AddResellerRoyaltyAwsOptions", "AddResellerRoyaltyGcpOptions", "AddRevenueSystemConfigurationUpdate", "AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration", "AddRevenueSystemConfigurationUpdateSchedule", "AddScheduledCharge", "AddScheduledChargeSchedule", "AddScheduledChargeScheduleRecurringSchedule", "AddScheduledChargeScheduleScheduleItem", "AddSpendTracker", "AddSpendTrackerApplicableSpendSpecifier", "AddSubscription", "AddSubscriptionProration", "AddSubscriptionProrationRounding", "AddSubscriptionSubscriptionRate", "AddSubscriptionBillingCycleConfig", "AddSubscriptionSeatConfig", "ArchiveCommit", "ArchiveCredit", "ArchiveScheduledCharge", "RemoveOverride", "UpdateCommit", "UpdateCommitAccessSchedule", "UpdateCommitAccessScheduleAddScheduleItem", "UpdateCommitAccessScheduleRemoveScheduleItem", "UpdateCommitAccessScheduleUpdateScheduleItem", "UpdateCommitInvoiceSchedule", "UpdateCommitInvoiceScheduleAddScheduleItem", "UpdateCommitInvoiceScheduleRemoveScheduleItem", "UpdateCommitInvoiceScheduleUpdateScheduleItem", "UpdateCredit", "UpdateCreditAccessSchedule", "UpdateCreditAccessScheduleAddScheduleItem", "UpdateCreditAccessScheduleRemoveScheduleItem", "UpdateCreditAccessScheduleUpdateScheduleItem", "UpdatePrepaidBalanceThresholdConfiguration", "UpdatePrepaidBalanceThresholdConfigurationCommit", "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration", "UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap", "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier", "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude", "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter", "UpdateRecurringCommit", "UpdateRecurringCommitAccessAmount", "UpdateRecurringCommitInvoiceAmount", "UpdateRecurringCommitProrationRounding", "UpdateRecurringCommitProrationRoundingAccess", "UpdateRecurringCommitProrationRoundingInvoice", "UpdateRecurringCredit", "UpdateRecurringCreditAccessAmount", "UpdateRecurringCreditProrationRounding", "UpdateRecurringCreditProrationRoundingAccess", "UpdateScheduledCharge", "UpdateScheduledChargeInvoiceSchedule", "UpdateScheduledChargeInvoiceScheduleAddScheduleItem", "UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem", "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem", "UpdateSpendThresholdConfiguration", "UpdateSpendThresholdConfigurationDiscountConfiguration", "UpdateSpendThresholdConfigurationDiscountConfigurationCap", "UpdateSubscription", "UpdateSubscriptionProrationRounding", "UpdateSubscriptionQuantityManagementModeUpdate", "UpdateSubscriptionQuantityManagementModeUpdateSeatConfig", "UpdateSubscriptionQuantityUpdate", "UpdateSubscriptionSeatUpdates", "UpdateSubscriptionSeatUpdatesAddSeatID", "UpdateSubscriptionSeatUpdatesAddUnassignedSeat", "UpdateSubscriptionSeatUpdatesRemoveSeatID", "UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat"]
+__all__ = [
+    "ContractEditParams",
+    "AddBillingProviderConfigurationUpdate",
+    "AddBillingProviderConfigurationUpdateBillingProviderConfiguration",
+    "AddBillingProviderConfigurationUpdateSchedule",
+    "AddCommit",
+    "AddCommitAccessSchedule",
+    "AddCommitAccessScheduleScheduleItem",
+    "AddCommitInvoiceSchedule",
+    "AddCommitInvoiceScheduleRecurringSchedule",
+    "AddCommitInvoiceScheduleScheduleItem",
+    "AddCommitPaymentGateConfig",
+    "AddCommitPaymentGateConfigPrecalculatedTaxConfig",
+    "AddCommitPaymentGateConfigStripeConfig",
+    "AddCommitSpendTrackerAttributes",
+    "AddCredit",
+    "AddCreditAccessSchedule",
+    "AddCreditAccessScheduleScheduleItem",
+    "AddDiscount",
+    "AddDiscountSchedule",
+    "AddDiscountScheduleRecurringSchedule",
+    "AddDiscountScheduleScheduleItem",
+    "AddOverride",
+    "AddOverrideOverrideSpecifier",
+    "AddOverrideOverwriteRate",
+    "AddOverrideTier",
+    "AddProfessionalService",
+    "AddRecurringCommit",
+    "AddRecurringCommitAccessAmount",
+    "AddRecurringCommitCommitDuration",
+    "AddRecurringCommitInvoiceAmount",
+    "AddRecurringCommitProrationRounding",
+    "AddRecurringCommitProrationRoundingAccess",
+    "AddRecurringCommitProrationRoundingInvoice",
+    "AddRecurringCommitSubscriptionConfig",
+    "AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
+    "AddRecurringCredit",
+    "AddRecurringCreditAccessAmount",
+    "AddRecurringCreditCommitDuration",
+    "AddRecurringCreditProrationRounding",
+    "AddRecurringCreditProrationRoundingAccess",
+    "AddRecurringCreditSubscriptionConfig",
+    "AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
+    "AddResellerRoyalty",
+    "AddResellerRoyaltyAwsOptions",
+    "AddResellerRoyaltyGcpOptions",
+    "AddRevenueSystemConfigurationUpdate",
+    "AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration",
+    "AddRevenueSystemConfigurationUpdateSchedule",
+    "AddScheduledCharge",
+    "AddScheduledChargeSchedule",
+    "AddScheduledChargeScheduleRecurringSchedule",
+    "AddScheduledChargeScheduleScheduleItem",
+    "AddSpendTracker",
+    "AddSpendTrackerApplicableSpendSpecifier",
+    "AddSubscription",
+    "AddSubscriptionProration",
+    "AddSubscriptionProrationRounding",
+    "AddSubscriptionSubscriptionRate",
+    "AddSubscriptionBillingCycleConfig",
+    "AddSubscriptionSeatConfig",
+    "ArchiveCommit",
+    "ArchiveCredit",
+    "ArchiveScheduledCharge",
+    "RemoveOverride",
+    "UpdateCommit",
+    "UpdateCommitAccessSchedule",
+    "UpdateCommitAccessScheduleAddScheduleItem",
+    "UpdateCommitAccessScheduleRemoveScheduleItem",
+    "UpdateCommitAccessScheduleUpdateScheduleItem",
+    "UpdateCommitInvoiceSchedule",
+    "UpdateCommitInvoiceScheduleAddScheduleItem",
+    "UpdateCommitInvoiceScheduleRemoveScheduleItem",
+    "UpdateCommitInvoiceScheduleUpdateScheduleItem",
+    "UpdateCredit",
+    "UpdateCreditAccessSchedule",
+    "UpdateCreditAccessScheduleAddScheduleItem",
+    "UpdateCreditAccessScheduleRemoveScheduleItem",
+    "UpdateCreditAccessScheduleUpdateScheduleItem",
+    "UpdatePrepaidBalanceThresholdConfiguration",
+    "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
+    "UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude",
+    "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter",
+    "UpdateRecurringCommit",
+    "UpdateRecurringCommitAccessAmount",
+    "UpdateRecurringCommitInvoiceAmount",
+    "UpdateRecurringCommitProrationRounding",
+    "UpdateRecurringCommitProrationRoundingAccess",
+    "UpdateRecurringCommitProrationRoundingInvoice",
+    "UpdateRecurringCredit",
+    "UpdateRecurringCreditAccessAmount",
+    "UpdateRecurringCreditProrationRounding",
+    "UpdateRecurringCreditProrationRoundingAccess",
+    "UpdateScheduledCharge",
+    "UpdateScheduledChargeInvoiceSchedule",
+    "UpdateScheduledChargeInvoiceScheduleAddScheduleItem",
+    "UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem",
+    "UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem",
+    "UpdateSpendThresholdConfiguration",
+    "UpdateSpendThresholdConfigurationDiscountConfiguration",
+    "UpdateSpendThresholdConfigurationDiscountConfigurationCap",
+    "UpdateSubscription",
+    "UpdateSubscriptionProrationRounding",
+    "UpdateSubscriptionQuantityManagementModeUpdate",
+    "UpdateSubscriptionQuantityManagementModeUpdateSeatConfig",
+    "UpdateSubscriptionQuantityUpdate",
+    "UpdateSubscriptionSeatUpdates",
+    "UpdateSubscriptionSeatUpdatesAddSeatID",
+    "UpdateSubscriptionSeatUpdatesAddUnassignedSeat",
+    "UpdateSubscriptionSeatUpdatesRemoveSeatID",
+    "UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat",
+]
+
 
 class ContractEditParams(TypedDict, total=False):
     contract_id: Required[str]
@@ -113,7 +218,7 @@ class ContractEditParams(TypedDict, total=False):
 
     update_commits: Iterable[UpdateCommit]
 
-    update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    update_contract_end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the contract will end (exclusive)."""
 
     update_contract_name: Optional[str]
@@ -153,26 +258,41 @@ class ContractEditParams(TypedDict, total=False):
     update_subscriptions: Iterable[UpdateSubscription]
     """Optional list of subscriptions to update."""
 
+
 class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDict, total=False):
-    billing_provider: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
 
     billing_provider_configuration_id: Optional[str]
 
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+
 
 class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
     """Indicates when the billing provider will be active on the contract.
 
     Any charges accrued during the schedule will be billed to the indicated billing provider.
     """
+
     effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
     """When the billing provider update will take effect."""
+
 
 class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
     """Update the billing provider configuration on the contract.
 
     Currently only supports adding a billing provider configuration to a contract that does not already have one.
     """
+
     billing_provider_configuration: Required[AddBillingProviderConfigurationUpdateBillingProviderConfiguration]
 
     schedule: Required[AddBillingProviderConfigurationUpdateSchedule]
@@ -182,37 +302,42 @@ class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
     provider.
     """
 
+
 class AddCommitAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class AddCommitAccessSchedule(TypedDict, total=False):
     """Required: Schedule for distributing the commit to the customer.
 
     For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
     """
+
     schedule_items: Required[Iterable[AddCommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
 
 class AddCommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -236,8 +361,9 @@ class AddCommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -261,10 +387,12 @@ class AddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddCommitInvoiceSchedule(TypedDict, total=False):
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
     """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -285,8 +413,10 @@ class AddCommitInvoiceSchedule(TypedDict, total=False):
     schedule_items: Iterable[AddCommitInvoiceScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class AddCommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
     """Only applicable if using PRECALCULATED as your tax type."""
+
     tax_amount: Required[float]
     """Amount of tax to be applied.
 
@@ -300,8 +430,10 @@ class AddCommitPaymentGateConfigPrecalculatedTaxConfig(TypedDict, total=False):
     This may be used in an invoice line item description.
     """
 
+
 class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     """Only applicable if using STRIPE as your payment gateway type."""
+
     payment_type: Required[Literal["INVOICE", "PAYMENT_INTENT"]]
     """If left blank, will default to INVOICE"""
 
@@ -323,8 +455,10 @@ class AddCommitPaymentGateConfigStripeConfig(TypedDict, total=False):
     If left blank, will default to false.
     """
 
+
 class AddCommitPaymentGateConfig(TypedDict, total=False):
     """optionally payment gate this commit"""
+
     payment_gate_type: Required[Literal["NONE", "STRIPE", "EXTERNAL"]]
     """Gate access to the commit balance based on successful collection of payment.
 
@@ -346,13 +480,16 @@ class AddCommitPaymentGateConfig(TypedDict, total=False):
     Leaving this field blank will default to NONE.
     """
 
+
 class AddCommitSpendTrackerAttributes(TypedDict, total=False):
     """Optional attributes for spend tracker integration. Immutable after creation."""
+
     counts_as_discounted: Required[bool]
     """
     If true, this commit will be included in spend trackers with discounted set to
     DISCOUNTED_ONLY
     """
+
 
 class AddCommit(TypedDict, total=False):
     product_id: Required[str]
@@ -439,20 +576,24 @@ class AddCommit(TypedDict, total=False):
     commit specific overrides.
     """
 
+
 class AddCreditAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class AddCreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
+
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
+
 
 class AddCredit(TypedDict, total=False):
     access_schedule: Required[AddCreditAccessSchedule]
@@ -510,19 +651,21 @@ class AddCredit(TypedDict, total=False):
     body of `specifiers`.
     """
 
+
 class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -546,8 +689,9 @@ class AddDiscountScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddDiscountScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -571,8 +715,10 @@ class AddDiscountScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddDiscountSchedule(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -593,6 +739,7 @@ class AddDiscountSchedule(TypedDict, total=False):
     schedule_items: Iterable[AddDiscountScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class AddDiscount(TypedDict, total=False):
     product_id: Required[str]
 
@@ -607,6 +754,7 @@ class AddDiscount(TypedDict, total=False):
 
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
+
 
 class AddOverrideOverrideSpecifier(TypedDict, total=False):
     any_commit_or_credit_ids: SequenceNotStr[str]
@@ -658,8 +806,10 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     will only apply to commits created by the specified recurring commit ids.
     """
 
+
 class AddOverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     credit_type_id: str
@@ -689,19 +839,21 @@ class AddOverrideOverwriteRate(TypedDict, total=False):
     tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
+
 class AddOverrideTier(TypedDict, total=False):
     multiplier: Required[float]
 
     size: float
 
+
 class AddOverride(TypedDict, total=False):
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
     applicable_product_tags: SequenceNotStr[str]
     """tags identifying products whose rates are being overridden"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the override will stop applying (exclusive)"""
 
     entitled: bool
@@ -750,6 +902,7 @@ class AddOverride(TypedDict, total=False):
     type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
+
 class AddProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
     """Maximum amount for the term."""
@@ -776,8 +929,10 @@ class AddProfessionalService(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -788,22 +943,27 @@ class AddRecurringCommitAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
+
 class AddRecurringCommitCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
 
+
 class AddRecurringCommitInvoiceAmount(TypedDict, total=False):
     """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: Required[str]
 
     quantity: Required[float]
 
     unit_price: Required[float]
+
 
 class AddRecurringCommitProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -815,6 +975,7 @@ class AddRecurringCommitProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class AddRecurringCommitProrationRoundingInvoice(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -825,18 +986,23 @@ class AddRecurringCommitProrationRoundingInvoice(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class AddRecurringCommitProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring commit amounts."""
+
     access: AddRecurringCommitProrationRoundingAccess
 
     invoice: AddRecurringCommitProrationRoundingInvoice
+
 
 class AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[AddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -848,6 +1014,7 @@ class AddRecurringCommitSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
+
 
 class AddRecurringCommit(TypedDict, total=False):
     access_amount: Required[AddRecurringCommitAccessAmount]
@@ -865,7 +1032,7 @@ class AddRecurringCommit(TypedDict, total=False):
 
     product_id: Required[str]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
     applicable_product_ids: SequenceNotStr[str]
@@ -877,7 +1044,7 @@ class AddRecurringCommit(TypedDict, total=False):
     description: str
     """Will be passed down to the individual commits"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: CommitHierarchyConfiguration
@@ -942,8 +1109,10 @@ class AddRecurringCommit(TypedDict, total=False):
     specific overrides.
     """
 
+
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -954,14 +1123,17 @@ class AddRecurringCreditAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
+
 class AddRecurringCreditCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
+
 
 class AddRecurringCreditProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -973,16 +1145,21 @@ class AddRecurringCreditProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class AddRecurringCreditProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring credit amounts."""
+
     access: AddRecurringCreditProrationRoundingAccess
+
 
 class AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[AddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -994,6 +1171,7 @@ class AddRecurringCreditSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
+
 
 class AddRecurringCredit(TypedDict, total=False):
     access_amount: Required[AddRecurringCreditAccessAmount]
@@ -1011,7 +1189,7 @@ class AddRecurringCredit(TypedDict, total=False):
 
     product_id: Required[str]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
     applicable_product_ids: SequenceNotStr[str]
@@ -1023,7 +1201,7 @@ class AddRecurringCredit(TypedDict, total=False):
     description: str
     """Will be passed down to the individual commits"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: CommitHierarchyConfiguration
@@ -1085,6 +1263,7 @@ class AddRecurringCredit(TypedDict, total=False):
     specific overrides.
     """
 
+
 class AddResellerRoyaltyAwsOptions(TypedDict, total=False):
     aws_account_number: str
 
@@ -1092,10 +1271,12 @@ class AddResellerRoyaltyAwsOptions(TypedDict, total=False):
 
     aws_payer_reference_id: str
 
+
 class AddResellerRoyaltyGcpOptions(TypedDict, total=False):
     gcp_account_id: str
 
     gcp_offer_id: str
+
 
 class AddResellerRoyalty(TypedDict, total=False):
     reseller_type: Required[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]]
@@ -1108,7 +1289,7 @@ class AddResellerRoyalty(TypedDict, total=False):
 
     aws_options: AddResellerRoyaltyAwsOptions
 
-    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Use null to indicate that the existing end timestamp should be removed."""
 
     fraction: float
@@ -1119,7 +1300,8 @@ class AddResellerRoyalty(TypedDict, total=False):
 
     reseller_contract_value: float
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, total=False):
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
@@ -1129,32 +1311,37 @@ class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, t
 
     revenue_system_configuration_id: Optional[str]
 
+
 class AddRevenueSystemConfigurationUpdateSchedule(TypedDict, total=False):
     effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
     """When the revenue system configuration update will take effect."""
+
 
 class AddRevenueSystemConfigurationUpdate(TypedDict, total=False):
     """Update the revenue system configuration on the contract.
 
     Currently only supports adding a revenue system configuration to a contract that does not already have one.
     """
+
     revenue_system_configuration: Required[AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration]
 
     schedule: Required[AddRevenueSystemConfigurationUpdateSchedule]
+
 
 class AddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -1178,8 +1365,9 @@ class AddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -1203,8 +1391,10 @@ class AddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class AddScheduledChargeSchedule(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -1225,6 +1415,7 @@ class AddScheduledChargeSchedule(TypedDict, total=False):
     schedule_items: Iterable[AddScheduledChargeScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class AddScheduledCharge(TypedDict, total=False):
     product_id: Required[str]
 
@@ -1240,6 +1431,7 @@ class AddScheduledCharge(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+
 class AddSpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
     sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
 
@@ -1247,6 +1439,7 @@ class AddSpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
 
     discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
     """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
 
 class AddSpendTracker(TypedDict, total=False):
     alias: Required[str]
@@ -1258,6 +1451,7 @@ class AddSpendTracker(TypedDict, total=False):
 
     reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
+
 class AddSubscriptionProrationRounding(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -1267,6 +1461,7 @@ class AddSubscriptionProrationRounding(TypedDict, total=False):
     """
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
 
 class AddSubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
@@ -1283,6 +1478,7 @@ class AddSubscriptionProration(TypedDict, total=False):
 
     rounding: AddSubscriptionProrationRounding
 
+
 class AddSubscriptionSubscriptionRate(TypedDict, total=False):
     billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
@@ -1293,8 +1489,9 @@ class AddSubscriptionSubscriptionRate(TypedDict, total=False):
     product_id: Required[str]
     """Must be subscription type product"""
 
+
 class AddSubscriptionBillingCycleConfig(TypedDict, total=False):
-    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """The date to anchor the billing cycle to.
 
     If omitted, defaults to the contract's usage invoice billing cycle anchor date.
@@ -1305,6 +1502,7 @@ class AddSubscriptionBillingCycleConfig(TypedDict, total=False):
     Controls whether this subscription consolidates onto usage invoices or gets its
     own scheduled invoice. Defaults to ON_USAGE_INVOICE if omitted.
     """
+
 
 class AddSubscriptionSeatConfig(TypedDict, total=False):
     initial_seat_ids: Required[SequenceNotStr[str]]
@@ -1323,6 +1521,7 @@ class AddSubscriptionSeatConfig(TypedDict, total=False):
     initial_unassigned_seats: float
     """The initial amount of unassigned seats on this subscription."""
 
+
 class AddSubscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
 
@@ -1337,7 +1536,7 @@ class AddSubscription(TypedDict, total=False):
 
     description: str
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Exclusive end time for the subscription.
 
     If not provided, subscription inherits contract end date.
@@ -1367,7 +1566,7 @@ class AddSubscription(TypedDict, total=False):
 
     seat_config: AddSubscriptionSeatConfig
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Inclusive start time for the subscription.
 
     If not provided, defaults to contract start date
@@ -1379,36 +1578,44 @@ class AddSubscription(TypedDict, total=False):
     subscription configs created within the same payload.
     """
 
+
 class ArchiveCommit(TypedDict, total=False):
     id: Required[str]
+
 
 class ArchiveCredit(TypedDict, total=False):
     id: Required[str]
 
+
 class ArchiveScheduledCharge(TypedDict, total=False):
     id: Required[str]
+
 
 class RemoveOverride(TypedDict, total=False):
     id: Required[str]
 
+
 class UpdateCommitAccessScheduleAddScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
 
 class UpdateCommitAccessScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class UpdateCommitAccessScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
 
     amount: float
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class UpdateCommitAccessSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[UpdateCommitAccessScheduleAddScheduleItem]
@@ -1417,8 +1624,9 @@ class UpdateCommitAccessSchedule(TypedDict, total=False):
 
     update_schedule_items: Iterable[UpdateCommitAccessScheduleUpdateScheduleItem]
 
+
 class UpdateCommitInvoiceScheduleAddScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     amount: float
 
@@ -1426,8 +1634,10 @@ class UpdateCommitInvoiceScheduleAddScheduleItem(TypedDict, total=False):
 
     unit_price: float
 
+
 class UpdateCommitInvoiceScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class UpdateCommitInvoiceScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
@@ -1436,9 +1646,10 @@ class UpdateCommitInvoiceScheduleUpdateScheduleItem(TypedDict, total=False):
 
     quantity: float
 
-    timestamp: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    timestamp: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     unit_price: float
+
 
 class UpdateCommitInvoiceSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[UpdateCommitInvoiceScheduleAddScheduleItem]
@@ -1446,6 +1657,7 @@ class UpdateCommitInvoiceSchedule(TypedDict, total=False):
     remove_schedule_items: Iterable[UpdateCommitInvoiceScheduleRemoveScheduleItem]
 
     update_schedule_items: Iterable[UpdateCommitInvoiceScheduleUpdateScheduleItem]
+
 
 class UpdateCommit(TypedDict, total=False):
     commit_id: Required[str]
@@ -1490,24 +1702,28 @@ class UpdateCommit(TypedDict, total=False):
 
     rollover_fraction: Optional[float]
 
+
 class UpdateCreditAccessScheduleAddScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+
 
 class UpdateCreditAccessScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class UpdateCreditAccessScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
 
     amount: float
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class UpdateCreditAccessSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[UpdateCreditAccessScheduleAddScheduleItem]
@@ -1515,6 +1731,7 @@ class UpdateCreditAccessSchedule(TypedDict, total=False):
     remove_schedule_items: Iterable[UpdateCreditAccessScheduleRemoveScheduleItem]
 
     update_schedule_items: Iterable[UpdateCreditAccessScheduleUpdateScheduleItem]
+
 
 class UpdateCredit(TypedDict, total=False):
     credit_id: Required[str]
@@ -1557,6 +1774,7 @@ class UpdateCredit(TypedDict, total=False):
 
     rollover_fraction: Optional[float]
 
+
 class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit, total=False):
     applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the threshold commit applies to.
@@ -1582,13 +1800,16 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit
     body of `specifiers`.
     """
 
+
 class UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap(TypedDict, total=False):
     """Update the discount cap. Set to null to remove an existing cap."""
+
     amount: Required[float]
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: Required[str]
     """Alias of the spend tracker this cap is measured against."""
+
 
 class UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
     cap: Optional[UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap]
@@ -1601,18 +1822,26 @@ class UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration(TypedDict,
     the customer pays 85% of the original amount (a 15% discount).
     """
 
-class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter(TypedDict, total=False):
+
+class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter(
+    TypedDict, total=False
+):
     entity: Required[Literal["Commit", "ContractCredit", "ContractCreditOrCommit"]]
 
     key: Required[str]
 
     value: Required[str]
 
+
 class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude(TypedDict, total=False):
-    custom_field_filters: Required[Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter]]
+    custom_field_filters: Required[
+        Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExcludeCustomFieldFilter]
+    ]
+
 
 class UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier(TypedDict, total=False):
     exclude: Required[Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifierExclude]]
+
 
 class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     commit: UpdatePrepaidBalanceThresholdConfigurationCommit
@@ -1644,21 +1873,26 @@ class UpdatePrepaidBalanceThresholdConfiguration(TypedDict, total=False):
     be initiated.
     """
 
-    threshold_balance_specifiers: Optional[Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]]
+    threshold_balance_specifiers: Optional[
+        Iterable[UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier]
+    ]
     """
     Determines which balances are excluded from remaining balance calculation for
     threshold billing.
     """
+
 
 class UpdateRecurringCommitAccessAmount(TypedDict, total=False):
     quantity: float
 
     unit_price: float
 
+
 class UpdateRecurringCommitInvoiceAmount(TypedDict, total=False):
     quantity: float
 
     unit_price: float
+
 
 class UpdateRecurringCommitProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -1670,6 +1904,7 @@ class UpdateRecurringCommitProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class UpdateRecurringCommitProrationRoundingInvoice(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -1680,21 +1915,24 @@ class UpdateRecurringCommitProrationRoundingInvoice(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class UpdateRecurringCommitProrationRounding(TypedDict, total=False):
     """If provided, updates the rounding config on the recurring commit.
 
     Set to null to clear rounding. Omit to leave unchanged.
     """
+
     access: Optional[UpdateRecurringCommitProrationRoundingAccess]
 
     invoice: Optional[UpdateRecurringCommitProrationRoundingInvoice]
+
 
 class UpdateRecurringCommit(TypedDict, total=False):
     recurring_commit_id: Required[str]
 
     access_amount: UpdateRecurringCommitAccessAmount
 
-    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     invoice_amount: UpdateRecurringCommitInvoiceAmount
 
@@ -1710,10 +1948,12 @@ class UpdateRecurringCommit(TypedDict, total=False):
     generating future commits.
     """
 
+
 class UpdateRecurringCreditAccessAmount(TypedDict, total=False):
     quantity: float
 
     unit_price: float
+
 
 class UpdateRecurringCreditProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -1725,19 +1965,22 @@ class UpdateRecurringCreditProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class UpdateRecurringCreditProrationRounding(TypedDict, total=False):
     """If provided, updates the rounding config on the recurring credit.
 
     Set to null to clear rounding. Omit to leave unchanged.
     """
+
     access: Optional[UpdateRecurringCreditProrationRoundingAccess]
+
 
 class UpdateRecurringCredit(TypedDict, total=False):
     recurring_credit_id: Required[str]
 
     access_amount: UpdateRecurringCreditAccessAmount
 
-    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     proration_rounding: Optional[UpdateRecurringCreditProrationRounding]
     """If provided, updates the rounding config on the recurring credit.
@@ -1751,8 +1994,9 @@ class UpdateRecurringCredit(TypedDict, total=False):
     generating future credits.
     """
 
+
 class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     amount: float
 
@@ -1760,8 +2004,10 @@ class UpdateScheduledChargeInvoiceScheduleAddScheduleItem(TypedDict, total=False
 
     unit_price: float
 
+
 class UpdateScheduledChargeInvoiceScheduleRemoveScheduleItem(TypedDict, total=False):
     id: Required[str]
+
 
 class UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem(TypedDict, total=False):
     id: Required[str]
@@ -1770,9 +2016,10 @@ class UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem(TypedDict, total=Fa
 
     quantity: float
 
-    timestamp: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    timestamp: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     unit_price: float
+
 
 class UpdateScheduledChargeInvoiceSchedule(TypedDict, total=False):
     add_schedule_items: Iterable[UpdateScheduledChargeInvoiceScheduleAddScheduleItem]
@@ -1781,6 +2028,7 @@ class UpdateScheduledChargeInvoiceSchedule(TypedDict, total=False):
 
     update_schedule_items: Iterable[UpdateScheduledChargeInvoiceScheduleUpdateScheduleItem]
 
+
 class UpdateScheduledCharge(TypedDict, total=False):
     scheduled_charge_id: Required[str]
 
@@ -1788,13 +2036,16 @@ class UpdateScheduledCharge(TypedDict, total=False):
 
     netsuite_sales_order_id: Optional[str]
 
+
 class UpdateSpendThresholdConfigurationDiscountConfigurationCap(TypedDict, total=False):
     """Update the discount cap. Set to null to remove an existing cap."""
+
     amount: Required[float]
     """Accumulated spend ceiling above which the discount stops applying."""
 
     spend_tracker_alias: Required[str]
     """Alias of the spend tracker this cap is measured against."""
+
 
 class UpdateSpendThresholdConfigurationDiscountConfiguration(TypedDict, total=False):
     cap: Optional[UpdateSpendThresholdConfigurationDiscountConfigurationCap]
@@ -1806,6 +2057,7 @@ class UpdateSpendThresholdConfigurationDiscountConfiguration(TypedDict, total=Fa
     discount. Set to null to remove the discount fraction. For example, 0.85 means
     the customer pays 85% of the original amount (a 15% discount).
     """
+
 
 class UpdateSpendThresholdConfiguration(TypedDict, total=False):
     commit: UpdateBaseThresholdCommit
@@ -1828,6 +2080,7 @@ class UpdateSpendThresholdConfiguration(TypedDict, total=False):
     initiated.
     """
 
+
 class UpdateSubscriptionProrationRounding(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -1838,19 +2091,23 @@ class UpdateSubscriptionProrationRounding(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class UpdateSubscriptionQuantityManagementModeUpdateSeatConfig(TypedDict, total=False):
     seat_group_key: Required[str]
+
 
 class UpdateSubscriptionQuantityManagementModeUpdate(TypedDict, total=False):
     """
     Update the subscription's quantity management mode from QUANTITY_ONLY to SEAT_BASED with the provided seat_group_key.
     """
+
     quantity_management_mode: Required[Literal["SEAT_BASED"]]
 
     seat_config: Required[UpdateSubscriptionQuantityManagementModeUpdateSeatConfig]
 
+
 class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     quantity: float
     """The new quantity for the subscription.
@@ -1865,11 +2122,13 @@ class UpdateSubscriptionQuantityUpdate(TypedDict, total=False):
     result in a negative quantity on the subscription.
     """
 
+
 class UpdateSubscriptionSeatUpdatesAddSeatID(TypedDict, total=False):
     seat_ids: Required[SequenceNotStr[str]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Assigned seats will be added/removed starting at this date."""
+
 
 class UpdateSubscriptionSeatUpdatesAddUnassignedSeat(TypedDict, total=False):
     quantity: Required[float]
@@ -1878,14 +2137,16 @@ class UpdateSubscriptionSeatUpdatesAddUnassignedSeat(TypedDict, total=False):
     this delta. Must be greater than 0.
     """
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Unassigned seats will be updated starting at this date."""
+
 
 class UpdateSubscriptionSeatUpdatesRemoveSeatID(TypedDict, total=False):
     seat_ids: Required[SequenceNotStr[str]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Assigned seats will be added/removed starting at this date."""
+
 
 class UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(TypedDict, total=False):
     quantity: Required[float]
@@ -1894,8 +2155,9 @@ class UpdateSubscriptionSeatUpdatesRemoveUnassignedSeat(TypedDict, total=False):
     this delta. Must be greater than 0.
     """
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Unassigned seats will be updated starting at this date."""
+
 
 class UpdateSubscriptionSeatUpdates(TypedDict, total=False):
     add_seat_ids: Iterable[UpdateSubscriptionSeatUpdatesAddSeatID]
@@ -1927,10 +2189,11 @@ class UpdateSubscriptionSeatUpdates(TypedDict, total=False):
     seats.
     """
 
+
 class UpdateSubscription(TypedDict, total=False):
     subscription_id: Required[str]
 
-    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     proration_rounding: Optional[UpdateSubscriptionProrationRounding]
 

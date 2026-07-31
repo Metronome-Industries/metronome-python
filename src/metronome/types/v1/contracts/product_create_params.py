@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
+from typing import Dict, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from ...._types import SequenceNotStr
-
-from typing import Dict, Optional
-
+from .quantity_rounding_param import QuantityRoundingParam
 from .quantity_conversion_param import QuantityConversionParam
 
-from .quantity_rounding_param import QuantityRoundingParam
-
 __all__ = ["ProductCreateParams"]
+
 
 class ProductCreateParams(TypedDict, total=False):
     name: Required[str]

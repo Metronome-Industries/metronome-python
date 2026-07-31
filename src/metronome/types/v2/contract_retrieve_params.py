@@ -2,22 +2,21 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated
-
 from typing import Union
-
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["ContractRetrieveParams"]
+
 
 class ContractRetrieveParams(TypedDict, total=False):
     contract_id: Required[str]
 
     customer_id: Required[str]
 
-    as_of_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    as_of_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Optional RFC 3339 timestamp.
 
     Return the contract as of this date. Cannot be used with include_ledgers

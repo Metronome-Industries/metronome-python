@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-
 from typing_extensions import TypedDict
 
 __all__ = ["UpdateBaseThresholdCommit"]
+
 
 class UpdateBaseThresholdCommit(TypedDict, total=False):
     description: str

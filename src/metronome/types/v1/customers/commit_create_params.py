@@ -2,19 +2,23 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
+from typing import Dict, Union, Iterable
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._types import SequenceNotStr
-
-from typing import Dict, Iterable, Union
-
+from ...._utils import PropertyInfo
 from ...shared_params.commit_specifier_input import CommitSpecifierInput
 
-from datetime import datetime
+__all__ = [
+    "CommitCreateParams",
+    "AccessSchedule",
+    "AccessScheduleScheduleItem",
+    "InvoiceSchedule",
+    "InvoiceScheduleRecurringSchedule",
+    "InvoiceScheduleScheduleItem",
+]
 
-from ...._utils import PropertyInfo
-
-__all__ = ["CommitCreateParams", "AccessSchedule", "AccessScheduleScheduleItem", "InvoiceSchedule", "InvoiceScheduleRecurringSchedule", "InvoiceScheduleScheduleItem"]
 
 class CommitCreateParams(TypedDict, total=False):
     access_schedule: Required[AccessSchedule]
@@ -109,38 +113,43 @@ class CommitCreateParams(TypedDict, total=False):
     and the request will fail with a 409 error.
     """
 
+
 class AccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class AccessSchedule(TypedDict, total=False):
     """Schedule for distributing the commit to the customer.
 
     For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
     """
+
     schedule_items: Required[Iterable[AccessScheduleScheduleItem]]
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
 
 class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -164,8 +173,9 @@ class InvoiceScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class InvoiceScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -189,10 +199,12 @@ class InvoiceScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class InvoiceSchedule(TypedDict, total=False):
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match accesss_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
     """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 

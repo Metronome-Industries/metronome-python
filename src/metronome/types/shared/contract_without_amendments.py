@@ -1,40 +1,52 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from datetime import datetime
-
-from typing import Optional, List
-
-from .commit_hierarchy_configuration import CommitHierarchyConfiguration
-
-from .commit_specifier import CommitSpecifier
-
-from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
-
-from .base_usage_filter import BaseUsageFilter
-
 from .commit import Commit
-
-from .override import Override
-
-from .scheduled_charge import ScheduledCharge
-
 from .credit import Credit
-
 from .discount import Discount
-
+from .override import Override
+from ..._models import BaseModel
+from .pro_service import ProService
+from .commit_specifier import CommitSpecifier
+from .scheduled_charge import ScheduledCharge
+from .base_usage_filter import BaseUsageFilter
 from .hierarchy_configuration import HierarchyConfiguration
-
+from .spend_threshold_configuration import SpendThresholdConfiguration
+from .commit_hierarchy_configuration import CommitHierarchyConfiguration
+from .recurring_commit_subscription_config import RecurringCommitSubscriptionConfig
 from .prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-from .pro_service import ProService
+__all__ = [
+    "ContractWithoutAmendments",
+    "Transition",
+    "UsageStatementSchedule",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitProduct",
+    "RecurringCommitContract",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditProduct",
+    "RecurringCreditContract",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
+    "ResellerRoyalty",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
+    "UsageFilter",
+    "UsageFilterUpdate",
+]
 
-from .spend_threshold_configuration import SpendThresholdConfiguration
-
-__all__ = ["ContractWithoutAmendments", "Transition", "UsageStatementSchedule", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitProduct", "RecurringCommitContract", "RecurringCommitInvoiceAmount", "RecurringCommitProrationRounding", "RecurringCommitProrationRoundingAccess", "RecurringCommitProrationRoundingInvoice", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditProduct", "RecurringCreditContract", "RecurringCreditProrationRounding", "RecurringCreditProrationRoundingAccess", "ResellerRoyalty", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "SpendTrackerAccumulatedSpend", "UsageFilter", "UsageFilterUpdate"]
 
 class Transition(BaseModel):
     from_contract_id: str
@@ -43,41 +55,51 @@ class Transition(BaseModel):
 
     type: Literal["RENEWAL"]
 
+
 class UsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
+
 class RecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCommitCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCommitContract(BaseModel):
     id: str
 
+
 class RecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
+
 
 class RecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -90,6 +112,7 @@ class RecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -101,11 +124,14 @@ class RecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
+
     access: Optional[RecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[RecurringCommitProrationRoundingInvoice] = None
+
 
 class RecurringCommit(BaseModel):
     id: str
@@ -191,27 +217,34 @@ class RecurringCommit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class RecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCreditCommitDuration(BaseModel):
     """The amount of time the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCreditContract(BaseModel):
     id: str
+
 
 class RecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -224,9 +257,12 @@ class RecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
+
     access: Optional[RecurringCreditProrationRoundingAccess] = None
+
 
 class RecurringCredit(BaseModel):
     id: str
@@ -309,6 +345,7 @@ class RecurringCredit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class ResellerRoyalty(BaseModel):
     fraction: float
 
@@ -336,6 +373,7 @@ class ResellerRoyalty(BaseModel):
 
     reseller_contract_value: Optional[float] = None
 
+
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
@@ -343,12 +381,14 @@ class SpendTrackerApplicableSpendSpecifier(BaseModel):
 
     discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
 
+
 class SpendTrackerAccumulatedSpend(BaseModel):
     amount: float
 
     period_ending_before: datetime
 
     period_starting_at: datetime
+
 
 class SpendTracker(BaseModel):
     alias: str
@@ -362,6 +402,7 @@ class SpendTracker(BaseModel):
 
     accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
 
+
 class UsageFilterUpdate(BaseModel):
     group_key: str
 
@@ -369,12 +410,14 @@ class UsageFilterUpdate(BaseModel):
 
     starting_at: datetime
 
+
 class UsageFilter(BaseModel):
     current: Optional[BaseUsageFilter] = None
 
     initial: BaseUsageFilter
 
     updates: List[UsageFilterUpdate]
+
 
 class ContractWithoutAmendments(BaseModel):
     commits: List[Commit]

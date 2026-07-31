@@ -4,27 +4,26 @@ from __future__ import annotations
 
 import httpx
 
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
+from ..._types import Body, Query, Headers, NotGiven, not_given
 from ..._compat import cached_property
-
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
 from ...types.v1.service_list_response import ServiceListResponse
 
-from ..._base_client import make_request_options
-
-from ..._types import NotGiven
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-
 __all__ = ["ServicesResource", "AsyncServicesResource"]
+
 
 class ServicesResource(SyncAPIResource):
     """
     [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
     """
+
     @cached_property
     def with_raw_response(self) -> ServicesResourceWithRawResponse:
         """
@@ -44,14 +43,16 @@ class ServicesResource(SyncAPIResource):
         """
         return ServicesResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ServiceListResponse:
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ServiceListResponse:
         """
         Gets Metronome's service registry with associated IP addresses for security
         allowlisting and firewall configuration. Use this endpoint to maintain an
@@ -62,14 +63,18 @@ class ServicesResource(SyncAPIResource):
         """
         return self._get(
             "/v1/services",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ServiceListResponse,
         )
+
 
 class AsyncServicesResource(AsyncAPIResource):
     """
     [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncServicesResourceWithRawResponse:
         """
@@ -89,14 +94,16 @@ class AsyncServicesResource(AsyncAPIResource):
         """
         return AsyncServicesResourceWithStreamingResponse(self)
 
-    async def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ServiceListResponse:
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ServiceListResponse:
         """
         Gets Metronome's service registry with associated IP addresses for security
         allowlisting and firewall configuration. Use this endpoint to maintain an
@@ -107,9 +114,12 @@ class AsyncServicesResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/services",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ServiceListResponse,
         )
+
 
 class ServicesResourceWithRawResponse:
     def __init__(self, services: ServicesResource) -> None:
@@ -119,6 +129,7 @@ class ServicesResourceWithRawResponse:
             services.list,
         )
 
+
 class AsyncServicesResourceWithRawResponse:
     def __init__(self, services: AsyncServicesResource) -> None:
         self._services = services
@@ -127,6 +138,7 @@ class AsyncServicesResourceWithRawResponse:
             services.list,
         )
 
+
 class ServicesResourceWithStreamingResponse:
     def __init__(self, services: ServicesResource) -> None:
         self._services = services
@@ -134,6 +146,7 @@ class ServicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             services.list,
         )
+
 
 class AsyncServicesResourceWithStreamingResponse:
     def __init__(self, services: AsyncServicesResource) -> None:

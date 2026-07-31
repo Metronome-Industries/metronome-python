@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
-from typing import Optional, List, Dict
-
+from typing import Dict, List, Optional
 from datetime import datetime
 
+from ...._models import BaseModel
 from ...shared.credit_type_data import CreditTypeData
 
 __all__ = ["RateCardRetrieveResponse", "Data", "DataAlias", "DataCreditTypeConversion"]
+
 
 class DataAlias(BaseModel):
     name: str
@@ -17,10 +16,12 @@ class DataAlias(BaseModel):
 
     starting_at: Optional[datetime] = None
 
+
 class DataCreditTypeConversion(BaseModel):
     custom_credit_type: CreditTypeData
 
     fiat_per_custom_credit: str
+
 
 class Data(BaseModel):
     id: str
@@ -41,6 +42,7 @@ class Data(BaseModel):
     description: Optional[str] = None
 
     fiat_credit_type: Optional[CreditTypeData] = None
+
 
 class RateCardRetrieveResponse(BaseModel):
     data: Data

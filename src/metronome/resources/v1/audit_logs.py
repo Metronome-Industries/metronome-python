@@ -2,40 +2,35 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ...types.v1.audit_log_list_response import AuditLogListResponse
-
-from ...pagination import SyncCursorPage, AsyncCursorPage
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._utils import maybe_transform
-
 from typing import Union
-
 from datetime import datetime
-
-from ..._types import Omit, omit, NotGiven
-
 from typing_extensions import Literal
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform
+from ..._compat import cached_property
 from ...types.v1 import audit_log_list_params
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.v1.audit_log_list_response import AuditLogListResponse
 
 __all__ = ["AuditLogsResource", "AsyncAuditLogsResource"]
+
 
 class AuditLogsResource(SyncAPIResource):
     """
     [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
     """
+
     @cached_property
     def with_raw_response(self) -> AuditLogsResourceWithRawResponse:
         """
@@ -55,21 +50,23 @@ class AuditLogsResource(SyncAPIResource):
         """
         return AuditLogsResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    ending_before: Union[str, datetime] | Omit = omit,
-    limit: int | Omit = omit,
-    next_page: str | Omit = omit,
-    resource_id: str | Omit = omit,
-    resource_type: str | Omit = omit,
-    sort: Literal["date_asc", "date_desc"] | Omit = omit,
-    starting_on: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncCursorPage[AuditLogListResponse]:
+    def list(
+        self,
+        *,
+        ending_before: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        resource_id: str | Omit = omit,
+        resource_type: str | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[AuditLogListResponse]:
         """
         Get a comprehensive audit trail of all operations performed in your Metronome
         account, whether initiated through the API, web interface, or automated
@@ -139,23 +136,34 @@ class AuditLogsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/auditLogs",
-            page = SyncCursorPage[AuditLogListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "resource_id": resource_id,
-                "resource_type": resource_type,
-                "sort": sort,
-                "starting_on": starting_on,
-            }, audit_log_list_params.AuditLogListParams)),
+            page=SyncCursorPage[AuditLogListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                    },
+                    audit_log_list_params.AuditLogListParams,
+                ),
+            ),
             model=AuditLogListResponse,
         )
+
 
 class AsyncAuditLogsResource(AsyncAPIResource):
     """
     [Security](https://docs.metronome.com/developer-resources/security/) endpoints allow you to retrieve security-related data.
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncAuditLogsResourceWithRawResponse:
         """
@@ -175,21 +183,23 @@ class AsyncAuditLogsResource(AsyncAPIResource):
         """
         return AsyncAuditLogsResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    ending_before: Union[str, datetime] | Omit = omit,
-    limit: int | Omit = omit,
-    next_page: str | Omit = omit,
-    resource_id: str | Omit = omit,
-    resource_type: str | Omit = omit,
-    sort: Literal["date_asc", "date_desc"] | Omit = omit,
-    starting_on: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[AuditLogListResponse, AsyncCursorPage[AuditLogListResponse]]:
+    def list(
+        self,
+        *,
+        ending_before: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        resource_id: str | Omit = omit,
+        resource_type: str | Omit = omit,
+        sort: Literal["date_asc", "date_desc"] | Omit = omit,
+        starting_on: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[AuditLogListResponse, AsyncCursorPage[AuditLogListResponse]]:
         """
         Get a comprehensive audit trail of all operations performed in your Metronome
         account, whether initiated through the API, web interface, or automated
@@ -259,18 +269,28 @@ class AsyncAuditLogsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/auditLogs",
-            page = AsyncCursorPage[AuditLogListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "limit": limit,
-                "next_page": next_page,
-                "resource_id": resource_id,
-                "resource_type": resource_type,
-                "sort": sort,
-                "starting_on": starting_on,
-            }, audit_log_list_params.AuditLogListParams)),
+            page=AsyncCursorPage[AuditLogListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "limit": limit,
+                        "next_page": next_page,
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                        "sort": sort,
+                        "starting_on": starting_on,
+                    },
+                    audit_log_list_params.AuditLogListParams,
+                ),
+            ),
             model=AuditLogListResponse,
         )
+
 
 class AuditLogsResourceWithRawResponse:
     def __init__(self, audit_logs: AuditLogsResource) -> None:
@@ -280,6 +300,7 @@ class AuditLogsResourceWithRawResponse:
             audit_logs.list,
         )
 
+
 class AsyncAuditLogsResourceWithRawResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:
         self._audit_logs = audit_logs
@@ -288,6 +309,7 @@ class AsyncAuditLogsResourceWithRawResponse:
             audit_logs.list,
         )
 
+
 class AuditLogsResourceWithStreamingResponse:
     def __init__(self, audit_logs: AuditLogsResource) -> None:
         self._audit_logs = audit_logs
@@ -295,6 +317,7 @@ class AuditLogsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             audit_logs.list,
         )
+
 
 class AsyncAuditLogsResourceWithStreamingResponse:
     def __init__(self, audit_logs: AsyncAuditLogsResource) -> None:

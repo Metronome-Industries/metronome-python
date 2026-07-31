@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, List, Dict
-
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
+from ..._models import BaseModel
+
 __all__ = ["BalanceFilter"]
+
 
 class BalanceFilter(BaseModel):
     balance_types: Optional[List[Literal["PREPAID_COMMIT", "POSTPAID_COMMIT", "CREDIT"]]] = None

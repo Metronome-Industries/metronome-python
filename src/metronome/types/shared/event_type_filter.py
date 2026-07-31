@@ -1,13 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
+from typing import List, Optional
 
-from typing import Optional, List
+from ..._models import BaseModel
 
 __all__ = ["EventTypeFilter"]
 
+
 class EventTypeFilter(BaseModel):
     """An optional filtering rule to match the 'event_type' property of an event."""
+
     in_values: Optional[List[str]] = None
     """A list of event types that are explicitly included in the billable metric.
 

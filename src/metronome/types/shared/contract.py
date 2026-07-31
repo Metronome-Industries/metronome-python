@@ -1,34 +1,31 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from typing import Optional, List, Dict
-
-from datetime import datetime
-
 from .commit import Commit
-
-from .override import Override
-
-from .scheduled_charge import ScheduledCharge
-
 from .credit import Credit
-
 from .discount import Discount
-
+from .override import Override
+from ..._models import BaseModel
 from .pro_service import ProService
-
+from .subscription import Subscription
+from .scheduled_charge import ScheduledCharge
 from .contract_without_amendments import ContractWithoutAmendments
-
+from .spend_threshold_configuration import SpendThresholdConfiguration
 from .prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-from .spend_threshold_configuration import SpendThresholdConfiguration
+__all__ = [
+    "Contract",
+    "Amendment",
+    "AmendmentResellerRoyalty",
+    "CustomerBillingProviderConfiguration",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "SpendTrackerAccumulatedSpend",
+]
 
-from .subscription import Subscription
-
-__all__ = ["Contract", "Amendment", "AmendmentResellerRoyalty", "CustomerBillingProviderConfiguration", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "SpendTrackerAccumulatedSpend"]
 
 class AmendmentResellerRoyalty(BaseModel):
     reseller_type: Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]
@@ -52,6 +49,7 @@ class AmendmentResellerRoyalty(BaseModel):
     reseller_contract_value: Optional[float] = None
 
     starting_at: Optional[datetime] = None
+
 
 class Amendment(BaseModel):
     id: str
@@ -85,6 +83,7 @@ class Amendment(BaseModel):
     salesforce_opportunity_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
 
+
 class CustomerBillingProviderConfiguration(BaseModel):
     id: str
     """
@@ -94,7 +93,17 @@ class CustomerBillingProviderConfiguration(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]
+    billing_provider: Literal[
+        "aws_marketplace",
+        "stripe",
+        "netsuite",
+        "custom",
+        "azure_marketplace",
+        "quickbooks_online",
+        "workday",
+        "gcp_marketplace",
+        "metronome",
+    ]
     """The billing provider set for this configuration."""
 
     configuration: Dict[str, object]
@@ -117,6 +126,7 @@ class CustomerBillingProviderConfiguration(BaseModel):
     delivery_method_id: str
     """ID of the delivery method to use for this customer."""
 
+
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
@@ -124,12 +134,14 @@ class SpendTrackerApplicableSpendSpecifier(BaseModel):
 
     discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
 
+
 class SpendTrackerAccumulatedSpend(BaseModel):
     amount: float
 
     period_ending_before: datetime
 
     period_starting_at: datetime
+
 
 class SpendTracker(BaseModel):
     alias: str
@@ -142,6 +154,7 @@ class SpendTracker(BaseModel):
     reset_frequency: Literal["BILLING_PERIOD"]
 
     accumulated_spend: Optional[SpendTrackerAccumulatedSpend] = None
+
 
 class Contract(BaseModel):
     id: str

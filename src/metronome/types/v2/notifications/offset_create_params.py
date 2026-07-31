@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required
+from typing_extensions import Required, TypedDict
 
 __all__ = ["OffsetCreateParams", "Policy"]
+
 
 class OffsetCreateParams(TypedDict, total=False):
     name: Required[str]
@@ -20,10 +21,12 @@ class OffsetCreateParams(TypedDict, total=False):
     uniqueness_key: str
     """Optional uniqueness key to prevent duplicate notification configurations."""
 
+
 class Policy(TypedDict, total=False):
     """
     The offset lifecycle event policy that defines when and how this notification should be triggered. The lifecycle event type is inferred from the policy.type field.
     """
+
     offset: Required[str]
     """
     ISO-8601 duration string indicating how much time before or after the base event

@@ -1,41 +1,100 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
-from ..shared.credit_type_data import CreditTypeData
-
-from typing import List, Optional, Dict
-
-from ..shared.commit_specifier import CommitSpecifier
-
+from ..._models import BaseModel
 from ..shared.override_tier import OverrideTier
-
 from ..shared.overwrite_rate import OverwriteRate
-
-from datetime import datetime
-
+from ..shared.commit_specifier import CommitSpecifier
+from ..shared.credit_type_data import CreditTypeData
+from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
 from ..shared.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-from ..shared.spend_threshold_configuration import SpendThresholdConfiguration
+__all__ = [
+    "PackageListResponse",
+    "Commit",
+    "CommitProduct",
+    "CommitAccessSchedule",
+    "CommitAccessScheduleScheduleItem",
+    "CommitAccessScheduleScheduleItemDuration",
+    "CommitAccessScheduleScheduleItemStartingAtOffset",
+    "CommitInvoiceSchedule",
+    "CommitInvoiceScheduleScheduleItem",
+    "CommitInvoiceScheduleScheduleItemDateOffset",
+    "Override",
+    "OverrideOverrideSpecifier",
+    "OverrideStartingAtOffset",
+    "OverrideDuration",
+    "OverrideProduct",
+    "ScheduledCharge",
+    "ScheduledChargeProduct",
+    "ScheduledChargeSchedule",
+    "ScheduledChargeScheduleScheduleItem",
+    "ScheduledChargeScheduleScheduleItemDateOffset",
+    "UsageStatementSchedule",
+    "Alias",
+    "Credit",
+    "CreditProduct",
+    "CreditAccessSchedule",
+    "CreditAccessScheduleScheduleItem",
+    "CreditAccessScheduleScheduleItemDuration",
+    "CreditAccessScheduleScheduleItemStartingAtOffset",
+    "Duration",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitProduct",
+    "RecurringCommitStartingAtOffset",
+    "RecurringCommitDuration",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
+    "RecurringCommitSubscriptionConfig",
+    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditProduct",
+    "RecurringCreditStartingAtOffset",
+    "RecurringCreditDuration",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
+    "RecurringCreditSubscriptionConfig",
+    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "Subscription",
+    "SubscriptionProration",
+    "SubscriptionProrationRounding",
+    "SubscriptionSubscriptionRate",
+    "SubscriptionSubscriptionRateProduct",
+    "SubscriptionBillingCycleConfig",
+    "SubscriptionDuration",
+    "SubscriptionSeatConfig",
+    "SubscriptionStartingAtOffset",
+]
 
-__all__ = ["PackageListResponse", "Commit", "CommitProduct", "CommitAccessSchedule", "CommitAccessScheduleScheduleItem", "CommitAccessScheduleScheduleItemDuration", "CommitAccessScheduleScheduleItemStartingAtOffset", "CommitInvoiceSchedule", "CommitInvoiceScheduleScheduleItem", "CommitInvoiceScheduleScheduleItemDateOffset", "Override", "OverrideOverrideSpecifier", "OverrideStartingAtOffset", "OverrideDuration", "OverrideProduct", "ScheduledCharge", "ScheduledChargeProduct", "ScheduledChargeSchedule", "ScheduledChargeScheduleScheduleItem", "ScheduledChargeScheduleScheduleItemDateOffset", "UsageStatementSchedule", "Alias", "Credit", "CreditProduct", "CreditAccessSchedule", "CreditAccessScheduleScheduleItem", "CreditAccessScheduleScheduleItemDuration", "CreditAccessScheduleScheduleItemStartingAtOffset", "Duration", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitProduct", "RecurringCommitStartingAtOffset", "RecurringCommitDuration", "RecurringCommitInvoiceAmount", "RecurringCommitProrationRounding", "RecurringCommitProrationRoundingAccess", "RecurringCommitProrationRoundingInvoice", "RecurringCommitSubscriptionConfig", "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditProduct", "RecurringCreditStartingAtOffset", "RecurringCreditDuration", "RecurringCreditProrationRounding", "RecurringCreditProrationRoundingAccess", "RecurringCreditSubscriptionConfig", "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "Subscription", "SubscriptionProration", "SubscriptionProrationRounding", "SubscriptionSubscriptionRate", "SubscriptionSubscriptionRateProduct", "SubscriptionBillingCycleConfig", "SubscriptionDuration", "SubscriptionSeatConfig", "SubscriptionStartingAtOffset"]
 
 class CommitProduct(BaseModel):
     id: str
 
     name: str
 
+
 class CommitAccessScheduleScheduleItemDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
+
 class CommitAccessScheduleScheduleItemStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class CommitAccessScheduleScheduleItem(BaseModel):
     id: str
@@ -46,18 +105,22 @@ class CommitAccessScheduleScheduleItem(BaseModel):
 
     starting_at_offset: CommitAccessScheduleScheduleItemStartingAtOffset
 
+
 class CommitAccessSchedule(BaseModel):
     """
     The schedule that the customer will gain access to the credits purposed with this commit.
     """
+
     credit_type: CreditTypeData
 
     schedule_items: List[CommitAccessScheduleScheduleItem]
+
 
 class CommitInvoiceScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class CommitInvoiceScheduleScheduleItem(BaseModel):
     id: str
@@ -68,14 +131,17 @@ class CommitInvoiceScheduleScheduleItem(BaseModel):
 
     unit_price: float
 
+
 class CommitInvoiceSchedule(BaseModel):
     """The schedule that the customer will be invoiced for this commit."""
+
     credit_type: CreditTypeData
 
     do_not_invoice: bool
     """If true, this schedule will not generate an invoice."""
 
     schedule_items: List[CommitInvoiceScheduleScheduleItem]
+
 
 class Commit(BaseModel):
     id: str
@@ -121,6 +187,7 @@ class Commit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+
 class OverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_template_ids: Optional[List[str]] = None
 
@@ -138,20 +205,24 @@ class OverrideOverrideSpecifier(BaseModel):
 
     recurring_commit_template_ids: Optional[List[str]] = None
 
+
 class OverrideStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class OverrideDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
+
 class OverrideProduct(BaseModel):
     id: str
 
     name: str
+
 
 class Override(BaseModel):
     id: str
@@ -182,15 +253,18 @@ class Override(BaseModel):
 
     type: Optional[Literal["OVERWRITE", "MULTIPLIER", "TIERED"]] = None
 
+
 class ScheduledChargeProduct(BaseModel):
     id: str
 
     name: str
 
+
 class ScheduledChargeScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class ScheduledChargeScheduleScheduleItem(BaseModel):
     id: str
@@ -201,10 +275,12 @@ class ScheduledChargeScheduleScheduleItem(BaseModel):
 
     unit_price: float
 
+
 class ScheduledChargeSchedule(BaseModel):
     credit_type: CreditTypeData
 
     schedule_items: List[ScheduledChargeScheduleScheduleItem]
+
 
 class ScheduledCharge(BaseModel):
     id: str
@@ -220,10 +296,12 @@ class ScheduledCharge(BaseModel):
 
     name: Optional[str] = None
 
+
 class UsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START"]] = None
+
 
 class Alias(BaseModel):
     name: str
@@ -232,20 +310,24 @@ class Alias(BaseModel):
 
     starting_at: Optional[datetime] = None
 
+
 class CreditProduct(BaseModel):
     id: str
 
     name: str
+
 
 class CreditAccessScheduleScheduleItemDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
+
 class CreditAccessScheduleScheduleItemStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class CreditAccessScheduleScheduleItem(BaseModel):
     id: str
@@ -256,10 +338,12 @@ class CreditAccessScheduleScheduleItem(BaseModel):
 
     starting_at_offset: CreditAccessScheduleScheduleItemStartingAtOffset
 
+
 class CreditAccessSchedule(BaseModel):
     credit_type: CreditTypeData
 
     schedule_items: List[CreditAccessScheduleScheduleItem]
+
 
 class Credit(BaseModel):
     id: str
@@ -290,53 +374,66 @@ class Credit(BaseModel):
     specifiers to contribute to a commit's or credit's drawdown.
     """
 
+
 class Duration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
+
 class RecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCommitCommitDuration(BaseModel):
     """The amount of time each of the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCommitProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCommitStartingAtOffset(BaseModel):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
+
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class RecurringCommitDuration(BaseModel):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
+
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
 
+
 class RecurringCommitInvoiceAmount(BaseModel):
     """The amount the customer should be billed for the commit."""
+
     credit_type_id: str
 
     quantity: float
 
     unit_price: float
+
 
 class RecurringCommitProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -349,6 +446,7 @@ class RecurringCommitProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRoundingInvoice(BaseModel):
     decimal_places: float
     """Number of decimal places to round to.
@@ -360,23 +458,29 @@ class RecurringCommitProrationRoundingInvoice(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCommitProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring commit amounts."""
+
     access: Optional[RecurringCommitProrationRoundingAccess] = None
 
     invoice: Optional[RecurringCommitProrationRoundingInvoice] = None
+
 
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class RecurringCommitSubscriptionConfig(BaseModel):
     """Attach a subscription to the recurring commit/credit."""
+
     allocation: Literal["INDIVIDUAL", "POOLED"]
 
     apply_seat_increase_config: RecurringCommitSubscriptionConfigApplySeatIncreaseConfig
 
     subscription_template_id: str
+
 
 class RecurringCommit(BaseModel):
     id: str
@@ -457,40 +561,50 @@ class RecurringCommit(BaseModel):
     subscription_config: Optional[RecurringCommitSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class RecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
+
     credit_type_id: str
 
     unit_price: float
 
     quantity: Optional[float] = None
 
+
 class RecurringCreditCommitDuration(BaseModel):
     """The amount of time each of the created commits will be valid for"""
+
     value: float
 
     unit: Optional[Literal["PERIODS"]] = None
+
 
 class RecurringCreditProduct(BaseModel):
     id: str
 
     name: str
 
+
 class RecurringCreditStartingAtOffset(BaseModel):
     """
     Offset relative to the contract start date that determines the start time for the first commit
     """
+
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class RecurringCreditDuration(BaseModel):
     """
     Offset relative to the recurring credit start that determines when the contract will stop creating recurring commits. optional
     """
+
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class RecurringCreditProrationRoundingAccess(BaseModel):
     decimal_places: float
@@ -503,21 +617,27 @@ class RecurringCreditProrationRoundingAccess(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class RecurringCreditProrationRounding(BaseModel):
     """Rounding configuration for prorated recurring credit amounts."""
+
     access: Optional[RecurringCreditProrationRoundingAccess] = None
+
 
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(BaseModel):
     is_prorated: bool
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class RecurringCreditSubscriptionConfig(BaseModel):
     """Attach a subscription to the recurring commit/credit."""
+
     allocation: Literal["INDIVIDUAL", "POOLED"]
 
     apply_seat_increase_config: RecurringCreditSubscriptionConfigApplySeatIncreaseConfig
 
     subscription_template_id: str
+
 
 class RecurringCredit(BaseModel):
     id: str
@@ -595,12 +715,14 @@ class RecurringCredit(BaseModel):
     subscription_config: Optional[RecurringCreditSubscriptionConfig] = None
     """Attach a subscription to the recurring commit/credit."""
 
+
 class SpendTrackerApplicableSpendSpecifier(BaseModel):
     sources: List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]
 
     spend_type: Literal["COMMIT_PURCHASE"]
 
     discounted: Optional[Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]] = None
+
 
 class SpendTracker(BaseModel):
     alias: str
@@ -611,6 +733,7 @@ class SpendTracker(BaseModel):
     credit_type_id: str
 
     reset_frequency: Literal["BILLING_PERIOD"]
+
 
 class SubscriptionProrationRounding(BaseModel):
     decimal_places: float
@@ -623,6 +746,7 @@ class SubscriptionProrationRounding(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class SubscriptionProration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
@@ -630,23 +754,28 @@ class SubscriptionProration(BaseModel):
 
     rounding: Optional[SubscriptionProrationRounding] = None
 
+
 class SubscriptionSubscriptionRateProduct(BaseModel):
     id: str
 
     name: str
+
 
 class SubscriptionSubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionSubscriptionRateProduct
 
+
 class SubscriptionBillingCycleConfig(BaseModel):
     invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
+
 
 class SubscriptionDuration(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class SubscriptionSeatConfig(BaseModel):
     seat_group_key: str
@@ -659,10 +788,12 @@ class SubscriptionSeatConfig(BaseModel):
     usage.
     """
 
+
 class SubscriptionStartingAtOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
 
     value: int
+
 
 class Subscription(BaseModel):
     collection_schedule: Literal["ADVANCE", "ARREARS"]
@@ -705,6 +836,7 @@ class Subscription(BaseModel):
 
     starting_at_offset: Optional[SubscriptionStartingAtOffset] = None
 
+
 class PackageListResponse(BaseModel):
     id: str
 
@@ -724,7 +856,19 @@ class PackageListResponse(BaseModel):
 
     archived_at: Optional[datetime] = None
 
-    billing_provider: Optional[Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]] = None
+    billing_provider: Optional[
+        Literal[
+            "aws_marketplace",
+            "stripe",
+            "netsuite",
+            "custom",
+            "azure_marketplace",
+            "quickbooks_online",
+            "workday",
+            "gcp_marketplace",
+            "metronome",
+        ]
+    ] = None
 
     contract_name: Optional[str] = None
     """The name to use for contracts created from this package."""

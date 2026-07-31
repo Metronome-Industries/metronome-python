@@ -2,17 +2,30 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
-from typing import Iterable, Dict
+from typing import Dict, Iterable
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CustomerSetBillingConfigurationsParams", "Data"]
+
 
 class CustomerSetBillingConfigurationsParams(TypedDict, total=False):
     data: Required[Iterable[Data]]
 
+
 class Data(TypedDict, total=False):
-    billing_provider: Required[Literal["aws_marketplace", "stripe", "netsuite", "custom", "azure_marketplace", "quickbooks_online", "workday", "gcp_marketplace", "metronome"]]
+    billing_provider: Required[
+        Literal[
+            "aws_marketplace",
+            "stripe",
+            "netsuite",
+            "custom",
+            "azure_marketplace",
+            "quickbooks_online",
+            "workday",
+            "gcp_marketplace",
+            "metronome",
+        ]
+    ]
     """The billing provider set for this configuration."""
 
     customer_id: Required[str]

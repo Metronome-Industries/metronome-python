@@ -2,44 +2,131 @@
 
 from __future__ import annotations
 
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from .alerts import AlertsResource, AsyncAlertsResource, AlertsResourceWithRawResponse, AsyncAlertsResourceWithRawResponse, AlertsResourceWithStreamingResponse, AsyncAlertsResourceWithStreamingResponse
-
+from .plans import (
+    PlansResource,
+    AsyncPlansResource,
+    PlansResourceWithRawResponse,
+    AsyncPlansResourceWithRawResponse,
+    PlansResourceWithStreamingResponse,
+    AsyncPlansResourceWithStreamingResponse,
+)
+from .usage import (
+    UsageResource,
+    AsyncUsageResource,
+    UsageResourceWithRawResponse,
+    AsyncUsageResourceWithRawResponse,
+    UsageResourceWithStreamingResponse,
+    AsyncUsageResourceWithStreamingResponse,
+)
+from .alerts import (
+    AlertsResource,
+    AsyncAlertsResource,
+    AlertsResourceWithRawResponse,
+    AsyncAlertsResourceWithRawResponse,
+    AlertsResourceWithStreamingResponse,
+    AsyncAlertsResourceWithStreamingResponse,
+)
+from .invoices import (
+    InvoicesResource,
+    AsyncInvoicesResource,
+    InvoicesResourceWithRawResponse,
+    AsyncInvoicesResourceWithRawResponse,
+    InvoicesResourceWithStreamingResponse,
+    AsyncInvoicesResourceWithStreamingResponse,
+)
+from .packages import (
+    PackagesResource,
+    AsyncPackagesResource,
+    PackagesResourceWithRawResponse,
+    AsyncPackagesResourceWithRawResponse,
+    PackagesResourceWithStreamingResponse,
+    AsyncPackagesResourceWithStreamingResponse,
+)
+from .services import (
+    ServicesResource,
+    AsyncServicesResource,
+    ServicesResourceWithRawResponse,
+    AsyncServicesResourceWithRawResponse,
+    ServicesResourceWithStreamingResponse,
+    AsyncServicesResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
-
-from .plans import PlansResource, AsyncPlansResource, PlansResourceWithRawResponse, AsyncPlansResourceWithRawResponse, PlansResourceWithStreamingResponse, AsyncPlansResourceWithStreamingResponse
-
-from .credit_grants import CreditGrantsResource, AsyncCreditGrantsResource, CreditGrantsResourceWithRawResponse, AsyncCreditGrantsResourceWithRawResponse, CreditGrantsResourceWithStreamingResponse, AsyncCreditGrantsResourceWithStreamingResponse
-
-from .pricing_units import PricingUnitsResource, AsyncPricingUnitsResource, PricingUnitsResourceWithRawResponse, AsyncPricingUnitsResourceWithRawResponse, PricingUnitsResourceWithStreamingResponse, AsyncPricingUnitsResourceWithStreamingResponse
-
-from .customers.customers import CustomersResource, AsyncCustomersResource, CustomersResourceWithRawResponse, AsyncCustomersResourceWithRawResponse, CustomersResourceWithStreamingResponse, AsyncCustomersResourceWithStreamingResponse
-
-from .dashboards import DashboardsResource, AsyncDashboardsResource, DashboardsResourceWithRawResponse, AsyncDashboardsResourceWithRawResponse, DashboardsResourceWithStreamingResponse, AsyncDashboardsResourceWithStreamingResponse
-
-from .usage import UsageResource, AsyncUsageResource, UsageResourceWithRawResponse, AsyncUsageResourceWithRawResponse, UsageResourceWithStreamingResponse, AsyncUsageResourceWithStreamingResponse
-
-from .audit_logs import AuditLogsResource, AsyncAuditLogsResource, AuditLogsResourceWithRawResponse, AsyncAuditLogsResourceWithRawResponse, AuditLogsResourceWithStreamingResponse, AsyncAuditLogsResourceWithStreamingResponse
-
-from .custom_fields import CustomFieldsResource, AsyncCustomFieldsResource, CustomFieldsResourceWithRawResponse, AsyncCustomFieldsResourceWithRawResponse, CustomFieldsResourceWithStreamingResponse, AsyncCustomFieldsResourceWithStreamingResponse
-
-from .billable_metrics import BillableMetricsResource, AsyncBillableMetricsResource, BillableMetricsResourceWithRawResponse, AsyncBillableMetricsResourceWithRawResponse, BillableMetricsResourceWithStreamingResponse, AsyncBillableMetricsResourceWithStreamingResponse
-
-from .services import ServicesResource, AsyncServicesResource, ServicesResourceWithRawResponse, AsyncServicesResourceWithRawResponse, ServicesResourceWithStreamingResponse, AsyncServicesResourceWithStreamingResponse
-
-from .invoices import InvoicesResource, AsyncInvoicesResource, InvoicesResourceWithRawResponse, AsyncInvoicesResourceWithRawResponse, InvoicesResourceWithStreamingResponse, AsyncInvoicesResourceWithStreamingResponse
-
-from .contracts.contracts import ContractsResource, AsyncContractsResource, ContractsResourceWithRawResponse, AsyncContractsResourceWithRawResponse, ContractsResourceWithStreamingResponse, AsyncContractsResourceWithStreamingResponse
-
-from .packages import PackagesResource, AsyncPackagesResource, PackagesResourceWithRawResponse, AsyncPackagesResourceWithRawResponse, PackagesResourceWithStreamingResponse, AsyncPackagesResourceWithStreamingResponse
-
-from .settings.settings import SettingsResource, AsyncSettingsResource, SettingsResourceWithRawResponse, AsyncSettingsResourceWithRawResponse, SettingsResourceWithStreamingResponse, AsyncSettingsResourceWithStreamingResponse
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from .audit_logs import (
+    AuditLogsResource,
+    AsyncAuditLogsResource,
+    AuditLogsResourceWithRawResponse,
+    AsyncAuditLogsResourceWithRawResponse,
+    AuditLogsResourceWithStreamingResponse,
+    AsyncAuditLogsResourceWithStreamingResponse,
+)
+from .dashboards import (
+    DashboardsResource,
+    AsyncDashboardsResource,
+    DashboardsResourceWithRawResponse,
+    AsyncDashboardsResourceWithRawResponse,
+    DashboardsResourceWithStreamingResponse,
+    AsyncDashboardsResourceWithStreamingResponse,
+)
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from .credit_grants import (
+    CreditGrantsResource,
+    AsyncCreditGrantsResource,
+    CreditGrantsResourceWithRawResponse,
+    AsyncCreditGrantsResourceWithRawResponse,
+    CreditGrantsResourceWithStreamingResponse,
+    AsyncCreditGrantsResourceWithStreamingResponse,
+)
+from .custom_fields import (
+    CustomFieldsResource,
+    AsyncCustomFieldsResource,
+    CustomFieldsResourceWithRawResponse,
+    AsyncCustomFieldsResourceWithRawResponse,
+    CustomFieldsResourceWithStreamingResponse,
+    AsyncCustomFieldsResourceWithStreamingResponse,
+)
+from .pricing_units import (
+    PricingUnitsResource,
+    AsyncPricingUnitsResource,
+    PricingUnitsResourceWithRawResponse,
+    AsyncPricingUnitsResourceWithRawResponse,
+    PricingUnitsResourceWithStreamingResponse,
+    AsyncPricingUnitsResourceWithStreamingResponse,
+)
+from .billable_metrics import (
+    BillableMetricsResource,
+    AsyncBillableMetricsResource,
+    BillableMetricsResourceWithRawResponse,
+    AsyncBillableMetricsResourceWithRawResponse,
+    BillableMetricsResourceWithStreamingResponse,
+    AsyncBillableMetricsResourceWithStreamingResponse,
+)
+from .settings.settings import (
+    SettingsResource,
+    AsyncSettingsResource,
+    SettingsResourceWithRawResponse,
+    AsyncSettingsResourceWithRawResponse,
+    SettingsResourceWithStreamingResponse,
+    AsyncSettingsResourceWithStreamingResponse,
+)
+from .contracts.contracts import (
+    ContractsResource,
+    AsyncContractsResource,
+    ContractsResourceWithRawResponse,
+    AsyncContractsResourceWithRawResponse,
+    ContractsResourceWithStreamingResponse,
+    AsyncContractsResourceWithStreamingResponse,
+)
+from .customers.customers import (
+    CustomersResource,
+    AsyncCustomersResource,
+    CustomersResourceWithRawResponse,
+    AsyncCustomersResourceWithRawResponse,
+    CustomersResourceWithStreamingResponse,
+    AsyncCustomersResourceWithStreamingResponse,
+)
 
 __all__ = ["V1Resource", "AsyncV1Resource"]
+
 
 class V1Resource(SyncAPIResource):
     @cached_property
@@ -157,6 +244,7 @@ class V1Resource(SyncAPIResource):
         """
         return V1ResourceWithStreamingResponse(self)
 
+
 class AsyncV1Resource(AsyncAPIResource):
     @cached_property
     def alerts(self) -> AsyncAlertsResource:
@@ -273,6 +361,7 @@ class AsyncV1Resource(AsyncAPIResource):
         """
         return AsyncV1ResourceWithStreamingResponse(self)
 
+
 class V1ResourceWithRawResponse:
     def __init__(self, v1: V1Resource) -> None:
         self._v1 = v1
@@ -372,6 +461,7 @@ class V1ResourceWithRawResponse:
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
         """
         return SettingsResourceWithRawResponse(self._v1.settings)
+
 
 class AsyncV1ResourceWithRawResponse:
     def __init__(self, v1: AsyncV1Resource) -> None:
@@ -473,6 +563,7 @@ class AsyncV1ResourceWithRawResponse:
         """
         return AsyncSettingsResourceWithRawResponse(self._v1.settings)
 
+
 class V1ResourceWithStreamingResponse:
     def __init__(self, v1: V1Resource) -> None:
         self._v1 = v1
@@ -572,6 +663,7 @@ class V1ResourceWithStreamingResponse:
         Use these endpoints to configure a billing API key, a webhook secret, or invoice finalization behavior.
         """
         return SettingsResourceWithStreamingResponse(self._v1.settings)
+
 
 class AsyncV1ResourceWithStreamingResponse:
     def __init__(self, v1: AsyncV1Resource) -> None:

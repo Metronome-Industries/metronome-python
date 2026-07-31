@@ -1,18 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
 from typing import Dict, List, Optional
-
-from ...shared.rate import Rate
-
 from datetime import datetime
-
 from typing_extensions import Literal
 
+from ...._models import BaseModel
+from ...shared.rate import Rate
 from ...shared.commit_rate import CommitRate
 
 __all__ = ["RateCardRetrieveRateScheduleResponse", "Data"]
+
 
 class Data(BaseModel):
     entitled: bool
@@ -42,6 +39,7 @@ class Data(BaseModel):
     ending_before: Optional[datetime] = None
 
     pricing_group_values: Optional[Dict[str, str]] = None
+
 
 class RateCardRetrieveRateScheduleResponse(BaseModel):
     data: List[Data]

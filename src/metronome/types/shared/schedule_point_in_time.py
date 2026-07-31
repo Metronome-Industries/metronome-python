@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import List, Optional
 from datetime import datetime
 
-from typing import Optional, List
-
+from ..._models import BaseModel
 from .credit_type_data import CreditTypeData
 
 __all__ = ["SchedulePointInTime", "ScheduleItem"]
+
 
 class ScheduleItem(BaseModel):
     id: str
@@ -22,6 +21,7 @@ class ScheduleItem(BaseModel):
     unit_price: float
 
     invoice_id: Optional[str] = None
+
 
 class SchedulePointInTime(BaseModel):
     credit_type: Optional[CreditTypeData] = None

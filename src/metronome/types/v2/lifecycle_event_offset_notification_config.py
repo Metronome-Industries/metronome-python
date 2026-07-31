@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
 from typing import Optional
-
 from datetime import datetime
 
+from ..._models import BaseModel
+
 __all__ = ["LifecycleEventOffsetNotificationConfig", "Policy"]
+
 
 class Policy(BaseModel):
     offset: str
@@ -19,6 +19,7 @@ class Policy(BaseModel):
 
     type: str
     """The type of lifecycle event that this offset is based on."""
+
 
 class LifecycleEventOffsetNotificationConfig(BaseModel):
     id: str

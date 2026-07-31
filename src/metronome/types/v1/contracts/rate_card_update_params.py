@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated
-
-from typing import Iterable, Union
-
+from typing import Union, Iterable
 from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 
 __all__ = ["RateCardUpdateParams", "AddCreditTypeConversion", "Alias"]
+
 
 class RateCardUpdateParams(TypedDict, total=False):
     rate_card_id: Required[str]
@@ -34,14 +33,16 @@ class RateCardUpdateParams(TypedDict, total=False):
     name: str
     """Used only in UI/API. It is not exposed to end customers."""
 
+
 class AddCreditTypeConversion(TypedDict, total=False):
     custom_credit_type_id: Required[str]
 
     fiat_per_custom_credit: Required[float]
 
+
 class Alias(TypedDict, total=False):
     name: Required[str]
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

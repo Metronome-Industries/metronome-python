@@ -1,20 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ...._models import BaseModel
-
+from typing import Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, List, Dict
-
-from .quantity_conversion import QuantityConversion
-
-from .quantity_rounding import QuantityRounding
-
-from .product_list_item_state import ProductListItemState
-
 from typing_extensions import Literal
 
+from ...._models import BaseModel
+from .quantity_rounding import QuantityRounding
+from .quantity_conversion import QuantityConversion
+from .product_list_item_state import ProductListItemState
+
 __all__ = ["ProductRetrieveResponse", "Data", "DataUpdate"]
+
 
 class DataUpdate(BaseModel):
     created_at: datetime
@@ -81,6 +77,7 @@ class DataUpdate(BaseModel):
 
     tags: Optional[List[str]] = None
 
+
 class Data(BaseModel):
     id: str
 
@@ -96,6 +93,7 @@ class Data(BaseModel):
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
 
 class ProductRetrieveResponse(BaseModel):
     data: Data

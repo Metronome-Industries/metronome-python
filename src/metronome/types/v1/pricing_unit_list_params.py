@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 __all__ = ["PricingUnitListParams"]
 
+
 class PricingUnitListParams(TypedDict, total=False):
     limit: int
     """Max number of results that should be returned"""

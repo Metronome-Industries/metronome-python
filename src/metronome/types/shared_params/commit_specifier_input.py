@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict
+from typing_extensions import TypedDict
 
 from ..._types import SequenceNotStr
 
-from typing_extensions import TypedDict
-
 __all__ = ["CommitSpecifierInput"]
+
 
 class CommitSpecifierInput(TypedDict, total=False):
     presentation_group_values: Dict[str, str]

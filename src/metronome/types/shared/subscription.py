@@ -1,37 +1,54 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, List, Dict
-
 from typing_extensions import Literal
 
-__all__ = ["Subscription", "BillingPeriods", "BillingPeriodsCurrent", "BillingPeriodsNext", "BillingPeriodsPrevious", "Proration", "ProrationRounding", "QuantitySchedule", "SubscriptionRate", "SubscriptionRateProduct", "BillingCycleConfig", "SeatConfig"]
+from ..._models import BaseModel
+
+__all__ = [
+    "Subscription",
+    "BillingPeriods",
+    "BillingPeriodsCurrent",
+    "BillingPeriodsNext",
+    "BillingPeriodsPrevious",
+    "Proration",
+    "ProrationRounding",
+    "QuantitySchedule",
+    "SubscriptionRate",
+    "SubscriptionRateProduct",
+    "BillingCycleConfig",
+    "SeatConfig",
+]
+
 
 class BillingPeriodsCurrent(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
+
 class BillingPeriodsNext(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
+
 
 class BillingPeriodsPrevious(BaseModel):
     ending_before: datetime
 
     starting_at: datetime
 
+
 class BillingPeriods(BaseModel):
     """Previous, current, and next billing periods for the subscription."""
+
     current: Optional[BillingPeriodsCurrent] = None
 
     next: Optional[BillingPeriodsNext] = None
 
     previous: Optional[BillingPeriodsPrevious] = None
+
 
 class ProrationRounding(BaseModel):
     decimal_places: float
@@ -44,12 +61,14 @@ class ProrationRounding(BaseModel):
 
     rounding_method: Literal["HALF_UP", "FLOOR", "CEILING"]
 
+
 class Proration(BaseModel):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
 
     is_prorated: bool
 
     rounding: Optional[ProrationRounding] = None
+
 
 class QuantitySchedule(BaseModel):
     quantity: float
@@ -58,15 +77,18 @@ class QuantitySchedule(BaseModel):
 
     ending_before: Optional[datetime] = None
 
+
 class SubscriptionRateProduct(BaseModel):
     id: str
 
     name: str
 
+
 class SubscriptionRate(BaseModel):
     billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionRateProduct
+
 
 class BillingCycleConfig(BaseModel):
     anchor_date: datetime
@@ -78,6 +100,7 @@ class BillingCycleConfig(BaseModel):
     own scheduled invoice.
     """
 
+
 class SeatConfig(BaseModel):
     seat_group_key: str
     """
@@ -88,6 +111,7 @@ class SeatConfig(BaseModel):
     recurring credits with an allocation per seat to be consumed by only one seat's
     usage.
     """
+
 
 class Subscription(BaseModel):
     billing_periods: BillingPeriods

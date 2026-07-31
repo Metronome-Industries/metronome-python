@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
 from typing import Dict, Iterable
-
-from ..shared_params.event_type_filter import EventTypeFilter
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
-
 from ..shared_params.property_filter import PropertyFilter
+from ..shared_params.event_type_filter import EventTypeFilter
 
 __all__ = ["BillableMetricCreateParams"]
+
 
 class BillableMetricCreateParams(TypedDict, total=False):
     name: Required[str]

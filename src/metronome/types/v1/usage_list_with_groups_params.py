@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Union, Dict
-
+from typing import Dict, Union
 from datetime import datetime
-
-from ..._utils import PropertyInfo
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
+from ..._utils import PropertyInfo
 
 __all__ = ["UsageListWithGroupsParams", "GroupBy"]
+
 
 class UsageListWithGroupsParams(TypedDict, total=False):
     billable_metric_id: Required[str]
@@ -39,7 +37,7 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     and ending_before are specified when this is true.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     group_by: GroupBy
     """Use group_key and group_filters instead.
@@ -70,13 +68,15 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     Cannot be used together with `group_by`.
     """
 
-    starting_on: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
 
 class GroupBy(TypedDict, total=False):
     """Use group_key and group_filters instead.
 
     Use a single group key to group by. Compound group keys are not supported.
     """
+
     key: Required[str]
     """The name of the group_by key to use"""
 

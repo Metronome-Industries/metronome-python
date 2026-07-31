@@ -2,48 +2,36 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ...._resource import SyncAPIResource, AsyncAPIResource
-
-from ...._compat import cached_property
-
-from ....types.v1.customers.commit_create_response import CommitCreateResponse
-
-from ...._utils import maybe_transform, async_maybe_transform
-
-from ...._base_client import make_request_options, AsyncPaginator
-
+from typing import Dict, Union, Iterable
+from datetime import datetime
 from typing_extensions import Literal
 
-from ...._types import SequenceNotStr, Omit, omit, NotGiven
+import httpx
 
-from typing import Dict, Iterable, Union
-
-from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
-
-from ....types.shared.commit import Commit
-
+from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ...._utils import maybe_transform, async_maybe_transform
+from ...._compat import cached_property
+from ...._resource import SyncAPIResource, AsyncAPIResource
+from ...._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
-
-from datetime import datetime
-
+from ...._base_client import AsyncPaginator, make_request_options
+from ....types.v1.customers import commit_list_params, commit_create_params, commit_update_end_date_params
+from ....types.shared.commit import Commit
+from ....types.v1.customers.commit_create_response import CommitCreateResponse
+from ....types.shared_params.commit_specifier_input import CommitSpecifierInput
 from ....types.v1.customers.commit_update_end_date_response import CommitUpdateEndDateResponse
-
-from ...._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ....types.v1.customers import commit_create_params
-
-from typing_extensions import Literal, overload
-from ...._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ....types.v1.customers import commit_create_params
-from ....types.v1.customers import commit_list_params
-from ....types.v1.customers import commit_update_end_date_params
 
 __all__ = ["CommitsResource", "AsyncCommitsResource"]
 
+
 class CommitsResource(SyncAPIResource):
     """Credits and commits are used to manage customer balances."""
+
     @cached_property
     def with_raw_response(self) -> CommitsResourceWithRawResponse:
         """
@@ -63,32 +51,34 @@ class CommitsResource(SyncAPIResource):
         """
         return CommitsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    access_schedule: commit_create_params.AccessSchedule,
-    customer_id: str,
-    priority: float,
-    product_id: str,
-    type: Literal["PREPAID", "POSTPAID"],
-    applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
-    applicable_product_ids: SequenceNotStr[str] | Omit = omit,
-    applicable_product_tags: SequenceNotStr[str] | Omit = omit,
-    custom_fields: Dict[str, str] | Omit = omit,
-    description: str | Omit = omit,
-    invoice_contract_id: str | Omit = omit,
-    invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
-    name: str | Omit = omit,
-    netsuite_sales_order_id: str | Omit = omit,
-    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
-    salesforce_opportunity_id: str | Omit = omit,
-    specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
-    uniqueness_key: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CommitCreateResponse:
+    def create(
+        self,
+        *,
+        access_schedule: commit_create_params.AccessSchedule,
+        customer_id: str,
+        priority: float,
+        product_id: str,
+        type: Literal["PREPAID", "POSTPAID"],
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CommitCreateResponse:
         """⚠️ For most contract amendments, use `contracts/edit` directly.
 
         Use this
@@ -218,49 +208,56 @@ class CommitsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contracts/customerCommits/create",
-            body=maybe_transform({
-                "access_schedule": access_schedule,
-                "customer_id": customer_id,
-                "priority": priority,
-                "product_id": product_id,
-                "type": type,
-                "applicable_contract_ids": applicable_contract_ids,
-                "applicable_product_ids": applicable_product_ids,
-                "applicable_product_tags": applicable_product_tags,
-                "custom_fields": custom_fields,
-                "description": description,
-                "invoice_contract_id": invoice_contract_id,
-                "invoice_schedule": invoice_schedule,
-                "name": name,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "rate_type": rate_type,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "specifiers": specifiers,
-                "uniqueness_key": uniqueness_key,
-            }, commit_create_params.CommitCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "access_schedule": access_schedule,
+                    "customer_id": customer_id,
+                    "priority": priority,
+                    "product_id": product_id,
+                    "type": type,
+                    "applicable_contract_ids": applicable_contract_ids,
+                    "applicable_product_ids": applicable_product_ids,
+                    "applicable_product_tags": applicable_product_tags,
+                    "custom_fields": custom_fields,
+                    "description": description,
+                    "invoice_contract_id": invoice_contract_id,
+                    "invoice_schedule": invoice_schedule,
+                    "name": name,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "specifiers": specifiers,
+                    "uniqueness_key": uniqueness_key,
+                },
+                commit_create_params.CommitCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitCreateResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    commit_id: str | Omit = omit,
-    covering_date: Union[str, datetime] | Omit = omit,
-    effective_before: Union[str, datetime] | Omit = omit,
-    include_archived: bool | Omit = omit,
-    include_balance: bool | Omit = omit,
-    include_contract_commits: bool | Omit = omit,
-    include_ledgers: bool | Omit = omit,
-    limit: int | Omit = omit,
-    next_page: str | Omit = omit,
-    starting_at: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncBodyCursorPage[Commit]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        commit_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncBodyCursorPage[Commit]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
         postpaid commitments. This endpoint provides comprehensive visibility into
@@ -337,37 +334,44 @@ class CommitsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCommits/list",
-            page = SyncBodyCursorPage[Commit],
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "commit_id": commit_id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_commits": include_contract_commits,
-                "include_ledgers": include_ledgers,
-                "limit": limit,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, commit_list_params.CommitListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            page=SyncBodyCursorPage[Commit],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "commit_id": commit_id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_commits": include_contract_commits,
+                    "include_ledgers": include_ledgers,
+                    "limit": limit,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                commit_list_params.CommitListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             model=Commit,
             method="post",
         )
 
-    def update_end_date(self,
-    *,
-    commit_id: str,
-    customer_id: str,
-    access_ending_before: Union[str, datetime] | Omit = omit,
-    invoices_ending_before: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CommitUpdateEndDateResponse:
+    def update_end_date(
+        self,
+        *,
+        commit_id: str,
+        customer_id: str,
+        access_ending_before: Union[str, datetime] | Omit = omit,
+        invoices_ending_before: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CommitUpdateEndDateResponse:
         """
         Shortens the end date of a prepaid commit to terminate it earlier than
         originally scheduled. Use this endpoint when you need to cancel or reduce the
@@ -401,18 +405,25 @@ class CommitsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/contracts/customerCommits/updateEndDate",
-            body=maybe_transform({
-                "commit_id": commit_id,
-                "customer_id": customer_id,
-                "access_ending_before": access_ending_before,
-                "invoices_ending_before": invoices_ending_before,
-            }, commit_update_end_date_params.CommitUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "commit_id": commit_id,
+                    "customer_id": customer_id,
+                    "access_ending_before": access_ending_before,
+                    "invoices_ending_before": invoices_ending_before,
+                },
+                commit_update_end_date_params.CommitUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitUpdateEndDateResponse,
         )
 
+
 class AsyncCommitsResource(AsyncAPIResource):
     """Credits and commits are used to manage customer balances."""
+
     @cached_property
     def with_raw_response(self) -> AsyncCommitsResourceWithRawResponse:
         """
@@ -432,32 +443,34 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return AsyncCommitsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    access_schedule: commit_create_params.AccessSchedule,
-    customer_id: str,
-    priority: float,
-    product_id: str,
-    type: Literal["PREPAID", "POSTPAID"],
-    applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
-    applicable_product_ids: SequenceNotStr[str] | Omit = omit,
-    applicable_product_tags: SequenceNotStr[str] | Omit = omit,
-    custom_fields: Dict[str, str] | Omit = omit,
-    description: str | Omit = omit,
-    invoice_contract_id: str | Omit = omit,
-    invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
-    name: str | Omit = omit,
-    netsuite_sales_order_id: str | Omit = omit,
-    rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
-    salesforce_opportunity_id: str | Omit = omit,
-    specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
-    uniqueness_key: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CommitCreateResponse:
+    async def create(
+        self,
+        *,
+        access_schedule: commit_create_params.AccessSchedule,
+        customer_id: str,
+        priority: float,
+        product_id: str,
+        type: Literal["PREPAID", "POSTPAID"],
+        applicable_contract_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_ids: SequenceNotStr[str] | Omit = omit,
+        applicable_product_tags: SequenceNotStr[str] | Omit = omit,
+        custom_fields: Dict[str, str] | Omit = omit,
+        description: str | Omit = omit,
+        invoice_contract_id: str | Omit = omit,
+        invoice_schedule: commit_create_params.InvoiceSchedule | Omit = omit,
+        name: str | Omit = omit,
+        netsuite_sales_order_id: str | Omit = omit,
+        rate_type: Literal["COMMIT_RATE", "LIST_RATE"] | Omit = omit,
+        salesforce_opportunity_id: str | Omit = omit,
+        specifiers: Iterable[CommitSpecifierInput] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CommitCreateResponse:
         """⚠️ For most contract amendments, use `contracts/edit` directly.
 
         Use this
@@ -587,49 +600,56 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contracts/customerCommits/create",
-            body=await async_maybe_transform({
-                "access_schedule": access_schedule,
-                "customer_id": customer_id,
-                "priority": priority,
-                "product_id": product_id,
-                "type": type,
-                "applicable_contract_ids": applicable_contract_ids,
-                "applicable_product_ids": applicable_product_ids,
-                "applicable_product_tags": applicable_product_tags,
-                "custom_fields": custom_fields,
-                "description": description,
-                "invoice_contract_id": invoice_contract_id,
-                "invoice_schedule": invoice_schedule,
-                "name": name,
-                "netsuite_sales_order_id": netsuite_sales_order_id,
-                "rate_type": rate_type,
-                "salesforce_opportunity_id": salesforce_opportunity_id,
-                "specifiers": specifiers,
-                "uniqueness_key": uniqueness_key,
-            }, commit_create_params.CommitCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "access_schedule": access_schedule,
+                    "customer_id": customer_id,
+                    "priority": priority,
+                    "product_id": product_id,
+                    "type": type,
+                    "applicable_contract_ids": applicable_contract_ids,
+                    "applicable_product_ids": applicable_product_ids,
+                    "applicable_product_tags": applicable_product_tags,
+                    "custom_fields": custom_fields,
+                    "description": description,
+                    "invoice_contract_id": invoice_contract_id,
+                    "invoice_schedule": invoice_schedule,
+                    "name": name,
+                    "netsuite_sales_order_id": netsuite_sales_order_id,
+                    "rate_type": rate_type,
+                    "salesforce_opportunity_id": salesforce_opportunity_id,
+                    "specifiers": specifiers,
+                    "uniqueness_key": uniqueness_key,
+                },
+                commit_create_params.CommitCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitCreateResponse,
         )
 
-    def list(self,
-    *,
-    customer_id: str,
-    commit_id: str | Omit = omit,
-    covering_date: Union[str, datetime] | Omit = omit,
-    effective_before: Union[str, datetime] | Omit = omit,
-    include_archived: bool | Omit = omit,
-    include_balance: bool | Omit = omit,
-    include_contract_commits: bool | Omit = omit,
-    include_ledgers: bool | Omit = omit,
-    limit: int | Omit = omit,
-    next_page: str | Omit = omit,
-    starting_at: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Commit, AsyncBodyCursorPage[Commit]]:
+    def list(
+        self,
+        *,
+        customer_id: str,
+        commit_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        effective_before: Union[str, datetime] | Omit = omit,
+        include_archived: bool | Omit = omit,
+        include_balance: bool | Omit = omit,
+        include_contract_commits: bool | Omit = omit,
+        include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        starting_at: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Commit, AsyncBodyCursorPage[Commit]]:
         """
         Retrieve all commit agreements for a customer, including both prepaid and
         postpaid commitments. This endpoint provides comprehensive visibility into
@@ -706,37 +726,44 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/contracts/customerCommits/list",
-            page = AsyncBodyCursorPage[Commit],
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "commit_id": commit_id,
-                "covering_date": covering_date,
-                "effective_before": effective_before,
-                "include_archived": include_archived,
-                "include_balance": include_balance,
-                "include_contract_commits": include_contract_commits,
-                "include_ledgers": include_ledgers,
-                "limit": limit,
-                "next_page": next_page,
-                "starting_at": starting_at,
-            }, commit_list_params.CommitListParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            page=AsyncBodyCursorPage[Commit],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "commit_id": commit_id,
+                    "covering_date": covering_date,
+                    "effective_before": effective_before,
+                    "include_archived": include_archived,
+                    "include_balance": include_balance,
+                    "include_contract_commits": include_contract_commits,
+                    "include_ledgers": include_ledgers,
+                    "limit": limit,
+                    "next_page": next_page,
+                    "starting_at": starting_at,
+                },
+                commit_list_params.CommitListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             model=Commit,
             method="post",
         )
 
-    async def update_end_date(self,
-    *,
-    commit_id: str,
-    customer_id: str,
-    access_ending_before: Union[str, datetime] | Omit = omit,
-    invoices_ending_before: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CommitUpdateEndDateResponse:
+    async def update_end_date(
+        self,
+        *,
+        commit_id: str,
+        customer_id: str,
+        access_ending_before: Union[str, datetime] | Omit = omit,
+        invoices_ending_before: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CommitUpdateEndDateResponse:
         """
         Shortens the end date of a prepaid commit to terminate it earlier than
         originally scheduled. Use this endpoint when you need to cancel or reduce the
@@ -770,15 +797,21 @@ class AsyncCommitsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/contracts/customerCommits/updateEndDate",
-            body=await async_maybe_transform({
-                "commit_id": commit_id,
-                "customer_id": customer_id,
-                "access_ending_before": access_ending_before,
-                "invoices_ending_before": invoices_ending_before,
-            }, commit_update_end_date_params.CommitUpdateEndDateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "commit_id": commit_id,
+                    "customer_id": customer_id,
+                    "access_ending_before": access_ending_before,
+                    "invoices_ending_before": invoices_ending_before,
+                },
+                commit_update_end_date_params.CommitUpdateEndDateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CommitUpdateEndDateResponse,
         )
+
 
 class CommitsResourceWithRawResponse:
     def __init__(self, commits: CommitsResource) -> None:
@@ -794,6 +827,7 @@ class CommitsResourceWithRawResponse:
             commits.update_end_date,
         )
 
+
 class AsyncCommitsResourceWithRawResponse:
     def __init__(self, commits: AsyncCommitsResource) -> None:
         self._commits = commits
@@ -808,6 +842,7 @@ class AsyncCommitsResourceWithRawResponse:
             commits.update_end_date,
         )
 
+
 class CommitsResourceWithStreamingResponse:
     def __init__(self, commits: CommitsResource) -> None:
         self._commits = commits
@@ -821,6 +856,7 @@ class CommitsResourceWithStreamingResponse:
         self.update_end_date = to_streamed_response_wrapper(
             commits.update_end_date,
         )
+
 
 class AsyncCommitsResourceWithStreamingResponse:
     def __init__(self, commits: AsyncCommitsResource) -> None:

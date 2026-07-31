@@ -2,34 +2,86 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Annotated, Literal
-
-from typing import Union, Iterable, Dict, List, Optional
-
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-
-from ..._utils import PropertyInfo
-
-from ..shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
-
-from ..shared_params.spend_threshold_configuration import SpendThresholdConfiguration
-
-from ..shared_params.base_usage_filter import BaseUsageFilter
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
-
-from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
-
-from ..shared_params.commit_specifier_input import CommitSpecifierInput
-
+from ..._utils import PropertyInfo
 from ..shared_params.tier import Tier
+from ..shared_params.base_usage_filter import BaseUsageFilter
+from ..shared_params.commit_specifier_input import CommitSpecifierInput
+from ..shared_params.spend_threshold_configuration import SpendThresholdConfiguration
+from ..shared_params.commit_hierarchy_configuration import CommitHierarchyConfiguration
+from ..shared_params.prepaid_balance_threshold_configuration import PrepaidBalanceThresholdConfiguration
 
-__all__ = ["ContractCreateParams", "BillingProviderConfiguration", "Commit", "CommitAccessSchedule", "CommitAccessScheduleScheduleItem", "CommitInvoiceSchedule", "CommitInvoiceScheduleRecurringSchedule", "CommitInvoiceScheduleScheduleItem", "CommitSpendTrackerAttributes", "Credit", "CreditAccessSchedule", "CreditAccessScheduleScheduleItem", "Discount", "DiscountSchedule", "DiscountScheduleRecurringSchedule", "DiscountScheduleScheduleItem", "HierarchyConfiguration", "HierarchyConfigurationParent", "HierarchyConfigurationParentBehavior", "Override", "OverrideOverrideSpecifier", "OverrideOverwriteRate", "OverrideTier", "ProfessionalService", "RecurringCommit", "RecurringCommitAccessAmount", "RecurringCommitCommitDuration", "RecurringCommitInvoiceAmount", "RecurringCommitProrationRounding", "RecurringCommitProrationRoundingAccess", "RecurringCommitProrationRoundingInvoice", "RecurringCommitSubscriptionConfig", "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig", "RecurringCredit", "RecurringCreditAccessAmount", "RecurringCreditCommitDuration", "RecurringCreditProrationRounding", "RecurringCreditProrationRoundingAccess", "RecurringCreditSubscriptionConfig", "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig", "ResellerRoyalty", "ResellerRoyaltyAwsOptions", "ResellerRoyaltyGcpOptions", "RevenueSystemConfiguration", "ScheduledCharge", "ScheduledChargeSchedule", "ScheduledChargeScheduleRecurringSchedule", "ScheduledChargeScheduleScheduleItem", "SpendTracker", "SpendTrackerApplicableSpendSpecifier", "Subscription", "SubscriptionProration", "SubscriptionProrationRounding", "SubscriptionSubscriptionRate", "SubscriptionBillingCycleConfig", "SubscriptionSeatConfig", "Transition", "TransitionFutureInvoiceBehavior", "UsageStatementSchedule"]
+__all__ = [
+    "ContractCreateParams",
+    "BillingProviderConfiguration",
+    "Commit",
+    "CommitAccessSchedule",
+    "CommitAccessScheduleScheduleItem",
+    "CommitInvoiceSchedule",
+    "CommitInvoiceScheduleRecurringSchedule",
+    "CommitInvoiceScheduleScheduleItem",
+    "CommitSpendTrackerAttributes",
+    "Credit",
+    "CreditAccessSchedule",
+    "CreditAccessScheduleScheduleItem",
+    "Discount",
+    "DiscountSchedule",
+    "DiscountScheduleRecurringSchedule",
+    "DiscountScheduleScheduleItem",
+    "HierarchyConfiguration",
+    "HierarchyConfigurationParent",
+    "HierarchyConfigurationParentBehavior",
+    "Override",
+    "OverrideOverrideSpecifier",
+    "OverrideOverwriteRate",
+    "OverrideTier",
+    "ProfessionalService",
+    "RecurringCommit",
+    "RecurringCommitAccessAmount",
+    "RecurringCommitCommitDuration",
+    "RecurringCommitInvoiceAmount",
+    "RecurringCommitProrationRounding",
+    "RecurringCommitProrationRoundingAccess",
+    "RecurringCommitProrationRoundingInvoice",
+    "RecurringCommitSubscriptionConfig",
+    "RecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
+    "RecurringCredit",
+    "RecurringCreditAccessAmount",
+    "RecurringCreditCommitDuration",
+    "RecurringCreditProrationRounding",
+    "RecurringCreditProrationRoundingAccess",
+    "RecurringCreditSubscriptionConfig",
+    "RecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
+    "ResellerRoyalty",
+    "ResellerRoyaltyAwsOptions",
+    "ResellerRoyaltyGcpOptions",
+    "RevenueSystemConfiguration",
+    "ScheduledCharge",
+    "ScheduledChargeSchedule",
+    "ScheduledChargeScheduleRecurringSchedule",
+    "ScheduledChargeScheduleScheduleItem",
+    "SpendTracker",
+    "SpendTrackerApplicableSpendSpecifier",
+    "Subscription",
+    "SubscriptionProration",
+    "SubscriptionProrationRounding",
+    "SubscriptionSubscriptionRate",
+    "SubscriptionBillingCycleConfig",
+    "SubscriptionSeatConfig",
+    "Transition",
+    "TransitionFutureInvoiceBehavior",
+    "UsageStatementSchedule",
+]
+
 
 class ContractCreateParams(TypedDict, total=False):
     customer_id: Required[str]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """inclusive contract start time"""
 
     billing_provider_configuration: BillingProviderConfiguration
@@ -48,7 +100,7 @@ class ContractCreateParams(TypedDict, total=False):
     discounts: Iterable[Discount]
     """This field's availability is dependent on your client's configuration."""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """exclusive contract end time"""
 
     hierarchy_configuration: HierarchyConfiguration
@@ -154,11 +206,13 @@ class ContractCreateParams(TypedDict, total=False):
 
     usage_statement_schedule: UsageStatementSchedule
 
+
 class BillingProviderConfiguration(TypedDict, total=False):
     """The billing provider configuration associated with a contract.
 
     Provide either an ID or the provider and delivery method.
     """
+
     billing_provider: Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]
     """Do not specify if using billing_provider_configuration_id."""
 
@@ -173,38 +227,43 @@ class BillingProviderConfiguration(TypedDict, total=False):
     delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
     """Do not specify if using billing_provider_configuration_id."""
 
+
 class CommitAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class CommitAccessSchedule(TypedDict, total=False):
     """Required: Schedule for distributing the commit to the customer.
 
     For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
     """
+
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
 
 class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -228,8 +287,9 @@ class CommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -253,10 +313,12 @@ class CommitInvoiceScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class CommitInvoiceSchedule(TypedDict, total=False):
     """
     Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
     """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -277,13 +339,16 @@ class CommitInvoiceSchedule(TypedDict, total=False):
     schedule_items: Iterable[CommitInvoiceScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class CommitSpendTrackerAttributes(TypedDict, total=False):
     """Optional attributes for spend tracker integration. Immutable after creation."""
+
     counts_as_discounted: Required[bool]
     """
     If true, this commit will be included in spend trackers with discounted set to
     DISCOUNTED_ONLY
     """
+
 
 class Commit(TypedDict, total=False):
     product_id: Required[str]
@@ -365,21 +430,25 @@ class Commit(TypedDict, total=False):
     commit specific overrides.
     """
 
+
 class CreditAccessScheduleScheduleItem(TypedDict, total=False):
     amount: Required[float]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)"""
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)"""
+
 
 class CreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
+
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
+
 
 class Credit(TypedDict, total=False):
     access_schedule: Required[CreditAccessSchedule]
@@ -435,19 +504,21 @@ class Credit(TypedDict, total=False):
     be used together with `applicable_product_ids` or `applicable_product_tags`.
     """
 
+
 class DiscountScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -471,8 +542,9 @@ class DiscountScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class DiscountScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -496,8 +568,10 @@ class DiscountScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class DiscountSchedule(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -518,6 +592,7 @@ class DiscountSchedule(TypedDict, total=False):
     schedule_items: Iterable[DiscountScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class Discount(TypedDict, total=False):
     product_id: Required[str]
 
@@ -533,10 +608,12 @@ class Discount(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+
 class HierarchyConfigurationParent(TypedDict, total=False):
     contract_id: Required[str]
 
     customer_id: Required[str]
+
 
 class HierarchyConfigurationParentBehavior(TypedDict, total=False):
     invoice_consolidation_type: Literal["CONCATENATE", "NONE"]
@@ -549,6 +626,7 @@ class HierarchyConfigurationParentBehavior(TypedDict, total=False):
 
     **NONE**: Do not generate consolidated invoices
     """
+
 
 class HierarchyConfiguration(TypedDict, total=False):
     parent: HierarchyConfigurationParent
@@ -574,6 +652,7 @@ class HierarchyConfiguration(TypedDict, total=False):
     **SEPARATE**: Child's invoice statements will appear not appear on parent's
     consolidated invoices
     """
+
 
 class OverrideOverrideSpecifier(TypedDict, total=False):
     any_commit_or_credit_ids: SequenceNotStr[str]
@@ -628,8 +707,10 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     ids.
     """
 
+
 class OverrideOverwriteRate(TypedDict, total=False):
     """Required for OVERWRITE type."""
+
     rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
 
     credit_type_id: str
@@ -659,13 +740,15 @@ class OverrideOverwriteRate(TypedDict, total=False):
     tiers: Iterable[Tier]
     """Only set for TIERED rate_type."""
 
+
 class OverrideTier(TypedDict, total=False):
     multiplier: Required[float]
 
     size: float
 
+
 class Override(TypedDict, total=False):
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
 
     applicable_product_tags: SequenceNotStr[str]
@@ -674,7 +757,7 @@ class Override(TypedDict, total=False):
     Cannot be used in conjunction with override_specifiers.
     """
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """RFC 3339 timestamp indicating when the override will stop applying (exclusive)"""
 
     entitled: bool
@@ -729,6 +812,7 @@ class Override(TypedDict, total=False):
     type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
 
+
 class ProfessionalService(TypedDict, total=False):
     max_amount: Required[float]
     """Maximum amount for the term."""
@@ -755,8 +839,10 @@ class ProfessionalService(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+
 class RecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -767,22 +853,27 @@ class RecurringCommitAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
+
 class RecurringCommitCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
 
+
 class RecurringCommitInvoiceAmount(TypedDict, total=False):
     """The amount the customer should be billed for the commit. Not required."""
+
     credit_type_id: Required[str]
 
     quantity: Required[float]
 
     unit_price: Required[float]
+
 
 class RecurringCommitProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -795,6 +886,7 @@ class RecurringCommitProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class RecurringCommitProrationRoundingInvoice(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -806,18 +898,23 @@ class RecurringCommitProrationRoundingInvoice(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class RecurringCommitProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring commit amounts."""
+
     access: RecurringCommitProrationRoundingAccess
 
     invoice: RecurringCommitProrationRoundingInvoice
+
 
 class RecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[RecurringCommitSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -829,6 +926,7 @@ class RecurringCommitSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
+
 
 class RecurringCommit(TypedDict, total=False):
     access_amount: Required[RecurringCommitAccessAmount]
@@ -846,7 +944,7 @@ class RecurringCommit(TypedDict, total=False):
 
     product_id: Required[str]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
     applicable_product_ids: SequenceNotStr[str]
@@ -858,7 +956,7 @@ class RecurringCommit(TypedDict, total=False):
     description: str
     """Will be passed down to the individual commits"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: CommitHierarchyConfiguration
@@ -921,8 +1019,10 @@ class RecurringCommit(TypedDict, total=False):
     specific overrides.
     """
 
+
 class RecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
+
     credit_type_id: Required[str]
 
     unit_price: Required[float]
@@ -933,14 +1033,17 @@ class RecurringCreditAccessAmount(TypedDict, total=False):
     `subscription_config`.
     """
 
+
 class RecurringCreditCommitDuration(TypedDict, total=False):
     """Defines the length of the access schedule for each created commit/credit.
 
     The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
     """
+
     value: Required[float]
 
     unit: Literal["PERIODS"]
+
 
 class RecurringCreditProrationRoundingAccess(TypedDict, total=False):
     decimal_places: Required[float]
@@ -953,16 +1056,21 @@ class RecurringCreditProrationRoundingAccess(TypedDict, total=False):
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
 
+
 class RecurringCreditProrationRounding(TypedDict, total=False):
     """Optional rounding configuration for prorated recurring credit amounts."""
+
     access: RecurringCreditProrationRoundingAccess
+
 
 class RecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
     is_prorated: Required[bool]
     """Indicates whether a mid-period seat increase should be prorated."""
 
+
 class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     """Attach a subscription to the recurring commit/credit."""
+
     apply_seat_increase_config: Required[RecurringCreditSubscriptionConfigApplySeatIncreaseConfig]
 
     subscription_id: Required[str]
@@ -974,6 +1082,7 @@ class RecurringCreditSubscriptionConfig(TypedDict, total=False):
     If set to INDIVIDUAL, each seat in the subscription will have its own
     allocation.
     """
+
 
 class RecurringCredit(TypedDict, total=False):
     access_amount: Required[RecurringCreditAccessAmount]
@@ -991,7 +1100,7 @@ class RecurringCredit(TypedDict, total=False):
 
     product_id: Required[str]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
     applicable_product_ids: SequenceNotStr[str]
@@ -1003,7 +1112,7 @@ class RecurringCredit(TypedDict, total=False):
     description: str
     """Will be passed down to the individual commits"""
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Determines when the contract will stop creating recurring commits. optional"""
 
     hierarchy_configuration: CommitHierarchyConfiguration
@@ -1063,6 +1172,7 @@ class RecurringCredit(TypedDict, total=False):
     specific overrides.
     """
 
+
 class ResellerRoyaltyAwsOptions(TypedDict, total=False):
     aws_account_number: str
 
@@ -1070,10 +1180,12 @@ class ResellerRoyaltyAwsOptions(TypedDict, total=False):
 
     aws_payer_reference_id: str
 
+
 class ResellerRoyaltyGcpOptions(TypedDict, total=False):
     gcp_account_id: str
 
     gcp_offer_id: str
+
 
 class ResellerRoyalty(TypedDict, total=False):
     fraction: Required[float]
@@ -1082,7 +1194,7 @@ class ResellerRoyalty(TypedDict, total=False):
 
     reseller_type: Required[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
 
     applicable_product_ids: SequenceNotStr[str]
     """Must provide at least one of applicable_product_ids or applicable_product_tags."""
@@ -1092,17 +1204,19 @@ class ResellerRoyalty(TypedDict, total=False):
 
     aws_options: ResellerRoyaltyAwsOptions
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
 
     gcp_options: ResellerRoyaltyGcpOptions
 
     reseller_contract_value: float
+
 
 class RevenueSystemConfiguration(TypedDict, total=False):
     """The revenue system configuration associated with a contract.
 
     Provide either an ID or the provider and delivery method.
     """
+
     delivery_method: Literal["direct_to_billing_provider"]
     """How revenue recognition records should be delivered to the revenue system.
 
@@ -1122,19 +1236,21 @@ class RevenueSystemConfiguration(TypedDict, total=False):
     delivery method. Otherwise, specify the provider and delivery_method.
     """
 
+
 class ScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
     """Enter the unit price and quantity for the charge or instead only send the amount.
 
     If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
     """
+
     amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
 
-    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (exclusive)."""
 
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
 
-    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """RFC 3339 timestamp (inclusive)."""
 
     amount: float
@@ -1158,8 +1274,9 @@ class ScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
-    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]]
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """timestamp of the scheduled event"""
 
     amount: float
@@ -1183,8 +1300,10 @@ class ScheduledChargeScheduleScheduleItem(TypedDict, total=False):
     with quantity. If specified amount cannot be provided.
     """
 
+
 class ScheduledChargeSchedule(TypedDict, total=False):
     """Must provide either schedule_items or recurring_schedule."""
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed."""
 
@@ -1205,6 +1324,7 @@ class ScheduledChargeSchedule(TypedDict, total=False):
     schedule_items: Iterable[ScheduledChargeScheduleScheduleItem]
     """Either provide amount or provide both unit_price and quantity."""
 
+
 class ScheduledCharge(TypedDict, total=False):
     product_id: Required[str]
 
@@ -1220,6 +1340,7 @@ class ScheduledCharge(TypedDict, total=False):
     netsuite_sales_order_id: str
     """This field's availability is dependent on your client's configuration."""
 
+
 class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
     sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
 
@@ -1227,6 +1348,7 @@ class SpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
 
     discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
     """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
 
 class SpendTracker(TypedDict, total=False):
     alias: Required[str]
@@ -1238,6 +1360,7 @@ class SpendTracker(TypedDict, total=False):
 
     reset_frequency: Required[Literal["BILLING_PERIOD"]]
 
+
 class SubscriptionProrationRounding(TypedDict, total=False):
     decimal_places: Required[float]
     """Number of decimal places to round to.
@@ -1248,6 +1371,7 @@ class SubscriptionProrationRounding(TypedDict, total=False):
     """
 
     rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
 
 class SubscriptionProration(TypedDict, total=False):
     invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
@@ -1264,6 +1388,7 @@ class SubscriptionProration(TypedDict, total=False):
 
     rounding: SubscriptionProrationRounding
 
+
 class SubscriptionSubscriptionRate(TypedDict, total=False):
     billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
@@ -1274,8 +1399,9 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
     product_id: Required[str]
     """Must be subscription type product"""
 
+
 class SubscriptionBillingCycleConfig(TypedDict, total=False):
-    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """The date to anchor the billing cycle to.
 
     If omitted, defaults to the contract's usage invoice billing cycle anchor date.
@@ -1286,6 +1412,7 @@ class SubscriptionBillingCycleConfig(TypedDict, total=False):
     Controls whether this subscription consolidates onto usage invoices or gets its
     own scheduled invoice. Defaults to ON_USAGE_INVOICE if omitted.
     """
+
 
 class SubscriptionSeatConfig(TypedDict, total=False):
     initial_seat_ids: Required[SequenceNotStr[str]]
@@ -1304,6 +1431,7 @@ class SubscriptionSeatConfig(TypedDict, total=False):
     initial_unassigned_seats: float
     """The initial amount of unassigned seats on this subscription."""
 
+
 class Subscription(TypedDict, total=False):
     collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
 
@@ -1318,7 +1446,7 @@ class Subscription(TypedDict, total=False):
 
     description: str
 
-    ending_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Exclusive end time for the subscription.
 
     If not provided, subscription inherits contract end date.
@@ -1348,7 +1476,7 @@ class Subscription(TypedDict, total=False):
 
     seat_config: SubscriptionSeatConfig
 
-    starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Inclusive start time for the subscription.
 
     If not provided, defaults to contract start date
@@ -1360,12 +1488,14 @@ class Subscription(TypedDict, total=False):
     subscription configs created within the same payload.
     """
 
+
 class TransitionFutureInvoiceBehavior(TypedDict, total=False):
     trueup: Optional[Literal["REMOVE", "AS_IS"]]
     """Controls whether future trueup invoices are billed or removed.
 
     Default behavior is AS_IS if not specified.
     """
+
 
 class Transition(TypedDict, total=False):
     from_contract_id: Required[str]
@@ -1375,10 +1505,11 @@ class Transition(TypedDict, total=False):
 
     future_invoice_behavior: TransitionFutureInvoiceBehavior
 
+
 class UsageStatementSchedule(TypedDict, total=False):
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
 
-    billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Required when using CUSTOM_DATE.
 
     This option lets you set a historical billing anchor date, aligning future
@@ -1391,7 +1522,7 @@ class UsageStatementSchedule(TypedDict, total=False):
     day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]
     """If not provided, defaults to the first day of the month."""
 
-    invoice_generation_starting_at: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    invoice_generation_starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """The date Metronome should start generating usage invoices.
 
     If unspecified, contract start date will be used. This is useful to set if you

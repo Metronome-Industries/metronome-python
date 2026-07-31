@@ -2,38 +2,33 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ...types.v1.dashboard_get_embeddable_url_response import DashboardGetEmbeddableURLResponse
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ..._base_client import make_request_options
-
+from typing import Iterable
 from typing_extensions import Literal
 
-from typing import Iterable
+import httpx
 
-from ..._types import Omit, omit, NotGiven
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
 from ...types.v1 import dashboard_get_embeddable_url_params
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.v1 import dashboard_get_embeddable_url_params
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.v1.dashboard_get_embeddable_url_response import DashboardGetEmbeddableURLResponse
 
 __all__ = ["DashboardsResource", "AsyncDashboardsResource"]
+
 
 class DashboardsResource(SyncAPIResource):
     """
     [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
     """
+
     @cached_property
     def with_raw_response(self) -> DashboardsResourceWithRawResponse:
         """
@@ -53,19 +48,21 @@ class DashboardsResource(SyncAPIResource):
         """
         return DashboardsResourceWithStreamingResponse(self)
 
-    def get_embeddable_url(self,
-    *,
-    customer_id: str,
-    dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
-    bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
-    color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
-    dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> DashboardGetEmbeddableURLResponse:
+    def get_embeddable_url(
+        self,
+        *,
+        customer_id: str,
+        dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
+        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
+        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
+        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DashboardGetEmbeddableURLResponse:
         """
         Generate secure, embeddable dashboard URLs that allow you to seamlessly
         integrate Metronome's billing visualizations directly into your application.
@@ -118,21 +115,28 @@ class DashboardsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/dashboards/getEmbeddableUrl",
-            body=maybe_transform({
-                "customer_id": customer_id,
-                "dashboard": dashboard,
-                "bm_group_key_overrides": bm_group_key_overrides,
-                "color_overrides": color_overrides,
-                "dashboard_options": dashboard_options,
-            }, dashboard_get_embeddable_url_params.DashboardGetEmbeddableURLParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "dashboard": dashboard,
+                    "bm_group_key_overrides": bm_group_key_overrides,
+                    "color_overrides": color_overrides,
+                    "dashboard_options": dashboard_options,
+                },
+                dashboard_get_embeddable_url_params.DashboardGetEmbeddableURLParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=DashboardGetEmbeddableURLResponse,
         )
+
 
 class AsyncDashboardsResource(AsyncAPIResource):
     """
     [Customers](https://docs.metronome.com/provisioning/create-customers/) in Metronome represent your users for all billing and reporting. Use these endpoints to create, retrieve, update, and archive customers and their billing configuration.
     """
+
     @cached_property
     def with_raw_response(self) -> AsyncDashboardsResourceWithRawResponse:
         """
@@ -152,19 +156,21 @@ class AsyncDashboardsResource(AsyncAPIResource):
         """
         return AsyncDashboardsResourceWithStreamingResponse(self)
 
-    async def get_embeddable_url(self,
-    *,
-    customer_id: str,
-    dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
-    bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
-    color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
-    dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> DashboardGetEmbeddableURLResponse:
+    async def get_embeddable_url(
+        self,
+        *,
+        customer_id: str,
+        dashboard: Literal["invoices", "usage", "credits", "commits_and_credits"],
+        bm_group_key_overrides: Iterable[dashboard_get_embeddable_url_params.BmGroupKeyOverride] | Omit = omit,
+        color_overrides: Iterable[dashboard_get_embeddable_url_params.ColorOverride] | Omit = omit,
+        dashboard_options: Iterable[dashboard_get_embeddable_url_params.DashboardOption] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DashboardGetEmbeddableURLResponse:
         """
         Generate secure, embeddable dashboard URLs that allow you to seamlessly
         integrate Metronome's billing visualizations directly into your application.
@@ -217,16 +223,22 @@ class AsyncDashboardsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/dashboards/getEmbeddableUrl",
-            body=await async_maybe_transform({
-                "customer_id": customer_id,
-                "dashboard": dashboard,
-                "bm_group_key_overrides": bm_group_key_overrides,
-                "color_overrides": color_overrides,
-                "dashboard_options": dashboard_options,
-            }, dashboard_get_embeddable_url_params.DashboardGetEmbeddableURLParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "dashboard": dashboard,
+                    "bm_group_key_overrides": bm_group_key_overrides,
+                    "color_overrides": color_overrides,
+                    "dashboard_options": dashboard_options,
+                },
+                dashboard_get_embeddable_url_params.DashboardGetEmbeddableURLParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=DashboardGetEmbeddableURLResponse,
         )
+
 
 class DashboardsResourceWithRawResponse:
     def __init__(self, dashboards: DashboardsResource) -> None:
@@ -236,6 +248,7 @@ class DashboardsResourceWithRawResponse:
             dashboards.get_embeddable_url,
         )
 
+
 class AsyncDashboardsResourceWithRawResponse:
     def __init__(self, dashboards: AsyncDashboardsResource) -> None:
         self._dashboards = dashboards
@@ -244,6 +257,7 @@ class AsyncDashboardsResourceWithRawResponse:
             dashboards.get_embeddable_url,
         )
 
+
 class DashboardsResourceWithStreamingResponse:
     def __init__(self, dashboards: DashboardsResource) -> None:
         self._dashboards = dashboards
@@ -251,6 +265,7 @@ class DashboardsResourceWithStreamingResponse:
         self.get_embeddable_url = to_streamed_response_wrapper(
             dashboards.get_embeddable_url,
         )
+
 
 class AsyncDashboardsResourceWithStreamingResponse:
     def __init__(self, dashboards: AsyncDashboardsResource) -> None:

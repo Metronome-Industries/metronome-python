@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, Dict, List
-
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
+from ..._models import BaseModel
 from ..shared.credit_type_data import CreditTypeData
 
 __all__ = ["PlanListChargesResponse", "Price", "UnitConversion"]
+
 
 class Price(BaseModel):
     tier: float
@@ -22,8 +21,10 @@ class Price(BaseModel):
 
     quantity: Optional[float] = None
 
+
 class UnitConversion(BaseModel):
     """Specifies how quantities for usage based charges will be converted."""
+
     division_factor: float
     """The conversion factor"""
 
@@ -32,6 +33,7 @@ class UnitConversion(BaseModel):
 
     If null, quantity will be rounded to 20 decimal places.
     """
+
 
 class PlanListChargesResponse(BaseModel):
     id: str
