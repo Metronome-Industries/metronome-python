@@ -25,6 +25,13 @@ class Update(BaseModel):
 
     exclude_free_usage: Optional[bool] = None
 
+    include_composite_spend: Optional[bool] = None
+    """Only for composite products.
+
+    If true, allows a composite to incorporate spend from other composite products.
+    Defaults to false
+    """
+
     is_refundable: Optional[bool] = None
 
     name: Optional[str] = None

@@ -37,6 +37,13 @@ class ProductCreateParams(TypedDict, total=False):
     Defaults to false
     """
 
+    include_composite_spend: bool
+    """Only for composite products.
+
+    If true, allows a composite to incorporate spend from other composite products.
+    Defaults to false
+    """
+
     is_refundable: bool
     """This field's availability is dependent on your client's configuration.
 
