@@ -70,6 +70,7 @@ class ProductsResource(SyncAPIResource):
         composite_tags: SequenceNotStr[str] | Omit = omit,
         custom_fields: Dict[str, str] | Omit = omit,
         exclude_free_usage: bool | Omit = omit,
+        include_composite_spend: bool | Omit = omit,
         is_refundable: bool | Omit = omit,
         netsuite_internal_item_id: str | Omit = omit,
         netsuite_overage_item_id: str | Omit = omit,
@@ -107,6 +108,9 @@ class ProductsResource(SyncAPIResource):
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
+
+          include_composite_spend: Only for composite products. If true, allows a composite to incorporate spend
+              from other composite products. Defaults to false
 
           is_refundable: This field's availability is dependent on your client's configuration. Defaults
               to true.
@@ -163,6 +167,7 @@ class ProductsResource(SyncAPIResource):
                     "composite_tags": composite_tags,
                     "custom_fields": custom_fields,
                     "exclude_free_usage": exclude_free_usage,
+                    "include_composite_spend": include_composite_spend,
                     "is_refundable": is_refundable,
                     "netsuite_internal_item_id": netsuite_internal_item_id,
                     "netsuite_overage_item_id": netsuite_overage_item_id,
@@ -222,6 +227,7 @@ class ProductsResource(SyncAPIResource):
         composite_product_ids: SequenceNotStr[str] | Omit = omit,
         composite_tags: SequenceNotStr[str] | Omit = omit,
         exclude_free_usage: bool | Omit = omit,
+        include_composite_spend: bool | Omit = omit,
         is_refundable: bool | Omit = omit,
         name: str | Omit = omit,
         netsuite_internal_item_id: str | Omit = omit,
@@ -269,6 +275,9 @@ class ProductsResource(SyncAPIResource):
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
+
+          include_composite_spend: Only for composite products. If true, allows a composite to incorporate spend
+              from other composite products. Defaults to false
 
           is_refundable: Defaults to product's current refundability status. This field's availability is
               dependent on your client's configuration.
@@ -331,6 +340,7 @@ class ProductsResource(SyncAPIResource):
                     "composite_product_ids": composite_product_ids,
                     "composite_tags": composite_tags,
                     "exclude_free_usage": exclude_free_usage,
+                    "include_composite_spend": include_composite_spend,
                     "is_refundable": is_refundable,
                     "name": name,
                     "netsuite_internal_item_id": netsuite_internal_item_id,
@@ -475,6 +485,7 @@ class AsyncProductsResource(AsyncAPIResource):
         composite_tags: SequenceNotStr[str] | Omit = omit,
         custom_fields: Dict[str, str] | Omit = omit,
         exclude_free_usage: bool | Omit = omit,
+        include_composite_spend: bool | Omit = omit,
         is_refundable: bool | Omit = omit,
         netsuite_internal_item_id: str | Omit = omit,
         netsuite_overage_item_id: str | Omit = omit,
@@ -512,6 +523,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
+
+          include_composite_spend: Only for composite products. If true, allows a composite to incorporate spend
+              from other composite products. Defaults to false
 
           is_refundable: This field's availability is dependent on your client's configuration. Defaults
               to true.
@@ -568,6 +582,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "composite_tags": composite_tags,
                     "custom_fields": custom_fields,
                     "exclude_free_usage": exclude_free_usage,
+                    "include_composite_spend": include_composite_spend,
                     "is_refundable": is_refundable,
                     "netsuite_internal_item_id": netsuite_internal_item_id,
                     "netsuite_overage_item_id": netsuite_overage_item_id,
@@ -627,6 +642,7 @@ class AsyncProductsResource(AsyncAPIResource):
         composite_product_ids: SequenceNotStr[str] | Omit = omit,
         composite_tags: SequenceNotStr[str] | Omit = omit,
         exclude_free_usage: bool | Omit = omit,
+        include_composite_spend: bool | Omit = omit,
         is_refundable: bool | Omit = omit,
         name: str | Omit = omit,
         netsuite_internal_item_id: str | Omit = omit,
@@ -674,6 +690,9 @@ class AsyncProductsResource(AsyncAPIResource):
 
           exclude_free_usage: Beta feature only available for composite products. If true, products with $0
               will not be included when computing composite usage. Defaults to false
+
+          include_composite_spend: Only for composite products. If true, allows a composite to incorporate spend
+              from other composite products. Defaults to false
 
           is_refundable: Defaults to product's current refundability status. This field's availability is
               dependent on your client's configuration.
@@ -736,6 +755,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "composite_product_ids": composite_product_ids,
                     "composite_tags": composite_tags,
                     "exclude_free_usage": exclude_free_usage,
+                    "include_composite_spend": include_composite_spend,
                     "is_refundable": is_refundable,
                     "name": name,
                     "netsuite_internal_item_id": netsuite_internal_item_id,

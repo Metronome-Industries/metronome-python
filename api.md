@@ -67,6 +67,50 @@ Methods:
 - <code title="post /v2/contracts/credits/edit">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">edit_credit</a>(\*\*<a href="src/metronome/types/v2/contract_edit_credit_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_edit_credit_response.py">ContractEditCreditResponse</a></code>
 - <code title="post /v2/contracts/getEditHistory">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">get_edit_history</a>(\*\*<a href="src/metronome/types/v2/contract_get_edit_history_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_get_edit_history_response.py">ContractGetEditHistoryResponse</a></code>
 
+## Notifications
+
+Types:
+
+```python
+from metronome.types.v2 import (
+    LifecycleEventOffsetNotificationConfig,
+    LifecycleEventSystemNotificationConfig,
+)
+```
+
+### Offset
+
+Types:
+
+```python
+from metronome.types.v2.notifications import (
+    OffsetCreateResponse,
+    OffsetRetrieveResponse,
+    OffsetArchiveResponse,
+    OffsetEditResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v2/notifications/create">client.v2.notifications.offset.<a href="./src/metronome/resources/v2/notifications/offset.py">create</a>(\*\*<a href="src/metronome/types/v2/notifications/offset_create_params.py">params</a>) -> <a href="./src/metronome/types/v2/notifications/offset_create_response.py">OffsetCreateResponse</a></code>
+- <code title="post /v2/notifications/get">client.v2.notifications.offset.<a href="./src/metronome/resources/v2/notifications/offset.py">retrieve</a>(\*\*<a href="src/metronome/types/v2/notifications/offset_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v2/notifications/offset_retrieve_response.py">OffsetRetrieveResponse</a></code>
+- <code title="post /v2/notifications/offset/list">client.v2.notifications.offset.<a href="./src/metronome/resources/v2/notifications/offset.py">list</a>(\*\*<a href="src/metronome/types/v2/notifications/offset_list_params.py">params</a>) -> <a href="./src/metronome/types/v2/lifecycle_event_offset_notification_config.py">SyncBodyCursorPageCursorField[LifecycleEventOffsetNotificationConfig]</a></code>
+- <code title="post /v2/notifications/archive">client.v2.notifications.offset.<a href="./src/metronome/resources/v2/notifications/offset.py">archive</a>(\*\*<a href="src/metronome/types/v2/notifications/offset_archive_params.py">params</a>) -> <a href="./src/metronome/types/v2/notifications/offset_archive_response.py">OffsetArchiveResponse</a></code>
+- <code title="post /v2/notifications/edit">client.v2.notifications.offset.<a href="./src/metronome/resources/v2/notifications/offset.py">edit</a>(\*\*<a href="src/metronome/types/v2/notifications/offset_edit_params.py">params</a>) -> <a href="./src/metronome/types/v2/notifications/offset_edit_response.py">OffsetEditResponse</a></code>
+
+### System
+
+Types:
+
+```python
+from metronome.types.v2.notifications import SystemListResponse
+```
+
+Methods:
+
+- <code title="post /v2/notifications/system/list">client.v2.notifications.system.<a href="./src/metronome/resources/v2/notifications/system.py">list</a>() -> <a href="./src/metronome/types/v2/notifications/system_list_response.py">SystemListResponse</a></code>
+
 # V1
 
 ## Alerts

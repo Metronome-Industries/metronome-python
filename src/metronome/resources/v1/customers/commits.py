@@ -79,7 +79,11 @@ class CommitsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitCreateResponse:
-        """
+        """⚠️ For most contract amendments, use `contracts/edit` directly.
+
+        Use this
+        endpoint only for cross-contract or enterprise-wide commits.
+
         Creates customer-level commits that establish spending commitments for customers
         across their Metronome usage. Commits represent contracted spending obligations
         that can be either prepaid (paid upfront) or postpaid (billed later).
@@ -467,7 +471,11 @@ class AsyncCommitsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommitCreateResponse:
-        """
+        """⚠️ For most contract amendments, use `contracts/edit` directly.
+
+        Use this
+        endpoint only for cross-contract or enterprise-wide commits.
+
         Creates customer-level commits that establish spending commitments for customers
         across their Metronome usage. Commits represent contracted spending obligations
         that can be either prepaid (paid upfront) or postpaid (billed later).
