@@ -274,6 +274,12 @@ class LineItem(BaseModel):
     quantity: Optional[float] = None
     """The quantity associated with the line item."""
 
+    quantity_consumed: Optional[float] = None
+    """Present on applied commit line items for quantity-based commits.
+
+    Represents the unit quantity deducted the commit.
+    """
+
     reseller_type: Optional[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]] = None
 
     scheduled_charge_custom_fields: Optional[Dict[str, str]] = None

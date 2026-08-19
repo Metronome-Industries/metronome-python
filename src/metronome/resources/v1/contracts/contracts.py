@@ -538,6 +538,7 @@ class ContractsResource(SyncAPIResource):
         contract_id: str | Omit = omit,
         per_group_amounts: Dict[str, float] | Omit = omit,
         timestamp: Union[str, datetime] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -585,6 +586,10 @@ class ContractsResource(SyncAPIResource):
           timestamp: RFC 3339 timestamp indicating when the manual adjustment takes place. If not
               provided, it will default to the start of the segment.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
+              with a previously used uniqueness key, a new record will not be created and the
+              request will fail with a 409 error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -606,6 +611,7 @@ class ContractsResource(SyncAPIResource):
                     "contract_id": contract_id,
                     "per_group_amounts": per_group_amounts,
                     "timestamp": timestamp,
+                    "uniqueness_key": uniqueness_key,
                 },
                 contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,
             ),
@@ -2009,6 +2015,7 @@ class AsyncContractsResource(AsyncAPIResource):
         contract_id: str | Omit = omit,
         per_group_amounts: Dict[str, float] | Omit = omit,
         timestamp: Union[str, datetime] | Omit = omit,
+        uniqueness_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2056,6 +2063,10 @@ class AsyncContractsResource(AsyncAPIResource):
           timestamp: RFC 3339 timestamp indicating when the manual adjustment takes place. If not
               provided, it will default to the start of the segment.
 
+          uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
+              with a previously used uniqueness key, a new record will not be created and the
+              request will fail with a 409 error.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -2077,6 +2088,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "contract_id": contract_id,
                     "per_group_amounts": per_group_amounts,
                     "timestamp": timestamp,
+                    "uniqueness_key": uniqueness_key,
                 },
                 contract_add_manual_balance_entry_params.ContractAddManualBalanceEntryParams,
             ),

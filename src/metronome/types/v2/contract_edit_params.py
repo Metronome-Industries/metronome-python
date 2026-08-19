@@ -97,6 +97,7 @@ __all__ = [
     "UpdateCreditAccessScheduleUpdateScheduleItem",
     "UpdatePrepaidBalanceThresholdConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationCommit",
+    "UpdatePrepaidBalanceThresholdConfigurationCommitDuration",
     "UpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "UpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
     "UpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
@@ -1775,6 +1776,16 @@ class UpdateCredit(TypedDict, total=False):
     rollover_fraction: Optional[float]
 
 
+class UpdatePrepaidBalanceThresholdConfigurationCommitDuration(TypedDict, total=False):
+    """
+    The length of time the created commit will be valid, starting from the end of the invoice's service period. Set to null to clear a previously configured duration.
+    """
+
+    unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
+
+    value: Required[int]
+
+
 class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit, total=False):
     applicable_product_ids: Optional[SequenceNotStr[str]]
     """Which products the threshold commit applies to.
@@ -1788,6 +1799,26 @@ class UpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
+    """
+
+    duration: Optional[UpdatePrepaidBalanceThresholdConfigurationCommitDuration]
+    """
+    The length of time the created commit will be valid, starting from the end of
+    the invoice's service period. Set to null to clear a previously configured
+    duration.
+    """
+
+    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]]
+    """Whether the created commits will be charged at commit rate or list rate.
+
+    Set to null to clear a previously configured rate type.
+    """
+
+    rollover_fraction: Optional[float]
+    """Fraction of the created commit's unused balance that will roll over.
+
+    Must be between 0 and 1. Set to null to clear a previously configured rollover
+    fraction.
     """
 
     specifiers: Optional[Iterable[CommitSpecifierInput]]

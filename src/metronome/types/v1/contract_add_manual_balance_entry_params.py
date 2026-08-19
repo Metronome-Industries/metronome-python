@@ -44,3 +44,10 @@ class ContractAddManualBalanceEntryParams(TypedDict, total=False):
 
     If not provided, it will default to the start of the segment.
     """
+
+    uniqueness_key: str
+    """Prevents the creation of duplicates.
+
+    If a request to create a record is made with a previously used uniqueness key, a
+    new record will not be created and the request will fail with a 409 error.
+    """

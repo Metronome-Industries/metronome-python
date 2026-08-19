@@ -139,6 +139,9 @@ class RecurringCommit(BaseModel):
     access_amount: RecurringCommitAccessAmount
     """The amount of commit to grant."""
 
+    anchor_date: datetime
+    """The date this recurring commit's billing periods are anchored to."""
+
     commit_duration: RecurringCommitCommitDuration
     """The amount of time the created commits will be valid for"""
 
@@ -269,6 +272,9 @@ class RecurringCredit(BaseModel):
 
     access_amount: RecurringCreditAccessAmount
     """The amount of commit to grant."""
+
+    anchor_date: datetime
+    """The date this recurring commit's billing periods are anchored to."""
 
     commit_duration: RecurringCreditCommitDuration
     """The amount of time the created commits will be valid for"""
