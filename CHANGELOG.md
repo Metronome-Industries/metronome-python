@@ -8,35 +8,6 @@
 * Add access type filters to balance lists ([e3f8f7e](https://github.com/Metronome-Industries/metronome-python/commit/e3f8f7e8942373e68f06272feedac95141b3e816))
 * Add access type to commit responses ([e588b1a](https://github.com/Metronome-Industries/metronome-python/commit/e588b1a2706d994420713893c0a8eaec7d574b78))
 * Add access_type to commit creation requests ([7239527](https://github.com/Metronome-Industries/metronome-python/commit/723952733581904e363fb38c177e28eb113e8590))
-* add release-please workflow ([#281](https://github.com/Metronome-Industries/metronome-python/issues/281)) ([e3b9ce5](https://github.com/Metronome-Industries/metronome-python/commit/e3b9ce580e623854a392fe4982b7dd776cc21630))
-* **stlc:** dispatch custom-code seals to api ([64ae8b0](https://github.com/Metronome-Industries/metronome-python/commit/64ae8b08394ef544f4056793ae9ded7c1843e926))
-* **stlc:** dispatch custom-code seals to api ([c3a644c](https://github.com/Metronome-Industries/metronome-python/commit/c3a644cf7c676aaa1eb3c38ef6a0a4aecfe8602e))
-
-
-### Bug Fixes
-
-* restore RFC3339 datetime custom code ([#10](https://github.com/Metronome-Industries/metronome-python/issues/10)) ([ae462cd](https://github.com/Metronome-Industries/metronome-python/commit/ae462cde863d2311cd767d6d0f4d6f92cb0340bb))
-* **stlc:** authenticate promotion with app token ([8fa3dda](https://github.com/Metronome-Industries/metronome-python/commit/8fa3ddadca5be731541cf49af73e1a25e6b7c0eb))
-* **stlc:** correct push trigger placement ([c26b49b](https://github.com/Metronome-Industries/metronome-python/commit/c26b49b40a8170d20144de023e2d3c2c3fcf6173))
-* **stlc:** mint app token for seal dispatch ([e17a0fe](https://github.com/Metronome-Industries/metronome-python/commit/e17a0fe3eb3d47049416cb805102bec2c783af58))
-* **stlc:** place push trigger under workflow events ([4a1e1c4](https://github.com/Metronome-Industries/metronome-python/commit/4a1e1c4f182670976e77548f5e2d0a0fcdd9a78d))
-* **stlc:** reconcile back-sync ancestry and enable seal dispatch ([478834c](https://github.com/Metronome-Industries/metronome-python/commit/478834c98a8e5732be1ebf41389acf4a84ad5591))
-* **stlc:** reconcile staging ancestry before sync skip ([72a66dd](https://github.com/Metronome-Industries/metronome-python/commit/72a66dde66c7e0495dfff0937166d409f07692d7))
-* **stlc:** restore Python custom code after interrupted generation ([#8](https://github.com/Metronome-Industries/metronome-python/issues/8)) ([9cdd772](https://github.com/Metronome-Industries/metronome-python/commit/9cdd772cad93c0a6b5b8e89eced0428142101d71))
-* **stlc:** use bot token for sync ([8ea4c21](https://github.com/Metronome-Industries/metronome-python/commit/8ea4c210daf61d42087e7a6af05f181d03719b41))
-* **stlc:** use bot token for sync ([6893b01](https://github.com/Metronome-Industries/metronome-python/commit/6893b0149f084b4c2c18dfee91c2e4943dd01035))
-* **workflows:** harden SDK release and promotion ([#9](https://github.com/Metronome-Industries/metronome-python/issues/9)) ([0fe67ea](https://github.com/Metronome-Industries/metronome-python/commit/0fe67ea7688537c3adb093c1aa30ce1b4a8a0da3))
-
-
-### Chores
-
-* back-sync production into staging ([f0f74d4](https://github.com/Metronome-Industries/metronome-python/commit/f0f74d432e71e207d7d181d8382ce23f7fb05164))
-* back-sync production into staging ([7f2cf78](https://github.com/Metronome-Industries/metronome-python/commit/7f2cf78d7993bc0375e1e8a7519923f7f13f5a5d))
-* initial promote from stlc staging ([a8d3c77](https://github.com/Metronome-Industries/metronome-python/commit/a8d3c77393cd73bf0676260c0f3710373112e6f6))
-* merge production into staging ([b18d015](https://github.com/Metronome-Industries/metronome-python/commit/b18d0153f8911721d5403ef3c0de998e0afedc19))
-* promote SDK changes from staging ([6d32750](https://github.com/Metronome-Industries/metronome-python/commit/6d32750f7ae1534721f828675cf65b74e7b07899))
-* promote SDK changes from staging ([ef8244e](https://github.com/Metronome-Industries/metronome-python/commit/ef8244e76b92e5fdc2762050832eaa459a2fd79b))
-* promote SDK changes from staging ([1342bd0](https://github.com/Metronome-Industries/metronome-python/commit/1342bd05645d0a22b14608af47c978ceb5dd0e50))
 
 ## 4.10.0 (2026-07-23)
 
