@@ -274,6 +274,12 @@ class LineItem(BaseModel):
     quantity: Optional[float] = None
     """The quantity associated with the line item."""
 
+    quantity_consumed: Optional[float] = None
+    """Present on applied commit line items for quantity-based commits.
+
+    Represents the unit quantity deducted the commit.
+    """
+
     reseller_type: Optional[Literal["AWS", "AWS_PRO_SERVICE", "GCP", "GCP_PRO_SERVICE"]] = None
 
     scheduled_charge_custom_fields: Optional[Dict[str, str]] = None
@@ -536,7 +542,10 @@ class Invoice(BaseModel):
     amendment_id: Optional[str] = None
 
     billable_status: Optional[object] = None
-    """This field's availability is dependent on your client's configuration."""
+    """
+    Indicates if the invoice has been or will be sent to the configured customer
+    billing provider. Defaults to `billable`.
+    """
 
     constituent_invoices: Optional[List[ConstituentInvoice]] = None
     """Required on invoices with type USAGE_CONSOLIDATED.

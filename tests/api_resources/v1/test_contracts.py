@@ -243,6 +243,12 @@ class TestContracts:
                     "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "duration": {
+                        "unit": "DAYS",
+                        "value": 0,
+                    },
+                    "rate_type": "COMMIT_RATE",
+                    "rollover_fraction": 0,
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -697,6 +703,7 @@ class TestContracts:
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             per_group_amounts={"foo": 0},
             timestamp=parse_datetime("2019-12-27T18:11:19.117Z"),
+            uniqueness_key="x",
         )
         assert contract is None
 
@@ -1791,6 +1798,12 @@ class TestAsyncContracts:
                     "priority": 0,
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
+                    "duration": {
+                        "unit": "DAYS",
+                        "value": 0,
+                    },
+                    "rate_type": "COMMIT_RATE",
+                    "rollover_fraction": 0,
                     "specifiers": [
                         {
                             "presentation_group_values": {"foo": "string"},
@@ -2245,6 +2258,7 @@ class TestAsyncContracts:
             contract_id="d7abd0cd-4ae9-4db7-8676-e986a4ebd8dc",
             per_group_amounts={"foo": 0},
             timestamp=parse_datetime("2019-12-27T18:11:19.117Z"),
+            uniqueness_key="x",
         )
         assert contract is None
 

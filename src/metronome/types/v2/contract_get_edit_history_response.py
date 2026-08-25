@@ -90,6 +90,7 @@ __all__ = [
     "DataUpdateDiscountScheduleScheduleItem",
     "DataUpdatePrepaidBalanceThresholdConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationCommit",
+    "DataUpdatePrepaidBalanceThresholdConfigurationCommitDuration",
     "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfiguration",
     "DataUpdatePrepaidBalanceThresholdConfigurationDiscountConfigurationCap",
     "DataUpdatePrepaidBalanceThresholdConfigurationThresholdBalanceSpecifier",
@@ -424,6 +425,9 @@ class DataAddRecurringCommit(BaseModel):
     access_amount: DataAddRecurringCommitAccessAmount
     """The amount of commit to grant."""
 
+    anchor_date: datetime
+    """The date this recurring commit's billing periods are anchored to."""
+
     commit_duration: DataAddRecurringCommitCommitDuration
     """The amount of time the created commits will be valid for"""
 
@@ -553,6 +557,9 @@ class DataAddRecurringCredit(BaseModel):
 
     access_amount: DataAddRecurringCreditAccessAmount
     """The amount of commit to grant."""
+
+    anchor_date: datetime
+    """The date this recurring commit's billing periods are anchored to."""
 
     commit_duration: DataAddRecurringCreditCommitDuration
     """The amount of time the created commits will be valid for"""
@@ -813,6 +820,13 @@ class DataAddSubscription(BaseModel):
     fiat_credit_type_id: Optional[str] = None
 
     name: Optional[str] = None
+
+    product_custom_fields: Optional[Dict[str, str]] = None
+    """
+    Custom fields from the subscription product referenced by
+    `subscription_rate.product`. These are distinct from the subscription instance's
+    `custom_fields`.
+    """
 
     seat_config: Optional[DataAddSubscriptionSeatConfig] = None
 
@@ -1161,6 +1175,16 @@ class DataUpdateDiscount(BaseModel):
     """Must provide either schedule_items or recurring_schedule."""
 
 
+class DataUpdatePrepaidBalanceThresholdConfigurationCommitDuration(BaseModel):
+    """
+    The length of time the created commit will be valid, starting from the end of the invoice's service period. Set to null to clear a previously configured duration.
+    """
+
+    unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
+
+    value: int
+
+
 class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCommit):
     applicable_product_ids: Optional[List[str]] = None
     """Which products the threshold commit applies to.
@@ -1174,6 +1198,26 @@ class DataUpdatePrepaidBalanceThresholdConfigurationCommit(UpdateBaseThresholdCo
 
     If both applicable_product_ids and applicable_product_tags are not provided, the
     commit applies to all products.
+    """
+
+    duration: Optional[DataUpdatePrepaidBalanceThresholdConfigurationCommitDuration] = None
+    """
+    The length of time the created commit will be valid, starting from the end of
+    the invoice's service period. Set to null to clear a previously configured
+    duration.
+    """
+
+    rate_type: Optional[Literal["COMMIT_RATE", "LIST_RATE"]] = None
+    """Whether the created commits will be charged at commit rate or list rate.
+
+    Set to null to clear a previously configured rate type.
+    """
+
+    rollover_fraction: Optional[float] = None
+    """Fraction of the created commit's unused balance that will roll over.
+
+    Must be between 0 and 1. Set to null to clear a previously configured rollover
+    fraction.
     """
 
     specifiers: Optional[List[CommitSpecifierInput]] = None

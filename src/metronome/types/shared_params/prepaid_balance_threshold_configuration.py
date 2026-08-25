@@ -13,12 +13,23 @@ from .commit_specifier_input import CommitSpecifierInput
 __all__ = [
     "PrepaidBalanceThresholdConfiguration",
     "Commit",
+    "CommitDuration",
     "DiscountConfiguration",
     "DiscountConfigurationCap",
     "ThresholdBalanceSpecifier",
     "ThresholdBalanceSpecifierExclude",
     "ThresholdBalanceSpecifierExcludeCustomFieldFilter",
 ]
+
+
+class CommitDuration(TypedDict, total=False):
+    """
+    The length of time the created commit will be valid, starting from the end of the invoice's service period. If not provided, defaults to one year.
+    """
+
+    unit: Required[Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]]
+
+    value: Required[int]
 
 
 class Commit(BaseThresholdCommit, total=False):
@@ -34,6 +45,21 @@ class Commit(BaseThresholdCommit, total=False):
 
     If applicable_product_ids, applicable_product_tags or specifiers are not
     provided, the commit applies to all products.
+    """
+
+    duration: CommitDuration
+    """
+    The length of time the created commit will be valid, starting from the end of
+    the invoice's service period. If not provided, defaults to one year.
+    """
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will be charged at commit rate or list rate."""
+
+    rollover_fraction: float
+    """Fraction of the created commit's unused balance that will roll over.
+
+    Must be between 0 and 1.
     """
 
     specifiers: Iterable[CommitSpecifierInput]

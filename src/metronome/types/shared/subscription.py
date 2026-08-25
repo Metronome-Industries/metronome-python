@@ -159,4 +159,11 @@ class Subscription(BaseModel):
 
     name: Optional[str] = None
 
+    product_custom_fields: Optional[Dict[str, str]] = None
+    """
+    Custom fields from the subscription product referenced by
+    `subscription_rate.product`. These are distinct from the subscription instance's
+    `custom_fields`.
+    """
+
     seat_config: Optional[SeatConfig] = None
