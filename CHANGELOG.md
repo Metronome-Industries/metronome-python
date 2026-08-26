@@ -5,9 +5,14 @@
 
 ### Features
 
-* Add access type filters to balance lists ([e3f8f7e](https://github.com/Metronome-Industries/metronome-python/commit/e3f8f7e8942373e68f06272feedac95141b3e816))
-* Add access type to commit responses ([e588b1a](https://github.com/Metronome-Industries/metronome-python/commit/e588b1a2706d994420713893c0a8eaec7d574b78))
-* Add access_type to commit creation requests ([7239527](https://github.com/Metronome-Industries/metronome-python/commit/723952733581904e363fb38c177e28eb113e8590))
+* Add V2 APIs for managing offset and system lifecycle notifications
+* Add `uniqueness_key` to manual balance entries
+* Expose `include_composite_spend` on products
+* Add unbillable invoice rules to billing provider configurations
+* Add `anchor_date` to recurring commit and credit responses
+* Add `duration`, `rate_type`, and `rollover_fraction` to prepaid balance threshold commits
+* Add `quantity_consumed` to invoice line items
+* Expose product custom fields on contract subscription terms
 
 ## 4.10.0 (2026-07-23)
 
