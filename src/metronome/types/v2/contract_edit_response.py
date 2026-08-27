@@ -1580,6 +1580,8 @@ class DataEditUpdateSubscription(BaseModel):
 
     ending_before: Optional[datetime] = None
 
+    name: Optional[str] = None
+
     quantity_updates: Optional[List[DataEditUpdateSubscriptionQuantityUpdate]] = None
 
     seat_updates: Optional[DataEditUpdateSubscriptionSeatUpdates] = None

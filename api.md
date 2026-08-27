@@ -394,6 +394,7 @@ Types:
 from metronome.types.v1 import (
     BillableMetricCreateResponse,
     BillableMetricRetrieveResponse,
+    BillableMetricUpdateResponse,
     BillableMetricListResponse,
     BillableMetricArchiveResponse,
 )
@@ -403,6 +404,7 @@ Methods:
 
 - <code title="post /v1/billable-metrics/create">client.v1.billable_metrics.<a href="./src/metronome/resources/v1/billable_metrics.py">create</a>(\*\*<a href="src/metronome/types/v1/billable_metric_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/billable_metric_create_response.py">BillableMetricCreateResponse</a></code>
 - <code title="get /v1/billable-metrics/{billable_metric_id}">client.v1.billable_metrics.<a href="./src/metronome/resources/v1/billable_metrics.py">retrieve</a>(\*, billable_metric_id) -> <a href="./src/metronome/types/v1/billable_metric_retrieve_response.py">BillableMetricRetrieveResponse</a></code>
+- <code title="put /v1/billable-metrics/{billable_metric_id}">client.v1.billable_metrics.<a href="./src/metronome/resources/v1/billable_metrics.py">update</a>(\*, billable_metric_id, \*\*<a href="src/metronome/types/v1/billable_metric_update_params.py">params</a>) -> <a href="./src/metronome/types/v1/billable_metric_update_response.py">BillableMetricUpdateResponse</a></code>
 - <code title="get /v1/billable-metrics">client.v1.billable_metrics.<a href="./src/metronome/resources/v1/billable_metrics.py">list</a>(\*\*<a href="src/metronome/types/v1/billable_metric_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/billable_metric_list_response.py">SyncCursorPage[BillableMetricListResponse]</a></code>
 - <code title="post /v1/billable-metrics/archive">client.v1.billable_metrics.<a href="./src/metronome/resources/v1/billable_metrics.py">archive</a>(\*\*<a href="src/metronome/types/v1/billable_metric_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/billable_metric_archive_response.py">BillableMetricArchiveResponse</a></code>
 

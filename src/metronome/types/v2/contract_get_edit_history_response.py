@@ -1579,6 +1579,8 @@ class DataUpdateSubscription(BaseModel):
 
     ending_before: Optional[datetime] = None
 
+    name: Optional[str] = None
+
     quantity_updates: Optional[List[DataUpdateSubscriptionQuantityUpdate]] = None
 
     seat_updates: Optional[DataUpdateSubscriptionSeatUpdates] = None
