@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.12.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.0...v4.12.0) (2026-08-27)
+
+
+### Features
+
+* add Billable Metric Update method ([6b08f11](https://github.com/Metronome-Industries/metronome-python/commit/6b08f11f0435c3a5c7fc55b5025b5809512efd9b))
+* allow edit subscription name via editContract ([a3e3a50](https://github.com/Metronome-Industries/metronome-python/commit/a3e3a500b000520f95ba0c007ff7858a2dfc3a1c))
+
+
+### Chores
+
+* promote SDK changes from staging ([6eb4b67](https://github.com/Metronome-Industries/metronome-python/commit/6eb4b6738170a64b4389bc7c71b7a4e20fb6e86d))
+
 ## [4.11.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.10.0...v4.11.0) (2026-08-25)
 
 
