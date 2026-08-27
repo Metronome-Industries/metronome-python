@@ -2226,6 +2226,8 @@ class UpdateSubscription(TypedDict, total=False):
 
     ending_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
+    name: str
+
     proration_rounding: Optional[UpdateSubscriptionProrationRounding]
 
     quantity_management_mode_update: UpdateSubscriptionQuantityManagementModeUpdate

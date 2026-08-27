@@ -883,6 +883,7 @@ class TestContracts:
                 {
                     "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
                     "proration_rounding": {
                         "decimal_places": -5,
                         "rounding_method": "HALF_UP",
@@ -2028,6 +2029,7 @@ class TestAsyncContracts:
                 {
                     "subscription_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "ending_before": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "name": "name",
                     "proration_rounding": {
                         "decimal_places": -5,
                         "rounding_method": "HALF_UP",
