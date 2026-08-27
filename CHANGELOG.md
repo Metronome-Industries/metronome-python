@@ -1,6 +1,6 @@
 # Changelog
 
-## [4.12.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.0...v4.12.0) (2026-08-27)
+## [4.11.1](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.0...v4.11.1) (2026-08-27)
 
 
 ### Features
