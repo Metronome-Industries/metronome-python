@@ -1,5 +1,19 @@
 # Changelog
 
+## [4.11.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.10.0...v4.11.0) (2026-08-25)
+
+
+### Features
+
+* Add V2 APIs for managing offset and system lifecycle notifications
+* Add `uniqueness_key` to manual balance entries
+* Expose `include_composite_spend` on products
+* Add unbillable invoice rules to billing provider configurations
+* Add `anchor_date` to recurring commit and credit responses
+* Add `duration`, `rate_type`, and `rollover_fraction` to prepaid balance threshold commits
+* Add `quantity_consumed` to invoice line items
+* Expose product custom fields on contract subscription terms
+
 ## 4.10.0 (2026-07-23)
 
 Full Changelog: [v4.9.0...v4.10.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.9.0...v4.10.0)
