@@ -10,7 +10,12 @@ import httpx
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
-from ...types.v1 import billable_metric_list_params, billable_metric_create_params, billable_metric_archive_params
+from ...types.v1 import (
+    billable_metric_list_params,
+    billable_metric_create_params,
+    billable_metric_update_params,
+    billable_metric_archive_params,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -24,6 +29,7 @@ from ...types.shared_params.property_filter import PropertyFilter
 from ...types.shared_params.event_type_filter import EventTypeFilter
 from ...types.v1.billable_metric_list_response import BillableMetricListResponse
 from ...types.v1.billable_metric_create_response import BillableMetricCreateResponse
+from ...types.v1.billable_metric_update_response import BillableMetricUpdateResponse
 from ...types.v1.billable_metric_archive_response import BillableMetricArchiveResponse
 from ...types.v1.billable_metric_retrieve_response import BillableMetricRetrieveResponse
 
@@ -197,6 +203,61 @@ class BillableMetricsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=BillableMetricRetrieveResponse,
+        )
+
+    def update(
+        self,
+        *,
+        billable_metric_id: str,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillableMetricUpdateResponse:
+        """Updates only the display name of an existing billable metric.
+
+        Use this to
+        correct mistakes or apply standardized naming conventions across all billable
+        metrics. Returns the billable metric ID to confirm the update.
+
+        Important: Only the name can be modified via this endpoint; configurations
+        cannot be changed after creation.
+
+        #### Example workflow:
+
+        If you need to make changes to a streaming billable metric, for example,
+        Metronome supports easily rolling out these changes using a simple workflow:
+
+        1. Duplicate the billable metric
+        2. Make required changes
+        3. Save the metric
+        4. Navigate to the product you have associated with the incorrect metric
+        5. Schedule the product to reference the newly created metric on the appropriate
+           date
+
+        Args:
+          name: The new name of the metric
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not billable_metric_id:
+            raise ValueError(f"Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}")
+        return self._put(
+            path_template("/v1/billable-metrics/{billable_metric_id}", billable_metric_id=billable_metric_id),
+            body=maybe_transform({"name": name}, billable_metric_update_params.BillableMetricUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BillableMetricUpdateResponse,
         )
 
     def list(
@@ -466,6 +527,61 @@ class AsyncBillableMetricsResource(AsyncAPIResource):
             cast_to=BillableMetricRetrieveResponse,
         )
 
+    async def update(
+        self,
+        *,
+        billable_metric_id: str,
+        name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BillableMetricUpdateResponse:
+        """Updates only the display name of an existing billable metric.
+
+        Use this to
+        correct mistakes or apply standardized naming conventions across all billable
+        metrics. Returns the billable metric ID to confirm the update.
+
+        Important: Only the name can be modified via this endpoint; configurations
+        cannot be changed after creation.
+
+        #### Example workflow:
+
+        If you need to make changes to a streaming billable metric, for example,
+        Metronome supports easily rolling out these changes using a simple workflow:
+
+        1. Duplicate the billable metric
+        2. Make required changes
+        3. Save the metric
+        4. Navigate to the product you have associated with the incorrect metric
+        5. Schedule the product to reference the newly created metric on the appropriate
+           date
+
+        Args:
+          name: The new name of the metric
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not billable_metric_id:
+            raise ValueError(f"Expected a non-empty value for `billable_metric_id` but received {billable_metric_id!r}")
+        return await self._put(
+            path_template("/v1/billable-metrics/{billable_metric_id}", billable_metric_id=billable_metric_id),
+            body=await async_maybe_transform({"name": name}, billable_metric_update_params.BillableMetricUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BillableMetricUpdateResponse,
+        )
+
     def list(
         self,
         *,
@@ -574,6 +690,9 @@ class BillableMetricsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             billable_metrics.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            billable_metrics.update,
+        )
         self.list = to_raw_response_wrapper(
             billable_metrics.list,
         )
@@ -591,6 +710,9 @@ class AsyncBillableMetricsResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             billable_metrics.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            billable_metrics.update,
         )
         self.list = async_to_raw_response_wrapper(
             billable_metrics.list,
@@ -610,6 +732,9 @@ class BillableMetricsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             billable_metrics.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            billable_metrics.update,
+        )
         self.list = to_streamed_response_wrapper(
             billable_metrics.list,
         )
@@ -627,6 +752,9 @@ class AsyncBillableMetricsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             billable_metrics.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            billable_metrics.update,
         )
         self.list = async_to_streamed_response_wrapper(
             billable_metrics.list,

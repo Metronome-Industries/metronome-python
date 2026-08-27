@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from metronome.types.v1 import (
     BillableMetricListResponse,
     BillableMetricCreateResponse,
+    BillableMetricUpdateResponse,
     BillableMetricArchiveResponse,
     BillableMetricRetrieveResponse,
 )
@@ -126,6 +127,48 @@ class TestBillableMetrics:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
             client.v1.billable_metrics.with_raw_response.retrieve(
                 billable_metric_id="",
+            )
+
+    @parametrize
+    def test_method_update(self, client: Metronome) -> None:
+        billable_metric = client.v1.billable_metrics.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        )
+        assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+    @parametrize
+    def test_raw_response_update(self, client: Metronome) -> None:
+        response = client.v1.billable_metrics.with_raw_response.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        billable_metric = response.parse()
+        assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+    @parametrize
+    def test_streaming_response_update(self, client: Metronome) -> None:
+        with client.v1.billable_metrics.with_streaming_response.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            billable_metric = response.parse()
+            assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_update(self, client: Metronome) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
+            client.v1.billable_metrics.with_raw_response.update(
+                billable_metric_id="",
+                name="CPU hours",
             )
 
     @parametrize
@@ -302,6 +345,48 @@ class TestAsyncBillableMetrics:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
             await async_client.v1.billable_metrics.with_raw_response.retrieve(
                 billable_metric_id="",
+            )
+
+    @parametrize
+    async def test_method_update(self, async_client: AsyncMetronome) -> None:
+        billable_metric = await async_client.v1.billable_metrics.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        )
+        assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.billable_metrics.with_raw_response.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        billable_metric = await response.parse()
+        assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.billable_metrics.with_streaming_response.update(
+            billable_metric_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            name="CPU hours",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            billable_metric = await response.parse()
+            assert_matches_type(BillableMetricUpdateResponse, billable_metric, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncMetronome) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `billable_metric_id` but received ''"):
+            await async_client.v1.billable_metrics.with_raw_response.update(
+                billable_metric_id="",
+                name="CPU hours",
             )
 
     @parametrize
