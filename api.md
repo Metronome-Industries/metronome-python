@@ -177,12 +177,18 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1 import PricingUnitListResponse
+from metronome.types.v1 import (
+    PricingUnitCreateResponse,
+    PricingUnitListResponse,
+    PricingUnitArchiveResponse,
+)
 ```
 
 Methods:
 
+- <code title="post /v1/credit-types/create">client.v1.pricing_units.<a href="./src/metronome/resources/v1/pricing_units.py">create</a>(\*\*<a href="src/metronome/types/v1/pricing_unit_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/pricing_unit_create_response.py">PricingUnitCreateResponse</a></code>
 - <code title="get /v1/credit-types/list">client.v1.pricing_units.<a href="./src/metronome/resources/v1/pricing_units.py">list</a>(\*\*<a href="src/metronome/types/v1/pricing_unit_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/pricing_unit_list_response.py">SyncCursorPage[PricingUnitListResponse]</a></code>
+- <code title="post /v1/credit-types/archive">client.v1.pricing_units.<a href="./src/metronome/resources/v1/pricing_units.py">archive</a>(\*\*<a href="src/metronome/types/v1/pricing_unit_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/pricing_unit_archive_response.py">PricingUnitArchiveResponse</a></code>
 
 ## Customers
 
