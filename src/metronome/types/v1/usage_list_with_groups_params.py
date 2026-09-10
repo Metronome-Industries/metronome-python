@@ -33,11 +33,12 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     current_period: bool
     """If true, will return the usage for the current billing period.
 
-    Will return an error if the customer is currently uncontracted or starting_on
-    and ending_before are specified when this is true.
+    Will return an error if the customer does not have an active plan, or if
+    starting_on and ending_before are specified when this is true.
     """
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Must be aligned to UTC midnight and at least one day after `starting_on`."""
 
     group_by: GroupBy
     """Use group_key and group_filters instead.
@@ -50,7 +51,8 @@ class UsageListWithGroupsParams(TypedDict, total=False):
 
     Only usage matching these filter values will be returned. Keys must be present
     in group_key. Omit a key or use an empty array to include all values for that
-    dimension.
+    dimension. The combined number of entries across all value arrays may not
+    exceed 200.
     """
 
     group_key: SequenceNotStr[str]
@@ -69,6 +71,7 @@ class UsageListWithGroupsParams(TypedDict, total=False):
     """
 
     starting_on: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`."""
 
 
 class GroupBy(TypedDict, total=False):
@@ -83,5 +86,6 @@ class GroupBy(TypedDict, total=False):
     values: SequenceNotStr[str]
     """Values of the group_by key to return in the query.
 
-    Omit this if you'd like all values for the key returned.
+    Accepts at most 200 values. Omit this if you'd like all values for the key
+    returned.
     """

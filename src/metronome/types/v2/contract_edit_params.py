@@ -934,9 +934,10 @@ class AddProfessionalService(TypedDict, total=False):
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """
@@ -1114,9 +1115,10 @@ class AddRecurringCommit(TypedDict, total=False):
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """

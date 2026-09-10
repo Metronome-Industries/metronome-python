@@ -64,6 +64,12 @@ class DataCommit(BaseModel):
     start_date: datetime
     """The datetime when the commit becomes active"""
 
+    credit_type_id: Optional[str] = None
+    """The credit type for this commit.
+
+    Quantity-based commits return the null credit type UUID.
+    """
+
     end_date: Optional[datetime] = None
     """The datetime when the commit expires"""
 
@@ -103,6 +109,12 @@ class DataCredit(BaseModel):
 
     start_date: datetime
     """The datetime when the credit becomes active"""
+
+    credit_type_id: Optional[str] = None
+    """The credit type for this credit.
+
+    Quantity-based credits return the null credit type UUID.
+    """
 
     end_date: Optional[datetime] = None
     """The datetime when the credit expires"""

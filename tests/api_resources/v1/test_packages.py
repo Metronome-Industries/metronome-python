@@ -258,8 +258,8 @@ class TestPackages:
             recurring_commits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -318,8 +318,8 @@ class TestPackages:
             recurring_credits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -880,8 +880,8 @@ class TestAsyncPackages:
             recurring_commits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -940,8 +940,8 @@ class TestAsyncPackages:
             recurring_credits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {

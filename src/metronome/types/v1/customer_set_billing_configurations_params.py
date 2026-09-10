@@ -58,6 +58,5 @@ class Data(TypedDict, total=False):
     """
     Specifies which tax provider Metronome should use for tax calculation when
     billing through Stripe. This is only supported for Stripe billing provider
-    configurations with auto_charge_payment_intent or manual_charge_payment_intent
-    collection methods.
+    configurations.
     """
