@@ -44,7 +44,12 @@ from ...._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ....pagination import (
+    SyncBodyCursorPage,
+    AsyncBodyCursorPage,
+    SyncBodyCursorPageCursorField,
+    AsyncBodyCursorPageCursorField,
+)
 from ...._base_client import AsyncPaginator, make_request_options
 from .named_schedules import (
     NamedSchedulesResource,
@@ -62,7 +67,7 @@ from .rate_cards.rate_cards import (
     RateCardsResourceWithStreamingResponse,
     AsyncRateCardsResourceWithStreamingResponse,
 )
-from ....types.v1.contract_list_response import ContractListResponse
+from ....types.shared.contract import Contract
 from ....types.v1.contract_amend_response import ContractAmendResponse
 from ....types.v1.contract_create_response import ContractCreateResponse
 from ....types.shared_params.balance_filter import BalanceFilter
@@ -463,9 +468,11 @@ class ContractsResource(SyncAPIResource):
         *,
         customer_id: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -473,12 +480,17 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractListResponse:
+    ) -> SyncBodyCursorPageCursorField[Contract]:
         """
-        Retrieves all contracts for a specific customer, including pricing, terms,
+        Retrieves a page of contracts for a specific customer, including pricing, terms,
         credits, and commitments. Use this to view a customer's contract history and
         current agreements for billing management. Returns contract details with
         optional ledgers and balance information.
+
+        ### Usage guidelines:
+
+        - Pagination: Results are limited to 20 contracts per page; use 'cursor' for
+          more
 
         ⚠️ Note: This is the legacy v1 endpoint - new integrations should use the v2
         endpoint for enhanced features.
@@ -488,6 +500,8 @@ class ContractsResource(SyncAPIResource):
               contracts effective on the provided date. This cannot be provided if the
               starting_at filter is provided.
 
+          cursor: Cursor from a previous response to fetch the next page of contracts.
+
           include_archived: Include archived contracts in the response
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -496,8 +510,10 @@ class ContractsResource(SyncAPIResource):
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
+          limit: Max number of contracts to return per page. Range: 1-20. Default: 20.
+
           starting_at: Optional RFC 3339 timestamp. If provided, the response will include only
-              contracts where effective_at is on or after the provided date. This cannot be
+              contracts where starting_at is on or after the provided date. This cannot be
               provided if the covering_date filter is provided.
 
           extra_headers: Send extra headers
@@ -508,15 +524,18 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v1/contracts/list",
+            page=SyncBodyCursorPageCursorField[Contract],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
+                    "cursor": cursor,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "starting_at": starting_at,
                 },
                 contract_list_params.ContractListParams,
@@ -524,7 +543,8 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListResponse,
+            model=Contract,
+            method="post",
         )
 
     def add_manual_balance_entry(
@@ -1935,14 +1955,16 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_id: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_ledgers: bool | Omit = omit,
+        limit: int | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1950,12 +1972,17 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractListResponse:
+    ) -> AsyncPaginator[Contract, AsyncBodyCursorPageCursorField[Contract]]:
         """
-        Retrieves all contracts for a specific customer, including pricing, terms,
+        Retrieves a page of contracts for a specific customer, including pricing, terms,
         credits, and commitments. Use this to view a customer's contract history and
         current agreements for billing management. Returns contract details with
         optional ledgers and balance information.
+
+        ### Usage guidelines:
+
+        - Pagination: Results are limited to 20 contracts per page; use 'cursor' for
+          more
 
         ⚠️ Note: This is the legacy v1 endpoint - new integrations should use the v2
         endpoint for enhanced features.
@@ -1965,6 +1992,8 @@ class AsyncContractsResource(AsyncAPIResource):
               contracts effective on the provided date. This cannot be provided if the
               starting_at filter is provided.
 
+          cursor: Cursor from a previous response to fetch the next page of contracts.
+
           include_archived: Include archived contracts in the response
 
           include_balance: Include the balance of credits and commits in the response. Setting this flag
@@ -1973,8 +2002,10 @@ class AsyncContractsResource(AsyncAPIResource):
           include_ledgers: Include commit ledgers in the response. Setting this flag may cause the query to
               be slower.
 
+          limit: Max number of contracts to return per page. Range: 1-20. Default: 20.
+
           starting_at: Optional RFC 3339 timestamp. If provided, the response will include only
-              contracts where effective_at is on or after the provided date. This cannot be
+              contracts where starting_at is on or after the provided date. This cannot be
               provided if the covering_date filter is provided.
 
           extra_headers: Send extra headers
@@ -1985,15 +2016,18 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v1/contracts/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPageCursorField[Contract],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
+                    "cursor": cursor,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "starting_at": starting_at,
                 },
                 contract_list_params.ContractListParams,
@@ -2001,7 +2035,8 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListResponse,
+            model=Contract,
+            method="post",
         )
 
     async def add_manual_balance_entry(

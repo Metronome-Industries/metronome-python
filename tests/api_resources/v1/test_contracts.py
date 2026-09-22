@@ -11,7 +11,6 @@ from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
 from metronome.types.v1 import (
-    ContractListResponse,
     ContractAmendResponse,
     ContractCreateResponse,
     ContractArchiveResponse,
@@ -26,7 +25,13 @@ from metronome.types.v1 import (
     ContractGetSubscriptionSeatsHistoryResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
-from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from metronome.pagination import (
+    SyncBodyCursorPage,
+    AsyncBodyCursorPage,
+    SyncBodyCursorPageCursorField,
+    AsyncBodyCursorPageCursorField,
+)
+from metronome.types.shared import Contract
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -643,19 +648,21 @@ class TestContracts:
         contract = client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         contract = client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            cursor="cursor",
             include_archived=True,
             include_balance=True,
             include_ledgers=True,
+            limit=1,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -666,7 +673,7 @@ class TestContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = response.parse()
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -677,7 +684,7 @@ class TestContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = response.parse()
-            assert_matches_type(ContractListResponse, contract, path=["response"])
+            assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2198,19 +2205,21 @@ class TestAsyncContracts:
         contract = await async_client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         contract = await async_client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            cursor="cursor",
             include_archived=True,
             include_balance=True,
             include_ledgers=True,
+            limit=1,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -2221,7 +2230,7 @@ class TestAsyncContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = await response.parse()
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -2232,7 +2241,7 @@ class TestAsyncContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = await response.parse()
-            assert_matches_type(ContractListResponse, contract, path=["response"])
+            assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

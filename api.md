@@ -50,7 +50,6 @@ Types:
 ```python
 from metronome.types.v2 import (
     ContractRetrieveResponse,
-    ContractListResponse,
     ContractEditResponse,
     ContractEditCommitResponse,
     ContractEditCreditResponse,
@@ -61,7 +60,7 @@ from metronome.types.v2 import (
 Methods:
 
 - <code title="post /v2/contracts/get">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">retrieve</a>(\*\*<a href="src/metronome/types/v2/contract_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_retrieve_response.py">ContractRetrieveResponse</a></code>
-- <code title="post /v2/contracts/list">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">list</a>(\*\*<a href="src/metronome/types/v2/contract_list_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_list_response.py">ContractListResponse</a></code>
+- <code title="post /v2/contracts/list">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">list</a>(\*\*<a href="src/metronome/types/v2/contract_list_params.py">params</a>) -> <a href="./src/metronome/types/shared/contract_v2.py">SyncBodyCursorPageCursorField[ContractV2]</a></code>
 - <code title="post /v2/contracts/edit">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">edit</a>(\*\*<a href="src/metronome/types/v2/contract_edit_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_edit_response.py">ContractEditResponse</a></code>
 - <code title="post /v2/contracts/commits/edit">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">edit_commit</a>(\*\*<a href="src/metronome/types/v2/contract_edit_commit_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_edit_commit_response.py">ContractEditCommitResponse</a></code>
 - <code title="post /v2/contracts/credits/edit">client.v2.contracts.<a href="./src/metronome/resources/v2/contracts.py">edit_credit</a>(\*\*<a href="src/metronome/types/v2/contract_edit_credit_params.py">params</a>) -> <a href="./src/metronome/types/v2/contract_edit_credit_response.py">ContractEditCreditResponse</a></code>
@@ -447,7 +446,6 @@ Types:
 from metronome.types.v1 import (
     ContractCreateResponse,
     ContractRetrieveResponse,
-    ContractListResponse,
     ContractAmendResponse,
     ContractArchiveResponse,
     ContractCreateHistoricalInvoicesResponse,
@@ -466,7 +464,7 @@ Methods:
 
 - <code title="post /v1/contracts/create">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">create</a>(\*\*<a href="src/metronome/types/v1/contract_create_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_create_response.py">ContractCreateResponse</a></code>
 - <code title="post /v1/contracts/get">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contract_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_retrieve_response.py">ContractRetrieveResponse</a></code>
-- <code title="post /v1/contracts/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list</a>(\*\*<a href="src/metronome/types/v1/contract_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_list_response.py">ContractListResponse</a></code>
+- <code title="post /v1/contracts/list">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">list</a>(\*\*<a href="src/metronome/types/v1/contract_list_params.py">params</a>) -> <a href="./src/metronome/types/shared/contract.py">SyncBodyCursorPageCursorField[Contract]</a></code>
 - <code title="post /v1/contracts/addManualBalanceLedgerEntry">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">add_manual_balance_entry</a>(\*\*<a href="src/metronome/types/v1/contract_add_manual_balance_entry_params.py">params</a>) -> None</code>
 - <code title="post /v1/contracts/amend">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">amend</a>(\*\*<a href="src/metronome/types/v1/contract_amend_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_amend_response.py">ContractAmendResponse</a></code>
 - <code title="post /v1/contracts/archive">client.v1.contracts.<a href="./src/metronome/resources/v1/contracts/contracts.py">archive</a>(\*\*<a href="src/metronome/types/v1/contract_archive_params.py">params</a>) -> <a href="./src/metronome/types/v1/contract_archive_response.py">ContractArchiveResponse</a></code>
