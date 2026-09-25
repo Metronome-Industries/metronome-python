@@ -92,13 +92,8 @@ class BillingConfig(TypedDict, total=False):
         "us-west-2",
     ]
 
-    stripe_collection_method: Literal[
-        "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
-    ]
-    """
-    The collection method for the customer's invoices. NOTE:
-    `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
-    """
+    stripe_collection_method: Literal["charge_automatically", "send_invoice"]
+    """The collection method for the customer's invoices."""
 
 
 class CustomerBillingProviderConfiguration(TypedDict, total=False):
@@ -129,8 +124,7 @@ class CustomerBillingProviderConfiguration(TypedDict, total=False):
     """
     Specifies which tax provider Metronome should use for tax calculation when
     billing through Stripe. This is only supported for Stripe billing provider
-    configurations with auto_charge_payment_intent or manual_charge_payment_intent
-    collection methods.
+    configurations.
     """
 
 

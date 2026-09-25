@@ -26,11 +26,22 @@ class DataBalance(BaseModel):
     """
 
     credit_type_id: str
+    """This ID identifies the credit type for the balance.
+
+    Quantity-based balances return the null credit type UUID.
+    """
 
     starting_balance: float
     """
     The total initial balances of all commits and credits for this seat, of this
     credit type.
+    """
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
     """
 
 
@@ -63,6 +74,19 @@ class DataCommit(BaseModel):
 
     start_date: datetime
     """The datetime when the commit becomes active"""
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: Optional[str] = None
+    """The credit type for this commit.
+
+    Quantity-based commits return the null credit type UUID.
+    """
 
     end_date: Optional[datetime] = None
     """The datetime when the commit expires"""
@@ -103,6 +127,19 @@ class DataCredit(BaseModel):
 
     start_date: datetime
     """The datetime when the credit becomes active"""
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: Optional[str] = None
+    """The credit type for this credit.
+
+    Quantity-based credits return the null credit type UUID.
+    """
 
     end_date: Optional[datetime] = None
     """The datetime when the credit expires"""

@@ -14,6 +14,13 @@ class ContractGetNetBalanceParams(TypedDict, total=False):
     customer_id: Required[str]
     """The ID of the customer."""
 
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Filters balances by how they are drawn down.
+
+    Defaults to `SPEND`. If set to `QUANTITY`, `credit_type_id` must not be
+    provided.
+    """
+
     credit_type_id: str
     """
     The ID of the credit type (can be fiat or a custom pricing unit) to get the

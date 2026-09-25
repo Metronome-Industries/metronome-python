@@ -104,6 +104,10 @@ class UsageResource(SyncAPIResource):
         - Null values: Group values may be null when no usage matches that group
 
         Args:
+          ending_before: Must be aligned to UTC midnight and at least one day after `starting_on`.
+
+          starting_on: Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`.
+
           window_size: A window_size of "day" or "hour" will return the usage for the specified period
               segmented into daily or hourly aggregates. A window_size of "none" will return a
               single usage aggregate for the entirety of the specified period.
@@ -341,9 +345,11 @@ class UsageResource(SyncAPIResource):
         - Time windows: Set `window_size` to hour, day, or none for different
           granularities
         - Group filtering: Use `group_key` and `group_filters` to specify groups and
-          group filters
-        - Limits: When using compound group keys (2+ keys in `group_key`), the default
-          and max limit is 100
+          group filters. Across all arrays in `group_filters`, include at most 200
+          filter values total. Requests with more than 200 filter values are rejected
+          when this limit is enforced
+        - Response limit: When using compound group keys (2+ keys in `group_key`), the
+          default and maximum page size is 100
         - Pagination: Use limit and `next_page` for large result sets
         - Null handling: Group values may be null for events missing the group key
           property
@@ -358,15 +364,18 @@ class UsageResource(SyncAPIResource):
           next_page: Cursor that indicates where the next page of results should start.
 
           current_period: If true, will return the usage for the current billing period. Will return an
-              error if the customer is currently uncontracted or starting_on and ending_before
-              are specified when this is true.
+              error if the customer does not have an active plan, or if starting_on and
+              ending_before are specified when this is true.
+
+          ending_before: Must be aligned to UTC midnight and at least one day after `starting_on`.
 
           group_by: Use group_key and group_filters instead. Use a single group key to group by.
               Compound group keys are not supported.
 
           group_filters: Object mapping group keys to arrays of values to filter on. Only usage matching
               these filter values will be returned. Keys must be present in group_key. Omit a
-              key or use an empty array to include all values for that dimension.
+              key or use an empty array to include all values for that dimension. The combined
+              number of entries across all value arrays may not exceed 200.
 
           group_key: Group key to group usage by. Supports both simple (single key) and compound
               (multiple keys) group keys.
@@ -379,6 +388,8 @@ class UsageResource(SyncAPIResource):
               exact compound group key definition — partial matches are not allowed.
 
               Cannot be used together with `group_by`.
+
+          starting_on: Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`.
 
           extra_headers: Send extra headers
 
@@ -566,6 +577,10 @@ class AsyncUsageResource(AsyncAPIResource):
         - Null values: Group values may be null when no usage matches that group
 
         Args:
+          ending_before: Must be aligned to UTC midnight and at least one day after `starting_on`.
+
+          starting_on: Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`.
+
           window_size: A window_size of "day" or "hour" will return the usage for the specified period
               segmented into daily or hourly aggregates. A window_size of "none" will return a
               single usage aggregate for the entirety of the specified period.
@@ -803,9 +818,11 @@ class AsyncUsageResource(AsyncAPIResource):
         - Time windows: Set `window_size` to hour, day, or none for different
           granularities
         - Group filtering: Use `group_key` and `group_filters` to specify groups and
-          group filters
-        - Limits: When using compound group keys (2+ keys in `group_key`), the default
-          and max limit is 100
+          group filters. Across all arrays in `group_filters`, include at most 200
+          filter values total. Requests with more than 200 filter values are rejected
+          when this limit is enforced
+        - Response limit: When using compound group keys (2+ keys in `group_key`), the
+          default and maximum page size is 100
         - Pagination: Use limit and `next_page` for large result sets
         - Null handling: Group values may be null for events missing the group key
           property
@@ -820,15 +837,18 @@ class AsyncUsageResource(AsyncAPIResource):
           next_page: Cursor that indicates where the next page of results should start.
 
           current_period: If true, will return the usage for the current billing period. Will return an
-              error if the customer is currently uncontracted or starting_on and ending_before
-              are specified when this is true.
+              error if the customer does not have an active plan, or if starting_on and
+              ending_before are specified when this is true.
+
+          ending_before: Must be aligned to UTC midnight and at least one day after `starting_on`.
 
           group_by: Use group_key and group_filters instead. Use a single group key to group by.
               Compound group keys are not supported.
 
           group_filters: Object mapping group keys to arrays of values to filter on. Only usage matching
               these filter values will be returned. Keys must be present in group_key. Omit a
-              key or use an empty array to include all values for that dimension.
+              key or use an empty array to include all values for that dimension. The combined
+              number of entries across all value arrays may not exceed 200.
 
           group_key: Group key to group usage by. Supports both simple (single key) and compound
               (multiple keys) group keys.
@@ -841,6 +861,8 @@ class AsyncUsageResource(AsyncAPIResource):
               exact compound group key definition — partial matches are not allowed.
 
               Cannot be used together with `group_by`.
+
+          starting_on: Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`.
 
           extra_headers: Send extra headers
 

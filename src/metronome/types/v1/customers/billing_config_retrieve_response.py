@@ -78,13 +78,8 @@ class Data(BaseModel):
 
     billing_provider_customer_id: Optional[str] = None
 
-    stripe_collection_method: Optional[
-        Literal["charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"]
-    ] = None
-    """
-    The collection method for the customer's invoices. NOTE:
-    `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
-    """
+    stripe_collection_method: Optional[Literal["charge_automatically", "send_invoice"]] = None
+    """The collection method for the customer's invoices."""
 
 
 class BillingConfigRetrieveResponse(BaseModel):

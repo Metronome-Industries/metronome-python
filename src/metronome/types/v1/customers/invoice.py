@@ -36,12 +36,19 @@ __all__ = [
 class LineItemAppliedCommitOrCredit(BaseModel):
     """Details about the credit or commit that was applied to this line item.
 
-    Only present on line items with product of `USAGE`, `SUBSCRIPTION` or `COMPOSITE` types.
+    Only present on line items with product of `USAGE`, `SUBSCRIPTION`, `COMPOSITE`, or `CPU_CONVERSION` types.
     """
 
     id: str
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
 
 class LineItemOrigin(BaseModel):
@@ -162,8 +169,8 @@ class LineItem(BaseModel):
     applied_commit_or_credit: Optional[LineItemAppliedCommitOrCredit] = None
     """Details about the credit or commit that was applied to this line item.
 
-    Only present on line items with product of `USAGE`, `SUBSCRIPTION` or
-    `COMPOSITE` types.
+    Only present on line items with product of `USAGE`, `SUBSCRIPTION`, `COMPOSITE`,
+    or `CPU_CONVERSION` types.
     """
 
     commit_custom_fields: Optional[Dict[str, str]] = None
@@ -171,10 +178,10 @@ class LineItem(BaseModel):
 
     commit_id: Optional[str] = None
     """
-    For line items with product of `USAGE`, `SUBSCRIPTION`, or `COMPOSITE` types,
-    the ID of the credit or commit that was applied to this line item. For line
-    items with product type of `FIXED`, the ID of the prepaid or postpaid commit
-    that is being paid for.
+    For line items with product of `USAGE`, `SUBSCRIPTION`, `COMPOSITE`, or
+    `CPU_CONVERSION` types, the ID of the credit or commit that was applied to this
+    line item. For line items with product type of `FIXED`, the ID of the prepaid or
+    postpaid commit that is being paid for.
     """
 
     commit_netsuite_item_id: Optional[str] = None

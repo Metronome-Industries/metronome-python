@@ -11,7 +11,6 @@ from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
 from metronome.types.v1 import (
-    ContractListResponse,
     ContractAmendResponse,
     ContractCreateResponse,
     ContractArchiveResponse,
@@ -26,7 +25,13 @@ from metronome.types.v1 import (
     ContractGetSubscriptionSeatsHistoryResponse,
     ContractRetrieveSubscriptionQuantityHistoryResponse,
 )
-from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from metronome.pagination import (
+    SyncBodyCursorPage,
+    AsyncBodyCursorPage,
+    SyncBodyCursorPageCursorField,
+    AsyncBodyCursorPageCursorField,
+)
+from metronome.types.shared import Contract
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -64,6 +69,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -120,6 +126,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -313,8 +320,9 @@ class TestContracts:
             recurring_commits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "access_type": "SPEND",
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -369,8 +377,9 @@ class TestContracts:
             recurring_credits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "access_type": "SPEND",
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -643,19 +652,21 @@ class TestContracts:
         contract = client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Metronome) -> None:
         contract = client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            cursor="cursor",
             include_archived=True,
             include_balance=True,
             include_ledgers=True,
+            limit=1,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Metronome) -> None:
@@ -666,7 +677,7 @@ class TestContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = response.parse()
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Metronome) -> None:
@@ -677,7 +688,7 @@ class TestContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = response.parse()
-            assert_matches_type(ContractListResponse, contract, path=["response"])
+            assert_matches_type(SyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -766,6 +777,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -822,6 +834,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1146,6 +1159,7 @@ class TestContracts:
     def test_method_get_net_balance_with_all_params(self, client: Metronome) -> None:
         contract = client.v1.contracts.get_net_balance(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            access_type="SPEND",
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             filters=[
                 {
@@ -1250,6 +1264,7 @@ class TestContracts:
         contract = client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
+            access_type="SPEND",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             exclude_zero_balances=True,
@@ -1619,6 +1634,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -1675,6 +1691,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1868,8 +1885,9 @@ class TestAsyncContracts:
             recurring_commits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "access_type": "SPEND",
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -1924,8 +1942,9 @@ class TestAsyncContracts:
             recurring_credits=[
                 {
                     "access_amount": {
-                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "unit_price": 0,
+                        "access_type": "SPEND",
+                        "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
                     "commit_duration": {
@@ -2198,19 +2217,21 @@ class TestAsyncContracts:
         contract = await async_client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
         contract = await async_client.v1.contracts.list(
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
+            cursor="cursor",
             include_archived=True,
             include_balance=True,
             include_ledgers=True,
+            limit=1,
             starting_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
@@ -2221,7 +2242,7 @@ class TestAsyncContracts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         contract = await response.parse()
-        assert_matches_type(ContractListResponse, contract, path=["response"])
+        assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
@@ -2232,7 +2253,7 @@ class TestAsyncContracts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             contract = await response.parse()
-            assert_matches_type(ContractListResponse, contract, path=["response"])
+            assert_matches_type(AsyncBodyCursorPageCursorField[Contract], contract, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2321,6 +2342,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -2377,6 +2399,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -2701,6 +2724,7 @@ class TestAsyncContracts:
     async def test_method_get_net_balance_with_all_params(self, async_client: AsyncMetronome) -> None:
         contract = await async_client.v1.contracts.get_net_balance(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
+            access_type="SPEND",
             credit_type_id="2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             filters=[
                 {
@@ -2805,6 +2829,7 @@ class TestAsyncContracts:
         contract = await async_client.v1.contracts.list_balances(
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
             id="6162d87b-e5db-4a33-b7f2-76ce6ead4e85",
+            access_type="SPEND",
             covering_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             effective_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             exclude_zero_balances=True,

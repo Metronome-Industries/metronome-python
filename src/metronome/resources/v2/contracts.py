@@ -26,9 +26,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncBodyCursorPageCursorField, AsyncBodyCursorPageCursorField
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.shared.contract_v2 import ContractV2
 from ...types.v2.contract_edit_response import ContractEditResponse
-from ...types.v2.contract_list_response import ContractListResponse
 from ...types.v2.contract_retrieve_response import ContractRetrieveResponse
 from ...types.v2.contract_edit_commit_response import ContractEditCommitResponse
 from ...types.v2.contract_edit_credit_response import ContractEditCreditResponse
@@ -136,9 +137,11 @@ class ContractsResource(SyncAPIResource):
         *,
         customer_id: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_ledgers: bool | Omit = omit,
+        limit: float | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -146,9 +149,9 @@ class ContractsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractListResponse:
+    ) -> SyncBodyCursorPageCursorField[ContractV2]:
         """
-        For a given customer, lists all of their contracts in chronological order.
+        For a given customer, lists a page of their contracts in chronological order.
 
         ### Use this endpoint to:
 
@@ -164,9 +167,15 @@ class ContractsResource(SyncAPIResource):
         filter the list of returned contracts. For example, to list only currently
         active contracts, pass `covering_date` equal to the current time.
 
+        Results are limited to 20 contracts per page. When the response includes a
+        non-null `cursor`, pass it back as the `cursor` parameter to fetch the next
+        page.
+
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
               This cannot be provided if starting_at filter is provided.
+
+          cursor: Cursor from a previous response to fetch the next page of contracts.
 
           include_archived: Include archived contracts in the response.
 
@@ -175,6 +184,8 @@ class ContractsResource(SyncAPIResource):
 
           include_ledgers: Include commit/credit ledgers in the response. Setting this flag may cause the
               response to be slower.
+
+          limit: Max number of contracts to return per page. Range: 1-20. Default: 20.
 
           starting_at: Optional RFC 3339 timestamp. Only include contracts that started on or after
               this date. This cannot be provided if covering_date filter is provided.
@@ -187,15 +198,18 @@ class ContractsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/v2/contracts/list",
+            page=SyncBodyCursorPageCursorField[ContractV2],
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
+                    "cursor": cursor,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "starting_at": starting_at,
                 },
                 contract_list_params.ContractListParams,
@@ -203,7 +217,8 @@ class ContractsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListResponse,
+            model=ContractV2,
+            method="post",
         )
 
     def edit(
@@ -764,14 +779,16 @@ class AsyncContractsResource(AsyncAPIResource):
             cast_to=ContractRetrieveResponse,
         )
 
-    async def list(
+    def list(
         self,
         *,
         customer_id: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        cursor: str | Omit = omit,
         include_archived: bool | Omit = omit,
         include_balance: bool | Omit = omit,
         include_ledgers: bool | Omit = omit,
+        limit: float | Omit = omit,
         starting_at: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -779,9 +796,9 @@ class AsyncContractsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ContractListResponse:
+    ) -> AsyncPaginator[ContractV2, AsyncBodyCursorPageCursorField[ContractV2]]:
         """
-        For a given customer, lists all of their contracts in chronological order.
+        For a given customer, lists a page of their contracts in chronological order.
 
         ### Use this endpoint to:
 
@@ -797,9 +814,15 @@ class AsyncContractsResource(AsyncAPIResource):
         filter the list of returned contracts. For example, to list only currently
         active contracts, pass `covering_date` equal to the current time.
 
+        Results are limited to 20 contracts per page. When the response includes a
+        non-null `cursor`, pass it back as the `cursor` parameter to fetch the next
+        page.
+
         Args:
           covering_date: Optional RFC 3339 timestamp. Only include contracts active on the provided date.
               This cannot be provided if starting_at filter is provided.
+
+          cursor: Cursor from a previous response to fetch the next page of contracts.
 
           include_archived: Include archived contracts in the response.
 
@@ -808,6 +831,8 @@ class AsyncContractsResource(AsyncAPIResource):
 
           include_ledgers: Include commit/credit ledgers in the response. Setting this flag may cause the
               response to be slower.
+
+          limit: Max number of contracts to return per page. Range: 1-20. Default: 20.
 
           starting_at: Optional RFC 3339 timestamp. Only include contracts that started on or after
               this date. This cannot be provided if covering_date filter is provided.
@@ -820,15 +845,18 @@ class AsyncContractsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/v2/contracts/list",
-            body=await async_maybe_transform(
+            page=AsyncBodyCursorPageCursorField[ContractV2],
+            body=maybe_transform(
                 {
                     "customer_id": customer_id,
                     "covering_date": covering_date,
+                    "cursor": cursor,
                     "include_archived": include_archived,
                     "include_balance": include_balance,
                     "include_ledgers": include_ledgers,
+                    "limit": limit,
                     "starting_at": starting_at,
                 },
                 contract_list_params.ContractListParams,
@@ -836,7 +864,8 @@ class AsyncContractsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ContractListResponse,
+            model=ContractV2,
+            method="post",
         )
 
     async def edit(

@@ -241,6 +241,7 @@ class CommitsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         commit_id: str | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
@@ -304,6 +305,9 @@ class CommitsResource(SyncAPIResource):
         - Optional filtering: Use commit_id to retrieve a specific commit
 
         Args:
+          access_type: Filters commits by how their balances are drawn down. `SPEND` deducts the dollar
+              cost of usage. `QUANTITY` deducts the number of units used.
+
           covering_date: Include only commits that have access schedules that "cover" the provided date
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
@@ -338,6 +342,7 @@ class CommitsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
+                    "access_type": access_type,
                     "commit_id": commit_id,
                     "covering_date": covering_date,
                     "effective_before": effective_before,
@@ -633,6 +638,7 @@ class AsyncCommitsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         commit_id: str | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
@@ -696,6 +702,9 @@ class AsyncCommitsResource(AsyncAPIResource):
         - Optional filtering: Use commit_id to retrieve a specific commit
 
         Args:
+          access_type: Filters commits by how their balances are drawn down. `SPEND` deducts the dollar
+              cost of usage. `QUANTITY` deducts the number of units used.
+
           covering_date: Include only commits that have access schedules that "cover" the provided date
 
           effective_before: Include only commits that have any access before the provided date (exclusive)
@@ -730,6 +739,7 @@ class AsyncCommitsResource(AsyncAPIResource):
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
+                    "access_type": access_type,
                     "commit_id": commit_id,
                     "covering_date": covering_date,
                     "effective_before": effective_before,

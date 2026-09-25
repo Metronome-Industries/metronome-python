@@ -115,6 +115,13 @@ class CommitAccessSchedule(BaseModel):
 
     schedule_items: List[CommitAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class CommitInvoiceScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
@@ -344,6 +351,13 @@ class CreditAccessSchedule(BaseModel):
 
     schedule_items: List[CreditAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class Credit(BaseModel):
     id: str
@@ -385,8 +399,19 @@ class RecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -566,8 +591,19 @@ class RecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
