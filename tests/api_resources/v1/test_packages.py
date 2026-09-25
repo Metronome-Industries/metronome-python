@@ -60,6 +60,7 @@ class TestPackages:
                                 },
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -114,6 +115,7 @@ class TestPackages:
                                 },
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -259,6 +261,7 @@ class TestPackages:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -319,6 +322,7 @@ class TestPackages:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -682,6 +686,7 @@ class TestAsyncPackages:
                                 },
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -736,6 +741,7 @@ class TestAsyncPackages:
                                 },
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -881,6 +887,7 @@ class TestAsyncPackages:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -941,6 +948,7 @@ class TestAsyncPackages:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },

@@ -149,6 +149,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -218,6 +219,7 @@ class TestContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -393,6 +395,7 @@ class TestContracts:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -449,6 +452,7 @@ class TestContracts:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -1297,6 +1301,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "amount": 0,
@@ -1366,6 +1371,7 @@ class TestAsyncContracts:
                                 "starting_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                             }
                         ],
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
                     "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -1541,6 +1547,7 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },
@@ -1597,6 +1604,7 @@ class TestAsyncContracts:
                 {
                     "access_amount": {
                         "unit_price": 0,
+                        "access_type": "SPEND",
                         "credit_type_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                         "quantity": 0,
                     },

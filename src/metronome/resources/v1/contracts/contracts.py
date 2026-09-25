@@ -845,6 +845,7 @@ class ContractsResource(SyncAPIResource):
         self,
         *,
         customer_id: str,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         credit_type_id: str | Omit = omit,
         filters: Iterable[BalanceFilter] | Omit = omit,
         invoice_inclusion_mode: Literal["FINALIZED", "FINALIZED_AND_DRAFT"] | Omit = omit,
@@ -910,6 +911,9 @@ class ContractsResource(SyncAPIResource):
         Args:
           customer_id: The ID of the customer.
 
+          access_type: Filters balances by how they are drawn down. Defaults to `SPEND`. If set to
+              `QUANTITY`, `credit_type_id` must not be provided.
+
           credit_type_id: The ID of the credit type (can be fiat or a custom pricing unit) to get the
               balance for. Defaults to USD (cents) if not specified.
 
@@ -933,6 +937,7 @@ class ContractsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "customer_id": customer_id,
+                    "access_type": access_type,
                     "credit_type_id": credit_type_id,
                     "filters": filters,
                     "invoice_inclusion_mode": invoice_inclusion_mode,
@@ -1043,6 +1048,7 @@ class ContractsResource(SyncAPIResource):
         *,
         customer_id: str,
         id: str | Omit = omit,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
         exclude_zero_balances: bool | Omit = omit,
@@ -1100,6 +1106,9 @@ class ContractsResource(SyncAPIResource):
         - Manual adjustments: Includes all manual ledger entries, even future-dated ones
 
         Args:
+          access_type: Filters balances by how they are drawn down. `SPEND` deducts the dollar cost of
+              usage. `QUANTITY` deducts the number of units used.
+
           covering_date: Return only balances that have access schedules that "cover" the provided date
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
@@ -1137,6 +1146,7 @@ class ContractsResource(SyncAPIResource):
                 {
                     "customer_id": customer_id,
                     "id": id,
+                    "access_type": access_type,
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "exclude_zero_balances": exclude_zero_balances,
@@ -2337,6 +2347,7 @@ class AsyncContractsResource(AsyncAPIResource):
         self,
         *,
         customer_id: str,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         credit_type_id: str | Omit = omit,
         filters: Iterable[BalanceFilter] | Omit = omit,
         invoice_inclusion_mode: Literal["FINALIZED", "FINALIZED_AND_DRAFT"] | Omit = omit,
@@ -2402,6 +2413,9 @@ class AsyncContractsResource(AsyncAPIResource):
         Args:
           customer_id: The ID of the customer.
 
+          access_type: Filters balances by how they are drawn down. Defaults to `SPEND`. If set to
+              `QUANTITY`, `credit_type_id` must not be provided.
+
           credit_type_id: The ID of the credit type (can be fiat or a custom pricing unit) to get the
               balance for. Defaults to USD (cents) if not specified.
 
@@ -2425,6 +2439,7 @@ class AsyncContractsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "customer_id": customer_id,
+                    "access_type": access_type,
                     "credit_type_id": credit_type_id,
                     "filters": filters,
                     "invoice_inclusion_mode": invoice_inclusion_mode,
@@ -2535,6 +2550,7 @@ class AsyncContractsResource(AsyncAPIResource):
         *,
         customer_id: str,
         id: str | Omit = omit,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         covering_date: Union[str, datetime] | Omit = omit,
         effective_before: Union[str, datetime] | Omit = omit,
         exclude_zero_balances: bool | Omit = omit,
@@ -2592,6 +2608,9 @@ class AsyncContractsResource(AsyncAPIResource):
         - Manual adjustments: Includes all manual ledger entries, even future-dated ones
 
         Args:
+          access_type: Filters balances by how they are drawn down. `SPEND` deducts the dollar cost of
+              usage. `QUANTITY` deducts the number of units used.
+
           covering_date: Return only balances that have access schedules that "cover" the provided date
 
           effective_before: Include only balances that have any access before the provided date (exclusive)
@@ -2629,6 +2648,7 @@ class AsyncContractsResource(AsyncAPIResource):
                 {
                     "customer_id": customer_id,
                     "id": id,
+                    "access_type": access_type,
                     "covering_date": covering_date,
                     "effective_before": effective_before,
                     "exclude_zero_balances": exclude_zero_balances,

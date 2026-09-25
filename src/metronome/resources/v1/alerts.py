@@ -66,11 +66,13 @@ class AlertsResource(SyncAPIResource):
             "low_remaining_contract_credit_balance_reached",
             "low_remaining_contract_credit_percentage_reached",
             "low_remaining_contract_credit_and_commit_balance_reached",
+            "low_remaining_contract_credit_and_commit_percentage_reached",
             "invoice_total_reached",
             "low_remaining_seat_balance_reached",
         ],
         name: str,
         threshold: float,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
         billable_metric_id: str | Omit = omit,
         credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
@@ -146,9 +148,20 @@ class AlertsResource(SyncAPIResource):
               type, this number may represent a financial amount, the days remaining, or a
               percentage reached.
 
-          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
-              notifications. Defines the balances that are considered when evaluating the
-              alert.
+          access_type: Filters the notification to commits/credits with this access type. Only
+              supported for `low_remaining_commit_balance_reached`,
+              `low_remaining_commit_percentage_reached`,
+              `low_remaining_contract_credit_and_commit_balance_reached`,
+              `low_remaining_contract_credit_and_commit_percentage_reached`,
+              `low_remaining_contract_credit_balance_reached`,
+              `low_remaining_contract_credit_percentage_reached`, and
+              `low_remaining_seat_balance_reached` notifications. Credit type cannot be
+              specified if using QUANTITY access type.
+
+          alert_specifiers: Can be used only with `low_remaining_contract_credit_and_commit_balance_reached`
+              and `low_remaining_contract_credit_and_commit_percentage_reached` notifications.
+              Defines the commits and credits used to calculate the remaining balance or
+              percentage.
 
           billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
               billable metric to track the usage for.
@@ -203,6 +216,7 @@ class AlertsResource(SyncAPIResource):
                     "alert_type": alert_type,
                     "name": name,
                     "threshold": threshold,
+                    "access_type": access_type,
                     "alert_specifiers": alert_specifiers,
                     "billable_metric_id": billable_metric_id,
                     "credit_grant_type_filters": credit_grant_type_filters,
@@ -337,11 +351,13 @@ class AsyncAlertsResource(AsyncAPIResource):
             "low_remaining_contract_credit_balance_reached",
             "low_remaining_contract_credit_percentage_reached",
             "low_remaining_contract_credit_and_commit_balance_reached",
+            "low_remaining_contract_credit_and_commit_percentage_reached",
             "invoice_total_reached",
             "low_remaining_seat_balance_reached",
         ],
         name: str,
         threshold: float,
+        access_type: Literal["SPEND", "QUANTITY"] | Omit = omit,
         alert_specifiers: Iterable[alert_create_params.AlertSpecifier] | Omit = omit,
         billable_metric_id: str | Omit = omit,
         credit_grant_type_filters: SequenceNotStr[str] | Omit = omit,
@@ -417,9 +433,20 @@ class AsyncAlertsResource(AsyncAPIResource):
               type, this number may represent a financial amount, the days remaining, or a
               percentage reached.
 
-          alert_specifiers: Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
-              notifications. Defines the balances that are considered when evaluating the
-              alert.
+          access_type: Filters the notification to commits/credits with this access type. Only
+              supported for `low_remaining_commit_balance_reached`,
+              `low_remaining_commit_percentage_reached`,
+              `low_remaining_contract_credit_and_commit_balance_reached`,
+              `low_remaining_contract_credit_and_commit_percentage_reached`,
+              `low_remaining_contract_credit_balance_reached`,
+              `low_remaining_contract_credit_percentage_reached`, and
+              `low_remaining_seat_balance_reached` notifications. Credit type cannot be
+              specified if using QUANTITY access type.
+
+          alert_specifiers: Can be used only with `low_remaining_contract_credit_and_commit_balance_reached`
+              and `low_remaining_contract_credit_and_commit_percentage_reached` notifications.
+              Defines the commits and credits used to calculate the remaining balance or
+              percentage.
 
           billable_metric_id: For threshold notifications of type `usage_threshold_reached`, specifies which
               billable metric to track the usage for.
@@ -474,6 +501,7 @@ class AsyncAlertsResource(AsyncAPIResource):
                     "alert_type": alert_type,
                     "name": name,
                     "threshold": threshold,
+                    "access_type": access_type,
                     "alert_specifiers": alert_specifiers,
                     "billable_metric_id": billable_metric_id,
                     "credit_grant_type_filters": credit_grant_type_filters,

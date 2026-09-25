@@ -52,6 +52,7 @@ class TestCredits:
                         "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "access_type": "SPEND",
                 "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",
@@ -244,6 +245,7 @@ class TestAsyncCredits:
                         "starting_at": parse_datetime("2020-01-01T00:00:00.000Z"),
                     }
                 ],
+                "access_type": "SPEND",
                 "credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
             },
             customer_id="13117714-3f05-48e5-a6e9-a66093f13b4d",

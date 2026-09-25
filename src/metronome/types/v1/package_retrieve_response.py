@@ -116,6 +116,13 @@ class DataCommitAccessSchedule(BaseModel):
 
     schedule_items: List[DataCommitAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class DataCommitInvoiceScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
@@ -345,6 +352,13 @@ class DataCreditAccessSchedule(BaseModel):
 
     schedule_items: List[DataCreditAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class DataCredit(BaseModel):
     id: str
@@ -386,8 +400,19 @@ class DataRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -567,8 +592,19 @@ class DataRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 

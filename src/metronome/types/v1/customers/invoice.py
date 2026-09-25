@@ -43,6 +43,13 @@ class LineItemAppliedCommitOrCredit(BaseModel):
 
     type: Literal["PREPAID", "POSTPAID", "CREDIT"]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class LineItemOrigin(BaseModel):
     """Present on line items from invoices with type USAGE_CONSOLIDATED.
