@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -15,6 +15,13 @@ class ContractListBalancesParams(TypedDict, total=False):
     customer_id: Required[str]
 
     id: str
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Filters balances by how they are drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     covering_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Return only balances that have access schedules that "cover" the provided date"""

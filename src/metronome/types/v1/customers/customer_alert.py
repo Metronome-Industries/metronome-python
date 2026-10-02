@@ -123,6 +123,7 @@ class Alert(BaseModel):
         "low_remaining_contract_credit_balance_reached",
         "low_remaining_contract_credit_percentage_reached",
         "low_remaining_contract_credit_and_commit_balance_reached",
+        "low_remaining_contract_credit_and_commit_percentage_reached",
         "low_remaining_seat_balance_reached",
         "invoice_total_reached",
     ]
@@ -133,11 +134,25 @@ class Alert(BaseModel):
     Timestamp for when the threshold notification's customer status was last updated
     """
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates the commit access type this notification is scoped to.
+
+    Defaults to `SPEND` if not otherwise specified. Only present for
+    `low_remaining_commit_balance_reached`,
+    `low_remaining_commit_percentage_reached`,
+    `low_remaining_contract_credit_and_commit_balance_reached`,
+    `low_remaining_contract_credit_and_commit_percentage_reached`,
+    `low_remaining_contract_credit_balance_reached`,
+    `low_remaining_contract_credit_percentage_reached`, and
+    `low_remaining_seat_balance_reached` notifications.
+    """
+
     alert_specifiers: Optional[List[AlertAlertSpecifier]] = None
     """
-    Present for `low_remaining_contract_credit_and_commit_balance_reached`
-    notifications. The filters that define the balances that are considered when
-    evaluating the alert.
+    Present for `low_remaining_contract_credit_and_commit_balance_reached` and
+    `low_remaining_contract_credit_and_commit_percentage_reached` notifications. The
+    filters that define the commits and credits used to calculate the remaining
+    balance or percentage.
     """
 
     credit_grant_type_filters: Optional[List[str]] = None

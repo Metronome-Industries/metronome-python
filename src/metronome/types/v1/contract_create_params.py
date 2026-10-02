@@ -246,6 +246,13 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
 
@@ -445,6 +452,13 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
 
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
@@ -843,9 +857,17 @@ class ProfessionalService(TypedDict, total=False):
 class RecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """
@@ -1023,9 +1045,17 @@ class RecurringCommit(TypedDict, total=False):
 class RecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """

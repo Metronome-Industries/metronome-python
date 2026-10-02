@@ -198,6 +198,14 @@ class Credit(BaseModel):
 
     contract: Optional[Contract] = None
 
+    created_at: Optional[datetime] = None
+    """Timestamp of when the credit was created.
+
+    - Recurring credit: latter of credit service period date and parent credit start
+      date
+    - Rollover credit: when the new contract started
+    """
+
     created_by: Optional[str] = None
     """The actor who created this credit.
 

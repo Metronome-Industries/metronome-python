@@ -94,10 +94,7 @@ class BillingConfigResource(SyncAPIResource):
             "us-west-2",
         ]
         | Omit = omit,
-        stripe_collection_method: Literal[
-            "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
-        ]
-        | Omit = omit,
+        stripe_collection_method: Literal["charge_automatically", "send_invoice"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -114,9 +111,7 @@ class BillingConfigResource(SyncAPIResource):
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
               subscription ID.
 
-          stripe_collection_method:
-              The collection method for the customer's invoices. NOTE:
-              `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
+          stripe_collection_method: The collection method for the customer's invoices.
 
           extra_headers: Send extra headers
 
@@ -338,10 +333,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
             "us-west-2",
         ]
         | Omit = omit,
-        stripe_collection_method: Literal[
-            "charge_automatically", "send_invoice", "auto_charge_payment_intent", "manually_charge_payment_intent"
-        ]
-        | Omit = omit,
+        stripe_collection_method: Literal["charge_automatically", "send_invoice"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -358,9 +350,7 @@ class AsyncBillingConfigResource(AsyncAPIResource):
           billing_provider_customer_id: The customer ID in the billing provider's system. For Azure, this is the
               subscription ID.
 
-          stripe_collection_method:
-              The collection method for the customer's invoices. NOTE:
-              `auto_charge_payment_intent` and `manually_charge_payment_intent` are in beta.
+          stripe_collection_method: The collection method for the customer's invoices.
 
           extra_headers: Send extra headers
 
