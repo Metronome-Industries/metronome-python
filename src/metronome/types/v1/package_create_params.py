@@ -1196,7 +1196,7 @@ class UsageStatementScheduleInvoiceGenerationStartingAtOffset(TypedDict, total=F
 class UsageStatementSchedule(TypedDict, total=False):
     frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
 
-    day: Literal["FIRST_OF_MONTH", "CONTRACT_START"]
+    day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]
     """If not provided, defaults to the first day of the month."""
 
     invoice_generation_starting_at_offset: UsageStatementScheduleInvoiceGenerationStartingAtOffset
