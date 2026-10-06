@@ -843,6 +843,12 @@ class DataSubscription(BaseModel):
 
     billing_cycle_config: Optional[DataSubscriptionBillingCycleConfig] = None
 
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the subscription's price will be in terms of this custom pricing
+    unit instead of the fiat currency.
+    """
+
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
 
