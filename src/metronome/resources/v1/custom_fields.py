@@ -400,6 +400,9 @@ class CustomFieldsResource(SyncAPIResource):
         transactional—either all values are set or none are. Custom field values are
         limited to 200 characters each.
 
+        Adding or updating custom fields on credits, commits, or contracts does not emit
+        `credit.edit`, `commit.edit`, or `contract.edit` events.
+
         Args:
           custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }
 
@@ -797,6 +800,9 @@ class AsyncCustomFieldsResource(AsyncAPIResource):
         existing values for matching keys while preserving other fields. All updates are
         transactional—either all values are set or none are. Custom field values are
         limited to 200 characters each.
+
+        Adding or updating custom fields on credits, commits, or contracts does not emit
+        `credit.edit`, `commit.edit`, or `contract.edit` events.
 
         Args:
           custom_fields: Custom fields to be added eg. { "key1": "value1", "key2": "value2" }

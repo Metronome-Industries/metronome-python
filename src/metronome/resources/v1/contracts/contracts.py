@@ -670,7 +670,7 @@ class ContractsResource(SyncAPIResource):
         New clients should implement
         using the `editContract` endpoint. Read more about the migration to contract
         editing [here](/guides/implement-metronome/migrate-amendments-to-edits/) and
-        contact us via the [Metronome support portal](https://support.metronome.com/)
+        contact us via the [Metronome support portal](https://app.metronome.com/support)
         for more details. Once contract editing is enabled, access to this endpoint will
         be removed.
 
@@ -2172,7 +2172,7 @@ class AsyncContractsResource(AsyncAPIResource):
         New clients should implement
         using the `editContract` endpoint. Read more about the migration to contract
         editing [here](/guides/implement-metronome/migrate-amendments-to-edits/) and
-        contact us via the [Metronome support portal](https://support.metronome.com/)
+        contact us via the [Metronome support portal](https://app.metronome.com/support)
         for more details. Once contract editing is enabled, access to this endpoint will
         be removed.
 

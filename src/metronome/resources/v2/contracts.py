@@ -290,7 +290,7 @@ class ContractsResource(SyncAPIResource):
           that edit. Finalized invoices remain unchanged - you must void and regenerate
           them in the UI or API to reflect the edit.
         - Contract editing must be enabled to use this endpoint. Contact us via the
-          [Metronome support portal](https://support.metronome.com/) to learn more.
+          [Metronome support portal](https://app.metronome.com/support) to learn more.
 
         Args:
           contract_id: ID of the contract being edited
@@ -937,7 +937,7 @@ class AsyncContractsResource(AsyncAPIResource):
           that edit. Finalized invoices remain unchanged - you must void and regenerate
           them in the UI or API to reflect the edit.
         - Contract editing must be enabled to use this endpoint. Contact us via the
-          [Metronome support portal](https://support.metronome.com/) to learn more.
+          [Metronome support portal](https://app.metronome.com/support) to learn more.
 
         Args:
           contract_id: ID of the contract being edited
