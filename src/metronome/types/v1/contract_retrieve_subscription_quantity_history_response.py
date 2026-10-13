@@ -23,6 +23,12 @@ class DataHistory(BaseModel):
 
 
 class Data(BaseModel):
+    custom_credit_type_id: Optional[str] = None
+    """The pricing unit for history prices when present.
+
+    Otherwise prices use fiat_credit_type_id.
+    """
+
     fiat_credit_type_id: Optional[str] = None
 
     history: Optional[List[DataHistory]] = None

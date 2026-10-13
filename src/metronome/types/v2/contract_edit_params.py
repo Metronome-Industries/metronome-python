@@ -322,6 +322,13 @@ class AddCommitAccessSchedule(TypedDict, total=False):
 
     schedule_items: Required[Iterable[AddCommitAccessScheduleScheduleItem]]
 
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
+
     credit_type_id: str
 
 
@@ -592,6 +599,13 @@ class AddCreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
 
     schedule_items: Required[Iterable[AddCreditAccessScheduleScheduleItem]]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
 
     credit_type_id: str
 
@@ -934,9 +948,17 @@ class AddProfessionalService(TypedDict, total=False):
 class AddRecurringCommitAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """
@@ -1114,9 +1136,17 @@ class AddRecurringCommit(TypedDict, total=False):
 class AddRecurringCreditAccessAmount(TypedDict, total=False):
     """The amount of commit to grant."""
 
-    credit_type_id: Required[str]
-
     unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
 
     quantity: float
     """

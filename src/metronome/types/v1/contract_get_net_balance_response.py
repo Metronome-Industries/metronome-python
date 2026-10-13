@@ -13,9 +13,10 @@ class Data(BaseModel):
     """
 
     credit_type_id: str
-    """
-    The ID of the credit type (can be fiat or a custom pricing unit) that the
-    balance is for.
+    """This ID identifies the credit type for the balance.
+
+    The credit type can be fiat or a custom pricing unit. Quantity-based balances
+    return the null credit type UUID.
     """
 
 

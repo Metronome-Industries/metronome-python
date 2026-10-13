@@ -26,6 +26,12 @@ class InvoiceListParams(TypedDict, total=False):
     Invoices will only be returned for billing periods that end before this time.
     """
 
+    include_retired_commit_invoices: bool
+    """When true, includes retired commit invoices alongside active invoices.
+
+    Defaults to false.
+    """
+
     limit: int
     """Max number of results that should be returned"""
 

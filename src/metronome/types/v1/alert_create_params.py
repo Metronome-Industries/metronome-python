@@ -35,6 +35,7 @@ class AlertCreateParams(TypedDict, total=False):
             "low_remaining_contract_credit_balance_reached",
             "low_remaining_contract_credit_percentage_reached",
             "low_remaining_contract_credit_and_commit_balance_reached",
+            "low_remaining_contract_credit_and_commit_percentage_reached",
             "invoice_total_reached",
             "low_remaining_seat_balance_reached",
         ]
@@ -51,11 +52,25 @@ class AlertCreateParams(TypedDict, total=False):
     amount, the days remaining, or a percentage reached.
     """
 
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Filters the notification to commits/credits with this access type.
+
+    Only supported for `low_remaining_commit_balance_reached`,
+    `low_remaining_commit_percentage_reached`,
+    `low_remaining_contract_credit_and_commit_balance_reached`,
+    `low_remaining_contract_credit_and_commit_percentage_reached`,
+    `low_remaining_contract_credit_balance_reached`,
+    `low_remaining_contract_credit_percentage_reached`, and
+    `low_remaining_seat_balance_reached` notifications. Credit type cannot be
+    specified if using QUANTITY access type.
+    """
+
     alert_specifiers: Iterable[AlertSpecifier]
     """
-    Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
-    notifications. Defines the balances that are considered when evaluating the
-    alert.
+    Can be used only with `low_remaining_contract_credit_and_commit_balance_reached`
+    and `low_remaining_contract_credit_and_commit_percentage_reached` notifications.
+    Defines the commits and credits used to calculate the remaining balance or
+    percentage.
     """
 
     billable_metric_id: str
