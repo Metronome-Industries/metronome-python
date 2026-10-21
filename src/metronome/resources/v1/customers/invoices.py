@@ -160,7 +160,7 @@ class InvoicesResource(SyncAPIResource):
         contract_id: str | Omit = omit,
         credit_type_id: str | Omit = omit,
         ending_before: Union[str, datetime] | Omit = omit,
-        include_retired_commit_invoices: bool | Omit = omit,
+        include_historical_commit_invoices: bool | Omit = omit,
         limit: int | Omit = omit,
         next_page: str | Omit = omit,
         skip_zero_qty_line_items: bool | Omit = omit,
@@ -232,8 +232,8 @@ class InvoicesResource(SyncAPIResource):
           ending_before: RFC 3339 timestamp (exclusive). Invoices will only be returned for billing
               periods that end before this time.
 
-          include_retired_commit_invoices: When true, includes retired commit invoices alongside active invoices. Defaults
-              to false.
+          include_historical_commit_invoices: When true, includes historical commit invoices alongside active invoices.
+              Defaults to false.
 
           limit: Max number of results that should be returned
 
@@ -277,7 +277,7 @@ class InvoicesResource(SyncAPIResource):
                         "contract_id": contract_id,
                         "credit_type_id": credit_type_id,
                         "ending_before": ending_before,
-                        "include_retired_commit_invoices": include_retired_commit_invoices,
+                        "include_historical_commit_invoices": include_historical_commit_invoices,
                         "limit": limit,
                         "next_page": next_page,
                         "skip_zero_qty_line_items": skip_zero_qty_line_items,
@@ -661,7 +661,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         contract_id: str | Omit = omit,
         credit_type_id: str | Omit = omit,
         ending_before: Union[str, datetime] | Omit = omit,
-        include_retired_commit_invoices: bool | Omit = omit,
+        include_historical_commit_invoices: bool | Omit = omit,
         limit: int | Omit = omit,
         next_page: str | Omit = omit,
         skip_zero_qty_line_items: bool | Omit = omit,
@@ -733,8 +733,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
           ending_before: RFC 3339 timestamp (exclusive). Invoices will only be returned for billing
               periods that end before this time.
 
-          include_retired_commit_invoices: When true, includes retired commit invoices alongside active invoices. Defaults
-              to false.
+          include_historical_commit_invoices: When true, includes historical commit invoices alongside active invoices.
+              Defaults to false.
 
           limit: Max number of results that should be returned
 
@@ -778,7 +778,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                         "contract_id": contract_id,
                         "credit_type_id": credit_type_id,
                         "ending_before": ending_before,
-                        "include_retired_commit_invoices": include_retired_commit_invoices,
+                        "include_historical_commit_invoices": include_historical_commit_invoices,
                         "limit": limit,
                         "next_page": next_page,
                         "skip_zero_qty_line_items": skip_zero_qty_line_items,

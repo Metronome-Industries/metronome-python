@@ -1456,6 +1456,8 @@ class Subscription(BaseModel):
 
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
+    created_at: datetime
+
     proration: SubscriptionProration
 
     quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]

@@ -803,6 +803,8 @@ class DataAddSubscription(BaseModel):
 
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
+    created_at: datetime
+
     proration: DataAddSubscriptionProration
 
     quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]

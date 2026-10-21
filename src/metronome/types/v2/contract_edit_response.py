@@ -804,6 +804,8 @@ class DataEditAddSubscription(BaseModel):
 
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
+    created_at: datetime
+
     proration: DataEditAddSubscriptionProration
 
     quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]

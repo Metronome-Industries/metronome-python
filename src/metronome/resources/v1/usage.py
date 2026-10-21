@@ -321,9 +321,9 @@ class UsageResource(SyncAPIResource):
 
         Important: For compound group keys, you must pass the complete set of keys that
         make up the compound key. Partial key combinations are not supported. For
-        example, if your billable metric has a compound group key [region, team,
-        environment], you must pass all three keys in group_key—you cannot pass just
-        `[region]` or `[region, team]`.
+        example, if your billable metric has a compound group key
+        `[region, team, environment]`, you must pass all three keys in group_key—you
+        cannot pass just `[region]` or `[region, team]`.
 
         ### Key response fields:
 
@@ -794,9 +794,9 @@ class AsyncUsageResource(AsyncAPIResource):
 
         Important: For compound group keys, you must pass the complete set of keys that
         make up the compound key. Partial key combinations are not supported. For
-        example, if your billable metric has a compound group key [region, team,
-        environment], you must pass all three keys in group_key—you cannot pass just
-        `[region]` or `[region, team]`.
+        example, if your billable metric has a compound group key
+        `[region, team, environment]`, you must pass all three keys in group_key—you
+        cannot pass just `[region]` or `[region, team]`.
 
         ### Key response fields:
 

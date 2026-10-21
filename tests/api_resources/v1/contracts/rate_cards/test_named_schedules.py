@@ -10,7 +10,9 @@ import pytest
 from metronome import Metronome, AsyncMetronome
 from tests.utils import assert_matches_type
 from metronome._utils import parse_datetime
+from metronome.pagination import SyncBodyCursorPage, AsyncBodyCursorPage
 from metronome.types.v1.contracts.rate_cards import (
+    NamedScheduleListResponse,
     NamedScheduleRetrieveResponse,
 )
 
@@ -36,6 +38,7 @@ class TestNamedSchedules:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             schedule_name="my-schedule",
             covering_date=parse_datetime("2022-02-15T00:00:00Z"),
+            properties={"foo": "string"},
         )
         assert_matches_type(NamedScheduleRetrieveResponse, named_schedule, path=["response"])
 
@@ -87,6 +90,7 @@ class TestNamedSchedules:
             starting_at=parse_datetime("2022-02-01T00:00:00Z"),
             value={"my_key": "my_value"},
             ending_before=parse_datetime("2022-02-15T00:00:00Z"),
+            properties={"foo": "string"},
         )
         assert named_schedule is None
 
@@ -122,6 +126,50 @@ class TestNamedSchedules:
 
         assert cast(Any, response.is_closed) is True
 
+    @parametrize
+    def test_method_list(self, client: Metronome) -> None:
+        named_schedule = client.v1.contracts.rate_cards.named_schedules.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        )
+        assert_matches_type(SyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    def test_method_list_with_all_params(self, client: Metronome) -> None:
+        named_schedule = client.v1.contracts.rate_cards.named_schedules.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            covering_date=parse_datetime("2026-01-15T00:00:00Z"),
+            limit=10,
+            next_page="next_page",
+            properties={"sku": "A100"},
+            schedule_name="reserved-instance",
+        )
+        assert_matches_type(SyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    def test_raw_response_list(self, client: Metronome) -> None:
+        response = client.v1.contracts.rate_cards.named_schedules.with_raw_response.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        named_schedule = response.parse()
+        assert_matches_type(SyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list(self, client: Metronome) -> None:
+        with client.v1.contracts.rate_cards.named_schedules.with_streaming_response.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            named_schedule = response.parse()
+            assert_matches_type(SyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncNamedSchedules:
     parametrize = pytest.mark.parametrize(
@@ -144,6 +192,7 @@ class TestAsyncNamedSchedules:
             customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
             schedule_name="my-schedule",
             covering_date=parse_datetime("2022-02-15T00:00:00Z"),
+            properties={"foo": "string"},
         )
         assert_matches_type(NamedScheduleRetrieveResponse, named_schedule, path=["response"])
 
@@ -195,6 +244,7 @@ class TestAsyncNamedSchedules:
             starting_at=parse_datetime("2022-02-01T00:00:00Z"),
             value={"my_key": "my_value"},
             ending_before=parse_datetime("2022-02-15T00:00:00Z"),
+            properties={"foo": "string"},
         )
         assert named_schedule is None
 
@@ -227,5 +277,49 @@ class TestAsyncNamedSchedules:
 
             named_schedule = await response.parse()
             assert named_schedule is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_list(self, async_client: AsyncMetronome) -> None:
+        named_schedule = await async_client.v1.contracts.rate_cards.named_schedules.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        )
+        assert_matches_type(AsyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncMetronome) -> None:
+        named_schedule = await async_client.v1.contracts.rate_cards.named_schedules.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+            contract_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            covering_date=parse_datetime("2026-01-15T00:00:00Z"),
+            limit=10,
+            next_page="next_page",
+            properties={"sku": "A100"},
+            schedule_name="reserved-instance",
+        )
+        assert_matches_type(AsyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncMetronome) -> None:
+        response = await async_client.v1.contracts.rate_cards.named_schedules.with_raw_response.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        named_schedule = await response.parse()
+        assert_matches_type(AsyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncMetronome) -> None:
+        async with async_client.v1.contracts.rate_cards.named_schedules.with_streaming_response.list(
+            customer_id="9b85c1c1-5238-4f2a-a409-61412905e1e1",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            named_schedule = await response.parse()
+            assert_matches_type(AsyncBodyCursorPage[NamedScheduleListResponse], named_schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True

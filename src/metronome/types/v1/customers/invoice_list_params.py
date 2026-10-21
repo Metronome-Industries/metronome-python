@@ -26,8 +26,8 @@ class InvoiceListParams(TypedDict, total=False):
     Invoices will only be returned for billing periods that end before this time.
     """
 
-    include_retired_commit_invoices: bool
-    """When true, includes retired commit invoices alongside active invoices.
+    include_historical_commit_invoices: bool
+    """When true, includes historical commit invoices alongside active invoices.
 
     Defaults to false.
     """

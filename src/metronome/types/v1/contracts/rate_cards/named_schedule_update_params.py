@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -30,3 +30,9 @@ class NamedScheduleUpdateParams(TypedDict, total=False):
     """
 
     ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+
+    properties: Dict[str, str]
+    """
+    A set of key-value pairs that qualifies which schedule should be applied when
+    looking up a schedule by name.
+    """

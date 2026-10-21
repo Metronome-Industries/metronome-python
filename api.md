@@ -567,13 +567,17 @@ Methods:
 Types:
 
 ```python
-from metronome.types.v1.contracts.rate_cards import NamedScheduleRetrieveResponse
+from metronome.types.v1.contracts.rate_cards import (
+    NamedScheduleRetrieveResponse,
+    NamedScheduleListResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /v1/contracts/getNamedSchedule">client.v1.contracts.rate_cards.named_schedules.<a href="./src/metronome/resources/v1/contracts/rate_cards/named_schedules.py">retrieve</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_cards/named_schedule_retrieve_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_cards/named_schedule_retrieve_response.py">NamedScheduleRetrieveResponse</a></code>
 - <code title="post /v1/contracts/updateNamedSchedule">client.v1.contracts.rate_cards.named_schedules.<a href="./src/metronome/resources/v1/contracts/rate_cards/named_schedules.py">update</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_cards/named_schedule_update_params.py">params</a>) -> None</code>
+- <code title="post /v1/contracts/listNamedSchedules">client.v1.contracts.rate_cards.named_schedules.<a href="./src/metronome/resources/v1/contracts/rate_cards/named_schedules.py">list</a>(\*\*<a href="src/metronome/types/v1/contracts/rate_cards/named_schedule_list_params.py">params</a>) -> <a href="./src/metronome/types/v1/contracts/rate_cards/named_schedule_list_response.py">SyncBodyCursorPage[NamedScheduleListResponse]</a></code>
 
 ### NamedSchedules
 
