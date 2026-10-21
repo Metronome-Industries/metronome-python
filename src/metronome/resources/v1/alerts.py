@@ -279,6 +279,8 @@ class AlertsResource(SyncAPIResource):
           customers
         - Historical preservation: Archive operation maintains threshold notification
           history and configuration for compliance and auditing
+        - Idempotent: Archiving an already-archived threshold notification returns the
+          same successful response
 
         Args:
           id: The Metronome ID of the threshold notification
@@ -564,6 +566,8 @@ class AsyncAlertsResource(AsyncAPIResource):
           customers
         - Historical preservation: Archive operation maintains threshold notification
           history and configuration for compliance and auditing
+        - Idempotent: Archiving an already-archived threshold notification returns the
+          same successful response
 
         Args:
           id: The Metronome ID of the threshold notification
