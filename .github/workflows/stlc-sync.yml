@@ -16,8 +16,9 @@ on:
 
 jobs:
   back-sync:
+    environment: stlc-automation
     runs-on: ubuntu-latest
-    if: github.repository == 'Metronome-Industries/metronome-python-staging'
+    if: github.repository == 'Metronome-Industries/metronome-python-staging' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
     concurrency:
@@ -28,11 +29,14 @@ jobs:
     steps:
       - name: Generate stlc bot token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.STLC_BOT_APP_ID }}
           private-key: ${{ secrets.STLC_BOT_APP_PRIVATE_KEY }}
           owner: Metronome-Industries
+          repositories: metronome-python-staging
+          permission-contents: write
+          permission-workflows: write
 
       - name: Check out staging
         uses: actions/checkout@v4
@@ -71,11 +75,12 @@ jobs:
           echo "Fast-forwarded staging/main to production/main."
 
   seal-dispatch:
+    environment: stlc-automation
     # Notify the API config repo when out-of-band custom code lands on staging main.
     runs-on: ubuntu-latest
     if: >-
       github.repository == 'Metronome-Industries/metronome-python-staging' &&
-      github.event_name == 'push'
+      github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: read
     env:
@@ -89,6 +94,7 @@ jobs:
           private-key: ${{ secrets.STLC_BOT_APP_PRIVATE_KEY }}
           owner: Metronome-Industries
           repositories: api
+          permission-contents: write
 
       - name: Loop-guard and send re-seal dispatch
         env:
