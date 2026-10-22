@@ -356,8 +356,19 @@ class DataEditAddRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -512,8 +523,19 @@ class DataEditAddRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -782,6 +804,8 @@ class DataEditAddSubscription(BaseModel):
 
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
+    created_at: datetime
+
     proration: DataEditAddSubscriptionProration
 
     quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
@@ -810,6 +834,12 @@ class DataEditAddSubscription(BaseModel):
     id: Optional[str] = None
 
     billing_cycle_config: Optional[DataEditAddSubscriptionBillingCycleConfig] = None
+
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the subscription's price will be in terms of this custom pricing
+    unit instead of the fiat currency.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""

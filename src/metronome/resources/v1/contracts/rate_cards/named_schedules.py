@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from datetime import datetime
 
 import httpx
@@ -17,8 +17,14 @@ from ....._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ....._base_client import make_request_options
-from .....types.v1.contracts.rate_cards import named_schedule_update_params, named_schedule_retrieve_params
+from .....pagination import SyncBodyCursorPage, AsyncBodyCursorPage
+from ....._base_client import AsyncPaginator, make_request_options
+from .....types.v1.contracts.rate_cards import (
+    named_schedule_list_params,
+    named_schedule_update_params,
+    named_schedule_retrieve_params,
+)
+from .....types.v1.contracts.rate_cards.named_schedule_list_response import NamedScheduleListResponse
 from .....types.v1.contracts.rate_cards.named_schedule_retrieve_response import NamedScheduleRetrieveResponse
 
 __all__ = ["NamedSchedulesResource", "AsyncNamedSchedulesResource"]
@@ -56,6 +62,7 @@ class NamedSchedulesResource(SyncAPIResource):
         customer_id: str,
         schedule_name: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,6 +85,9 @@ class NamedSchedulesResource(SyncAPIResource):
           covering_date: If provided, at most one schedule segment will be returned (the one that covers
               this date). If not provided, all segments will be returned.
 
+          properties: A set of key-value pairs that qualifies which schedule should be applied when
+              looking up a schedule by name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -94,6 +104,7 @@ class NamedSchedulesResource(SyncAPIResource):
                     "customer_id": customer_id,
                     "schedule_name": schedule_name,
                     "covering_date": covering_date,
+                    "properties": properties,
                 },
                 named_schedule_retrieve_params.NamedScheduleRetrieveParams,
             ),
@@ -112,6 +123,7 @@ class NamedSchedulesResource(SyncAPIResource):
         starting_at: Union[str, datetime],
         value: object,
         ending_before: Union[str, datetime] | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,6 +146,9 @@ class NamedSchedulesResource(SyncAPIResource):
           value: The value to set for the named schedule. The structure of this object is
               specific to the named schedule.
 
+          properties: A set of key-value pairs that qualifies which schedule should be applied when
+              looking up a schedule by name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -153,6 +168,7 @@ class NamedSchedulesResource(SyncAPIResource):
                     "starting_at": starting_at,
                     "value": value,
                     "ending_before": ending_before,
+                    "properties": properties,
                 },
                 named_schedule_update_params.NamedScheduleUpdateParams,
             ),
@@ -160,6 +176,74 @@ class NamedSchedulesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def list(
+        self,
+        *,
+        customer_id: str,
+        contract_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
+        schedule_name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncBodyCursorPage[NamedScheduleListResponse]:
+        """
+        List contract-level named schedules for a customer, optionally scoped to a
+        single contract.
+
+        Args:
+          customer_id: ID of the customer to list contract named schedules for
+
+          contract_id: Optional ID of a contract to scope the results to a single contract
+
+          covering_date: If provided, result contains at most one segment covering this date for each
+              schedule.
+
+          limit: Maximum number of named schedules to return.
+
+          next_page: Cursor for pagination. Use the value from a previous response's next_page.
+
+          properties: Optional key-value filters. A schedule matches when it contains at least this
+              subset of properties.
+
+          schedule_name: Optional filter to scope the results to a single schedule name
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/v1/contracts/listNamedSchedules",
+            page=SyncBodyCursorPage[NamedScheduleListResponse],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "contract_id": contract_id,
+                    "covering_date": covering_date,
+                    "limit": limit,
+                    "next_page": next_page,
+                    "properties": properties,
+                    "schedule_name": schedule_name,
+                },
+                named_schedule_list_params.NamedScheduleListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            model=NamedScheduleListResponse,
+            method="post",
         )
 
 
@@ -195,6 +279,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         customer_id: str,
         schedule_name: str,
         covering_date: Union[str, datetime] | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,6 +302,9 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
           covering_date: If provided, at most one schedule segment will be returned (the one that covers
               this date). If not provided, all segments will be returned.
 
+          properties: A set of key-value pairs that qualifies which schedule should be applied when
+              looking up a schedule by name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -233,6 +321,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
                     "customer_id": customer_id,
                     "schedule_name": schedule_name,
                     "covering_date": covering_date,
+                    "properties": properties,
                 },
                 named_schedule_retrieve_params.NamedScheduleRetrieveParams,
             ),
@@ -251,6 +340,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
         starting_at: Union[str, datetime],
         value: object,
         ending_before: Union[str, datetime] | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,6 +363,9 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
           value: The value to set for the named schedule. The structure of this object is
               specific to the named schedule.
 
+          properties: A set of key-value pairs that qualifies which schedule should be applied when
+              looking up a schedule by name.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -292,6 +385,7 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
                     "starting_at": starting_at,
                     "value": value,
                     "ending_before": ending_before,
+                    "properties": properties,
                 },
                 named_schedule_update_params.NamedScheduleUpdateParams,
             ),
@@ -299,6 +393,74 @@ class AsyncNamedSchedulesResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def list(
+        self,
+        *,
+        customer_id: str,
+        contract_id: str | Omit = omit,
+        covering_date: Union[str, datetime] | Omit = omit,
+        limit: int | Omit = omit,
+        next_page: str | Omit = omit,
+        properties: Dict[str, str] | Omit = omit,
+        schedule_name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[NamedScheduleListResponse, AsyncBodyCursorPage[NamedScheduleListResponse]]:
+        """
+        List contract-level named schedules for a customer, optionally scoped to a
+        single contract.
+
+        Args:
+          customer_id: ID of the customer to list contract named schedules for
+
+          contract_id: Optional ID of a contract to scope the results to a single contract
+
+          covering_date: If provided, result contains at most one segment covering this date for each
+              schedule.
+
+          limit: Maximum number of named schedules to return.
+
+          next_page: Cursor for pagination. Use the value from a previous response's next_page.
+
+          properties: Optional key-value filters. A schedule matches when it contains at least this
+              subset of properties.
+
+          schedule_name: Optional filter to scope the results to a single schedule name
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/v1/contracts/listNamedSchedules",
+            page=AsyncBodyCursorPage[NamedScheduleListResponse],
+            body=maybe_transform(
+                {
+                    "customer_id": customer_id,
+                    "contract_id": contract_id,
+                    "covering_date": covering_date,
+                    "limit": limit,
+                    "next_page": next_page,
+                    "properties": properties,
+                    "schedule_name": schedule_name,
+                },
+                named_schedule_list_params.NamedScheduleListParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            model=NamedScheduleListResponse,
+            method="post",
         )
 
 
@@ -312,6 +474,9 @@ class NamedSchedulesResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             named_schedules.update,
         )
+        self.list = to_raw_response_wrapper(
+            named_schedules.list,
+        )
 
 
 class AsyncNamedSchedulesResourceWithRawResponse:
@@ -323,6 +488,9 @@ class AsyncNamedSchedulesResourceWithRawResponse:
         )
         self.update = async_to_raw_response_wrapper(
             named_schedules.update,
+        )
+        self.list = async_to_raw_response_wrapper(
+            named_schedules.list,
         )
 
 
@@ -336,6 +504,9 @@ class NamedSchedulesResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             named_schedules.update,
         )
+        self.list = to_streamed_response_wrapper(
+            named_schedules.list,
+        )
 
 
 class AsyncNamedSchedulesResourceWithStreamingResponse:
@@ -347,4 +518,7 @@ class AsyncNamedSchedulesResourceWithStreamingResponse:
         )
         self.update = async_to_streamed_response_wrapper(
             named_schedules.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            named_schedules.list,
         )

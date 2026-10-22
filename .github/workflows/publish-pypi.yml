@@ -8,19 +8,27 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+
 jobs:
   publish:
+    if: >-
+      github.repository == 'Metronome-Industries/metronome-python' &&
+      startsWith(github.ref, 'refs/tags/v') && (github.event_name == 'release' || github.event_name == 'workflow_dispatch')
+    environment: package-release
     name: publish
-    if: github.repository == 'Metronome-Industries/metronome-python'
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Install Rye
         run: |
           curl -sSf https://rye.astral.sh/get | bash
-          echo "$HOME/.rye/shims" >> $GITHUB_PATH
+          echo "$HOME/.rye/shims" >> "$GITHUB_PATH"
         env:
           RYE_VERSION: '0.44.0'
           RYE_INSTALL_OPTION: '--yes'

@@ -119,6 +119,8 @@ class Subscription(BaseModel):
 
     collection_schedule: Literal["ADVANCE", "ARREARS"]
 
+    created_at: datetime
+
     proration: Proration
 
     quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
@@ -147,6 +149,12 @@ class Subscription(BaseModel):
     id: Optional[str] = None
 
     billing_cycle_config: Optional[BillingCycleConfig] = None
+
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the subscription's price will be in terms of this custom pricing
+    unit instead of the fiat currency.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""

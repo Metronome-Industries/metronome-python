@@ -116,6 +116,13 @@ class DataCommitAccessSchedule(BaseModel):
 
     schedule_items: List[DataCommitAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class DataCommitInvoiceScheduleScheduleItemDateOffset(BaseModel):
     unit: Literal["DAYS", "WEEKS", "MONTHS", "YEARS"]
@@ -301,7 +308,7 @@ class DataScheduledCharge(BaseModel):
 class DataUsageStatementSchedule(BaseModel):
     frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
 
-    day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START"]] = None
+    day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]] = None
 
 
 class DataAlias(BaseModel):
@@ -345,6 +352,13 @@ class DataCreditAccessSchedule(BaseModel):
 
     schedule_items: List[DataCreditAccessScheduleScheduleItem]
 
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
 
 class DataCredit(BaseModel):
     id: str
@@ -386,8 +400,19 @@ class DataRecurringCommitAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -567,8 +592,19 @@ class DataRecurringCreditAccessAmount(BaseModel):
     """The amount of commit to grant."""
 
     credit_type_id: str
+    """This ID identifies the credit type for the access amount.
+
+    Quantity-based recurring commits and credits return the null credit type UUID.
+    """
 
     unit_price: float
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     quantity: Optional[float] = None
 
@@ -806,6 +842,12 @@ class DataSubscription(BaseModel):
     id: Optional[str] = None
 
     billing_cycle_config: Optional[DataSubscriptionBillingCycleConfig] = None
+
+    custom_credit_type_id: Optional[str] = None
+    """
+    If provided, the subscription's price will be in terms of this custom pricing
+    unit instead of the fiat currency.
+    """
 
     custom_fields: Optional[Dict[str, str]] = None
     """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""

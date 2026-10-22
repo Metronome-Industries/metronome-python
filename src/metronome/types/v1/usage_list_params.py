@@ -14,8 +14,10 @@ __all__ = ["UsageListParams", "BillableMetric", "BillableMetricGroupBy"]
 
 class UsageListParams(TypedDict, total=False):
     ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Must be aligned to UTC midnight and at least one day after `starting_on`."""
 
     starting_on: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Must be aligned to UTC midnight, e.g. `2024-01-01T00:00:00Z`."""
 
     window_size: Required[Literal["HOUR", "DAY", "NONE"]]
     """

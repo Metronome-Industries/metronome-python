@@ -25,8 +25,9 @@ class AlertRetrieveParams(TypedDict, total=False):
 
     alert_specifiers: Iterable[AlertSpecifier]
     """
-    Can be used with only `low_remaining_contract_credit_and_commit_balance_reached`
-    notifications. Used to filter the alert by the custom field key-value pair.
+    Can be used only with `low_remaining_contract_credit_and_commit_balance_reached`
+    and `low_remaining_contract_credit_and_commit_percentage_reached` notifications.
+    Used to filter the alert by the custom field key-value pair.
     """
 
     group_values: Iterable[GroupValue]

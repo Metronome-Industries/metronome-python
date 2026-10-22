@@ -21,6 +21,9 @@ class ContractListParams(TypedDict, total=False):
     starting_at filter is provided.
     """
 
+    cursor: str
+    """Cursor from a previous response to fetch the next page of contracts."""
+
     include_archived: bool
     """Include archived contracts in the response."""
 
@@ -35,6 +38,9 @@ class ContractListParams(TypedDict, total=False):
 
     Setting this flag may cause the response to be slower.
     """
+
+    limit: float
+    """Max number of contracts to return per page. Range: 1-20. Default: 20."""
 
     starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Optional RFC 3339 timestamp.

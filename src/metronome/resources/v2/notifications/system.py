@@ -49,10 +49,10 @@ class SystemResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SystemListResponse:
-        """List available system lifecycle event types for notifications.
+        """List available system notification types.
 
-        These are
-        read-only event types that can be used when creating offset notifications.
+        You can enable these notifications
+        directly or use supported types to create offset notifications.
         """
         return self._post(
             "/v2/notifications/system/list",
@@ -93,10 +93,10 @@ class AsyncSystemResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SystemListResponse:
-        """List available system lifecycle event types for notifications.
+        """List available system notification types.
 
-        These are
-        read-only event types that can be used when creating offset notifications.
+        You can enable these notifications
+        directly or use supported types to create offset notifications.
         """
         return await self._post(
             "/v2/notifications/system/list",

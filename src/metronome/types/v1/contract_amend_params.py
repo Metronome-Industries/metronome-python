@@ -101,6 +101,13 @@ class CommitAccessSchedule(TypedDict, total=False):
 
     schedule_items: Required[Iterable[CommitAccessScheduleScheduleItem]]
 
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
+
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""
 
@@ -300,6 +307,13 @@ class CreditAccessSchedule(TypedDict, total=False):
     """Schedule for distributing the credit to the customer."""
 
     schedule_items: Required[Iterable[CreditAccessScheduleScheduleItem]]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
 
     credit_type_id: str
     """Defaults to USD (cents) if not passed"""

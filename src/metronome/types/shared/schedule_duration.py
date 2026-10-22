@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .credit_type_data import CreditTypeData
@@ -21,5 +22,12 @@ class ScheduleItem(BaseModel):
 
 class ScheduleDuration(BaseModel):
     schedule_items: List[ScheduleItem]
+
+    access_type: Optional[Literal["SPEND", "QUANTITY"]] = None
+    """Indicates how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     credit_type: Optional[CreditTypeData] = None

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ...._utils import PropertyInfo
 
@@ -13,6 +13,13 @@ __all__ = ["CommitListParams"]
 
 class CommitListParams(TypedDict, total=False):
     customer_id: Required[str]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Filters commits by how their balances are drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
 
     commit_id: str
 

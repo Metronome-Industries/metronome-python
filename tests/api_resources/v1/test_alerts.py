@@ -32,6 +32,7 @@ class TestAlerts:
             alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
+            access_type="SPEND",
             alert_specifiers=[
                 {
                     "custom_field_filters": [
@@ -170,6 +171,7 @@ class TestAsyncAlerts:
             alert_type="spend_threshold_reached",
             name="$100 spend threshold reached",
             threshold=10000,
+            access_type="SPEND",
             alert_specifiers=[
                 {
                     "custom_field_filters": [

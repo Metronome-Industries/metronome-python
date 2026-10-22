@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -25,4 +25,10 @@ class NamedScheduleRetrieveParams(TypedDict, total=False):
     """
     If provided, at most one schedule segment will be returned (the one that covers
     this date). If not provided, all segments will be returned.
+    """
+
+    properties: Dict[str, str]
+    """
+    A set of key-value pairs that qualifies which schedule should be applied when
+    looking up a schedule by name.
     """

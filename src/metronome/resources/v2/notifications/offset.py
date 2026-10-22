@@ -238,7 +238,7 @@ class OffsetResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OffsetEditResponse:
         """
-        Edit an existing offset lifecycle event notification configuration.
+        Edit an existing offset notification, or enable/disable a system notification
 
         Args:
           policy: Updated policy configuration. The policy.type must match the existing lifecycle
@@ -481,7 +481,7 @@ class AsyncOffsetResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> OffsetEditResponse:
         """
-        Edit an existing offset lifecycle event notification configuration.
+        Edit an existing offset notification, or enable/disable a system notification
 
         Args:
           policy: Updated policy configuration. The policy.type must match the existing lifecycle
