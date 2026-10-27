@@ -1,5 +1,39 @@
 # Changelog
 
+## [4.12.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.1...v4.12.0) (2026-10-27)
+
+
+### Features
+
+* add access_type to commit and credit endpoints ([537876a](https://github.com/Metronome-Industries/metronome-python/commit/537876a93fdcfba98223d7dc1568e4e2b6b1c9b7))
+* Add custom_credit_type_id to subscriptions ([95701ac](https://github.com/Metronome-Industries/metronome-python/commit/95701acc5f047bab7c1e753295c16159d8e109c6))
+* Create package with CUSTOM_DATE option. Provision package contract with custom billing_anchor_date. ([203ec99](https://github.com/Metronome-Industries/metronome-python/commit/203ec99f9881ea19798e8bd681ef1723944e468a))
+* internal only ([ba86ca9](https://github.com/Metronome-Industries/metronome-python/commit/ba86ca9ee13d236cd3a474bd6591fbd9797410a0))
+* internal only ([c83deed](https://github.com/Metronome-Industries/metronome-python/commit/c83deed557de037693c35ec6bf24b68101a75b82))
+* internal only ([691757d](https://github.com/Metronome-Industries/metronome-python/commit/691757d299900db5f49fdf3d9bdd00fb30a1522b))
+
+
+### Bug Fixes
+
+* prevent SDK generation from restoring release-doctor ([df47cf5](https://github.com/Metronome-Industries/metronome-python/commit/df47cf56ac6e291417c88f329e7741abf07c23f0))
+* restore RFC3339 datetime custom code again ([#11](https://github.com/Metronome-Industries/metronome-python/issues/11)) ([8e07421](https://github.com/Metronome-Industries/metronome-python/commit/8e074215d33d4622476a88cf93ed7b591d5fea33))
+* restore RFC3339 datetime serialization ([#12](https://github.com/Metronome-Industries/metronome-python/issues/12)) ([13fb9b0](https://github.com/Metronome-Industries/metronome-python/commit/13fb9b0fc2ea95519b72f2152643b3905c50f5ef))
+* **stlc:** reject collapsed custom-code tracking ([61a4e4e](https://github.com/Metronome-Industries/metronome-python/commit/61a4e4e710d88d0ecd92816d7618035bb75c9cc1))
+
+
+### Chores
+
+* **api:** add feature-gated webhook delivery observability endpoint ([77113e4](https://github.com/Metronome-Industries/metronome-python/commit/77113e41b0f8e1eb4c32c8a3389283c9bbfa8908))
+* promote SDK changes from staging ([e5e7338](https://github.com/Metronome-Industries/metronome-python/commit/e5e7338b4fa4b6b8fc5318acd0a241906391136b))
+* wire package customizations field. ([67a64df](https://github.com/Metronome-Industries/metronome-python/commit/67a64dfa84c74d1d04c8963686f5c102bd581e1a))
+
+
+### Documentation
+
+* clarifying the edit notification API manages both system and offset notifications ([504b860](https://github.com/Metronome-Industries/metronome-python/commit/504b860e9289a35539097d812c272190b69a16b4))
+* make /alerts/archive idempotent ([9e50aba](https://github.com/Metronome-Industries/metronome-python/commit/9e50abaed597af8785efd14123090e4a1ba88321))
+* point existing support portal link to new portal link ([e6fe981](https://github.com/Metronome-Industries/metronome-python/commit/e6fe981bb0928468f7eb5d680bce79dae7c44087))
+
 ## [4.11.1](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.0...v4.11.1) (2026-08-27)
 
 
