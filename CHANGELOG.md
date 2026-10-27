@@ -1,5 +1,29 @@
 # Changelog
 
+## [4.12.0](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.1...v4.12.0) (2026-10-27)
+
+Adds quantity-based balances, pricing unit management, and cursor pagination for customer contracts.
+
+### Features
+
+* Support `SPEND` and `QUANTITY` access types for commit and credit schedules, balance queries, and threshold notifications, including combined remaining credit-and-commit percentage notifications. ([537876a](https://github.com/Metronome-Industries/metronome-python/commit/537876a93fdcfba98223d7dc1568e4e2b6b1c9b7))
+* Create and archive custom pricing units with `v1.pricing_units.create` and `v1.pricing_units.archive`. ([691757d](https://github.com/Metronome-Industries/metronome-python/commit/691757d299900db5f49fdf3d9bdd00fb30a1522b))
+* Accept `CUSTOM_DATE` for package usage statement schedule anchors. ([203ec99](https://github.com/Metronome-Industries/metronome-python/commit/203ec99f9881ea19798e8bd681ef1723944e468a))
+* Include historical commit invoices when listing invoices with `include_historical_commit_invoices=True`. ([537876a](https://github.com/Metronome-Industries/metronome-python/commit/537876a93fdcfba98223d7dc1568e4e2b6b1c9b7))
+* Expose credit and subscription creation timestamps in response models. ([67a64df](https://github.com/Metronome-Industries/metronome-python/commit/67a64dfa84c74d1d04c8963686f5c102bd581e1a), [df47cf5](https://github.com/Metronome-Industries/metronome-python/commit/df47cf56ac6e291417c88f329e7741abf07c23f0))
+
+### Documentation
+
+* Clarify that the notification edit API supports both offset and system notifications. ([504b860](https://github.com/Metronome-Industries/metronome-python/commit/504b860e9289a35539097d812c272190b69a16b4))
+* Document that archiving an already-archived threshold notification succeeds. ([9e50aba](https://github.com/Metronome-Industries/metronome-python/commit/9e50abaed597af8785efd14123090e4a1ba88321))
+* Clarify usage query UTC-midnight boundaries and the 200-value limit across group filters. ([ba86ca9](https://github.com/Metronome-Industries/metronome-python/commit/ba86ca9ee13d236cd3a474bd6591fbd9797410a0), [df47cf5](https://github.com/Metronome-Industries/metronome-python/commit/df47cf56ac6e291417c88f329e7741abf07c23f0))
+* Update the support portal link and explain that custom-field updates do not emit credit, commit, or contract edit events. ([e6fe981](https://github.com/Metronome-Industries/metronome-python/commit/e6fe981bb0928468f7eb5d680bce79dae7c44087))
+
+### Breaking changes
+
+* `v1.contracts.list` and `v2.contracts.list` now return cursor page types; the v1 and v2 `ContractListResponse` models have been removed. A page contains at most 20 contracts. Update explicit response type annotations to `SyncBodyCursorPageCursorField[Contract]` or `SyncBodyCursorPageCursorField[ContractV2]` (use the corresponding async page types for async clients). Iterate over the result to fetch every contract automatically, using `async for` with the async client, or call `get_next_page()` to fetch pages manually. ([504b860](https://github.com/Metronome-Industries/metronome-python/commit/504b860e9289a35539097d812c272190b69a16b4))
+* Subscription response models now require `created_at` when constructed or validated manually. Include this timestamp in custom model instances and test fixtures. ([df47cf5](https://github.com/Metronome-Industries/metronome-python/commit/df47cf56ac6e291417c88f329e7741abf07c23f0))
+
 ## [4.11.1](https://github.com/Metronome-Industries/metronome-python/compare/v4.11.0...v4.11.1) (2026-08-27)
 
 
