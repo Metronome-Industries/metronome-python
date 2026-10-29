@@ -39,6 +39,51 @@ __all__ = [
     "OverrideOverrideSpecifier",
     "OverrideOverwriteRate",
     "OverrideTier",
+    "PackageCustomizations",
+    "PackageCustomizationsAddCommit",
+    "PackageCustomizationsAddCommitAccessSchedule",
+    "PackageCustomizationsAddCommitAccessScheduleScheduleItem",
+    "PackageCustomizationsAddCommitInvoiceSchedule",
+    "PackageCustomizationsAddCommitInvoiceScheduleRecurringSchedule",
+    "PackageCustomizationsAddCommitInvoiceScheduleScheduleItem",
+    "PackageCustomizationsAddCommitSpendTrackerAttributes",
+    "PackageCustomizationsAddCredit",
+    "PackageCustomizationsAddCreditAccessSchedule",
+    "PackageCustomizationsAddCreditAccessScheduleScheduleItem",
+    "PackageCustomizationsAddOverride",
+    "PackageCustomizationsAddOverrideOverrideSpecifier",
+    "PackageCustomizationsAddOverrideOverwriteRate",
+    "PackageCustomizationsAddOverrideTier",
+    "PackageCustomizationsAddRecurringCommit",
+    "PackageCustomizationsAddRecurringCommitAccessAmount",
+    "PackageCustomizationsAddRecurringCommitCommitDuration",
+    "PackageCustomizationsAddRecurringCommitInvoiceAmount",
+    "PackageCustomizationsAddRecurringCommitProrationRounding",
+    "PackageCustomizationsAddRecurringCommitProrationRoundingAccess",
+    "PackageCustomizationsAddRecurringCommitProrationRoundingInvoice",
+    "PackageCustomizationsAddRecurringCommitSubscriptionConfig",
+    "PackageCustomizationsAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig",
+    "PackageCustomizationsAddRecurringCredit",
+    "PackageCustomizationsAddRecurringCreditAccessAmount",
+    "PackageCustomizationsAddRecurringCreditCommitDuration",
+    "PackageCustomizationsAddRecurringCreditProrationRounding",
+    "PackageCustomizationsAddRecurringCreditProrationRoundingAccess",
+    "PackageCustomizationsAddRecurringCreditSubscriptionConfig",
+    "PackageCustomizationsAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig",
+    "PackageCustomizationsAddScheduledCharge",
+    "PackageCustomizationsAddScheduledChargeSchedule",
+    "PackageCustomizationsAddScheduledChargeScheduleRecurringSchedule",
+    "PackageCustomizationsAddScheduledChargeScheduleScheduleItem",
+    "PackageCustomizationsAddSpendTracker",
+    "PackageCustomizationsAddSpendTrackerApplicableSpendSpecifier",
+    "PackageCustomizationsAddSubscription",
+    "PackageCustomizationsAddSubscriptionProration",
+    "PackageCustomizationsAddSubscriptionProrationRounding",
+    "PackageCustomizationsAddSubscriptionSubscriptionRate",
+    "PackageCustomizationsAddSubscriptionBillingCycleConfig",
+    "PackageCustomizationsAddSubscriptionSeatConfig",
+    "PackageCustomizationsModifySubscription",
+    "PackageCustomizationsModifyUsageStatementSchedule",
     "ProfessionalService",
     "RecurringCommit",
     "RecurringCommitAccessAmount",
@@ -126,6 +171,12 @@ class ContractCreateParams(TypedDict, total=False):
     """
     Selects the package linked to the specified alias as of the contract's start
     date. Mutually exclusive with package_id.
+    """
+
+    package_customizations: PackageCustomizations
+    """
+    Adjustments applied on top of the package's baseline configuration when
+    provisioning the contract.
     """
 
     package_id: str
@@ -678,7 +729,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     apply to any specified commit, credit, recurring commit or recurring credit IDs.
     """
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
@@ -825,6 +876,1272 @@ class Override(TypedDict, total=False):
 
     type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
     """Overwrites are prioritized over multipliers and tiered overrides."""
+
+
+class PackageCustomizationsAddCommitAccessScheduleScheduleItem(TypedDict, total=False):
+    amount: Required[float]
+
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (exclusive)"""
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (inclusive)"""
+
+
+class PackageCustomizationsAddCommitAccessSchedule(TypedDict, total=False):
+    """Required: Schedule for distributing the commit to the customer.
+
+    For "POSTPAID" commits only one schedule item is allowed and amount must match invoice_schedule total.
+    """
+
+    schedule_items: Required[Iterable[PackageCustomizationsAddCommitAccessScheduleScheduleItem]]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
+
+
+class PackageCustomizationsAddCommitInvoiceScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
+
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (exclusive)."""
+
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (inclusive)."""
+
+    amount: float
+    """Amount for the charge.
+
+    Can be provided instead of unit_price and quantity. If amount is sent, the
+    unit_price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount and must be specified
+    with unit_price. If specified amount cannot be provided.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified
+    with quantity. If specified amount cannot be provided.
+    """
+
+
+class PackageCustomizationsAddCommitInvoiceScheduleScheduleItem(TypedDict, total=False):
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """timestamp of the scheduled event"""
+
+    amount: float
+    """Amount for the charge.
+
+    Can be provided instead of unit_price and quantity. If amount is sent, the
+    unit_price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount and must be specified
+    with unit_price. If specified amount cannot be provided.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified
+    with quantity. If specified amount cannot be provided.
+    """
+
+
+class PackageCustomizationsAddCommitInvoiceSchedule(TypedDict, total=False):
+    """
+    Required for "POSTPAID" commits: the true up invoice will be generated at this time and only one schedule item is allowed; the total must match access_schedule amount. Optional for "PREPAID" commits: if not provided, this will be a "complimentary" commit with no invoice.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    recurring_schedule: PackageCustomizationsAddCommitInvoiceScheduleRecurringSchedule
+    """Enter the unit price and quantity for the charge or instead only send the
+    amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is
+    inferred to be 1.
+    """
+
+    schedule_items: Iterable[PackageCustomizationsAddCommitInvoiceScheduleScheduleItem]
+    """Either provide amount or provide both unit_price and quantity."""
+
+
+class PackageCustomizationsAddCommitSpendTrackerAttributes(TypedDict, total=False):
+    """Optional attributes for spend tracker integration. Immutable after creation."""
+
+    counts_as_discounted: Required[bool]
+    """
+    If true, this commit will be included in spend trackers with discounted set to
+    DISCOUNTED_ONLY
+    """
+
+
+class PackageCustomizationsAddCommit(TypedDict, total=False):
+    product_id: Required[str]
+
+    type: Required[Literal["PREPAID", "POSTPAID"]]
+
+    access_schedule: PackageCustomizationsAddCommitAccessSchedule
+    """Required: Schedule for distributing the commit to the customer.
+
+    For "POSTPAID" commits only one schedule item is allowed and amount must match
+    invoice_schedule total.
+    """
+
+    amount: float
+    """(DEPRECATED) Use access_schedule and invoice_schedule instead."""
+
+    applicable_product_ids: SequenceNotStr[str]
+    """Which products the commit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
+    """
+
+    applicable_product_tags: SequenceNotStr[str]
+    """Which tags the commit applies to.
+
+    If applicable_product_ids, applicable_product_tags or specifiers are not
+    provided, the commit applies to all products.
+    """
+
+    custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: str
+    """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for commit hierarchy access control"""
+
+    invoice_schedule: PackageCustomizationsAddCommitInvoiceSchedule
+    """
+    Required for "POSTPAID" commits: the true up invoice will be generated at this
+    time and only one schedule item is allowed; the total must match access_schedule
+    amount. Optional for "PREPAID" commits: if not provided, this will be a
+    "complimentary" commit with no invoice.
+    """
+
+    name: str
+    """displayed on invoices"""
+
+    netsuite_sales_order_id: str
+    """This field's availability is dependent on your client's configuration."""
+
+    priority: float
+    """
+    If multiple commits are applicable, the one with the lower priority will apply
+    first.
+    """
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    rollover_fraction: float
+    """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
+
+    specifiers: Iterable[CommitSpecifierInput]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
+    spend_tracker_attributes: PackageCustomizationsAddCommitSpendTrackerAttributes
+    """Optional attributes for spend tracker integration. Immutable after creation."""
+
+    temporary_id: str
+    """
+    A temporary ID for the commit that can be used to reference the commit for
+    commit specific overrides.
+    """
+
+
+class PackageCustomizationsAddCreditAccessScheduleScheduleItem(TypedDict, total=False):
+    amount: Required[float]
+
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (exclusive)"""
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (inclusive)"""
+
+
+class PackageCustomizationsAddCreditAccessSchedule(TypedDict, total=False):
+    """Schedule for distributing the credit to the customer."""
+
+    schedule_items: Required[Iterable[PackageCustomizationsAddCreditAccessScheduleScheduleItem]]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Determines how the balance is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used. Defaults to `SPEND` if omitted.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
+
+
+class PackageCustomizationsAddCredit(TypedDict, total=False):
+    access_schedule: Required[PackageCustomizationsAddCreditAccessSchedule]
+    """Schedule for distributing the credit to the customer."""
+
+    product_id: Required[str]
+
+    applicable_product_ids: SequenceNotStr[str]
+    """Which products the credit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    credit applies to all products.
+    """
+
+    applicable_product_tags: SequenceNotStr[str]
+    """Which tags the credit applies to.
+
+    If both applicable_product_ids and applicable_product_tags are not provided, the
+    credit applies to all products.
+    """
+
+    custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: str
+    """Used only in UI/API. It is not exposed to end customers."""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for credit hierarchy access control"""
+
+    name: str
+    """displayed on invoices"""
+
+    netsuite_sales_order_id: str
+    """This field's availability is dependent on your client's configuration."""
+
+    priority: float
+    """
+    If multiple credits are applicable, the one with the lower priority will apply
+    first.
+    """
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+
+    rollover_fraction: float
+    """Fraction of unused segments that will be rolled over. Must be between 0 and 1."""
+
+    specifiers: Iterable[CommitSpecifierInput]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
+
+class PackageCustomizationsAddOverrideOverrideSpecifier(TypedDict, total=False):
+    any_commit_or_credit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. Must be used instead of
+    both `commit_ids` and `recurring_commit_ids` If provided, the override will
+    apply to any specified commit, credit, recurring commit or recurring credit IDs.
+    """
+
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
+
+    commit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to the specified commits. If not provided, the override
+    will apply to all commits.
+    """
+
+    presentation_group_values: Dict[str, str]
+    """A map of group names to values.
+
+    The override will only apply to line items with the specified presentation group
+    values.
+    """
+
+    pricing_group_values: Dict[str, str]
+    """A map of pricing group names to values.
+
+    The override will only apply to products with the specified pricing group
+    values.
+    """
+
+    product_id: str
+    """If provided, the override will only apply to the product with the specified ID."""
+
+    product_tags: SequenceNotStr[str]
+    """
+    If provided, the override will only apply to products with all the specified
+    tags.
+    """
+
+    recurring_commit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Must be used in conjunction with one of `product_id`, `product_tags`,
+    `pricing_group_values`, or `presentation_group_values`. If provided, the
+    override will only apply to commits created by the specified recurring commit
+    ids.
+    """
+
+    template_any_commit_or_credit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Commits, credits, recurring commits, or recurring credits defined on the
+    package, by the `id` of each template returned by getPackage. Each is resolved
+    to the term the package creates on this contract and applied like
+    `any_commit_or_credit_ids`. Cannot be combined with `commit_ids`,
+    `template_commit_ids`, `recurring_commit_ids`, or
+    `template_recurring_commit_ids`.
+    """
+
+    template_commit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Commits defined on the package, by the `id` of each commit template returned by
+    getPackage. Each is resolved to the commit the package creates on this contract
+    and applied like `commit_ids`; credits must use
+    `template_any_commit_or_credit_ids`.
+    """
+
+    template_recurring_commit_ids: SequenceNotStr[str]
+    """Can only be used for commit specific overrides.
+
+    Recurring commits defined on the package, by the `id` of each recurring commit
+    template returned by getPackage. Each is resolved to the recurring commit the
+    package creates on this contract and applied like `recurring_commit_ids`;
+    recurring credits must use `template_any_commit_or_credit_ids`.
+    """
+
+
+class PackageCustomizationsAddOverrideOverwriteRate(TypedDict, total=False):
+    """Required for OVERWRITE type."""
+
+    rate_type: Required[Literal["FLAT", "PERCENTAGE", "SUBSCRIPTION", "TIERED", "TIERED_PERCENTAGE", "CUSTOM"]]
+
+    credit_type_id: str
+
+    custom_rate: Dict[str, object]
+    """Only set for CUSTOM rate_type.
+
+    This field is interpreted by custom rate processors.
+    """
+
+    is_prorated: bool
+    """Default proration configuration.
+
+    Only valid for SUBSCRIPTION rate_type. Must be set to true.
+    """
+
+    price: float
+    """Default price.
+
+    For FLAT rate_type, this must be >=0. For PERCENTAGE rate_type, this is a
+    decimal fraction, e.g. use 0.1 for 10%; this must be >=0 and <=1.
+    """
+
+    quantity: float
+    """Default quantity. For SUBSCRIPTION rate_type, this must be >=0."""
+
+    tiers: Iterable[Tier]
+    """Only set for TIERED rate_type."""
+
+
+class PackageCustomizationsAddOverrideTier(TypedDict, total=False):
+    multiplier: Required[float]
+
+    size: float
+
+
+class PackageCustomizationsAddOverride(TypedDict, total=False):
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp indicating when the override will start applying (inclusive)"""
+
+    applicable_product_tags: SequenceNotStr[str]
+    """tags identifying products whose rates are being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """RFC 3339 timestamp indicating when the override will stop applying (exclusive)"""
+
+    entitled: bool
+
+    is_commit_specific: bool
+    """Indicates whether the override should only apply to commits.
+
+    Defaults to `false`. If `true` you can specify relevant commits in
+    `override_specifiers` by passing `commit_ids`, `recurring_commit_ids`, or
+    `any_commit_or_credit_ids`. If you do not specify any of these fields, the
+    override will apply when consuming any prepaid commit, postpaid commit, or
+    credit
+    """
+
+    multiplier: float
+    """Required for MULTIPLIER type. Must be >=0."""
+
+    override_specifiers: Iterable[PackageCustomizationsAddOverrideOverrideSpecifier]
+    """Cannot be used in conjunction with product_id or applicable_product_tags.
+
+    If provided, the override will apply to all products with the specified
+    specifiers.
+    """
+
+    overwrite_rate: PackageCustomizationsAddOverrideOverwriteRate
+    """Required for OVERWRITE type."""
+
+    priority: float
+    """Required for EXPLICIT multiplier prioritization scheme and all TIERED overrides.
+
+    Under EXPLICIT prioritization, overwrites are prioritized first, and then tiered
+    and multiplier overrides are prioritized by their priority value (lowest first).
+    Must be > 0.
+    """
+
+    product_id: str
+    """ID of the product whose rate is being overridden.
+
+    Cannot be used in conjunction with override_specifiers.
+    """
+
+    target: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Indicates whether the override applies to commit rates or list rates.
+
+    Can only be used for overrides that have `is_commit_specific` set to `true`.
+    Defaults to `"LIST_RATE"`.
+    """
+
+    tiers: Iterable[PackageCustomizationsAddOverrideTier]
+    """Required for TIERED type. Must have at least one tier."""
+
+    type: Literal["OVERWRITE", "MULTIPLIER", "TIERED"]
+    """Overwrites are prioritized over multipliers and tiered overrides."""
+
+
+class PackageCustomizationsAddRecurringCommitAccessAmount(TypedDict, total=False):
+    """The amount of commit to grant."""
+
+    unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
+
+    quantity: float
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
+    """
+
+
+class PackageCustomizationsAddRecurringCommitCommitDuration(TypedDict, total=False):
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
+    """
+
+    value: Required[float]
+
+    unit: Literal["PERIODS"]
+
+
+class PackageCustomizationsAddRecurringCommitInvoiceAmount(TypedDict, total=False):
+    """The amount the customer should be billed for the commit. Not required."""
+
+    credit_type_id: Required[str]
+
+    quantity: Required[float]
+
+    unit_price: Required[float]
+
+
+class PackageCustomizationsAddRecurringCommitProrationRoundingAccess(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class PackageCustomizationsAddRecurringCommitProrationRoundingInvoice(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class PackageCustomizationsAddRecurringCommitProrationRounding(TypedDict, total=False):
+    """Optional rounding configuration for prorated recurring commit amounts."""
+
+    access: PackageCustomizationsAddRecurringCommitProrationRoundingAccess
+
+    invoice: PackageCustomizationsAddRecurringCommitProrationRoundingInvoice
+
+
+class PackageCustomizationsAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class PackageCustomizationsAddRecurringCommitSubscriptionConfig(TypedDict, total=False):
+    """
+    Attach a subscription to the recurring commit/credit: a subscription added in the same customization (by its temporary_id) or a subscription defined on the package.
+    """
+
+    apply_seat_increase_config: Required[
+        PackageCustomizationsAddRecurringCommitSubscriptionConfigApplySeatIncreaseConfig
+    ]
+
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account.
+
+    If set to INDIVIDUAL, each seat in the subscription will have its own
+    allocation.
+    """
+
+    subscription_id: str
+    """
+    The temporary_id of a subscription added in the same customization
+    (add_subscriptions).
+    """
+
+    template_subscription_alias: str
+    """
+    Human-readable alias of a subscription template on the package, as an
+    alternative to template_subscription_id.
+    """
+
+    template_subscription_id: str
+    """ID of a subscription template on the package.
+
+    The recurring commit/credit is attached to the subscription the contract creates
+    from it.
+    """
+
+
+class PackageCustomizationsAddRecurringCommit(TypedDict, total=False):
+    access_amount: Required[PackageCustomizationsAddRecurringCommitAccessAmount]
+    """The amount of commit to grant."""
+
+    commit_duration: Required[PackageCustomizationsAddRecurringCommitCommitDuration]
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
+
+    priority: Required[float]
+    """Will be passed down to the individual commits"""
+
+    product_id: Required[str]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """determines the start time for the first commit"""
+
+    applicable_product_ids: SequenceNotStr[str]
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: SequenceNotStr[str]
+    """Will be passed down to the individual commits"""
+
+    description: str
+    """Will be passed down to the individual commits"""
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Determines when the contract will stop creating recurring commits. optional"""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for recurring commit/credit hierarchy access control"""
+
+    invoice_amount: PackageCustomizationsAddRecurringCommitInvoiceAmount
+    """The amount the customer should be billed for the commit. Not required."""
+
+    name: str
+    """displayed on invoices. will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: str
+    """Will be passed down to the individual commits"""
+
+    proration: Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
+    proration_rounding: PackageCustomizationsAddRecurringCommitProrationRounding
+    """Optional rounding configuration for prorated recurring commit amounts."""
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
+    """
+
+    rollover_fraction: float
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[CommitSpecifierInput]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
+    subscription_config: PackageCustomizationsAddRecurringCommitSubscriptionConfig
+    """
+    Attach a subscription to the recurring commit/credit: a subscription added in
+    the same customization (by its temporary_id) or a subscription defined on the
+    package.
+    """
+
+    temporary_id: str
+    """
+    A temporary ID that can be used to reference the recurring commit for commit
+    specific overrides.
+    """
+
+
+class PackageCustomizationsAddRecurringCreditAccessAmount(TypedDict, total=False):
+    """The amount of commit to grant."""
+
+    unit_price: Required[float]
+
+    access_type: Literal["SPEND", "QUANTITY"]
+    """Indicates how the balance of child commits is drawn down.
+
+    `SPEND` deducts the dollar cost of usage. `QUANTITY` deducts the number of units
+    used.
+    """
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed"""
+
+    quantity: float
+    """
+    This field is required unless a subscription is attached via
+    `subscription_config`.
+    """
+
+
+class PackageCustomizationsAddRecurringCreditCommitDuration(TypedDict, total=False):
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the length of a period is determined by the recurrence_frequency.
+    """
+
+    value: Required[float]
+
+    unit: Literal["PERIODS"]
+
+
+class PackageCustomizationsAddRecurringCreditProrationRoundingAccess(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class PackageCustomizationsAddRecurringCreditProrationRounding(TypedDict, total=False):
+    """Optional rounding configuration for prorated recurring credit amounts."""
+
+    access: PackageCustomizationsAddRecurringCreditProrationRoundingAccess
+
+
+class PackageCustomizationsAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig(TypedDict, total=False):
+    is_prorated: Required[bool]
+    """Indicates whether a mid-period seat increase should be prorated."""
+
+
+class PackageCustomizationsAddRecurringCreditSubscriptionConfig(TypedDict, total=False):
+    """
+    Attach a subscription to the recurring commit/credit: a subscription added in the same customization (by its temporary_id) or a subscription defined on the package.
+    """
+
+    apply_seat_increase_config: Required[
+        PackageCustomizationsAddRecurringCreditSubscriptionConfigApplySeatIncreaseConfig
+    ]
+
+    allocation: Literal["INDIVIDUAL", "POOLED"]
+    """If set to POOLED, allocation added per seat is pooled across the account.
+
+    If set to INDIVIDUAL, each seat in the subscription will have its own
+    allocation.
+    """
+
+    subscription_id: str
+    """
+    The temporary_id of a subscription added in the same customization
+    (add_subscriptions).
+    """
+
+    template_subscription_alias: str
+    """
+    Human-readable alias of a subscription template on the package, as an
+    alternative to template_subscription_id.
+    """
+
+    template_subscription_id: str
+    """ID of a subscription template on the package.
+
+    The recurring commit/credit is attached to the subscription the contract creates
+    from it.
+    """
+
+
+class PackageCustomizationsAddRecurringCredit(TypedDict, total=False):
+    access_amount: Required[PackageCustomizationsAddRecurringCreditAccessAmount]
+    """The amount of commit to grant."""
+
+    commit_duration: Required[PackageCustomizationsAddRecurringCreditCommitDuration]
+    """Defines the length of the access schedule for each created commit/credit.
+
+    The value represents the number of units. Unit defaults to "PERIODS", where the
+    length of a period is determined by the recurrence_frequency.
+    """
+
+    priority: Required[float]
+    """Will be passed down to the individual commits"""
+
+    product_id: Required[str]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """determines the start time for the first commit"""
+
+    applicable_product_ids: SequenceNotStr[str]
+    """Will be passed down to the individual commits"""
+
+    applicable_product_tags: SequenceNotStr[str]
+    """Will be passed down to the individual commits"""
+
+    description: str
+    """Will be passed down to the individual commits"""
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Determines when the contract will stop creating recurring commits. optional"""
+
+    hierarchy_configuration: CommitHierarchyConfiguration
+    """Optional configuration for recurring commit/credit hierarchy access control"""
+
+    name: str
+    """displayed on invoices. will be passed through to the individual commits"""
+
+    netsuite_sales_order_id: str
+    """Will be passed down to the individual commits"""
+
+    proration: Literal["NONE", "FIRST", "LAST", "FIRST_AND_LAST"]
+    """Determines whether the first and last commit will be prorated.
+
+    If not provided, the default is FIRST_AND_LAST (i.e. prorate both the first and
+    last commits).
+    """
+
+    proration_rounding: PackageCustomizationsAddRecurringCreditProrationRounding
+    """Optional rounding configuration for prorated recurring credit amounts."""
+
+    rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
+    """Whether the created commits will use the commit rate or list rate"""
+
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
+    """The frequency at which the recurring commits will be created.
+
+    If not provided: - The commits will be created on the usage invoice frequency.
+    If provided: - The period defined in the duration will correspond to this
+    frequency. - Commits will be created aligned with the recurring commit's
+    starting_at rather than the usage invoice dates. - Daily recurring commits have
+    a limit of one per contract, and are unable to be created with seat-based
+    subscriptions
+    """
+
+    rollover_fraction: float
+    """Will be passed down to the individual commits.
+
+    This controls how much of an individual unexpired commit will roll over upon
+    contract transition. Must be between 0 and 1.
+    """
+
+    specifiers: Iterable[CommitSpecifierInput]
+    """
+    List of filters that determine what kind of customer usage draws down a commit
+    or credit. A customer's usage needs to meet the condition of at least one of the
+    specifiers to contribute to a commit's or credit's drawdown. This field cannot
+    be used together with `applicable_product_ids` or `applicable_product_tags`.
+    """
+
+    subscription_config: PackageCustomizationsAddRecurringCreditSubscriptionConfig
+    """
+    Attach a subscription to the recurring commit/credit: a subscription added in
+    the same customization (by its temporary_id) or a subscription defined on the
+    package.
+    """
+
+    temporary_id: str
+    """
+    A temporary ID that can be used to reference the recurring commit for commit
+    specific overrides.
+    """
+
+
+class PackageCustomizationsAddScheduledChargeScheduleRecurringSchedule(TypedDict, total=False):
+    """Enter the unit price and quantity for the charge or instead only send the amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    amount_distribution: Required[Literal["DIVIDED", "DIVIDED_ROUNDED", "EACH"]]
+
+    ending_before: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (exclusive)."""
+
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL"]]
+
+    starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """RFC 3339 timestamp (inclusive)."""
+
+    amount: float
+    """Amount for the charge.
+
+    Can be provided instead of unit_price and quantity. If amount is sent, the
+    unit_price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount and must be specified
+    with unit_price. If specified amount cannot be provided.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified
+    with quantity. If specified amount cannot be provided.
+    """
+
+
+class PackageCustomizationsAddScheduledChargeScheduleScheduleItem(TypedDict, total=False):
+    timestamp: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """timestamp of the scheduled event"""
+
+    amount: float
+    """Amount for the charge.
+
+    Can be provided instead of unit_price and quantity. If amount is sent, the
+    unit_price is assumed to be the amount and quantity is inferred to be 1.
+    """
+
+    quantity: float
+    """Quantity for the charge.
+
+    Will be multiplied by unit_price to determine the amount and must be specified
+    with unit_price. If specified amount cannot be provided.
+    """
+
+    unit_price: float
+    """Unit price for the charge.
+
+    Will be multiplied by quantity to determine the amount and must be specified
+    with quantity. If specified amount cannot be provided.
+    """
+
+
+class PackageCustomizationsAddScheduledChargeSchedule(TypedDict, total=False):
+    """Must provide either schedule_items or recurring_schedule."""
+
+    credit_type_id: str
+    """Defaults to USD (cents) if not passed."""
+
+    do_not_invoice: bool
+    """This field is only applicable to commit invoice schedules.
+
+    If true, this schedule will not generate an invoice.
+    """
+
+    recurring_schedule: PackageCustomizationsAddScheduledChargeScheduleRecurringSchedule
+    """Enter the unit price and quantity for the charge or instead only send the
+    amount.
+
+    If amount is sent, the unit price is assumed to be the amount and quantity is
+    inferred to be 1.
+    """
+
+    schedule_items: Iterable[PackageCustomizationsAddScheduledChargeScheduleScheduleItem]
+    """Either provide amount or provide both unit_price and quantity."""
+
+
+class PackageCustomizationsAddScheduledCharge(TypedDict, total=False):
+    product_id: Required[str]
+
+    schedule: Required[PackageCustomizationsAddScheduledChargeSchedule]
+    """Must provide either schedule_items or recurring_schedule."""
+
+    custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    name: str
+    """displayed on invoices"""
+
+    netsuite_sales_order_id: str
+    """This field's availability is dependent on your client's configuration."""
+
+
+class PackageCustomizationsAddSpendTrackerApplicableSpendSpecifier(TypedDict, total=False):
+    sources: Required[List[Literal["THRESHOLD_RECHARGE", "MANUAL"]]]
+
+    spend_type: Required[Literal["COMMIT_PURCHASE"]]
+
+    discounted: Literal["ANY", "DISCOUNTED_ONLY", "UNDISCOUNTED_ONLY"]
+    """Filter by whether the spend was discounted. Defaults to ANY if omitted."""
+
+
+class PackageCustomizationsAddSpendTracker(TypedDict, total=False):
+    alias: Required[str]
+    """Human-readable identifier, unique per contract."""
+
+    applicable_spend_specifiers: Required[Iterable[PackageCustomizationsAddSpendTrackerApplicableSpendSpecifier]]
+
+    credit_type_id: Required[str]
+
+    reset_frequency: Required[Literal["BILLING_PERIOD"]]
+
+
+class PackageCustomizationsAddSubscriptionProrationRounding(TypedDict, total=False):
+    decimal_places: Required[float]
+    """Number of decimal places to round to.
+
+    Applied directly to the stored monetary representation. Negative values round to
+    powers of 10 (e.g., -2 rounds to nearest 100 in the stored unit. For USD, this
+    means rounding to the nearest dollar).
+    """
+
+    rounding_method: Required[Literal["HALF_UP", "FLOOR", "CEILING"]]
+
+
+class PackageCustomizationsAddSubscriptionProration(TypedDict, total=False):
+    invoice_behavior: Literal["BILL_IMMEDIATELY", "BILL_ON_NEXT_COLLECTION_DATE"]
+    """
+    Indicates how mid-period quantity adjustments are invoiced.
+    **BILL_IMMEDIATELY**: Only available when collection schedule is `ADVANCE`. The
+    quantity increase will be billed immediately on the scheduled date.
+    **BILL_ON_NEXT_COLLECTION_DATE**: The quantity increase will be billed for
+    in-arrears at the end of the period.
+    """
+
+    is_prorated: bool
+    """Indicates if the partial period will be prorated or charged a full amount."""
+
+    rounding: PackageCustomizationsAddSubscriptionProrationRounding
+
+
+class PackageCustomizationsAddSubscriptionSubscriptionRate(TypedDict, total=False):
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
+    """Frequency to bill subscription with.
+
+    Together with product_id, must match existing rate on the rate card.
+    """
+
+    product_id: Required[str]
+    """Must be subscription type product"""
+
+
+class PackageCustomizationsAddSubscriptionBillingCycleConfig(TypedDict, total=False):
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date to anchor the billing cycle to.
+
+    If omitted, defaults to the contract's usage invoice billing cycle anchor date.
+    """
+
+    invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
+    """
+    Controls whether this subscription consolidates onto usage invoices or gets its
+    own scheduled invoice. Defaults to ON_USAGE_INVOICE if omitted.
+    """
+
+
+class PackageCustomizationsAddSubscriptionSeatConfig(TypedDict, total=False):
+    initial_seat_ids: Required[SequenceNotStr[str]]
+    """The initial assigned seats on this subscription."""
+
+    seat_group_key: Required[str]
+    """
+    The property name, sent on usage events, that identifies the seat ID associated
+    with the usage event. For example, the property name might be seat_id or
+    user_id. The property must be set as a group key on billable metrics and a
+    presentation/pricing group key on contract products. This allows linked
+    recurring credits with an allocation per seat to be consumed by only one seat's
+    usage.
+    """
+
+    initial_unassigned_seats: float
+    """The initial amount of unassigned seats on this subscription."""
+
+
+class PackageCustomizationsAddSubscription(TypedDict, total=False):
+    collection_schedule: Required[Literal["ADVANCE", "ARREARS"]]
+
+    proration: Required[PackageCustomizationsAddSubscriptionProration]
+
+    subscription_rate: Required[PackageCustomizationsAddSubscriptionSubscriptionRate]
+
+    billing_cycle_config: PackageCustomizationsAddSubscriptionBillingCycleConfig
+
+    custom_fields: Dict[str, str]
+    """Custom fields to be added eg. { "key1": "value1", "key2": "value2" }"""
+
+    description: str
+
+    ending_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Exclusive end time for the subscription.
+
+    If not provided, subscription inherits contract end date.
+    """
+
+    initial_quantity: float
+    """The initial quantity for the subscription.
+
+    It must be non-negative value. Required if quantity_management_mode is
+    QUANTITY_ONLY.
+    """
+
+    name: str
+
+    quantity_management_mode: Literal["SEAT_BASED", "QUANTITY_ONLY"]
+    """Determines how the subscription's quantity is controlled.
+
+    Defaults to QUANTITY_ONLY. **QUANTITY_ONLY**: The subscription quantity is
+    specified directly on the subscription. `initial_quantity` must be provided with
+    this option. Compatible with recurring commits/credits that use POOLED
+    allocation. **SEAT_BASED**: Use when you want to pass specific seat identifiers
+    (e.g. add user_123) to increment and decrement a subscription quantity, rather
+    than directly providing the quantity. You must use a **SEAT_BASED** subscription
+    to use a linked recurring credit with an allocation per seat. `seat_config` must
+    be provided with this option.
+    """
+
+    seat_config: PackageCustomizationsAddSubscriptionSeatConfig
+
+    starting_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Inclusive start time for the subscription.
+
+    If not provided, defaults to contract start date
+    """
+
+    temporary_id: str
+    """
+    A temporary ID used to reference the subscription in recurring commit/credit
+    subscription configs created within the same payload.
+    """
+
+
+class PackageCustomizationsModifySubscription(TypedDict, total=False):
+    initial_quantity: float
+    """The initial quantity for the subscription.
+
+    Must be a non-negative value. Provide for a QUANTITY_ONLY subscription.
+    """
+
+    initial_seat_ids: SequenceNotStr[str]
+    """Seat identifiers to assign at the start of a SEAT_BASED subscription."""
+
+    initial_unassigned_seats: float
+    """
+    Number of unassigned seats to provision at the start of a SEAT_BASED
+    subscription.
+    """
+
+    subscription_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """
+    Billing cycle anchor date for this subscription, required when the template's
+    billing_cycle_anchor is CUSTOM_DATE and disallowed otherwise. Must be on or
+    before the subscription's starting_at.
+    """
+
+    template_subscription_alias: str
+    """
+    Human-readable alias of the template subscription on the package to customize,
+    as an alternative to template_subscription_id. Provide exactly one of the two.
+    """
+
+    template_subscription_id: str
+    """ID of the template subscription on the package to customize.
+
+    Provide exactly one of template_subscription_id or template_subscription_alias.
+    """
+
+
+class PackageCustomizationsModifyUsageStatementSchedule(TypedDict, total=False):
+    """
+    Per-contract adjustments to the usage statement schedule defined on the package.
+    """
+
+    billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """
+    Billing cycle anchor date, required when the package's usage statement schedule
+    uses a CUSTOM_DATE anchor and disallowed otherwise. Must be on or before the
+    contract's starting_at.
+    """
+
+
+class PackageCustomizations(TypedDict, total=False):
+    """
+    Adjustments applied on top of the package's baseline configuration when provisioning the contract.
+    """
+
+    add_commits: Iterable[PackageCustomizationsAddCommit]
+    """Commits added to the contract on top of the package's baseline configuration.
+
+    Same shape as create_contract's commits.
+    """
+
+    add_credits: Iterable[PackageCustomizationsAddCredit]
+    """Credits added to the contract on top of the package's baseline configuration.
+
+    Same shape as create_contract's credits.
+    """
+
+    add_overrides: Iterable[PackageCustomizationsAddOverride]
+    """
+    Rate overrides layered onto the contract on top of the package's baseline
+    configuration. Same shape as create_contract's overrides, except override
+    specifiers can also name commits defined on the package by template id.
+    """
+
+    add_recurring_commits: Iterable[PackageCustomizationsAddRecurringCommit]
+    """
+    Recurring commits added to the contract on top of the package's baseline
+    configuration. Same shape as create_contract's recurring_commits, except
+    subscription_config can also name a subscription defined on the package by
+    template_subscription_id or template_subscription_alias.
+    """
+
+    add_recurring_credits: Iterable[PackageCustomizationsAddRecurringCredit]
+    """
+    Recurring credits added to the contract on top of the package's baseline
+    configuration. Same shape as create_contract's recurring_credits, except
+    subscription_config can also name a subscription defined on the package by
+    template_subscription_id or template_subscription_alias.
+    """
+
+    add_scheduled_charges: Iterable[PackageCustomizationsAddScheduledCharge]
+    """
+    Scheduled charges added to the contract on top of the package's baseline
+    configuration. Same shape as create_contract's scheduled_charges.
+    """
+
+    add_spend_trackers: Iterable[PackageCustomizationsAddSpendTracker]
+    """
+    Spend trackers added to the contract on top of the package's baseline
+    configuration. Same shape as create_contract's spend_trackers; aliases must be
+    unique within a contract.
+    """
+
+    add_subscriptions: Iterable[PackageCustomizationsAddSubscription]
+    """
+    New subscriptions added to the contract on top of the package's baseline
+    configuration. Distinct from modify_subscriptions, which adjusts subscriptions
+    defined on the package template. Same shape as create_contract's subscriptions.
+    """
+
+    modify_subscriptions: Iterable[PackageCustomizationsModifySubscription]
+    """Per-subscription overrides for the subscriptions defined on the package
+    template.
+
+    Each entry targets one template subscription and sets its starting quantity or
+    seats.
+    """
+
+    modify_usage_statement_schedule: PackageCustomizationsModifyUsageStatementSchedule
+    """
+    Per-contract adjustments to the usage statement schedule defined on the package.
+    """
+
+    set_prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration
+    """
+    Prepaid balance (credit balance recharge) threshold configuration for the
+    contract, using set (create-or-replace) semantics: supply the complete
+    configuration and it replaces the package's baseline in full. Same shape as
+    create_contract's prepaid_balance_threshold_configuration.
+    """
+
+    set_spend_threshold_configuration: SpendThresholdConfiguration
+    """
+    Spend threshold configuration for the contract, using set (create-or-replace)
+    semantics: supply the complete configuration and it replaces the package's
+    baseline in full. Same shape as create_contract's spend_threshold_configuration.
+    """
 
 
 class ProfessionalService(TypedDict, total=False):
@@ -1006,7 +2323,7 @@ class RecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1167,7 +2484,7 @@ class RecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1420,7 +2737,7 @@ class SubscriptionProration(TypedDict, total=False):
 
 
 class SubscriptionSubscriptionRate(TypedDict, total=False):
-    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
 
     Together with product_id, must match existing rate on the rate card.
@@ -1537,7 +2854,7 @@ class Transition(TypedDict, total=False):
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
 
     billing_anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Required when using CUSTOM_DATE.

@@ -198,7 +198,7 @@ class Commit(BaseModel):
 class OverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_template_ids: Optional[List[str]] = None
 
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]] = None
 
     commit_template_ids: Optional[List[str]] = None
 
@@ -305,7 +305,7 @@ class ScheduledCharge(BaseModel):
 
 
 class UsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]] = None
 
@@ -558,7 +558,7 @@ class RecurringCommit(BaseModel):
     proration_rounding: Optional[RecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -723,7 +723,7 @@ class RecurringCredit(BaseModel):
     proration_rounding: Optional[RecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -798,12 +798,21 @@ class SubscriptionSubscriptionRateProduct(BaseModel):
 
 
 class SubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionSubscriptionRateProduct
 
 
 class SubscriptionBillingCycleConfig(BaseModel):
+    billing_cycle_anchor: Optional[
+        Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "CUSTOM_DATE", "USAGE_STATEMENT_ANCHOR"]
+    ] = None
+    """
+    Which date each subscription materialized from this template anchors its billing
+    cycle to. USAGE_STATEMENT_ANCHOR (the default) tracks the contract's usage
+    statement anchor.
+    """
+
     invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
 
 
@@ -877,6 +886,13 @@ class Subscription(BaseModel):
     seat_config: Optional[SubscriptionSeatConfig] = None
 
     starting_at_offset: Optional[SubscriptionStartingAtOffset] = None
+
+    subscription_alias: Optional[str] = None
+    """
+    Human-readable, per-package-unique alias for this subscription template, if one
+    was set at package creation. Can be used to reference the subscription in
+    contract customizations.
+    """
 
 
 class PackageListResponse(BaseModel):

@@ -268,7 +268,7 @@ class DataEditAddCredit(BaseModel):
 class DataEditAddOverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_ids: Optional[List[str]] = None
 
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]] = None
 
     commit_ids: Optional[List[str]] = None
 
@@ -490,7 +490,7 @@ class DataEditAddRecurringCommit(BaseModel):
     proration_rounding: Optional[DataEditAddRecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -631,7 +631,7 @@ class DataEditAddRecurringCredit(BaseModel):
     proration_rounding: Optional[DataEditAddRecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -770,7 +770,7 @@ class DataEditAddSubscriptionSubscriptionRateProduct(BaseModel):
 
 
 class DataEditAddSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     product: DataEditAddSubscriptionSubscriptionRateProduct
 

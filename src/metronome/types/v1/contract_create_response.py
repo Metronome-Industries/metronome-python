@@ -25,6 +25,7 @@ __all__ = [
     "DataContractUsageFilter",
     "DataContractUsageStatementSchedule",
     "DataContractCustomerBillingProviderConfiguration",
+    "DataContractCustomerBillingProviderConfigurationUnbillableInvoicesConfiguration",
     "DataContractHasMore",
     "DataContractRecurringCommit",
     "DataContractRecurringCommitAccessAmount",
@@ -67,7 +68,31 @@ class DataContractUsageStatementSchedule(BaseModel):
     billing_anchor_date: datetime
     """Contract usage statements follow a selected cadence based on this date."""
 
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
+
+
+class DataContractCustomerBillingProviderConfigurationUnbillableInvoicesConfiguration(BaseModel):
+    """
+    An individual rule that, when evaluated to true, indicates that any invoices for this billing provider will not be sent to its associated destination for the associated contract. Rules only apply to the specified `invoice_type` (or all invoices if omitted) and `fiat_credit_type_id` (or all invoices if omitted). Rule precedence is evaluated from more specific to less specific. This method will fail with a 400 if multiple rules with the same specificity are included.
+    """
+
+    invoice_type: Literal["USAGE", "SCHEDULED"]
+    """The type of invoice this rule applies to."""
+
+    fiat_credit_type_id: Optional[str] = None
+    """Restricts the rule to invoices in this fiat currency.
+
+    Omit for a catch-all rule that applies to every currency of the `invoice_type`.
+    Required when `max_amount` is set.
+    """
+
+    max_amount: Optional[float] = None
+    """A positive decimal, in the units of `fiat_credit_type_id`.
+
+    Only invoices whose total is at or below this amount are suppressed; a higher
+    total is still sent to the billing provider. When omitted, every matching
+    invoice is suppressed regardless of amount.
+    """
 
 
 class DataContractCustomerBillingProviderConfiguration(BaseModel):
@@ -111,6 +136,16 @@ class DataContractCustomerBillingProviderConfiguration(BaseModel):
 
     delivery_method_id: str
     """ID of the delivery method to use for this customer."""
+
+    unbillable_invoices_configuration: Optional[
+        List[DataContractCustomerBillingProviderConfigurationUnbillableInvoicesConfiguration]
+    ] = None
+    """Rules that stop matching invoices from being sent to the billing provider.
+
+    Supported for Stripe and NetSuite billing provider configurations. When omitted,
+    every invoice is sent to the billing provider. Stripe invoices can be force-sent
+    after a rule suppresses them.
+    """
 
 
 class DataContractHasMore(BaseModel):
@@ -276,7 +311,7 @@ class DataContractRecurringCommit(BaseModel):
     proration_rounding: Optional[DataContractRecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -418,7 +453,7 @@ class DataContractRecurringCredit(BaseModel):
     proration_rounding: Optional[DataContractRecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.

@@ -781,7 +781,7 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     apply to any specified commit, credit, recurring commit or recurring credit IDs.
     """
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     commit_ids: SequenceNotStr[str]
     """If provided, the override will only apply to the specified commits.
@@ -1095,7 +1095,7 @@ class AddRecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1257,7 +1257,7 @@ class AddRecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1511,7 +1511,7 @@ class AddSubscriptionProration(TypedDict, total=False):
 
 
 class AddSubscriptionSubscriptionRate(TypedDict, total=False):
-    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
 
     Together with product_id, must match existing rate on the rate card.

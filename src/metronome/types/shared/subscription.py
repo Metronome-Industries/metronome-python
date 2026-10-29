@@ -85,7 +85,7 @@ class SubscriptionRateProduct(BaseModel):
 
 
 class SubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     product: SubscriptionRateProduct
 

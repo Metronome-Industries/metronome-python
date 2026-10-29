@@ -427,7 +427,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     apply to any specified commit, credit, recurring commit or recurring credit IDs.
     """
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.
@@ -758,7 +758,7 @@ class RecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -939,7 +939,7 @@ class RecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1072,7 +1072,7 @@ class SubscriptionProration(TypedDict, total=False):
 
 
 class SubscriptionSubscriptionRate(TypedDict, total=False):
-    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
 
     Together with product_id, must match existing rate on the rate card.
@@ -1083,6 +1083,14 @@ class SubscriptionSubscriptionRate(TypedDict, total=False):
 
 
 class SubscriptionBillingCycleConfig(TypedDict, total=False):
+    billing_cycle_anchor: Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "CUSTOM_DATE", "USAGE_STATEMENT_ANCHOR"]
+    """
+    Controls which date each subscription materialized from this template anchors
+    its billing cycle to. CUSTOM_DATE requires a subscription_anchor_date supplied
+    per contract via package customizations. Defaults to USAGE_STATEMENT_ANCHOR (the
+    contract's usage statement anchor) if omitted.
+    """
+
     invoice_placement: Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]
     """Controls whether subscriptions consolidate onto usage invoices.
 
@@ -1176,6 +1184,14 @@ class Subscription(TypedDict, total=False):
     for the subscription. If not provided, defaults to contract start date
     """
 
+    subscription_alias: str
+    """Optional human-readable, per-package-unique alias for this subscription
+    template.
+
+    Lets a contract customization reference the subscription by alias instead of its
+    template id.
+    """
+
     temporary_id: str
     """
     A temporary ID used to reference the subscription in recurring commit/credit
@@ -1194,7 +1210,7 @@ class UsageStatementScheduleInvoiceGenerationStartingAtOffset(TypedDict, total=F
 
 
 class UsageStatementSchedule(TypedDict, total=False):
-    frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
 
     day: Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]
     """If not provided, defaults to the first day of the month."""
