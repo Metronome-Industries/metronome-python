@@ -130,7 +130,7 @@ class PlansResource(SyncAPIResource):
         """Associate an existing customer with a plan for a specified date range.
 
         See the
-        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
         for details on the price adjustments. This is a Plans (deprecated) endpoint. New
         clients should implement using Contracts.
 
@@ -149,7 +149,7 @@ class PlansResource(SyncAPIResource):
 
           price_adjustments: A list of price adjustments can be applied on top of the pricing in the plans.
               See the
-              [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+              [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
               for details.
 
           trial_spec: A custom trial can be set for the customer's plan. See the
@@ -266,7 +266,7 @@ class PlansResource(SyncAPIResource):
         """Lists a customer plans adjustments.
 
         See the
-        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
         for details. This is a Plans (deprecated) endpoint. New clients should implement
         using Contracts.
 
@@ -408,7 +408,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """Associate an existing customer with a plan for a specified date range.
 
         See the
-        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
         for details on the price adjustments. This is a Plans (deprecated) endpoint. New
         clients should implement using Contracts.
 
@@ -427,7 +427,7 @@ class AsyncPlansResource(AsyncAPIResource):
 
           price_adjustments: A list of price adjustments can be applied on top of the pricing in the plans.
               See the
-              [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+              [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
               for details.
 
           trial_spec: A custom trial can be set for the customer's plan. See the
@@ -544,7 +544,7 @@ class AsyncPlansResource(AsyncAPIResource):
         """Lists a customer plans adjustments.
 
         See the
-        [price adjustments documentation](https://plans-docs.metronome.com/pricing/managing-plans/#price-adjustments)
+        [price adjustments documentation](https://docs.metronome.com/plans-guides/price-adjustments)
         for details. This is a Plans (deprecated) endpoint. New clients should implement
         using Contracts.
 

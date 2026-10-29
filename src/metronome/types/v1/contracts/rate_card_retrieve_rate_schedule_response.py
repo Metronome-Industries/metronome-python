@@ -27,7 +27,7 @@ class Data(BaseModel):
 
     starting_at: datetime
 
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]] = None
 
     commit_rate: Optional[CommitRate] = None
     """A distinct rate on the rate card.
