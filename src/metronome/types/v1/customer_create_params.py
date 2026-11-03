@@ -11,6 +11,7 @@ __all__ = [
     "CustomerCreateParams",
     "BillingConfig",
     "CustomerBillingProviderConfiguration",
+    "CustomerBillingProviderConfigurationUnbillableInvoicesConfiguration",
     "CustomerRevenueSystemConfiguration",
 ]
 
@@ -96,6 +97,30 @@ class BillingConfig(TypedDict, total=False):
     """The collection method for the customer's invoices."""
 
 
+class CustomerBillingProviderConfigurationUnbillableInvoicesConfiguration(TypedDict, total=False):
+    """
+    An individual rule that, when evaluated to true, indicates that any invoices for this billing provider will not be sent to its associated destination for the associated contract. Rules only apply to the specified `invoice_type` (or all invoices if omitted) and `fiat_credit_type_id` (or all invoices if omitted). Rule precedence is evaluated from more specific to less specific. This method will fail with a 400 if multiple rules with the same specificity are included.
+    """
+
+    invoice_type: Required[Literal["USAGE", "SCHEDULED"]]
+    """The type of invoice this rule applies to."""
+
+    fiat_credit_type_id: str
+    """Restricts the rule to invoices in this fiat currency.
+
+    Omit for a catch-all rule that applies to every currency of the `invoice_type`.
+    Required when `max_amount` is set.
+    """
+
+    max_amount: float
+    """A positive decimal, in the units of `fiat_credit_type_id`.
+
+    Only invoices whose total is at or below this amount are suppressed; a higher
+    total is still sent to the billing provider. When omitted, every matching
+    invoice is suppressed regardless of amount.
+    """
+
+
 class CustomerBillingProviderConfiguration(TypedDict, total=False):
     billing_provider: Required[Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]]
     """The billing provider set for this configuration."""
@@ -125,6 +150,14 @@ class CustomerBillingProviderConfiguration(TypedDict, total=False):
     Specifies which tax provider Metronome should use for tax calculation when
     billing through Stripe. This is only supported for Stripe billing provider
     configurations.
+    """
+
+    unbillable_invoices_configuration: Iterable[CustomerBillingProviderConfigurationUnbillableInvoicesConfiguration]
+    """Rules that stop matching invoices from being sent to the billing provider.
+
+    Supported for Stripe and NetSuite billing provider configurations. When omitted,
+    every invoice is sent to the billing provider. Stripe invoices can be force-sent
+    after a rule suppresses them.
     """
 
 
