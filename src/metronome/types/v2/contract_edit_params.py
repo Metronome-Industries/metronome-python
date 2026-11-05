@@ -142,11 +142,7 @@ class ContractEditParams(TypedDict, total=False):
     """ID of the customer whose contract is being edited"""
 
     add_billing_provider_configuration_update: AddBillingProviderConfigurationUpdate
-    """Update the billing provider configuration on the contract.
-
-    Currently only supports adding a billing provider configuration to a contract
-    that does not already have one.
-    """
+    """Update the billing provider configuration on the contract."""
 
     add_commits: Iterable[AddCommit]
 
@@ -284,15 +280,12 @@ class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
     Any charges accrued during the schedule will be billed to the indicated billing provider.
     """
 
-    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD", "TODAY"]]
     """When the billing provider update will take effect."""
 
 
 class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
-    """Update the billing provider configuration on the contract.
-
-    Currently only supports adding a billing provider configuration to a contract that does not already have one.
-    """
+    """Update the billing provider configuration on the contract."""
 
     billing_provider_configuration: Required[AddBillingProviderConfigurationUpdateBillingProviderConfiguration]
 

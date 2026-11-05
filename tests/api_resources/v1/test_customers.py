@@ -171,6 +171,7 @@ class TestCustomers:
             next_page="next_page",
             only_archived=True,
             salesforce_account_ids=["string"],
+            stripe_customer_id="stripe_customer_id",
         )
         assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
@@ -858,6 +859,7 @@ class TestAsyncCustomers:
             next_page="next_page",
             only_archived=True,
             salesforce_account_ids=["string"],
+            stripe_customer_id="stripe_customer_id",
         )
         assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 

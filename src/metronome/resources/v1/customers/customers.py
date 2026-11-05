@@ -313,6 +313,7 @@ class CustomersResource(SyncAPIResource):
         next_page: str | Omit = omit,
         only_archived: bool | Omit = omit,
         salesforce_account_ids: SequenceNotStr[str] | Omit = omit,
+        stripe_customer_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -343,6 +344,12 @@ class CustomersResource(SyncAPIResource):
           salesforce_account_ids: Filter the customer list by salesforce_account_id. Up to 100 ids can be
               provided.
 
+          stripe_customer_id: Filter the customer list by the stripe_customer_id of active Stripe billing
+              provider configurations. A Stripe customer ID can be linked to multiple
+              customers, so it may match more than one customer. Archiving a customer also
+              archives its billing provider configurations, so archived customers generally
+              won't match.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -367,6 +374,7 @@ class CustomersResource(SyncAPIResource):
                         "next_page": next_page,
                         "only_archived": only_archived,
                         "salesforce_account_ids": salesforce_account_ids,
+                        "stripe_customer_id": stripe_customer_id,
                     },
                     customer_list_params.CustomerListParams,
                 ),
@@ -1146,6 +1154,7 @@ class AsyncCustomersResource(AsyncAPIResource):
         next_page: str | Omit = omit,
         only_archived: bool | Omit = omit,
         salesforce_account_ids: SequenceNotStr[str] | Omit = omit,
+        stripe_customer_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1176,6 +1185,12 @@ class AsyncCustomersResource(AsyncAPIResource):
           salesforce_account_ids: Filter the customer list by salesforce_account_id. Up to 100 ids can be
               provided.
 
+          stripe_customer_id: Filter the customer list by the stripe_customer_id of active Stripe billing
+              provider configurations. A Stripe customer ID can be linked to multiple
+              customers, so it may match more than one customer. Archiving a customer also
+              archives its billing provider configurations, so archived customers generally
+              won't match.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1200,6 +1215,7 @@ class AsyncCustomersResource(AsyncAPIResource):
                         "next_page": next_page,
                         "only_archived": only_archived,
                         "salesforce_account_ids": salesforce_account_ids,
+                        "stripe_customer_id": stripe_customer_id,
                     },
                     customer_list_params.CustomerListParams,
                 ),
