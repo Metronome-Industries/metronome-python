@@ -1051,6 +1051,14 @@ class AddRecurringCommit(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -1215,6 +1223,14 @@ class AddRecurringCredit(TypedDict, total=False):
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
+
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
 
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""

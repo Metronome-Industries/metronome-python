@@ -82,6 +82,8 @@ __all__ = [
     "PackageCustomizationsAddSubscriptionSubscriptionRate",
     "PackageCustomizationsAddSubscriptionBillingCycleConfig",
     "PackageCustomizationsAddSubscriptionSeatConfig",
+    "PackageCustomizationsModifyRecurringCommit",
+    "PackageCustomizationsModifyRecurringCredit",
     "PackageCustomizationsModifySubscription",
     "PackageCustomizationsModifyUsageStatementSchedule",
     "ProfessionalService",
@@ -1492,6 +1494,14 @@ class PackageCustomizationsAddRecurringCommit(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -1679,6 +1689,14 @@ class PackageCustomizationsAddRecurringCredit(TypedDict, total=False):
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
+
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
 
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
@@ -2006,6 +2024,30 @@ class PackageCustomizationsAddSubscription(TypedDict, total=False):
     """
 
 
+class PackageCustomizationsModifyRecurringCommit(TypedDict, total=False):
+    anchor_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """
+    Recurring cycle anchor date for this recurring commit or credit, required when
+    the template's `anchor_date` is `CUSTOM_DATE` and disallowed otherwise. Must be
+    on or before the recurring commit's or credit's `starting_at`.
+    """
+
+    template_recurring_commit_id: Required[str]
+    """ID of the template recurring commit on the package to customize."""
+
+
+class PackageCustomizationsModifyRecurringCredit(TypedDict, total=False):
+    anchor_date: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """
+    Recurring cycle anchor date for this recurring commit or credit, required when
+    the template's `anchor_date` is `CUSTOM_DATE` and disallowed otherwise. Must be
+    on or before the recurring commit's or credit's `starting_at`.
+    """
+
+    template_recurring_credit_id: Required[str]
+    """ID of the template recurring credit on the package to customize."""
+
+
 class PackageCustomizationsModifySubscription(TypedDict, total=False):
     initial_quantity: float
     """The initial quantity for the subscription.
@@ -2113,6 +2155,20 @@ class PackageCustomizations(TypedDict, total=False):
     New subscriptions added to the contract on top of the package's baseline
     configuration. Distinct from modify_subscriptions, which adjusts subscriptions
     defined on the package template. Same shape as create_contract's subscriptions.
+    """
+
+    modify_recurring_commits: Iterable[PackageCustomizationsModifyRecurringCommit]
+    """Per-contract values for recurring commits defined on the package.
+
+    Every template recurring commit whose `anchor_date` is `CUSTOM_DATE` needs
+    exactly one entry.
+    """
+
+    modify_recurring_credits: Iterable[PackageCustomizationsModifyRecurringCredit]
+    """Per-contract values for recurring credits defined on the package.
+
+    Every template recurring credit whose `anchor_date` is `CUSTOM_DATE` needs
+    exactly one entry.
     """
 
     modify_subscriptions: Iterable[PackageCustomizationsModifySubscription]
@@ -2286,6 +2342,14 @@ class RecurringCommit(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -2449,6 +2513,14 @@ class RecurringCredit(TypedDict, total=False):
 
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
+
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
 
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""

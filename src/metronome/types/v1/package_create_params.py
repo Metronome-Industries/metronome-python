@@ -724,6 +724,15 @@ class RecurringCommit(TypedDict, total=False):
     the first commit
     """
 
+    anchor_date: Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]
+    """
+    Which date each recurring commit or credit created from this template anchors
+    its periods to. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement
+    anchor. `SUBSCRIPTION_START` requires a `subscription_config`. `CUSTOM_DATE`
+    requires an `anchor_date` supplied per contract through
+    `package_customizations.modify_recurring_commits` or `modify_recurring_credits`.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -906,6 +915,15 @@ class RecurringCredit(TypedDict, total=False):
     """
     Offset relative to the contract start date that determines the start time for
     the first commit
+    """
+
+    anchor_date: Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]
+    """
+    Which date each recurring commit or credit created from this template anchors
+    its periods to. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement
+    anchor. `SUBSCRIPTION_START` requires a `subscription_config`. `CUSTOM_DATE`
+    requires an `anchor_date` supplied per contract through
+    `package_customizations.modify_recurring_commits` or `modify_recurring_credits`.
     """
 
     applicable_product_ids: SequenceNotStr[str]

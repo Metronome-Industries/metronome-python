@@ -529,6 +529,14 @@ class RecurringCommit(BaseModel):
     the first commit
     """
 
+    anchor_date: Optional[Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]] = (
+        None
+    )
+    """
+    Recurring cycle anchor for recurring commits or credits created from this
+    template. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement anchor.
+    """
+
     applicable_product_ids: Optional[List[str]] = None
     """Will be passed down to the individual commits"""
 
@@ -695,6 +703,14 @@ class RecurringCredit(BaseModel):
     """
     Offset relative to the contract start date that determines the start time for
     the first commit
+    """
+
+    anchor_date: Optional[Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]] = (
+        None
+    )
+    """
+    Recurring cycle anchor for recurring commits or credits created from this
+    template. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement anchor.
     """
 
     applicable_product_ids: Optional[List[str]] = None
