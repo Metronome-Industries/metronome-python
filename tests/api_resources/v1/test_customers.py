@@ -57,8 +57,8 @@ class TestCustomers:
                 {
                     "billing_provider": "stripe",
                     "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
+                        "aws_customer_account_id": "aws_customer_account_id",
+                        "aws_license_arn": "aws_license_arn",
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -745,8 +745,8 @@ class TestAsyncCustomers:
                 {
                     "billing_provider": "stripe",
                     "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
+                        "aws_customer_account_id": "aws_customer_account_id",
+                        "aws_license_arn": "aws_license_arn",
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

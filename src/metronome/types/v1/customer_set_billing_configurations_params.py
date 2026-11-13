@@ -2,14 +2,39 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["CustomerSetBillingConfigurationsParams", "Data", "DataUnbillableInvoicesConfiguration"]
+__all__ = ["CustomerSetBillingConfigurationsParams", "Data", "DataConfiguration", "DataUnbillableInvoicesConfiguration"]
 
 
 class CustomerSetBillingConfigurationsParams(TypedDict, total=False):
     data: Required[Iterable[Data]]
+
+
+class DataConfiguration(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider and delivery method combination. Defaults to an empty object, however, for most billing provider + delivery method combinations, it will not be a valid configuration.  For AWS marketplace configurations, the aws_is_subscription_product flag can be used to indicate a product with usage-based pricing.  More information can be found [here](https://docs.metronome.com/invoice-customers/solutions/marketplaces/invoice-aws/#provision-aws-marketplace-customers-in-metronome).
+    """
+
+    aws_customer_account_id: str
+    """AWS Marketplace only.
+
+    The buyer's 12 digit AWS account ID. Must be sent together with
+    `aws_license_arn`.
+    """
+
+    aws_license_arn: str
+    """AWS Marketplace only.
+
+    The ARN of the buyer's AWS License Manager license for this purchase. Must be
+    sent together with `aws_customer_account_id`.
+    """
 
 
 class DataUnbillableInvoicesConfiguration(TypedDict, total=False):
@@ -54,7 +79,7 @@ class Data(TypedDict, total=False):
 
     customer_id: Required[str]
 
-    configuration: Dict[str, object]
+    configuration: DataConfiguration
     """Configuration for the billing provider.
 
     The structure of this object is specific to the billing provider and delivery

@@ -11,6 +11,7 @@ __all__ = [
     "CustomerCreateParams",
     "BillingConfig",
     "CustomerBillingProviderConfiguration",
+    "CustomerBillingProviderConfigurationConfiguration",
     "CustomerBillingProviderConfigurationUnbillableInvoicesConfiguration",
     "CustomerRevenueSystemConfiguration",
 ]
@@ -57,8 +58,16 @@ class BillingConfig(TypedDict, total=False):
     ]
 
     aws_customer_account_id: str
+    """Deprecated and ignored by the server.
+
+    The customer ID comes from `billing_provider_customer_id`.
+    """
 
     aws_customer_id: str
+    """Deprecated and ignored by the server.
+
+    The customer ID comes from `billing_provider_customer_id`.
+    """
 
     aws_is_subscription_product: bool
     """True if the aws_product_code is a SAAS subscription product, false otherwise."""
@@ -97,6 +106,31 @@ class BillingConfig(TypedDict, total=False):
     """The collection method for the customer's invoices."""
 
 
+class CustomerBillingProviderConfigurationConfiguration(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
+    """Configuration for the billing provider.
+
+    The structure of this object is specific to the billing provider and delivery provider combination. Defaults to an empty object, however, for most billing provider + delivery method combinations, it will not be a valid configuration.
+    """
+
+    aws_customer_account_id: str
+    """AWS Marketplace only.
+
+    The buyer's 12 digit AWS account ID. Must be sent together with
+    `aws_license_arn`.
+    """
+
+    aws_license_arn: str
+    """AWS Marketplace only.
+
+    The ARN of the buyer's AWS License Manager license for this purchase. Must be
+    sent together with `aws_customer_account_id`.
+    """
+
+
 class CustomerBillingProviderConfigurationUnbillableInvoicesConfiguration(TypedDict, total=False):
     """
     An individual rule that, when evaluated to true, indicates that any invoices for this billing provider will not be sent to its associated destination for the associated contract. Rules only apply to the specified `invoice_type` (or all invoices if omitted) and `fiat_credit_type_id` (or all invoices if omitted). Rule precedence is evaluated from more specific to less specific. This method will fail with a 400 if multiple rules with the same specificity are included.
@@ -125,7 +159,7 @@ class CustomerBillingProviderConfiguration(TypedDict, total=False):
     billing_provider: Required[Literal["aws_marketplace", "azure_marketplace", "gcp_marketplace", "stripe", "netsuite"]]
     """The billing provider set for this configuration."""
 
-    configuration: Dict[str, object]
+    configuration: CustomerBillingProviderConfigurationConfiguration
     """Configuration for the billing provider.
 
     The structure of this object is specific to the billing provider and delivery
