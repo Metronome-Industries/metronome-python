@@ -142,11 +142,7 @@ class ContractEditParams(TypedDict, total=False):
     """ID of the customer whose contract is being edited"""
 
     add_billing_provider_configuration_update: AddBillingProviderConfigurationUpdate
-    """Update the billing provider configuration on the contract.
-
-    Currently only supports adding a billing provider configuration to a contract
-    that does not already have one.
-    """
+    """Update the billing provider configuration on the contract."""
 
     add_commits: Iterable[AddCommit]
 
@@ -275,7 +271,7 @@ class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDic
 
     billing_provider_configuration_id: Optional[str]
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
 
 
 class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
@@ -284,15 +280,12 @@ class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
     Any charges accrued during the schedule will be billed to the indicated billing provider.
     """
 
-    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD"]]
+    effective_at: Required[Literal["START_OF_CURRENT_PERIOD", "START_OF_NEXT_PERIOD", "TODAY"]]
     """When the billing provider update will take effect."""
 
 
 class AddBillingProviderConfigurationUpdate(TypedDict, total=False):
-    """Update the billing provider configuration on the contract.
-
-    Currently only supports adding a billing provider configuration to a contract that does not already have one.
-    """
+    """Update the billing provider configuration on the contract."""
 
     billing_provider_configuration: Required[AddBillingProviderConfigurationUpdateBillingProviderConfiguration]
 
@@ -781,7 +774,7 @@ class AddOverrideOverrideSpecifier(TypedDict, total=False):
     apply to any specified commit, credit, recurring commit or recurring credit IDs.
     """
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     commit_ids: SequenceNotStr[str]
     """If provided, the override will only apply to the specified commits.
@@ -1058,6 +1051,14 @@ class AddRecurringCommit(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -1095,7 +1096,7 @@ class AddRecurringCommit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1223,6 +1224,14 @@ class AddRecurringCredit(TypedDict, total=False):
     starting_at: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """determines the start time for the first commit"""
 
+    anchor_date: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The date this recurring commit's or credit's periods are anchored to.
+
+    Must be on or before `starting_at`. If omitted, periods are anchored to
+    `starting_at` when `recurrence_frequency` is set, and to the contract's usage
+    statement billing anchor otherwise.
+    """
+
     applicable_product_ids: SequenceNotStr[str]
     """Will be passed down to the individual commits"""
 
@@ -1257,7 +1266,7 @@ class AddRecurringCredit(TypedDict, total=False):
     rate_type: Literal["COMMIT_RATE", "LIST_RATE"]
     """Whether the created commits will use the commit rate or list rate"""
 
-    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]
+    recurrence_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -1335,7 +1344,7 @@ class AddResellerRoyalty(TypedDict, total=False):
 
 
 class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, total=False):
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
 
     provider: Literal["netsuite"]
     """The revenue system provider type."""
@@ -1511,7 +1520,7 @@ class AddSubscriptionProration(TypedDict, total=False):
 
 
 class AddSubscriptionSubscriptionRate(TypedDict, total=False):
-    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]]
+    billing_frequency: Required[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]]
     """Frequency to bill subscription with.
 
     Together with product_id, must match existing rate on the rate card.

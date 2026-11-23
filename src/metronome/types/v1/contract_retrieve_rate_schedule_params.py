@@ -39,7 +39,7 @@ class ContractRetrieveRateScheduleParams(TypedDict, total=False):
 
 
 class Selector(TypedDict, total=False):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
     """
     Subscription rates matching the billing frequency will be included in the
     response.

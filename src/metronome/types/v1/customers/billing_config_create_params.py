@@ -31,8 +31,16 @@ class BillingConfigCreateParams(TypedDict, total=False):
     """
 
     aws_customer_account_id: str
+    """Deprecated and ignored by the server.
+
+    The customer ID comes from `billing_provider_customer_id`.
+    """
 
     aws_customer_id: str
+    """Deprecated and ignored by the server.
+
+    The customer ID comes from `billing_provider_customer_id`.
+    """
 
     aws_product_code: str
 

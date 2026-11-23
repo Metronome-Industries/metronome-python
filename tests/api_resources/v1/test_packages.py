@@ -275,6 +275,7 @@ class TestPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "anchor_date": "SUBSCRIPTION_START",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "description": "description",
@@ -336,6 +337,7 @@ class TestPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "anchor_date": "SUBSCRIPTION_START",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "description": "description",
@@ -449,7 +451,10 @@ class TestPackages:
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
-                    "billing_cycle_config": {"invoice_placement": "ON_SCHEDULED_INVOICE"},
+                    "billing_cycle_config": {
+                        "billing_cycle_anchor": "SUBSCRIPTION_START",
+                        "invoice_placement": "ON_SCHEDULED_INVOICE",
+                    },
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "duration": {
@@ -467,6 +472,7 @@ class TestPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "subscription_alias": "subscription_alias",
                     "temporary_id": "temporary_id",
                 }
             ],
@@ -901,6 +907,7 @@ class TestAsyncPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "anchor_date": "SUBSCRIPTION_START",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "description": "description",
@@ -962,6 +969,7 @@ class TestAsyncPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "anchor_date": "SUBSCRIPTION_START",
                     "applicable_product_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                     "applicable_product_tags": ["string"],
                     "description": "description",
@@ -1075,7 +1083,10 @@ class TestAsyncPackages:
                         "billing_frequency": "MONTHLY",
                         "product_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     },
-                    "billing_cycle_config": {"invoice_placement": "ON_SCHEDULED_INVOICE"},
+                    "billing_cycle_config": {
+                        "billing_cycle_anchor": "SUBSCRIPTION_START",
+                        "invoice_placement": "ON_SCHEDULED_INVOICE",
+                    },
                     "custom_fields": {"foo": "string"},
                     "description": "description",
                     "duration": {
@@ -1093,6 +1104,7 @@ class TestAsyncPackages:
                         "unit": "DAYS",
                         "value": 0,
                     },
+                    "subscription_alias": "subscription_alias",
                     "temporary_id": "temporary_id",
                 }
             ],

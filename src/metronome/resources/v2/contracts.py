@@ -297,9 +297,7 @@ class ContractsResource(SyncAPIResource):
 
           customer_id: ID of the customer whose contract is being edited
 
-          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
-              supports adding a billing provider configuration to a contract that does not
-              already have one.
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract.
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 
@@ -944,9 +942,7 @@ class AsyncContractsResource(AsyncAPIResource):
 
           customer_id: ID of the customer whose contract is being edited
 
-          add_billing_provider_configuration_update: Update the billing provider configuration on the contract. Currently only
-              supports adding a billing provider configuration to a contract that does not
-              already have one.
+          add_billing_provider_configuration_update: Update the billing provider configuration on the contract.
 
           add_professional_services: This field's availability is dependent on your client's configuration.
 

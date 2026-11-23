@@ -57,12 +57,29 @@ class TestCustomers:
                 {
                     "billing_provider": "stripe",
                     "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
+                        "aws_customer_account_id": "aws_customer_account_id",
+                        "aws_license_arn": "aws_license_arn",
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "tax_provider": "anrok",
+                    "unbillable_invoices_configuration": [
+                        {
+                            "invoice_type": "USAGE",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                        {
+                            "invoice_type": "USAGE",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                        {
+                            "invoice_type": "SCHEDULED",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                    ],
                 }
             ],
             customer_revenue_system_configurations=[
@@ -154,6 +171,7 @@ class TestCustomers:
             next_page="next_page",
             only_archived=True,
             salesforce_account_ids=["string"],
+            stripe_customer_id="stripe_customer_id",
         )
         assert_matches_type(SyncCursorPage[CustomerDetail], customer, path=["response"])
 
@@ -727,12 +745,29 @@ class TestAsyncCustomers:
                 {
                     "billing_provider": "stripe",
                     "configuration": {
-                        "stripe_customer_id": "bar",
-                        "stripe_collection_method": "bar",
+                        "aws_customer_account_id": "aws_customer_account_id",
+                        "aws_license_arn": "aws_license_arn",
                     },
                     "delivery_method": "direct_to_billing_provider",
                     "delivery_method_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "tax_provider": "anrok",
+                    "unbillable_invoices_configuration": [
+                        {
+                            "invoice_type": "USAGE",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                        {
+                            "invoice_type": "USAGE",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                        {
+                            "invoice_type": "SCHEDULED",
+                            "fiat_credit_type_id": "2714e483-4ff1-48e4-9e25-ac732e8f24f2",
+                            "max_amount": 1000,
+                        },
+                    ],
                 }
             ],
             customer_revenue_system_configurations=[
@@ -824,6 +859,7 @@ class TestAsyncCustomers:
             next_page="next_page",
             only_archived=True,
             salesforce_account_ids=["string"],
+            stripe_customer_id="stripe_customer_id",
         )
         assert_matches_type(AsyncCursorPage[CustomerDetail], customer, path=["response"])
 

@@ -33,3 +33,12 @@ class CustomerListParams(TypedDict, total=False):
 
     Up to 100 ids can be provided.
     """
+
+    stripe_customer_id: str
+    """
+    Filter the customer list by the stripe_customer_id of active Stripe billing
+    provider configurations. A Stripe customer ID can be linked to multiple
+    customers, so it may match more than one customer. Archiving a customer also
+    archives its billing provider configurations, so archived customers generally
+    won't match.
+    """

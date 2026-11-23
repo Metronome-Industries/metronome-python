@@ -488,7 +488,7 @@ class OverrideOverrideSpecifier(TypedDict, total=False):
     apply to any specified commit, credit, recurring commit or recurring credit IDs.
     """
 
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     commit_ids: SequenceNotStr[str]
     """Can only be used for commit specific overrides.

@@ -147,6 +147,7 @@ class ContractsResource(SyncAPIResource):
         netsuite_sales_order_id: str | Omit = omit,
         overrides: Iterable[contract_create_params.Override] | Omit = omit,
         package_alias: str | Omit = omit,
+        package_customizations: contract_create_params.PackageCustomizations | Omit = omit,
         package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
@@ -321,6 +322,9 @@ class ContractsResource(SyncAPIResource):
           package_alias: Selects the package linked to the specified alias as of the contract's start
               date. Mutually exclusive with package_id.
 
+          package_customizations: Adjustments applied on top of the package's baseline configuration when
+              provisioning the contract.
+
           package_id: If provided, provisions a customer on a package instead of creating a
               traditional contract. When specified, only customer_id, starting_at, package_id,
               uniqueness_key, transition, and custom_fields are allowed.
@@ -342,6 +346,16 @@ class ContractsResource(SyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+              For recurring fixed fees, such as a monthly platform fee, use a
+              [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+              with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+              of recurring scheduled charges with this field set to `ALL`. Metronome
+              recalculates a subscription's usage invoice line items from the current contract
+              each time it invoices, so the charges stay on the correct usage invoice after
+              contract edits such as end date changes or transitions. Use this field for
+              one-time scheduled charges and commit purchases, which subscriptions can't
+              represent.
 
           spend_trackers: Spend trackers to attach to this contract. Aliases must be unique within a
               contract.
@@ -383,6 +397,7 @@ class ContractsResource(SyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "package_alias": package_alias,
+                    "package_customizations": package_customizations,
                     "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
                     "professional_services": professional_services,
@@ -1649,6 +1664,7 @@ class AsyncContractsResource(AsyncAPIResource):
         netsuite_sales_order_id: str | Omit = omit,
         overrides: Iterable[contract_create_params.Override] | Omit = omit,
         package_alias: str | Omit = omit,
+        package_customizations: contract_create_params.PackageCustomizations | Omit = omit,
         package_id: str | Omit = omit,
         prepaid_balance_threshold_configuration: PrepaidBalanceThresholdConfiguration | Omit = omit,
         professional_services: Iterable[contract_create_params.ProfessionalService] | Omit = omit,
@@ -1823,6 +1839,9 @@ class AsyncContractsResource(AsyncAPIResource):
           package_alias: Selects the package linked to the specified alias as of the contract's start
               date. Mutually exclusive with package_id.
 
+          package_customizations: Adjustments applied on top of the package's baseline configuration when
+              provisioning the contract.
+
           package_id: If provided, provisions a customer on a package instead of creating a
               traditional contract. When specified, only customer_id, starting_at, package_id,
               uniqueness_key, transition, and custom_fields are allowed.
@@ -1844,6 +1863,16 @@ class AsyncContractsResource(AsyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+              For recurring fixed fees, such as a monthly platform fee, use a
+              [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+              with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+              of recurring scheduled charges with this field set to `ALL`. Metronome
+              recalculates a subscription's usage invoice line items from the current contract
+              each time it invoices, so the charges stay on the correct usage invoice after
+              contract edits such as end date changes or transitions. Use this field for
+              one-time scheduled charges and commit purchases, which subscriptions can't
+              represent.
 
           spend_trackers: Spend trackers to attach to this contract. Aliases must be unique within a
               contract.
@@ -1885,6 +1914,7 @@ class AsyncContractsResource(AsyncAPIResource):
                     "netsuite_sales_order_id": netsuite_sales_order_id,
                     "overrides": overrides,
                     "package_alias": package_alias,
+                    "package_customizations": package_customizations,
                     "package_id": package_id,
                     "prepaid_balance_threshold_configuration": prepaid_balance_threshold_configuration,
                     "professional_services": professional_services,

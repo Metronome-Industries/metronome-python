@@ -199,7 +199,7 @@ class DataCommit(BaseModel):
 class DataOverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_template_ids: Optional[List[str]] = None
 
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]] = None
 
     commit_template_ids: Optional[List[str]] = None
 
@@ -306,7 +306,7 @@ class DataScheduledCharge(BaseModel):
 
 
 class DataUsageStatementSchedule(BaseModel):
-    frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     day: Optional[Literal["FIRST_OF_MONTH", "CONTRACT_START", "CUSTOM_DATE"]] = None
 
@@ -530,6 +530,14 @@ class DataRecurringCommit(BaseModel):
     the first commit
     """
 
+    anchor_date: Optional[Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]] = (
+        None
+    )
+    """
+    Recurring cycle anchor for recurring commits or credits created from this
+    template. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement anchor.
+    """
+
     applicable_product_ids: Optional[List[str]] = None
     """Will be passed down to the individual commits"""
 
@@ -559,7 +567,7 @@ class DataRecurringCommit(BaseModel):
     proration_rounding: Optional[DataRecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -698,6 +706,14 @@ class DataRecurringCredit(BaseModel):
     the first commit
     """
 
+    anchor_date: Optional[Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "USAGE_STATEMENT_ANCHOR", "CUSTOM_DATE"]] = (
+        None
+    )
+    """
+    Recurring cycle anchor for recurring commits or credits created from this
+    template. `USAGE_STATEMENT_ANCHOR` tracks the contract's usage statement anchor.
+    """
+
     applicable_product_ids: Optional[List[str]] = None
     """Will be passed down to the individual commits"""
 
@@ -724,7 +740,7 @@ class DataRecurringCredit(BaseModel):
     proration_rounding: Optional[DataRecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -799,12 +815,21 @@ class DataSubscriptionSubscriptionRateProduct(BaseModel):
 
 
 class DataSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     product: DataSubscriptionSubscriptionRateProduct
 
 
 class DataSubscriptionBillingCycleConfig(BaseModel):
+    billing_cycle_anchor: Optional[
+        Literal["SUBSCRIPTION_START", "FIRST_OF_MONTH", "CUSTOM_DATE", "USAGE_STATEMENT_ANCHOR"]
+    ] = None
+    """
+    Which date each subscription materialized from this template anchors its billing
+    cycle to. USAGE_STATEMENT_ANCHOR (the default) tracks the contract's usage
+    statement anchor.
+    """
+
     invoice_placement: Optional[Literal["ON_SCHEDULED_INVOICE", "ON_USAGE_INVOICE"]] = None
 
 
@@ -879,6 +904,13 @@ class DataSubscription(BaseModel):
 
     starting_at_offset: Optional[DataSubscriptionStartingAtOffset] = None
 
+    subscription_alias: Optional[str] = None
+    """
+    Human-readable, per-package-unique alias for this subscription template, if one
+    was set at package creation. Can be used to reference the subscription in
+    contract customizations.
+    """
+
 
 class Data(BaseModel):
     id: str
@@ -918,7 +950,7 @@ class Data(BaseModel):
 
     credits: Optional[List[DataCredit]] = None
 
-    delivery_method: Optional[Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]] = None
+    delivery_method: Optional[Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]] = None
 
     duration: Optional[DataDuration] = None
 
@@ -949,6 +981,16 @@ class Data(BaseModel):
     `ending_before` date for consolidation to occur. This field cannot be modified
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
+
+    For recurring fixed fees, such as a monthly platform fee, use a
+    [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+    with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+    of recurring scheduled charges with this field set to `ALL`. Metronome
+    recalculates a subscription's usage invoice line items from the current contract
+    each time it invoices, so the charges stay on the correct usage invoice after
+    contract edits such as end date changes or transitions. Use this field for
+    one-time scheduled charges and commit purchases, which subscriptions can't
+    represent.
     """
 
     spend_threshold_configuration: Optional[SpendThresholdConfiguration] = None

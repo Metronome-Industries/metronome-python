@@ -29,6 +29,9 @@ __all__ = [
     "DataEditAddCommitProduct",
     "DataEditAddCommitInvoiceSchedule",
     "DataEditAddCommitInvoiceScheduleScheduleItem",
+    "DataEditAddCommitPaymentGateConfig",
+    "DataEditAddCommitPaymentGateConfigPrecalculatedTaxConfig",
+    "DataEditAddCommitPaymentGateConfigStripeConfig",
     "DataEditAddCredit",
     "DataEditAddCreditProduct",
     "DataEditAddOverride",
@@ -157,6 +160,73 @@ class DataEditAddCommitInvoiceSchedule(BaseModel):
     schedule_items: Optional[List[DataEditAddCommitInvoiceScheduleScheduleItem]] = None
 
 
+class DataEditAddCommitPaymentGateConfigPrecalculatedTaxConfig(BaseModel):
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    tax_amount: float
+    """Amount of tax to be applied.
+
+    This should be in the same currency and denomination as the commit's invoice
+    schedule
+    """
+
+    tax_name: Optional[str] = None
+    """Name of the tax to be applied.
+
+    This may be used in an invoice line item description.
+    """
+
+
+class DataEditAddCommitPaymentGateConfigStripeConfig(BaseModel):
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    payment_type: Literal["INVOICE", "PAYMENT_INTENT"]
+    """If left blank, will default to INVOICE"""
+
+    invoice_metadata: Optional[Dict[str, str]] = None
+    """Metadata to be added to the Stripe invoice.
+
+    Only applicable if using INVOICE as your payment type.
+    """
+
+    on_session_payment: Optional[bool] = None
+    """If true, the payment will be made assuming the customer is present (i.e.
+
+    on session).
+
+    If false, the payment will be made assuming the customer is not present (i.e.
+    off session). For cardholders from a country with an e-mandate requirement (e.g.
+    India), the payment may be declined.
+
+    If left blank, will default to false.
+    """
+
+
+class DataEditAddCommitPaymentGateConfig(BaseModel):
+    """Present only on payment-gated commits."""
+
+    payment_gate_type: Literal["NONE", "STRIPE", "EXTERNAL"]
+    """Gate access to the commit balance based on successful collection of payment.
+
+    Select STRIPE for Metronome to facilitate payment via Stripe. Select EXTERNAL to
+    facilitate payment using your own payment integration. Select NONE if you do not
+    wish to payment gate the commit balance.
+    """
+
+    precalculated_tax_config: Optional[DataEditAddCommitPaymentGateConfigPrecalculatedTaxConfig] = None
+    """Only applicable if using PRECALCULATED as your tax type."""
+
+    stripe_config: Optional[DataEditAddCommitPaymentGateConfigStripeConfig] = None
+    """Only applicable if using STRIPE as your payment gateway type."""
+
+    tax_type: Optional[Literal["NONE", "STRIPE", "ANROK", "PRECALCULATED"]] = None
+    """Stripe tax is only supported for Stripe payment gateway.
+
+    Select NONE if you do not wish Metronome to calculate tax on your behalf.
+    Leaving this field blank will default to NONE.
+    """
+
+
 class DataEditAddCommit(BaseModel):
     id: str
 
@@ -186,6 +256,9 @@ class DataEditAddCommit(BaseModel):
 
     netsuite_sales_order_id: Optional[str] = None
     """This field's availability is dependent on your client's configuration."""
+
+    payment_gate_config: Optional[DataEditAddCommitPaymentGateConfig] = None
+    """Present only on payment-gated commits."""
 
     priority: Optional[float] = None
     """
@@ -268,7 +341,7 @@ class DataEditAddCredit(BaseModel):
 class DataEditAddOverrideOverrideSpecifier(BaseModel):
     any_commit_or_credit_ids: Optional[List[str]] = None
 
-    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]] = None
+    billing_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]] = None
 
     commit_ids: Optional[List[str]] = None
 
@@ -490,7 +563,7 @@ class DataEditAddRecurringCommit(BaseModel):
     proration_rounding: Optional[DataEditAddRecurringCommitProrationRounding] = None
     """Rounding configuration for prorated recurring commit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -631,7 +704,7 @@ class DataEditAddRecurringCredit(BaseModel):
     proration_rounding: Optional[DataEditAddRecurringCreditProrationRounding] = None
     """Rounding configuration for prorated recurring credit amounts."""
 
-    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY", "DAILY"]] = None
+    recurrence_frequency: Optional[Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY", "DAILY"]] = None
     """The frequency at which the recurring commits will be created.
 
     If not provided: - The commits will be created on the usage invoice frequency.
@@ -770,7 +843,7 @@ class DataEditAddSubscriptionSubscriptionRateProduct(BaseModel):
 
 
 class DataEditAddSubscriptionSubscriptionRate(BaseModel):
-    billing_frequency: Literal["MONTHLY", "QUARTERLY", "ANNUAL", "WEEKLY"]
+    billing_frequency: Literal["MONTHLY", "QUARTERLY", "SEMI_ANNUAL", "ANNUAL", "WEEKLY"]
 
     product: DataEditAddSubscriptionSubscriptionRateProduct
 

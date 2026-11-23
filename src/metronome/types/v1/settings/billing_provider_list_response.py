@@ -22,7 +22,7 @@ class Data(BaseModel):
     ]
     """The billing provider set for this configuration."""
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
     """The method to use for delivering invoices to this customer."""
 
     delivery_method_configuration: Dict[str, object]
