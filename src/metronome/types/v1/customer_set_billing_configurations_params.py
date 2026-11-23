@@ -91,7 +91,7 @@ class Data(TypedDict, total=False):
     [here](https://docs.metronome.com/invoice-customers/solutions/marketplaces/invoice-aws/#provision-aws-marketplace-customers-in-metronome).
     """
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
     """The method to use for delivering invoices to this customer.
 
     If not provided, the `delivery_method_id` must be provided.

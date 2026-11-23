@@ -763,8 +763,6 @@ class CustomersResource(SyncAPIResource):
         - `direct_to_billing_provider`: Use when Metronome should send invoices directly
           to the billing provider's API (e.g., Stripe, NetSuite). This is the most
           common method for automated billing workflows.
-        - `tackle`: Use specifically for AWS Marketplace transactions that require
-          Tackle's co-selling platform for partner attribution and commission tracking.
         - `aws_sqs`: Use when you want invoice data delivered to an AWS SQS queue for
           custom processing before sending to your billing system.
         - `aws_sns`: Use when you want invoice notifications published to an AWS SNS
@@ -1604,8 +1602,6 @@ class AsyncCustomersResource(AsyncAPIResource):
         - `direct_to_billing_provider`: Use when Metronome should send invoices directly
           to the billing provider's API (e.g., Stripe, NetSuite). This is the most
           common method for automated billing workflows.
-        - `tackle`: Use specifically for AWS Marketplace transactions that require
-          Tackle's co-selling platform for partner attribution and commission tracking.
         - `aws_sqs`: Use when you want invoice data delivered to an AWS SQS queue for
           custom processing before sending to your billing system.
         - `aws_sns`: Use when you want invoice notifications published to an AWS SNS

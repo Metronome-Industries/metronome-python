@@ -32,4 +32,10 @@ class SchedulePointInTime(BaseModel):
     If true, this schedule will not generate an invoice.
     """
 
+    quantity_to_fiat_conversion_rate: Optional[float] = None
+    """
+    Conversion rate from unused quantity units to the invoice currency for a
+    quantity-based postpaid commit.
+    """
+
     schedule_items: Optional[List[ScheduleItem]] = None

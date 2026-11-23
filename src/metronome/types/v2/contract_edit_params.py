@@ -271,7 +271,7 @@ class AddBillingProviderConfigurationUpdateBillingProviderConfiguration(TypedDic
 
     billing_provider_configuration_id: Optional[str]
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
 
 
 class AddBillingProviderConfigurationUpdateSchedule(TypedDict, total=False):
@@ -1344,7 +1344,7 @@ class AddResellerRoyalty(TypedDict, total=False):
 
 
 class AddRevenueSystemConfigurationUpdateRevenueSystemConfiguration(TypedDict, total=False):
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
 
     provider: Literal["netsuite"]
     """The revenue system provider type."""

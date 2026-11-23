@@ -68,7 +68,7 @@ class PackagesResource(SyncAPIResource):
         commits: Iterable[package_create_params.Commit] | Omit = omit,
         contract_name: str | Omit = omit,
         credits: Iterable[package_create_params.Credit] | Omit = omit,
-        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
+        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"] | Omit = omit,
         duration: package_create_params.Duration | Omit = omit,
         multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
         net_payment_terms_days: float | Omit = omit,
@@ -162,6 +162,16 @@ class PackagesResource(SyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+              For recurring fixed fees, such as a monthly platform fee, use a
+              [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+              with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+              of recurring scheduled charges with this field set to `ALL`. Metronome
+              recalculates a subscription's usage invoice line items from the current contract
+              each time it invoices, so the charges stay on the correct usage invoice after
+              contract edits such as end date changes or transitions. Use this field for
+              one-time scheduled charges and commit purchases, which subscriptions can't
+              represent.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the
@@ -452,7 +462,7 @@ class AsyncPackagesResource(AsyncAPIResource):
         commits: Iterable[package_create_params.Commit] | Omit = omit,
         contract_name: str | Omit = omit,
         credits: Iterable[package_create_params.Credit] | Omit = omit,
-        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"] | Omit = omit,
+        delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"] | Omit = omit,
         duration: package_create_params.Duration | Omit = omit,
         multiplier_override_prioritization: Literal["LOWEST_MULTIPLIER", "EXPLICIT"] | Omit = omit,
         net_payment_terms_days: float | Omit = omit,
@@ -546,6 +556,16 @@ class AsyncPackagesResource(AsyncAPIResource):
               `ending_before` date for consolidation to occur. This field cannot be modified
               after a Contract has been created. If this field is omitted, charges will appear
               on a separate invoice from usage charges.
+
+              For recurring fixed fees, such as a monthly platform fee, use a
+              [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+              with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+              of recurring scheduled charges with this field set to `ALL`. Metronome
+              recalculates a subscription's usage invoice line items from the current contract
+              each time it invoices, so the charges stay on the correct usage invoice after
+              contract edits such as end date changes or transitions. Use this field for
+              one-time scheduled charges and commit purchases, which subscriptions can't
+              represent.
 
           uniqueness_key: Prevents the creation of duplicates. If a request to create a record is made
               with a previously used uniqueness key, a new record will not be created and the

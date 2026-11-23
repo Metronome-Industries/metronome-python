@@ -226,6 +226,16 @@ class ContractCreateParams(TypedDict, total=False):
     `ending_before` date for consolidation to occur. This field cannot be modified
     after a Contract has been created. If this field is omitted, charges will appear
     on a separate invoice from usage charges.
+
+    For recurring fixed fees, such as a monthly platform fee, use a
+    [subscription](/guides/pricing-packaging/subscription/provision-your-customer)
+    with `billing_cycle_config.invoice_placement` set to `ON_USAGE_INVOICE` instead
+    of recurring scheduled charges with this field set to `ALL`. Metronome
+    recalculates a subscription's usage invoice line items from the current contract
+    each time it invoices, so the charges stay on the correct usage invoice after
+    contract edits such as end date changes or transitions. Use this field for
+    one-time scheduled charges and commit purchases, which subscriptions can't
+    represent.
     """
 
     spend_threshold_configuration: SpendThresholdConfiguration
@@ -277,7 +287,7 @@ class BillingProviderConfiguration(TypedDict, total=False):
     delivery_method.
     """
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
     """Do not specify if using billing_provider_configuration_id."""
 
 

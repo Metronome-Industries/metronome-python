@@ -167,7 +167,7 @@ class CustomerBillingProviderConfiguration(TypedDict, total=False):
     provider + delivery method combinations, it will not be a valid configuration.
     """
 
-    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "tackle", "aws_sns"]
+    delivery_method: Literal["direct_to_billing_provider", "aws_sqs", "aws_sns"]
     """The method to use for delivering invoices to this customer.
 
     If not provided, the `delivery_method_id` must be provided.
